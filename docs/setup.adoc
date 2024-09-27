@@ -1,0 +1,58 @@
+= Setting up the development environment
+:toc: right
+:experimental:
+:imagesdir: media/
+:sourcedir: ../
+
+Installing the CLI and creating a development sandbox.
+
+== Install CLI
+
+The https://developer.enonic.com/docs/enonic-cli[Enonic Command Line Interface^] is an essential tool for developers working with Enonic.
+
+If you have `npm` on your device, run this command:
+
+  npm install -g @enonic/cli
+
+If not, here are some https://developer.enonic.com/start[alternative ways to install Enonic CLI^]
+
+To verify that the CLI has been installed, run `enonic -v`. This should output the version of your installed CLI.
+
+To see all available options, simply run `enonic`.
+
+TIP: To upgrade, use `enonic latest`. If there are new versions you will see instructions on how to upgrade.
+
+== Create a sandbox
+
+A https://developer.enonic.com/docs/xp/stable/development/sandboxes[sandbox^] is a local development instance of the platform - Enonic XP. Create and start a sandbox called `mysandbox` by running this command in your terminal:
+
+  enonic sandbox create mysandbox -t essentials -f
+
+NOTE: `-f` flag will force using the most recent release of Enonic XP and automatically start the sandbox.
+
+image::sandbox-start.gif["Booting the sandbox in the terminal", width="1024px"]
+
+== Sandbox Admin
+
+Let's have a look at the Sandbox' web interface - aka XP admin. Open http://localhost:8080[http://localhost:8080^] in your browser (or just click the link).
+
+You should now see the XP boot page:
+
+.XP Boot page
+image::xp-boot.png[The XP boot page, 1085w]
+
+The boot page provides an overview of the sandbox, including installed application, as well as the https://developer.enonic.com/docs/xp/stable/deployment/config[standard configuration files^].
+
+Click btn:[Log In as Guest] to open the XP admin dashboard. You should now see something like this:
+
+.The XP admin dashboard
+image::xp-dashboard.png[The XP admin dashboard, 1727w]
+
+You are now on the admin dashboard. The right hand menu (aka `XP menu`) enables navigation between admin tools. Admin tools may be injected as extensions via applications.
+
+NOTE: If things don't look exactly the same, don't worry. In every new version of XP the background picture gets updated. Also, admin dashboard is automatically localized - based on your browsers preferred language.
+
+
+== Coming up
+
+You're now familiar with the CLI and sandboxes. In the next chapter you'll get create an <<app#, Enonic application>>.

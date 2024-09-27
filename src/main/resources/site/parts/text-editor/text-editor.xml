@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Text editor</display-name>
+    <description>Text editor for bruk av NAV-komponenter</description>
+    <form>
+        <input name="myhtmlarea" type="HtmlArea">
+            <label>My HtmlArea</label>
+            <default><h3>Enter description here</h3></default> 
+            <config>
+                <exclude>*</exclude>  
+                <include>JustifyLeft JustifyRight | Bold Italic | Macro</include>  
+                <allowHeadings>h2 h4 h6</allowHeadings>
+            </config>
+        </input>
+    </form>
+</part>

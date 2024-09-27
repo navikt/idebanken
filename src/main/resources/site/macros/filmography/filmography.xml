@@ -1,0 +1,11 @@
+<macro>
+  <display-name>Filmography</display-name>
+  <description>Gallery of actor's movies</description>
+
+  <form>
+    <input name="heading" type="TextLine">
+      <label>Heading</label>
+      <occurrences minimum="0" maximum="1"/>
+    </input>
+  </form>
+</macro>

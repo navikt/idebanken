@@ -1,0 +1,25 @@
+= Introduction to Enonic
+:toc: right
+:experimental:
+:imagesdir: media/
+:sourcedir: ../
+
+Hands-on developer intro to our platform, CLI, Content Studio, GraphQL API, and the free hosting tier.
+
+TIP: *Just looking for a demo?* - https://enonic.com/sign-up[Sign up for a free Enonic account^].
+
+== Introduction
+
+This guide will show you how to:
+
+* set up a local developer environment
+* create an Enonic app
+* use Content Studio
+* customize the app by adding a new content type
+* access and use the GraphQL API
+* optionally - deploy your app to a live server in the Cloud
+
+image::ready-set-code.svg["Ready...Set...Code!", width=720px]
+
+The first step is to <<setup#, crank up the developer environment>>.
+

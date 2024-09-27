@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<layout xmlns="urn:enonic:xp:model:1.0">
+    <display-name>2 columns</display-name>
+    <description>Provides left and right regions</description>
+    <form/>
+    <regions>
+        <region name="left"/>
+        <region name="right"/>
+    </regions>
+</layout>

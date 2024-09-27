@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site xmlns="urn:enonic:xp:model:1.0">
+  <x-data name="SoMe" allowContentTypes=".*:person|.*:movie"/>
+  <x-data name="spotlight" allowContentTypes="media:image"/>
+  <form/>
+  <mappings>
+    <mapping controller="/controllers/preview.js" order="50">
+      <match>type:'.*:person|.*:movie|.*:folder'</match>
+    </mapping>
+  </mappings>
+</site>

@@ -1,0 +1,315 @@
+= GraphQL API for headless content
+:toc: right
+:experimental:
+:imagesdir: media/
+:sourcedir: ../
+
+Get familiar with the Guillotine API - our cutting edge headless GraphQL content API
+
+== Guillotine
+
+The Headless API aka https://market.enonic.com/vendors/enonic/guillotine[Guillotine^] - yes, we take headlessness seriously around here - provides access to all the content within your project. Clients requesting content will naturally only get access to the content they have read-permissions for. The `Intro project` is configured with public read access for everything.
+
+Click the GraphQL icon in the Content Studio's left hand menu to open `Query Playground`. Here you may test and play with the GraphQL API directly.
+
+image::query-playground.png["Query Playground in action", width="1024px"]
+
+The API documentation is available from the Top left `file cabinet icon`. Use the tabs on the top right to query against the Draft or Master branch, accessing the draft and published items respectively.
+
+Want to know more about GraphQL in general? Visit the https://graphql.org[official GraphQL documentation^].
+
+== Sample queries
+
+Below are some example queries you can use for fetching the sample content.
+
+=== Get Persons
+
+.Get display name and _path of the first 3 items in the `/persons` folder:
+[source,GraphQL]
+----
+{
+ guillotine {
+  getChildren(key:"/persons" first:3){
+    displayName
+    _path
+    }
+  }
+}
+----
+
+.Sample response:
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "getChildren": [
+        {
+          "displayName": "Léa Seydoux",
+          "_path": "/persons/lea-seydoux"
+        },
+        {
+          "displayName": "Jeffrey Wright",
+          "_path": "/persons/jeffrey-wright"
+        },
+        {
+          "displayName": "Daniel Craig",
+          "_path": "/persons/daniel-craig"
+        }
+      ]
+    }
+  }
+}
+----
+
+=== Query variables
+
+GraphQL also supports the concept of query variables. Similar to parameters in functions, you may pass variables to a query.
+
+Query variables are defined with JSON. You can add them using the `Variables` button below the query editor.
+
+[source,JSON]
+----
+{
+  "path": "/persons"
+}
+----
+
+With the variable set, update your query to use the variable. This query should provide the exact same response as it did before.
+
+.The Person query, this time using path as a variable:
+[source,GraphQL]
+----
+query($path:ID!){
+ guillotine {
+  getChildren(key:$path first:3){
+    displayName
+    _path
+    }
+  }
+}
+----
+
+=== Movies and cast
+
+IMPORTANT: The GraphQL schema is automatically generated from your application and schemas. If you used a different name than `com.example.myapp` when the app was created, you would have to replace both `com.example.myapp:movie` and the GraphQL type `com_example_myapp_Movie` for the query below to work.
+
+.Get display name and the cast of the first movie:
+[source,GraphQL]
+----
+{
+  guillotine {
+    queryDsl(query: {
+      term: {
+        field: "type",
+        value: {
+          string: "com.example.myapp:movie"
+        }
+      }
+    }, first: 1) {
+      displayName
+      ... on com_example_myapp_Movie {
+        data {
+          cast {
+            actor {
+              displayName
+            }
+            character
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+.Sample response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "displayName": "The Matrix",
+          "data": {
+            "cast": [
+              {
+                "actor": {
+                  "displayName": "Keanu Reeves"
+                },
+                "character": "Neo"
+              },
+              {
+                "actor": {
+                  "displayName": "Carrie-Anne Moss"
+                },
+                "character": "Trinity"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+----
+
+== Image handling
+
+In this case, Guillotine plays tag-team with XP's image service, which is capable of delivering real-time cropped and optimized versions of images. In this case we are requesting a 400 x 400px version of the image.
+
+The query below shows the name of actors containing the term `morgan`, and provide a link to a cropped image of the actor.
+
+IMPORTANT: Again, if your app was called something else than `com.example.myapp`, replace `com.example.myapp:person` and `com_example_myapp_Person` for the query below to work.
+
+.Name of persons and a link to 400x400 scaled photo
+[source,GraphQL]
+----
+{
+  guillotine {
+    queryDsl(query: {
+      boolean: {
+        must: [
+          {
+            ngram: {
+              fields: ["_allText"],
+              query: "morgan"
+            }
+          },
+          {
+            term: {
+              field: "type",
+              value: {
+                string: "com.example.myapp:person"
+              }
+            }
+          }
+        ]
+      }
+    }, first: 1) {
+      ... on com_example_myapp_Person {
+    	  displayName
+        data {
+          photos(first:1){
+            ... on media_Image {
+              imageUrl(type:absolute scale:"block(400,400)")
+            }
+          }
+        }
+      }
+    }
+  }
+}
+----
+
+.Sample response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "queryDsl": [
+        {
+          "displayName": "Morgan Freeman",
+          "data": {
+            "photos": [
+              {
+                "imageUrl": "http://localhost:8080/admin/site/preview/intro/draft/_/image/7ab1f76a-69a1-490f-b505-6eb6773c7cec:603726cc4fa712aa1b70c7eb64e1349f664494c3/block-400-400/morgan-freeman.jpg"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}
+----
+
+When looking at the result in Query Playground, you can see the actual image by hovering over the link:
+
+image::morgan-photo.png["Cropped version of Morgan Freemans image", width="1024px"]
+
+The original higher resolution image is stored as a content item, just like persons and reviews. This is what it looks like from Content Studio:
+
+image::morgan-original.png["The original version of Morgan Freemans photo is widescreen, with a red "autofocus" circle marked around his face", width="1024px"]
+
+NOTE: The red "autofocus" circle, when set, helps the image service to crop the images optimally - as you can see above.
+
+== API augmentation
+
+*Now the real magic begins!* You may programmatically extend and augment the Guillotine API - for a fully customizable back-end. 
+
+The use-cases are limitless, but rather than babbling about it - lets see it in action!
+
+=== The age field
+
+We'll keep it simple. In a few steps you'll add a new `age` field to the Person content type, and use the `dateofbirth` to calculate the result.
+
+. From the `samples/` folder of your app, *copy or move* the `guillotine/` folder to `src/main/resources/`. You should then have the following TypeScript controller ready:
++
+./src/main/resources/guillotine/guillotine.ts
+[source,TypeScript]
+----
+include::{sourcedir}/samples/guillotine/guillotine.ts[]
+----
++
+. Guillotine requires the app to be redeployed (or restarted) in order to pick up changes to schemas and/or controllers. Stop the build (using control-c) and start it again:
++
+  ^c
+  enonic dev
++
+. Back in Query Playground, run the following query: 
++
+.Query using the new field
+[source,GraphQL]
+----
+{
+  guillotine {
+    getChildren(key: "/persons", first: 2) {
+      displayName
+      ... on com_example_myapp_Person {
+        data {
+          age
+          dateofbirth
+        }
+      }
+    }
+  }
+}
+----
++
+The response should now contain a new age filed, with a calculated value:
++
+.Query response
+[source,JSON]
+----
+{
+  "data": {
+    "guillotine": {
+      "getChildren": [
+        {
+          "displayName": "Léa Seydoux",
+          "data": {
+            "age": 38,
+            "dateofbirth": "1985-07-01"
+          }
+        },
+        {
+          "displayName": "Jeffrey Wright",
+          "data": {
+            "age": 58,
+            "dateofbirth": "1965-12-07"
+          }
+        }
+      ]
+    }
+  }
+}
+----
+
+As you have now seen, XP lets you run server-side https://developer.enonic.com/docs/xp/stable/framework[TypeScript and JavaScript code]. API augmentation is just the tip of the iceberg - believe us.
+
+== One last thing
+
+With GraphQL queries flowing from your fingertips. It's time for the big finale where you <<deploy#, deploy your app to the Enonic cloud>>.

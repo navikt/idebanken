@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type xmlns="urn:enonic:xp:model:1.0">
+  <display-name i18n="article.displayName">Article</display-name>
+  <display-name-label i18n="article.title">Article heading</display-name-label>
+  <super-type>base:structured</super-type>
+  <form>
+    <field-set>
+      <label>Teaser</label>
+      <items>
+        <input name="coverimage" type="ImageSelector">
+          <label i18n="article.coverimage">Cover image</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <input name="preface" type="TextArea">
+          <label i18n="article.preface">Preface</label>
+          <config>
+            <max-length>300</max-length>
+          </config>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+      </items>
+    </field-set>
+    <field-set>
+      <label>Body</label>
+      <items>
+        <input name="author" type="TextLine">
+          <label i18n="article.author">Author byline</label>
+          <occurrences minimum="0" maximum="1"/>
+        </input>
+        <option-set name="blocks">
+          <label i18n="article.blocks">Content blocks</label>
+          <expanded>true</expanded>
+          <occurrences minimum="1" maximum="0"/>
+          <help-text i18n="article.blocks.help">Compose your article from a selection of blocks</help-text>
+          <options minimum="1" maximum="1">
+            <option name="text">
+              <label i18n="article.text">Text</label>
+              <items>
+                <input name="text" type="HtmlArea">
+                  <label i18n="article.text">Text</label>
+                  <occurrences minimum="1" maximum="1"/>
+                  <config>
+                    <exclude>Code | Blockquote | Table | Anchor</exclude>
+                    <allowHeadings>h2 h3</allowHeadings>
+                  </config>
+                </input>
+              </items>
+            </option>
+            <option name="story">
+              <label i18n="article.story">Story</label>
+              <help-text>Add panels with images and text for a scrolling story</help-text>
+              <items>
+                <item-set name="panel">
+                  <label i18n="article.storypanel">Panel</label>
+                  <occurrences minimum="1" maximum="5"/>
+                  <items>
+                    <input name="image" type="MediaSelector">
+                      <label i18n="article.media">Media</label>
+                      <help-text>Select image or video for the panel</help-text>
+                      <occurrences minimum="1" maximum="1"/>
+                      <config>
+                        <allow-content-type>media:image</allow-content-type>
+                        <allow-content-type>media:video</allow-content-type>
+                      </config>
+                    </input>
+                    <input name="storyline" type="TextArea">
+                      <label i18n="article.storyline">Tekst</label>
+                      <occurrences minimum="0" maximum="1"/>
+                    </input>
+                  </items>
+                </item-set>
+              </items>
+            </option>
+            <option name="banner">
+              <label i18n="article.banner">Banner</label>
+              <help-text>Big image with text in front of it</help-text>
+              <items>
+                <input name="image" type="ImageSelector">
+                  <label i18n="article.image">Image</label>
+                  <occurrences minimum="1" maximum="1"/>
+                </input>
+                <input name="text" type="TextArea">
+                  <label i18n="article.bannertext">Text in front of image</label>
+                  <indexed>true</indexed>
+                  <config>
+                    <max-length>80</max-length>
+                  </config>
+                  <occurrences minimum="0" maximum="1"/>
+                </input>
+              </items>
+            </option>
+            <option name="quote">
+              <label i18n="article.quote">Quote</label>
+              <help-text>Choose this block to add a highlighted quote</help-text>
+              <items>
+                <input name="text" type="TextArea">
+                  <label i18n="article.quote">Quote</label>
+                  <occurrences minimum="1" maximum="1"/>
+                </input>
+                <input name="byline" type="TextArea">
+                  <label i18n="article.quoted">Quoted by</label>
+                  <occurrences minimum="0" maximum="1"/>
+                </input>
+              </items>
+            </option>
+          </options>
+        </option-set>
+      </items>
+    </field-set>
+    <field-set>
+      <label>Tagging</label>
+      <items>
+        <input type="Tag" name="tags">
+          <label>Tags</label>
+          <occurrences minimum="0" maximum="0"/>
+        </input>
+        <input type="ContentSelector" name="spotlight">
+          <label>Spotlight content</label>
+          <occurrences minimum="0" maximum="0"/>
+          <config>
+            <allow-content-type>person</allow-content-type>
+            <allow-content-type>movie</allow-content-type>
+          </config>
+        </input>
+      </items>
+    </field-set>
+  </form>
+</content-type>

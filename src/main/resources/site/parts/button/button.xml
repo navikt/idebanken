@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Button</display-name>
+    <description>NAV button</description>
+    <form>
+        <input type="TextLine" name="text">
+            <label>Button text</label>
+        </input>
+        <input type="RadioButton" name="variant">
+            <label>Button variant</label>
+            <occurrences minimum="1" maximum="1"/>  
+            <config>
+                <option value="primary">primary</option>  
+                <option value="secondary">secondary</option>
+                <option value="tertiary">tertiary</option>
+            </config>
+            <default>primary</default>  
+        </input>
+        <input name="myhtmlarea" type="HtmlArea">
+            <label>My HtmlArea</label>
+            <default><h3>Enter description here</h3></default> 
+            <config>
+                <exclude>*</exclude>  
+                <include>JustifyLeft JustifyRight | Bold Italic</include>  
+                <allowHeadings>h2 h4 h6</allowHeadings>
+            </config>
+        </input>
+    </form>
+</part>
