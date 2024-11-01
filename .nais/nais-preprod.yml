@@ -30,4 +30,4 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: https://idebanken-xp7test.enonic.cloud
+        - host: idebanken-xp7test.enonic.cloud
