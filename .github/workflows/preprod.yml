@@ -1,0 +1,37 @@
+name: Build, push, and deploy (preprod)
+on:
+  push:
+    branches:
+      - 'main'
+    paths-ignore:
+      - '**.md'
+      - '**/**.md'
+  workflow_call:
+
+jobs:
+  build-and-push:
+    name: Build and push Docker container for preprod
+    uses: ./.github/workflows/build-push.yml
+    with:
+      environment: preprod
+    secrets: inherit
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+      packages: 'read'
+
+  deploy-preprod:
+    name: Deploy to preprod
+    needs: [build-and-push]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        env:
+          DRY_RUN: false
+          PRINT_PAYLOAD: true
+          CLUSTER: dev-gcp
+          RESOURCE: .nais/nais-preprod.yml
+          VAR: image=${{ needs.build-and-push.outputs.image }}

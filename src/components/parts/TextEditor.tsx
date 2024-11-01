@@ -28,7 +28,7 @@ export const TextEditorView = (props: TextEditorData) => {
     return (
         // <div dangerouslySetInnerHTML={markup}>
         // </div>
-        <ParsedHtml processedHtml={part.config.myhtmlarea} />
+        <ParsedHtml processedHtml={part.config?.myhtmlarea} />
     )
 };
 
@@ -70,7 +70,7 @@ const getNonEmptyChildren = ({ children }: Element): Element['children'] => {
     });
 };
 
-export const ParsedHtml = ({ processedHtml }) => {
+export const ParsedHtml = ({ processedHtml } : { processedHtml: string }) => {
     // const { editorView, language } = usePageContentProps();
     console.log('INSIDE COMP', processedHtml)
 

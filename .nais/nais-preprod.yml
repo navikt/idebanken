@@ -1,0 +1,33 @@
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
+metadata:
+  name: idebanken-frontend
+  namespace: idebanken
+  labels:
+    team: idebanken
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: '50M'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '300'
+spec:
+  ingresses:
+    - 'https://idebanken.intern.dev.nav.no'
+    - 'https://idebanken.ansatt.dev.nav.no'
+  image: '{{ image }}'
+  port: 4242
+  liveness:
+    path: /api/isAlive
+    initialDelay: 20
+    timeout: 10
+    periodSeconds: 5
+    failureThreshold: 10
+  readiness:
+    path: /api/isReady
+    initialDelay: 20
+    timeout: 10
+  replicas:
+    min: 1
+    max: 2
+  accessPolicy:
+    outbound:
+      external:
+        - host: https://idebanken-xp7test.enonic.cloud

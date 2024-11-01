@@ -30,6 +30,7 @@ async function getEnonicHeaders() {
 }
 
 const config = {
+    output: "standalone",
     reactStrictMode: true,
     trailingSlash: false,
     transpilePackages: ['@enonic/nextjs-adapter'],
