@@ -12,6 +12,7 @@ spec:
   ingresses:
     - 'https://idebanken.intern.dev.nav.no'
     - 'https://idebanken.ansatt.dev.nav.no'
+    - 'https://idebanken.ekstern.dev.nav.no'
   image: '{{ image }}'
   port: 4242
   liveness:
