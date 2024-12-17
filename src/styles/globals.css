@@ -1,8 +1,19 @@
+:root {
+  --bg-extra-light-pink: #FFF2F7; 
+  --bg-light-pink: #FFE4EF;
+  --bg-pink: #FFBCD8;
+  --bg-dark-blue: #181756;
+}
+
+[data-theme="idebanken"] {
+  --a-font-family: var(--font-mundial);
+}
+
 html, body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-  Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: var(--font-mundial);
+  font-weight: 300;
 }
 
 main {
