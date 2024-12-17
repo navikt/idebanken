@@ -12,22 +12,7 @@ export interface HeaderProps {
 
 const Header = ({title, logoUrl, meta}: HeaderProps) => {
 
-    return <header className={styles.header}>
-        <div className={styles.wrapper}>
-            {title && (
-                <h1>
-                    <Link href={getUrl('/', meta)}>{title}</Link>
-                </h1>
-            )}
-            {logoUrl && (
-                <img src={logoUrl}
-                     width={33}
-                     height={40}
-                     alt={"Enonic XP logo"}
-                />
-            )}
-        </div>
-    </header>
+    return <></>
 };
 
 export default Header
