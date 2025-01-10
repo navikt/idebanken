@@ -2,18 +2,26 @@ import type {LayoutProps} from '@enonic/nextjs-adapter';
 import React from 'react'
 import {RegionView} from '@enonic/nextjs-adapter/views/Region';
 import styles from './TwoColumnLayout.module.css';
+import classNames from 'classnames';
 
 const TwoColumnLayout = (props: LayoutProps) => {
     const regions = props.layout.regions;
-    const {common, meta} = props;
+    const {common, meta, layout} = props;
 
     return (
-        <>
-            <div className={styles.row}>
-                <RegionView name="left" components={regions['left']?.components} common={common} meta={meta}/>
-                <RegionView name="right" components={regions['right']?.components} common={common} meta={meta}/>
+        <div 
+            className={styles[layout.config?.bgColor || 'bg-extra-light-pink']}
+            style={{ [`--left-span`]: Number(layout.config?.leftSpan || 6) + 1 } as React.CSSProperties}
+        >
+            <div className={styles.wrapper}>
+                <div className={styles.left}>
+                    <RegionView name="left" components={regions['left']?.components} common={common} meta={meta}/>
+                </div>
+                <div className={styles.right}>
+                    <RegionView name="right" components={regions['right']?.components} common={common} meta={meta}/>
+                </div>
             </div>
-        </>
+        </div>
     );
 };
 

@@ -16,12 +16,6 @@ html, body {
   font-weight: 300;
 }
 
-main {
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 0 1rem;
-}
-
 * {
     box-sizing: border-box;
 }

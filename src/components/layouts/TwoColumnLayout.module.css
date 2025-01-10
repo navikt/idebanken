@@ -13,3 +13,36 @@
 .row :global(.xp-page-editor-region-placeholder) {
     margin-bottom: 0;
 }
+
+.wrapper {
+    margin: 0 auto;
+    padding: 6rem 5.5rem;
+    max-width: 1440px;
+    display: grid;
+    grid-template-columns: repeat(12, [col-start] 1fr);
+    gap: 24px;
+}
+
+.left {
+    grid-column: col-start / var(--left-span, 7);
+}
+
+.right {
+    grid-column: col-start var(--left-span, 7) / -1;
+}
+
+.bg-extra-light-pink {
+    background-color: var(--bg-extra-light-pink);
+}
+
+.bg-light-pink {
+    background-color: var(--bg-light-pink);
+}
+
+.bg-pink {
+    background-color: var(--bg-pink);
+}
+
+.bg-dark-blue {
+    background-color: var(--bg-dark-blue);
+}
