@@ -3,9 +3,6 @@
   --bg-light-pink: #FFE4EF;
   --bg-pink: #FFBCD8;
   --bg-dark-blue: #181756;
-}
-
-[data-theme="idebanken"] {
   --a-font-family: var(--font-mundial);
 }
 
@@ -30,4 +27,24 @@ hr {
     border-color: darkgray;
     border-style: solid;
     border-bottom: 0 none;
+}
+
+.bg-extra-light-pink {
+  background-color: var(--bg-extra-light-pink);
+  color: black;
+}
+
+.bg-light-pink {
+  background-color: var(--bg-light-pink);
+  color: black;
+}
+
+.bg-pink {
+  background-color: var(--bg-pink);
+  color: black;
+}
+
+.bg-dark-blue {
+  background-color: var(--bg-dark-blue);
+  color: white;
 }

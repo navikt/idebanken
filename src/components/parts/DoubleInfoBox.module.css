@@ -1,0 +1,11 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    flex-wrap: wrap;
+}
+
+.wrapper>div {
+    flex-grow: 1;
+    min-width: 200px
+}

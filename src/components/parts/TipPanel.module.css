@@ -1,0 +1,33 @@
+.panel {
+    border-radius: 24px;
+    display: flex;
+    padding: 4rem;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.panel>* {
+
+}
+
+.heading:nth-last-child(3) {
+    width: 100%;
+}
+
+.card1 {
+    flex-grow: 3;
+}
+
+.card2 {
+    flex-grow: 2;
+}
+
+.card1.reverse {
+    flex-grow: 2;
+}
+
+.card2.reverse {
+    flex-grow: 3;
+}

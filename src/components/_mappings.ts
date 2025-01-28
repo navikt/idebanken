@@ -11,7 +11,11 @@ import Heading from './parts/Heading';
 import TwoColumnLayout from './layouts/TwoColumnLayout';
 import MovieDetails, { getMovie } from './parts/MovieDetails';
 import { ButtonView } from './parts/Button';
-import { TextEditorQuery, TextEditorView } from './parts/TextEditor';
+import { TextEditorView } from './parts/TextEditor';
+import { InfoBoxView } from './parts/InfoBox';
+import { DoubleInfoBoxView } from './parts/DoubleInfoBox';
+import SingleColumnLayout from './layouts/SingleColumnLayout';
+import { TipPanelView } from './parts/TipPanel';
 
 // You can set common query for all views here
 ComponentRegistry.setCommonQuery([commonQuery, commonVariables]);
@@ -30,6 +34,9 @@ ComponentRegistry.addPage(`${APP_NAME}:main`, {
 
 
 // Layout mappings
+ComponentRegistry.addLayout(`${APP_NAME}:single-column`, {
+    view: SingleColumnLayout
+});
 ComponentRegistry.addLayout(`${APP_NAME}:2-column`, {
     view: TwoColumnLayout
 });
@@ -54,7 +61,18 @@ ComponentRegistry.addPart(`${APP_NAME}:button`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
     view: TextEditorView,
-    // query: TextEditorQuery
+});
+
+ComponentRegistry.addPart(`${APP_NAME}:info-box`, {
+    view: InfoBoxView,
+});
+
+ComponentRegistry.addPart(`${APP_NAME}:double-info-box`, {
+    view: DoubleInfoBoxView,
+});
+
+ComponentRegistry.addPart(`${APP_NAME}:tip-panel`, {
+    view: TipPanelView,
 });
 
 

@@ -2,7 +2,6 @@ import type {LayoutProps} from '@enonic/nextjs-adapter';
 import React from 'react'
 import {RegionView} from '@enonic/nextjs-adapter/views/Region';
 import styles from './TwoColumnLayout.module.css';
-import classNames from 'classnames';
 
 const TwoColumnLayout = (props: LayoutProps) => {
     const regions = props.layout.regions;
@@ -10,7 +9,7 @@ const TwoColumnLayout = (props: LayoutProps) => {
 
     return (
         <div 
-            className={styles[layout.config?.bgColor || 'bg-extra-light-pink']}
+            className={layout.config?.bgColor || 'bg-extra-light-pink'}
             style={{ [`--left-span`]: Number(layout.config?.leftSpan || 6) + 1 } as React.CSSProperties}
         >
             <div className={styles.wrapper}>
