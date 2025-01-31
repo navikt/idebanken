@@ -8,11 +8,11 @@ export interface InfoBoxData {
 }
 
 export const InfoBoxView = (props: InfoBoxData) => {
-    const {part} = props
+    const {part} = props;
 
     return (
         <InfoBox bgColorClass={part.config?.bgColor}>
             <ParsedHtml processedHtml={part.config?.simpleTextEditor} />
         </InfoBox>
-    )
+    );
 };

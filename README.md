@@ -1,9 +1,60 @@
-# Next.js template using Enonic as headless CMS and back-end
-This is repo is based on a [Next.js](https://nextjs.org/) project based on [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). 
-Additionally, it includes the boilerplate and integration code needed to use Enonic as a headless CMS back-end for your Next.js sites.
+# Idebanken frontend
 
-# Usage and tutorial
-For a detailed instructions on using this template, visit: https://developer.enonic.com/docs/next.xp
+Dette er frontend applikasjonen satt opp i Next.js for den fremtidige nye nettsiden til Idebanken. Den bruker [idebanken-enonic](https://github.com/navikt/idebanken-enonic/) som headless CMS.
 
-# Demo
-For a live demo of the integration, follow the `TLDR;` instructions in the Tutorial above.
+# Komme i gang
+
+## Lokalt utviklingsmiljø
+
+### Sett lokale EVN-variabler
+
+```bash
+cp ./.env .env.local
+```
+
+Eller opprett filen `.env.local` basert på innholdet fra `.env`.
+
+Endre `ENONIC_API` til:
+```
+ENONIC_API=http://localhost:8080/site/
+```
+
+### Installer node moduler
+
+```bash
+npm install
+```
+
+
+### Start applikasjonen i utviklingsmodus
+
+NB!: Enonic sandbox med idebanken-enonic må kjøre i tillegg. Sjekk repoet til [idebanken-enonic](https://github.com/navikt/idebanken-enonic/)
+
+```bash
+npm run dev
+```
+
+Gå til http://localhost:3000, eller via Enonic Content Studio (http://localhost:8080)
+
+
+## Login i dev
+
+Du trenger en bruker for Idebanken sitt Enonic-dashboard i dev. Noen i teamet kan opprette for deg
+
+Gå til:
+
+https://idebanken-xp7test.enonic.cloud/admin (Enonic dashboard)
+
+eller:
+
+https://idebanken.ekstern.dev.nav.no/ (frontendapplikajonen i NAIS)
+
+
+
+# Henvendelser
+
+Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på GitHub
+
+## For NAV-ansatte
+
+Interne henvendelser kan sendes via Slack i kanalen #idebanken

@@ -30,11 +30,17 @@ export const TipPanelView = (props: TipPanelData) => {
             <div className={styles.heading}>
                 <Heading level='2' size='large'>{heading}</Heading>
             </div>
-            <Card className={classNames(styles.card1, card1.bgColor, reverse && styles.reverse)}>
+            <Card 
+                className={classNames(styles.card1, reverse && styles.reverse)}
+                bgColorClass={card1.bgColor}
+            >
                 <ParsedHtml processedHtml={card1?.simpleTextEditor} />
             </Card>
             { card2 && 
-                <Card className={classNames(styles.card2, card2.bgColor, reverse && styles.reverse)}>
+                <Card 
+                    className={classNames(styles.card2, card2.bgColor, reverse && styles.reverse)}
+                    bgColorClass={card2.bgColor}
+                >
                     <ParsedHtml processedHtml={card2?.simpleTextEditor} />
                 </Card>
             }

@@ -4,13 +4,13 @@
   --bg-light-pink: #FFE4EF;
   --bg-pink: #FFBCD8;
   --bg-dark-blue: #181756;
-  --a-font-family: var(--font-mundial);
+  --a-font-family: var(--font-mundial) !important;
 }
 
 html, body {
   padding: 0;
   margin: 0;
-  font-family: var(--font-mundial);
+  font-family: var(--a-font-family);
   font-weight: 300;
 }
 

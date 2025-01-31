@@ -15,7 +15,6 @@ export interface AccordionData {
 export const AccordionView = (props: AccordionData) => {
     const {part} = props;
     const {
-        heading,
         accordionItem = [],
         bgColor = 'bg-extra-light-pink',
     } = part.config

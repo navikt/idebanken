@@ -12,26 +12,28 @@
 
 }
 
+.heading {
+    width: calc(40% - 1rem);
+}
+
 .heading:nth-last-child(3) {
     width: 100%;
 }
 
 .card1 {
-    flex-grow: 3;
-    max-width: 60%;
+    flex-basis: calc(60% - 1rem);
+    flex-grow: 1;
 }
 
 .card2 {
-    flex-grow: 2;
-    max-width: 40%;
+    flex-basis: calc(40% - 1rem);
+    flex-grow: 1;
 }
 
 .card1.reverse {
-    flex-grow: 2;
-    max-width: 40%;
+    flex-basis: calc(40% - 1rem);
 }
 
 .card2.reverse {
-    flex-grow: 3;
-    max-width: 60%;
+    flex-basis: calc(60% - 1rem);
 }
