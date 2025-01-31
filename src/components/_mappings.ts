@@ -16,6 +16,8 @@ import { InfoBoxView } from './parts/InfoBox';
 import { DoubleInfoBoxView } from './parts/DoubleInfoBox';
 import SingleColumnLayout from './layouts/SingleColumnLayout';
 import { TipPanelView } from './parts/TipPanel';
+import { AccordionView } from './parts/Accordion';
+import PanelLayoutTwoColumn from './layouts/PanelLayoutTwoColumn';
 
 // You can set common query for all views here
 ComponentRegistry.setCommonQuery([commonQuery, commonVariables]);
@@ -39,6 +41,9 @@ ComponentRegistry.addLayout(`${APP_NAME}:single-column`, {
 });
 ComponentRegistry.addLayout(`${APP_NAME}:2-column`, {
     view: TwoColumnLayout
+});
+ComponentRegistry.addLayout(`${APP_NAME}:panel-2-column`, {
+    view: PanelLayoutTwoColumn
 });
 
 // Part mappings
@@ -73,6 +78,10 @@ ComponentRegistry.addPart(`${APP_NAME}:double-info-box`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:tip-panel`, {
     view: TipPanelView,
+});
+
+ComponentRegistry.addPart(`${APP_NAME}:accordion`, {
+    view: AccordionView,
 });
 
 

@@ -171,8 +171,6 @@ export const ParsedHtml = ({ processedHtml } : { processedHtml: string }) => {
         },
     };
 
-    console.log({processedHtml})
-
     const htmlParsed = htmlReactParser(processedHtml, parserOptions);
 
 //     // If the html renders to an empty string (or whitespace only), show an

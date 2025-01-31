@@ -1,0 +1,15 @@
+.accordion {
+    --ac-accordion-header-border: none;
+}
+
+.item {
+    margin-bottom: 12px;
+    box-shadow: 0px 26px 44px -12px rgba(11, 2, 49, 0.24);
+    border-radius: 10px;
+}
+
+.header {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 20px !important; 
+}

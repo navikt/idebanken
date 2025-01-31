@@ -1,4 +1,5 @@
 :root {
+  --bg-white: #FAFAF9;
   --bg-extra-light-pink: #FFF2F7; 
   --bg-light-pink: #FFE4EF;
   --bg-pink: #FFBCD8;
@@ -27,6 +28,11 @@ hr {
     border-color: darkgray;
     border-style: solid;
     border-bottom: 0 none;
+}
+
+.bg-white {
+  background-color: var(--bg-white);
+  color: black;
 }
 
 .bg-extra-light-pink {
