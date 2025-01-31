@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Simple text editor</display-name>
+    <form>
+        <input name="simpleTextEditor" type="HtmlArea">
+            <label>Innhold</label>
+            <default></default>
+            <config>
+                <exclude>*</exclude>  
+                <include>
+                    Format TextColor FontSize |JustifyLeft JustifyRight | Bold Italic | Macro | BulletedList NumberedList | Undo Redo
+                    
+                </include>
+                <allowHeadings>h2 h3 h4</allowHeadings>
+            </config>
+        </input>
+    </form>
+</mixin>

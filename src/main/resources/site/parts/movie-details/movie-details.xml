@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<part xmlns="urn:enonic:xp:model:1.0">
-    <display-name>Movie Details</display-name>
-    <description>Show details of a movie</description>
-    <form/>
-</part>

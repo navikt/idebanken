@@ -11,7 +11,7 @@
             <occurrences minimum="1" maximum="1"/>  
             <config>
                 <option value="primary">primary</option>  
-                <option value="secondary">secondary</option>
+                <option value="secondary">secondarya</option>
                 <option value="tertiary">tertiary</option>
             </config>
             <default>primary</default>  

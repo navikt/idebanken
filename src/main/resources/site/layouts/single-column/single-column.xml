@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<layout xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Single column</display-name>
+    <description>Provides a single region</description>
+    <form>
+        <mixin name="background-color"/>
+    </form>
+    <regions>
+        <region name="content"/>
+    </regions>
+</layout>

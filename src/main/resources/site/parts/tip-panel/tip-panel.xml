@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Guide - Tips</display-name>
+    <form>
+        <input type="TextLine" name="heading">
+            <label>Overskrift</label>
+        </input>
+        <item-set name="panel">
+            <label>Panel</label>
+            <occurrences minimum="1" maximum="2"/>
+            <items>
+                <mixin name="simple-text-editor" />
+                <mixin name="background-color"/>
+            </items>
+        </item-set>
+        <input name="reverse" type="CheckBox">
+            <label>Reverser bredde</label>
+        </input>
+        <mixin name="background-color"/>
+    </form>
+    <config>
+        <allow-on-content-type>${app}:guide</allow-on-content-type>
+    </config>
+</part>

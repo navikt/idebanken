@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <layout xmlns="urn:enonic:xp:model:1.0">
-    <display-name>2 columns</display-name>
-    <description>Provides left and right regions</description>
+    <display-name>Panel - 2 columns</display-name>
+    <description>Panel with left and right regions</description>
     <form>
-        <mixin name="background-color"/>
+        <item-set name="background">
+            <label>Background</label>
+            <occurrences minimum="2" maximum="2"/>
+            <items>
+                <mixin name="background-color"/>
+            </items>
+        </item-set>
         <input name="leftSpan" type="ComboBox">
             <label>Venstre Kolonne - Bredde</label>
             <occurrences minimum="1" maximum="1"/>
