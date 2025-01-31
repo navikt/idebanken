@@ -1,18 +1,16 @@
 :root {
+  --bg-white: #FAFAF9;
   --bg-extra-light-pink: #FFF2F7; 
   --bg-light-pink: #FFE4EF;
   --bg-pink: #FFBCD8;
   --bg-dark-blue: #181756;
-}
-
-[data-theme="idebanken"] {
-  --a-font-family: var(--font-mundial);
+  --a-font-family: var(--font-mundial) !important;
 }
 
 html, body {
   padding: 0;
   margin: 0;
-  font-family: var(--font-mundial);
+  font-family: var(--a-font-family);
   font-weight: 300;
 }
 
@@ -30,4 +28,29 @@ hr {
     border-color: darkgray;
     border-style: solid;
     border-bottom: 0 none;
+}
+
+.bg-white {
+  background-color: var(--bg-white);
+  color: black;
+}
+
+.bg-extra-light-pink {
+  background-color: var(--bg-extra-light-pink);
+  color: black;
+}
+
+.bg-light-pink {
+  background-color: var(--bg-light-pink);
+  color: black;
+}
+
+.bg-pink {
+  background-color: var(--bg-pink);
+  color: black;
+}
+
+.bg-dark-blue {
+  background-color: var(--bg-dark-blue);
+  color: white;
 }

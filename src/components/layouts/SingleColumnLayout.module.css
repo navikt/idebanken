@@ -7,10 +7,6 @@
     gap: 24px;
 }
 
-.left {
-    grid-column: col-start / var(--left-span, 7);
-}
-
-.right {
-    grid-column: col-start var(--left-span, 7) / -1;
+.content {
+    grid-column: col-start / 13;
 }
