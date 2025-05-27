@@ -1,0 +1,47 @@
+### Gradle ###
+.gradle
+build/
+
+# Node
+node_modules/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+### WebStorm ###
+# Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
+
+# VSCode
+/bin/
+/settings.gradle
+/.vscode
+
+*.iml
+
+## Directory-based project format:
+.idea/
+
+## File-based project format:
+*.ipr
+*.iws
+
+## Plugin-specific files:
+
+# IntelliJ
+out/
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+### Sass ###
+.sass-cache
+*.css.map
+
+# Jest
+/coverage
+
+# ES lint
+/.eslintcache
