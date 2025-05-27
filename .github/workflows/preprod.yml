@@ -5,7 +5,7 @@ on:
       - 'main'
     paths-ignore:
       - '**.md'
-      - '**/**.md'
+      - '../../frontend/README.md'
   workflow_call:
 
 jobs:
