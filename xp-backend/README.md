@@ -8,8 +8,19 @@ Dette er Headless-CMS delen Idebanken applikasjonen. Den bruker Enonic XP. [Ideb
 
 ### Oppsett av Enonic
 
-Du trenger en sandbox: https://developer.enonic.com/docs/xp/stable/development/sandboxes, som du linker til Enonic applikasjonen. Her er et fint utganspunkt hvis Enonic er nytt for deg: https://developer.enonic.com/docs/next.xp/stable/enonic-setup
+Du trenger en sandbox: https://developer.enonic.com/docs/xp/stable/development/sandboxes, som du linker til Enonic applikasjonen. Her er et fint utganspunkt hvis Enonic er nytt for deg: https://developer.enonic.com/docs/next.xp/stable/enonic-setup.
 
+Ellers kjør 
+```bash
+enonic sandbox create idebanken --template essentials --force
+```
+#### Konfigurasjon av sandbox
+```bash
+pushd ~/.enonic/sandboxes/idebanken/home/config
+echo "nextjs.default.secret=mySecretKey
+nextjs.default.url=http://127.0.0.1:3000" > com.enonic.app.nextxp.cfg
+popd
+```
 
 ### Start applikasjonen i utviklingsmodus
 
