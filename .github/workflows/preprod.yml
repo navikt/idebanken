@@ -4,8 +4,11 @@ on:
     branches:
       - 'main'
     paths-ignore:
-      - '**.md'
-      - '../../frontend/README.md'
+      - 'frontend/**.md'
+      - 'frontend/**/**.md'
+      - 'xp-backend/**'
+      - 'apps/**'
+      - '.github/**'
   workflow_call:
 
 jobs:
@@ -34,5 +37,5 @@ jobs:
           DRY_RUN: false
           PRINT_PAYLOAD: true
           CLUSTER: dev-gcp
-          RESOURCE: .nais/nais-preprod.yml
+          RESOURCE: frontend/.nais/nais-preprod.yml
           VAR: image=${{ needs.build-and-push.outputs.image }}
