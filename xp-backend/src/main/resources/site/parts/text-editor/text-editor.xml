@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Text editor</display-name>
+    <description>Text editor for bruk av NAV-komponenter</description>
+    <form>
+        <mixin name="simple-text-editor" />
+    </form>
+</part>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Dobbel Infoboks</display-name>
+    <description>To Infobokser side om side</description>
+    <form>
+        <item-set name="infobox">
+            <label>Infoboks</label>
+            <occurrences minimum="2" maximum="2"/>
+            <items>
+                <mixin name="simple-text-editor" />
+                <mixin name="background-color"/>
+            </items>
+        </item-set>
+    </form>
+    <config>
+        <allow-on-content-type>${app}:guide</allow-on-content-type>
+    </config>
+</part>

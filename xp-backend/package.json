@@ -1,0 +1,70 @@
+{
+  "name": "intro",
+  "version": "1.0.0",
+  "description": "Introduction to Enonic XP",
+  "devDependencies": {
+    "@enonic-types/global": "^7",
+    "@enonic-types/lib-cluster": "^7",
+    "@enonic-types/lib-content": "^7",
+    "@enonic-types/lib-context": "^7",
+    "@enonic-types/lib-export": "^7",
+    "@enonic-types/lib-portal": "^7",
+    "@enonic-types/lib-project": "^7",
+    "@enonic-types/lib-task": "^7",
+    "@swc/core": "^1.6.1",
+    "@typescript-eslint/eslint-plugin": "^7",
+    "browser-sync": "^3",
+    "concurrently": "^8",
+    "esbuild-plugin-globals": "^0.2.0",
+    "esbuild-sass-plugin": "^2.16.1",
+    "eslint": "^8",
+    "eslint-plugin-jsx-a11y": "^6",
+    "glob": "^10.4.1",
+    "rimraf": "^5",
+    "sass": "^1.77.5",
+    "tsup": "^8"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "clean": "rimraf build",
+    "build": "concurrently -c auto -g --timings npm:build:*",
+    "build:sass": "npx sass src/main/resources/assets/styles:build/resources/main/assets/styles",
+    "build:server": "npx tsup -d build/resources/main",
+    "build:static": "npx tsup -d build/resources/main/static",
+    "check": "concurrently -c auto -g --timings npm:lint npm:check:types",
+    "check:types": "concurrently -g -r --timings npm:check:types:*",
+    "check:types:server": "npx tsc --noEmit",
+    "check:types:static": "npx tsc --noEmit -p src/main/resources/static/tsconfig.json",
+    "lint": "eslint --cache src/main/resources/**/*.ts",
+    "minify": "concurrently -c auto -g --timings 'npm:build:sass -- --style compressed' 'npm:build:server -- --minify' 'npm:build:static -- --minify'",
+    "watch": "concurrently -c auto npm:watch:*",
+    "watch:browserSync": "npx browser-sync start --files \"src/main/resources/**/*.html\" \"src/main/resources/**/*.xml\" \"build/resources/main\" --reload-delay 0 --port 3100 --no-snippet --watch",
+    "watch:sass": "npm run build:sass -- --watch",
+    "watch:server": "npm run build:server -- --watch",
+    "watch:static": "npm run build:static -- --watch",
+    "test": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enonic/tutorial-intro.git"
+  },
+  "keywords": [
+    "enonic",
+    "xp",
+    "cms",
+    "introduction",
+    "tutorial"
+  ],
+  "author": "Enonic",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/enonic/tutorial-intro/issues"
+  },
+  "homepage": "https://github.com/enonic/tutorial-intro#readme",
+  "engines": {
+    "node": ">= 20.10.0",
+    "npm": ">= 10.2.3"
+  }
+}

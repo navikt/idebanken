@@ -1,0 +1,83 @@
+= Create your first Enonic application
+:toc: right
+:experimental:
+:imagesdir: media/
+:sourcedir: ../
+
+Create, build and deploy an application based on a starter
+
+== Intro
+
+The expression "There's an app for that" fits well with Enonic. When you created the sandbox, several applications were automatically installed (based on the `Essentials`` template), and extended the platforms capabilities.
+
+https://developer.enonic.com/docs/xp/stable/apps[Enonic apps^] are used to ship everything from content models, to code and platform extensions, which you will soon discover.
+
+
+== Create an app
+
+*Open a new terminal window* and create your first Enonic app by running this command:
+
+  enonic create com.example.myapp -r tutorial-intro -s mysandbox
+
+This command will:
+
+* use the GitHub repo `github.com/enonic/tutorial-intro` as a starter
+* to create an app called `com.example.myapp`
+* in the directory `myapp` setting version number to `1.0.0`
+* and link it to `mysandbox` which you created earlier
+
+TIP: A pre-compiled standard version of this app is also available on https://market.enonic.com/vendors/enonic/intro[Enonic Market^].
+
+=== Project structure
+
+Inside the `myapp` directory you should now have a file structure looking something like this:
+
+.Selected files from the app code:
+[source,files]
+----
+docs/ <1>
+samples/ <2>
+src/
+ main/
+  resources/
+   assets <3>
+   controllers <4>
+   i18n <5>
+   import <6>
+   site/
+    content-types/ <7>
+    x-data/ <8>
+gradle.properties <9>
+----
+
+<1> The documentation you are reading now
+<2> Code samples that will be used in this guide
+<3> Client-side assets
+<4> https://developer.enonic.com/docs/xp/stable/framework/controllers[Server-side controllers and templates^]
+<5> https://developer.enonic.com/docs/xp/stable/framework/i18n[Localisation bundles^]
+<6> Sample content
+<7> https://developer.enonic.com/docs/xp/stable/cms/content-types[Content Type schemas^]
+<8> https://developer.enonic.com/docs/xp/stable/cms/x-data[X-data schemas^]
+<9> App name and other settings
+
+== Build and deploy
+
+Assuming `mysandbox` is still running in another Terminal window, run these commands:
+
+  cd myapp
+  enonic dev
+
+The last command (`dev`) will build the app, deploy it to `mysandbox` and start continuously watching for changes in the source code, automatically deploying the changes without you having to rebuild/redeploy the app after each change.
+
+[NOTE]
+====
+The initial build may take a while, look for these lines to confirm it has completed:
+
+BUILD SUCCESSFUL in 6s
+3 actionable tasks: 3 executed
+Waiting for changes to input files...
+====
+
+== Moving forward
+
+You just created and built your very own application. In the next chapter you'll get familiar with <<cms#, Content Studio and content modelling>>.

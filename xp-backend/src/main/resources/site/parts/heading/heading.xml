@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Heading</display-name>
+    <description>Demo heading</description>
+    <form>
+        <input type="TextLine" name="heading">
+            <label>Override heading</label>
+        </input>
+    </form>
+</part>

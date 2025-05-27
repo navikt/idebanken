@@ -1,0 +1,104 @@
+= Deploy your app to the cloud
+:toc: right
+:experimental:
+:imagesdir: media/
+:sourcedir: ../
+
+It's time for the final act - sign up for a free account and deploy your app on a live server.
+
+
+== Public API
+
+So far, you've been playing with the API via Content Studio. If you want to access the API endpoint directly on your sandbo, it's available at respectively:
+
+* \http://localhost:8080/site/intro/draft (draft items)
+* \http://localhost:8080/site/intro/master (published items)
+
+In the following steps, you will deploy the API to a live URL. Remember, the GraphQL API is accessed via `HTTP POST` method, as such - visiting via a regular browser will give you a 404 error.
+
+TIP: The Chrome extension https://chrome.google.com/webstore/detail/altair-graphql-client/flnheeellpciglgpaodhkhmapeljopja[Altair^] lets you browse any GraphQL API, simply by pointing it to the API URL.
+
+== Sign up
+
+To complete this step, you'll need Enonic XP running on a server. To get the job don, we'll use Enonic's free hosting tier:
+
+[TIP]
+====
+If you are looking for other hosting options, Enonic XP is open source, and https://developer.enonic.com/docs/hosting[can be deployed pretty much anywhere^].
+====
+
+
+. Visit our *https://enonic.com/sign-up[sign up^]* for to claim your forever-free account. 
+. After signing up, complete the verification of your e-mail before you can move to the next step.
+. *Log in to the https://console.enonic.com[Enonic Console^]* and choose your account name.
+
+image::console-account-create.png["Choose your account name", width="750px"]
+
+
+
+== Create solution
+
+. then  *create a new solution* from the menu: `Solutions -> Essentials -> Create`. Complete the solution wizard steps using your personal preferences.
+
+image::console-solution-create.png["Select the 'Essentials' template", width="1440px"]
+
+We will then spin up an Enonic XP environment, similar to your local sandbox but this time on a real server in the Cloud.
+
+== Deploy application
+
+. Once the solution has started (verify by logging in to the XP admin), you need to *authorize the CLI*. Run this command:
++
+  enonic cloud login
++
+. After successful authentication *install your app* using this command:
++
+  enonic cloud app install
++
+IMPORTANT: You must execute this command from your app folder.
++
+TIP: Alternatively upload the app from the Console directly: `Solutions -> <Your solution> -> Applications -> Install`. The app file can be found in your project folder i.e. `build/libs/myapp.jar`.
+
+Once installed, the app should be listed in the Cloud console:
+
+image::console-application-list.png["List of applications including 'MyApp'", width="1440px"]
+
+
+== Explose the API
+
+Finally, you may also want to expose the API:
+
+. *create an ingress* in the Enonic Cloud console: `Solutions -> <Your solution> -> Ingresses -> Create`. Give it a suitable name i.e. `Intro API`, and use the following values:
++
+====
+Environment:: Use the default value
+Target:: `/site/intro`
+Domain:: Use the default value
+Path:: `/api`
+ID provider:: leave empty
+====
++
+. Once the incress is created, *Select it in the list*. This will reveal a link to your API on the right. hand side
+. *Visit the URL* to see the `Query Playground` API browser.
++
+NOTE: The API browser can be disabled by changing the configuration of the `Guillotine app`.
++
+
+To use the published content API directly from a GraphQL client, simply add append `/master` to the Ingress URL.
++
+TIP: Remember, the GraphQL API only accepts `POST` requests, so the browser will only show a 404 at this point.
+
+
+== Dive deeper
+
+🎉 Awesome! You made it to the end.
+
+In the process, you created an Enonic XP sandbox, built and customized your own app, ran GraphQL queries, got to know the Enonic CLI and our SaaS service.
+
+As you may already imagine, the Platform is capable of so much more. Did you for instance know that Enonic has a https://developer.enonic.com/docs/xp/stable/framework[JavaScript framework^], complete with https://www.npmjs.com/org/enonic-types[TypeScript definitions^] the entire platform API? You may use it in your apps to extend and customize the Platform as you like.
+
+To continue the journey, we recommend visiting the https://developer.enonic.com/docs/tutorials[Enonic tutorials] section of the Developer Portal.
+
+Bon voyage!
+
+
+

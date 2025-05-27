@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<x-data>
+  <display-name>Persons</display-name>
+  <form>
+    <input type="ContentSelector" name="person">
+      <label>Person</label>
+      <help-text>Tag persons in the picture</help-text>
+      <occurrences minimum="0" maximum="0"/>
+      <config>
+        <allowContentType>person</allowContentType>
+      </config>
+    </input>
+  </form>
+</x-data>

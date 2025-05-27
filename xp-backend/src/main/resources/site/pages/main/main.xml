@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page xmlns="urn:enonic:xp:model:1.0">
+  <display-name>Main page</display-name>
+  <description>Will be rendered by front-end</description>
+  <form/>
+  <regions>
+      <region name="main"/>
+  </regions>
+</page>
