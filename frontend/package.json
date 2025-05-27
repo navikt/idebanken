@@ -14,13 +14,16 @@
     "@enonic/nextjs-adapter": "^3.2.2",
     "@navikt/ds-css": "^7.22.0",
     "@navikt/ds-react": "^7.22.0",
+    "@tailwindcss/postcss": "^4.1.7",
     "classnames": "^2.5.1",
     "cross-env": "^7.0.3",
     "domhandler": "^5.0.3",
     "html-react-parser": "^5.2.5",
     "next": "^15.3.2",
+    "postcss": "^8.5.3",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "tailwindcss": "^4.1.7",
     "unescape": "^1.0.1"
   },
   "devDependencies": {
