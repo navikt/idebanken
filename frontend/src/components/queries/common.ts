@@ -16,10 +16,10 @@ query($path:ID!){
       _path
     }
   }
-}`;
+}`
 
 export function commonVariables(path: string) {
     return {
-        path
+        path,
     }
 }

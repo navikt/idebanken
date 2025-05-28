@@ -1,34 +1,34 @@
-import {draftMode} from 'next/headers';
-import {redirect} from 'next/navigation';
-import {NextRequest} from 'next/server';
-import {validatePath, validateToken} from '../../../utils';
+import { draftMode } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { NextRequest } from 'next/server'
+import { validatePath, validateToken } from '../../../utils'
 
 export function HEAD(req: NextRequest) {
-    return processRequest(req);
+    return processRequest(req)
 }
 
 export function GET(req: NextRequest) {
-    return processRequest(req);
+    return processRequest(req)
 }
 
 function processRequest(req: NextRequest) {
-    const params = req.nextUrl.searchParams;
+    const params = req.nextUrl.searchParams
 
-    const token = params.get('token');
-    let response = validateToken(token);
+    const token = params.get('token')
+    let response = validateToken(token)
     if (response !== null) {
-        return response;
+        return response
     }
 
-    const path = params.get('path');
-    response = validatePath(path);
+    const path = params.get('path')
+    response = validatePath(path)
     if (response !== null) {
-        return response;
+        return response
     }
 
-    console.info(`Previewing [${path}]...`);
+    console.info(`Previewing [${path}]...`)
 
-    draftMode().enable();
+    draftMode().enable()
 
-    redirect(!path?.length ? '/' : path);
+    redirect(!path?.length ? '/' : path)
 }

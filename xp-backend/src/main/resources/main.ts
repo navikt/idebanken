@@ -1,98 +1,80 @@
-import { create as createProject, get as getProject } from '/lib/xp/project';
-import { publish } from '/lib/xp/content';
-import { run } from '/lib/xp/context';
-import { isMaster } from '/lib/xp/cluster';
-import { executeFunction } from '/lib/xp/task';
-import { importNodes } from '/lib/xp/export';
+import { create as createProject, get as getProject } from '/lib/xp/project'
+import { publish } from '/lib/xp/content'
+import { run } from '/lib/xp/context'
+import { isMaster } from '/lib/xp/cluster'
+import { executeFunction } from '/lib/xp/task'
 
 const projectData = {
-    id: 'intro',
-    displayName: 'Intro Project',
-    description: 'Sample content from the cinematic industry',
-    language: 'en',
-    siteConfig: [{
-        applicationKey: app.name
-    }],
+    id: 'idebanken',
+    displayName: 'Idébanken',
+    description: 'Nettside for Idébanken',
+    language: 'no',
+    siteConfig: [
+        {
+            applicationKey: app.name,
+        },
+    ],
     readAccess: {
-        public: true
-    }
+        public: true,
+    },
 }
 
 const runInContext = (callback) => {
-    let result;
+    let result
     try {
-        result = run({
-            principals: ["role:system.admin"],
-            repository: 'com.enonic.cms.' + projectData.id
-        }, callback);
+        result = run(
+            {
+                principals: ['role:system.admin'],
+                repository: 'com.enonic.cms.' + projectData.id,
+            },
+            callback
+        )
     } catch (e) {
-        log.info('Error: ' + e.message);
+        log.info('Error: ' + e.message)
     }
 
-    return result;
+    return result
 }
 
-const doCreateProject = () => createProject(projectData);
+const doCreateProject = () => createProject(projectData)
 
-const doGetProject = () => getProject({ id: projectData.id });
+const doGetProject = () => getProject({ id: projectData.id })
 
 const initializeProject = () => {
     runInContext(() => {
-        const project = doGetProject();
+        const project = doGetProject()
         if (!project) {
-            log.info(`Project ${projectData.id} not found. Creating...`);
+            log.info(`Project ${projectData.id} not found. Creating...`)
             executeFunction({
                 description: 'Importing Intro DB content',
-                func: doInitProject
-            });
+                func: doInitProject,
+            })
+        } else {
+            log.debug(`Project ${project.id} exists, skipping import`)
         }
-        else {
-            log.debug(`Project ${project.id} exists, skipping import`);
-        }
-    });
-};
+    })
+}
 
 const doInitProject = () => {
-    const project = doCreateProject();
+    const project = doCreateProject()
 
     if (project) {
-        log.info('Project "' + projectData.id + '" successfully created');
-        createContent();
-        publishRoot();
+        log.info('Project "' + projectData.id + '" successfully created')
+        publishRoot()
     } else {
-        log.error('Project "' + projectData.id + '" create failed');
-    }
-};
-
-const createContent = () => {
-    const nodes = importNodes({
-        source: resolve('/import'),
-        targetNodePath: '/content',
-        xslt: resolve('/import/replace_app.xsl'),
-        xsltParams: {
-            applicationId: app.name
-        },
-        includeNodeIds: true,
-        nodeImported: () => {},
-        nodeResolved: () => {}
-    });
-    log.info('Importing Intro DB content');
-    if (nodes.importErrors.length > 0) {
-        log.warning('Errors:');
-        nodes.importErrors.forEach(element => log.warning(element.message));
-        log.info('-------------------');
+        log.error('Project "' + projectData.id + '" create failed')
     }
 }
 
 const publishRoot = () => {
     const result = publish({
-        keys: ['/movies', '/persons','/articles', '/playlists' ]
-    });
+        keys: ['/movies', '/persons', '/articles', '/playlists'],
+    })
     if (!result) {
-        log.warning('Could not publish imported content.');
+        log.warning('Could not publish imported content.')
     }
 }
 
 if (isMaster()) {
-    initializeProject();
+    initializeProject()
 }

@@ -1,43 +1,40 @@
-import {IS_DEV_MODE, RENDER_MODE} from '@enonic/nextjs-adapter';
-import {fetchContent} from '@enonic/nextjs-adapter/server';
+import { IS_DEV_MODE, RENDER_MODE } from '@enonic/nextjs-adapter'
+import { fetchContent } from '@enonic/nextjs-adapter/server'
 
 // Register component mappings
-import '../../../components/_mappings';
-import {NextRequest} from 'next/server';
-import {validatePath, validateToken} from '../../../utils';
+import '../../../components/_mappings'
+import { NextRequest } from 'next/server'
+import { validatePath, validateToken } from '../../../utils'
 
 export function HEAD(req: NextRequest) {
-    return processRequest(req);
+    return processRequest(req)
 }
 
 export function GET(req: NextRequest) {
-    return processRequest(req);
+    return processRequest(req)
 }
 
 async function processRequest(req: NextRequest) {
-    const params = req.nextUrl.searchParams;
+    const params = req.nextUrl.searchParams
 
-    const token = params.get('token');
-    let response = validateToken(token);
+    const token = params.get('token')
+    let response = validateToken(token)
     if (response !== null) {
-        return response;
+        return response
     }
 
-    const path = params.get('path') || [];
-    response = validatePath(path);
+    const path = params.get('path') || []
+    response = validatePath(path)
     if (response !== null) {
-        return response;
+        return response
     }
 
-    console.info(`Is renderable request for: ${path}`);
+    console.info(`Is renderable request for: ${path}`)
 
-    const {
-        meta,
-        error = null,
-    } = await fetchContent({
+    const { meta, error = null } = await fetchContent({
         contentPath: path,
         headers: req.headers,
-    });
+    })
 
     if (error && (error.code === '500' || error.code === '404')) {
         return new Response(null, {
@@ -47,19 +44,21 @@ async function processRequest(req: NextRequest) {
 
     // catch-all rendering is ignored for isRenderableRequest in edit mode
     // to allow selecting descriptors in page editor
-    const catchAllInEditOrCantRender = !meta.canRender || meta.catchAll && isRenderableRequestEditMode(req)
+    const catchAllInEditOrCantRender =
+        !meta.canRender || (meta.catchAll && isRenderableRequestEditMode(req))
 
-    const catchAllInNextProdMode = meta.renderMode === RENDER_MODE.NEXT && !IS_DEV_MODE && meta.catchAll;
+    const catchAllInNextProdMode =
+        meta.renderMode === RENDER_MODE.NEXT && !IS_DEV_MODE && meta.catchAll
 
-    const notFound = catchAllInEditOrCantRender || catchAllInNextProdMode;
+    const notFound = catchAllInEditOrCantRender || catchAllInNextProdMode
 
     return new Response(null, {
         status: notFound ? (meta.renderMode !== RENDER_MODE.NEXT ? 418 : 404) : 200,
-    });
+    })
 }
 
 function isRenderableRequestEditMode(req: NextRequest): boolean {
-    const method = req.method;
-    const mode = req.nextUrl.searchParams.get('mode');
-    return method === 'HEAD' && mode === RENDER_MODE.EDIT;
+    const method = req.method
+    const mode = req.nextUrl.searchParams.get('mode')
+    return method === 'HEAD' && mode === RENDER_MODE.EDIT
 }
