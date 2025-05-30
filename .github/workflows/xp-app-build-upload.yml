@@ -1,0 +1,50 @@
+name: Build XP app
+run-name: Build XP "${{ github.ref_name }}" by @${{ github.actor }}
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+      working_directory:
+        type: string
+        required: false
+        default: "xp-backend"
+
+jobs:
+  deploy:
+    name: 'Build XP'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: 'Setup Java'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 21
+          cache: 'gradle'
+
+      - name: 'Build XP app'
+        shell: bash
+        run: ./gradlew -Pversion="$(echo ${{ inputs.version || github.ref_name }} | sed 's/^v//g')" build
+
+      - name: 'Get safe working directory'
+        id: safe
+        run: |
+          working_directory=${{ inputs.working_directory }}
+          echo "working_directory=${working_directory//\//_}" >> $GITHUB_OUTPUT
+
+      - name: 'Upload artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.version || github.ref_name }}-${{ steps.safe.outputs.working_directory || inputs.working_directory }}
+          path: ./${{ inputs.working_directory }}/build/libs/*.jar
+          retention-days: 7

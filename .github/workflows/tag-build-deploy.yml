@@ -1,0 +1,94 @@
+name: Bump version, build and deploy main to Test
+run-name: Bump version, build and deploy main to Test by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Dry run
+        type: boolean
+        default: true
+  pull_request:
+    branches:
+      - main
+    types:
+      [closed]
+    paths-ignore:
+      - '.github/**'
+      - 'apps/**'
+      - '.gitignore'
+      - '**.md'
+      - '**.iml'
+jobs:
+  bump:
+    if: |
+      github.event.pull_request.user.login != 'dependabot[bot]' &&
+      (github.event.pull_request.merged || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.bump.outputs.new_tag }}
+      changed-frontend: ${{ steps.changed-frontend.outputs.changed != 'non-inputs' }}
+      changed-xp-backend: ${{ steps.changed-xp-backend.outputs.changed != 'non-inputs' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: '1'
+
+      - name: Bump version and push tag
+        id: bump
+        uses: anothrNick/github-tag-action@1.73.0
+        env:
+          DEFAULT_BUMP: patch
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_BRANCHES: main
+          WITH_V: true
+          DRY_RUN: ${{ inputs.dry_run }}
+
+      - name: Creating summary
+        run: |
+          if ${{ steps.bump.outputs.new_tag == steps.bump.outputs.old_tag }}; then
+            echo "### ❌ Did not bump ❌ Current version: ${{ steps.bump.outputs.old_tag }}" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          else
+            echo "### Bumped version to ${{ steps.bump.outputs.new_tag }} 👊" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Check if frontend files have changed
+        id: changed-frontend
+        uses: nais/what-changed@main
+        with:
+          files: frontend/**
+      - name: Check if xp-backend files have changed
+        id: changed-xp-backend
+        uses: nais/what-changed@main
+        with:
+          files: xp-backend/**
+
+  xp-app-build-and-upload:
+    name: Build and upload artifact
+    needs: bump
+    if: needs.bump.result == 'success' && needs.bump.outputs.changed-xp-backend == 'true'
+    secrets: inherit
+    uses: ./.github/workflows/xp-app-build-upload.yml
+    with:
+      version: ${{ needs.bump.outputs.version }}
+
+  xp-app-download-and-deploy:
+    name: Download artifact and deploy to Test
+    needs: xp-app-build-and-upload
+    if: needs.build-and-upload.result == 'success'
+    uses: ./.github/workflows/xp-app-download-deploy.yml
+    with:
+      version: ${{ needs.bump.outputs.version }}
+      environment: test
+
+  frontend-build-and-deploy:
+    name: Build and upload frontend artifact
+    needs: bump
+    if: needs.bump.result == 'success' && needs.bump.outputs.changed-frontend == 'true'
+    secrets: inherit
+    uses: ./.github/workflows/frontend-build-deploy.yml
+    with:
+      version: ${{ needs.bump.outputs.version }}
+      environment: test

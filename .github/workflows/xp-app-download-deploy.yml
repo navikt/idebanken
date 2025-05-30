@@ -1,0 +1,76 @@
+name: Deploy XP app
+run-name: Deploy XP app to ${{ inputs.environment }} "${{ github.ref_name }}" by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Environment
+        required: true
+        default: test
+        options:
+          - test
+          - prod
+      app_directory:
+        type: choice
+        description: App to deploy. Used by build to postfix the artifact name
+        required: true
+        options:
+          - xp-backend
+        default: "xp-backend"
+      download_artifact_from_workflow:
+        type: choice
+        description: Which workflow uploaded the artifact?
+        options:
+          - tag-build-deploy.yml
+        default: tag-build-deploy.yml
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+      environment:
+        type: string
+        required: true
+        default: test
+      app_directory:
+        type: string
+        required: false
+        default: "xp-backend"
+      download_artifact_from_workflow:
+        type: string
+        required: false
+        default: tag-build-deploy.yml
+
+jobs:
+  deploy:
+    name: Deploy XP
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Get safe working directory'
+        id: safe
+        run: |
+          working_directory=${{ inputs.app_directory }}
+          echo "working_directory=${working_directory//\//_}" >> $GITHUB_OUTPUT
+
+      - name: 'Download artifact'
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v9
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          name: ${{ inputs.version || github.ref_name }}-${{ steps.safe.outputs.working_directory || inputs.app_directory }}
+          workflow: ${{ inputs.download_artifact_from_workflow }}
+          workflow_conclusion: ""
+          search_artifacts: true
+
+      - name: 'Deploy XP artifact'
+        uses: enonic/action-app-deploy@main
+        with:
+          url: ${{ vars.ENONIC_CLI_DEPLOY_URL }}
+          username: ${{ vars.ENONIC_CLI_REMOTE_USER }}
+          password: ${{ secrets.ENONIC_CLI_REMOTE_PASS }}
+#          client_key: ${{ secrets.ENONIC_CLI_KEY }}
+#          client_cert: ${{ secrets.ENONIC_CLI_CERT }}
+          app_jar: "./*.jar"
