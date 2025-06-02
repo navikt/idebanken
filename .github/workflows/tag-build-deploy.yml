@@ -36,6 +36,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: 'write'
+      actions: 'read'
     outputs:
       version: ${{ steps.bump.outputs.new_tag }}
       changed-frontend: ${{ steps.changed-frontend.outputs.changed != 'non-inputs' }}
