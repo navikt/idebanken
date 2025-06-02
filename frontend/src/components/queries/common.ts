@@ -1,6 +1,55 @@
 // This query is executed for every page rendering.
 // Result is included in props.common
 
+const metaFields = `
+metaFields {
+  canonical {
+    _score
+    createdTime
+    modifiedTime
+    type
+    displayName
+    hasChildren
+    language
+    valid
+    dataAsJson
+    xAsJson
+    pageAsJson
+    pageUrl
+  }
+  description
+  fullTitle
+  image {
+    ... on media_Image {
+      imageUrl(type: absolute, scale: "block(1200,627)")
+      data {
+        altText
+      }
+    }
+  }
+  locale
+  verification {
+    google
+  }
+  twitter {
+    hideImages
+    site
+  }
+  robots {
+    follow
+    index
+  }
+  openGraph {
+    hideImages
+    hideUrl
+    type
+  }
+  siteName
+  title
+  baseUrl
+}
+`
+
 export const commonQuery = `
 query($path:ID!){
   guillotine {
@@ -10,6 +59,7 @@ query($path:ID!){
       type
       dataAsJson
       xAsJson
+      ${metaFields}
     }
     getSite {
       displayName
