@@ -41,7 +41,11 @@ export default async function PageLayout({params, children}: LayoutProps) {
     return (
         <LocaleContextProvider locale={resolvedParams.locale}>
             <StaticContent condition={isEdit}>
-                <Header meta={meta} title={I18n.localize('title')} logoUrl={getAsset('/images/xp-shield.svg', meta)}/>
+                <Header
+                    meta={meta}
+                    title={I18n.localize('idebanken')}
+                    logoUrl={getAsset('/images/xp-shield.svg', meta)}
+                />
                 <main>{children}</main>
                 <Footer/>
             </StaticContent>

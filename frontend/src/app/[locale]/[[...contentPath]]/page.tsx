@@ -1,10 +1,12 @@
 import { ContentPathItem, FetchContentResult, validateData } from '@enonic/nextjs-adapter'
 import { fetchContent, fetchContentPathsForAllLocales } from '@enonic/nextjs-adapter/server'
 import MainView from '@enonic/nextjs-adapter/views/MainView'
-
-import '../../../components/_mappings'
 import { Metadata } from 'next'
 import React from 'react'
+import { MetaFields } from '../../../types/generated'
+import { OpenGraphType } from 'next/dist/lib/metadata/types/opengraph-types'
+
+import '../../../components/_mappings'
 
 // NB. Using this option with default value bails out static generation !!!
 // export const dynamic = 'auto'
@@ -32,11 +34,61 @@ export async function generateMetadata({
 }: {
     params: Promise<PageProps>
 }): Promise<Metadata> {
-    const resolvedParams = await params
+    const { common } = await fetchContent(await params)
 
-    const { common } = await fetchContent(resolvedParams)
+    const metaFields = common?.get?.metaFields as MetaFields
+    const image = metaFields?.image ?? undefined
+
     return {
-        title: common?.get?.displayName || 'Not found',
+        metadataBase: metaFields?.baseUrl ? new URL(metaFields.baseUrl) : undefined,
+        title: metaFields?.fullTitle,
+        description: metaFields?.description,
+        openGraph: {
+            type: (metaFields?.openGraph?.type ?? 'article') as OpenGraphType,
+            title: metaFields?.title,
+            siteName: metaFields?.siteName ?? undefined,
+            description: metaFields?.description ?? undefined,
+            locale: metaFields?.locale ?? undefined,
+            url: metaFields?.openGraph?.hideUrl
+                ? undefined
+                : (metaFields?.baseUrl ?? `https://www.idebanken.org`),
+            images:
+                image && !metaFields?.openGraph?.hideImages
+                    ? {
+                          url: image?.imageUrl ?? '',
+                          alt: image?.data?.altText ?? undefined,
+                          width: 1200,
+                          height: 627,
+                      }
+                    : undefined,
+        },
+        robots: {
+            index: metaFields?.robots?.index ?? true,
+            follow: metaFields?.robots?.follow ?? true,
+        },
+        alternates: {
+            canonical:
+                metaFields?.canonical?.pageUrl?.split(/\/(draft|master)\/[^/]*/)?.at(-1) ??
+                undefined,
+        },
+        twitter: {
+            site: metaFields?.twitter?.site ?? undefined,
+            title: metaFields?.title ?? undefined,
+            description: metaFields?.description ?? undefined,
+            images:
+                image && !metaFields?.twitter?.hideImages
+                    ? {
+                          url: image?.imageUrl ?? '',
+                          alt: image?.data?.altText ?? undefined,
+                          width: 1200,
+                          height: 627,
+                      }
+                    : undefined,
+            card: 'summary_large_image',
+        },
+        verification: {
+            google: metaFields?.verification?.google,
+        },
     }
 }
 

@@ -1,11 +1,10 @@
-import {I18n, PORTAL_COMPONENT_ATTRIBUTE} from '@enonic/nextjs-adapter';
-import {Metadata} from 'next';
-import {ReactNode} from 'react';
+import { I18n, PORTAL_COMPONENT_ATTRIBUTE } from '@enonic/nextjs-adapter'
+import { ReactNode } from 'react'
 import localFont from 'next/font/local'
+import { PageProps } from './[[...contentPath]]/page'
+import { Metadata } from 'next'
 
-import '../../styles/globals.css';
-
-import {PageProps} from './[[...contentPath]]/page';
+import '../../styles/globals.css'
 
 type LayoutProps = {
     params: Promise<PageProps>
@@ -44,32 +43,30 @@ const mundial = localFont({
             path: '../fonts/5-mundial-demibold-italic-tty.woff2',
             weight: '500',
             style: 'italic',
-        },    
+        },
     ],
 })
 
-export default async function LocaleLayout({params, children}: LayoutProps) {
-    const resolvedParams = await params;
-    await I18n.setLocale(resolvedParams.locale);
+export default async function LocaleLayout({ params, children }: LayoutProps) {
+    const resolvedParams = await params
+
+    await I18n.setLocale(resolvedParams.locale)
 
     const bodyAttrs: { [key: string]: string } = {
-        className: "edit",
-        [PORTAL_COMPONENT_ATTRIBUTE]: "page",
-        ['data-theme']:"idebanken"
+        className: 'edit',
+        [PORTAL_COMPONENT_ATTRIBUTE]: 'page',
+        ['data-theme']: 'idebanken',
     }
 
-    return (<html lang="en" className={mundial.variable}>
-        <body {...bodyAttrs}>
-        {children}
-        </body>
+    return (
+        <html lang={resolvedParams.locale ?? 'no'} className={mundial.variable}>
+            <body {...bodyAttrs}>{children}</body>
         </html>
-    );
+    )
 }
 
 export const metadata: Metadata = {
-    title: {
-        default: I18n.localize('title'),
-        template: '%s | Next.XP',
-    },
-    description: 'The React Framework for Enonic XP',
+    title: I18n.localize('idebanken'),
+    description:
+        'Idébanken er en informasjonstjeneste om inkluderende arbeidsliv. Vi deler ideer og kunnskap om sykefravær, arbeidsmiljø, seniorpolitikk og inkludering.',
 }

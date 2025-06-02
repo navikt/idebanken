@@ -47,10 +47,15 @@ tasks.register('dev', NpmTask) {
             'run',
             'watch'
     ]
-    dependsOn npmInstall, deploy
+    dependsOn npmInstall, deploy, generateFrontendGqlTypes
     environment = [
             'FORCE_COLOR': 'true',
     ]
+}
+
+tasks.register('generateFrontendGqlTypes', Exec) {
+    workingDir = file("${projectDir}/../frontend")
+    commandLine 'npm', 'run', 'generate-gql-types'
 }
 
 tasks.register('npmCheck', NpmTask) {
