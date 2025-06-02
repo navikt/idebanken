@@ -66,7 +66,7 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
 }
 
 export const metadata: Metadata = {
-    title: I18n.localize('title'),
+    title: I18n.localize('idebanken'),
     description:
         'Idébanken er en informasjonstjeneste om inkluderende arbeidsliv. Vi deler ideer og kunnskap om sykefravær, arbeidsmiljø, seniorpolitikk og inkludering.',
 }
