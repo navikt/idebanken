@@ -98,6 +98,10 @@ jobs:
     if: needs.bump.result == 'success' && needs.bump.outputs.changed-frontend == 'true'
     secrets: inherit
     uses: ./.github/workflows/frontend-build-deploy.yml
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+      packages: 'read'
     with:
       version: ${{ needs.bump.outputs.version }}
       environment: test
