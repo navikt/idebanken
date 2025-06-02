@@ -1,6 +1,4 @@
-import { Metadata } from 'next'
 import { ReactNode } from 'react'
-import { I18n } from '@enonic/nextjs-adapter'
 import { draftMode, headers } from 'next/headers'
 import Script from 'next/script'
 
@@ -34,10 +32,4 @@ export default async function RootLayout({ children }: LayoutProps) {
             {children}
         </>
     )
-}
-
-export const metadata: Metadata = {
-    title: I18n.localize('title'),
-    description:
-        'Idébanken er en informasjonstjeneste om inkluderende arbeidsliv. Vi deler ideer og kunnskap om sykefravær, arbeidsmiljø, seniorpolitikk og inkludering.',
 }
