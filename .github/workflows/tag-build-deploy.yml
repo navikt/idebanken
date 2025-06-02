@@ -8,6 +8,15 @@ on:
         description: Dry run
         type: boolean
         default: true
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - 'apps/**'
+      - '.gitignore'
+      - '**.md'
+      - '**.iml'
   pull_request:
     branches:
       - main
@@ -23,7 +32,7 @@ jobs:
   bump:
     if: |
       github.event.pull_request.user.login != 'dependabot[bot]' &&
-      (github.event.pull_request.merged || github.event_name == 'workflow_dispatch')
+      (github.event.pull_request.merged || github.event_name == 'workflow_dispatch' || github.event_name == 'push')
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.bump.outputs.new_tag }}
