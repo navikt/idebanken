@@ -4,10 +4,12 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
+    "predev": "npm run generate-gql-types",
     "dev": "next dev",
     "prod": "npm run build && npm run start",
     "start": "next start -p 4242",
     "build": "next build",
+    "generate-gql-types": "graphql-codegen",
     "lint": "next lint"
   },
   "dependencies": {
@@ -27,6 +29,10 @@
     "unescape": "^1.0.1"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.6",
+    "@graphql-codegen/client-preset": "^4.8.1",
+    "@graphql-codegen/typescript": "^4.1.6",
+    "@graphql-codegen/typescript-operations": "^4.6.1",
     "@types/node": "^22.15.21",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.1",
