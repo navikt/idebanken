@@ -23,3 +23,21 @@ export function commonVariables(path: string) {
         path,
     }
 }
+
+export type CommonType = {
+    get: CommonGet
+    getSite: CommonGetSite
+}
+
+type CommonGet = {
+    displayName: string
+    _id: string
+    type: `${string}:${string}`
+    dataAsJson: JSON
+    xAsJson: JSON
+}
+
+type CommonGetSite = {
+    displayName: string
+    _path: string
+}

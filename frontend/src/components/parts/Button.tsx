@@ -1,19 +1,13 @@
 import React from 'react'
-import {APP_NAME, PartData} from '@enonic/nextjs-adapter';
-import { Button } from "@navikt/ds-react";
-
-// fully qualified XP part name:
-export const HEADING_PART_NAME = `${APP_NAME}:heading`;
+import { PartData } from '@enonic/nextjs-adapter'
+import { Button } from '@navikt/ds-react'
+import { CommonType } from '../queries/common'
 
 export interface ButtonData {
-    part: PartData;
-    common: any;
+    part: PartData
+    common: CommonType
 }
 
-export const ButtonView = ({part, common}: ButtonData) => {
-    return (
-        <Button variant={part?.config?.variant}>
-            {part?.config?.text || '<placeholder>'}
-        </Button>
-    )
-};
+export const ButtonView = ({ part, common }: ButtonData) => {
+    return <Button variant={part?.config?.variant}>{part?.config?.text || '<placeholder>'}</Button>
+}
