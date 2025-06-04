@@ -22,7 +22,7 @@ export const LinkPanelView = ({part}: LinkPanelData) => {
         <LinkPanel 
             href={url} 
             border={false} 
-            className={'bg-pink-base rounded-[100px] py-12 px-12'}>
+            className='bg-pink-base rounded-[100px] py-12 px-12'>
             <LinkPanel.Title className={styles.title}>
             {/* TODO: Lag en løsning som støtter flere ikoner */}
                 <PersonIcon fontSize="2.5rem" />
