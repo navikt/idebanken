@@ -8,6 +8,7 @@ const compat = new FlatCompat({
 const eslintConfig = [
     ...compat.config({
         extends: ['next', 'next/typescript', 'prettier'],
+        ignorePatterns: ['*.d.ts'],
         rules: {
             '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
         },
