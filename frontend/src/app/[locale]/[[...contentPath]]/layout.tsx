@@ -46,6 +46,7 @@ export default async function PageLayout({params, children}: LayoutProps) {
                     title={I18n.localize('idebanken')}
                     logoUrl={getAsset('/images/xp-shield.svg', meta)}
                 />
+                <h1 className="bg-red-base">Id bank black</h1>
                 <main>{children}</main>
                 <Footer/>
             </StaticContent>

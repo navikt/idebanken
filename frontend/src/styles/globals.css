@@ -1,8 +1,30 @@
 @import "tailwindcss";
+@import "@navikt/ds-css" layer(components);
 @config '../../tailwind.config.ts';
 
-
 :root {
+  --ib-black: #121212;
+
+  --ib-red-100: #F9CDD3;
+  --ib-red-200: #F39BA7;
+  --ib-red-300: #EC697A;
+  --ib-red-400: #E6374E;
+  --ib-red-base: #E00522;
+  --ib-red-600: #B3041B;
+  --ib-red-700: #860314;
+  --ib-red-800: #5A020E;
+  --ib-red-900: #2D0107;
+
+  --ib-pink-100: #FFF2F7;
+  --ib-pink-200: #FFE4EF;
+  --ib-pink-300: #FFD7E8;
+  --ib-pink-400: #FFC9E0;
+  --ib-pink-base: #FFBCD8;
+  --ib-pink-600: #CC96AD;
+  --ib-pink-700: #997182;
+  --ib-pink-800: #664B56;
+  --ib-pink-900: #33262B;
+
   --bg-white: #FAFAF9;
   --bg-extra-light-pink: #FFF2F7; 
   --bg-light-pink: #FFE4EF;
