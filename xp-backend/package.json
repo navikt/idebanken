@@ -8,19 +8,20 @@
     "@enonic-types/lib-portal": "7.15.1",
     "@enonic-types/lib-project": "7.15.1",
     "@enonic-types/lib-task": "7.15.1",
+    "@eslint/js": "^9.28.0",
     "@swc/core": "1.11.29",
-    "@typescript-eslint/eslint-plugin": "7.13.0",
     "browser-sync": "3.0.4",
     "concurrently": "8.2.2",
     "esbuild-plugin-globals": "^0.2.0",
     "esbuild-sass-plugin": "^3.3.1",
-    "eslint": "^8",
+    "eslint": "^9.28.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "glob": "10.4.5",
     "prettier": "^3.5.3",
     "rimraf": "5.0.10",
     "sass": "^1.89.1",
-    "tsup": "8.3.5"
+    "tsup": "8.3.5",
+    "typescript-eslint": "^8.33.1"
   },
   "directories": {
     "doc": "docs"
@@ -35,7 +36,7 @@
     "check:types": "concurrently -g -r --timings npm:check:types:*",
     "check:types:server": "npx tsc --noEmit",
     "check:types:static": "npx tsc --noEmit -p src/main/resources/static/tsconfig.json",
-    "lint": "eslint --cache src/main/resources/**/*.ts",
+    "lint": "eslint",
     "minify": "concurrently -c auto -g --timings 'npm:build:sass -- --style compressed' 'npm:build:server -- --minify' 'npm:build:static -- --minify'",
     "watch": "concurrently -c auto npm:watch:*",
     "watch:browserSync": "npx browser-sync start --files \"src/main/resources/**/*.html\" \"src/main/resources/**/*.xml\" \"build/resources/main\" --reload-delay 0 --port 3100 --no-snippet --watch",
