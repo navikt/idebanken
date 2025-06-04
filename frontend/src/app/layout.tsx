@@ -3,7 +3,7 @@ import { draftMode, headers } from 'next/headers'
 import Script from 'next/script'
 
 import '../styles/globals.css'
-import '@navikt/ds-css'
+// import '@navikt/ds-css'
 
 type LayoutProps = {
     children: ReactNode
