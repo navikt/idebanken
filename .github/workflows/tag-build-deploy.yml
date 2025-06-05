@@ -91,6 +91,9 @@ jobs:
     needs: xp-app-build-and-upload
     if: needs.build-and-upload.result == 'success'
     uses: ./.github/workflows/xp-app-download-deploy.yml
+    permissions:
+      contents: 'read'
+      packages: 'read'
     with:
       version: ${{ needs.bump.outputs.version }}
       environment: test

@@ -53,6 +53,9 @@ jobs:
     name: Deploy XP
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      packages: 'read'
     steps:
       - name: 'Get safe working directory'
         id: safe
