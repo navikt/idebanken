@@ -94,6 +94,7 @@ jobs:
     permissions:
       contents: 'read'
       packages: 'read'
+      actions: 'read'
     with:
       version: ${{ needs.bump.outputs.version }}
       environment: test
