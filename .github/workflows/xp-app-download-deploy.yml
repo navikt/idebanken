@@ -12,6 +12,11 @@ on:
         options:
           - test
           - prod
+      version:
+        type: string
+        description: Version of the xp app to deploy. Etc. v1.0.0
+        required: true
+        default: v
       app_directory:
         type: choice
         description: App to deploy. Used by build to postfix the artifact name
