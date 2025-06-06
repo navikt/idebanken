@@ -1,0 +1,2 @@
+external-host: idebanken-xp7prod.enonic.cloud
+ingress: ["https://idebanken.ekstern.prod.nav.no"]

@@ -72,12 +72,15 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    env:
+      CLUSTER: ${{ inputs.environment == 'prod' && 'prod-gcp' || 'dev-gcp' }}
     steps:
       - uses: actions/checkout@v4
       - uses: nais/deploy/actions/deploy@v2
         env:
           DRY_RUN: false
           PRINT_PAYLOAD: true
-          CLUSTER: dev-gcp
-          RESOURCE: frontend/.nais/nais-preprod.yml
-          VAR: image=${{ needs.build-and-push.outputs.image }}
+          CLUSTER: ${{ env.CLUSTER }}
+          WORKLOAD_IMAGE: ${{ needs.build-and-push.outputs.image }}
+          RESOURCE: .nais/frontend.yml
+          VARS: .nais/${{ env.CLUSTER }}/frontend.yml
