@@ -16,6 +16,7 @@ jobs:
     name: Deploy Opensearch instance to cluster
     permissions:
       id-token: write
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
