@@ -81,6 +81,6 @@ jobs:
           DRY_RUN: false
           PRINT_PAYLOAD: true
           CLUSTER: ${{ env.CLUSTER }}
-          WORKLOAD_IMAGE: ${{ needs.build-and-push.outputs.image }}
           RESOURCE: .nais/frontend.yml
+          VAR: image=${{ needs.build-and-push.outputs.image }}
           VARS: .nais/${{ env.CLUSTER }}/frontend.yml
