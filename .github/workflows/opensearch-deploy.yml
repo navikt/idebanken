@@ -17,6 +17,8 @@ jobs:
     permissions:
       id-token: write
     runs-on: ubuntu-latest
+    env:
+      CLUSTER: ${{ inputs.environment == 'prod' && 'prod-gcp' || 'dev-gcp' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,6 +26,6 @@ jobs:
       - name: deploy
         uses: nais/deploy/actions/deploy@v2
         env:
-          CLUSTER: dev-gcp
+          CLUSTER: ${{ env.CLUSTER }}
           RESOURCE: ./nais/opensearch.yml
-          VARS: ./nais/dev-gcp/opensearch.yml
+          VARS: ./nais/${{ env.CLUSTER }}/opensearch.yml
