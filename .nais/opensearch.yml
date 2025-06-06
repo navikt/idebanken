@@ -1,7 +1,7 @@
 apiVersion: aiven.io/v1alpha1
 kind: OpenSearch
 metadata:
-  name: idebanken-opensearch
+  name: opensearch-idebanken-search
   namespace: idebanken
   labels:
     team: idebanken

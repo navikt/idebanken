@@ -26,5 +26,5 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: ${{ inputs.cluster }}
-          RESOURCE: ./nais/opensearch.yml
-          VARS: ./nais/${{ inputs.cluster }}/opensearch.yml
+          RESOURCE: .nais/opensearch.yml
+          VARS: .nais/${{ inputs.cluster }}/opensearch.yml
