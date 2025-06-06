@@ -31,4 +31,4 @@ spec:
   accessPolicy:
     outbound:
       external:
-        - host: {{external_host}}
+        - host: {{external-host}}
