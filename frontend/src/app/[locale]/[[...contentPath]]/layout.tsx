@@ -7,6 +7,9 @@ import {ReactNode} from 'react';
 import Header from '../../../components/views/Header';
 import Footer from '../../../components/views/Footer';
 import {getAsset} from '@enonic/nextjs-adapter';
+import { Button } from '@navikt/ds-react'
+import { Heading } from '@navikt/ds-react';
+
 
 import '../../../styles/globals.css';
 
@@ -46,7 +49,14 @@ export default async function PageLayout({params, children}: LayoutProps) {
                     title={I18n.localize('idebanken')}
                     logoUrl={getAsset('/images/xp-shield.svg', meta)}
                 />
-                <h1 className="bg-red-base">Id bank black</h1>
+                <Heading level="1" size="xlarge">Id bank xlarge</Heading>
+                <Heading level="2" size="large">Id bank large</Heading>
+                <Heading level="3" size="medium">Id bank medium</Heading>
+                <Heading level="4" size="small">Id bank small</Heading>
+                <Heading level="5" size="xsmall">Id bank xsmall</Heading>
+
+                <Button variant="primary">En knapp</Button>
+                <Button variant="secondary">En knapp</Button>
                 <main>{children}</main>
                 <Footer/>
             </StaticContent>
