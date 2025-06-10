@@ -12,6 +12,11 @@ on:
         options:
           - test
           - prod
+      version:
+        type: string
+        description: Version of the xp app to deploy. Etc. v1.0.0
+        required: true
+        default: v
       app_directory:
         type: choice
         description: App to deploy. Used by build to postfix the artifact name
@@ -48,6 +53,10 @@ jobs:
     name: Deploy XP
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      packages: 'read'
+      actions: 'read'
     steps:
       - name: 'Get safe working directory'
         id: safe
@@ -71,6 +80,6 @@ jobs:
           url: ${{ vars.ENONIC_CLI_DEPLOY_URL }}
           username: ${{ vars.ENONIC_CLI_REMOTE_USER }}
           password: ${{ secrets.ENONIC_CLI_REMOTE_PASS }}
-#          client_key: ${{ secrets.ENONIC_CLI_KEY }}
-#          client_cert: ${{ secrets.ENONIC_CLI_CERT }}
+          client_key: ${{ secrets.ENONIC_CLI_KEY }}
+          client_cert: ${{ secrets.ENONIC_CLI_CERT }}
           app_jar: "./*.jar"

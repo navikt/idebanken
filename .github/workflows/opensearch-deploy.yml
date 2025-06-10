@@ -1,0 +1,30 @@
+name: Deploy Opensearch
+on:
+  workflow_dispatch:
+    inputs:
+      cluster:
+        type: choice
+        description: Cluster to deploy to
+        required: true
+        default: dev-gcp
+        options:
+          - dev-gcp
+          - prod-gcp
+
+jobs:
+  deploy-opensearch:
+    name: Deploy Opensearch instance to cluster
+    permissions:
+      id-token: write
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: deploy
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: ${{ inputs.cluster }}
+          RESOURCE: .nais/opensearch.yml
+          VARS: .nais/${{ inputs.cluster }}/opensearch.yml
