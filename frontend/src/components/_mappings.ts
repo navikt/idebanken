@@ -4,7 +4,7 @@ import { commonQuery, commonVariables } from './queries/common'
 import MainPage from './pages/Main'
 
 import '@enonic/nextjs-adapter/baseMappings'
-import Heading from './parts/Heading'
+import HeadingView from './parts/Heading'
 import TwoColumnLayout from './layouts/TwoColumnLayout'
 import { ButtonView } from './parts/Button'
 import { TextEditorView } from './parts/TextEditor'
@@ -39,7 +39,7 @@ ComponentRegistry.addLayout(`${APP_NAME}:panel-2-column`, {
 
 // Part mappings
 ComponentRegistry.addPart(`${APP_NAME}:heading`, {
-    view: Heading,
+    view: HeadingView,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:button`, {

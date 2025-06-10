@@ -1,5 +1,6 @@
 import React from 'react'
 import { APP_NAME, PartData } from '@enonic/nextjs-adapter'
+import { Heading } from '@navikt/ds-react'
 import { CommonType } from '../queries/common'
 
 // fully qualified XP part name:
@@ -10,8 +11,15 @@ export interface HeadingData {
     common: CommonType
 }
 
-const HeadingView = ({ part, common }: HeadingData) => (
-    <h2>{part?.config?.heading || common?.get?.displayName}</h2>
-)
+const HeadingView = ({ part, common }: HeadingData) => { 
+    return (
+        <Heading 
+            level={part?.config?.level || 1}
+            size={part?.config?.size || 'xlarge'}
+            className="font-light">
+                {part?.config?.heading || common?.get?.displayName}
+        </Heading>
+    )
+}
 
 export default HeadingView

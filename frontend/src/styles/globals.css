@@ -1,8 +1,10 @@
 @import "tailwindcss";
 @import "@navikt/ds-css" layer(components);
+@import "@navikt/ds-css" layer(components);
 @config '../../tailwind.config.ts';
 
 :root {
+  /* Colors */
   --ib-black: #121212;
 
   --ib-red-100: #F9CDD3;
@@ -30,7 +32,28 @@
   --bg-light-pink: #FFE4EF;
   --bg-pink: #FFBCD8;
   --bg-dark-blue: #181756;
-  --a-font-family: var(--font-mundial) !important;
+
+  /* Font families */
+  --a-font-family: var(--font-mundial);
+
+  /* Headings */
+  --a-font-size-heading-2xlarge: 4.5rem; /* Display */
+  --a-font-line-height-heading-2xlarge: 5.4rem; /* Display line height*/
+
+  --a-font-size-heading-xlarge: 3.75rem; /* Heading XL */
+  --a-font-line-height-heading-xlarge: 5.625rem; /* Heading XL line height */
+
+  --a-font-size-heading-medium: 3.25rem; /* Heading L */
+  --a-font-line-height-heading-medium: 4rem; /* Heading L line height */
+
+  --a-font-size-heading-small: 2.25rem; /* Heading M */
+  --a-font-line-height-heading-small: 4rem; /* Heading M line height */
+
+  --a-font-size-heading-xsmall: 2rem; /* Heading S */
+  --a-font-line-height-heading-xsmall: 2.625rem; /* Heading S line height */
+
+  /* Radius */
+  --a-border-radius-medium: 60px;
 }
 
 html, body {
@@ -44,11 +67,11 @@ html, body {
     box-sizing: border-box;
 }
 
-h1 {
+/* h1 {
     font-size: 2em;
     margin-block-start: 0.67em;
     margin-block-end: 0.67em;
-}
+} */
 
 hr {
     border-color: darkgray;
