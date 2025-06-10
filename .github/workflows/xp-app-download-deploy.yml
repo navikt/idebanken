@@ -79,6 +79,6 @@ jobs:
           url: ${{ vars.ENONIC_CLI_DEPLOY_URL }}
           username: ${{ vars.ENONIC_CLI_REMOTE_USER }}
           password: ${{ secrets.ENONIC_CLI_REMOTE_PASS }}
-#          client_key: ${{ secrets.ENONIC_CLI_KEY }}
-#          client_cert: ${{ secrets.ENONIC_CLI_CERT }}
+          client_key: ${{ secrets.ENONIC_CLI_KEY }}
+          client_cert: ${{ secrets.ENONIC_CLI_CERT }}
           app_jar: "./*.jar"
