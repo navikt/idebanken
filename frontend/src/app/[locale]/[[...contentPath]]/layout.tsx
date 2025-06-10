@@ -7,8 +7,7 @@ import {ReactNode} from 'react';
 import Header from '../../../components/views/Header';
 import Footer from '../../../components/views/Footer';
 import {getAsset} from '@enonic/nextjs-adapter';
-import { Button } from '@navikt/ds-react'
-import { Heading } from '@navikt/ds-react';
+import { Button, Heading, BodyLong } from '@navikt/ds-react'
 
 
 import '../../../styles/globals.css';
@@ -49,14 +48,16 @@ export default async function PageLayout({params, children}: LayoutProps) {
                     title={I18n.localize('idebanken')}
                     logoUrl={getAsset('/images/xp-shield.svg', meta)}
                 />
-                <Heading level="1" size="xlarge">Id bank xlarge</Heading>
-                <Heading level="2" size="large">Id bank large</Heading>
-                <Heading level="3" size="medium">Id bank medium</Heading>
-                <Heading level="4" size="small">Id bank small</Heading>
-                <Heading level="5" size="xsmall">Id bank xsmall</Heading>
+                {/* <Heading level="1" size="xlarge" className="font-light">Id bank xlarge</Heading>
+                <Heading level="2" size="large" className="font-light">Id bank large</Heading>
+                <Heading level="3" size="medium" className="font-light">Id bank medium</Heading>
+                <Heading level="4" size="small" className="font-light">Id bank small</Heading>
+                <Heading level="5" size="xsmall" className="font-light">Id bank xsmall</Heading>
 
                 <Button variant="primary">En knapp</Button>
                 <Button variant="secondary">En knapp</Button>
+                <BodyLong>The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog.</BodyLong> */}
+
                 <main>{children}</main>
                 <Footer/>
             </StaticContent>

@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        mundial: "var(--font-mundial)",
+      },
       colors: {
         black: 'var(--ib-black)',
         'red-100': 'var(--ib-red-100)',
