@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <part xmlns="urn:enonic:xp:model:1.0">
     <display-name>Button</display-name>
-    <description>NAV button</description>
+    <!-- <description>NAV button</description> -->
     <form>
         <input type="TextLine" name="text">
             <label>Button text</label>
@@ -22,7 +22,7 @@
             <config>
                 <option value="medium">Medium</option>  
                 <option value="small">Small</option>
-                <option value="xsmall">Xsmall</option>
+                <option value="xsmall">XSmall</option>
             </config>
             <default>medium</default>  
         </input>

@@ -926,6 +926,7 @@ export type Part_Idebanken_Accordion_AccordionItemSimpleTextEditorArgs = {
 export type Part_Idebanken_Button = {
   __typename?: 'Part_idebanken_button';
   myhtmlarea?: Maybe<RichText>;
+  size?: Maybe<Scalars['String']['output']>;
   text?: Maybe<Scalars['String']['output']>;
   variant?: Maybe<Scalars['String']['output']>;
 };
@@ -965,7 +966,9 @@ export type Part_Idebanken_Double_Info_Box_InfoboxSimpleTextEditorArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['heading'] */
 export type Part_Idebanken_Heading = {
   __typename?: 'Part_idebanken_heading';
-  heading?: Maybe<Scalars['String']['output']>;
+  level?: Maybe<Scalars['String']['output']>;
+  size?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['info-box'] */
