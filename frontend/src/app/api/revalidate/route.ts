@@ -1,6 +1,6 @@
 import { revalidatePath } from 'next/cache'
 import { NextRequest } from 'next/server'
-import { validateToken } from '../../../utils'
+import { validateToken } from '../../../utils/utils'
 
 export async function GET(req: NextRequest) {
     const params = req.nextUrl.searchParams

@@ -1,7 +1,7 @@
 import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { NextRequest } from 'next/server'
-import { validatePath, validateToken } from '../../../utils'
+import { validatePath, validateToken } from '../../../utils/utils'
 
 export function HEAD(req: NextRequest) {
     return processRequest(req)

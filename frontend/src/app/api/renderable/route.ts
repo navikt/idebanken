@@ -4,7 +4,7 @@ import { fetchContent } from '@enonic/nextjs-adapter/server'
 // Register component mappings
 import '../../../components/_mappings'
 import { NextRequest } from 'next/server'
-import { validatePath, validateToken } from '../../../utils'
+import { validatePath, validateToken } from '../../../utils/utils'
 
 export function HEAD(req: NextRequest) {
     return processRequest(req)
