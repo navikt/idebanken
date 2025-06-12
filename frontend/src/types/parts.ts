@@ -7,3 +7,11 @@ export const headingConfigSchema = object({
 })
 
 export type HeadingConfig = InferOutput<typeof headingConfigSchema>
+
+export const buttonConfigSchema = object({
+  variant: picklist(['primary', 'secondary', 'tertiary']),
+  size: picklist(['medium', 'small', 'xsmall']),
+  text: nullable(string()),
+})
+
+export type ButtonConfig = InferOutput<typeof buttonConfigSchema>

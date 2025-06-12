@@ -6,7 +6,7 @@
         <input type="TextLine" name="text">
             <label>Button text</label>
         </input>
-        <input type="RadioButton" name="variant">
+        <input type="ComboBox" name="variant">
             <label>Button variant</label>
             <occurrences minimum="1" maximum="1"/>  
             <config>
@@ -16,7 +16,7 @@
             </config>
             <default>primary</default>  
         </input>
-        <input type="RadioButton" name="size">
+        <input type="ComboBox" name="size">
             <label>Button size</label>
             <occurrences minimum="1" maximum="1"/>  
             <config>
@@ -25,15 +25,6 @@
                 <option value="xsmall">XSmall</option>
             </config>
             <default>medium</default>  
-        </input>
-        <input name="myhtmlarea" type="HtmlArea">
-            <label>My HtmlArea</label>
-            <default><h3>Enter description here</h3></default> 
-            <config>
-                <exclude>*</exclude>  
-                <include>JustifyLeft JustifyRight | Bold Italic</include>  
-                <allowHeadings>h2 h4 h6</allowHeadings>
-            </config>
         </input>
     </form>
 </part>
