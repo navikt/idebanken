@@ -1,23 +1,23 @@
-import React from 'react'
-import { APP_NAME, PartData } from '@enonic/nextjs-adapter'
 import { Heading } from '@navikt/ds-react'
 import { CommonType } from '../queries/common'
-
-// fully qualified XP part name:
-export const HEADING_PART_NAME = `${APP_NAME}:heading`
+import { Part_Idebanken_Heading } from '~/types/generated.d'
+import useValidatedHeadingConfig from '~/hooks/useValidatedHeadingConfig'
 
 export interface HeadingData {
-    part: PartData
+    part: { descriptor: string, config: Part_Idebanken_Heading }
     common: CommonType
 }
 
 const HeadingView = ({ part, common }: HeadingData) => { 
+    const config = useValidatedHeadingConfig(part.config)
+
     return (
         <Heading 
-            level={part?.config?.level || 1}
-            size={part?.config?.size || 'xlarge'}
-            className="font-light">
-                {part?.config?.heading || common?.get?.displayName}
+            level={config.level}
+            size={config.size}
+            className="font-light"
+        >
+            {config.text || common?.get?.displayName}
         </Heading>
     )
 }

@@ -305,6 +305,7 @@ export type ExtraData = {
   __typename?: 'ExtraData';
   base?: Maybe<XData_Base_ApplicationConfig>;
   com_enonic_app_metafields?: Maybe<XData_Com_Enonic_App_Metafields_ApplicationConfig>;
+  idebanken?: Maybe<XData_Idebanken_ApplicationConfig>;
   media?: Maybe<XData_Media_ApplicationConfig>;
 };
 
@@ -724,6 +725,14 @@ export type MacroConfig = {
   __typename?: 'MacroConfig';
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
+  filmography?: Maybe<Macro_Idebanken_Filmography_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['filmography'] */
+export type Macro_Idebanken_Filmography_DataConfig = {
+  __typename?: 'Macro_idebanken_filmography_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
+  heading?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['system'] and descriptor ['disable'] */
@@ -1333,6 +1342,34 @@ export type XData_Com_Enonic_App_Metafields_Meta_Data_DataConfig = {
   seoDescription?: Maybe<Scalars['String']['output']>;
   seoImage?: Maybe<Content>;
   seoTitle?: Maybe<Scalars['String']['output']>;
+};
+
+/** XDataApplicationConfig for application ['idebanken'] */
+export type XData_Idebanken_ApplicationConfig = {
+  __typename?: 'XData_idebanken_ApplicationConfig';
+  SoMe?: Maybe<XData_Idebanken_SoMe_DataConfig>;
+  spotlight?: Maybe<XData_Idebanken_Spotlight_DataConfig>;
+};
+
+/** Extra data config for application ['idebanken}'] and descriptor ['SoMe'] */
+export type XData_Idebanken_SoMe_DataConfig = {
+  __typename?: 'XData_idebanken_SoMe_DataConfig';
+  imdb?: Maybe<Scalars['String']['output']>;
+  instagram?: Maybe<Scalars['String']['output']>;
+  twitter?: Maybe<Scalars['String']['output']>;
+};
+
+/** Extra data config for application ['idebanken}'] and descriptor ['spotlight'] */
+export type XData_Idebanken_Spotlight_DataConfig = {
+  __typename?: 'XData_idebanken_spotlight_DataConfig';
+  person?: Maybe<Array<Maybe<Content>>>;
+};
+
+
+/** Extra data config for application ['idebanken}'] and descriptor ['spotlight'] */
+export type XData_Idebanken_Spotlight_DataConfigPersonArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** XDataApplicationConfig for application ['media'] */

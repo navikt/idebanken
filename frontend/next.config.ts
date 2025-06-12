@@ -12,6 +12,7 @@ function getEnonicWebpackConfig(config: NextConfig) {
   config.resolve.alias = {
     ...config.resolve.alias,
     "@phrases": path.resolve(__dirname, "./src/phrases"),
+    "~": path.resolve(__dirname, "./src")
   };
   return config;
 }
