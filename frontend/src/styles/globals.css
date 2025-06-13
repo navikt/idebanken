@@ -27,11 +27,13 @@
   --ib-pink-800: #664B56;
   --ib-pink-900: #33262B;
 
+  /* Old colors */
   --bg-white: #FAFAF9;
   --bg-extra-light-pink: #FFF2F7; 
   --bg-light-pink: #FFE4EF;
   --bg-pink: #FFBCD8;
   --bg-dark-blue: #181756;
+  /* End old colors */
 
   /* Font families */
   --a-font-family: var(--font-mundial);
@@ -56,6 +58,13 @@
   --a-border-radius-medium: 60px;
 }
 
+/* NB: Is used in buttons text */
+.navds-label {
+  font-weight: var(--a-font-weight-regular);
+}
+
+
+/* Old styles */
 html, body {
   padding: 0;
   margin: 0;
