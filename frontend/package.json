@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@enonic/nextjs-adapter": "^3.2.2",
-    "@navikt/ds-css": "^7.22.0",
-    "@navikt/ds-react": "^7.22.0",
+    "@navikt/ds-css": "^7.23.0",
+    "@navikt/ds-react": "^7.23.0",
     "@tailwindcss/postcss": "^4.1.7",
     "classnames": "^2.5.1",
     "cross-env": "^7.0.3",

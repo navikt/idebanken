@@ -12,6 +12,8 @@ export default {
       },
       colors: {
         black: 'var(--ib-black)',
+        'brand-black': 'var(--ib-brand-black)',
+        
         'red-100': 'var(--ib-red-100)',
         'red-200': 'var(--ib-red-200)',
         'red-300': 'var(--ib-red-300)',

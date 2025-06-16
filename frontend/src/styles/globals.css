@@ -6,6 +6,7 @@
 :root {
   /* Colors */
   --ib-black: #121212;
+  --ib-brand-black: #201F1F;
 
   --ib-red-100: #F9CDD3;
   --ib-red-200: #F39BA7;
@@ -37,6 +38,10 @@
 
   /* Font families */
   --a-font-family: var(--font-mundial);
+
+  /* Text sizes */
+  --a-font-size-large: 1.5rem; /* Body Base & Body Thin */
+  --a-font-line-height-xlarge: 2.25rem; /* Body Base & Body Thin */
 
   /* Headings */
   --a-font-size-heading-2xlarge: 4.5rem; /* Display */

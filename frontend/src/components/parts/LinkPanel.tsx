@@ -4,8 +4,6 @@ import { PartData } from '@enonic/nextjs-adapter';
 import { LinkPanel } from "@navikt/ds-react";
 import styles from './LinkPanel.module.css';
 import { PersonIcon } from '@navikt/aksel-icons';
-import cn from 'classnames';
-
 
 export interface LinkPanelData {
     part: PartData;
