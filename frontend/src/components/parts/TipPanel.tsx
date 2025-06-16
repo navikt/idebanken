@@ -1,7 +1,6 @@
 import React from 'react'
 import { PartData } from '@enonic/nextjs-adapter';
-import { ParsedHtml } from '../common/ParsedHtml';
-import { InfoBox } from '../common/InfoBox';
+import { parseHtml } from '~/utils/parseHtml';
 import styles from './TipPanel.module.css';
 import { Heading } from '@navikt/ds-react';
 import classNames from 'classnames';
@@ -20,11 +19,8 @@ export const TipPanelView = (props: TipPanelData) => {
         reverse = false
     } = part.config
 
-    console.log(panel)
     const [ card1, card2 ] = Array.isArray(panel) ? panel : [panel];
     
-    console.log({card1, card2})
-
     return (
         <div className={classNames(styles.panel, bgColor)}>
             <div className={styles.heading}>
@@ -34,14 +30,14 @@ export const TipPanelView = (props: TipPanelData) => {
                 className={classNames(styles.card1, reverse && styles.reverse)}
                 bgColorClass={card1.bgColor}
             >
-                <ParsedHtml processedHtml={card1?.simpleTextEditor} />
+                <>{parseHtml(card1?.simpleTextEditor)}</>
             </Card>
             { card2 && 
                 <Card 
                     className={classNames(styles.card2, card2.bgColor, reverse && styles.reverse)}
                     bgColorClass={card2.bgColor}
                 >
-                    <ParsedHtml processedHtml={card2?.simpleTextEditor} />
+                    <>{parseHtml(card2?.simpleTextEditor)}</>
                 </Card>
             }
         </div>

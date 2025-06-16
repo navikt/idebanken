@@ -1,6 +1,6 @@
 import React from 'react'
 import { PartData } from '@enonic/nextjs-adapter';
-import { ParsedHtml } from '../common/ParsedHtml';
+import { parseHtml } from '~/utils/parseHtml';
 import { InfoBox } from '../common/InfoBox';
 
 export interface InfoBoxData {
@@ -12,7 +12,7 @@ export const InfoBoxView = (props: InfoBoxData) => {
 
     return (
         <InfoBox bgColorClass={part.config?.bgColor}>
-            <ParsedHtml processedHtml={part.config?.simpleTextEditor} />
+            <>{parseHtml(part.config?.simpleTextEditor)}</>
         </InfoBox>
     );
 };
