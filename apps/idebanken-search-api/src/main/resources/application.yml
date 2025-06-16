@@ -1,0 +1,18 @@
+opensearch:
+  uris: ${OPEN_SEARCH_URI}
+  username: ${OPEN_SEARCH_USERNAME}
+  password: ${OPEN_SEARCH_PASSWORD}
+  page-size: ${FULL_SEARCH_PAGE_SIZE:20}
+  decorator-page-size: ${DECORATOR_SEARCH_PAGE_SIZE:5}
+
+spring:
+  jackson:
+    serialization:
+      indent-output: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,health
+      base-path: /internal

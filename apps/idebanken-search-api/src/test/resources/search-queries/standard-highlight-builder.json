@@ -1,0 +1,146 @@
+{
+  "pre_tags": [
+    "<b>"
+  ],
+  "post_tags": [
+    "</b>"
+  ],
+  "highlight_query": {
+    "bool": {
+      "filter": [
+        {
+          "multi_match": {
+            "query": "søketerm",
+            "fields": [
+              "allText.en^1.0",
+              "allText.no^1.0",
+              "allText.other^1.0",
+              "ingress.en.ngrams^1.0",
+              "ingress.no.ngrams^1.0",
+              "ingress.other.ngrams^1.0",
+              "title.en.ngrams^1.0",
+              "title.no.ngrams^1.0",
+              "title.other.ngrams^1.0"
+            ],
+            "type": "best_fields",
+            "operator": "AND",
+            "slop": 0,
+            "fuzziness": "AUTO:6,8",
+            "prefix_length": 0,
+            "max_expansions": 50,
+            "zero_terms_query": "NONE",
+            "auto_generate_synonyms_phrase_query": true,
+            "fuzzy_transpositions": true,
+            "boost": 1.0
+          }
+        }
+      ],
+      "should": [
+        {
+          "dis_max": {
+            "tie_breaker": 0.0,
+            "queries": [
+              {
+                "multi_match": {
+                  "query": "søketerm",
+                  "fields": [
+                    "ingress.en^3.0",
+                    "ingress.no^3.0",
+                    "ingress.other^3.0",
+                    "text.en^0.01",
+                    "text.no^0.01",
+                    "text.other^0.01",
+                    "title.en^12.0",
+                    "title.no^12.0",
+                    "title.other^12.0"
+                  ],
+                  "type": "best_fields",
+                  "operator": "OR",
+                  "slop": 0,
+                  "fuzziness": "AUTO:6,8",
+                  "prefix_length": 0,
+                  "max_expansions": 50,
+                  "zero_terms_query": "NONE",
+                  "auto_generate_synonyms_phrase_query": true,
+                  "fuzzy_transpositions": true,
+                  "boost": 1.0
+                }
+              },
+              {
+                "multi_match": {
+                  "query": "søketerm",
+                  "fields": [
+                    "ingress.en.ngrams^3.0",
+                    "ingress.no.ngrams^3.0",
+                    "ingress.other.ngrams^3.0",
+                    "title.en.ngrams^11.5",
+                    "title.no.ngrams^11.5",
+                    "title.other.ngrams^11.5"
+                  ],
+                  "type": "best_fields",
+                  "operator": "AND",
+                  "slop": 0,
+                  "prefix_length": 0,
+                  "max_expansions": 50,
+                  "zero_terms_query": "NONE",
+                  "auto_generate_synonyms_phrase_query": true,
+                  "fuzzy_transpositions": true,
+                  "boost": 1.0
+                }
+              }
+            ],
+            "boost": 1.0
+          }
+        }
+      ],
+      "adjust_pure_negative": true,
+      "boost": 1.0
+    }
+  },
+  "fields": {
+    "title.no": {
+      "fragment_size": 100,
+      "number_of_fragments": 0
+    },
+    "title.en": {
+      "fragment_size": 100,
+      "number_of_fragments": 0
+    },
+    "title.other": {
+      "fragment_size": 100,
+      "number_of_fragments": 0
+    },
+    "ingress.no": {
+      "fragment_size": 100,
+      "number_of_fragments": 0
+    },
+    "ingress.en": {
+      "fragment_size": 100,
+      "number_of_fragments": 0
+    },
+    "ingress.other": {
+      "fragment_size": 100,
+      "number_of_fragments": 0
+    },
+    "ingress.no.ngrams": {
+      "fragment_size": 100,
+      "number_of_fragments": 0
+    },
+    "text.no": {
+      "fragment_size": 200,
+      "number_of_fragments": 1
+    },
+    "text.en": {
+      "fragment_size": 200,
+      "number_of_fragments": 1
+    },
+    "text.other": {
+      "fragment_size": 200,
+      "number_of_fragments": 1
+    },
+    "text.no.ngrams": {
+      "fragment_size": 200,
+      "number_of_fragments": 1
+    }
+  }
+}

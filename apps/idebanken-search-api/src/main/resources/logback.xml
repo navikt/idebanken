@@ -1,0 +1,16 @@
+<configuration>
+
+    <springProfile name="local">
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    </springProfile>
+
+    <springProfile name="default">
+        <appender name="stdout_json" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+        </appender>
+        <root level="info">
+            <appender-ref ref="stdout_json"/>
+        </root>
+    </springProfile>
+
+</configuration>
