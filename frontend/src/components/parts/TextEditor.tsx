@@ -1,10 +1,7 @@
-import { PartData } from '@enonic/nextjs-adapter'
 import { parseHtml } from '~/utils/parseHtml'
-import { CommonType } from '../queries/common'
 
 export interface TextEditorData {
-    part: PartData
-    common: CommonType
+    part: { descriptor: string, config: { simpleTextEditor: string} }
 }
 
 export const TextEditorView = (props: TextEditorData) => {
