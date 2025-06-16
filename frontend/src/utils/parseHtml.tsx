@@ -2,7 +2,7 @@ import parse, { domToReact, HTMLReactParserOptions, Element, DOMNode } from 'htm
 import { BodyLong, Heading } from '@navikt/ds-react'
 import { List, ListItem } from '@navikt/ds-react/List'
 
-export function parseHtml(html: string) {
+export function parseHtml(html: string) {    
     const options: HTMLReactParserOptions = {
         replace: (domNode) => {
             if (domNode.type === 'tag') {

@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import { PartData } from '@enonic/nextjs-adapter';
-import { ParsedHtml } from '../common/ParsedHtml';
+import { parseHtml } from '~/utils/parseHtml';
 import { InfoBox } from '../common/InfoBox';
 import styles from './Accordion.module.css';
 import { Accordion, Heading } from '@navikt/ds-react';
@@ -33,7 +33,7 @@ export const AccordionView = (props: AccordionData) => {
                     <Accordion.Item key={crypto.randomUUID()} className={classNames(bgColor, styles.item)}>
                         <Accordion.Header className={styles.header}>{ item.header || 'Mangler header' }</Accordion.Header>
                         <Accordion.Content>
-                            <ParsedHtml processedHtml={item.simpleTextEditor}></ParsedHtml>
+                            <>{parseHtml(item.simpleTextEditor)}</>
                         </Accordion.Content>
                     </Accordion.Item>
                 )

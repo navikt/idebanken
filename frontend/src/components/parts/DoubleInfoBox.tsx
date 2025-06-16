@@ -1,6 +1,6 @@
 import React from 'react'
 import { PartData } from '@enonic/nextjs-adapter';
-import { ParsedHtml } from '../common/ParsedHtml';
+import { parseHtml } from '~/utils/parseHtml';
 import { InfoBox } from '../common/InfoBox';
 import styles from './DoubleInfoBox.module.css';
 
@@ -19,10 +19,10 @@ export const DoubleInfoBoxView = (props: DoubleInfoBoxData) => {
     return (
         <div className={styles.wrapper}>
             <InfoBox bgColorClass={infoBox1.bgColor}>
-                <ParsedHtml processedHtml={infoBox1?.simpleTextEditor} />
+                <>{parseHtml(infoBox1?.simpleTextEditor)}</>
             </InfoBox>
             <InfoBox  bgColorClass={infoBox2.bgColor}>
-                <ParsedHtml processedHtml={infoBox2?.simpleTextEditor} />
+                <>{parseHtml(infoBox1?.simpleTextEditor)}</>
             </InfoBox>
         </div>
     )
