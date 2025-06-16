@@ -60,7 +60,9 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
 
     return (
         <html lang={resolvedParams.locale ?? 'no'} className={mundial.variable}>
-            <body {...bodyAttrs}>{children}</body>
+            <body {...bodyAttrs}>
+                {children}
+            </body>
         </html>
     )
 }

@@ -1,10 +1,6 @@
-import React from 'react'
-import { APP_NAME, PartData } from '@enonic/nextjs-adapter'
-import { ParsedHtml } from '../common/ParsedHtml'
+import { PartData } from '@enonic/nextjs-adapter'
+import { parseHtml } from '~/utils/parseHtml'
 import { CommonType } from '../queries/common'
-
-// fully qualified XP part name:
-export const TEXT_EDITOR_PART_NAME = `${APP_NAME}:text-editor`
 
 export interface TextEditorData {
     part: PartData
@@ -12,7 +8,8 @@ export interface TextEditorData {
 }
 
 export const TextEditorView = (props: TextEditorData) => {
-    const { part, common } = props
+    const { part } = props
+    const html = part.config?.simpleTextEditor ?? ''
 
-    return <ParsedHtml processedHtml={part.config?.simpleTextEditor} />
+    return <>{parseHtml(html)}</>
 }
