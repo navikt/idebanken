@@ -889,6 +889,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   button?: Maybe<Part_Idebanken_Button>;
   double_info_box?: Maybe<Part_Idebanken_Double_Info_Box>;
   heading?: Maybe<Part_Idebanken_Heading>;
+  image?: Maybe<Part_Idebanken_Image>;
   info_box?: Maybe<Part_Idebanken_Info_Box>;
   link_panel?: Maybe<Part_Idebanken_Link_Panel>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
@@ -962,6 +963,12 @@ export type Part_Idebanken_Heading = {
   level?: Maybe<Scalars['String']['output']>;
   size?: Maybe<Scalars['String']['output']>;
   text?: Maybe<Scalars['String']['output']>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['image'] */
+export type Part_Idebanken_Image = {
+  __typename?: 'Part_idebanken_image';
+  image?: Maybe<Content>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['info-box'] */

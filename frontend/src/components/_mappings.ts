@@ -1,6 +1,6 @@
-import { CATCH_ALL, ComponentRegistry, APP_NAME } from '@enonic/nextjs-adapter'
-import PropsView from '@enonic/nextjs-adapter/views/PropsView'
+import { APP_NAME, ComponentRegistry } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
+import { imageQuery } from './queries/parts'
 import MainPage from './pages/Main'
 
 import '@enonic/nextjs-adapter/baseMappings'
@@ -13,6 +13,7 @@ import { DoubleInfoBoxView } from './parts/DoubleInfoBox'
 import SingleColumnLayout from './layouts/SingleColumnLayout'
 import { TipPanelView } from './parts/TipPanel'
 import { AccordionView } from './parts/Accordion'
+import { ImageView } from './parts/Image'
 import PanelLayoutTwoColumn from './layouts/PanelLayoutTwoColumn'
 import { LinkPanelView } from './parts/LinkPanel'
 
@@ -46,6 +47,11 @@ ComponentRegistry.addPart(`${APP_NAME}:button`, {
     view: ButtonView,
 })
 
+ComponentRegistry.addPart(`${APP_NAME}:image`, {
+    view: ImageView,
+    configQuery: imageQuery,
+})
+
 ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
     view: TextEditorView,
 })
@@ -70,16 +76,3 @@ ComponentRegistry.addPart(`${APP_NAME}:link-panel`, {
     view: LinkPanelView,
 })
 
-// ComponentRegistry.addPart(`${APP_NAME}:image`, {
-//     view: ImageView,
-//     query: {
-//         fields: {
-//             image: 'data:image',
-//         },
-//     },
-// })
-
-// Debug
-// ComponentRegistry.addContentType(CATCH_ALL, {
-//     view: PropsView
-// });
