@@ -2,6 +2,7 @@ plugins {
     id 'maven-publish'
     id 'com.enonic.xp.app' version '3.4.0'
     id 'com.github.node-gradle.node' version '7.0.2'
+    id 'no.item.xp.codegen' version '2.7.0'
 }
 
 app {
@@ -17,9 +18,12 @@ dependencies {
     include "com.enonic.xp:lib-content:${xpVersion}"
     include "com.enonic.xp:lib-context:${xpVersion}"
     include "com.enonic.xp:lib-export:${xpVersion}"
+    include "com.enonic.xp:lib-event:${xpVersion}"
+    include "com.enonic.xp:lib-node:${xpVersion}"
     include "com.enonic.xp:lib-portal:${xpVersion}"
     include "com.enonic.xp:lib-project:${xpVersion}"
     include "com.enonic.xp:lib-task:${xpVersion}"
+    include "com.enonic.lib:lib-http-client:3.2.2"
     include "com.enonic.lib:lib-thymeleaf:2.1.1"
 }
 
@@ -96,3 +100,5 @@ processResources {
     exclude '**/*.ts'
     exclude '**/*.tsx'
 }
+
+processResources.dependsOn(generateTypeScript)

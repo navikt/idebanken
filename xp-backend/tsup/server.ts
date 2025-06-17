@@ -24,7 +24,7 @@ export default function buildServerConfig(): Options {
 
             options.mainFields = ['module', 'main']
         },
-        external: ['/lib/enonic/static', '/lib/thymeleaf', /^\/lib\/xp\//],
+        external: ['/lib/enonic/static', '/lib/thymeleaf', '/lib/http-client', /^\/lib\/xp\//],
         format: 'cjs',
 
         minify: false, // Minifying server files makes debugging harder
