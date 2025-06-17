@@ -1,4 +1,4 @@
-import * as contextLib from '/lib/xp/context';
+import * as contextLib from '/lib/xp/context'
 
 // Note: the file/line arguments are injected at build-time via babel plugin and should not be set manually
 // Remember to update the plugin if you make any changes to affected functions
@@ -6,7 +6,7 @@ import * as contextLib from '/lib/xp/context';
 // See also babel-logger-transformer.js
 
 // Includes custom loglevel 'critical' which uses log.error()
-type LogLevel = 'info' | 'warning' | 'error' | 'critical';
+type LogLevel = 'info' | 'warning' | 'error' | 'critical'
 
 const formatMsg = (
     msg: string,
@@ -15,11 +15,10 @@ const formatMsg = (
     line = '',
     isEditorialError?: boolean
 ) => {
-    const filename = file.split(':')[1];
-    return `(${filename} [${line}])${level === 'critical' ? ' [critical]' : ''}${
+    return `(${file} [${line}])${level === 'critical' ? ' [critical]' : ''}${
         isEditorialError ? ' [editorial]' : ''
-    } ${msg}`;
-};
+    } ${msg}`
+}
 
 const checkContextAndLog = (
     customLevel: LogLevel,
@@ -33,10 +32,10 @@ const checkContextAndLog = (
         logAsInfoInDraftContext && contextLib.get()?.branch === 'draft'
             ? 'info'
             : customLevel === 'critical'
-            ? 'error'
-            : customLevel;
-    log[level](formatMsg(msg, customLevel, file, line, content));
-};
+              ? 'error'
+              : customLevel
+    log[level](formatMsg(msg, customLevel, file, line, content))
+}
 
 const logInfo = (
     msg: string,
@@ -45,8 +44,8 @@ const logInfo = (
     file?: never,
     line?: never
 ) => {
-    log.info(formatMsg(msg, 'info', file as unknown as string, line as unknown as string));
-};
+    log.info(formatMsg(msg, 'info', file as unknown as string, line as unknown as string))
+}
 
 const logWarning = (
     msg: string,
@@ -62,8 +61,8 @@ const logWarning = (
         line as unknown as string,
         logAsInfoInDraftContext,
         content
-    );
-};
+    )
+}
 
 const logError = (
     msg: string,
@@ -79,8 +78,8 @@ const logError = (
         line as unknown as string,
         logAsInfoInDraftContext,
         content
-    );
-};
+    )
+}
 
 const logCriticalError = (
     msg: string,
@@ -96,12 +95,12 @@ const logCriticalError = (
         line as unknown as string,
         logAsInfoInDraftContext,
         content
-    );
-};
+    )
+}
 
 export const logger = {
     info: logInfo,
     warning: logWarning,
     error: logError,
     critical: logCriticalError,
-};
+}

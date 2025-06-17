@@ -4,15 +4,15 @@
     "@enonic-types/lib-cluster": "7.15.1",
     "@enonic-types/lib-content": "7.15.1",
     "@enonic-types/lib-context": "7.15.1",
-    "@enonic-types/lib-export": "7.15.1",
     "@enonic-types/lib-event": "7.15.1",
+    "@enonic-types/lib-export": "7.15.1",
     "@enonic-types/lib-node": "7.15.1",
     "@enonic-types/lib-portal": "7.15.1",
     "@enonic-types/lib-project": "7.15.1",
     "@enonic-types/lib-task": "7.15.1",
+    "@eslint/js": "^9.28.0",
     "@item-enonic-types/global": "7.15.0",
     "@item-enonic-types/lib-http-client": "3.2.2",
-    "@eslint/js": "^9.28.0",
     "@swc/core": "1.11.29",
     "browser-sync": "3.0.4",
     "concurrently": "8.2.2",
@@ -69,5 +69,11 @@
   "engines": {
     "node": ">= 20.10.0",
     "npm": ">= 10.2.3"
+  },
+  "dependencies": {
+    "@babel/generator": "^7.27.5",
+    "@babel/parser": "^7.27.5",
+    "@babel/traverse": "^7.27.4",
+    "@babel/types": "^7.27.6"
   }
 }

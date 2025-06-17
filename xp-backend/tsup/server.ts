@@ -1,6 +1,7 @@
 import type { Options } from '.'
 import { globSync } from 'glob'
 import { DIR_SRC, DIR_SRC_ASSETS, DIR_SRC_STATIC } from './constants'
+import { loggerInjectPlugin } from '../logger-inject-plugin'
 
 export default function buildServerConfig(): Options {
     const GLOB_EXTENSIONS_SERVER = '{ts,js}'
@@ -18,6 +19,7 @@ export default function buildServerConfig(): Options {
         env: {
             BROWSER_SYNC_PORT: '3100',
         },
+        esbuildPlugins: [loggerInjectPlugin()],
         esbuildOptions(options, _context) {
             // If you have libs with chunks, use this to avoid collisions
             options.chunkNames = '_chunks/[name]-[hash]'
