@@ -1,5 +1,5 @@
 import parse, { domToReact, HTMLReactParserOptions, Element, DOMNode } from 'html-react-parser'
-import { BodyLong, Heading } from '@navikt/ds-react'
+import { BodyLong, Heading, Link } from '@navikt/ds-react'
 import { List, ListItem } from '@navikt/ds-react/List'
 
 export function parseHtml(html: string) {    
@@ -28,10 +28,19 @@ export function parseHtml(html: string) {
                         return <List as="ol">{domToReact(el.children as DOMNode[], options)}</List>
                     case 'li':
                         return <ListItem className="text-brand-black font-light">{domToReact(el.children as DOMNode[], options)}</ListItem>
-                    // Add more mappings as needed
-                }
+                    case 'a': {
+                        const href = el.attribs?.href || '#'
+                        return (
+                            <Link href={href} target={el.attribs?.target} rel={el.attribs?.rel}>
+                                {domToReact(el.children as DOMNode[], options)}
+                            </Link>
+                        )
+                    }
+                }          
+                // Add more mappings as needed
             }
         }
     }
+    
     return parse(html, options)
 }

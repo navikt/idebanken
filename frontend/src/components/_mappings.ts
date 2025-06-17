@@ -70,6 +70,15 @@ ComponentRegistry.addPart(`${APP_NAME}:link-panel`, {
     view: LinkPanelView,
 })
 
+// ComponentRegistry.addPart(`${APP_NAME}:image`, {
+//     view: ImageView,
+//     query: {
+//         fields: {
+//             image: 'data:image',
+//         },
+//     },
+// })
+
 // Debug
 // ComponentRegistry.addContentType(CATCH_ALL, {
 //     view: PropsView

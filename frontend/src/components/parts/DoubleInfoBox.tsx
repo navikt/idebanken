@@ -8,7 +8,7 @@ export interface DoubleInfoBoxData {
     part: PartData;
 }
 
-// Note: It's probably better to add a flex:row option to layouts,, but this is currently the only part requiring it
+// Note: It's probably better to add a flex:row option to layouts, but this is currently the only part requiring it
 export const DoubleInfoBoxView = (props: DoubleInfoBoxData) => {
     const {part} = props;
 
