@@ -1,5 +1,4 @@
-import { CATCH_ALL, ComponentRegistry, APP_NAME } from '@enonic/nextjs-adapter'
-import PropsView from '@enonic/nextjs-adapter/views/PropsView'
+import { APP_NAME, ComponentRegistry } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
 import MainPage from './pages/Main'
 
@@ -44,6 +43,22 @@ ComponentRegistry.addPart(`${APP_NAME}:heading`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:button`, {
     view: ButtonView,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:image`, {
+    view: AccordionView,
+    configQuery: `
+         {
+            image {
+              ... on media_Image {
+                imageUrl(type: absolute, scale: "block(1200,627)")
+                data {
+                  altText
+                }
+              }
+            }
+        }
+    `,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {

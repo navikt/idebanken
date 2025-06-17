@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Bilde</display-name>
+    <description>Brukes for å vise et bilde</description>
+    <form>
+        <input name="image" type="ImageSelector">
+            <label>Velg et bilde</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+    </form>
+</part>

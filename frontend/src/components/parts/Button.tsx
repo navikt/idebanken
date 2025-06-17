@@ -5,7 +5,7 @@ import { Part_Idebanken_Button } from '~/types/generated.d'
 import { validatedButtonConfig } from '~/utils/runtimeValidation'
 
 export interface ButtonData {
-    part: { descriptor: string, config: Part_Idebanken_Button }
+    part: { descriptor: string; config: Part_Idebanken_Button }
     common: CommonType
 }
 
@@ -14,10 +14,7 @@ export const ButtonView = ({ part }: ButtonData) => {
     if (!config) return null
 
     return (
-        <Button 
-            variant={config.variant}
-            size={config.size}
-        >
+        <Button variant={config.variant} size={config.size}>
             {part.config.text}
         </Button>
     )
