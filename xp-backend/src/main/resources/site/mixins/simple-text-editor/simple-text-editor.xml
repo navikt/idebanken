@@ -8,9 +8,9 @@
             <config>
                 <exclude>*</exclude>
                 <include>
-                    Format TextColor FontSize |JustifyLeft JustifyRight | Bold Italic | Macro | BulletedList NumberedList | Undo Redo
+                    Format TextColor FontSize | JustifyLeft JustifyRight | Bold Italic | Macro | BulletedList NumberedList | Undo Redo | Link
                 </include>
-                <allowHeadings>h2 h3 h4</allowHeadings>
+                <allowHeadings>h2 h3 h4 h5 h6</allowHeadings>
             </config>
         </input>
     </form>
