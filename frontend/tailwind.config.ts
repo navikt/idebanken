@@ -13,6 +13,7 @@ export default {
       colors: {
         black: 'var(--ib-black)',
         'brand-black': 'var(--ib-brand-black)',
+        'brand-white': 'var(--ib-brand-white)',
         
         'red-100': 'var(--ib-red-100)',
         'red-200': 'var(--ib-red-200)',
@@ -33,6 +34,9 @@ export default {
         'pink-700': 'var(--ib-pink-700)',
         'pink-800': 'var(--ib-pink-800)',
         'pink-900': 'var(--ib-pink-900)',
+      },
+      boxShadow: {
+        'accordion-item': '0px 26px 44px -12px rgba(32, 31, 31, 0.16)',
       },
     },
   }
