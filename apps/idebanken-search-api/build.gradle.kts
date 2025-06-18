@@ -34,6 +34,7 @@ dependencies {
     val logstashVersion = "8.1"
     val opensearchVersion = "1.6.4"
     val opensearchTestcontainersVersion = "2.1.3"
+    val jsoupVersion = "1.20.1"
     val testcontainersVersion = "1.21.1"
     val navnoSearchCommonVersion = "20250402203805-bdf4d20"
     val kotestVersion = "5.9.1"
@@ -45,9 +46,11 @@ dependencies {
     }
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashVersion")
     implementation("io.micrometer:micrometer-registry-prometheus")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.jsoup:jsoup:$jsoupVersion")
     testImplementation("org.opensearch.client:spring-data-opensearch-test-autoconfigure:$opensearchVersion") {
         exclude("org.opensearch.client", "opensearch-rest-client-sniffer")
     }

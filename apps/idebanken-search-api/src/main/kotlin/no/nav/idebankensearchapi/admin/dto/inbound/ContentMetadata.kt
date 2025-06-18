@@ -1,0 +1,15 @@
+package no.nav.idebankensearchapi.admin.dto.inbound
+
+import java.time.ZonedDateTime
+import no.nav.navnosearchadminapi.common.enums.ValidTypes
+
+data class ContentMetadata(
+    val type: String = ValidTypes.ANDRE.descriptor,
+    val createdAt: ZonedDateTime? = null,
+    val lastUpdated: ZonedDateTime? = null,
+    val audience: List<String>? = null,
+    val language: String? = null,
+    val fylke: String? = null,
+    val metatags: List<String> = emptyList(),
+    val languageRefs: List<String> = emptyList(),
+)
