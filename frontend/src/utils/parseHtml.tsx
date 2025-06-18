@@ -9,7 +9,7 @@ export function parseHtml(html: string) {
                 const el = domNode as Element
                 switch (el.name) {
                     case 'p':
-                        return <BodyLong className="text-brand-black font-light" spacing>{domToReact(el.children as DOMNode[], options)}</BodyLong>
+                        return <BodyLong className="font-light" spacing>{domToReact(el.children as DOMNode[], options)}</BodyLong>
                     case 'h1':
                         return <Heading level="1" size="xlarge">{domToReact(el.children as DOMNode[], options)}</Heading>
                     case 'h2':
@@ -27,7 +27,7 @@ export function parseHtml(html: string) {
                     case 'ol':
                         return <List as="ol">{domToReact(el.children as DOMNode[], options)}</List>
                     case 'li':
-                        return <ListItem className="text-brand-black font-light">{domToReact(el.children as DOMNode[], options)}</ListItem>
+                        return <ListItem className="font-light">{domToReact(el.children as DOMNode[], options)}</ListItem>
                     case 'a': {
                         const href = el.attribs?.href || '#'
                         return (

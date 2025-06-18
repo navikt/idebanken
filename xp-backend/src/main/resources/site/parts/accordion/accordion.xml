@@ -2,7 +2,6 @@
 <part xmlns="urn:enonic:xp:model:1.0">
     <display-name>Accordion</display-name>
     <form>
-        <mixin name="background-color"/>
         <item-set name="accordionItem">
             <occurrences minimum="1"  maximum="20"/>
             <label>Accordion</label>
