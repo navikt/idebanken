@@ -7,6 +7,7 @@ import { getExternalSearchConfig } from './config'
 import { updateExternalSearchDocumentForContent } from './update-one'
 import { updateExternalSearchDocumentsForAllReferences } from './update-references'
 import { isMaster } from '/lib/xp/cluster'
+import { runAsAdminInIdebankenContext } from '/lib/project-initializer'
 
 let isActive = false
 
@@ -48,25 +49,29 @@ export const activateExternalSearchIndexEventHandlers = () => {
 
     eventLib.listener({
         type: '(node.pushed|node.deleted)',
-        callback: (event) => {
-            const searchConfig = getExternalSearchConfig()
-            if (!searchConfig) {
-                logger.critical(`No search config found - could not run event handler!`)
-                return
-            }
-
-            event.data.nodes.forEach((nodeData) => {
-                if (nodeData.branch !== 'master' || !nodeData.path.startsWith(CONTENT_ROOT_PATH)) {
+        callback: (event) =>
+            runAsAdminInIdebankenContext(() => {
+                const searchConfig = getExternalSearchConfig()
+                if (!searchConfig) {
+                    logger.critical(`No search config found - could not run event handler!`)
                     return
                 }
 
-                if (!isMaster()) {
-                    return
-                }
+                event.data.nodes.forEach((nodeData) => {
+                    if (
+                        nodeData.branch !== 'master' ||
+                        !nodeData.path.startsWith(CONTENT_ROOT_PATH)
+                    ) {
+                        return
+                    }
 
-                runSearchDocumentUpdateTask(nodeData.id, nodeData.repo)
-            })
-        },
+                    if (!isMaster()) {
+                        return
+                    }
+
+                    runSearchDocumentUpdateTask(nodeData.id, nodeData.repo)
+                })
+            }),
         localOnly: false,
     })
 

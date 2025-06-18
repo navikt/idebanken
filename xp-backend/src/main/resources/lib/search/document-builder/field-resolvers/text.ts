@@ -1,6 +1,6 @@
 import { forceArray } from '../../../utils/array-utils'
 import { getRepoConnection } from '../../../repos/repo-utils'
-import { CONTENT_ROOT_REPO_ID } from '../../../constants'
+import { CONTENT_LOCALE_DEFAULT, CONTENT_ROOT_REPO_ID } from '../../../constants'
 import { Content } from '/lib/xp/content'
 import { getNestedValues } from '/lib/utils/object-utils'
 import { Node } from '@enonic-types/lib-node'
@@ -110,7 +110,7 @@ const getComponentFieldValues = (
     content: Content<Node>,
     fieldKeys: string[]
 ): string[] => {
-    const locale = content.language || 'no'
+    const locale = content.language || CONTENT_LOCALE_DEFAULT
 
     if (component.type === 'fragment') {
         const fragment = getFragment(component.fragment.id, locale)

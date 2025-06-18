@@ -8,8 +8,8 @@ import { getSearchDocumentTextSegments } from './field-resolvers/text'
 import { buildSearchDocumentIngress } from './field-resolvers/ingress'
 import { SiteConfig } from '@xp-types/site'
 
-type SearchConfig = SiteConfig
-type KeysConfig = Partial<SearchConfig['searchConfig']['defaultKeys']>
+export type SearchConfig = SiteConfig['searchConfig']
+type KeysConfig = Partial<SearchConfig['defaultKeys']>
 type MetaKey = keyof KeysConfig
 
 export type SearchDocument = {
@@ -141,7 +141,7 @@ class ExternalSearchDocumentBuilder {
 }
 
 const getContentGroupConfig = (searchConfig: SearchConfig, content: Content) => {
-    return forceArray(searchConfig.data.contentGroups).find((group) =>
+    return forceArray(searchConfig.contentGroups).find((group) =>
         forceArray(group.contentTypes).some((contentType) => contentType === content.type)
     )
 }

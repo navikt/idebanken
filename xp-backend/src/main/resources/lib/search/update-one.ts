@@ -7,6 +7,7 @@ import { searchApiPostDocuments } from './api-handlers/post-document'
 import { searchApiDeleteDocument } from './api-handlers/delete-document'
 import { buildExternalSearchDocument } from './document-builder/document-builder'
 import { forceArray } from '/lib/utils/array-utils'
+import { CONTENT_LOCALE_DEFAULT } from '/lib/constants'
 
 export const deleteExternalSearchDocumentForContent = (contentId: string, locale: string) => {
     const id = generateSearchDocumentId(contentId, locale)
@@ -18,7 +19,7 @@ export const deleteExternalSearchDocumentForContent = (contentId: string, locale
 }
 
 export const updateExternalSearchDocumentForContent = (contentId: string, repoId: string) => {
-    const locale = 'no'
+    const locale = CONTENT_LOCALE_DEFAULT
     if (!locale) {
         logger.error(`${repoId} is not a valid content repo!`)
         return

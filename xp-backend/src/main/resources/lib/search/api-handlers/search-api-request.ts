@@ -1,5 +1,5 @@
 import { HttpRequestParams, request } from '/lib/http-client'
-import { URLS } from '../../constants'
+import { URLS } from '/lib/constants'
 
 type Params = Omit<HttpRequestParams, 'url'> & { servicePath?: string }
 

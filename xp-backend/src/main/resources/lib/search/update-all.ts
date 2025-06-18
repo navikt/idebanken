@@ -3,15 +3,19 @@ import { Content } from '/lib/xp/content'
 import { logger } from '../utils/logging'
 import { forceArray } from '../utils/array-utils'
 import { getRepoConnection } from '../repos/repo-utils'
-import { buildExternalSearchDocument, SearchDocument } from './document-builder/document-builder'
+import {
+    buildExternalSearchDocument,
+    SearchConfig,
+    SearchDocument,
+} from './document-builder/document-builder'
 import { searchApiPostDocumentsAsync } from './api-handlers/post-document'
-import { CONTENT_ROOT_REPO_ID } from '/lib/constants'
+import { CONTENT_LOCALE_DEFAULT, CONTENT_ROOT_REPO_ID } from '/lib/constants'
 
 const MAX_COUNT = 50000
 const BATCH_SIZE = 2000
 
-const getValidContentTypes = (searchConfig: Content<'no.nav.navno:search-config-v2'>): string[] => {
-    return forceArray(searchConfig.data.contentGroups)
+const getValidContentTypes = (searchConfig: SearchConfig): string[] => {
+    return forceArray(searchConfig.contentGroups)
         .map((group) => group.contentTypes)
         .flat()
 }
@@ -40,7 +44,7 @@ const getContentToIndex = (contentTypes: string[]) => {
 
 const sendToSearchApi = (repoId: string, contentIds: string[]) => {
     const repo = getRepoConnection({ repoId, branch: 'master', asAdmin: true })
-    const locale = 'no'
+    const locale = CONTENT_LOCALE_DEFAULT
 
     if (!locale) {
         logger.error(`${repoId} is not a valid layers repo!`)

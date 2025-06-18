@@ -2,12 +2,13 @@ import { publish } from '/lib/xp/content'
 import { executeFunction } from '/lib/xp/task'
 import { create as createProject, get as getProject } from '/lib/xp/project'
 import { run } from '/lib/xp/context'
+import { CONTENT_LOCALE_DEFAULT } from '/lib/constants'
 
 export const projectData = {
     id: 'idebanken',
     displayName: 'Idébanken',
     description: 'Nettside for Idébanken',
-    language: 'no',
+    language: CONTENT_LOCALE_DEFAULT,
     siteConfig: [
         {
             applicationKey: app.name,
