@@ -18,7 +18,7 @@ const xpOrigins: EnvRecord = {
 const searchApiUrls: EnvRecord = {
     prod: '',
     test: '',
-    local: 'http://localhost:9000',
+    local: 'http://localhost:9000/content/idebanken',
 } as const
 
 export const URLS = {
