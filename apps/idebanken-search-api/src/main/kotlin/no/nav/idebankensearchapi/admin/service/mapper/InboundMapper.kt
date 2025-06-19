@@ -25,7 +25,6 @@ fun ContentDto.toInbound(teamName: String): Content {
     requireNotNull(metadata) { "metadata kan ikke være null" }
     requireNotNull(metadata.createdAt) { "metadata.createdAt kan ikke være null" }
     requireNotNull(metadata.lastUpdated) { "metadata.lastUpdated kan ikke være null" }
-    requireNotNull(metadata.audience) { "metadata.audience kan ikke være null" }
     requireNotNull(metadata.language) { "metadata.language kan ikke være null" }
 
     return Content.from(
@@ -39,7 +38,7 @@ fun ContentDto.toInbound(teamName: String): Content {
         createdAt = metadata.createdAt,
         lastUpdated = metadata.lastUpdated,
         sortByDate = if (isNyhet()) metadata.createdAt else metadata.lastUpdated,
-        audience = metadata.audience,
+        audience = metadata.audience ?: listOf(),
         language = resolveLanguage(metadata.language),
         fylke = metadata.fylke,
         metatags = resolveMetatags(metadata, id),

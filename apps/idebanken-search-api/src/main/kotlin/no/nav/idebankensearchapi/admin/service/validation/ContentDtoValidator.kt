@@ -8,16 +8,13 @@ import no.nav.navnosearchadminapi.common.constants.HREF
 import no.nav.navnosearchadminapi.common.constants.ID
 import no.nav.navnosearchadminapi.common.constants.INGRESS
 import no.nav.navnosearchadminapi.common.constants.METADATA
-import no.nav.navnosearchadminapi.common.constants.METADATA_AUDIENCE
 import no.nav.navnosearchadminapi.common.constants.METADATA_CREATED_AT
-import no.nav.navnosearchadminapi.common.constants.METADATA_LANGUAGE
 import no.nav.navnosearchadminapi.common.constants.METADATA_LAST_UPDATED
 import no.nav.navnosearchadminapi.common.constants.METADATA_METATAGS
 import no.nav.navnosearchadminapi.common.constants.METADATA_TYPE
 import no.nav.navnosearchadminapi.common.constants.TEXT
 import no.nav.navnosearchadminapi.common.constants.TITLE
 import no.nav.navnosearchadminapi.common.enums.DescriptorProvider
-import no.nav.navnosearchadminapi.common.enums.ValidAudiences
 import no.nav.navnosearchadminapi.common.enums.ValidMetatags
 import no.nav.navnosearchadminapi.common.enums.ValidTypes
 import org.springframework.stereotype.Component
@@ -40,7 +37,6 @@ class ContentDtoValidator() {
             addAll(validateNotNull(requiredFieldsMap(content)))
 
             content.metadata?.type?.let { type -> addAll(validateType(type)) }
-            content.metadata?.audience?.let { audience -> addAll(validateAudience(audience)) }
             content.metadata?.metatags?.let { metatags -> addAll(validateMetatags(metatags)) }
         }
     }
@@ -55,8 +51,6 @@ class ContentDtoValidator() {
             METADATA to content.metadata,
             METADATA_CREATED_AT to content.metadata?.createdAt,
             METADATA_LAST_UPDATED to content.metadata?.lastUpdated,
-            METADATA_AUDIENCE to content.metadata?.audience,
-            METADATA_LANGUAGE to content.metadata?.language,
         )
     }
 
@@ -66,10 +60,6 @@ class ContentDtoValidator() {
 
     private fun validateType(type: String): List<String> {
         return listOfNotNull(validateValueIsValid<ValidTypes>(type, METADATA_TYPE))
-    }
-
-    private fun validateAudience(audience: List<String>): List<String> {
-        return audience.mapNotNull { validateValueIsValid<ValidAudiences>(it, METADATA_AUDIENCE) }
     }
 
     private fun validateMetatags(metatags: List<String>): List<String> {
