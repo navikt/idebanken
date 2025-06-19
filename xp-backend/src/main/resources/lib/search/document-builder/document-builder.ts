@@ -21,6 +21,9 @@ export type SearchDocument = {
     metadata: {
         createdAt: string
         lastUpdated: string
+        language: string
+        type: 'guide' | string
+        metatags?: string[]
         keywords?: string[]
     }
 }
@@ -70,6 +73,10 @@ class ExternalSearchDocumentBuilder {
             metadata: {
                 createdAt: publishedTime,
                 lastUpdated: content.modifiedTime || publishedTime,
+                language:
+                    'nb' /* only support norwegian search atm. getSearchDocumentLanguage(content.language || locale)*/,
+                type: content.type?.split(':')[-1],
+                metatags: forceArray(content.data.metatags),
                 keywords: forceArray(content.data.keywords),
             },
         }
@@ -105,7 +112,7 @@ class ExternalSearchDocumentBuilder {
             fieldKeys.push(...contentConfigKeys)
         }
 
-        const defaultConfigKeys = forceArray(this.searchConfig.data.defaultKeys[metaKey])
+        const defaultConfigKeys = forceArray(this.searchConfig.defaultKeys[metaKey])
         fieldKeys.push(...defaultConfigKeys)
 
         return fieldKeys.filter(Boolean)
