@@ -4,8 +4,8 @@ import { Part_Idebanken_Heading } from '~/types/generated.d'
 import { validatedHeadingConfig } from '~/utils/runtimeValidation'
 
 export interface HeadingData {
-    part: { descriptor: string, config: Part_Idebanken_Heading }
-    common: CommonType
+    part: { descriptor?: string, config: Part_Idebanken_Heading }
+    common?: CommonType
 }
 
 const HeadingView = ({ part, common }: HeadingData) => { 
