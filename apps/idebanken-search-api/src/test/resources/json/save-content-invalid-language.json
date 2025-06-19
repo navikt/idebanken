@@ -1,0 +1,9 @@
+{
+  "numberOfIndexedDocuments": 0,
+  "numberOfFailedDocuments": 1,
+  "validationErrors": {
+    "11": [
+      "Ugyldig verdi for metadata.language: røverspråk. Må være tobokstavs språkkode fra kodeverk-api."
+    ]
+  }
+}

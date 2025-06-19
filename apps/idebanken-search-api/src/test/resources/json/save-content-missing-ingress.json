@@ -1,0 +1,9 @@
+{
+  "numberOfIndexedDocuments": 0,
+  "numberOfFailedDocuments": 1,
+  "validationErrors": {
+    "11": [
+      "Påkrevd felt mangler: ingress"
+    ]
+  }
+}
