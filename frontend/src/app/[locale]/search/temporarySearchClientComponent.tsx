@@ -37,7 +37,7 @@ export default function TemporarySearchClientComponent() {
                 <button type="submit">Søk</button>
             </form>
             <div>
-                {searchResult && searchResult?.total > 0 ? (
+                {searchResult ? (
                     <div>
                         <p>
                             {searchResult.total ?? 0} treff på &#34;{searchResult.word}&#34;
@@ -55,8 +55,6 @@ export default function TemporarySearchClientComponent() {
                             ))}
                         </ul>
                     </div>
-                ) : searchResult ? (
-                    <p>Ingen resultater funnet</p>
                 ) : (
                     <></>
                 )}
