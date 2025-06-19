@@ -1,4 +1,4 @@
-import { getExternalSearchConfig } from './config'
+import { getSearchConfig } from './config'
 import { Content } from '/lib/xp/content'
 import { logger } from '../utils/logging'
 import { forceArray } from '../utils/array-utils'
@@ -84,7 +84,7 @@ const sendToSearchApi = (repoId: string, contentIds: string[]) => {
 }
 
 export const externalSearchUpdateAll = () => {
-    const searchConfig = getExternalSearchConfig()
+    const searchConfig = getSearchConfig()
     if (!searchConfig) {
         logger.error('No search config found!')
         return

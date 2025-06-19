@@ -3,7 +3,7 @@ import * as taskLib from '/lib/xp/task'
 import { CONTENT_ROOT_PATH } from '/lib/xp/content'
 import { logger } from '../utils/logging'
 import { URLS } from '../constants'
-import { getExternalSearchConfig } from './config'
+import { getSearchConfig } from './config'
 import { updateExternalSearchDocumentForContent } from './update-one'
 import { updateExternalSearchDocumentsForAllReferences } from './update-references'
 import { isMaster } from '/lib/xp/cluster'
@@ -51,7 +51,7 @@ export const activateExternalSearchIndexEventHandlers = () => {
         type: '(node.pushed|node.deleted)',
         callback: (event) =>
             runAsAdminInIdebankenContext(() => {
-                const searchConfig = getExternalSearchConfig()
+                const searchConfig = getSearchConfig()
                 if (!searchConfig) {
                     logger.critical(`No search config found - could not run event handler!`)
                     return
