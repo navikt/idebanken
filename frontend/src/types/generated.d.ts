@@ -886,7 +886,6 @@ export type PartComponentDataConfig = {
 export type Part_Idebanken_ComponentDataApplicationConfig = {
   __typename?: 'Part_idebanken_ComponentDataApplicationConfig';
   accordion?: Maybe<Part_Idebanken_Accordion>;
-  button?: Maybe<Part_Idebanken_Button>;
   double_info_box?: Maybe<Part_Idebanken_Double_Info_Box>;
   heading?: Maybe<Part_Idebanken_Heading>;
   image?: Maybe<Part_Idebanken_Image>;
@@ -900,7 +899,6 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
 export type Part_Idebanken_Accordion = {
   __typename?: 'Part_idebanken_accordion';
   accordionItem?: Maybe<Array<Maybe<Part_Idebanken_Accordion_AccordionItem>>>;
-  bgColor?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -921,14 +919,6 @@ export type Part_Idebanken_Accordion_AccordionItem = {
 /** Accordion */
 export type Part_Idebanken_Accordion_AccordionItemSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
-};
-
-/** Part component application config for application ['idebanken'] and descriptor ['button'] */
-export type Part_Idebanken_Button = {
-  __typename?: 'Part_idebanken_button';
-  size?: Maybe<Scalars['String']['output']>;
-  text?: Maybe<Scalars['String']['output']>;
-  variant?: Maybe<Scalars['String']['output']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['double-info-box'] */

@@ -18,12 +18,12 @@ export const buttonConfigSchema = object({
 
 export type ButtonConfig = InferOutput<typeof buttonConfigSchema>
 
+// Accordion
 export const accordionItemSchema = object({
   simpleTextEditor: string(),
   header: string(),
 })
 
-// Accordion
 export const accordionConfigSchema = object({
   accordionItem: pipe(
     array(accordionItemSchema),
