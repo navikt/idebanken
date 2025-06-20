@@ -10,6 +10,9 @@ export interface ButtonData {
 }
 
 export const ButtonView = ({ part }: ButtonData) => {
+    console.log('ButtonView', part)
+
+
     const config = validatedButtonConfig(part.config)
     if (!config) return null
 

@@ -1,6 +1,6 @@
 import { APP_NAME, ComponentRegistry } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
-import { imageQuery } from './queries/parts'
+import { imageQuery, buttonQuery } from './queries/parts'
 import MainPage from './pages/Main'
 
 import '@enonic/nextjs-adapter/baseMappings'
@@ -45,6 +45,15 @@ ComponentRegistry.addPart(`${APP_NAME}:heading`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:button`, {
     view: ButtonView,
+    query: [
+        buttonQuery,
+        (path, context, config) => {
+            console.log('Button part config:', config)
+            return ({
+            contentId: config.blockOptionSet?.internalLink?.ideBankContentSelector,
+            path // add this line to include the required 'path' property
+        })}
+    ]
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:image`, {

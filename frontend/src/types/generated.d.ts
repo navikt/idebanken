@@ -886,6 +886,7 @@ export type PartComponentDataConfig = {
 export type Part_Idebanken_ComponentDataApplicationConfig = {
   __typename?: 'Part_idebanken_ComponentDataApplicationConfig';
   accordion?: Maybe<Part_Idebanken_Accordion>;
+  button?: Maybe<Part_Idebanken_Button>;
   double_info_box?: Maybe<Part_Idebanken_Double_Info_Box>;
   heading?: Maybe<Part_Idebanken_Heading>;
   image?: Maybe<Part_Idebanken_Image>;
@@ -919,6 +920,41 @@ export type Part_Idebanken_Accordion_AccordionItem = {
 /** Accordion */
 export type Part_Idebanken_Accordion_AccordionItemSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['button'] */
+export type Part_Idebanken_Button = {
+  __typename?: 'Part_idebanken_button';
+  blockOptionSet?: Maybe<Part_Idebanken_Button_BlockOptionSet>;
+  size?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+  variant?: Maybe<Scalars['String']['output']>;
+};
+
+/** Select link button type */
+export type Part_Idebanken_Button_BlockOptionSet = {
+  __typename?: 'Part_idebanken_button_BlockOptionSet';
+  _selected?: Maybe<Part_Idebanken_Button_BlockOptionSet_OptionEnum>;
+  externalLink?: Maybe<Part_Idebanken_Button_ExternalLink>;
+  internalLink?: Maybe<Part_Idebanken_Button_InternalLink>;
+};
+
+/** Select link button type option enum. */
+export enum Part_Idebanken_Button_BlockOptionSet_OptionEnum {
+  ExternalLink = 'externalLink',
+  InternalLink = 'internalLink'
+}
+
+/** External URL */
+export type Part_Idebanken_Button_ExternalLink = {
+  __typename?: 'Part_idebanken_button_ExternalLink';
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+/** Internal URL */
+export type Part_Idebanken_Button_InternalLink = {
+  __typename?: 'Part_idebanken_button_InternalLink';
+  ideBankContentSelector?: Maybe<Content>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['double-info-box'] */
