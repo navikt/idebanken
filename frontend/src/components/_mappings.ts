@@ -45,15 +45,7 @@ ComponentRegistry.addPart(`${APP_NAME}:heading`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:button`, {
     view: ButtonView,
-    query: [
-        buttonQuery,
-        (path, context, config) => {
-            console.log('Button part config:', config)
-            return ({
-            contentId: config.blockOptionSet?.internalLink?.ideBankContentSelector,
-            path // add this line to include the required 'path' property
-        })}
-    ]
+    configQuery: buttonQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:image`, {

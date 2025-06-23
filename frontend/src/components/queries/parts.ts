@@ -12,14 +12,17 @@ export const imageQuery = `
 `
 
 export const buttonQuery = `
-    query ButtonPart($contentId: ID!) {
-        guillotine {
-            get(key: $contentId) {
-                _id
-                displayName
-                type
-                url: pageUrl(type: server)
+    { 
+        blockOptionSet {
+            _selected
+            externalLink {
+                url
             }
-        }
+            internalLink {
+                ideBankContentSelector {
+                    pageUrl(type: server)
+                }
+            }
+        }   
     }
 `
