@@ -11,7 +11,7 @@ import org.opensearch.index.query.QueryBuilder
 import org.opensearch.search.fetch.subphase.highlight.HighlightBuilder
 import org.opensearch.search.fetch.subphase.highlight.HighlightBuilder.DEFAULT_FRAGMENT_CHAR_SIZE
 
-private const val BOLD_PRETAG = "<b>"
+private const val BOLD_PRETAG = "<b class=\"search-result-highlight\">"
 private const val BOLD_POSTTAG = "</b>"
 
 private const val UNFRAGMENTED = 0
