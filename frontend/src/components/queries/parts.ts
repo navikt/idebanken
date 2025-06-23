@@ -10,3 +10,19 @@ export const imageQuery = `
         }
     }
 `
+
+export const buttonQuery = `
+    { 
+        blockOptionSet {
+            _selected
+            externalLink {
+                url
+            }
+            internalLink {
+                ideBankContentSelector {
+                    pageUrl(type: server)
+                }
+            }
+        }   
+    }
+`

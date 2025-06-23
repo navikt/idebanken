@@ -900,7 +900,6 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
 export type Part_Idebanken_Accordion = {
   __typename?: 'Part_idebanken_accordion';
   accordionItem?: Maybe<Array<Maybe<Part_Idebanken_Accordion_AccordionItem>>>;
-  bgColor?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -926,9 +925,36 @@ export type Part_Idebanken_Accordion_AccordionItemSimpleTextEditorArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['button'] */
 export type Part_Idebanken_Button = {
   __typename?: 'Part_idebanken_button';
+  blockOptionSet?: Maybe<Part_Idebanken_Button_BlockOptionSet>;
   size?: Maybe<Scalars['String']['output']>;
   text?: Maybe<Scalars['String']['output']>;
   variant?: Maybe<Scalars['String']['output']>;
+};
+
+/** Select link button type */
+export type Part_Idebanken_Button_BlockOptionSet = {
+  __typename?: 'Part_idebanken_button_BlockOptionSet';
+  _selected?: Maybe<Part_Idebanken_Button_BlockOptionSet_OptionEnum>;
+  externalLink?: Maybe<Part_Idebanken_Button_ExternalLink>;
+  internalLink?: Maybe<Part_Idebanken_Button_InternalLink>;
+};
+
+/** Select link button type option enum. */
+export enum Part_Idebanken_Button_BlockOptionSet_OptionEnum {
+  ExternalLink = 'externalLink',
+  InternalLink = 'internalLink'
+}
+
+/** External URL */
+export type Part_Idebanken_Button_ExternalLink = {
+  __typename?: 'Part_idebanken_button_ExternalLink';
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+/** Internal URL */
+export type Part_Idebanken_Button_InternalLink = {
+  __typename?: 'Part_idebanken_button_InternalLink';
+  ideBankContentSelector?: Maybe<Content>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['double-info-box'] */
