@@ -7,8 +7,8 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 
 @SpringBootApplication(exclude = [ElasticsearchDataAutoConfiguration::class])
 @EnableElasticsearchRepositories(basePackages = ["no.nav.navnosearchadminapi.common"])
-class NavnoSearchApiApplication
+class IdebankenSearchApiApplication
 
 fun main(args: Array<String>) {
-    runApplication<NavnoSearchApiApplication>(*args)
+    runApplication<IdebankenSearchApiApplication>(*args)
 }
