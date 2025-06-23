@@ -5,6 +5,8 @@ opensearch:
   page-size: ${FULL_SEARCH_PAGE_SIZE:20}
   decorator-page-size: ${DECORATOR_SEARCH_PAGE_SIZE:5}
 
+api-key: ${API_KEY}
+
 spring:
   jackson:
     serialization:
