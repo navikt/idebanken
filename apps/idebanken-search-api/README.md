@@ -1,4 +1,4 @@
-# Kopi av [navno-search-api](https://github.com/navikt/navno-search-api)
+# Dette er en kopi, sammenslåing og refaktorering av [navno-search-api](https://github.com/navikt/navno-search-api) og [navno-search-admin-api](https://github.com/navikt/navno-search-admin-api)
 
 ----
 
@@ -28,6 +28,8 @@ opensearch:
   uris: <uri fra secret>
   username: <brukernavn fra secret>
   password: <passord fra secret>
+  
+api-key: dummy
 ```
 
 Husk å starte applikasjonen med profile "local".
