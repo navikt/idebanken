@@ -1,6 +1,6 @@
 {
   "pre_tags": [
-    "<b>"
+    "<b class=\"search-result-highlight\">"
   ],
   "post_tags": [
     "</b>"

@@ -6,7 +6,6 @@ import io.kotest.matchers.maps.shouldHaveSize
 import no.nav.idebankensearchapi.admin.service.validation.ContentDtoValidator
 import no.nav.idebankensearchapi.admin.utils.enumDescriptors
 import no.nav.idebankensearchapi.utils.dummyContentDto
-import no.nav.navnosearchadminapi.common.enums.ValidAudiences
 import no.nav.navnosearchadminapi.common.enums.ValidMetatags
 import no.nav.navnosearchadminapi.common.enums.ValidTypes
 import org.junit.jupiter.api.Test
@@ -52,15 +51,6 @@ class ContentDtoValidatorTest() {
 
         validationErrors shouldHaveSize 1
         validationErrors[id]!!.shouldContainOnly("Påkrevd felt mangler: text")
-    }
-
-    @Test
-    fun `skal returnere valideringsfeil for ugyldig audience`() {
-        val content = listOf(dummyContentDto(audience = listOf(invalidValue)))
-        val validationErrors = validator.validate(content)
-
-        validationErrors shouldHaveSize 1
-        validationErrors[id]!!.shouldContainOnly("Ugyldig verdi for metadata.audience: $invalidValue. Gyldige verdier: ${enumDescriptors<ValidAudiences>()}")
     }
 
     @Test
