@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: 22
           cache: 'npm'
+          cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
       - name: Install node.js dependencies
         run: npm ci
       - name: Build application

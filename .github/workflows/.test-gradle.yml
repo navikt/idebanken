@@ -24,5 +24,6 @@ jobs:
           distribution: 'zulu'
           java-version: 21
           cache: 'gradle'
+          cache-dependency-path: ${{ inputs.working-directory }}/gradle.properties
       - name: Test Gradle application
         run: ./gradlew test
