@@ -4,7 +4,7 @@ import RegionsView from '@enonic/nextjs-adapter/views/Region'
 const MainPage = (props: PageProps) => {
 	const page = props.page
 
-	console.log('MainPage props:', props.page)
+	// NB: Should be moved from here
 	if (!page.regions || !Object.keys(page.regions).length) {
 		page.regions = {
 			main: {
