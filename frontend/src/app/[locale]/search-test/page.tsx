@@ -1,7 +1,4 @@
-import React from 'react'
-
-import '../../../components/_mappings'
-import TemporarySearchClientComponent from '~/app/[locale]/search/temporarySearchClientComponent'
+import TemporarySearchClientComponent from '~/app/[locale]/search-test/temporarySearchClientComponent'
 
 // NB. Using this option with default value bails out static generation !!!
 // export const dynamic = 'auto'
