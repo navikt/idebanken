@@ -17,17 +17,7 @@ on:
       - '.gitignore'
       - '**.md'
       - '**.iml'
-  pull_request:
-    branches:
-      - main
-    types:
-      [closed]
-    paths-ignore:
-      - '.github/**'
-      - 'apps/**'
-      - '.gitignore'
-      - '**.md'
-      - '**.iml'
+
 jobs:
   bump:
     if: |
