@@ -6,7 +6,7 @@ import * as contextLib from '/lib/xp/context'
 // See also babel-logger-transformer.js
 
 // Includes custom loglevel 'critical' which uses log.error()
-type LogLevel = 'info' | 'warning' | 'error' | 'critical'
+type LogLevel = 'info' | 'warning' | 'error' | 'critical' | 'debug'
 
 const formatMsg = (
     msg: string,
@@ -45,6 +45,23 @@ const logInfo = (
     line?: never
 ) => {
     log.info(formatMsg(msg, 'info', file as unknown as string, line as unknown as string))
+}
+
+const logDebug = (
+    msg: string,
+    logAsInfoInDraftContext?: never,
+    content?: never,
+    file?: never,
+    line?: never
+) => {
+    checkContextAndLog(
+        'debug',
+        msg,
+        file as unknown as string,
+        line as unknown as string,
+        logAsInfoInDraftContext,
+        content
+    )
 }
 
 const logWarning = (
@@ -100,6 +117,7 @@ const logCriticalError = (
 
 export const logger = {
     info: logInfo,
+    debug: logDebug,
     warning: logWarning,
     error: logError,
     critical: logCriticalError,
