@@ -10,7 +10,8 @@
     "start": "next start -p 4242",
     "build": "next build",
     "generate-gql-types": "graphql-codegen",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "echo \"no tests yet! :O\""
   },
   "dependencies": {
     "@enonic/nextjs-adapter": "^3.2.2",

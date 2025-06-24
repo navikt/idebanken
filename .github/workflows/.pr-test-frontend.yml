@@ -1,0 +1,17 @@
+name: Run tests on PR
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'frontend/**'
+
+jobs:
+  build:
+    name: Build app
+    uses: ./.github/workflows/.test-node.yml
+    permissions:
+      contents: read
+    with:
+      working-directory: 'frontend'
+      

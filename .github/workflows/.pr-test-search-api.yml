@@ -1,0 +1,16 @@
+name: Run tests on PR
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'apps/idebanken-search-api/**/*.kt'
+
+jobs:
+  build:
+    name: Build app
+    uses: ./.github/workflows/.test-gradle.yml
+    permissions:
+      contents: read
+    with:
+      working-directory: 'apps/idebanken-search-api'
