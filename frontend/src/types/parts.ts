@@ -76,3 +76,18 @@ export const accordionConfigSchema = object({
 })
 
 export type AccordionConfig = InferOutput<typeof accordionConfigSchema>
+
+// Image
+export type ImageData = {
+	part: {
+		descriptor: string
+		config: {
+			image: {
+				imageUrl: string
+				data: {
+					altText: string | null
+				}
+			}
+		}
+	}
+}

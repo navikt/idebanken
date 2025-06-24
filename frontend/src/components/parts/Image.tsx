@@ -1,16 +1,4 @@
-export interface ImageData {
-	part: {
-		descriptor: string
-		config: {
-			image: {
-				imageUrl: string
-				data: {
-					altText: string | null
-				}
-			}
-		}
-	}
-}
+import { ImageData } from '~/types/parts'
 
 export const ImageView = (props: ImageData) => {
 	const { part } = props
