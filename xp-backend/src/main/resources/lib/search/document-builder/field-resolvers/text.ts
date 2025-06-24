@@ -1,6 +1,6 @@
-import { forceArray } from '../../../utils/array-utils'
-import { getRepoConnection } from '../../../repos/repo-utils'
-import { CONTENT_LOCALE_DEFAULT, CONTENT_ROOT_REPO_ID } from '../../../constants'
+import { forceArray } from '/lib/utils/array-utils'
+import { getRepoConnection } from '/lib/repos/repo-utils'
+import { CONTENT_LOCALE_DEFAULT, CONTENT_ROOT_REPO_ID } from '/lib/constants'
 import { Content } from '/lib/xp/content'
 import { getNestedValues } from '/lib/utils/object-utils'
 import { Node } from '@enonic-types/lib-node'
@@ -51,7 +51,7 @@ const getFieldValues = (
 }
 
 const isHtmlAreaPart = (component: Node<Component>): boolean => {
-    return component.type === 'part' && component.part?.descriptor === 'no.nav.navno:html-area'
+    return component.type === 'part' && component.part?.descriptor === 'idebanken:text-editor'
 }
 
 const resolveFragmentMacrosInPart = (
@@ -62,11 +62,11 @@ const resolveFragmentMacrosInPart = (
         return component
     }
 
-    if (!component.part.config?.['no-nav-navno']['html-area']?.html) {
+    if (!component.part.config?.['idebanken']['text-editor']?.html) {
         return component
     }
 
-    const html = component.part.config?.['no-nav-navno']['html-area']?.html
+    const html = component.part.config?.['idebanken']['text-editor']?.html
 
     if (!html) {
         return component
@@ -77,7 +77,7 @@ const resolveFragmentMacrosInPart = (
         (_, fragmentId) => getHtmlInFragment(fragmentId, locale)
     )
 
-    component.part.config['no-nav-navno']['html-area'].html = replacedHtml
+    component.part.config['idebanken']['text-editor'].html = replacedHtml
     return component
 }
 
@@ -92,7 +92,7 @@ const getHtmlInFragment = (fragmentId: string, locale: string) => {
             return ''
         }
 
-        return component.part.config?.['no-nav-navno']?.['html-area']?.html
+        return component.part.config?.['idebanken']?.['text-editor']?.html
     })
 
     return fragmentHtmlList.join('')

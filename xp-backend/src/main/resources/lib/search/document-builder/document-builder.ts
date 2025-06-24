@@ -73,8 +73,7 @@ class ExternalSearchDocumentBuilder {
             metadata: {
                 createdAt: publishedTime,
                 lastUpdated: content.modifiedTime || publishedTime,
-                language:
-                    'nb' /* only support norwegian search atm. getSearchDocumentLanguage(content.language || locale)*/,
+                language: 'nb',
                 type: content.type?.split(':')[-1],
                 metatags: forceArray(content.data.metatags),
                 keywords: forceArray(content.data.keywords),
@@ -122,13 +121,6 @@ class ExternalSearchDocumentBuilder {
         const title = this.getFirstMatchingFieldValue('titleKey')
         if (!title) {
             return null
-        }
-
-        if (this.content.type === 'no.nav.navno:form-details') {
-            const formNumbers = forceArray(this.content.data.formNumbers)
-            if (formNumbers.length > 0) {
-                return `${title} (${formNumbers.join(', ')})`
-            }
         }
 
         return title
