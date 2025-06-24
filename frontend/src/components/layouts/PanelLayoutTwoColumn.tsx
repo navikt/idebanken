@@ -1,12 +1,11 @@
-import type {LayoutProps} from '@enonic/nextjs-adapter';
-import React from 'react'
-import {RegionView} from '@enonic/nextjs-adapter/views/Region';
+import type { LayoutProps } from '@enonic/nextjs-adapter';
+import { RegionView } from '@enonic/nextjs-adapter/views/Region';
 import styles from './PanelLayoutTwoColumn.module.css';
 import classNames from 'classnames';
 
 const PanelLayoutTwoColumn = (props: LayoutProps) => {
     const regions = props.layout.regions;
-    const {common, meta, layout} = props;
+    const { common, meta, layout } = props;
 
     const [ bg1, bg2 ] = layout.config?.background || [];
 

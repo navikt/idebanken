@@ -1,22 +1,23 @@
-import type {PageProps} from '@enonic/nextjs-adapter';
-import React from 'react'
-import RegionsView from '@enonic/nextjs-adapter/views/Region';
+import type { PageProps } from '@enonic/nextjs-adapter'
+import RegionsView from '@enonic/nextjs-adapter/views/Region'
 
 const MainPage = (props: PageProps) => {
-    const page = props.page;
-    if (!page.regions || !Object.keys(page.regions).length) {
-        page.regions = {
-            main: {
-                name: 'main',
-                components: [],
-            }
-        }
-    }
-    return (
-        <>
-            <RegionsView {...props} name="main"/>
-        </>
-    );
-};
+	const page = props.page
 
-export default MainPage;
+	// NB: Should be moved from here
+	if (!page.regions || !Object.keys(page.regions).length) {
+		page.regions = {
+			main: {
+				name: 'main',
+				components: [],
+			},
+		}
+	}
+	return (
+		<>
+			<RegionsView {...props} name="main" />
+		</>
+	)
+}
+
+export default MainPage
