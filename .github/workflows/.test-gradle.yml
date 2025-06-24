@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      id-token: write
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
@@ -27,3 +28,5 @@ jobs:
           cache-dependency-path: ${{ inputs.working-directory }}/gradle.properties
       - name: Test Gradle application
         run: ./gradlew test
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -24,7 +24,7 @@ repositories {
     maven("https://maven.pkg.github.com/navikt/navno-search-admin-api") {
         credentials {
             username = System.getenv("GITHUB_ACTOR") ?: "x-access-token"
-            password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("githubPassword") as String
+            password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("githubPassword") as? String
         }
     }
     mavenCentral()
@@ -59,7 +59,7 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter:$testcontainersVersion")
     testImplementation("org.opensearch:opensearch-testcontainers:$opensearchTestcontainersVersion")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
-    testImplementation("org.springframework.cloud:spring-cloud-contract-wiremock:${wiremockVersion}")
+    testImplementation("org.springframework.cloud:spring-cloud-contract-wiremock:$wiremockVersion")
     testImplementation("io.kotest:kotest-assertions-json:$kotestVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")
 }

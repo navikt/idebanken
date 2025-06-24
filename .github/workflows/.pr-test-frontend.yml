@@ -1,4 +1,4 @@
-name: Run tests on PR
+name: Frontend tests
 on:
   pull_request:
     branches:
