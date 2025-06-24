@@ -1,0 +1,410 @@
+{
+  "bool": {
+    "must": [
+      {
+        "bool": {
+          "should": [
+            {
+              "bool": {
+                "must": [
+                  {
+                    "bool": {
+                      "should": [
+                        {
+                          "term": {
+                            "audience": {
+                              "value": "person",
+                              "boost": 1.0
+                            }
+                          }
+                        },
+                        {
+                          "term": {
+                            "audience": {
+                              "value": "other",
+                              "boost": 1.0
+                            }
+                          }
+                        },
+                        {
+                          "bool": {
+                            "must_not": [
+                              {
+                                "exists": {
+                                  "field": "audience",
+                                  "boost": 1.0
+                                }
+                              }
+                            ],
+                            "adjust_pure_negative": true,
+                            "boost": 1.0
+                          }
+                        }
+                      ],
+                      "adjust_pure_negative": true,
+                      "boost": 1.0
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "informasjon",
+                        "boost": 1.0
+                      }
+                    }
+                  }
+                ],
+                "must_not": [
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "pressemelding",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "presse",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "analyse",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "statistikk",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "exists": {
+                      "field": "fylke",
+                      "boost": 1.0
+                    }
+                  }
+                ],
+                "adjust_pure_negative": true,
+                "boost": 1.0
+              }
+            },
+            {
+              "bool": {
+                "must": [
+                  {
+                    "bool": {
+                      "should": [
+                        {
+                          "term": {
+                            "audience": {
+                              "value": "person",
+                              "boost": 1.0
+                            }
+                          }
+                        },
+                        {
+                          "term": {
+                            "audience": {
+                              "value": "other",
+                              "boost": 1.0
+                            }
+                          }
+                        },
+                        {
+                          "bool": {
+                            "must_not": [
+                              {
+                                "exists": {
+                                  "field": "audience",
+                                  "boost": 1.0
+                                }
+                              }
+                            ],
+                            "adjust_pure_negative": true,
+                            "boost": 1.0
+                          }
+                        }
+                      ],
+                      "adjust_pure_negative": true,
+                      "boost": 1.0
+                    }
+                  },
+                  {
+                    "bool": {
+                      "should": [
+                        {
+                          "term": {
+                            "type": {
+                              "value": "kontor",
+                              "boost": 1.0
+                            }
+                          }
+                        },
+                        {
+                          "term": {
+                            "type": {
+                              "value": "kontor-legacy",
+                              "boost": 1.0
+                            }
+                          }
+                        }
+                      ],
+                      "adjust_pure_negative": true,
+                      "boost": 1.0
+                    }
+                  }
+                ],
+                "must_not": [
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "pressemelding",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "presse",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "analyse",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "statistikk",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "exists": {
+                      "field": "fylke",
+                      "boost": 1.0
+                    }
+                  }
+                ],
+                "adjust_pure_negative": true,
+                "boost": 1.0
+              }
+            },
+            {
+              "bool": {
+                "must": [
+                  {
+                    "bool": {
+                      "should": [
+                        {
+                          "term": {
+                            "audience": {
+                              "value": "person",
+                              "boost": 1.0
+                            }
+                          }
+                        },
+                        {
+                          "term": {
+                            "audience": {
+                              "value": "other",
+                              "boost": 1.0
+                            }
+                          }
+                        },
+                        {
+                          "bool": {
+                            "must_not": [
+                              {
+                                "exists": {
+                                  "field": "audience",
+                                  "boost": 1.0
+                                }
+                              }
+                            ],
+                            "adjust_pure_negative": true,
+                            "boost": 1.0
+                          }
+                        }
+                      ],
+                      "adjust_pure_negative": true,
+                      "boost": 1.0
+                    }
+                  },
+                  {
+                    "bool": {
+                      "should": [
+                        {
+                          "term": {
+                            "type": {
+                              "value": "skjema",
+                              "boost": 1.0
+                            }
+                          }
+                        },
+                        {
+                          "term": {
+                            "type": {
+                              "value": "skjemaoversikt",
+                              "boost": 1.0
+                            }
+                          }
+                        }
+                      ],
+                      "adjust_pure_negative": true,
+                      "boost": 1.0
+                    }
+                  }
+                ],
+                "must_not": [
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "pressemelding",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "presse",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "analyse",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "statistikk",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "exists": {
+                      "field": "fylke",
+                      "boost": 1.0
+                    }
+                  }
+                ],
+                "adjust_pure_negative": true,
+                "boost": 1.0
+              }
+            },
+            {
+              "bool": {
+                "must": [
+                  {
+                    "bool": {
+                      "should": [
+                        {
+                          "term": {
+                            "audience": {
+                              "value": "person",
+                              "boost": 1.0
+                            }
+                          }
+                        },
+                        {
+                          "term": {
+                            "audience": {
+                              "value": "other",
+                              "boost": 1.0
+                            }
+                          }
+                        }
+                      ],
+                      "adjust_pure_negative": true,
+                      "boost": 1.0
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "nyhet",
+                        "boost": 1.0
+                      }
+                    }
+                  }
+                ],
+                "must_not": [
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "pressemelding",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "presse",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "analyse",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "term": {
+                      "metatags": {
+                        "value": "statistikk",
+                        "boost": 1.0
+                      }
+                    }
+                  },
+                  {
+                    "exists": {
+                      "field": "fylke",
+                      "boost": 1.0
+                    }
+                  }
+                ],
+                "adjust_pure_negative": true,
+                "boost": 1.0
+              }
+            }
+          ],
+          "adjust_pure_negative": true,
+          "boost": 1.0
+        }
+      }
+    ],
+    "adjust_pure_negative": true,
+    "boost": 1.0
+  }
+}

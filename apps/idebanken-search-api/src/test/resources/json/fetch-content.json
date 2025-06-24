@@ -1,0 +1,257 @@
+{
+  "content": [
+    {
+      "id": "1",
+      "href": "https://www.href.com",
+      "title": "title",
+      "ingress": "ingress",
+      "text": "text",
+      "metadata": {
+        "type": "andre",
+        "createdAt": "2020-01-01T12:00:00+01:00",
+        "lastUpdated": "2020-01-01T12:00:00+01:00",
+        "audience": [
+          "person",
+          "employer",
+          "provider"
+        ],
+        "language": "nb",
+        "fylke": "agder",
+        "metatags": [
+          "statistikk"
+        ],
+        "languageRefs": [
+          "nn",
+          "en"
+        ]
+      }
+    },
+    {
+      "id": "2",
+      "href": "https://www.href.com",
+      "title": "title",
+      "ingress": "ingress",
+      "text": "text",
+      "metadata": {
+        "type": "andre",
+        "createdAt": "2020-01-01T12:00:00+01:00",
+        "lastUpdated": "2020-01-01T12:00:00+01:00",
+        "audience": [
+          "person"
+        ],
+        "language": "nb",
+        "fylke": "agder",
+        "metatags": [
+          "statistikk"
+        ],
+        "languageRefs": [
+          "nn",
+          "en"
+        ]
+      }
+    },
+    {
+      "id": "3",
+      "href": "https://www.href.com",
+      "title": "title",
+      "ingress": "ingress",
+      "text": "text",
+      "metadata": {
+        "type": "andre",
+        "createdAt": "2018-01-01T12:00:00+01:00",
+        "lastUpdated": "2018-01-01T12:00:00+01:00",
+        "audience": [
+          "person"
+        ],
+        "language": "nb",
+        "fylke": "agder",
+        "metatags": [
+          "statistikk"
+        ],
+        "languageRefs": [
+          "nn",
+          "en"
+        ]
+      }
+    },
+    {
+      "id": "4",
+      "href": "https://www.href.com",
+      "title": "title",
+      "ingress": "ingress",
+      "text": "text",
+      "metadata": {
+        "type": "andre",
+        "createdAt": "2018-01-01T12:00:00+01:00",
+        "lastUpdated": "2018-01-01T12:00:00+01:00",
+        "audience": [
+          "person"
+        ],
+        "language": "en",
+        "fylke": null,
+        "metatags": [],
+        "languageRefs": [
+          "nn",
+          "en"
+        ]
+      }
+    },
+    {
+      "id": "5",
+      "href": "https://www.href.com",
+      "title": "title",
+      "ingress": "ingress",
+      "text": "text",
+      "metadata": {
+        "type": "andre",
+        "createdAt": "2019-12-22T12:00:00+01:00",
+        "lastUpdated": "2019-12-22T12:00:00+01:00",
+        "audience": [
+          "employer"
+        ],
+        "language": "en",
+        "fylke": null,
+        "metatags": [],
+        "languageRefs": [
+          "nn",
+          "en"
+        ]
+      }
+    },
+    {
+      "id": "6",
+      "href": "https://www.href.com",
+      "title": "title",
+      "ingress": "ingress",
+      "text": "text",
+      "metadata": {
+        "type": "andre",
+        "createdAt": "2019-12-22T12:00:00+01:00",
+        "lastUpdated": "2019-12-22T12:00:00+01:00",
+        "audience": [
+          "employer"
+        ],
+        "language": "en",
+        "fylke": null,
+        "metatags": [],
+        "languageRefs": [
+          "nn",
+          "en"
+        ]
+      }
+    },
+    {
+      "id": "7",
+      "href": "https://www.href.com",
+      "title": "title",
+      "ingress": "ingress",
+      "text": "text",
+      "metadata": {
+        "type": "andre",
+        "createdAt": "2019-11-12T12:00:00+01:00",
+        "lastUpdated": "2019-11-12T12:00:00+01:00",
+        "audience": [
+          "employer"
+        ],
+        "language": "hi",
+        "fylke": null,
+        "metatags": [],
+        "languageRefs": [
+          "nn",
+          "en"
+        ]
+      }
+    },
+    {
+      "id": "8",
+      "href": "https://www.href.com",
+      "title": "title",
+      "ingress": "ingress",
+      "text": "text",
+      "metadata": {
+        "type": "andre",
+        "createdAt": "2019-11-12T12:00:00+01:00",
+        "lastUpdated": "2019-11-12T12:00:00+01:00",
+        "audience": [
+          "provider"
+        ],
+        "language": "hi",
+        "fylke": null,
+        "metatags": [],
+        "languageRefs": [
+          "nn",
+          "en"
+        ]
+      }
+    },
+    {
+      "id": "9",
+      "href": "https://www.href.com",
+      "title": "title",
+      "ingress": "ingress",
+      "text": "text",
+      "metadata": {
+        "type": "andre",
+        "createdAt": "2019-11-12T12:00:00+01:00",
+        "lastUpdated": "2019-11-12T12:00:00+01:00",
+        "audience": [
+          "provider"
+        ],
+        "language": "hi",
+        "fylke": null,
+        "metatags": [],
+        "languageRefs": [
+          "nn",
+          "en"
+        ]
+      }
+    },
+    {
+      "id": "10",
+      "href": "https://www.href.com",
+      "title": "title",
+      "ingress": "ingress",
+      "text": "text",
+      "metadata": {
+        "type": "andre",
+        "createdAt": "2019-11-12T12:00:00+01:00",
+        "lastUpdated": "2019-11-12T12:00:00+01:00",
+        "audience": [
+          "provider"
+        ],
+        "language": "hi",
+        "fylke": null,
+        "metatags": [],
+        "languageRefs": [
+          "nn",
+          "en"
+        ]
+      }
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 20,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": true,
+  "totalPages": 1,
+  "totalElements": 10,
+  "size": 20,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "first": true,
+  "numberOfElements": 10,
+  "empty": false
+}

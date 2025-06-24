@@ -1,0 +1,13 @@
+kodeverk:
+  spraak:
+    url: http://localhost:${wiremock.server.port}/kodeverk
+  scope: kodeverk-scope
+
+no.nav.security.jwt:
+  issuer:
+    azuread:
+      accepted-audience: someaudience
+      client-secret: somesecret
+      token-endpoint: http://localhost:${wiremock.server.port}/azuread
+
+api-key: dummy

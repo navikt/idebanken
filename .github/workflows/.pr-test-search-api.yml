@@ -1,0 +1,17 @@
+name: idebanken-search-api tests
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'apps/idebanken-search-api/**/*.kt'
+
+jobs:
+  build:
+    name: Build app
+    uses: ./.github/workflows/.test-gradle.yml
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      working-directory: 'apps/idebanken-search-api'

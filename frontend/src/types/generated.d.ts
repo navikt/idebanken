@@ -304,6 +304,7 @@ export type ExistsFilterInput = {
 export type ExtraData = {
   __typename?: 'ExtraData';
   base?: Maybe<XData_Base_ApplicationConfig>;
+  com_enonic_app_menu?: Maybe<XData_Com_Enonic_App_Menu_ApplicationConfig>;
   com_enonic_app_metafields?: Maybe<XData_Com_Enonic_App_Metafields_ApplicationConfig>;
   media?: Maybe<XData_Media_ApplicationConfig>;
 };
@@ -453,6 +454,7 @@ export type HeadlessCms = {
   getSite?: Maybe<Portal_Site>;
   getType?: Maybe<ContentType>;
   getTypes?: Maybe<Array<Maybe<ContentType>>>;
+  menu?: Maybe<Menu>;
   query?: Maybe<Array<Maybe<Content>>>;
   queryConnection?: Maybe<QueryContentConnection>;
   queryDsl?: Maybe<Array<Maybe<Content>>>;
@@ -773,6 +775,22 @@ export type MediaUploader = {
   __typename?: 'MediaUploader';
   attachment?: Maybe<Scalars['String']['output']>;
   focalPoint?: Maybe<MediaFocalPoint>;
+};
+
+/** Menu */
+export type Menu = {
+  __typename?: 'Menu';
+  items?: Maybe<Array<Maybe<MenuItem>>>;
+};
+
+/** Menu Item */
+export type MenuItem = {
+  __typename?: 'MenuItem';
+  content?: Maybe<Content>;
+  items?: Maybe<Array<Maybe<MenuItem>>>;
+  name?: Maybe<Scalars['String']['output']>;
+  path?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 /** Meta fields for a content */
@@ -1346,6 +1364,19 @@ export type XData_Base_GpsInfo_DataConfig = {
   altitude?: Maybe<Scalars['String']['output']>;
   direction?: Maybe<Scalars['String']['output']>;
   geoPoint?: Maybe<GeoPoint>;
+};
+
+/** XDataApplicationConfig for application ['com.enonic.app.menu'] */
+export type XData_Com_Enonic_App_Menu_ApplicationConfig = {
+  __typename?: 'XData_com_enonic_app_menu_ApplicationConfig';
+  menu_item?: Maybe<XData_Com_Enonic_App_Menu_Menu_Item_DataConfig>;
+};
+
+/** Extra data config for application ['com.enonic.app.menu}'] and descriptor ['menu-item'] */
+export type XData_Com_Enonic_App_Menu_Menu_Item_DataConfig = {
+  __typename?: 'XData_com_enonic_app_menu_menu_item_DataConfig';
+  menuItem?: Maybe<Scalars['Boolean']['output']>;
+  menuName?: Maybe<Scalars['String']['output']>;
 };
 
 /** XDataApplicationConfig for application ['com.enonic.app.metafields'] */

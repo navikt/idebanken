@@ -1,0 +1,52 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: idebanken-search-api
+  namespace: idebanken
+  labels:
+    team: idebanken
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+spec:
+  image: {{image}}
+  port: 8080
+  liveness:
+    path: /internal/health
+    initialDelay: 15
+    periodSeconds: 2
+    failureThreshold: 30
+  readiness:
+    path: /internal/health
+    initialDelay: 15
+    periodSeconds: 2
+    failureThreshold: 30
+  observability:
+    autoInstrumentation:
+      enabled: true
+      runtime: java
+  prometheus:
+    enabled: true
+    path: /internal/prometheus
+  replicas:
+    min: {{ min-replicas }}
+    max: {{ max-replicas }}
+  openSearch:
+    access: read
+    instance: opensearch-idebanken-search
+  ingresses:
+  {{#each ingresses}}
+     - "{{this}}"
+         {{/each}}
+  accessPolicy:
+    inbound:
+      rules:
+        - application: "*"
+          namespace: idebanken
+  secureLogs:
+    enabled: true
+  resources:
+    requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
+      memory: 1024Mi

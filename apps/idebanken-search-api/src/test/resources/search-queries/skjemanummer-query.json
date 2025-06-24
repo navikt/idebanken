@@ -1,0 +1,308 @@
+{
+  "function_score": {
+    "query": {
+      "function_score": {
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "bool": {
+                  "must": [
+                    {
+                      "multi_match": {
+                        "query": "NAV 09-35.01",
+                        "fields": [
+                          "ingress.en.exact^6.0",
+                          "ingress.no.exact^6.0",
+                          "ingress.other.exact^6.0",
+                          "text.en.exact^1.0",
+                          "text.no.exact^1.0",
+                          "text.other.exact^1.0",
+                          "title.en.exact^12.0",
+                          "title.no.exact^12.0",
+                          "title.other.exact^12.0"
+                        ],
+                        "type": "phrase",
+                        "operator": "OR",
+                        "slop": 0,
+                        "prefix_length": 0,
+                        "max_expansions": 50,
+                        "zero_terms_query": "NONE",
+                        "auto_generate_synonyms_phrase_query": true,
+                        "fuzzy_transpositions": true,
+                        "boost": 1.0
+                      }
+                    }
+                  ],
+                  "filter": [
+                    {
+                      "multi_match": {
+                        "query": "her er et skjemanummer: ",
+                        "fields": [
+                          "allText.en^1.0",
+                          "allText.no^1.0",
+                          "allText.other^1.0",
+                          "ingress.en.ngrams^1.0",
+                          "ingress.no.ngrams^1.0",
+                          "ingress.other.ngrams^1.0",
+                          "title.en.ngrams^1.0",
+                          "title.no.ngrams^1.0",
+                          "title.other.ngrams^1.0"
+                        ],
+                        "type": "best_fields",
+                        "operator": "AND",
+                        "slop": 0,
+                        "fuzziness": "AUTO:6,8",
+                        "prefix_length": 0,
+                        "max_expansions": 50,
+                        "zero_terms_query": "NONE",
+                        "auto_generate_synonyms_phrase_query": true,
+                        "fuzzy_transpositions": true,
+                        "boost": 1.0
+                      }
+                    }
+                  ],
+                  "should": [
+                    {
+                      "dis_max": {
+                        "tie_breaker": 0.0,
+                        "queries": [
+                          {
+                            "multi_match": {
+                              "query": "her er et skjemanummer: ",
+                              "fields": [
+                                "ingress.en^3.0",
+                                "ingress.no^3.0",
+                                "ingress.other^3.0",
+                                "text.en^0.01",
+                                "text.no^0.01",
+                                "text.other^0.01",
+                                "title.en^12.0",
+                                "title.no^12.0",
+                                "title.other^12.0"
+                              ],
+                              "type": "best_fields",
+                              "operator": "OR",
+                              "slop": 0,
+                              "fuzziness": "AUTO:6,8",
+                              "prefix_length": 0,
+                              "max_expansions": 50,
+                              "zero_terms_query": "NONE",
+                              "auto_generate_synonyms_phrase_query": true,
+                              "fuzzy_transpositions": true,
+                              "boost": 1.0
+                            }
+                          },
+                          {
+                            "multi_match": {
+                              "query": "her er et skjemanummer: ",
+                              "fields": [
+                                "ingress.en.ngrams^3.0",
+                                "ingress.no.ngrams^3.0",
+                                "ingress.other.ngrams^3.0",
+                                "title.en.ngrams^11.5",
+                                "title.no.ngrams^11.5",
+                                "title.other.ngrams^11.5"
+                              ],
+                              "type": "best_fields",
+                              "operator": "AND",
+                              "slop": 0,
+                              "prefix_length": 0,
+                              "max_expansions": 50,
+                              "zero_terms_query": "NONE",
+                              "auto_generate_synonyms_phrase_query": true,
+                              "fuzzy_transpositions": true,
+                              "boost": 1.0
+                            }
+                          },
+                          {
+                            "multi_match": {
+                              "query": "her er et skjemanummer: ",
+                              "fields": [
+                                "ingress.en.exact^6.0",
+                                "ingress.no.exact^6.0",
+                                "ingress.other.exact^6.0",
+                                "text.en.exact^1.0",
+                                "text.no.exact^1.0",
+                                "text.other.exact^1.0",
+                                "title.en.exact^12.0",
+                                "title.no.exact^12.0",
+                                "title.other.exact^12.0"
+                              ],
+                              "type": "phrase",
+                              "operator": "OR",
+                              "slop": 0,
+                              "prefix_length": 0,
+                              "max_expansions": 50,
+                              "zero_terms_query": "NONE",
+                              "auto_generate_synonyms_phrase_query": true,
+                              "fuzzy_transpositions": true,
+                              "boost": 1.5
+                            }
+                          }
+                        ],
+                        "boost": 1.0
+                      }
+                    }
+                  ],
+                  "adjust_pure_negative": true,
+                  "boost": 1.0
+                }
+              }
+            ],
+            "filter": [
+              {
+                "bool": {
+                  "must": [
+                    {
+                      "bool": {
+                        "must_not": [
+                          {
+                            "term": {
+                              "languageRefs": {
+                                "value": "nb",
+                                "boost": 1.0
+                              }
+                            }
+                          },
+                          {
+                            "bool": {
+                              "must": [
+                                {
+                                  "term": {
+                                    "language": {
+                                      "value": "en",
+                                      "boost": 1.0
+                                    }
+                                  }
+                                },
+                                {
+                                  "term": {
+                                    "languageRefs": {
+                                      "value": "nn",
+                                      "boost": 1.0
+                                    }
+                                  }
+                                }
+                              ],
+                              "adjust_pure_negative": true,
+                              "boost": 1.0
+                            }
+                          }
+                        ],
+                        "adjust_pure_negative": true,
+                        "boost": 1.0
+                      }
+                    }
+                  ],
+                  "adjust_pure_negative": true,
+                  "boost": 1.0
+                }
+              }
+            ],
+            "adjust_pure_negative": true,
+            "boost": 1.0
+          }
+        },
+        "functions": [
+          {
+            "filter": {
+              "term": {
+                "type": {
+                  "value": "oversikt",
+                  "boost": 1.0
+                }
+              }
+            },
+            "weight": 2.0
+          },
+          {
+            "filter": {
+              "term": {
+                "type": {
+                  "value": "produktside",
+                  "boost": 1.0
+                }
+              }
+            },
+            "weight": 2.0
+          },
+          {
+            "filter": {
+              "term": {
+                "type": {
+                  "value": "guide",
+                  "boost": 1.0
+                }
+              }
+            },
+            "weight": 2.0
+          },
+          {
+            "filter": {
+              "term": {
+                "type": {
+                  "value": "temaside",
+                  "boost": 1.0
+                }
+              }
+            },
+            "weight": 1.75
+          },
+          {
+            "filter": {
+              "term": {
+                "type": {
+                  "value": "situasjonsside",
+                  "boost": 1.0
+                }
+              }
+            },
+            "weight": 1.75
+          },
+          {
+            "filter": {
+              "term": {
+                "type": {
+                  "value": "kontor",
+                  "boost": 1.0
+                }
+              }
+            },
+            "weight": 0.5
+          },
+          {
+            "filter": {
+              "term": {
+                "type": {
+                  "value": "kontor-legacy",
+                  "boost": 1.0
+                }
+              }
+            },
+            "weight": 0.5
+          }
+        ],
+        "score_mode": "max",
+        "max_boost": 3.4028235E38,
+        "boost": 1.0
+      }
+    },
+    "functions": [
+      {
+        "filter": {
+          "term": {
+            "metatags": {
+              "value": "nyhet",
+              "boost": 1.0
+            }
+          }
+        },
+        "weight": 0.25
+      }
+    ],
+    "score_mode": "max",
+    "max_boost": 3.4028235E38,
+    "boost": 1.0
+  }
+}
