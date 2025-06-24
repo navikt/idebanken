@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build application
+    name: Build ${{ inputs.working-directory }}
     runs-on: ubuntu-latest
     permissions:
       contents: read

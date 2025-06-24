@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build application
+    name: Build ${{ inputs.working-directory }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -26,7 +26,5 @@ jobs:
           cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
       - name: Install node.js dependencies
         run: npm ci
-      - name: Build application
-        run: npm run build
       - name: Run unit tests
         run: npm run test
