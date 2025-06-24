@@ -74,7 +74,7 @@ class ExternalSearchDocumentBuilder {
                 createdAt: publishedTime,
                 lastUpdated: content.modifiedTime || publishedTime,
                 language: 'nb',
-                type: content.type?.split(':')[-1],
+                type: content.type?.split(':').pop() ?? content.type,
                 metatags: forceArray(content.data.metatags),
                 keywords: forceArray(content.data.keywords),
             },
