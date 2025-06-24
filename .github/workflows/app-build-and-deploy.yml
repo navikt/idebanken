@@ -18,7 +18,7 @@ on:
         required: true
         options:
           - idebanken-search-api
-        default: "idebanken-search-api"
+        default: "apps/idebanken-search-api"
 
 jobs:
   deploy:
