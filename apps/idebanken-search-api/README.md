@@ -1,4 +1,4 @@
-# Dette er en kopi, sammenslåing og refaktorering av [navno-search-api](https://github.com/navikt/navno-search-api) og [navno-search-admin-api](https://github.com/navikt/navno-search-admin-api)
+# Dette er en kopi, sammenslåing og refaktorering av [navno-search-api](https://github.com/navikt/navno-search-api) og [navno-search-admin-api](https://github.com/navikt/navno-search-admin-api). Det eksisterer derfor en del kode i denne applikasjonen som ikke er i bruk.
 
 ----
 
