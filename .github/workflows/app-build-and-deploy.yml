@@ -17,7 +17,7 @@ on:
         description: App to deploy. Used by build to postfix the artifact name
         required: true
         options:
-          - idebanken-search-api
+          - apps/idebanken-search-api
         default: "apps/idebanken-search-api"
 
 jobs:
