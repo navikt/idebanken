@@ -1,4 +1,14 @@
-import { object, string, picklist, InferOutput, nullable, transform, array, pipe } from 'valibot'
+import {
+	object,
+	string,
+	picklist,
+	InferOutput,
+	nullable,
+	transform,
+	array,
+	pipe,
+	optional,
+} from 'valibot'
 
 // Heading
 export const headingConfigSchema = object({
@@ -15,29 +25,31 @@ export const buttonConfigSchema = pipe(
 		variant: picklist(['primary', 'secondary', 'tertiary']),
 		size: picklist(['medium', 'small', 'xsmall']),
 		text: nullable(string()),
-		blockOptionSet: nullable(
-			object({
-				_selected: string(),
-				externalLink: nullable(
-					object({
-						url: nullable(string()),
-					})
-				),
-				internalLink: nullable(
-					object({
-						ideBankContentSelector: nullable(
-							object({
-								pageUrl: nullable(string()),
-							})
-						),
-					})
-				),
-			})
+		blockOptionSet: optional(
+			nullable(
+				object({
+					_selected: string(),
+					externalLink: nullable(
+						object({
+							url: nullable(string()),
+						})
+					),
+					internalLink: nullable(
+						object({
+							ideBankContentSelector: nullable(
+								object({
+									pageUrl: nullable(string()),
+								})
+							),
+						})
+					),
+				})
+			)
 		),
 	}),
 	transform((config) => {
 		let url: string | null = null
-		let external = false
+		let external: boolean | null = null
 		const selected = config.blockOptionSet?._selected
 		if (selected === 'externalLink') {
 			external = true
@@ -45,7 +57,9 @@ export const buttonConfigSchema = pipe(
 			if (extUrl) {
 				url = /^https?:\/\//i.test(extUrl) ? extUrl : `https://${extUrl}`
 			}
-		} else if (selected === 'internalLink') {
+		}
+
+		if (selected === 'internalLink') {
 			external = false
 			const pageUrl =
 				config.blockOptionSet?.internalLink?.ideBankContentSelector?.pageUrl || ''

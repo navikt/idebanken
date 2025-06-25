@@ -1,27 +1,29 @@
 import NextLink from 'next/link'
 import { Button } from '@navikt/ds-react'
-import { CommonType } from '../queries/common'
 import { Part_Idebanken_Button } from '~/types/generated.d'
 import { validatedButtonConfig } from '~/utils/runtimeValidation'
+import { MouseEventHandler } from 'react'
 
 export interface ButtonData {
-    part: { descriptor: string; config: Part_Idebanken_Button }
-    common: CommonType
+	part?: { config: Part_Idebanken_Button } // From Enonic
+	config?: Part_Idebanken_Button // From Next.js
+	onClick?: MouseEventHandler<HTMLButtonElement>
 }
 
-export const ButtonView = ({ part }: ButtonData) => {
-    const config = validatedButtonConfig(part.config)
-    if (!config) return null
+export const ButtonView = ({ part, config, onClick }: ButtonData) => {
+	const buttonConfig = part?.config ?? config
+	if (!buttonConfig) return null
 
-    return (
-        <Button 
-            as={NextLink}
-            href={config.url || '#'}
-            variant={config.variant}
-            size={config.size}
-            target={config.external ? "_blank" : undefined}
-        >
-            {config.text}
-        </Button> 
-    )
+	const btn = validatedButtonConfig(buttonConfig)
+	if (!btn) return null
+
+	const buttonProps = {
+		variant: btn.variant,
+		size: btn.size,
+		children: btn.text,
+		...(btn.external ? { target: '_blank' } : {}),
+		...(btn.url ? { as: NextLink, href: btn.url || '#' } : { onClick }),
+	}
+
+	return <Button {...buttonProps} />
 }
