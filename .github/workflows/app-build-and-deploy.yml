@@ -74,7 +74,7 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           tag: ${{ inputs.version || steps.get_tag.outputs.tag || github.ref_name }}
-          image_suffix: ${{ inputs.app_directory }}-${{ inputs.environment }}
+          image_suffix: /${{ inputs.environment }}/${{ inputs.app_directory }}
 
       - name: Deploy to nais
         uses: nais/deploy/actions/deploy@v2
