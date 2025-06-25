@@ -2,11 +2,10 @@ import { ContentPathItem, FetchContentResult, validateData } from '@enonic/nextj
 import { fetchContent, fetchContentPathsForAllLocales } from '@enonic/nextjs-adapter/server'
 import MainView from '@enonic/nextjs-adapter/views/MainView'
 import { Metadata } from 'next'
-import React from 'react'
-import { MetaFields } from '../../../types/generated'
+import { MetaFields } from '~/types/generated'
 import { OpenGraphType } from 'next/dist/lib/metadata/types/opengraph-types'
 
-import '../../../components/_mappings'
+import '~/components/_mappings'
 
 // NB. Using this option with default value bails out static generation !!!
 // export const dynamic = 'auto'
@@ -16,84 +15,84 @@ import '../../../components/_mappings'
 export const revalidate = 3600
 
 export type PageProps = {
-    locale: string
-    contentPath: string[]
+	locale: string
+	contentPath: string[]
 }
 
 export default async function Page({ params }: { params: Promise<PageProps> }) {
-    const resolvedParams = await params
-    const data: FetchContentResult = await fetchContent(resolvedParams)
+	const resolvedParams = await params
+	const data: FetchContentResult = await fetchContent(resolvedParams)
 
-    validateData(data)
+	validateData(data)
 
-    return <MainView {...data} />
+	return <MainView {...data} />
 }
 
 export async function generateMetadata({
-    params,
+	params,
 }: {
-    params: Promise<PageProps>
+	params: Promise<PageProps>
 }): Promise<Metadata> {
-    const { common } = await fetchContent(await params)
+	const { common } = await fetchContent(await params)
 
-    const metaFields = common?.get?.metaFields as MetaFields
-    const image = metaFields?.image ?? undefined
+	const metaFields = common?.get?.metaFields as MetaFields
+	const image = metaFields?.image ?? undefined
 
-    return {
-        metadataBase: metaFields?.baseUrl ? new URL(metaFields.baseUrl) : undefined,
-        title: metaFields?.fullTitle,
-        description: metaFields?.description,
-        openGraph: {
-            type: (metaFields?.openGraph?.type ?? 'article') as OpenGraphType,
-            title: metaFields?.title,
-            siteName: metaFields?.siteName ?? undefined,
-            description: metaFields?.description ?? undefined,
-            locale: metaFields?.locale ?? undefined,
-            url: metaFields?.openGraph?.hideUrl
-                ? undefined
-                : (metaFields?.baseUrl ?? `https://www.idebanken.org`),
-            images:
-                image && !metaFields?.openGraph?.hideImages
-                    ? {
-                          url: image?.imageUrl ?? '',
-                          alt: image?.data?.altText ?? undefined,
-                          width: 1200,
-                          height: 627,
-                      }
-                    : undefined,
-        },
-        robots: {
-            index: metaFields?.robots?.index ?? true,
-            follow: metaFields?.robots?.follow ?? true,
-        },
-        alternates: {
-            canonical:
-                metaFields?.canonical?.pageUrl?.split(/\/(draft|master)\/[^/]*/)?.at(-1) ??
-                undefined,
-        },
-        twitter: {
-            site: metaFields?.twitter?.site ?? undefined,
-            title: metaFields?.title ?? undefined,
-            description: metaFields?.description ?? undefined,
-            images:
-                image && !metaFields?.twitter?.hideImages
-                    ? {
-                          url: image?.imageUrl ?? '',
-                          alt: image?.data?.altText ?? undefined,
-                          width: 1200,
-                          height: 627,
-                      }
-                    : undefined,
-            card: 'summary_large_image',
-        },
-        verification: {
-            google: metaFields?.verification?.google,
-        },
-    }
+	return {
+		metadataBase: metaFields?.baseUrl ? new URL(metaFields.baseUrl) : undefined,
+		title: metaFields?.fullTitle,
+		description: metaFields?.description,
+		openGraph: {
+			type: (metaFields?.openGraph?.type ?? 'article') as OpenGraphType,
+			title: metaFields?.title,
+			siteName: metaFields?.siteName ?? undefined,
+			description: metaFields?.description ?? undefined,
+			locale: metaFields?.locale ?? undefined,
+			url: metaFields?.openGraph?.hideUrl
+				? undefined
+				: (metaFields?.baseUrl ?? `https://www.idebanken.org`),
+			images:
+				image && !metaFields?.openGraph?.hideImages
+					? {
+							url: image?.imageUrl ?? '',
+							alt: image?.data?.altText ?? undefined,
+							width: 1200,
+							height: 627,
+						}
+					: undefined,
+		},
+		robots: {
+			index: metaFields?.robots?.index ?? true,
+			follow: metaFields?.robots?.follow ?? true,
+		},
+		alternates: {
+			canonical:
+				metaFields?.canonical?.pageUrl?.split(/\/(draft|master)\/[^/]*/)?.at(-1) ??
+				undefined,
+		},
+		twitter: {
+			site: metaFields?.twitter?.site ?? undefined,
+			title: metaFields?.title ?? undefined,
+			description: metaFields?.description ?? undefined,
+			images:
+				image && !metaFields?.twitter?.hideImages
+					? {
+							url: image?.imageUrl ?? '',
+							alt: image?.data?.altText ?? undefined,
+							width: 1200,
+							height: 627,
+						}
+					: undefined,
+			card: 'summary_large_image',
+		},
+		verification: {
+			google: metaFields?.verification?.google,
+		},
+	}
 }
 
 export async function generateStaticParams(props: {
-    params: PageProps
+	params: PageProps
 }): Promise<ContentPathItem[]> {
-    return await fetchContentPathsForAllLocales('\${site}/')
+	return await fetchContentPathsForAllLocales('\${site}/')
 }
