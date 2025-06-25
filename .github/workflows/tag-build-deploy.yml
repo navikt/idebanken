@@ -120,5 +120,5 @@ jobs:
       packages: 'read'
     with:
       environment: test
-      app_directory: apps/idebanken-search-api
+      app_directory: idebanken-search-api
       version: ${{ needs.bump.outputs.version }}

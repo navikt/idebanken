@@ -17,8 +17,8 @@ on:
         description: App to deploy. Used by build to postfix the artifact name
         required: true
         options:
-          - apps/idebanken-search-api
-        default: "apps/idebanken-search-api"
+          - idebanken-search-api
+        default: "idebanken-search-api"
   workflow_call:
     inputs:
       environment:
@@ -42,7 +42,7 @@ jobs:
     environment: ${{ inputs.environment }}
     defaults:
       run:
-        working-directory: ${{ inputs.app_directory }}
+        working-directory: apps/${{ inputs.app_directory }}
     env:
       CLUSTER: ${{ inputs.environment == 'prod' && 'prod-gcp' || 'dev-gcp' }}
     steps:
@@ -70,7 +70,7 @@ jobs:
         id: docker-build-push
         with:
           team: idebanken
-          docker_context: ${{ inputs.app_directory }}
+          docker_context: apps/${{ inputs.app_directory }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
           tag: ${{ inputs.version || steps.get_tag.outputs.tag || github.ref_name }}
