@@ -31,7 +31,7 @@ spec:
     min: {{ min-replicas }}
     max: {{ max-replicas }}
   openSearch:
-    access: read
+    access: admin
     instance: opensearch-idebanken-search
   ingresses:
   {{#each ingresses}}
@@ -42,6 +42,8 @@ spec:
       rules:
         - application: "*"
           namespace: idebanken
+  envFrom:
+    - secret: idebanken-search-api
   secureLogs:
     enabled: true
   resources:
