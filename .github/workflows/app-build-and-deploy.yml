@@ -19,6 +19,17 @@ on:
         options:
           - apps/idebanken-search-api
         default: "apps/idebanken-search-api"
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      app_directory:
+        type: string
+        required: true
+      version:
+        type: string
+        required: false
 
 jobs:
   deploy:
@@ -49,13 +60,22 @@ jobs:
           ./gradlew clean build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get latest git tag
+        id: get_tag
+        run: echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
+
       - name: Build and push docker image
         uses: nais/docker-build-push@v0
         id: docker-build-push
         with:
           team: idebanken
+          docker_context: ${{ inputs.app_directory }}
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          tag: ${{ inputs.version || steps.get_tag.outputs.tag || github.ref_name }}
+          image_suffix: ${{ inputs.environment }}
+
       - name: Deploy to nais
         uses: nais/deploy/actions/deploy@v2
         env:

@@ -31,6 +31,7 @@ jobs:
       version: ${{ steps.bump.outputs.new_tag }}
       changed-frontend: ${{ steps.changed-frontend.outputs.changed != 'non-inputs' }}
       changed-xp-backend: ${{ steps.changed-xp-backend.outputs.changed != 'non-inputs' }}
+      changed-search-api: ${{ steps.changed-search-api.outputs.changed != 'non-inputs' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -66,6 +67,11 @@ jobs:
         uses: nais/what-changed@main
         with:
           files: xp-backend/**
+      - name: Check if search-api files have changed
+        id: changed-search-api
+        uses: nais/what-changed@main
+        with:
+          files: apps/idebanken-search-api/**
 
   xp-app-build-and-upload:
     name: Build and upload artifact
@@ -102,3 +108,17 @@ jobs:
     with:
       version: ${{ needs.bump.outputs.version }}
       environment: test
+
+  search-api-build-and-deploy:
+    name: Build and deploy search-api
+    needs: bump
+    if: needs.bump.result == 'success' && needs.bump.outputs.changed-search-api == 'true'
+    uses: ./.github/workflows/app-build-and-deploy.yml
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+      packages: 'read'
+    with:
+      environment: test
+      app_directory: apps/idebanken-search-api
+      version: ${{ needs.bump.outputs.version }}
