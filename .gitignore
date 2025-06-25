@@ -1,3 +1,5 @@
+application-[a-zA-Z]*.ya?ml
+
 ### Gradle ###
 .gradle
 build/

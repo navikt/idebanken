@@ -1,0 +1,46 @@
+import * as contextLib from '/lib/xp/context'
+import { ContextParams } from '/lib/xp/context'
+import { ADMIN_PRINCIPAL, SUPER_USER, SYSTEM_ID_PROVIDER, SYSTEM_USER } from '../constants'
+
+export type RunInContextOptions = {
+    branch?: 'draft' | 'master'
+    asAdmin?: boolean
+    asCurrentUser?: boolean
+} & Omit<ContextParams, 'branch' | 'user' | 'principals'>
+
+type ContextAuthInfo = Pick<ContextParams, 'user' | 'principals'>
+
+const superUserOptions: ContextAuthInfo = {
+    user: {
+        login: SUPER_USER,
+        idProvider: SYSTEM_ID_PROVIDER,
+    },
+    principals: [ADMIN_PRINCIPAL],
+} as const
+
+const systemUserOptions: ContextAuthInfo = {
+    user: {
+        login: SYSTEM_USER,
+        idProvider: SYSTEM_ID_PROVIDER,
+    },
+} as const
+
+export const runInContext = <ReturnType>(
+    { branch, repository, asAdmin, asCurrentUser, attributes }: RunInContextOptions,
+    func: () => ReturnType
+): ReturnType => {
+    const currentContext = contextLib.get()
+
+    const userOptions = asAdmin ? superUserOptions : !asCurrentUser ? systemUserOptions : {}
+
+    return contextLib.run<ReturnType>(
+        {
+            ...currentContext,
+            ...(attributes && { attributes: { ...currentContext.attributes, ...attributes } }),
+            ...userOptions,
+            repository: repository || currentContext.repository,
+            branch: branch || currentContext.branch,
+        },
+        func
+    )
+}

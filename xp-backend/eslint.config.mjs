@@ -7,7 +7,7 @@ export default tseslint.config(
     tseslint.configs.recommended,
     jsxA11y.flatConfigs.recommended,
     {
-        ignores: ['build/**/*.*'],
+        ignores: ['build/**/*.*', '.xp-codegen/**/*.*', 'node_modules/**/*.*'],
     },
     {
         files: ['**/*.ts', '**/*.tsx'],
