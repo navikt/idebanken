@@ -3,6 +3,7 @@ export type Accordion = import("./accordion").Accordion;
 export type Button = import("./button").Button;
 export type DoubleInfoBox = import("./double-info-box").DoubleInfoBox;
 export type Heading = import("./heading").Heading;
+export type Image = import("./image").Image;
 export type InfoBox = import("./info-box").InfoBox;
 export type LinkPanel = import("./link-panel").LinkPanel;
 export type TextEditor = import("./text-editor").TextEditor;
@@ -14,6 +15,7 @@ declare global {
     "idebanken:button": Button;
     "idebanken:double-info-box": DoubleInfoBox;
     "idebanken:heading": Heading;
+    "idebanken:image": Image;
     "idebanken:info-box": InfoBox;
     "idebanken:link-panel": LinkPanel;
     "idebanken:text-editor": TextEditor;

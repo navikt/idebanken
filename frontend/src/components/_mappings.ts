@@ -24,56 +24,55 @@ ComponentRegistry.setCommonQuery([commonQuery, commonVariables])
 
 // Page mappings
 ComponentRegistry.addPage(`${APP_NAME}:main`, {
-    view: MainPage,
+	view: MainPage,
 })
 
 // Layout mappings
 ComponentRegistry.addLayout(`${APP_NAME}:single-column`, {
-    view: SingleColumnLayout,
+	view: SingleColumnLayout,
 })
 ComponentRegistry.addLayout(`${APP_NAME}:2-column`, {
-    view: TwoColumnLayout,
+	view: TwoColumnLayout,
 })
 ComponentRegistry.addLayout(`${APP_NAME}:panel-2-column`, {
-    view: PanelLayoutTwoColumn,
+	view: PanelLayoutTwoColumn,
 })
 
 // Part mappings
 ComponentRegistry.addPart(`${APP_NAME}:heading`, {
-    view: HeadingView,
+	view: HeadingView,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:button`, {
-    view: ButtonView,
-    configQuery: buttonQuery,
+	view: ButtonView,
+	configQuery: buttonQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:image`, {
-    view: ImageView,
-    configQuery: imageQuery,
+	view: ImageView,
+	configQuery: imageQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
-    view: TextEditorView,
+	view: TextEditorView,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:info-box`, {
-    view: InfoBoxView,
+	view: InfoBoxView,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:double-info-box`, {
-    view: DoubleInfoBoxView,
+	view: DoubleInfoBoxView,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:tip-panel`, {
-    view: TipPanelView,
+	view: TipPanelView,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:accordion`, {
-    view: AccordionView,
+	view: AccordionView,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:link-panel`, {
-    view: LinkPanelView,
+	view: LinkPanelView,
 })
-
