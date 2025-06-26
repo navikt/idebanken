@@ -1,126 +1,123 @@
-@import "tailwindcss";
-@import "@navikt/ds-css" layer(components);
-@import "@navikt/ds-css" layer(components);
+@import 'tailwindcss';
+@import '@navikt/ds-css' layer(components);
+@import '@navikt/ds-css' layer(components);
 @config '../../tailwind.config.ts';
 
 :root {
-  /* Colors */
-  --ib-black: #121212;
-  --ib-brand-black: #201F1F;
-  --ib-brand-white: #FAFAF9;
+	/* Colors */
+	--ib-black: #121212;
+	--ib-brand-black: #201f1f;
+	--ib-brand-white: #fafaf9;
 
-  --ib-red-100: #F9CDD3;
-  --ib-red-200: #F39BA7;
-  --ib-red-300: #EC697A;
-  --ib-red-400: #E6374E;
-  --ib-red-base: #E00522;
-  --ib-red-600: #B3041B;
-  --ib-red-700: #860314;
-  --ib-red-800: #5A020E;
-  --ib-red-900: #2D0107;
+	--ib-red-100: #f9cdd3;
+	--ib-red-200: #f39ba7;
+	--ib-red-300: #ec697a;
+	--ib-red-400: #e6374e;
+	--ib-red-500: #e00522;
+	--ib-red-600: #b3041b;
+	--ib-red-700: #860314;
+	--ib-red-800: #5a020e;
+	--ib-red-900: #2d0107;
 
-  --ib-pink-100: #FFF2F7;
-  --ib-pink-200: #FFE4EF;
-  --ib-pink-300: #FFD7E8;
-  --ib-pink-400: #FFC9E0;
-  --ib-pink-base: #FFBCD8;
-  --ib-pink-600: #CC96AD;
-  --ib-pink-700: #997182;
-  --ib-pink-800: #664B56;
-  --ib-pink-900: #33262B;
+	--ib-pink-100: #fff2f7;
+	--ib-pink-200: #ffe4ef;
+	--ib-pink-300: #ffd7e8;
+	--ib-pink-400: #ffc9e0;
+	--ib-pink-500: #ffbcd8;
+	--ib-pink-600: #cc96ad;
+	--ib-pink-700: #997182;
+	--ib-pink-800: #664b56;
+	--ib-pink-900: #33262b;
 
-  /* Old colors */
-  --bg-white: #FAFAF9;
-  --bg-extra-light-pink: #FFF2F7; 
-  --bg-light-pink: #FFE4EF;
-  --bg-pink: #FFBCD8;
-  --bg-dark-blue: #181756;
-  /* End old colors */
+	--ib-dark-blue-500: #181756;
 
-  /* Font families */
-  --a-font-family: var(--font-mundial);
+	/* Old colors */
+	--bg-white: #fafaf9;
+	--bg-extra-light-pink: #fff2f7;
+	--bg-light-pink: #ffe4ef;
+	--bg-pink: #ffbcd8;
+	--bg-dark-blue: #181756;
+	/* End old colors */
 
-  /* Text sizes */
-  --a-font-size-large: 1.5rem; /* Body Base & Body Thin */
-  --a-font-line-height-xlarge: 2.25rem; /* Body Base & Body Thin */
+	/* Font families */
+	--a-font-family: var(--font-mundial);
 
-  /* Headings */
-  --a-font-size-heading-2xlarge: 4.5rem; /* Display */
-  --a-font-line-height-heading-2xlarge: 5.4rem; /* Display line height*/
+	/* Text sizes */
+	--a-font-size-large: 1.5rem; /* Body Base & Body Thin */
+	--a-font-line-height-xlarge: 2.25rem; /* Body Base & Body Thin */
 
-  --a-font-size-heading-xlarge: 3.75rem; /* Heading XL */
-  --a-font-line-height-heading-xlarge: 5.625rem; /* Heading XL line height */
+	/* Headings */
+	--a-font-size-heading-2xlarge: 4.5rem; /* Display */
+	--a-font-line-height-heading-2xlarge: 5.4rem; /* Display line height*/
 
-  --a-font-size-heading-medium: 3.25rem; /* Heading L */
-  --a-font-line-height-heading-medium: 4rem; /* Heading L line height */
+	--a-font-size-heading-xlarge: 3.75rem; /* Heading XL */
+	--a-font-line-height-heading-xlarge: 5.625rem; /* Heading XL line height */
 
-  --a-font-size-heading-small: 2.25rem; /* Heading M */
-  --a-font-line-height-heading-small: 4rem; /* Heading M line height */
+	--a-font-size-heading-medium: 3.25rem; /* Heading L */
+	--a-font-line-height-heading-medium: 4rem; /* Heading L line height */
 
-  --a-font-size-heading-xsmall: 2rem; /* Heading S */
-  --a-font-line-height-heading-xsmall: 2.625rem; /* Heading S line height */
+	--a-font-size-heading-small: 2.25rem; /* Heading M */
+	--a-font-line-height-heading-small: 4rem; /* Heading M line height */
 
-  /* Radius */
-  --a-border-radius-medium: 60px;
+	--a-font-size-heading-xsmall: 2rem; /* Heading S */
+	--a-font-line-height-heading-xsmall: 2.625rem; /* Heading S line height */
 
-  /* Accordion */
-  --ac-accordion-header-border: none;
+	/* Radius */
+	--a-border-radius-medium: 60px;
+
+	/* Accordion */
+	--ac-accordion-header-border: none;
 }
 
 /* NB: Is used in buttons text */
 .navds-label {
-  font-weight: var(--a-font-weight-regular);
+	font-weight: var(--a-font-weight-regular);
 }
 
 * {
-  text-underline-position: from-font;
+	text-underline-position: from-font;
 }
 
 /* Old styles */
-html, body {
-  padding: 0;
-  margin: 0;
-  font-family: var(--a-font-family);
-  font-weight: 300;
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: var(--a-font-family);
+	font-weight: 300;
 }
 
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
-/* h1 {
-    font-size: 2em;
-    margin-block-start: 0.67em;
-    margin-block-end: 0.67em;
-} */
-
 hr {
-    border-color: darkgray;
-    border-style: solid;
-    border-bottom: 0 none;
+	border-color: darkgray;
+	border-style: solid;
+	border-bottom: 0 none;
 }
 
 .bg-white {
-  background-color: var(--bg-white);
-  color: black;
+	background-color: var(--ib-brand-white);
+	color: black;
 }
 
 .bg-extra-light-pink {
-  background-color: var(--bg-extra-light-pink);
-  color: black;
+	background-color: var(--ib-pink-100);
+	color: black;
 }
 
 .bg-light-pink {
-  background-color: var(--bg-light-pink);
-  color: black;
+	background-color: var(--ib-pink-200);
+	color: black;
 }
 
 .bg-pink {
-  background-color: var(--bg-pink);
-  color: black;
+	background-color: var(--ib-pink-500);
+	color: black;
 }
 
 .bg-dark-blue {
-  background-color: var(--bg-dark-blue);
-  color: white;
+	background-color: var(--ib-dark-blue-500);
+	color: white;
 }
