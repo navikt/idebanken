@@ -49,7 +49,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
 					logoUrl={getAsset('/images/logo.svg', meta)}
 				/>
 
-				<PageBlock as="main" width="xl">
+				<PageBlock as="main" width="2xl">
 					{children}
 				</PageBlock>
 			</StaticContent>

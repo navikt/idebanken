@@ -12,9 +12,8 @@ export interface ButtonData {
 
 export const ButtonView = ({ part, config, onClick }: ButtonData) => {
 	const buttonConfig = part?.config ?? config
-	if (!buttonConfig) return null
-
 	const btn = validatedButtonConfig(buttonConfig)
+
 	if (!btn) return null
 
 	const buttonProps = {
