@@ -1,6 +1,5 @@
 import type { LayoutProps } from '@enonic/nextjs-adapter'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
-// import styles from './TwoColumnLayout.module.css'
 import { Box, HGrid } from '@navikt/ds-react'
 
 const TwoColumnLayout = (props: LayoutProps) => {
@@ -9,46 +8,37 @@ const TwoColumnLayout = (props: LayoutProps) => {
 	const { common, meta, layout } = props
 
 	return (
-		<Box className={layout.config?.bgColor || 'bg-extra-light-pink'}>
-			<HGrid gap="6" columns={2}>
-				<RegionView
-					name="left"
-					components={regions['left']?.components}
-					common={common}
-					meta={meta}
-				/>
-				<RegionView
-					name="right"
-					components={regions['right']?.components}
-					common={common}
-					meta={meta}
-				/>
+		<Box
+			as="section"
+			padding={{
+				xs: 'space-8',
+				sm: 'space-12',
+				md: 'space-16',
+				lg: 'space-20',
+				xl: 'space-24',
+			}}
+			className={layout.config?.bgColor || 'bg-extra-light-pink'}>
+			<HGrid
+				gap={{ sm: 'space-8', md: 'space-12', lg: 'space-20', xl: 'space-24' }}
+				columns={{ xs: 1, md: 12 }}>
+				<div className={`col-span-1 md:col-span-${layout.config?.leftSpan || 6}`}>
+					<RegionView
+						name="left"
+						components={regions['left']?.components}
+						common={common}
+						meta={meta}
+					/>
+				</div>
+				<div className={`col-span-1 md:col-span-${12 - (layout.config?.leftSpan || 6)}`}>
+					<RegionView
+						name="right"
+						components={regions['right']?.components}
+						common={common}
+						meta={meta}
+					/>
+				</div>
 			</HGrid>
 		</Box>
-		// <div
-		// 	className={layout.config?.bgColor || 'bg-extra-light-pink'}
-		// 	style={
-		// 		{ [`--left-span`]: Number(layout.config?.leftSpan || 6) + 1 } as React.CSSProperties
-		// 	}>
-		// 	<div className={styles.wrapper}>
-		// 		<div className={styles.left}>
-		// 			<RegionView
-		// 				name="left"
-		// 				components={regions['left']?.components}
-		// 				common={common}
-		// 				meta={meta}
-		// 			/>
-		// 		</div>
-		// 		<div className={styles.right}>
-		// 			<RegionView
-		// 				name="right"
-		// 				components={regions['right']?.components}
-		// 				common={common}
-		// 				meta={meta}
-		// 			/>
-		// 		</div>
-		// 	</div>
-		// </div>
 	)
 }
 
