@@ -34,8 +34,8 @@ spec:
     access: admin
     instance: search
   ingresses:
-  {{#each ingresses}}
-     - "{{this}}"
+  {{#each ingress as |url|}}
+      - {{url}}
   {{/each}}
   accessPolicy:
     inbound:
