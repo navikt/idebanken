@@ -3,7 +3,6 @@ import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { Box, HGrid } from '@navikt/ds-react'
 
 const TwoColumnLayout = (props: LayoutProps) => {
-	console.log('TwoColumnLayout props:', props)
 	const regions = props.layout.regions
 	const { common, meta, layout } = props
 
