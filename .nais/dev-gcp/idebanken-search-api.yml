@@ -1,3 +1,4 @@
+inbound-external-host: idebanken-xp7test.enonic.cloud
 ingress: ["https://idebanken-search-api.ekstern.dev.nav.no"]
 minReplicas: 1
 maxReplicas: 1

@@ -39,6 +39,8 @@ spec:
   {{/each}}
   accessPolicy:
     inbound:
+      external:
+        - host: {{ inbound-external-host }}
       rules:
         - application: "*"
           namespace: idebanken
