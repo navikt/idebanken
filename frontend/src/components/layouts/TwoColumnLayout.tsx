@@ -3,9 +3,9 @@ import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { Box, HGrid } from '@navikt/ds-react'
 
 const TwoColumnLayout = (props: LayoutProps) => {
-	console.log('TwoColumnLayout props:', props)
 	const regions = props.layout.regions
 	const { common, meta, layout } = props
+	const breakLeftFirst = layout.config?.breakLeftFirst
 
 	return (
 		<Box
@@ -21,7 +21,11 @@ const TwoColumnLayout = (props: LayoutProps) => {
 			<HGrid
 				gap={{ sm: 'space-8', md: 'space-12', lg: 'space-20', xl: 'space-24' }}
 				columns={{ xs: 1, md: 12 }}>
-				<div className={`col-span-1 md:col-span-${layout.config?.leftSpan || 6}`}>
+				<div
+					className={`
+						col-span-1 md:col-span-${layout.config?.leftSpan || 6}
+						${breakLeftFirst ? 'max-md:order-1' : 'max-md:order-2'}
+					`}>
 					<RegionView
 						name="left"
 						components={regions['left']?.components}
@@ -29,7 +33,11 @@ const TwoColumnLayout = (props: LayoutProps) => {
 						meta={meta}
 					/>
 				</div>
-				<div className={`col-span-1 md:col-span-${12 - (layout.config?.leftSpan || 6)}`}>
+				<div
+					className={`
+						col-span-1 md:col-span-${12 - (layout.config?.leftSpan || 6)}
+						${breakLeftFirst ? 'max-md:order-2' : 'max-md:order-1'}
+					`}>
 					<RegionView
 						name="right"
 						components={regions['right']?.components}

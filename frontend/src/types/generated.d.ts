@@ -665,6 +665,7 @@ export type Layout_Idebanken_ComponentDataApplicationConfig = {
 export type Layout_Idebanken__2_Column = {
   __typename?: 'Layout_idebanken__2_column';
   bgColor?: Maybe<Scalars['String']['output']>;
+  breakLeftFirst?: Maybe<Scalars['Boolean']['output']>;
   leftSpan?: Maybe<Scalars['String']['output']>;
 };
 
