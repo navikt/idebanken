@@ -69,25 +69,27 @@ query($path:ID!){
 }`
 
 export function commonVariables(path: string) {
-    return {
-        path,
-    }
+	return {
+		path,
+	}
 }
 
-export type CommonType = {
-    get: CommonGet
-    getSite: CommonGetSite
+export type CommonType<T = UnknownJSONContent> = {
+	get: CommonGet<T>
+	getSite: CommonGetSite
 }
 
-type CommonGet = {
-    displayName: string
-    _id: string
-    type: `${string}:${string}`
-    dataAsJson: JSON
-    xAsJson: JSON
+type CommonGet<T = UnknownJSONContent> = {
+	displayName: string
+	_id: string
+	type: `${string}:${string}`
+	dataAsJson: T
+	xAsJson: UnknownJSONContent
 }
 
 type CommonGetSite = {
-    displayName: string
-    _path: string
+	displayName: string
+	_path: string
 }
+
+type UnknownJSONContent = Record<string, string | Array<string> | object>

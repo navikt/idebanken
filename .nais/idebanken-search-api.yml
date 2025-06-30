@@ -32,11 +32,11 @@ spec:
     max: {{ max-replicas }}
   openSearch:
     access: admin
-    instance: opensearch-idebanken-search
+    instance: search
   ingresses:
-  {{#each ingresses}}
-     - "{{this}}"
-         {{/each}}
+  {{#each ingress as |url|}}
+      - {{url}}
+  {{/each}}
   accessPolicy:
     inbound:
       rules:

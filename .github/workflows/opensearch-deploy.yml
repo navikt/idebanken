@@ -2,14 +2,14 @@ name: Deploy Opensearch
 on:
   workflow_dispatch:
     inputs:
-      cluster:
+      environment:
         type: choice
-        description: Cluster to deploy to
+        description: Environment to deploy to
         required: true
-        default: dev-gcp
+        default: test
         options:
-          - dev-gcp
-          - prod-gcp
+          - test
+          - prod
 
 jobs:
   deploy-opensearch:
@@ -18,6 +18,9 @@ jobs:
       id-token: write
       contents: read
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    env:
+      CLUSTER: ${{ inputs.environment == 'prod' && 'prod-gcp' || 'dev-gcp' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,6 +28,6 @@ jobs:
       - name: deploy
         uses: nais/deploy/actions/deploy@v2
         env:
-          CLUSTER: ${{ inputs.cluster }}
+          CLUSTER: ${{ env.CLUSTER }}
           RESOURCE: .nais/opensearch.yml
-          VARS: .nais/${{ inputs.cluster }}/opensearch.yml
+          VARS: .nais/${{ env.CLUSTER }}/opensearch.yml

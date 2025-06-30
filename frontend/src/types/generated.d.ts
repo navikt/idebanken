@@ -665,6 +665,7 @@ export type Layout_Idebanken_ComponentDataApplicationConfig = {
 export type Layout_Idebanken__2_Column = {
   __typename?: 'Layout_idebanken__2_column';
   bgColor?: Maybe<Scalars['String']['output']>;
+  breakLeftFirst?: Maybe<Scalars['Boolean']['output']>;
   leftSpan?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1854,6 +1855,7 @@ export type Idebanken_Guide = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_Guide_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -1916,6 +1918,19 @@ export type Idebanken_GuidePageAsJsonArgs = {
 export type Idebanken_GuidePageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
+};
+
+/** Guide - idebanken:guide data */
+export type Idebanken_Guide_Data = {
+  __typename?: 'idebanken_Guide_Data';
+  ingress?: Maybe<RichText>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Guide - idebanken:guide data */
+export type Idebanken_Guide_DataIngressArgs = {
+  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Archive - media:archive */

@@ -8,6 +8,7 @@ export type InfoBox = import("./info-box").InfoBox;
 export type LinkPanel = import("./link-panel").LinkPanel;
 export type TextEditor = import("./text-editor").TextEditor;
 export type TipPanel = import("./tip-panel").TipPanel;
+export type TitleIngress = import("./title-ingress").TitleIngress;
 
 declare global {
   interface XpPartMap {
@@ -20,5 +21,6 @@ declare global {
     "idebanken:link-panel": LinkPanel;
     "idebanken:text-editor": TextEditor;
     "idebanken:tip-panel": TipPanel;
+    "idebanken:title-ingress": TitleIngress;
   }
 }

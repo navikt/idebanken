@@ -16,8 +16,8 @@ const xpOrigins: EnvRecord = {
 } as const
 
 const searchApiUrls: EnvRecord = {
-    prod: '',
-    test: '',
+    prod: 'https://idebanken-search-api.ekstern.prod.nav.no/content/idebanken',
+    test: 'https://idebanken-search-api.ekstern.dev.nav.no/content/idebanken',
     local: 'http://localhost:9000/content/idebanken',
 } as const
 

@@ -26,6 +26,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
 	const { common, meta, layout } = props
 	const leftSpan = Number(layout.config?.leftSpan) || 6
 	const rightSpan = 12 - leftSpan
+	const breakLeftFirst = layout.config?.breakLeftFirst
 
 	return (
 		<Box
@@ -41,7 +42,11 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
 			<HGrid
 				gap={{ sm: 'space-8', md: 'space-12', lg: 'space-20', xl: 'space-24' }}
 				columns={{ xs: 1, md: 12 }}>
-				<div className={`col-span-1 md:col-span-${leftSpan}`}>
+				<div
+					className={`
+						col-span-1 md:col-span-${leftSpan}
+						${breakLeftFirst ? 'max-md:order-1' : 'max-md:order-2'}
+					`}>
 					<RegionView
 						name="left"
 						components={regions['left']?.components}
@@ -49,7 +54,11 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
 						meta={meta}
 					/>
 				</div>
-				<div className={`col-span-1 md:col-span-${rightSpan}`}>
+				<div
+					className={`
+						col-span-1 md:col-span-${rightSpan}
+						${breakLeftFirst ? 'max-md:order-2' : 'max-md:order-1'}
+					`}>
 					<RegionView
 						name="right"
 						components={regions['right']?.components}
