@@ -1,6 +1,6 @@
 import { APP_NAME, ComponentRegistry } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
-import { imageQuery, buttonQuery } from './queries/parts'
+import { buttonQuery, imageQuery } from './queries/parts'
 import MainPage from './pages/Main'
 
 import '@enonic/nextjs-adapter/baseMappings'
@@ -16,6 +16,7 @@ import { AccordionView } from './parts/Accordion'
 import { ImageView } from './parts/Image'
 import PanelLayoutTwoColumn from './layouts/PanelLayoutTwoColumn'
 import { LinkPanelView } from './parts/LinkPanel'
+import TitleIngressView from '~/components/parts/TitleIngress'
 
 // You can set common query for all views here
 ComponentRegistry.setCommonQuery([commonQuery, commonVariables])
@@ -75,4 +76,8 @@ ComponentRegistry.addPart(`${APP_NAME}:accordion`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:link-panel`, {
 	view: LinkPanelView,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:title-ingress`, {
+	view: TitleIngressView,
 })

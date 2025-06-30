@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>
+        <input name="title" type="TextLine">
+            <occurrences minimum="1" maximum="1"/>
+            <label>Tittel</label>
+            <help-text>Tittel for siden, som vises av "tittel og ingress" parten</help-text>
+        </input>
+        <input name="ingress" type="HtmlArea">
+            <occurrences minimum="1" maximum="1"/>
+            <label>Ingress</label>
+            <help-text>Ingress for siden, som vises av "tittel og ingress" parten</help-text>
+            <config>
+                <exclude>*</exclude>
+                <include>
+                    Format FontSize | JustifyLeft JustifyRight | Bold Italic | BulletedList NumberedList | Undo Redo | Link
+                </include>
+                <allowHeadings>h2 h3 h4 h5 h6</allowHeadings>
+            </config>
+        </input>
+    </form>
+</mixin>

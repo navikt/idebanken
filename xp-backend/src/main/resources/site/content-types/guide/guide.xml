@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content-type>
     <display-name>Guide</display-name>
+    <display-name-expression>${title}</display-name-expression>
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
-    <form/>
+    <form>
+        <mixin name="title-ingress"/>
+    </form>
 </content-type>
