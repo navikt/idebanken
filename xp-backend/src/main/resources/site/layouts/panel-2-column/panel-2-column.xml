@@ -4,7 +4,7 @@
     <description>Panel with left and right regions</description>
     <form>
         <item-set name="background">
-            <label>Background</label>
+            <label>Background (Outer Box / Inner Box)</label>
             <occurrences minimum="2" maximum="2"/>
             <items>
                 <mixin name="background-color"/>

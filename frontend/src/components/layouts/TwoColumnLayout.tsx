@@ -1,10 +1,31 @@
-import type { LayoutProps } from '@enonic/nextjs-adapter'
+import type { Layout_Idebanken__2_Column } from '~/types/generated.d'
+import type { PageComponent, MetaData } from '@enonic/nextjs-adapter'
+import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { Box, HGrid } from '@navikt/ds-react'
 
-const TwoColumnLayout = (props: LayoutProps) => {
+interface TwoColumnLayoutProps {
+	layout: {
+		config: Layout_Idebanken__2_Column
+		descriptor: string
+		regions: {
+			left: {
+				components: PageComponent[]
+			}
+			right: {
+				components: PageComponent[]
+			}
+		}
+	}
+	common: CommonType
+	meta: MetaData
+}
+
+const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
 	const regions = props.layout.regions
 	const { common, meta, layout } = props
+	const leftSpan = Number(layout.config?.leftSpan) || 6
+	const rightSpan = 12 - leftSpan
 	const breakLeftFirst = layout.config?.breakLeftFirst
 
 	return (
@@ -23,7 +44,7 @@ const TwoColumnLayout = (props: LayoutProps) => {
 				columns={{ xs: 1, md: 12 }}>
 				<div
 					className={`
-						col-span-1 md:col-span-${layout.config?.leftSpan || 6}
+						col-span-1 md:col-span-${leftSpan}
 						${breakLeftFirst ? 'max-md:order-1' : 'max-md:order-2'}
 					`}>
 					<RegionView
@@ -35,7 +56,7 @@ const TwoColumnLayout = (props: LayoutProps) => {
 				</div>
 				<div
 					className={`
-						col-span-1 md:col-span-${12 - (layout.config?.leftSpan || 6)}
+						col-span-1 md:col-span-${rightSpan}
 						${breakLeftFirst ? 'max-md:order-2' : 'max-md:order-1'}
 					`}>
 					<RegionView
