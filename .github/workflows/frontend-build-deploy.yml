@@ -78,9 +78,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: Deploy to nais
         uses: ./.github/workflows/docker-deploy.yml
-        permissions:
-          contents: 'read'
-          id-token: 'write'
         with:
           app_directory: frontend
           environment: ${{ inputs.environment }}
