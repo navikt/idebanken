@@ -22,6 +22,11 @@
             </config>
             <default>6</default>
         </input>
+        <input name="breakLeftFirst" type="CheckBox">
+            <label>Venstre kolonne øverst for mobilvisning</label>
+            <help-text>Vis innholdet i venstre kolonne øverst for mobilvisning</help-text>
+            <default>checked</default>
+        </input>
     </form>
     <regions>
         <region name="left"/>

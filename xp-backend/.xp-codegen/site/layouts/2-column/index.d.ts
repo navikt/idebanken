@@ -9,4 +9,9 @@ export type _2Column = {
    * Venstre Kolonne - Bredde
    */
   leftSpan: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11";
+
+  /**
+   * Venstre kolonne øverst for mobilvisning
+   */
+  breakLeftFirst: boolean;
 };
