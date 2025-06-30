@@ -19,11 +19,6 @@ on:
         options:
           - idebanken-search-api
         default: "idebanken-search-api"
-      image:
-        type: string
-        description: Image tag to use. Defaults to latest git tag or branch name
-        required: true
-        default: europe-north1-docker.pkg.dev/nais-management-233d/idebanken/idebanken-test-idebanken-search-api:2025.06.27-12.24-30602ca
   workflow_call:
     inputs:
       environment:
@@ -53,38 +48,37 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-#      - name: Setup java
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: 'temurin'
-#          java-version: 21
-#      - name: Setup gradle
-#        uses: gradle/actions/setup-gradle@v4
-#      - name: Build application
-#        run: |
-#          ./gradlew clean build
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#
-#      - name: Get latest git tag
-#        id: get_tag
-#        run: echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
-#
-#      - name: Build and push docker image
-#        uses: nais/docker-build-push@v0
-#        id: docker-build-push
-#        with:
-#          team: idebanken
-#          docker_context: apps/${{ inputs.app_directory }}
-#          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-#          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
-#          tag: ${{ inputs.version || steps.get_tag.outputs.tag || github.ref_name }}
-#          image_suffix: ${{ inputs.environment }}-${{ inputs.app_directory }}
+      - name: Setup java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: 21
+      - name: Setup gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: Build application
+        run: |
+          ./gradlew clean build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get latest git tag
+        id: get_tag
+        run: echo "tag=$(git describe --tags --abbrev=0)" >> $GITHUB_OUTPUT
+
+      - name: Build and push docker image
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
+        with:
+          team: idebanken
+          docker_context: apps/${{ inputs.app_directory }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+          tag: ${{ inputs.version || steps.get_tag.outputs.tag || github.ref_name }}
+          image_suffix: ${{ inputs.environment }}-${{ inputs.app_directory }}
 
       - name: Deploy to nais
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: ${{ env.CLUSTER }}
-          RESOURCE: .nais/${{ inputs.app_directory }}.yml
-          VAR: image=${{inputs.image}}
-          VARS: .nais/${{ env.CLUSTER }}/${{ inputs.app_directory }}.yml
+        uses: ./.github/workflows/docker-deploy.yml
+        with:
+          app_directory: ${{ inputs.app_directory }}
+          environment: ${{ inputs.environment }}
+          image: ${{ steps.docker-build-push.outputs.image }}

@@ -1,0 +1,56 @@
+name: Deploy docker container to nais
+run-name: deploy ${{ inputs.app_directory }} to nais
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Environment
+        required: true
+        default: test
+        options:
+          - test
+          - prod
+      app_directory:
+        type: choice
+        description: App to deploy
+        required: true
+        options:
+          - idebanken-search-api
+          - frontend
+      image:
+        type: string
+        description: Full image reference (e.g. europe-north1-docker.pkg.dev/nais-management-233d/idebanken/idebanken-test-idebanken-search-api:main)
+        required: true
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      app_directory:
+        type: string
+        required: true
+      image:
+        type: string
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    environment: ${{ inputs.environment }}
+    env:
+      CLUSTER: ${{ inputs.environment == 'prod' && 'prod-gcp' || 'dev-gcp' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Deploy to nais
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: ${{ env.CLUSTER }}
+          RESOURCE: .nais/${{ inputs.app_directory }}.yml
+          VAR: image=${{ inputs.image }}
+          VARS: .nais/${{ env.CLUSTER }}/${{ inputs.app_directory }}.yml

@@ -65,7 +65,7 @@ jobs:
           tag: ${{ inputs.version || github.ref_name }}
           image_suffix: ${{ inputs.environment }}-frontend
 
-  deploy-test:
+  deploy:
     name: Deploy frontend
     needs: [build-and-push]
     runs-on: ubuntu-latest
@@ -76,11 +76,12 @@ jobs:
       CLUSTER: ${{ inputs.environment == 'prod' && 'prod-gcp' || 'dev-gcp' }}
     steps:
       - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v2
-        env:
-          DRY_RUN: false
-          PRINT_PAYLOAD: true
-          CLUSTER: ${{ env.CLUSTER }}
-          RESOURCE: .nais/frontend.yml
-          VAR: image=${{ needs.build-and-push.outputs.image }}
-          VARS: .nais/${{ env.CLUSTER }}/frontend.yml
+      - name: Deploy to nais
+        uses: ./.github/workflows/docker-deploy.yml
+        permissions:
+          contents: 'read'
+          id-token: 'write'
+        with:
+          app_directory: frontend
+          environment: ${{ inputs.environment }}
+          image: ${{ needs.build-and-push.outputs.image }}
