@@ -1,8 +1,24 @@
-import type { LayoutProps } from '@enonic/nextjs-adapter'
+import type { PageComponent, MetaData } from '@enonic/nextjs-adapter'
+import type { Layout_Idebanken_Single_Column } from '~/types/generated.d'
+import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { Box } from '@navikt/ds-react'
 
-const SingleColumnLayout = (props: LayoutProps) => {
+interface SingleColumnLayoutProps {
+	layout: {
+		config: Layout_Idebanken_Single_Column
+		descriptor: string
+		regions: {
+			content: {
+				components: PageComponent[]
+			}
+		}
+	}
+	common: CommonType
+	meta: MetaData
+}
+
+const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
 	const regions = props.layout.regions
 	const { common, meta, layout } = props
 
