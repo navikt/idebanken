@@ -68,17 +68,11 @@ jobs:
   deploy:
     name: Deploy frontend
     needs: [build-and-push]
-    runs-on: ubuntu-latest
     permissions:
-      id-token: write
-      contents: read
-    env:
-      CLUSTER: ${{ inputs.environment == 'prod' && 'prod-gcp' || 'dev-gcp' }}
-    steps:
-      - uses: actions/checkout@v4
-      - name: Deploy to nais
-        uses: ./.github/workflows/docker-deploy.yml
-        with:
-          app_directory: frontend
-          environment: ${{ inputs.environment }}
-          image: ${{ needs.build-and-push.outputs.image }}
+      id-token: 'write'
+      contents: 'read'
+    uses: ./.github/workflows/docker-deploy.yml
+    with:
+      app_directory: frontend
+      environment: ${{ inputs.environment }}
+      image: ${{ needs.build-and-push.outputs.image }}
