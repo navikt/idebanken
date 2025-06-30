@@ -32,18 +32,18 @@ spec:
     max: {{ max-replicas }}
   openSearch:
     access: admin
-    instance: opensearch-idebanken-search
+    instance: search
   ingresses:
-  {{#each ingresses}}
-     - "{{this}}"
-         {{/each}}
+  {{#each ingress as |url|}}
+      - {{url}}
+  {{/each}}
   accessPolicy:
     inbound:
       rules:
         - application: "*"
           namespace: idebanken
   envFrom:
-    - secret: idebanken-search-api
+    - secret: idebanken
   secureLogs:
     enabled: true
   resources:

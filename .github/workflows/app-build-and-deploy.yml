@@ -32,19 +32,20 @@ on:
         required: false
 
 jobs:
-  deploy:
-    name: Build image and deploy to nais
+  build:
+    name: Build image and push to registry
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
       packages: read
-    environment: ${{ inputs.environment }}
     defaults:
       run:
         working-directory: apps/${{ inputs.app_directory }}
     env:
       CLUSTER: ${{ inputs.environment == 'prod' && 'prod-gcp' || 'dev-gcp' }}
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -76,10 +77,14 @@ jobs:
           tag: ${{ inputs.version || steps.get_tag.outputs.tag || github.ref_name }}
           image_suffix: ${{ inputs.environment }}-${{ inputs.app_directory }}
 
-      - name: Deploy to nais
-        uses: nais/deploy/actions/deploy@v2
-        env:
-          CLUSTER: ${{ env.CLUSTER }}
-          RESOURCE: .nais/${{ inputs.app_directory }}.yml
-          VAR: image=${{steps.docker-build-push.outputs.image}}
-          VARS: .nais/${{ env.CLUSTER }}/${{ inputs.app_directory }}.yml
+  deploy-to-nais:
+    name: Deploy to nais
+    needs: build
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/docker-deploy.yml
+    with:
+      app_directory: ${{ inputs.app_directory }}
+      environment: ${{ inputs.environment }}
+      image: ${{ needs.build.outputs.image }}
