@@ -1,22 +1,43 @@
-import React from 'react'
-import styles from './InfoBox.module.css'
 import { Info } from '../icons/Info'
-import classNames from 'classnames'
-
-export type BgColorClasses = 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue'
 
 export interface InfoBoxProps {
 	children: React.ReactNode
-	bgColorClass?: BgColorClasses
+	bgColorClass?: string
 }
 
 export const InfoBox = ({ children, bgColorClass = 'bg-extra-light-pink' }: InfoBoxProps) => {
 	return (
-		<div className={styles.infoboxContainer}>
-			<div className={styles.iconbox}>
+		<div
+			style={{
+				filter: 'drop-shadow(0px 24px 44px rgba(88, 84, 106, 0.30))',
+			}}
+			className="
+				relative 
+				pt-4 pr-4
+			">
+			<div
+				className="
+					bg-dark-blue-500 
+					h-16 w-16 
+					rounded-full 
+					absolute 
+					top-0 right-0 
+					z-1 
+					flex justify-center items-center
+				">
 				<Info />
 			</div>
-			<div className={classNames(styles.infobox, bgColorClass)}>{children}</div>
+			<div
+				style={{
+					mask: 'radial-gradient(circle 1px at calc(100% - 16px) calc(0% + 16px), transparent 39px, purple 0)',
+				}}
+				className={`
+					${bgColorClass} 
+					py-16 px-[1.5rem] 
+					rounded-[72px] 
+				`}>
+				{children}
+			</div>
 		</div>
 	)
 }

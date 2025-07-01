@@ -21,7 +21,7 @@ export const DoubleInfoBoxView = (props: DoubleInfoBoxData) => {
 				<>{parseHtml(infoBox1?.simpleTextEditor)}</>
 			</InfoBox>
 			<InfoBox bgColorClass={infoBox2.bgColor}>
-				<>{parseHtml(infoBox1?.simpleTextEditor)}</>
+				<>{parseHtml(infoBox2?.simpleTextEditor)}</>
 			</InfoBox>
 		</div>
 	)
