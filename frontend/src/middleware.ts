@@ -62,7 +62,7 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors 'none' ${enonicDomain};
+    frame-ancestors ${enonicDomain};
     upgrade-insecure-requests;
 `
 		// Replace newline characters and spaces

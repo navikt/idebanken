@@ -1,16 +1,16 @@
-import { BodyShort, Heading } from '@navikt/ds-react'
+import { Heading } from '@navikt/ds-react'
 import { CommonType } from '../queries/common'
 import { Part_Idebanken_Heading } from '~/types/generated.d'
 import { parseHtml } from '~/utils/parseHtml'
 
-type textEditorData = {
+type PageData = {
 	ingress: string
 	title: string
 }
 
 export interface TitleIngressData {
 	part: { descriptor?: string; config: Part_Idebanken_Heading }
-	common?: CommonType<textEditorData>
+	common?: CommonType<PageData>
 }
 
 const TitleIngressView = ({ common }: TitleIngressData) => {
@@ -19,9 +19,7 @@ const TitleIngressView = ({ common }: TitleIngressData) => {
 			<Heading level={'1'} size={'xlarge'}>
 				{common?.get?.dataAsJson?.title || '[Mangler tittel på innholdet]'}
 			</Heading>
-			<BodyShort size="large" className="font-light">
-				{parseHtml(common?.get?.dataAsJson?.ingress || '')}
-			</BodyShort>
+			<>{parseHtml(common?.get?.dataAsJson?.ingress || '[Mangler ingress]')}</>
 		</>
 	)
 }
