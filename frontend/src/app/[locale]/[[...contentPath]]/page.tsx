@@ -37,16 +37,17 @@ export async function generateMetadata({
 
 	const metaFields = common?.get?.metaFields as MetaFields
 	const image = metaFields?.image ?? undefined
+	const description = metaFields?.description?.replace(/\n/g, ' ')?.trim()
 
 	return {
 		metadataBase: metaFields?.baseUrl ? new URL(metaFields.baseUrl) : undefined,
 		title: metaFields?.fullTitle,
-		description: metaFields?.description,
+		description: description,
 		openGraph: {
 			type: (metaFields?.openGraph?.type ?? 'article') as OpenGraphType,
 			title: metaFields?.title,
 			siteName: metaFields?.siteName ?? undefined,
-			description: metaFields?.description ?? undefined,
+			description: description ?? undefined,
 			locale: metaFields?.locale ?? undefined,
 			url: metaFields?.openGraph?.hideUrl
 				? undefined
@@ -73,7 +74,7 @@ export async function generateMetadata({
 		twitter: {
 			site: metaFields?.twitter?.site ?? undefined,
 			title: metaFields?.title ?? undefined,
-			description: metaFields?.description ?? undefined,
+			description: description ?? undefined,
 			images:
 				image && !metaFields?.twitter?.hideImages
 					? {

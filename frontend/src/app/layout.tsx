@@ -11,10 +11,8 @@ type LayoutProps = {
 /* RootLayout is required by Next.js */
 export default async function RootLayout({ children }: LayoutProps) {
 	const { isEnabled } = await draftMode()
-	const resolvedHeaders = await headers()
-	const hostHeader = resolvedHeaders.get('host')
-	const shouldTrackWithUmami = !isEnabled && hostHeader?.includes('idebanken')
-	const nonce = resolvedHeaders.get('x-nonce') ?? undefined
+	const shouldTrackWithUmami = !isEnabled && process.env.MODE === 'production'
+	const nonce = (await headers()).get('x-nonce') ?? undefined
 
 	return (
 		<>

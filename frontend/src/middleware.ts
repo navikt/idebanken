@@ -55,13 +55,14 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
 	const cspHeader = `
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${isLocalhost ? "'unsafe-eval'" : ''};
+    connect-src 'self' umami.nav.no;
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: ${enonicDomain};
     font-src 'self' cdn.nav.no;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors 'none';
+    frame-ancestors 'none' ${enonicDomain};
     upgrade-insecure-requests;
 `
 		// Replace newline characters and spaces
