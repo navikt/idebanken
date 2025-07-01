@@ -683,7 +683,7 @@ export type Layout_Idebanken_Panel_2_ColumnBackgroundArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-/** Background */
+/** Background (Outer Box / Inner Box) */
 export type Layout_Idebanken_Panel_2_Column_Background = {
   __typename?: 'Layout_idebanken_panel_2_column_Background';
   bgColor?: Maybe<Scalars['String']['output']>;
