@@ -11,8 +11,10 @@ type LayoutProps = {
 /* RootLayout is required by Next.js */
 export default async function RootLayout({ children }: LayoutProps) {
 	const { isEnabled } = await draftMode()
-	const hostHeader = (await headers()).get('host')
+	const resolvedHeaders = await headers()
+	const hostHeader = resolvedHeaders.get('host')
 	const shouldTrackWithUmami = !isEnabled && hostHeader?.includes('idebanken')
+	const nonce = resolvedHeaders.get('x-nonce') ?? undefined
 
 	return (
 		<>
@@ -23,7 +25,9 @@ export default async function RootLayout({ children }: LayoutProps) {
 						strategy="afterInteractive"
 						src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
 						data-host-url="https://umami.nav.no"
-						data-website-id="28f7fa0e-20b0-4d8e-b401-9d732ac14b4b"></Script>
+						data-website-id="28f7fa0e-20b0-4d8e-b401-9d732ac14b4b"
+						nonce={nonce}
+					/>
 				) : (
 					<></>
 				)}

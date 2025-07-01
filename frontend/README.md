@@ -14,10 +14,7 @@ cp ./.env .env.local
 
 Eller opprett filen `.env.local` basert på innholdet fra `.env`.
 
-Endre `ENONIC_API` til:
-```
-ENONIC_API=http://localhost:8080/site/
-```
+Endre på `ENONIC_API`, `ENONIC_DOMAIN` og `IS_LOCALHOST` til å bruke localhost verdiene.
 
 ### Installer node moduler
 
