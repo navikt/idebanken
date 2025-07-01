@@ -86,6 +86,7 @@ jobs:
     name: Download artifact and deploy to Test
     needs: [xp-app-build-and-upload, bump]
     if: needs.xp-app-build-and-upload.result == 'success'
+    secrets: inherit
     uses: ./.github/workflows/xp-app-download-deploy.yml
     permissions:
       contents: 'read'
