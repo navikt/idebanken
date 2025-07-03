@@ -915,7 +915,7 @@ export type Part_Idebanken_AccordionAccordionItemsArgs = {
 export type Part_Idebanken_Accordion_AccordionItems = {
   __typename?: 'Part_idebanken_accordion_AccordionItems';
   header?: Maybe<Scalars['String']['output']>;
-  simpleTextEditor?: Maybe<RichText>;
+  simpleTextEditor?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -976,7 +976,7 @@ export type Part_Idebanken_Double_Info_BoxInfoboxArgs = {
 export type Part_Idebanken_Double_Info_Box_Infobox = {
   __typename?: 'Part_idebanken_double_info_box_Infobox';
   bgColor?: Maybe<Scalars['String']['output']>;
-  simpleTextEditor?: Maybe<RichText>;
+  simpleTextEditor?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -1003,7 +1003,7 @@ export type Part_Idebanken_Image = {
 export type Part_Idebanken_Info_Box = {
   __typename?: 'Part_idebanken_info_box';
   bgColor?: Maybe<Scalars['String']['output']>;
-  simpleTextEditor?: Maybe<RichText>;
+  simpleTextEditor?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -1048,7 +1048,7 @@ export type Part_Idebanken_Multi_Info_Box_InfoBoxItemsSimpleTextEditorArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['text-editor'] */
 export type Part_Idebanken_Text_Editor = {
   __typename?: 'Part_idebanken_text_editor';
-  simpleTextEditor?: Maybe<RichText>;
+  simpleTextEditor?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -1077,7 +1077,7 @@ export type Part_Idebanken_Tip_PanelPanelArgs = {
 export type Part_Idebanken_Tip_Panel_Panel = {
   __typename?: 'Part_idebanken_tip_panel_Panel';
   bgColor?: Maybe<Scalars['String']['output']>;
-  simpleTextEditor?: Maybe<RichText>;
+  simpleTextEditor?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -1205,17 +1205,6 @@ export type RangeDslExpressionInput = {
   lte?: InputMaybe<DslExpressionValueInput>;
 };
 
-/** RichText type. */
-export type RichText = {
-  __typename?: 'RichText';
-  images?: Maybe<Array<Maybe<Image>>>;
-  links?: Maybe<Array<Maybe<Link>>>;
-  macros?: Maybe<Array<Maybe<Macro>>>;
-  macrosAsJson?: Maybe<Scalars['JSON']['output']>;
-  processedHtml?: Maybe<Scalars['String']['output']>;
-  raw?: Maybe<Scalars['String']['output']>;
-};
-
 /** Site configurator. */
 export type SiteConfigurator = {
   __typename?: 'SiteConfigurator';
@@ -1263,7 +1252,7 @@ export type TermsAggregationInput = {
 /** Text component data. */
 export type TextComponentData = {
   __typename?: 'TextComponentData';
-  value: RichText;
+  value: Scalars['String']['output'];
 };
 
 
@@ -1950,7 +1939,7 @@ export type Idebanken_GuidePageUrlArgs = {
 /** Guide - idebanken:guide data */
 export type Idebanken_Guide_Data = {
   __typename?: 'idebanken_Guide_Data';
-  ingress?: Maybe<RichText>;
+  ingress?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
