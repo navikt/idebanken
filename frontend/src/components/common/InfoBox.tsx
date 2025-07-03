@@ -1,4 +1,4 @@
-import { Info } from '../icons/Info'
+import { Info } from '~/components/icons/Info'
 
 export interface InfoBoxProps {
 	children: React.ReactNode
@@ -14,6 +14,7 @@ export const InfoBox = ({ children, bgColorClass = 'bg-extra-light-pink' }: Info
 			className="
 				relative 
 				pt-4 pr-4
+				flex-1
 			">
 			<div
 				className="

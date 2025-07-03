@@ -9,7 +9,6 @@ import TwoColumnLayout from './layouts/TwoColumnLayout'
 import { ButtonView } from './parts/Button'
 import { TextEditorView } from './parts/TextEditor'
 import { InfoBoxView } from './parts/InfoBox'
-import { DoubleInfoBoxView } from './parts/DoubleInfoBox'
 import SingleColumnLayout from './layouts/SingleColumnLayout'
 import { TipPanelView } from './parts/TipPanel'
 import { AccordionView } from './parts/Accordion'
@@ -60,10 +59,6 @@ ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:info-box`, {
 	view: InfoBoxView,
-})
-
-ComponentRegistry.addPart(`${APP_NAME}:double-info-box`, {
-	view: DoubleInfoBoxView,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:tip-panel`, {

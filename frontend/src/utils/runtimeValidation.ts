@@ -6,11 +6,14 @@ import {
 	buttonConfigSchema,
 	AccordionConfig,
 	accordionConfigSchema,
+	InfoBoxConfig,
+	infoBoxConfigSchema,
 } from '~/types/parts'
 import {
 	Part_Idebanken_Heading,
 	Part_Idebanken_Button,
 	Part_Idebanken_Accordion,
+	Part_Idebanken_Multi_Info_Box,
 } from '~/types/generated.d'
 
 export function validatedHeadingConfig(config: Part_Idebanken_Heading): HeadingConfig | null {
@@ -38,6 +41,17 @@ export function validatedAccordionConfig(config: Part_Idebanken_Accordion): Acco
 		return parse(accordionConfigSchema, config)
 	} catch {
 		console.error('Invalid accordion config:', config)
+		return null
+	}
+}
+
+export function validatedInfoBoxConfig(
+	config: Part_Idebanken_Multi_Info_Box
+): InfoBoxConfig | null {
+	try {
+		return parse(infoBoxConfigSchema, config)
+	} catch {
+		console.error('Invalid info box config:', config)
 		return null
 	}
 }
