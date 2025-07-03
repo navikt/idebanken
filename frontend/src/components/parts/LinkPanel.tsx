@@ -1,6 +1,5 @@
 /* NB: LinkPanel is depriciated in Aksel */
 'use client'
-import React from 'react'
 import { PartData } from '@enonic/nextjs-adapter'
 import { LinkPanel } from '@navikt/ds-react'
 import styles from './LinkPanel.module.css'
