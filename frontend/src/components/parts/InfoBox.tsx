@@ -1,6 +1,6 @@
 import type { Part_Idebanken_Multi_Info_Box } from '~/types/generated.d'
 import { parseHtml } from '~/utils/parseHtml'
-import { InfoBox } from '../common/InfoBox'
+import { InfoBox } from '~/components/common/InfoBox'
 import { HStack } from '@navikt/ds-react'
 import { validatedInfoBoxConfig } from '~/utils/runtimeValidation'
 

@@ -3,7 +3,7 @@ import { parseHtml } from '~/utils/parseHtml'
 import styles from './TipPanel.module.css'
 import { Heading } from '@navikt/ds-react'
 import classNames from 'classnames'
-import { Card } from '../common/Card'
+import { Card } from '~/components/common/Card'
 
 export interface TipPanelData {
 	part: PartData

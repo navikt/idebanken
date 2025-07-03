@@ -1036,7 +1036,7 @@ export type Part_Idebanken_Multi_Info_BoxInfoBoxItemsArgs = {
 export type Part_Idebanken_Multi_Info_Box_InfoBoxItems = {
   __typename?: 'Part_idebanken_multi_info_box_InfoBoxItems';
   bgColor?: Maybe<Scalars['String']['output']>;
-  simpleTextEditor?: Maybe<RichText>;
+  simpleTextEditor?: Maybe<Scalars['String']['output']>;
 };
 
 
