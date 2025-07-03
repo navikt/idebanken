@@ -893,6 +893,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   image?: Maybe<Part_Idebanken_Image>;
   info_box?: Maybe<Part_Idebanken_Info_Box>;
   link_panel?: Maybe<Part_Idebanken_Link_Panel>;
+  multi_info_box?: Maybe<Part_Idebanken_Multi_Info_Box>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
   tip_panel?: Maybe<Part_Idebanken_Tip_Panel>;
 };
@@ -900,26 +901,26 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
 /** Part component application config for application ['idebanken'] and descriptor ['accordion'] */
 export type Part_Idebanken_Accordion = {
   __typename?: 'Part_idebanken_accordion';
-  accordionItem?: Maybe<Array<Maybe<Part_Idebanken_Accordion_AccordionItem>>>;
+  accordionItems?: Maybe<Array<Maybe<Part_Idebanken_Accordion_AccordionItems>>>;
 };
 
 
 /** Part component application config for application ['idebanken'] and descriptor ['accordion'] */
-export type Part_Idebanken_AccordionAccordionItemArgs = {
+export type Part_Idebanken_AccordionAccordionItemsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Accordion */
-export type Part_Idebanken_Accordion_AccordionItem = {
-  __typename?: 'Part_idebanken_accordion_AccordionItem';
+export type Part_Idebanken_Accordion_AccordionItems = {
+  __typename?: 'Part_idebanken_accordion_AccordionItems';
   header?: Maybe<Scalars['String']['output']>;
   simpleTextEditor?: Maybe<RichText>;
 };
 
 
 /** Accordion */
-export type Part_Idebanken_Accordion_AccordionItemSimpleTextEditorArgs = {
+export type Part_Idebanken_Accordion_AccordionItemsSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
@@ -1016,6 +1017,32 @@ export type Part_Idebanken_Link_Panel = {
   __typename?: 'Part_idebanken_link_panel';
   text?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['multi-info-box'] */
+export type Part_Idebanken_Multi_Info_Box = {
+  __typename?: 'Part_idebanken_multi_info_box';
+  infoBoxItems?: Maybe<Array<Maybe<Part_Idebanken_Multi_Info_Box_InfoBoxItems>>>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['multi-info-box'] */
+export type Part_Idebanken_Multi_Info_BoxInfoBoxItemsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Info box */
+export type Part_Idebanken_Multi_Info_Box_InfoBoxItems = {
+  __typename?: 'Part_idebanken_multi_info_box_InfoBoxItems';
+  bgColor?: Maybe<Scalars['String']['output']>;
+  simpleTextEditor?: Maybe<RichText>;
+};
+
+
+/** Info box */
+export type Part_Idebanken_Multi_Info_Box_InfoBoxItemsSimpleTextEditorArgs = {
+  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['text-editor'] */

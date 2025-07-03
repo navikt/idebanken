@@ -3,7 +3,7 @@ export type Accordion = {
   /**
    * Accordion
    */
-  accordionItem: Array<{
+  accordionItems: Array<{
     /**
      * Accordion header
      */

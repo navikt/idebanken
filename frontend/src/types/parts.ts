@@ -8,6 +8,7 @@ import {
 	array,
 	pipe,
 	optional,
+	union,
 } from 'valibot'
 
 // Heading
@@ -83,8 +84,8 @@ export const accordionItemSchema = object({
 })
 
 export const accordionConfigSchema = object({
-	accordionItem: pipe(
-		array(accordionItemSchema),
+	accordionItems: pipe(
+		union([array(accordionItemSchema), accordionItemSchema]),
 		transform((value) => (Array.isArray(value) ? value : value ? [value] : []))
 	),
 })
@@ -105,3 +106,18 @@ export type ImageData = {
 		}
 	}
 }
+
+// InfoBox
+export const infoBoxItemSchema = object({
+	bgColor: string(),
+	simpleTextEditor: string(),
+})
+
+export const infoBoxConfigSchema = object({
+	infoBoxItems: pipe(
+		union([array(infoBoxItemSchema), infoBoxItemSchema]),
+		transform((value) => (Array.isArray(value) ? value : value ? [value] : []))
+	),
+})
+
+export type InfoBoxConfig = InferOutput<typeof infoBoxConfigSchema>
