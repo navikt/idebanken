@@ -1,12 +1,14 @@
-import { parseHtml } from '~/utils/parseHtml'
+import { htmlRichTextReplacer } from 'utils/richText/html-rich-text-replacer'
+import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
+import { Part_Idebanken_Text_Editor } from '~/types/generated'
+import { PartData } from '~/types/graphql-types'
 
-export interface TextEditorData {
-    part: { descriptor: string, config: { simpleTextEditor: string} }
-}
+export const TextEditorView = (props: PartData<Part_Idebanken_Text_Editor>) => {
+	const { part } = props
+	const richTextData = part.config?.simpleTextEditor ?? {}
 
-export const TextEditorView = (props: TextEditorData) => {
-    const { part } = props
-    const html = part.config?.simpleTextEditor ?? ''
-
-    return <>{parseHtml(html)}</>
+	return (
+		// @ts-expect-error data.processedHtml is not required
+		<RichTextView data={richTextData} meta={props.meta} customReplacer={htmlRichTextReplacer} />
+	)
 }
