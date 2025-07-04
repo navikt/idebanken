@@ -1,11 +1,11 @@
-import type { Part_Idebanken_Multi_Info_Box } from '~/types/generated.d'
+import type { Part_Idebanken_Info_Box } from '~/types/generated.d'
 import { parseHtml } from '~/utils/parseHtml'
 import { InfoBox } from '../common/InfoBox'
 import { HStack } from '@navikt/ds-react'
 import { validatedInfoBoxConfig } from '~/utils/runtimeValidation'
 
 export interface InfoBoxData {
-	part: { descriptor: string; config: Part_Idebanken_Multi_Info_Box }
+	part: { descriptor: string; config: Part_Idebanken_Info_Box }
 }
 
 export const InfoBoxView = (props: InfoBoxData) => {
