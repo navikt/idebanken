@@ -75,11 +75,11 @@ export function commonVariables(path: string) {
 }
 
 export type CommonType<T = UnknownJSONContent> = {
-	get: CommonGet<T>
+	get: CommonContentType<T>
 	getSite: CommonGetSite
 }
 
-type CommonGet<T = UnknownJSONContent> = {
+type CommonContentType<T = UnknownJSONContent> = {
 	displayName: string
 	_id: string
 	type: `${string}:${string}`
