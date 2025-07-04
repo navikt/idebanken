@@ -1,3 +1,4 @@
+import { Link } from './../types/generated.d'
 import { parse } from 'valibot'
 import {
 	HeadingConfig,
@@ -8,12 +9,15 @@ import {
 	accordionConfigSchema,
 	InfoBoxConfig,
 	infoBoxConfigSchema,
+	LinkCardConfig,
+	linkCardConfigSchema,
 } from '~/types/parts'
 import {
 	Part_Idebanken_Heading,
 	Part_Idebanken_Button,
 	Part_Idebanken_Accordion,
 	Part_Idebanken_Info_Box,
+	Part_Idebanken_Link_Card,
 } from '~/types/generated.d'
 
 export function validatedHeadingConfig(config: Part_Idebanken_Heading): HeadingConfig | null {
@@ -50,6 +54,15 @@ export function validatedInfoBoxConfig(config: Part_Idebanken_Info_Box): InfoBox
 		return parse(infoBoxConfigSchema, config)
 	} catch {
 		console.error('Invalid info box config:', config)
+		return null
+	}
+}
+
+export function validatedLinkCardConfig(config: Part_Idebanken_Link_Card): LinkCardConfig | null {
+	try {
+		return parse(linkCardConfigSchema, config)
+	} catch {
+		console.error('Invalid link card config:', config)
 		return null
 	}
 }

@@ -1,25 +1,32 @@
-import { PartData } from '@enonic/nextjs-adapter'
+import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
 import { Box } from '@navikt/ds-react'
 import { LinkCard, LinkCardIcon, LinkCardTitle, LinkCardAnchor } from '@navikt/ds-react/LinkCard'
-// import styles from './LinkPanel.module.css'
 import { PersonIcon } from '@navikt/aksel-icons'
+import { validatedLinkCardConfig } from '~/utils/runtimeValidation'
 
-export interface LinkPanelData {
-	part: PartData
+export interface LinkCardData {
+	part: { descriptor: string; config: Part_Idebanken_Link_Card }
 }
 
-export const LinkCardView = ({ part }: LinkPanelData) => {
-	const { url = '#', text = '' } = part?.config || {}
+export const LinkCardView = (props: LinkCardData) => {
+	const { part } = props
+	const link = validatedLinkCardConfig(part.config)
+
+	if (!link) return null
 
 	return (
-		<LinkCard>
-			<Box>
+		<LinkCard className="rounded-[100px] bg-pink-500">
+			<Box asChild padding="space-8">
 				<LinkCardIcon>
 					<PersonIcon fontSize="2.5rem" />
 				</LinkCardIcon>
 			</Box>
 			<LinkCardTitle>
-				<LinkCardAnchor href={url}>{text || 'Mangler lenketekst'}</LinkCardAnchor>
+				<LinkCardAnchor
+					href={link.url || '#'}
+					{...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+					{link.text}
+				</LinkCardAnchor>
 			</LinkCardTitle>
 		</LinkCard>
 	)

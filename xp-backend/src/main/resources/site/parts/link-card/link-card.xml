@@ -2,11 +2,9 @@
 <part xmlns="urn:enonic:xp:model:1.0">
     <display-name>Lenkekort</display-name>
     <form>
+        <mixin name="link-selector" />
         <input type="TextLine" name="text">
             <label>Lenketekst</label>
-        </input>
-        <input type="TextLine" name="url">
-            <label>URL</label>
         </input>
     </form>
 </part>

@@ -1,6 +1,6 @@
 import { APP_NAME, ComponentRegistry } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
-import { buttonQuery, imageQuery } from './queries/parts'
+import { linkQuery, imageQuery } from './queries/parts'
 import MainPage from './pages/Main'
 
 import '@enonic/nextjs-adapter/baseMappings'
@@ -45,7 +45,7 @@ ComponentRegistry.addPart(`${APP_NAME}:heading`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:button`, {
 	view: ButtonView,
-	configQuery: buttonQuery,
+	configQuery: linkQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:image`, {
@@ -71,6 +71,7 @@ ComponentRegistry.addPart(`${APP_NAME}:accordion`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:link-card`, {
 	view: LinkCardView,
+	configQuery: linkQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:title-ingress`, {

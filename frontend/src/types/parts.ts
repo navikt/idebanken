@@ -11,6 +11,59 @@ import {
 	union,
 } from 'valibot'
 
+// External / Internal Link
+export type BlockOptionSet = {
+	_selected?: string
+	externalLink?: { url?: string | null } | null
+	internalLink?: {
+		ideBankContentSelector?: { pageUrl?: string | null } | null
+	} | null
+}
+
+export const blockOptionSetSchema = optional(
+	nullable(
+		object({
+			_selected: string(),
+			externalLink: nullable(
+				object({
+					url: nullable(string()),
+				})
+			),
+			internalLink: nullable(
+				object({
+					ideBankContentSelector: nullable(
+						object({
+							pageUrl: nullable(string()),
+						})
+					),
+				})
+			),
+		})
+	)
+)
+
+export function transformBlockOptionSet(config?: BlockOptionSet | null) {
+	let url: string | null = null
+	let external: boolean | null = null
+	const selected = config?._selected
+	if (selected === 'externalLink') {
+		external = true
+		const extUrl = config?.externalLink?.url || ''
+		if (extUrl) {
+			url = /^https?:\/\//i.test(extUrl) ? extUrl : `https://${extUrl}`
+		}
+	}
+	if (selected === 'internalLink') {
+		external = false
+		const pageUrl = config?.internalLink?.ideBankContentSelector?.pageUrl || ''
+		if (pageUrl) {
+			const match = pageUrl.match(/\/(?:master|draft)\/idebanken(\/.*)/)
+			url = match ? match[1] : pageUrl
+		}
+	}
+	return { url, external }
+}
+
 // Heading
 export const headingConfigSchema = object({
 	level: picklist(['1', '2', '3', '4', '5', '6']),
@@ -26,49 +79,10 @@ export const buttonConfigSchema = pipe(
 		variant: picklist(['primary', 'secondary', 'tertiary']),
 		size: picklist(['medium', 'small', 'xsmall']),
 		text: nullable(string()),
-		blockOptionSet: optional(
-			nullable(
-				object({
-					_selected: string(),
-					externalLink: nullable(
-						object({
-							url: nullable(string()),
-						})
-					),
-					internalLink: nullable(
-						object({
-							ideBankContentSelector: nullable(
-								object({
-									pageUrl: nullable(string()),
-								})
-							),
-						})
-					),
-				})
-			)
-		),
+		blockOptionSet: blockOptionSetSchema,
 	}),
 	transform((config) => {
-		let url: string | null = null
-		let external: boolean | null = null
-		const selected = config.blockOptionSet?._selected
-		if (selected === 'externalLink') {
-			external = true
-			const extUrl = config.blockOptionSet?.externalLink?.url || ''
-			if (extUrl) {
-				url = /^https?:\/\//i.test(extUrl) ? extUrl : `https://${extUrl}`
-			}
-		}
-
-		if (selected === 'internalLink') {
-			external = false
-			const pageUrl =
-				config.blockOptionSet?.internalLink?.ideBankContentSelector?.pageUrl || ''
-			if (pageUrl) {
-				const match = pageUrl.match(/\/(?:master|draft)\/idebanken(\/.*)/)
-				url = match ? match[1] : pageUrl
-			}
-		}
+		const { url, external } = transformBlockOptionSet(config.blockOptionSet)
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		const { blockOptionSet, ...rest } = config
 		return { ...rest, url, external }
@@ -121,3 +135,19 @@ export const infoBoxConfigSchema = object({
 })
 
 export type InfoBoxConfig = InferOutput<typeof infoBoxConfigSchema>
+
+// LinkCard
+export const linkCardConfigSchema = pipe(
+	object({
+		text: nullable(string()),
+		blockOptionSet: blockOptionSetSchema,
+	}),
+	transform((config) => {
+		const { url, external } = transformBlockOptionSet(config.blockOptionSet)
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const { blockOptionSet, ...rest } = config
+		return { ...rest, url, external }
+	})
+)
+
+export type LinkCardConfig = InferOutput<typeof linkCardConfigSchema>
