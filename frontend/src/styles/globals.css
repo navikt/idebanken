@@ -67,6 +67,40 @@
 
 	/* Accordion */
 	--ac-accordion-header-border: none;
+
+	/* Spacing */
+	/* --a-space-1: 0.5rem;
+	--a-space-2: 1rem;
+	--a-space-3: 1.5rem;
+	--a-space-4: 2rem;
+	--a-space-5: 2.5rem;
+	--a-space-6: 3rem;
+	--a-space-7: 3.5rem;
+	--a-space-8: 4rem;
+	--a-space-9: 4.5rem;
+	--a-space-10: 5rem;
+	--a-space-11: 5.5rem;
+	--a-space-12: 6rem;
+	--a-space-13: 6.5rem;
+	--a-space-14: 7rem;
+	--a-space-15: 7.5rem;
+	--a-space-16: 8rem;
+	--a-space-17: 8.5rem;
+	--a-space-18: 9rem;
+	--a-space-19: 9.5rem;
+	--a-space-20: 10rem;
+	--a-space-21: 10.5rem;
+	--a-space-22: 11rem;
+	--a-space-23: 11.5rem;
+	--a-space-24: 12rem;
+	--a-space-25: 12.5rem;
+	--a-space-26: 13rem;
+	--a-space-27: 13.5rem;
+	--a-space-28: 14rem;
+	--a-space-29: 14.5rem;
+	--a-space-30: 15rem;
+	--a-space-31: 15.5rem;
+	--a-space-32: 16rem; */
 }
 
 /* NB: Is used in buttons text */

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <part xmlns="urn:enonic:xp:model:1.0">
-    <display-name>Lenkepanel</display-name>
+    <display-name>Lenkekort</display-name>
     <form>
+        <mixin name="link-selector" />
         <input type="TextLine" name="text">
             <label>Lenketekst</label>
-        </input>
-        <input type="TextLine" name="url">
-            <label>URL</label>
         </input>
     </form>
 </part>

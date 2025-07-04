@@ -1,5 +1,5 @@
 import { Heading } from '@navikt/ds-react'
-import { CommonType } from '../queries/common'
+import { CommonType } from '~/components/queries/common'
 import { Part_Idebanken_Heading } from '~/types/generated.d'
 import { parseHtml } from '~/utils/parseHtml'
 

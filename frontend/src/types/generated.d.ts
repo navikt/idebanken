@@ -891,7 +891,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   heading?: Maybe<Part_Idebanken_Heading>;
   image?: Maybe<Part_Idebanken_Image>;
   info_box?: Maybe<Part_Idebanken_Info_Box>;
-  link_panel?: Maybe<Part_Idebanken_Link_Panel>;
+  link_card?: Maybe<Part_Idebanken_Link_Card>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
   tip_panel?: Maybe<Part_Idebanken_Tip_Panel>;
 };
@@ -997,11 +997,37 @@ export type Part_Idebanken_Info_Box_InfoBoxItemsSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
-/** Part component application config for application ['idebanken'] and descriptor ['link-panel'] */
-export type Part_Idebanken_Link_Panel = {
-  __typename?: 'Part_idebanken_link_panel';
+/** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
+export type Part_Idebanken_Link_Card = {
+  __typename?: 'Part_idebanken_link_card';
+  blockOptionSet?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet>;
   text?: Maybe<Scalars['String']['output']>;
+};
+
+/** Select link type */
+export type Part_Idebanken_Link_Card_BlockOptionSet = {
+  __typename?: 'Part_idebanken_link_card_BlockOptionSet';
+  _selected?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet_OptionEnum>;
+  externalLink?: Maybe<Part_Idebanken_Link_Card_ExternalLink>;
+  internalLink?: Maybe<Part_Idebanken_Link_Card_InternalLink>;
+};
+
+/** Select link type option enum. */
+export enum Part_Idebanken_Link_Card_BlockOptionSet_OptionEnum {
+  ExternalLink = 'externalLink',
+  InternalLink = 'internalLink'
+}
+
+/** External URL */
+export type Part_Idebanken_Link_Card_ExternalLink = {
+  __typename?: 'Part_idebanken_link_card_ExternalLink';
   url?: Maybe<Scalars['String']['output']>;
+};
+
+/** Internal URL */
+export type Part_Idebanken_Link_Card_InternalLink = {
+  __typename?: 'Part_idebanken_link_card_InternalLink';
+  ideBankContentSelector?: Maybe<Content>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['text-editor'] */

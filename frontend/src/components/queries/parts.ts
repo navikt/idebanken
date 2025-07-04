@@ -11,7 +11,7 @@ export const imageQuery = `
     }
 `
 
-export const buttonQuery = `
+export const linkQuery = `
     { 
         blockOptionSet {
             _selected

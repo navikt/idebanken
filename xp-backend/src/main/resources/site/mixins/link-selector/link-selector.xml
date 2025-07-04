@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>
+        <option-set name="blockOptionSet">
+            <label>Select link type</label>
+            <occurrences minimum="1" maximum="1"/>  
+            <help-text>Create internal or external button link</help-text>
+            <options minimum="1" maximum="1">   
+                <option name="internalLink">
+                    <label>Internal URL</label>
+                    <items>
+                        <input name="ideBankContentSelector" type="ContentSelector">
+                            <label>Select content</label>
+                            <occurrences minimum="0" maximum="1"/>
+                            <config>
+                                <allowPath>${site}/*</allowPath>
+                            </config>
+                        </input> 
+                    </items>
+                </option>
+                <option name="externalLink">
+                    <label>External URL</label> 
+                    <items> 
+                        <input type="TextLine" name="url">
+                            <label>Paste in URL</label>
+                        </input>
+                    </items>
+                </option>
+            </options>
+        </option-set>
+    </form>
+</mixin>

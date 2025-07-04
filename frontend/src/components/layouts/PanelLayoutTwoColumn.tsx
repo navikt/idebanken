@@ -44,11 +44,11 @@ const PanelLayoutTwoColumn = (props: PanelLayoutTwoColumnProps) => {
 				gap={{ sm: 'space-8', md: 'space-12', lg: 'space-20', xl: 'space-24' }}
 				columns={{ xs: 1, md: 12 }}
 				padding={{
-					xs: 'space-12',
-					sm: 'space-16',
-					md: 'space-20',
-					lg: 'space-24',
-					xl: 'space-32',
+					xs: 'space-8',
+					sm: 'space-12',
+					md: 'space-16',
+					lg: 'space-20',
+					xl: 'space-24',
 				}}
 				className={`${bgInnerBox?.bgColor || 'bg-extra-light-pink'} rounded-3xl`}>
 				<div className={`col-span-1 md:col-span-${leftSpan}`}>
