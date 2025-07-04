@@ -9,6 +9,10 @@ export const TextEditorView = (props: PartData<Part_Idebanken_Text_Editor>) => {
 
 	return (
 		// @ts-expect-error data.processedHtml is not required
-		<RichTextView data={richTextData} meta={props.meta} customReplacer={htmlRichTextReplacer} />
+		<RichTextView
+			data={richTextData ?? {}}
+			meta={props.meta}
+			customReplacer={htmlRichTextReplacer}
+		/>
 	)
 }
