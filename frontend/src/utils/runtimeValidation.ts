@@ -13,7 +13,7 @@ import {
 	Part_Idebanken_Heading,
 	Part_Idebanken_Button,
 	Part_Idebanken_Accordion,
-	Part_Idebanken_Multi_Info_Box,
+	Part_Idebanken_Info_Box,
 } from '~/types/generated.d'
 
 export function validatedHeadingConfig(config: Part_Idebanken_Heading): HeadingConfig | null {
@@ -45,9 +45,7 @@ export function validatedAccordionConfig(config: Part_Idebanken_Accordion): Acco
 	}
 }
 
-export function validatedInfoBoxConfig(
-	config: Part_Idebanken_Multi_Info_Box
-): InfoBoxConfig | null {
+export function validatedInfoBoxConfig(config: Part_Idebanken_Info_Box): InfoBoxConfig | null {
 	try {
 		return parse(infoBoxConfigSchema, config)
 	} catch {
