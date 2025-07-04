@@ -888,7 +888,6 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   __typename?: 'Part_idebanken_ComponentDataApplicationConfig';
   accordion?: Maybe<Part_Idebanken_Accordion>;
   button?: Maybe<Part_Idebanken_Button>;
-  double_info_box?: Maybe<Part_Idebanken_Double_Info_Box>;
   heading?: Maybe<Part_Idebanken_Heading>;
   image?: Maybe<Part_Idebanken_Image>;
   info_box?: Maybe<Part_Idebanken_Info_Box>;
@@ -959,32 +958,6 @@ export type Part_Idebanken_Button_InternalLink = {
   ideBankContentSelector?: Maybe<Content>;
 };
 
-/** Part component application config for application ['idebanken'] and descriptor ['double-info-box'] */
-export type Part_Idebanken_Double_Info_Box = {
-  __typename?: 'Part_idebanken_double_info_box';
-  infobox?: Maybe<Array<Maybe<Part_Idebanken_Double_Info_Box_Infobox>>>;
-};
-
-
-/** Part component application config for application ['idebanken'] and descriptor ['double-info-box'] */
-export type Part_Idebanken_Double_Info_BoxInfoboxArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Infoboks */
-export type Part_Idebanken_Double_Info_Box_Infobox = {
-  __typename?: 'Part_idebanken_double_info_box_Infobox';
-  bgColor?: Maybe<Scalars['String']['output']>;
-  simpleTextEditor?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Infoboks */
-export type Part_Idebanken_Double_Info_Box_InfoboxSimpleTextEditorArgs = {
-  processHtml?: InputMaybe<ProcessHtmlInput>;
-};
-
 /** Part component application config for application ['idebanken'] and descriptor ['heading'] */
 export type Part_Idebanken_Heading = {
   __typename?: 'Part_idebanken_heading';
@@ -1002,13 +975,26 @@ export type Part_Idebanken_Image = {
 /** Part component application config for application ['idebanken'] and descriptor ['info-box'] */
 export type Part_Idebanken_Info_Box = {
   __typename?: 'Part_idebanken_info_box';
+  infoBoxItems?: Maybe<Array<Maybe<Part_Idebanken_Info_Box_InfoBoxItems>>>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['info-box'] */
+export type Part_Idebanken_Info_BoxInfoBoxItemsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Info-boks */
+export type Part_Idebanken_Info_Box_InfoBoxItems = {
+  __typename?: 'Part_idebanken_info_box_InfoBoxItems';
   bgColor?: Maybe<Scalars['String']['output']>;
   simpleTextEditor?: Maybe<Scalars['String']['output']>;
 };
 
 
-/** Part component application config for application ['idebanken'] and descriptor ['info-box'] */
-export type Part_Idebanken_Info_BoxSimpleTextEditorArgs = {
+/** Info-boks */
+export type Part_Idebanken_Info_Box_InfoBoxItemsSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
