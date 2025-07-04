@@ -1,4 +1,4 @@
-import { APP_NAME, ComponentRegistry } from '@enonic/nextjs-adapter'
+import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
 import { linkQuery, imageQuery } from './queries/parts'
 import MainPage from './pages/Main'
@@ -55,6 +55,9 @@ ComponentRegistry.addPart(`${APP_NAME}:image`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
 	view: TextEditorView,
+	configQuery: `{
+		${richTextQuery('simpleTextEditor')}
+	}`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:info-box`, {
