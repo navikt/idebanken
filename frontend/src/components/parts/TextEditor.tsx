@@ -5,7 +5,6 @@ import { PartData } from '~/types/graphql-types'
 
 export const TextEditorView = (props: PartData<Part_Idebanken_Text_Editor>) => {
 	const { part } = props
-	console.log('text-editor', JSON.stringify(part, null, 2))
 	const richTextData = part.config?.simpleTextEditor ?? {}
 
 	return (
