@@ -9,9 +9,6 @@ const config: CodegenConfig = {
 	generates: {
 		'./src/types/generated.d.ts': {
 			plugins: ['typescript', 'typescript-operations'],
-			// hooks: {
-			// 	afterOneFileWrite: ['node src/utils/replace-richtext.js'],
-			// },
 		},
 	},
 }
