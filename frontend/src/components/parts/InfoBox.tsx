@@ -2,9 +2,9 @@ import type { Part_Idebanken_Info_Box } from '~/types/generated.d'
 import { PartData } from '~/types/graphql-types'
 import { InfoBox } from '../common/InfoBox'
 import { HStack } from '@navikt/ds-react'
-import { validatedInfoBoxConfig } from '~/utils/runtimeValidation'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
+import { validatedInfoBoxConfig } from '~/utils/runtimeValidation'
 
 export const InfoBoxView = ({ part, meta }: PartData<Part_Idebanken_Info_Box>) => {
 	const config = validatedInfoBoxConfig(part.config)

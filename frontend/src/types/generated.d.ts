@@ -913,7 +913,7 @@ export type Part_Idebanken_AccordionAccordionItemsArgs = {
 export type Part_Idebanken_Accordion_AccordionItems = {
   __typename?: 'Part_idebanken_accordion_AccordionItems';
   header?: Maybe<Scalars['String']['output']>;
-  simpleTextEditor?: Maybe<Scalars['String']['output']>;
+  simpleTextEditor?: Maybe<RichText>;
 };
 
 
@@ -931,7 +931,7 @@ export type Part_Idebanken_Button = {
   variant?: Maybe<Scalars['String']['output']>;
 };
 
-/** Select link button type */
+/** Select link type */
 export type Part_Idebanken_Button_BlockOptionSet = {
   __typename?: 'Part_idebanken_button_BlockOptionSet';
   _selected?: Maybe<Part_Idebanken_Button_BlockOptionSet_OptionEnum>;
@@ -939,7 +939,7 @@ export type Part_Idebanken_Button_BlockOptionSet = {
   internalLink?: Maybe<Part_Idebanken_Button_InternalLink>;
 };
 
-/** Select link button type option enum. */
+/** Select link type option enum. */
 export enum Part_Idebanken_Button_BlockOptionSet_OptionEnum {
   ExternalLink = 'externalLink',
   InternalLink = 'internalLink'
@@ -988,7 +988,7 @@ export type Part_Idebanken_Info_BoxInfoBoxItemsArgs = {
 export type Part_Idebanken_Info_Box_InfoBoxItems = {
   __typename?: 'Part_idebanken_info_box_InfoBoxItems';
   bgColor?: Maybe<Scalars['String']['output']>;
-  simpleTextEditor?: Maybe<Scalars['String']['output']>;
+  simpleTextEditor?: Maybe<RichText>;
 };
 
 
@@ -1033,7 +1033,7 @@ export type Part_Idebanken_Link_Card_InternalLink = {
 /** Part component application config for application ['idebanken'] and descriptor ['text-editor'] */
 export type Part_Idebanken_Text_Editor = {
   __typename?: 'Part_idebanken_text_editor';
-  simpleTextEditor?: Maybe<Scalars['String']['output']>;
+  simpleTextEditor?: Maybe<RichText>;
 };
 
 
@@ -1062,7 +1062,7 @@ export type Part_Idebanken_Tip_PanelPanelArgs = {
 export type Part_Idebanken_Tip_Panel_Panel = {
   __typename?: 'Part_idebanken_tip_panel_Panel';
   bgColor?: Maybe<Scalars['String']['output']>;
-  simpleTextEditor?: Maybe<Scalars['String']['output']>;
+  simpleTextEditor?: Maybe<RichText>;
 };
 
 
@@ -1190,6 +1190,17 @@ export type RangeDslExpressionInput = {
   lte?: InputMaybe<DslExpressionValueInput>;
 };
 
+/** RichText type. */
+export type RichText = {
+  __typename?: 'RichText';
+  images?: Maybe<Array<Maybe<Image>>>;
+  links?: Maybe<Array<Maybe<Link>>>;
+  macros?: Maybe<Array<Maybe<Macro>>>;
+  macrosAsJson?: Maybe<Scalars['JSON']['output']>;
+  processedHtml?: Maybe<Scalars['String']['output']>;
+  raw?: Maybe<Scalars['String']['output']>;
+};
+
 /** Site configurator. */
 export type SiteConfigurator = {
   __typename?: 'SiteConfigurator';
@@ -1237,7 +1248,7 @@ export type TermsAggregationInput = {
 /** Text component data. */
 export type TextComponentData = {
   __typename?: 'TextComponentData';
-  value: Scalars['String']['output'];
+  value: RichText;
 };
 
 
@@ -1924,7 +1935,7 @@ export type Idebanken_GuidePageUrlArgs = {
 /** Guide - idebanken:guide data */
 export type Idebanken_Guide_Data = {
   __typename?: 'idebanken_Guide_Data';
-  ingress?: Maybe<Scalars['String']['output']>;
+  ingress?: Maybe<RichText>;
   title?: Maybe<Scalars['String']['output']>;
 };
 

@@ -16,10 +16,10 @@ export function handleMacro(
 	if (!ref) {
 		return <ErrorComponent reason={'Macro element has no data-macro-ref attribute!'} />
 	}
-
+	
 	const { macros } = data
 
-	if (!macros || !macros.length) {
+	if (!macros?.length) {
 		return (
 			<ErrorComponent
 				reason={"Can't replace macro, when there are no macros in the data object!"}
@@ -33,6 +33,15 @@ export function handleMacro(
 	}
 
 	const { descriptor, name, config: configs } = macroData
+	if (!configs) {
+		return (
+			<ErrorComponent
+				reason={
+					'Macro "{name}" has no config, unable to render macro! Make sure you are using fun richTextQuery within _mappings.ts'
+				}
+			/>
+		)
+	}
 	const config = configs[sanitizeGraphqlName(name)]
 
 	const data2 = {

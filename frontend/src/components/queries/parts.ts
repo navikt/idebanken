@@ -1,5 +1,3 @@
-import { richTextQuery } from '@enonic/nextjs-adapter'
-
 export const imageQuery = `{
 	image {
 		... on media_Image {
@@ -22,31 +20,5 @@ export const linkQuery = `{
 				pageUrl(type: server)
 			}
 		}
-	}
-}`
-
-export const textEditorQuery = `{
-	${richTextQuery('simpleTextEditor')}
-}`
-
-export const infoBoxQuery = `{
-	bgColor
-	${richTextQuery('simpleTextEditor')}
-}`
-
-export const tipPanelQuery = `{
-	bgColor
-	heading
-	reverse
-	panel {
-		bgColor
-		${richTextQuery('simpleTextEditor')}
-	}
-}`
-
-export const accordionQuery = `{
-	accordionItem {
-		header
-		${richTextQuery('simpleTextEditor')}
 	}
 }`
