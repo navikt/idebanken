@@ -3,7 +3,7 @@ import { CommonType } from '~/components/queries/common'
 
 export type PartData<Part, ContentType = unknown> = {
 	part: {
-		descriptor: `${string}:${string}`
+		descriptor: string
 		config: Part
 	}
 	meta: MetaData

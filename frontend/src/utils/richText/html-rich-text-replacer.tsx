@@ -15,6 +15,8 @@ import React from 'react'
 import { handleLink } from '~/utils/richText/handle-link'
 import { handleMacro } from '~/utils/richText/handle-macro'
 import { handleImage } from '~/utils/richText/handle-image'
+import { PartData } from '~/types/graphql-types'
+import { Part_Idebanken_Heading } from '~/types/generated'
 
 export const htmlRichTextReplacer: Replacer = (
 	domNode,
@@ -36,17 +38,17 @@ export const htmlRichTextReplacer: Replacer = (
 						</BodyLong>
 					)
 				case 'h1':
-					return <HeadingView part={headingPart('1', 'xlarge', el)} />
+					return headingPart('1', 'xlarge', el)
 				case 'h2':
-					return <HeadingView part={headingPart('2', 'large', el)} />
+					return headingPart('2', 'large', el)
 				case 'h3':
-					return <HeadingView part={headingPart('3', 'medium', el)} />
+					return headingPart('3', 'medium', el)
 				case 'h4':
-					return <HeadingView part={headingPart('4', 'small', el)} />
+					return headingPart('4', 'small', el)
 				case 'h5':
-					return <HeadingView part={headingPart('5', 'xsmall', el)} />
+					return headingPart('5', 'xsmall', el)
 				case 'h6':
-					return <HeadingView part={headingPart('6', 'xsmall', el)} />
+					return headingPart('6', 'xsmall', el)
 				case 'ul':
 					return <List as="ul">{domToReact(el.children as DOMNode[], options)}</List>
 				case 'ol':
@@ -89,11 +91,15 @@ function extractText(nodes: DOMNode[]): string {
 }
 
 function headingPart(level: string, size: string, el: Element) {
-	return {
+	const partData = {
+		descriptor: 'idebanken:heading',
 		config: {
 			level,
 			size,
 			text: extractText(el.children as DOMNode[]),
 		},
-	}
+	} as PartData<Part_Idebanken_Heading>['part']
+
+	// @ts-expect-error common and meta is not required for this part
+	return <HeadingView part={partData} />
 }
