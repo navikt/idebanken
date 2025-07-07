@@ -16,8 +16,7 @@ const TitleIngressView = ({ common, meta }: PartData<Part_Idebanken_Heading, Pag
 				{common?.get?.dataAsJson?.title || '[Mangler tittel på innholdet]'}
 			</Heading>
 			<RichTextView
-				// @ts-expect-error data.processedHtml is not required
-				data={common?.get?.dataAsJson?.ingress ?? {}}
+				data={{ processedHtml: common?.get?.dataAsJson?.ingress }}
 				meta={meta}
 				customReplacer={htmlRichTextReplacer}
 			/>

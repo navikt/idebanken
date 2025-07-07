@@ -1,4 +1,3 @@
-import { Link } from './../types/generated.d'
 import { parse } from 'valibot'
 import {
 	HeadingConfig,
@@ -11,7 +10,7 @@ import {
 	infoBoxConfigSchema,
 	LinkCardConfig,
 	linkCardConfigSchema,
-} from '~/types/parts'
+} from '~/types/valibot/parts'
 import {
 	Part_Idebanken_Heading,
 	Part_Idebanken_Button,

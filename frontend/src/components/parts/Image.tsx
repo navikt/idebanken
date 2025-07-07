@@ -1,4 +1,4 @@
-import { ImageData } from '~/types/parts'
+import { ImageData } from 'types/valibot/parts'
 
 export const ImageView = (props: ImageData) => {
 	const { part } = props

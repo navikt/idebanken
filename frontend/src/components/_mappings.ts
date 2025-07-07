@@ -1,6 +1,13 @@
-import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
+import { APP_NAME, ComponentRegistry } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
-import { linkQuery, imageQuery } from './queries/parts'
+import {
+	linkQuery,
+	accordionQuery,
+	imageQuery,
+	infoBoxQuery,
+	textEditorQuery,
+	tipPanelQuery,
+} from './queries/parts'
 import MainPage from './pages/Main'
 
 import '@enonic/nextjs-adapter/baseMappings'
@@ -55,21 +62,22 @@ ComponentRegistry.addPart(`${APP_NAME}:image`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
 	view: TextEditorView,
-	configQuery: `{
-		${richTextQuery('simpleTextEditor')}
-	}`,
+	configQuery: textEditorQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:info-box`, {
 	view: InfoBoxView,
+	configQuery: infoBoxQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:tip-panel`, {
 	view: TipPanelView,
+	configQuery: tipPanelQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:accordion`, {
 	view: AccordionView,
+	configQuery: accordionQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:link-card`, {
