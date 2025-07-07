@@ -29,45 +29,45 @@ ComponentRegistry.setCommonQuery([commonQuery, commonVariables])
 
 // Page mappings
 ComponentRegistry.addPage(`${APP_NAME}:main`, {
-	view: MainPage,
+    view: MainPage,
 })
 
 // Layout mappings
 ComponentRegistry.addLayout(`${APP_NAME}:single-column`, {
-	view: SingleColumnLayout,
+    view: SingleColumnLayout,
 })
 ComponentRegistry.addLayout(`${APP_NAME}:2-column`, {
-	view: TwoColumnLayout,
+    view: TwoColumnLayout,
 })
 ComponentRegistry.addLayout(`${APP_NAME}:panel-2-column`, {
-	view: PanelLayoutTwoColumn,
+    view: PanelLayoutTwoColumn,
 })
 
 // Part mappings
 ComponentRegistry.addPart(`${APP_NAME}:heading`, {
-	view: HeadingView,
+    view: HeadingView,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:button`, {
-	view: ButtonView,
-	configQuery: linkQuery,
+    view: ButtonView,
+    configQuery: linkQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:image`, {
-	view: ImageView,
-	configQuery: imageQuery,
+    view: ImageView,
+    configQuery: imageQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
-	view: TextEditorView,
-	configQuery: `{
+    view: TextEditorView,
+    configQuery: `{
 		${richTextQuery('simpleTextEditor')}
 	}`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:info-box`, {
-	view: InfoBoxView,
-	configQuery: `{
+    view: InfoBoxView,
+    configQuery: `{
 		infoBoxItems {
 			bgColor
 			${richTextQuery('simpleTextEditor')}
@@ -76,8 +76,8 @@ ComponentRegistry.addPart(`${APP_NAME}:info-box`, {
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:tip-panel`, {
-	view: TipPanelView,
-	configQuery: `{
+    view: TipPanelView,
+    configQuery: `{
 		bgColor
 		heading
 		reverse
@@ -89,8 +89,8 @@ ComponentRegistry.addPart(`${APP_NAME}:tip-panel`, {
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:accordion`, {
-	view: AccordionView,
-	configQuery: `{
+    view: AccordionView,
+    configQuery: `{
 		accordionItems {
 			header
 			${richTextQuery('simpleTextEditor')}
@@ -99,10 +99,10 @@ ComponentRegistry.addPart(`${APP_NAME}:accordion`, {
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:link-card`, {
-	view: LinkCardView,
-	configQuery: linkQuery,
+    view: LinkCardView,
+    configQuery: linkQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:title-ingress`, {
-	view: TitleIngressView,
+    view: TitleIngressView,
 })

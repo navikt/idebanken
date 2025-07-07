@@ -7,25 +7,25 @@ import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { validatedInfoBoxConfig } from '~/utils/runtimeValidation'
 
 export const InfoBoxView = ({ part, meta }: PartData<Part_Idebanken_Info_Box>) => {
-	const config = validatedInfoBoxConfig(part.config)
+    const config = validatedInfoBoxConfig(part.config)
 
-	if (!config) return null
+    if (!config) return null
 
-	const { infoBoxItems } = config
+    const { infoBoxItems } = config
 
-	return (
-		<HStack
-			gap={{ xs: 'space-8', sm: 'space-12', md: 'space-16', lg: 'space-20', xl: 'space-24' }}>
-			{infoBoxItems.map((item, idx) => (
-				<InfoBox key={idx} bgColorClass={item.bgColor}>
-					<RichTextView
-						// @ts-expect-error data.processedHtml is not required
-						data={item?.simpleTextEditor ?? {}}
-						meta={meta}
-						customReplacer={htmlRichTextReplacer}
-					/>
-				</InfoBox>
-			))}
-		</HStack>
-	)
+    return (
+        <HStack
+            gap={{ xs: 'space-8', sm: 'space-12', md: 'space-16', lg: 'space-20', xl: 'space-24' }}>
+            {infoBoxItems.map((item, idx) => (
+                <InfoBox key={idx} bgColorClass={item.bgColor}>
+                    <RichTextView
+                        // @ts-expect-error data.processedHtml is not required
+                        data={item?.simpleTextEditor ?? {}}
+                        meta={meta}
+                        customReplacer={htmlRichTextReplacer}
+                    />
+                </InfoBox>
+            ))}
+        </HStack>
+    )
 }

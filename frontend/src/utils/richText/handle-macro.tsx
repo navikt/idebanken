@@ -6,60 +6,60 @@ import BaseMacro from '@enonic/nextjs-adapter/views/BaseMacro'
 import React from 'react'
 
 export function handleMacro(
-	el: Element,
-	data: RichTextData,
-	meta: MetaData,
-	renderMacroInEditMode: boolean,
-	options: HTMLReactParserOptions
+    el: Element,
+    data: RichTextData,
+    meta: MetaData,
+    renderMacroInEditMode: boolean,
+    options: HTMLReactParserOptions
 ): ReplacerResult {
-	const ref = el.attribs[MACRO_ATTR]
-	if (!ref) {
-		return <ErrorComponent reason={'Macro element has no data-macro-ref attribute!'} />
-	}
-	
-	const { macros } = data
+    const ref = el.attribs[MACRO_ATTR]
+    if (!ref) {
+        return <ErrorComponent reason={'Macro element has no data-macro-ref attribute!'} />
+    }
 
-	if (!macros?.length) {
-		return (
-			<ErrorComponent
-				reason={"Can't replace macro, when there are no macros in the data object!"}
-			/>
-		)
-	}
+    const { macros } = data
 
-	const macroData = macros.find((d) => d.ref === ref)
-	if (!macroData) {
-		return <ErrorComponent reason={'Unable to find macro with ref {ref} in macros object!'} />
-	}
+    if (!macros?.length) {
+        return (
+            <ErrorComponent
+                reason={"Can't replace macro, when there are no macros in the data object!"}
+            />
+        )
+    }
 
-	const { descriptor, name, config: configs } = macroData
-	if (!configs) {
-		return (
-			<ErrorComponent
-				reason={
-					'Macro "{name}" has no config, unable to render macro! Make sure you are using fun richTextQuery within _mappings.ts'
-				}
-			/>
-		)
-	}
-	const config = configs[sanitizeGraphqlName(name)]
+    const macroData = macros.find((d) => d.ref === ref)
+    if (!macroData) {
+        return <ErrorComponent reason={'Unable to find macro with ref {ref} in macros object!'} />
+    }
 
-	const data2 = {
-		name: name,
-		descriptor: descriptor,
-		config: {
-			[sanitizeGraphqlName(name)]: {
-				...config,
-				body: config?.body?.replace(/youtube\.com/g, 'youtube-nocookie.com'),
-			},
-		},
-	}
+    const { descriptor, name, config: configs } = macroData
+    if (!configs) {
+        return (
+            <ErrorComponent
+                reason={
+                    'Macro "{name}" has no config, unable to render macro! Make sure you are using fun richTextQuery within _mappings.ts'
+                }
+            />
+        )
+    }
+    const config = configs[sanitizeGraphqlName(name)]
 
-	const children = domToReact(el.children as DOMNode[], options)
+    const data2 = {
+        name: name,
+        descriptor: descriptor,
+        config: {
+            [sanitizeGraphqlName(name)]: {
+                ...config,
+                body: config?.body?.replace(/youtube\.com/g, 'youtube-nocookie.com'),
+            },
+        },
+    }
 
-	return (
-		<BaseMacro data={data2} meta={meta} renderInEditMode={renderMacroInEditMode}>
-			{children}
-		</BaseMacro>
-	)
+    const children = domToReact(el.children as DOMNode[], options)
+
+    return (
+        <BaseMacro data={data2} meta={meta} renderInEditMode={renderMacroInEditMode}>
+            {children}
+        </BaseMacro>
+    )
 }
