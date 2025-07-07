@@ -1,8 +1,7 @@
-import { APP_NAME, ComponentRegistry } from '@enonic/nextjs-adapter'
+import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
-import { linkQuery, imageQuery } from './queries/parts'
+import { imageQuery, linkQuery } from './queries/parts'
 import MainPage from './pages/Main'
-
 import '@enonic/nextjs-adapter/baseMappings'
 import HeadingView from './parts/Heading'
 import TwoColumnLayout from './layouts/TwoColumnLayout'
@@ -16,6 +15,12 @@ import { ImageView } from './parts/Image'
 import PanelLayoutTwoColumn from './layouts/PanelLayoutTwoColumn'
 import { LinkCardView } from './parts/LinkCard'
 import TitleIngressView from '~/components/parts/TitleIngress'
+
+/**
+ * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
+ * @external richTextQuery
+ * There is an issue causing the default ComponentRegistry macro queries to not work properly
+ */
 
 // You can set common query for all views here
 ComponentRegistry.setCommonQuery([commonQuery, commonVariables])
@@ -55,18 +60,42 @@ ComponentRegistry.addPart(`${APP_NAME}:image`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
 	view: TextEditorView,
+	configQuery: `{
+		${richTextQuery('simpleTextEditor')}
+	}`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:info-box`, {
 	view: InfoBoxView,
+	configQuery: `{
+		infoBoxItems {
+			bgColor
+			${richTextQuery('simpleTextEditor')}
+		}
+	}`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:tip-panel`, {
 	view: TipPanelView,
+	configQuery: `{
+		bgColor
+		heading
+		reverse
+		panel {
+			bgColor
+			${richTextQuery('simpleTextEditor')}
+		}
+	}`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:accordion`, {
 	view: AccordionView,
+	configQuery: `{
+		accordionItems {
+			header
+			${richTextQuery('simpleTextEditor')}
+		}
+	}`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:link-card`, {

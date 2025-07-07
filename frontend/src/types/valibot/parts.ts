@@ -10,6 +10,7 @@ import {
 	optional,
 	union,
 } from 'valibot'
+import { richTextSchema } from '~/types/valibot/richTextSchema'
 
 // External / Internal Link
 export type BlockOptionSet = {
@@ -93,7 +94,7 @@ export type ButtonConfig = InferOutput<typeof buttonConfigSchema>
 
 // Accordion
 export const accordionItemSchema = object({
-	simpleTextEditor: string(),
+	simpleTextEditor: pipe(richTextSchema),
 	header: string(),
 })
 
