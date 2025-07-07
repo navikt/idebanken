@@ -15,85 +15,85 @@ import '~/components/_mappings'
 export const revalidate = 3600
 
 export type PageProps = {
-	locale: string
-	contentPath: string[]
+    locale: string
+    contentPath: string[]
 }
 
 export default async function Page({ params }: { params: Promise<PageProps> }) {
-	const resolvedParams = await params
-	const data: FetchContentResult = await fetchContent(resolvedParams)
+    const resolvedParams = await params
+    const data: FetchContentResult = await fetchContent(resolvedParams)
 
-	validateData(data)
+    validateData(data)
 
-	return <MainView {...data} />
+    return <MainView {...data} />
 }
 
 export async function generateMetadata({
-	params,
+    params,
 }: {
-	params: Promise<PageProps>
+    params: Promise<PageProps>
 }): Promise<Metadata> {
-	const { common } = await fetchContent(await params)
+    const { common } = await fetchContent(await params)
 
-	const metaFields = common?.get?.metaFields as MetaFields
-	const image = metaFields?.image ?? undefined
-	const description = metaFields?.description?.replace(/\n/g, ' ')?.trim()
+    const metaFields = common?.get?.metaFields as MetaFields
+    const image = metaFields?.image ?? undefined
+    const description = metaFields?.description?.replace(/\n/g, ' ')?.trim()
 
-	return {
-		metadataBase: metaFields?.baseUrl ? new URL(metaFields.baseUrl) : undefined,
-		title: metaFields?.fullTitle,
-		description: description,
-		openGraph: {
-			type: (metaFields?.openGraph?.type ?? 'article') as OpenGraphType,
-			title: metaFields?.title,
-			siteName: metaFields?.siteName ?? undefined,
-			description: description ?? undefined,
-			locale: metaFields?.locale ?? undefined,
-			url: metaFields?.openGraph?.hideUrl
-				? undefined
-				: (metaFields?.baseUrl ?? `https://www.idebanken.org`),
-			images:
-				image && !metaFields?.openGraph?.hideImages
-					? {
-							url: image?.imageUrl ?? '',
-							alt: image?.data?.altText ?? undefined,
-							width: 1200,
-							height: 627,
-						}
-					: undefined,
-		},
-		robots: {
-			index: metaFields?.robots?.index ?? true,
-			follow: metaFields?.robots?.follow ?? true,
-		},
-		alternates: {
-			canonical:
-				metaFields?.canonical?.pageUrl?.split(/\/(draft|master)\/[^/]*/)?.at(-1) ??
-				undefined,
-		},
-		twitter: {
-			site: metaFields?.twitter?.site ?? undefined,
-			title: metaFields?.title ?? undefined,
-			description: description ?? undefined,
-			images:
-				image && !metaFields?.twitter?.hideImages
-					? {
-							url: image?.imageUrl ?? '',
-							alt: image?.data?.altText ?? undefined,
-							width: 1200,
-							height: 627,
-						}
-					: undefined,
-			card: 'summary_large_image',
-		},
-		verification: {
-			google: metaFields?.verification?.google,
-		},
-	}
+    return {
+        metadataBase: metaFields?.baseUrl ? new URL(metaFields.baseUrl) : undefined,
+        title: metaFields?.fullTitle,
+        description: description,
+        openGraph: {
+            type: (metaFields?.openGraph?.type ?? 'article') as OpenGraphType,
+            title: metaFields?.title,
+            siteName: metaFields?.siteName ?? undefined,
+            description: description ?? undefined,
+            locale: metaFields?.locale ?? undefined,
+            url: metaFields?.openGraph?.hideUrl
+                ? undefined
+                : (metaFields?.baseUrl ?? `https://www.idebanken.org`),
+            images:
+                image && !metaFields?.openGraph?.hideImages
+                    ? {
+                          url: image?.imageUrl ?? '',
+                          alt: image?.data?.altText ?? undefined,
+                          width: 1200,
+                          height: 627,
+                      }
+                    : undefined,
+        },
+        robots: {
+            index: metaFields?.robots?.index ?? true,
+            follow: metaFields?.robots?.follow ?? true,
+        },
+        alternates: {
+            canonical:
+                metaFields?.canonical?.pageUrl?.split(/\/(draft|master)\/[^/]*/)?.at(-1) ??
+                undefined,
+        },
+        twitter: {
+            site: metaFields?.twitter?.site ?? undefined,
+            title: metaFields?.title ?? undefined,
+            description: description ?? undefined,
+            images:
+                image && !metaFields?.twitter?.hideImages
+                    ? {
+                          url: image?.imageUrl ?? '',
+                          alt: image?.data?.altText ?? undefined,
+                          width: 1200,
+                          height: 627,
+                      }
+                    : undefined,
+            card: 'summary_large_image',
+        },
+        verification: {
+            google: metaFields?.verification?.google,
+        },
+    }
 }
 
 export async function generateStaticParams(props: {
-	params: PageProps
+    params: PageProps
 }): Promise<ContentPathItem[]> {
-	return await fetchContentPathsForAllLocales('\${site}/')
+    return await fetchContentPathsForAllLocales('\${site}/')
 }

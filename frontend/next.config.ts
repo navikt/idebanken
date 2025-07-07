@@ -5,24 +5,24 @@ import { fileURLToPath } from 'url'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 function getEnonicWebpackConfig(config: NextConfig) {
-	config.resolve.fallback = {
-		...config.resolve.fallback,
-		fs: false,
-	}
-	config.resolve.alias = {
-		...config.resolve.alias,
-		'@phrases': path.resolve(__dirname, './src/phrases'),
-		'~': path.resolve(__dirname, './src'),
-	}
-	return config
+    config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+    }
+    config.resolve.alias = {
+        ...config.resolve.alias,
+        '@phrases': path.resolve(__dirname, './src/phrases'),
+        '~': path.resolve(__dirname, './src'),
+    }
+    return config
 }
 
 const config = {
-	output: 'standalone',
-	reactStrictMode: true,
-	trailingSlash: false,
-	transpilePackages: ['@enonic/nextjs-adapter'],
-	webpack: getEnonicWebpackConfig,
+    output: 'standalone',
+    reactStrictMode: true,
+    trailingSlash: false,
+    transpilePackages: ['@enonic/nextjs-adapter'],
+    webpack: getEnonicWebpackConfig,
 }
 
 export default config
