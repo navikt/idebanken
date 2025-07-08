@@ -1,11 +1,17 @@
 import htmlParser, { DOMNode, domToReact, Element, HTMLReactParserOptions } from 'html-react-parser'
-import { getUrl, LinkData, MetaData, ReplacerResult, RichTextData } from '@enonic/nextjs-adapter'
+import {
+    getUrl,
+    LinkData,
+    MetaData,
+    RENDER_MODE,
+    ReplacerResult,
+    RichTextData,
+} from '@enonic/nextjs-adapter'
 import { LINK_ATTR } from '@enonic/react-components/constants'
 import { ElementType } from 'domelementtype'
 import { Link } from '@navikt/ds-react'
 import React from 'react'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
-import { fetchContent } from '@enonic/nextjs-adapter/server'
 
 export function handleLink(
     el: Element,
@@ -57,77 +63,100 @@ export function handleLink(
         )
     }
 
-    const anchors = Array.from(linkData?.uri.matchAll(/[?&]fragment=([^&]*)/g))?.map((anchor) => {
-        return anchor[1]
-    })
     const processedHref = getUrl(href, meta)
-    if (anchors?.length) {
-        validateAnchors(anchors, meta, linkData, processedHref)
-    }
-
     const children = domToReact(el.children as DOMNode[], options)
 
     return (
-        <Link href={processedHref} target={target} title={title}>
-            {children}
-        </Link>
+        <>
+            <Link href={processedHref} target={target} title={title}>
+                {children}
+            </Link>
+            {validateAnchorsAndReturnJSXElement(linkData, processedHref, meta)}
+        </>
     )
 }
 
-async function validateAnchors(
-    anchors: string[],
-    meta: MetaData,
+/**
+ * Validates that the anchor (h1-h6 id) exists in the linked content.
+ * Only runs in edit, inline, or preview mode.
+ */
+async function validateAnchorsAndReturnJSXElement(
     linkData: LinkData,
-    processedHref: string
+    processedHref: string,
+    meta: MetaData
 ) {
-    const hrefWithoutParams = processedHref?.replace(/[#&?][^/]*$/, '')
-    const content = await fetchContent({
-        locale: meta?.locale,
-        contentPath: hrefWithoutParams,
+    if (![RENDER_MODE.EDIT, RENDER_MODE.INLINE, RENDER_MODE.PREVIEW].includes(meta.renderMode)) {
+        // Only validate anchors in edit, inline, or preview mode
+        return <></>
+    }
+
+    const anchors = Array.from(linkData?.uri.matchAll(/[?&]fragment=([^&]*)/g))?.map((anchor) => {
+        return anchor[1]
+    })
+    if (!anchors?.length) {
+        return <></>
+    }
+
+    const hrefWithoutParams = processedHref
+        ?.replace(/[#&?][^/]*$/, '')
+        ?.replace(/^\/admin\/.+\/draft\/idebanken/, '')
+
+    try {
+        // Fetch the full HTML content using the preview API
+        const response = await fetch(
+            `${process.env.__NEXT_PRIVATE_ORIGIN}/api/preview?path=${hrefWithoutParams}&token=${process.env.ENONIC_API_TOKEN}`,
+            { next: { tags: ['content'] } }
+        ).then((res) => res.text())
+
+        // Extract all heading IDs from the HTML content
+        const headingIds = extractHeadingIds(response)
+
+        // Validate anchors
+        const missingAnchors = anchors.filter((anchor) => !headingIds.includes(anchor))
+        if (missingAnchors.length > 0) {
+            console.warn(
+                `Anchors not found in content "${meta.path}" at href ${hrefWithoutParams}:`,
+                missingAnchors
+            )
+            return (
+                <>
+                    <br />
+                    <span style={{ color: 'red', fontSize: '.8em' }}>
+                        Feil i linken over! Fant ikke ankeret: {missingAnchors?.join(', eller: ')}
+                    </span>
+                    <br />
+                    <span style={{ color: 'red', fontSize: '.8em' }}>
+                        Mulige ankere på lenket side:{' '}
+                        {headingIds?.map((id) => `"${id}"`)?.join(', ') || 'ingen'}
+                    </span>
+                </>
+            )
+        }
+    } catch (error) {
+        console.error(
+            `Failed to validate anchors in content "${meta.path}" at href "${hrefWithoutParams}":`,
+            error
+        )
+    }
+    return <></>
+}
+
+/**
+ * Extracts all heading IDs from HTML content
+ * @param html The HTML content to parse
+ * @returns Array of heading ID strings
+ */
+function extractHeadingIds(html: string): string[] {
+    const ids: string[] = []
+
+    htmlParser(html, {
+        replace: (node) => {
+            if (node.type === 'tag' && /^h[1-6]$/.test(node.name) && node.attribs?.id) {
+                ids.push(node.attribs.id)
+            }
+            return undefined
+        },
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    function findProcessedHtmlStrings(obj?: any, found: string[] = []): string[] {
-        if (!obj || typeof obj !== 'object') return found
-
-        for (const key in obj) {
-            if (!Object.hasOwn(obj, key)) continue
-
-            const value = obj[key]
-            if (key === 'processedHtml' && typeof value === 'string') {
-                found.push(value)
-            } else if (typeof value === 'object') {
-                findProcessedHtmlStrings(value, found)
-            }
-        }
-
-        return found
-    }
-
-    // Extract all heading IDs from HTML content
-    function extractHeadingIds(html: string): string[] {
-        const ids: string[] = []
-
-        htmlParser(html, {
-            replace: (node) => {
-                if (node.type === 'tag' && /^h[1-6]$/.test(node.name) && node.attribs?.id) {
-                    ids.push(node.attribs.id)
-                }
-                return undefined
-            },
-        })
-
-        return ids
-    }
-
-    // Process all content
-    const htmlStrings = findProcessedHtmlStrings(content?.page)
-    const allHeadingIds = htmlStrings.flatMap(extractHeadingIds)
-
-    // Validate anchors
-    const missingAnchors = anchors.filter((anchor) => !allHeadingIds.includes(anchor))
-    if (missingAnchors.length > 0) {
-        console.warn(`Anchors not found in ${hrefWithoutParams}:`, missingAnchors)
-        // You could add more robust error handling here if needed
-    }
+    return ids
 }
