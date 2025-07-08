@@ -1,13 +1,13 @@
 import {
-    object,
-    string,
-    picklist,
+    array,
     InferOutput,
     nullable,
-    transform,
-    array,
-    pipe,
+    object,
     optional,
+    picklist,
+    pipe,
+    string,
+    transform,
     union,
 } from 'valibot'
 import { richTextSchema } from '~/types/valibot/richTextSchema'
@@ -94,7 +94,7 @@ export type ButtonConfig = InferOutput<typeof buttonConfigSchema>
 
 // Accordion
 export const accordionItemSchema = object({
-    simpleTextEditor: pipe(richTextSchema),
+    simpleTextEditor: richTextSchema,
     header: string(),
 })
 
@@ -125,7 +125,7 @@ export type ImageData = {
 // InfoBox
 export const infoBoxItemSchema = object({
     bgColor: string(),
-    simpleTextEditor: string(),
+    simpleTextEditor: richTextSchema,
 })
 
 export const infoBoxConfigSchema = object({
