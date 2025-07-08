@@ -25,3 +25,7 @@ export function validatePath(path: string | string[] | null) {
     }
     return null
 }
+
+export function headingIdOfString(string: string) {
+    return string.trim().replaceAll(/\W+/g, '-').toLowerCase()
+}
