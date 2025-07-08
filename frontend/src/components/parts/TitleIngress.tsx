@@ -1,8 +1,8 @@
-import { Heading } from '@navikt/ds-react'
 import { Part_Idebanken_Heading } from '~/types/generated.d'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { PartData } from '~/types/graphql-types'
+import { HeadingView } from '~/components/parts/Heading'
 
 type PageData = {
     ingress: string
@@ -12,9 +12,9 @@ type PageData = {
 const TitleIngressView = ({ common, meta }: PartData<Part_Idebanken_Heading, PageData>) => {
     return (
         <>
-            <Heading level={'1'} size={'xlarge'}>
+            <HeadingView level={'1'} size={'xlarge'}>
                 {common?.get?.dataAsJson?.title || '[Mangler tittel på innholdet]'}
-            </Heading>
+            </HeadingView>
             <RichTextView
                 data={{ processedHtml: common?.get?.dataAsJson?.ingress }}
                 meta={meta}
