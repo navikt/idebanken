@@ -9,7 +9,7 @@
         "prod": "npm run build && npm run start",
         "start": "next start -p 4242",
         "build": "next build",
-        "prettier-watch": "onchange \"**/*\" -- prettier --write --ignore-unknown {{changed}}",
+        "prettier-watch": "onchange \"src/*\" -- prettier --write --ignore-unknown {{changed}}",
         "generate-gql-types": "graphql-codegen",
         "lint": "next lint",
         "test": "echo \"no tests yet! :O\""
