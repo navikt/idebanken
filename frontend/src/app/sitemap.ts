@@ -1,9 +1,8 @@
 import { MetadataRoute } from 'next'
-import { getContentApiUrl } from '@enonic/nextjs-adapter/src/utils/getContentApiUrl'
-import process from 'node:process'
-import { fetchGuillotine } from '@enonic/nextjs-adapter/server'
+import { getContentApiUrl } from '@enonic/nextjs-adapter'
 import { Sitemap } from '~/types/generated'
 import { forceArray } from '~/utils/utils'
+import { fetchGuillotine } from '@enonic/nextjs-adapter/server'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const res = await fetchGuillotine(
