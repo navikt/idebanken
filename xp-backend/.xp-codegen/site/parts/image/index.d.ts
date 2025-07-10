@@ -4,4 +4,69 @@ export type Image = {
    * Velg et bilde
    */
   image: string;
+
+  /**
+   * Skjul på mobil
+   */
+  hideOnMobile: boolean;
+
+  /**
+   * Aktiver styling
+   */
+  styleActive: boolean;
+
+  /**
+   * Bredde (px)
+   */
+  width?: number;
+
+  /**
+   * Høyde (px)
+   */
+  height?: number;
+
+  /**
+   * Avrundet hjørne (px)
+   */
+  borderRadius?: number;
+
+  /**
+   * Vis kantlinje
+   */
+  border: boolean;
+
+  /**
+   * Kantlinje avstand (px)
+   */
+  borderDistance?: number;
+
+  /**
+   * Rundinger
+   */
+  circles?: {
+    /**
+     * Størrelse (px)
+     */
+    size?: number;
+
+    /**
+     * Farge
+     */
+    color: "pink" | "red" | "blue";
+
+    /**
+     * Avstand fra bunn (y-akse i px)
+     */
+    bottom?: number;
+
+    /**
+     * Avstand fra venstre (x-akse i px)
+     */
+    left?: number;
+
+    /**
+     * Gjennomsiktig (0 er usynlig. 100 er ingen gjennomsiktighet)
+     */
+    opacity?: number;
+  };
 };
