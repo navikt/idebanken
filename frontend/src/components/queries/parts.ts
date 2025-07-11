@@ -7,6 +7,7 @@ export const imageQuery = `{
 			}
 		}
 	}
+	scale
     hideOnMobile
     styleActive
     width

@@ -1,13 +1,24 @@
-import { ImageData } from 'types/valibot/parts'
 import classNames from 'classnames'
-import Image from 'next/image'
 import { forceArray } from '~/utils/utils'
+import { getUrl, MetaData } from '@enonic/nextjs-adapter'
+import { PartData } from '~/types/graphql-types'
+import { Part_Idebanken_Image, Part_Idebanken_Image_Circles } from '~/types/generated'
 
-export const ImageView = (props: ImageData) => {
-    const { part } = props
+// Image
+export type ImageData = {
+    image: {
+        imageUrl: string
+        data: {
+            altText?: string | null
+        }
+    }
+}
+
+export const ImageView = (props: PartData<Part_Idebanken_Image & ImageData>) => {
+    const { part, meta } = props
     const { image } = part.config
     const { config } = part
-    console.log(part.config)
+    console.log('image config', config)
 
     return (
         <>
@@ -15,17 +26,19 @@ export const ImageView = (props: ImageData) => {
                 <StyledImage
                     src={image.imageUrl}
                     alt={image.data.altText}
+                    scale={config.scale}
                     width={config.width}
                     height={config.height}
                     borderRadius={config.borderRadius}
                     showBorder={config.border}
                     borderDistance={config.borderDistance}
-                    circles={forceArray(config.circles)}
+                    circles={forceArray(config.circles) as Part_Idebanken_Image_Circles[]}
+                    meta={meta}
                     className=""
                 />
             ) : (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={image.imageUrl} alt={image.data.altText || 'Bilde'} />
+                <img src={image.imageUrl} alt={image.data.altText ?? 'Bilde'} />
             )}
         </>
     )
@@ -33,32 +46,36 @@ export const ImageView = (props: ImageData) => {
 
 interface StyledImageProps {
     src: string
-    alt?: string
-    width?: number
-    height?: number
-    borderRadius?: string
-    showBorder?: boolean
-    borderDistance?: string
+    alt?: string | null
+    width?: string | null
+    height?: string | null
+    borderRadius?: string | null
+    showBorder?: boolean | null
+    borderDistance?: string | null
+    scale?: string | null
     circles?: Array<{
-        size: string
-        color: 'pink' | 'red' | 'blue'
-        bottom?: string
-        left?: string
-        opacity?: number
-    }>
+        size?: string | null
+        color?: string | null
+        bottom?: string | null
+        left?: string | null
+        opacity?: string | null
+    }> | null
     className?: string
+    meta?: MetaData
 }
 
 function StyledImage({
     src,
     alt = '#',
-    width = 440,
-    height = 675,
+    width = '440',
+    height = '675',
     borderRadius = '9999',
     showBorder = false,
     borderDistance = '40',
     circles = [],
     className,
+    meta,
+    scale = '1',
 }: Readonly<StyledImageProps>) {
     const accentColors = {
         pink: 'bg-pink-500',
@@ -66,16 +83,19 @@ function StyledImage({
         blue: 'bg-dark-blue-500',
     }
     const borderDist = borderDistance ? Number(borderDistance) : 0
+    const scaleFactor = scale ? Number(scale) / 100 : 1
     return (
-        <div className={classNames('relative inline-block', className)}>
+        <div
+            className={classNames('relative inline-block', className)}
+            style={{ margin: `${Number(borderDist) / 2}px` }}>
             {showBorder && (
                 <div
                     className={classNames('absolute -inset-3 border-1 border-[#0000004D]')}
                     style={{
-                        width: width + borderDist,
-                        height: height + borderDist,
-                        left: -(borderDist / 2),
-                        top: -(borderDist / 2),
+                        width: Number(width) + Number(borderDist),
+                        height: Number(height) + Number(borderDist),
+                        left: -(Number(borderDist) / 2),
+                        top: -(Number(borderDist) / 2),
                         borderRadius: `${borderRadius}px`,
                     }}
                 />
@@ -88,12 +108,19 @@ function StyledImage({
                     height: `${height}px`,
                     borderRadius: `${borderRadius}px`,
                 }}>
-                <Image
-                    src={src || '/placeholder.svg'}
+                <img
+                    loading="lazy"
+                    decoding="async"
+                    src={getUrl(src, meta)?.replace(
+                        /(\/_\/image\/[^/]+)\/([^/]+)/,
+                        `$1/block-${Math.floor(Number(width) * Number(scaleFactor))}-${Math.floor(Number(height) * Number(scaleFactor))}`
+                    )}
                     alt={alt}
-                    fill
+                    width={'100%'}
+                    height={'100%'}
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 50vw"
+                    style={{ height: '100%', width: '100%' }}
                 />
             </div>
 

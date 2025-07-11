@@ -969,7 +969,33 @@ export type Part_Idebanken_Heading = {
 /** Part component application config for application ['idebanken'] and descriptor ['image'] */
 export type Part_Idebanken_Image = {
   __typename?: 'Part_idebanken_image';
+  border?: Maybe<Scalars['Boolean']['output']>;
+  borderDistance?: Maybe<Scalars['String']['output']>;
+  borderRadius?: Maybe<Scalars['String']['output']>;
+  circles?: Maybe<Array<Maybe<Part_Idebanken_Image_Circles>>>;
+  height?: Maybe<Scalars['String']['output']>;
+  hideOnMobile?: Maybe<Scalars['Boolean']['output']>;
   image?: Maybe<Content>;
+  scale?: Maybe<Scalars['String']['output']>;
+  styleActive?: Maybe<Scalars['Boolean']['output']>;
+  width?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['image'] */
+export type Part_Idebanken_ImageCirclesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Rundinger */
+export type Part_Idebanken_Image_Circles = {
+  __typename?: 'Part_idebanken_image_Circles';
+  bottom?: Maybe<Scalars['String']['output']>;
+  color?: Maybe<Scalars['String']['output']>;
+  left?: Maybe<Scalars['String']['output']>;
+  opacity?: Maybe<Scalars['String']['output']>;
+  size?: Maybe<Scalars['String']['output']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['info-box'] */
