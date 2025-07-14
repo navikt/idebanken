@@ -88,11 +88,13 @@ export const htmlRichTextReplacer: Replacer = (
                 case 'img':
                     return handleImage(el, data, meta)
                 default:
-                    return React.createElement(
-                        el.name,
-                        attributesToProps(el.attribs),
-                        domToReact(el.children as DOMNode[], options)
-                    )
+                    return el.children?.length
+                        ? React.createElement(
+                              el.name,
+                              attributesToProps(el.attribs),
+                              domToReact(el.children as DOMNode[], options)
+                          )
+                        : el
             }
         },
     }
