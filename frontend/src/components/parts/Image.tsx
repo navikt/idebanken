@@ -23,6 +23,7 @@ interface BasicImageProps {
     centerVertically: boolean
     paddingX: number
     paddingY: number
+    hideOnMobile?: boolean | null
     className?: string
 }
 
@@ -79,6 +80,7 @@ export const ImageView = ({ part, meta }: PartData<Part_Idebanken_Image & ImageD
                     showBorder={showBorder}
                     borderDistance={borderDistance}
                     circles={circles}
+                    hideOnMobile={config.hideOnMobile}
                 />
             ) : (
                 <BasicImage
@@ -90,6 +92,7 @@ export const ImageView = ({ part, meta }: PartData<Part_Idebanken_Image & ImageD
                     centerVertically={centerVertically}
                     paddingX={paddingX}
                     paddingY={paddingY}
+                    hideOnMobile={config.hideOnMobile}
                 />
             )}
         </>
@@ -106,6 +109,7 @@ function BasicImage({
     centerVertically,
     paddingX,
     paddingY,
+    hideOnMobile = true,
 }: Readonly<BasicImageProps>) {
     return (
         <div
@@ -113,7 +117,8 @@ function BasicImage({
                 'relative flex',
                 className,
                 centerVertically ? 'h-full items-center self-center' : '',
-                centerHorizontally ? 'justify-center' : ''
+                centerHorizontally ? 'justify-center' : '',
+                hideOnMobile ? 'max-md:hidden' : ''
             )}
             style={{
                 padding: `${paddingY}px ${paddingX}px`,
@@ -147,6 +152,7 @@ function StyledImage({
     showBorder,
     borderDistance,
     circles = [],
+    hideOnMobile = true,
     className,
 }: Readonly<StyledImageProps>) {
     const borderDist = borderDistance || 0
@@ -158,7 +164,8 @@ function StyledImage({
                 'relative flex',
                 className,
                 centerVertically ? 'h-full items-center self-center' : '',
-                centerHorizontally ? 'justify-self-center' : ''
+                centerHorizontally ? 'justify-self-center' : '',
+                hideOnMobile ? 'max-md:hidden' : ''
             )}
             style={{
                 margin: `${Math.abs(borderOffsetY)}px ${Math.abs(borderOffsetX)}px`,
