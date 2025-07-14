@@ -1,5 +1,5 @@
 import type { Layout_Idebanken__2_Column } from '~/types/generated.d'
-import type { PageComponent, MetaData } from '@enonic/nextjs-adapter'
+import type { MetaData, PageComponent } from '@enonic/nextjs-adapter'
 import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { Box, HGrid } from '@navikt/ds-react'
@@ -48,6 +48,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
 						${breakLeftFirst ? 'max-md:order-1' : 'max-md:order-2'}
 					`}>
                     <RegionView
+                        className="h-full"
                         name="left"
                         components={regions['left']?.components}
                         common={common}
@@ -60,6 +61,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
 						${breakLeftFirst ? 'max-md:order-2' : 'max-md:order-1'}
 					`}>
                     <RegionView
+                        className="h-full"
                         name="right"
                         components={regions['right']?.components}
                         common={common}

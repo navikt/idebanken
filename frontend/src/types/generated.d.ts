@@ -972,10 +972,14 @@ export type Part_Idebanken_Image = {
   border?: Maybe<Scalars['Boolean']['output']>;
   borderDistance?: Maybe<Scalars['String']['output']>;
   borderRadius?: Maybe<Scalars['String']['output']>;
+  centerHorizontally?: Maybe<Scalars['Boolean']['output']>;
+  centerVertically?: Maybe<Scalars['Boolean']['output']>;
   circles?: Maybe<Array<Maybe<Part_Idebanken_Image_Circles>>>;
   height?: Maybe<Scalars['String']['output']>;
   hideOnMobile?: Maybe<Scalars['Boolean']['output']>;
   image?: Maybe<Content>;
+  paddingX?: Maybe<Scalars['String']['output']>;
+  paddingY?: Maybe<Scalars['String']['output']>;
   scale?: Maybe<Scalars['String']['output']>;
   styleActive?: Maybe<Scalars['Boolean']['output']>;
   width?: Maybe<Scalars['String']['output']>;

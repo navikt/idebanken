@@ -6,16 +6,6 @@ export type Image = {
   image: string;
 
   /**
-   * Skjul på mobil
-   */
-  hideOnMobile: boolean;
-
-  /**
-   * Aktiver styling
-   */
-  styleActive: boolean;
-
-  /**
    * Bredde (px)
    */
   width?: number;
@@ -24,6 +14,41 @@ export type Image = {
    * Høyde (px)
    */
   height?: number;
+
+  /**
+   * Skaleringsfaktor
+   */
+  scale?: number;
+
+  /**
+   * Sentrer horisontalt
+   */
+  centerHorizontally: boolean;
+
+  /**
+   * Sentrer vertikalt
+   */
+  centerVertically: boolean;
+
+  /**
+   * X-Polstring rundt bildet (px)
+   */
+  paddingX?: number;
+
+  /**
+   * Y-Polstring rundt bildet (px)
+   */
+  paddingY?: number;
+
+  /**
+   * Skjul på mobil
+   */
+  hideOnMobile: boolean;
+
+  /**
+   * Aktiver styling
+   */
+  styleActive: boolean;
 
   /**
    * Avrundet hjørne (px)
@@ -43,16 +68,16 @@ export type Image = {
   /**
    * Rundinger
    */
-  circles?: {
-    /**
-     * Størrelse (px)
-     */
-    size?: number;
-
+  circles?: Array<{
     /**
      * Farge
      */
     color: "pink" | "red" | "blue";
+
+    /**
+     * Størrelse (px)
+     */
+    size?: number;
 
     /**
      * Avstand fra bunn (y-akse i px)
@@ -68,5 +93,5 @@ export type Image = {
      * Gjennomsiktig (0 er usynlig. 100 er ingen gjennomsiktighet)
      */
     opacity?: number;
-  };
+  }>;
 };
