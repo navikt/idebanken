@@ -7,6 +7,21 @@ export const imageQuery = `{
 			}
 		}
 	}
+	scale
+    hideOnMobile
+    styleActive
+    width
+    height
+    borderRadius
+    border
+    borderDistance
+    circles {
+      size
+      color
+      bottom
+      left
+      opacity
+    }
 }`
 
 export const linkQuery = `{
