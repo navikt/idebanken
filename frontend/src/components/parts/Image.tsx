@@ -48,34 +48,48 @@ const accentColors: Record<string, string> = {
 export const ImageView = ({ part, meta }: PartData<Part_Idebanken_Image & ImageData>) => {
     const { config } = part
 
-    const parsedProps = parseImageProps(config, meta)
+    const {
+        src,
+        alt,
+        width,
+        height,
+        centerHorizontally,
+        centerVertically,
+        paddingX,
+        paddingY,
+        borderRadius,
+        showBorder,
+        borderDistance,
+        circles,
+    } = parseImageProps(config, meta)
+
     return (
         <>
             {config.styleActive ? (
                 <StyledImage
-                    src={parsedProps.imageUrl}
-                    alt={parsedProps.altText}
-                    width={parsedProps.width}
-                    height={parsedProps.height}
-                    centerHorizontally={parsedProps.centerHorizontally}
-                    centerVertically={parsedProps.centerVertically}
-                    paddingX={parsedProps.paddingX}
-                    paddingY={parsedProps.paddingY}
-                    borderRadius={parsedProps.borderRadius}
-                    showBorder={parsedProps.showBorder}
-                    borderDistance={parsedProps.borderDistance}
-                    circles={parsedProps.circles}
+                    src={src}
+                    alt={alt}
+                    width={width}
+                    height={height}
+                    centerHorizontally={centerHorizontally}
+                    centerVertically={centerVertically}
+                    paddingX={paddingX}
+                    paddingY={paddingY}
+                    borderRadius={borderRadius}
+                    showBorder={showBorder}
+                    borderDistance={borderDistance}
+                    circles={circles}
                 />
             ) : (
                 <BasicImage
-                    src={parsedProps.imageUrl}
-                    alt={parsedProps.altText}
-                    width={parsedProps.width}
-                    height={parsedProps.height}
-                    centerHorizontally={parsedProps.centerHorizontally}
-                    centerVertically={parsedProps.centerVertically}
-                    paddingX={parsedProps.paddingX}
-                    paddingY={parsedProps.paddingY}
+                    src={src}
+                    alt={alt}
+                    width={width}
+                    height={height}
+                    centerHorizontally={centerHorizontally}
+                    centerVertically={centerVertically}
+                    paddingX={paddingX}
+                    paddingY={paddingY}
                 />
             )}
         </>
@@ -208,7 +222,7 @@ function StyledImage({
 function parseImageProps(
     config: Part_Idebanken_Image & ImageData,
     meta: MetaData
-): Omit<StyledImageProps, 'src'> & { imageUrl: string; altText: string } {
+): StyledImageProps {
     const scale = config.scale ? Number(config.scale) / 100 : 1
     const width = config.width ? Number(config.width) : undefined
     const height = config.height ? Number(config.height) : undefined
@@ -216,8 +230,8 @@ function parseImageProps(
     const scaledHeight = height ? Math.round(height * scale) : undefined
 
     return {
-        imageUrl: getFormattedImageUrl(config.image.imageUrl, meta, scaledWidth, scaledHeight),
-        altText: config.image.data.altText ?? '',
+        src: getFormattedImageUrl(config.image.imageUrl, meta, scaledWidth, scaledHeight),
+        alt: config.image.data.altText ?? '',
         width,
         height,
         showBorder: config.border ?? false,
