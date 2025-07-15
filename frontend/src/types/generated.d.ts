@@ -305,6 +305,7 @@ export type ExtraData = {
   __typename?: 'ExtraData';
   base?: Maybe<XData_Base_ApplicationConfig>;
   com_enonic_app_metafields?: Maybe<XData_Com_Enonic_App_Metafields_ApplicationConfig>;
+  idebanken?: Maybe<XData_Idebanken_ApplicationConfig>;
   media?: Maybe<XData_Media_ApplicationConfig>;
 };
 
@@ -1430,6 +1431,25 @@ export type XData_Com_Enonic_App_Metafields_Meta_Data_DataConfig = {
   seoTitle?: Maybe<Scalars['String']['output']>;
 };
 
+/** XDataApplicationConfig for application ['idebanken'] */
+export type XData_Idebanken_ApplicationConfig = {
+  __typename?: 'XData_idebanken_ApplicationConfig';
+  category?: Maybe<XData_Idebanken_Category_DataConfig>;
+};
+
+/** Extra data config for application ['idebanken}'] and descriptor ['category'] */
+export type XData_Idebanken_Category_DataConfig = {
+  __typename?: 'XData_idebanken_category_DataConfig';
+  categories?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
+
+/** Extra data config for application ['idebanken}'] and descriptor ['category'] */
+export type XData_Idebanken_Category_DataConfigCategoriesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
 /** XDataApplicationConfig for application ['media'] */
 export type XData_Media_ApplicationConfig = {
   __typename?: 'XData_media_ApplicationConfig';
@@ -1903,6 +1923,92 @@ export type Base_UnstructuredPageAsJsonArgs = {
 export type Base_UnstructuredPageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
+};
+
+/** Kategori - idebanken:category */
+export type Idebanken_Category = Content & {
+  __typename?: 'idebanken_Category';
+  _id: Scalars['ID']['output'];
+  _name: Scalars['String']['output'];
+  _path: Scalars['String']['output'];
+  _references?: Maybe<Array<Maybe<Content>>>;
+  _score?: Maybe<Scalars['Float']['output']>;
+  attachments?: Maybe<Array<Maybe<Attachment>>>;
+  children?: Maybe<Array<Maybe<Content>>>;
+  childrenConnection?: Maybe<ContentConnection>;
+  components?: Maybe<Array<Maybe<Component>>>;
+  contentType?: Maybe<ContentType>;
+  createdTime?: Maybe<Scalars['DateTime']['output']>;
+  creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_Category_Data>;
+  dataAsJson?: Maybe<Scalars['JSON']['output']>;
+  displayName?: Maybe<Scalars['String']['output']>;
+  hasChildren?: Maybe<Scalars['Boolean']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  metaFields?: Maybe<MetaFields>;
+  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
+  modifier?: Maybe<PrincipalKey>;
+  owner?: Maybe<PrincipalKey>;
+  pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageTemplate?: Maybe<Content>;
+  pageUrl?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Content>;
+  permissions?: Maybe<Permissions>;
+  publish?: Maybe<PublishInfo>;
+  site?: Maybe<Portal_Site>;
+  type?: Maybe<Scalars['String']['output']>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+  x?: Maybe<ExtraData>;
+  xAsJson?: Maybe<Scalars['JSON']['output']>;
+};
+
+
+/** Kategori - idebanken:category */
+export type Idebanken_Category_PathArgs = {
+  type?: InputMaybe<ContentPathType>;
+};
+
+
+/** Kategori - idebanken:category */
+export type Idebanken_CategoryChildrenArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Kategori - idebanken:category */
+export type Idebanken_CategoryChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Kategori - idebanken:category */
+export type Idebanken_CategoryComponentsArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Kategori - idebanken:category */
+export type Idebanken_CategoryPageAsJsonArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Kategori - idebanken:category */
+export type Idebanken_CategoryPageUrlArgs = {
+  params?: InputMaybe<Scalars['JSON']['input']>;
+  type?: InputMaybe<UrlType>;
+};
+
+/** Kategori - idebanken:category data */
+export type Idebanken_Category_Data = {
+  __typename?: 'idebanken_Category_Data';
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 /** Guide - idebanken:guide */
