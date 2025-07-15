@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+    <display-name>Kategori</display-name>
+    <display-name-expression>${title}</display-name-expression>
+    <description>Kategori som kan settes på innhold</description>
+    <super-type>base:structured</super-type>
+    <is-final>true</is-final>
+    <allow-child-content>false</allow-child-content>
+    <form>
+        <input name="title" type="TextLine">
+            <label>Tittel</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+    </form>
+</content-type>
