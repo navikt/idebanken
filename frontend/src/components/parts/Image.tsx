@@ -156,8 +156,8 @@ function StyledImage({
     className,
 }: Readonly<StyledImageProps>) {
     const borderDist = borderDistance || 0
-    const borderOffsetX = -Math.round(borderDist / 2) + paddingX
-    const borderOffsetY = -Math.round(borderDist / 2) + paddingY
+    const paddingFullX = paddingX + borderDist
+    const paddingFullY = paddingY + borderDist
     return (
         <div
             className={classNames(
@@ -168,19 +168,16 @@ function StyledImage({
                 hideOnMobile ? 'max-md:hidden' : ''
             )}
             style={{
-                margin: `${Math.abs(borderOffsetY)}px ${Math.abs(borderOffsetX)}px`,
-                padding: `${paddingY}px ${paddingX}px`,
+                padding: `${paddingFullY}px ${paddingFullX}px`,
             }}>
             {showBorder && (
                 <div
                     className={classNames('absolute')}
                     style={{
-                        width: width ? `${width + borderDist}px` : 'auto',
-                        height: height ? `${height + borderDist}px` : 'auto',
-                        left: borderOffsetX,
-                        top: borderOffsetY,
-                        bottom: borderOffsetY,
-                        right: borderOffsetX,
+                        width: width ? `${width + borderDist * 2}px` : 'auto',
+                        height: height ? `${height + borderDist * 2}px` : 'auto',
+                        top: paddingY,
+                        left: paddingX,
                         borderRadius: `${borderRadius}px`,
                         border: '1px solid #0000004D',
                     }}

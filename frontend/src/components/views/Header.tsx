@@ -2,7 +2,7 @@
 import { MetaData } from '@enonic/nextjs-adapter'
 import NextLink from 'next/link'
 import NextImage from 'next/image'
-import { PageBlock } from '@navikt/ds-react/Page'
+import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 
 export interface HeaderProps {
     title: string
@@ -12,7 +12,7 @@ export interface HeaderProps {
 
 const Header = ({ title, logoUrl }: HeaderProps) => {
     return (
-        <PageBlock as="header" width="2xl">
+        <BleedingBackgroundPageBlock as={'header'}>
             <NextLink href="/">
                 <NextImage
                     src={logoUrl}
@@ -23,7 +23,7 @@ const Header = ({ title, logoUrl }: HeaderProps) => {
                     priority
                 />
             </NextLink>
-        </PageBlock>
+        </BleedingBackgroundPageBlock>
     )
 }
 

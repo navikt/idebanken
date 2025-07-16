@@ -102,6 +102,10 @@
 	--a-space-31: 15.5rem;
 	--a-space-32: 16rem; */
 }
+body {
+    /* Do not allow overscrolling on mobile as the page background will be different from the "section/layout" backgrounds */
+    overscroll-behavior: none;
+}
 
 /* NB: Is used in buttons text */
 .navds-label {

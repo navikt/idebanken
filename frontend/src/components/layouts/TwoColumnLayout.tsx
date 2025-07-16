@@ -2,7 +2,8 @@ import type { Layout_Idebanken__2_Column } from '~/types/generated.d'
 import type { MetaData, PageComponent } from '@enonic/nextjs-adapter'
 import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
-import { Box, HGrid } from '@navikt/ds-react'
+import { HGrid } from '@navikt/ds-react'
+import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 
 interface TwoColumnLayoutProps {
     layout: {
@@ -29,16 +30,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
     const breakLeftFirst = layout.config?.breakLeftFirst
 
     return (
-        <Box
-            as="section"
-            padding={{
-                xs: 'space-8',
-                sm: 'space-12',
-                md: 'space-16',
-                lg: 'space-20',
-                xl: 'space-24',
-            }}
-            className={layout.config?.bgColor || 'bg-extra-light-pink'}>
+        <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor}>
             <HGrid
                 gap={{ sm: 'space-8', md: 'space-12', lg: 'space-20', xl: 'space-24' }}
                 columns={{ xs: 1, md: 12 }}>
@@ -69,7 +61,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                     />
                 </div>
             </HGrid>
-        </Box>
+        </BleedingBackgroundPageBlock>
     )
 }
 

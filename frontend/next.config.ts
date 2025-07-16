@@ -23,6 +23,9 @@ const config = {
     trailingSlash: false,
     transpilePackages: ['@enonic/nextjs-adapter'],
     webpack: getEnonicWebpackConfig,
-}
+    experimental: {
+        optimizePackageImports: ['@navikt/ds-react', '@navikt/aksel-icons'],
+    },
+} as NextConfig
 
 export default config

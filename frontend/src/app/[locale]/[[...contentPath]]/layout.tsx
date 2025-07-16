@@ -1,4 +1,4 @@
-import { I18n, RENDER_MODE, XP_REQUEST_TYPE } from '@enonic/nextjs-adapter'
+import { getAsset, I18n, RENDER_MODE, XP_REQUEST_TYPE } from '@enonic/nextjs-adapter'
 import { LocaleContextProvider } from '@enonic/nextjs-adapter/client'
 import { fetchContent } from '@enonic/nextjs-adapter/server'
 import StaticContent from '@enonic/nextjs-adapter/views/StaticContent'
@@ -6,7 +6,6 @@ import { ReactNode } from 'react'
 
 import Header from '~/components/views/Header'
 import { PageBlock } from '@navikt/ds-react/Page'
-import { getAsset } from '@enonic/nextjs-adapter'
 
 import '~/styles/globals.css'
 
