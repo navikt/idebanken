@@ -88,7 +88,7 @@
                 </input>
                 <input name="borderDistance" type="Long">
                     <label>Kantlinje avstand (px)</label>
-                    <default>60</default>
+                    <default>50</default>
                     <config>
                         <min>0</min>
                         <max>100</max>
@@ -118,15 +118,15 @@
                         </input>
                         <input name="bottom" type="Long">
                             <label>Avstand fra bunn (y-akse i px)</label>
-                            <default>-20</default>
+                            <default>-10</default>
                         </input>
                         <input name="left" type="Long">
                             <label>Avstand fra venstre (x-akse i px)</label>
-                            <default>-80</default>
+                            <default>-20</default>
                         </input>
                         <input name="opacity" type="Long">
                             <label>Gjennomsiktig (0 er usynlig. 100 er ingen gjennomsiktighet)</label>
-                            <default>80</default>
+                            <default>90</default>
                             <config>
                                 <min>0</min>
                                 <max>100</max>
