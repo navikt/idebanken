@@ -62,7 +62,7 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
 
     return (
         <html lang={resolvedParams.locale ?? 'no'} className={mundial.variable}>
-            <Page as="body" footer={<Footer />} {...bodyAttrs}>
+            <Page as="body" footer={<Footer />} {...bodyAttrs} contentBlockPadding={'none'}>
                 {children}
             </Page>
         </html>
