@@ -1,0 +1,41 @@
+.error-log-dashboard {
+    color: white;
+    padding: 10px;
+
+    .widget-header {
+        text-shadow: none !important;
+        font-size: 20px !important;
+    }
+
+    &.has-errors {
+        background-color: #fff2f7;
+        color: black;
+    }
+
+    &.no-errors {
+        background-color: transparent;
+        box-shadow: none;
+        --webkit-box-shadow: none;
+    }
+
+    section {
+        margin-bottom: 2rem;
+    }
+
+    h6 {
+        margin: 0
+    }
+
+    ul {
+        padding-inline-start: 0;
+    }
+
+    img {
+        width: 192px;
+        height: 162px;
+    }
+
+    p {
+        white-space: pre-line;
+    }
+}

@@ -1,0 +1,16 @@
+<widget class="error-log-dashboard" th:classappend="${#lists.isEmpty(logEntries) ? 'no-errors' : 'has-errors'}">
+  <link
+    rel="stylesheet"
+    data-th-href="${portal.assetUrl({'_path=styles/error-log-dashboard.css'})}"
+    type="text/css"
+    media="all"
+  />
+  <p data-th-if="${#lists.isEmpty(logEntries)}">Ingen feilmeldinger 🙌</p>
+  <section data-th-each="logEntry: ${logEntries}">
+    <ul>
+      <li data-th-each="log: ${logEntry.logs}">
+        <p data-th-text="${log}"></p>
+      </li>
+    </ul>
+  </section>
+</widget>
