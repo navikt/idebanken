@@ -7,7 +7,7 @@ import { getSearchConfig } from './config'
 import { updateExternalSearchDocumentForContent } from './update-one'
 import { updateExternalSearchDocumentsForAllReferences } from './update-references'
 import { isMaster } from '/lib/xp/cluster'
-import { runAsAdminInIdebankenContext } from '/lib/project-initializer'
+import { runAsAdmin } from '/lib/project-initializer'
 
 let isActive = false
 
@@ -50,7 +50,7 @@ export const activateExternalSearchIndexEventHandlers = () => {
     eventLib.listener({
         type: '(node.pushed|node.deleted)',
         callback: (event) =>
-            runAsAdminInIdebankenContext(() => {
+            runAsAdmin(() => {
                 const searchConfig = getSearchConfig()
                 if (!searchConfig) {
                     logger.critical(`No search config found - could not run event handler!`)

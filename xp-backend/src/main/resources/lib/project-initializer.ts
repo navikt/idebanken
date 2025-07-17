@@ -24,7 +24,7 @@ export const projectData = {
  * Initializes the idébanken project by checking if it exists and creating it if not.
  */
 export const initializeProject = () => {
-    runAsAdminInIdebankenContext(() => {
+    runAsAdmin(() => {
         const project = getProject({ id: projectData.id })
         if (!project) {
             logger.info(`Project ${projectData.displayName} not found. Creating...`)
@@ -52,7 +52,7 @@ export const initializeProject = () => {
     })
 }
 
-export const runAsAdminInIdebankenContext = <T>(callback: () => T) => {
+export const runAsAdmin = <T>(callback: () => T) => {
     let result
     try {
         result = run(
