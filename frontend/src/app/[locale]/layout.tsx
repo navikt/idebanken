@@ -63,6 +63,11 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
     return (
         <html lang={resolvedParams.locale ?? 'no'} className={mundial.variable}>
             <Page as="body" footer={<Footer />} {...bodyAttrs} contentBlockPadding={'none'}>
+                <a
+                    className="transition left-0 bg-dark-blue text-primary-content absolute p-3 m-3 -translate-y-16 focus:translate-y-0"
+                    href="#main-content">
+                    Hopp til hovedinnhold
+                </a>
                 {children}
             </Page>
         </html>
