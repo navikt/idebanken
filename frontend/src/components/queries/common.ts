@@ -65,6 +65,10 @@ query($path:ID!){
       displayName
       _path
     }
+    menu {
+      href
+      linkText
+    }
   }
 }`
 

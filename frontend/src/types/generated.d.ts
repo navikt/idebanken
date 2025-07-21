@@ -454,6 +454,7 @@ export type HeadlessCms = {
   getSite?: Maybe<Portal_Site>;
   getType?: Maybe<ContentType>;
   getTypes?: Maybe<Array<Maybe<ContentType>>>;
+  menu: Array<Maybe<MenuItem>>;
   query?: Maybe<Array<Maybe<Content>>>;
   queryConnection?: Maybe<QueryContentConnection>;
   queryDsl?: Maybe<Array<Maybe<Content>>>;
@@ -776,6 +777,13 @@ export type MediaUploader = {
   __typename?: 'MediaUploader';
   attachment?: Maybe<Scalars['String']['output']>;
   focalPoint?: Maybe<MediaFocalPoint>;
+};
+
+/** Menu items */
+export type MenuItem = {
+  __typename?: 'MenuItem';
+  href: Scalars['String']['output'];
+  linkText: Scalars['String']['output'];
 };
 
 /** Meta fields for a content */
@@ -1440,7 +1448,7 @@ export type XData_Idebanken_ApplicationConfig = {
 /** Extra data config for application ['idebanken}'] and descriptor ['category'] */
 export type XData_Idebanken_Category_DataConfig = {
   __typename?: 'XData_idebanken_category_DataConfig';
-  categories?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  categories: Array<Maybe<Scalars['String']['output']>>;
 };
 
 

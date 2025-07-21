@@ -2,7 +2,7 @@ import { Content } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
 import { generateSearchDocumentId } from '../utils'
 import { getNestedValues } from '/lib/utils/object-utils'
-import { getSearchConfig } from '../config'
+import { getSiteConfig } from '/lib/utils/site-config'
 import { logger } from '/lib/utils/logging'
 import { getSearchDocumentTextSegments } from './field-resolvers/text'
 import { buildSearchDocumentIngress } from './field-resolvers/ingress'
@@ -173,7 +173,7 @@ export const buildExternalSearchDocument = (
         return null
     }
 
-    const searchConfig = getSearchConfig()
+    const searchConfig = getSiteConfig()?.searchConfig
     if (!searchConfig) {
         logger.error('No search config found!')
         return null

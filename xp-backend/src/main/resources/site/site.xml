@@ -59,6 +59,19 @@
                 </item-set>
             </items>
         </item-set>
+        <item-set name="menu">
+            <label>Lenker i meny</label>
+            <occurrences minimum="0" maximum="0"/>
+            <items>
+                <input type="ContentSelector" name="link">
+                    <label>Lenke</label>
+                    <occurrences minimum="1" maximum="1"/>
+                </input>
+                <input type="TextLine" name="linkText">
+                    <label>Overskriv lenketekst</label>
+                </input>
+            </items>
+        </item-set>
     </form>
     <mappings>
     </mappings>
