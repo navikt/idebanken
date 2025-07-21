@@ -1,9 +1,9 @@
 import * as eventLib from '/lib/xp/event'
 import * as taskLib from '/lib/xp/task'
 import { CONTENT_ROOT_PATH } from '/lib/xp/content'
-import { logger } from '../utils/logging'
+import { logger } from '/lib/utils/logging'
 import { URLS } from '../constants'
-import { getSearchConfig } from './config'
+import { getSiteConfig } from '/lib/utils/site-config'
 import { updateExternalSearchDocumentForContent } from './update-one'
 import { updateExternalSearchDocumentsForAllReferences } from './update-references'
 import { isMaster } from '/lib/xp/cluster'
@@ -51,7 +51,7 @@ export const activateExternalSearchIndexEventHandlers = () => {
         type: '(node.pushed|node.deleted)',
         callback: (event) =>
             runAsAdmin(() => {
-                const searchConfig = getSearchConfig()
+                const searchConfig = getSiteConfig()?.searchConfig
                 if (!searchConfig) {
                     logger.critical(`No search config found - could not run event handler!`)
                     return

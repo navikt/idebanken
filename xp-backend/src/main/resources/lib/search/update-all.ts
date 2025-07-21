@@ -1,8 +1,8 @@
-import { getSearchConfig } from './config'
+import { getSiteConfig } from '/lib/utils/site-config'
 import { Content } from '/lib/xp/content'
-import { logger } from '../utils/logging'
-import { forceArray } from '../utils/array-utils'
-import { getRepoConnection } from '../repos/repo-utils'
+import { logger } from '/lib/utils/logging'
+import { forceArray } from '/lib/utils/array-utils'
+import { getRepoConnection } from '/lib/repos/repo-utils'
 import {
     buildExternalSearchDocument,
     SearchConfig,
@@ -84,7 +84,7 @@ const sendToSearchApi = (repoId: string, contentIds: string[]) => {
 }
 
 export const externalSearchUpdateAll = () => {
-    const searchConfig = getSearchConfig()
+    const searchConfig = getSiteConfig()?.searchConfig
     if (!searchConfig) {
         logger.error('No search config found!')
         return

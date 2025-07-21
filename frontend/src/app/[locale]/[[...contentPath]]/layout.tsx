@@ -18,7 +18,7 @@ type LayoutProps = {
 
 export default async function PageLayout({ params, children }: LayoutProps) {
     const resolvedParams = await params
-    const { meta } = await fetchContent(resolvedParams)
+    const { meta, common } = await fetchContent(resolvedParams)
 
     const isEdit = meta?.renderMode === RENDER_MODE.EDIT
 
@@ -44,6 +44,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
             <StaticContent condition={isEdit}>
                 <Header
                     meta={meta}
+                    menu={common?.menu}
                     title={I18n.localize('idebanken')}
                     logoUrl={getAsset('/images/logo.svg', meta)}
                 />

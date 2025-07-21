@@ -63,6 +63,21 @@ declare global {
           };
         }>;
       };
+
+      /**
+       * Lenker i meny
+       */
+      menu?: Array<{
+        /**
+         * Lenke
+         */
+        link: string;
+
+        /**
+         * Overskriv lenketekst
+         */
+        linkText?: string;
+      }>;
     }
   }
 }
