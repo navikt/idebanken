@@ -4,7 +4,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { SearchWrapper } from '~/components/common/SearchWrapper'
+import { SearchWrapper, SOK_SEARCH_PARAM } from '~/components/common/SearchWrapper'
 
 export default function TemporarySearchClientComponent() {
     const [searchResult, setSearchResult] = useState<
@@ -13,15 +13,15 @@ export default function TemporarySearchClientComponent() {
     const searchParams = useSearchParams()
 
     useEffect(() => {
-        const sok = searchParams.get('sok')
-        if (!sok) {
+        const ord = searchParams.get(SOK_SEARCH_PARAM)
+        if (!ord) {
             return
         }
-        search(sok)
+        search(ord)
     }, [searchParams])
 
     function search(searchTerm: string) {
-        fetch(`/api/search?ord=${searchTerm}`)
+        fetch(`/api/search?${SOK_SEARCH_PARAM}=${searchTerm}`)
             .then((response) => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok')
