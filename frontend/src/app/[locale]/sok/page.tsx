@@ -1,4 +1,4 @@
-import TemporarySearchClientComponent from '~/app/[locale]/search-test/temporarySearchClientComponent'
+import TemporarySearchClientComponent from '~/app/[locale]/sok/temporarySearchClientComponent'
 
 // NB. Using this option with default value bails out static generation !!!
 // export const dynamic = 'auto'

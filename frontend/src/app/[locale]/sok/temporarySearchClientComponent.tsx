@@ -2,42 +2,43 @@
 // @ts-nocheck
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { SearchWrapper } from '~/components/common/SearchWrapper'
 
 export default function TemporarySearchClientComponent() {
     const [searchResult, setSearchResult] = useState<
         { total: number; hits: Array<object>; word: string } | undefined
     >()
+    const searchParams = useSearchParams()
+
+    useEffect(() => {
+        const sok = searchParams.get('sok')
+        if (!sok) {
+            return
+        }
+        search(sok)
+    }, [searchParams])
+
+    function search(searchTerm: string) {
+        fetch(`/api/search?ord=${searchTerm}`)
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok')
+                }
+                return response.json()
+            })
+            .then((data) => {
+                setSearchResult(data)
+            })
+            .catch((error) => {
+                console.error('Error fetching search results:', error)
+            })
+    }
+
     return (
         <div>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault()
-                    const formData = new FormData(e.target as HTMLFormElement)
-                    const searchTerm = formData.get('ord') as string
-
-                    fetch(`/api/search?ord=${searchTerm}`)
-                        .then((response) => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok')
-                            }
-                            return response.json()
-                        })
-                        .then((data) => {
-                            setSearchResult(data)
-                        })
-                        .catch((error) => {
-                            console.error('Error fetching search results:', error)
-                        })
-                }}>
-                <input
-                    name="ord"
-                    className="border"
-                    type="text"
-                    placeholder="hva leter du etter?"
-                />
-                <button type="submit">Søk</button>
-            </form>
+            <SearchWrapper />
             <div>
                 {searchResult ? (
                     <div>
