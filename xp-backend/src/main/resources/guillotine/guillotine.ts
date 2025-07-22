@@ -11,17 +11,43 @@ type Source<T> = {
     __contentId: string
 } & T
 
+type ProcessedOverridableLink = { href: string; linkText: string }
+
 export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL): Extensions {
     return {
         types: {
-            MenuItem: {
-                description: 'Menu items',
+            OverridableContentLink: {
+                description: 'Overridable content link',
                 fields: {
                     href: {
                         type: nonNull(GraphQLString),
                     },
                     linkText: {
                         type: nonNull(GraphQLString),
+                    },
+                },
+                interfaces: [],
+            },
+            LinkCategory: {
+                description: 'Link category',
+                fields: {
+                    title: {
+                        type: GraphQLString,
+                    },
+                    links: {
+                        type: nonNull(list(reference('OverridableContentLink'))),
+                    },
+                },
+                interfaces: [],
+            },
+            Footer: {
+                description: 'Footer configuration',
+                fields: {
+                    footerText: {
+                        type: reference('RichText'),
+                    },
+                    linkCategory: {
+                        type: nonNull(list(reference('LinkCategory'))),
                     },
                 },
                 interfaces: [],
@@ -61,21 +87,39 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
             HeadlessCms: {
                 menu: (
                     _env: DataFetchingEnvironment<object, LocalContextRecord, object>
-                ): Array<{ href: string; linkText: string }> => {
+                ): Array<ProcessedOverridableLink> => {
                     return runInContext({ asAdmin: true }, () => {
                         const menuConfig = getSiteConfig()?.menu
 
-                        return forceArray(menuConfig).map(({ link, linkText }) => {
-                            const content = getContent({ key: link })
-                            return {
-                                href: content?._path?.replace(/^\/[^/]*/, '') || '/',
-                                linkText:
-                                    linkText ??
-                                    (content?.data?.title as string | undefined) ??
-                                    content?.displayName ??
-                                    '[Lenket innhold er ikke gyldig]',
-                            }
-                        })
+                        return mapOverridableContentLinks(menuConfig)
+                    })
+                },
+                footer: (
+                    _env: DataFetchingEnvironment<object, LocalContextRecord, object>
+                ): {
+                    linkCategory?: Array<{
+                        title?: string
+                        links?: Array<ProcessedOverridableLink>
+                    }>
+                } => {
+                    return runInContext({ asAdmin: true }, () => {
+                        const footerConfig = getSiteConfig()?.footer
+
+                        if (!footerConfig?.linkCategory) {
+                            return {}
+                        }
+
+                        const linkCategory = forceArray(footerConfig.linkCategory).map(
+                            (category) => ({
+                                title: category.title,
+                                links: mapOverridableContentLinks(category.links),
+                            })
+                        )
+
+                        return {
+                            footerText: footerConfig.footerText,
+                            linkCategory,
+                        }
                     })
                 },
             },
@@ -91,10 +135,29 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
             HeadlessCms: (params): void => {
                 params.addFields({
                     menu: {
-                        type: nonNull(list(reference('MenuItem'))),
+                        type: nonNull(list(reference('OverridableContentLink'))),
+                    },
+                    footer: {
+                        type: reference('Footer'),
                     },
                 })
             },
         },
     }
+}
+
+function mapOverridableContentLinks<T extends { link: string; linkText?: string }>(
+    items?: T | T[]
+): Array<ProcessedOverridableLink> {
+    return forceArray(items).map(({ link, linkText }) => {
+        const content = getContent({ key: link })
+        return {
+            href: content?._path?.replace(/^\/[^/]*/, '') || '/',
+            linkText:
+                linkText ??
+                (content?.data?.title as string | undefined) ??
+                content?.displayName ??
+                '[Lenket innhold er ikke gyldig]',
+        }
+    })
 }

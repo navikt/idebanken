@@ -78,6 +78,41 @@ declare global {
          */
         linkText?: string;
       }>;
+
+      /**
+       * Footer
+       */
+      footer: {
+        /**
+         * Footer tekst
+         */
+        footerText?: unknown;
+
+        /**
+         * Lenkekategori
+         */
+        linkCategory?: Array<{
+          /**
+           * Kategori tittel
+           */
+          title?: string;
+
+          /**
+           * Lenker
+           */
+          links?: Array<{
+            /**
+             * Lenke
+             */
+            link: string;
+
+            /**
+             * Overskriv lenketekst
+             */
+            linkText?: string;
+          }>;
+        }>;
+      };
     }
   }
 }
