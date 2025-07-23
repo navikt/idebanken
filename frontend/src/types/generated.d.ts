@@ -318,6 +318,13 @@ export type FilterInput = {
   notExists?: InputMaybe<NotExistsFilterInput>;
 };
 
+/** Footer configuration */
+export type Footer = {
+  __typename?: 'Footer';
+  footerText?: Maybe<Scalars['String']['output']>;
+  linkCategory: Array<Maybe<LinkCategory>>;
+};
+
 /** Form input. */
 export type FormInput = FormItem & {
   __typename?: 'FormInput';
@@ -447,6 +454,7 @@ export type HasValueFilterInput = {
 /** Headless CMS */
 export type HeadlessCms = {
   __typename?: 'HeadlessCms';
+  footer?: Maybe<Footer>;
   get?: Maybe<Content>;
   getChildren?: Maybe<Array<Maybe<Content>>>;
   getChildrenConnection?: Maybe<ContentConnection>;
@@ -454,7 +462,7 @@ export type HeadlessCms = {
   getSite?: Maybe<Portal_Site>;
   getType?: Maybe<ContentType>;
   getTypes?: Maybe<Array<Maybe<ContentType>>>;
-  menu: Array<Maybe<MenuItem>>;
+  menu: Array<Maybe<OverridableContentLink>>;
   query?: Maybe<Array<Maybe<Content>>>;
   queryConnection?: Maybe<QueryContentConnection>;
   queryDsl?: Maybe<Array<Maybe<Content>>>;
@@ -714,6 +722,13 @@ export type Link = {
   uri?: Maybe<Scalars['String']['output']>;
 };
 
+/** Link category */
+export type LinkCategory = {
+  __typename?: 'LinkCategory';
+  links: Array<Maybe<OverridableContentLink>>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
 /** Macro type. */
 export type Macro = {
   __typename?: 'Macro';
@@ -777,13 +792,6 @@ export type MediaUploader = {
   __typename?: 'MediaUploader';
   attachment?: Maybe<Scalars['String']['output']>;
   focalPoint?: Maybe<MediaFocalPoint>;
-};
-
-/** Menu items */
-export type MenuItem = {
-  __typename?: 'MenuItem';
-  href: Scalars['String']['output'];
-  linkText: Scalars['String']['output'];
 };
 
 /** Meta fields for a content */
@@ -860,6 +868,13 @@ export type Occurrences = {
   __typename?: 'Occurrences';
   maximum?: Maybe<Scalars['Int']['output']>;
   minimum?: Maybe<Scalars['Int']['output']>;
+};
+
+/** Overridable content link */
+export type OverridableContentLink = {
+  __typename?: 'OverridableContentLink';
+  href: Scalars['String']['output'];
+  linkText: Scalars['String']['output'];
 };
 
 /** Page component data. */

@@ -76,7 +76,7 @@
             <label>Footer</label>
             <occurrences minimum="1" maximum="1"/>
             <items>
-                <input type="RichText" name="footerText">
+                <input type="TextLine" name="footerText">
                     <label>Footer tekst</label>
                 </input>
                 <item-set name="linkCategory">

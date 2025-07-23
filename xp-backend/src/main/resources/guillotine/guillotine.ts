@@ -44,7 +44,7 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                 description: 'Footer configuration',
                 fields: {
                     footerText: {
-                        type: reference('RichText'),
+                        type: GraphQLString,
                     },
                     linkCategory: {
                         type: nonNull(list(reference('LinkCategory'))),

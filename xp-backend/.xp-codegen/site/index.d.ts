@@ -86,7 +86,7 @@ declare global {
         /**
          * Footer tekst
          */
-        footerText?: unknown;
+        footerText?: string;
 
         /**
          * Lenkekategori

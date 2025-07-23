@@ -10,17 +10,19 @@ import type { JSX } from 'react'
 const HeadingView = ({
     level,
     size,
+    className = '',
+    autoId = true,
     children,
 }: Omit<HeadingConfig, 'text'> & {
-    children: string | JSX.Element | JSX.Element[] | undefined
+    children: string | JSX.Element | JSX.Element[] | undefined | null
 }) => {
     const headingText = extractText(children)
     return (
         <Heading
-            id={headingIdOfString(headingText)}
+            id={autoId ? headingIdOfString(headingText) : undefined}
             level={level}
             size={size}
-            className="font-light">
+            className={`font-light ${className}`}>
             {headingText}
         </Heading>
     )

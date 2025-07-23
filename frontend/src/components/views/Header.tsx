@@ -4,14 +4,14 @@ import NextLink from 'next/link'
 import NextImage from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
-import { MenuItem } from '~/types/generated'
+import { OverridableContentLink } from '~/types/generated'
 import { HStack } from '@navikt/ds-react'
 
 export interface HeaderProps {
     title: string
     logoUrl: string
     meta: MetaData
-    menu?: Array<MenuItem>
+    menu?: Array<OverridableContentLink>
 }
 
 const Header = ({ title, logoUrl, menu }: HeaderProps) => {
