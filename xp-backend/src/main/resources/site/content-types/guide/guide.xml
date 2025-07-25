@@ -5,7 +5,7 @@
     <display-name-expression>${title}</display-name-expression>
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
-    <allow-child-content-type>(?!idebanken:crash-course(-slide)?$)(?!idebanken:category$)*</allow-child-content-type>
+    <allow-child-content-type>(?!idebanken:crash-course-slide$)(?!idebanken:category$)*</allow-child-content-type>
     <form>
         <mixin name="title-ingress"/>
     </form>

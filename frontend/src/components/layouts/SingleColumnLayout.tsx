@@ -19,8 +19,8 @@ interface SingleColumnLayoutProps {
 }
 
 const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
-    const regions = props.layout.regions
     const { common, meta, layout } = props
+    const regions = layout.regions
 
     return (
         <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor}>
