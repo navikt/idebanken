@@ -3,6 +3,7 @@
 import React, { type JSX, useEffect, useState } from 'react'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
 import styles from './CrashCourse.module.css'
+import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 
 type Direction = 'right' | 'left'
 
@@ -16,7 +17,6 @@ export default function CrashCourseView({
 
     const handleKeyDown = (event: KeyboardEvent) => {
         const modifiers = []
-        console.log(`Key pressed: ${event.key}, Ctrl: ${event.ctrlKey}, Meta: ${event.metaKey}`)
         if (event.ctrlKey) modifiers.push('Ctrl')
         if (event.metaKey) modifiers.push('Cmd')
         const key = [...modifiers, event.key].join('+').toLowerCase()
@@ -28,6 +28,10 @@ export default function CrashCourseView({
     }
 
     useEffect(() => {
+        const index = Number(window.location.hash?.replace('#', ''))
+        if (index && index !== currentIndex && !isNaN(index) && index < slideDeckElements.length) {
+            setCurrentSlide(index)
+        }
         window.addEventListener('keydown', handleKeyDown)
         return () => {
             window.removeEventListener('keydown', handleKeyDown)
@@ -38,34 +42,36 @@ export default function CrashCourseView({
         arrowright: () => goToNextSlide(),
         arrowleft: () => goToPrevSlide(),
     }
-    const goToNextSlide = () => {
-        if (currentIndex < slideDeckElements.length - 1) {
-            setDirection('right')
-            setCurrentIndex(currentIndex + 1)
+    const setCurrentSlide = (index: number) => {
+        if (index >= 0 && index < slideDeckElements.length) {
+            setDirection(index > currentIndex ? 'right' : 'left')
+            setCurrentIndex(index)
+            window.location.hash = `#${index}` // Update URL hash
         }
     }
 
+    const goToNextSlide = () => {
+        setCurrentSlide(currentIndex + 1)
+    }
+
     const goToPrevSlide = () => {
-        if (currentIndex > 0) {
-            setDirection('left')
-            setCurrentIndex(currentIndex - 1)
-        }
+        setCurrentSlide(currentIndex - 1)
     }
 
     const variants: Variants = {
         enter: (direction: Direction) => ({
             x: direction === 'right' ? '100%' : '-100%',
-            opacity: 1,
+            opacity: 0,
         }),
         center: { x: 0, opacity: 1 },
         exit: (direction: Direction) => ({
             x: direction === 'left' ? '100%' : '-100%',
-            opacity: 1,
+            opacity: 0,
         }),
     }
 
     return (
-        <div className={styles.slideContainer}>
+        <BleedingBackgroundPageBlock as={'div'} className={styles.slideContainer}>
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
                 <motion.div
                     key={currentIndex}
@@ -92,6 +98,6 @@ export default function CrashCourseView({
                     Next
                 </button>
             </div>
-        </div>
+        </BleedingBackgroundPageBlock>
     )
 }
