@@ -15,6 +15,7 @@ import PanelLayoutTwoColumn from './layouts/PanelLayoutTwoColumn'
 import { LinkCardView } from './parts/LinkCard'
 import TitleIngressView from '~/components/parts/TitleIngress'
 import { HeadingViewPart } from '~/components/parts/Heading'
+import CrashCourse from '~/components/contentType/CrashCourse'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -26,6 +27,9 @@ import { HeadingViewPart } from '~/components/parts/Heading'
 ComponentRegistry.setCommonQuery([commonQuery, commonVariables])
 
 // Content type mappings
+ComponentRegistry.addContentType(`${APP_NAME}:crash-course`, {
+    view: CrashCourse,
+})
 
 // Page mappings
 ComponentRegistry.addPage(`${APP_NAME}:main`, {

@@ -56,6 +56,7 @@ query($path:ID!){
     get(key:$path) {
       displayName
       _id
+      _path
       type
       dataAsJson
       xAsJson
