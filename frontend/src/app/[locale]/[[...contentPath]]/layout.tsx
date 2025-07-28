@@ -3,13 +3,13 @@ import { LocaleContextProvider } from '@enonic/nextjs-adapter/client'
 import { fetchContent } from '@enonic/nextjs-adapter/server'
 import StaticContent from '@enonic/nextjs-adapter/views/StaticContent'
 import { ReactNode } from 'react'
-
+import { PageProps } from './page'
+import { Page } from '@navikt/ds-react'
+import Footer from '~/components/views/Footer'
 import Header from '~/components/views/Header'
 import { PageBlock } from '@navikt/ds-react/Page'
 
 import '~/styles/globals.css'
-
-import { PageProps } from './page'
 
 type LayoutProps = {
     params: Promise<PageProps>
@@ -19,8 +19,8 @@ type LayoutProps = {
 export default async function PageLayout({ params, children }: LayoutProps) {
     const resolvedParams = await params
     const { meta, common } = await fetchContent(resolvedParams)
-
     const isEdit = meta?.renderMode === RENDER_MODE.EDIT
+    const isCrashCourse = common?.get?.type === 'idebanken:crash-course'
 
     // Component rendering - for component updates in Content Studio without reloading page
     if (meta.requestType === XP_REQUEST_TYPE.COMPONENT) {
@@ -42,16 +42,20 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     return (
         <LocaleContextProvider locale={resolvedParams.locale}>
             <StaticContent condition={isEdit}>
-                <Header
-                    meta={meta}
-                    menu={common?.menu}
-                    title={I18n.localize('idebanken')}
-                    logoUrl={getAsset('/images/logo.svg', meta)}
-                />
+                <Page
+                    footer={<Footer footerProps={common?.footer ?? undefined} />}
+                    contentBlockPadding={'none'}>
+                    <Header
+                        meta={meta}
+                        menu={common?.menu}
+                        title={I18n.localize('idebanken')}
+                        logoUrl={getAsset('/images/logo.svg', meta)}
+                    />
 
-                <PageBlock id="main-content" as="main" width="2xl">
-                    {children}
-                </PageBlock>
+                    <PageBlock id="main-content" as="main" width="2xl">
+                        {children}
+                    </PageBlock>
+                </Page>
             </StaticContent>
         </LocaleContextProvider>
     )

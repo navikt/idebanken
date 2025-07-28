@@ -70,6 +70,16 @@ query($path:ID!){
       href
       linkText
     }
+    footer {
+      footerText
+      linkCategory {
+        title
+        links {
+          href
+          linkText
+        }
+      }
+    }
   }
 }`
 
