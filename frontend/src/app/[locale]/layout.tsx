@@ -1,18 +1,9 @@
-import {
-    getContentApiUrl,
-    getLocaleMapping,
-    I18n,
-    PORTAL_COMPONENT_ATTRIBUTE,
-    Result,
-} from '@enonic/nextjs-adapter'
+import { I18n, PORTAL_COMPONENT_ATTRIBUTE } from '@enonic/nextjs-adapter'
 import { ReactNode } from 'react'
 import localFont from 'next/font/local'
 import { Metadata } from 'next'
-import { Query } from '~/types/generated'
-import { fetchGuillotine } from '@enonic/nextjs-adapter/server'
 
 import '~/styles/globals.css'
-import { footerQuery } from '~/components/queries/footer'
 
 type LayoutProps = {
     params: Promise<{ locale: string }>
@@ -65,21 +56,6 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
         [PORTAL_COMPONENT_ATTRIBUTE]: 'page',
         ['data-theme']: 'idebanken',
     }
-
-    const footerData = (await fetchGuillotine(
-        getContentApiUrl({ contentPath: process.env.ENONIC_API ?? '' }),
-        getLocaleMapping({ contentPath: process.env.ENONIC_API ?? '' }),
-        {
-            method: 'POST',
-            body: {
-                query: footerQuery,
-            },
-            next: {
-                revalidate: 3600, // 1 hour
-                tags: ['footer'],
-            },
-        }
-    )) as Result & Query
 
     return (
         <html lang={resolvedParams.locale ?? 'no'} className={mundial.variable}>
