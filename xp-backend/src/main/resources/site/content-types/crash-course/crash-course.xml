@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+    <display-name>Lynkurs</display-name>
+    <description>Powerpoint-aktig lynkurs</description>
+    <super-type>base:structured</super-type>
+    <is-final>true</is-final>
+    <allow-child-content-type>(?!idebanken:category$)${app}:crash-course-slide</allow-child-content-type>
+</content-type>

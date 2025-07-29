@@ -56,6 +56,7 @@ query($path:ID!){
     get(key:$path) {
       displayName
       _id
+      _path
       type
       dataAsJson
       xAsJson
@@ -68,6 +69,16 @@ query($path:ID!){
     menu {
       href
       linkText
+    }
+    footer {
+      footerText
+      linkCategory {
+        title
+        links {
+          href
+          linkText
+        }
+      }
     }
   }
 }`
