@@ -16,14 +16,13 @@ const HeadingView = ({
 }: Omit<HeadingConfig, 'text'> & {
     children: string | JSX.Element | JSX.Element[] | undefined | null
 }) => {
-    const headingText = extractText(children)
     return (
         <Heading
-            id={autoId ? headingIdOfString(headingText) : undefined}
+            id={autoId ? headingIdOfString(extractText(children)) : undefined}
             level={level}
             size={size}
             className={`font-light ${className}`}>
-            {headingText}
+            {children}
         </Heading>
     )
 }
@@ -49,6 +48,7 @@ function extractText(nodes: any): string {
             if ('data' in node && typeof node.data === 'string') return node.data
             if ('children' in node && Array.isArray(node.children))
                 return extractText(node.children as DOMNode[])
+            if (typeof node.props?.children === 'string') return node.props?.children
             return ''
         })
         .join('')
