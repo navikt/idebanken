@@ -26,6 +26,14 @@ export function validatePath(path: string | string[] | null) {
     return null
 }
 
+export function enonicSitePathToHref(path?: string) {
+    if (!path) {
+        console.warn('sitePathToHref called with undefined or empty path')
+        return '/'
+    }
+    return path.replace(/^\/[^/]+/, '')
+}
+
 export function headingIdOfString(string?: string) {
     const MAX_HEADING_LENGTH = 50
     if (!string) {

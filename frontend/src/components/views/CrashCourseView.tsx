@@ -1,9 +1,9 @@
 'use client'
 
-import React, { type JSX, useEffect, useState } from 'react'
+import React, { type JSX, useCallback, useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
-import styles from './CrashCourse.module.css'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
+import { BodyShort, Button, HStack, ProgressBar, VStack } from '@navikt/ds-react'
 
 type Direction = 'right' | 'left'
 
@@ -15,17 +15,47 @@ export default function CrashCourseView({
     const [currentIndex, setCurrentIndex] = useState(0)
     const [direction, setDirection] = useState<Direction>('right')
 
-    const handleKeyDown = (event: KeyboardEvent) => {
-        const modifiers = []
-        if (event.ctrlKey) modifiers.push('Ctrl')
-        if (event.metaKey) modifiers.push('Cmd')
-        const key = [...modifiers, event.key].join('+').toLowerCase()
+    const setCurrentSlide = useCallback(
+        (index: number) => {
+            if (index >= 0 && index < slideDeckElements.length) {
+                setDirection(index > currentIndex ? 'right' : 'left')
+                setCurrentIndex(index)
+                window.location.hash = `#${index}` // Update URL hash
+            }
+        },
+        [slideDeckElements, currentIndex, setDirection, setCurrentIndex]
+    )
 
-        if (shortcuts[key]) {
-            event.preventDefault()
-            shortcuts[key]()
-        }
-    }
+    const goToNextSlide = useCallback(() => {
+        setCurrentSlide(currentIndex + 1)
+    }, [currentIndex, setCurrentSlide])
+
+    const goToPrevSlide = useCallback(() => {
+        setCurrentSlide(currentIndex - 1)
+    }, [currentIndex, setCurrentSlide])
+
+    const shortcuts: Record<string, () => void> = useMemo(
+        () => ({
+            arrowright: () => goToNextSlide(),
+            arrowleft: () => goToPrevSlide(),
+        }),
+        [goToNextSlide, goToPrevSlide]
+    )
+
+    const handleKeyDown = useCallback(
+        (event: KeyboardEvent) => {
+            const modifiers = []
+            if (event.ctrlKey) modifiers.push('Ctrl')
+            if (event.metaKey) modifiers.push('Cmd')
+            const key = [...modifiers, event.key].join('+').toLowerCase()
+
+            if (shortcuts[key]) {
+                event.preventDefault()
+                shortcuts[key]()
+            }
+        },
+        [shortcuts]
+    )
 
     useEffect(() => {
         const index = Number(window.location.hash?.replace('#', ''))
@@ -36,27 +66,7 @@ export default function CrashCourseView({
         return () => {
             window.removeEventListener('keydown', handleKeyDown)
         }
-    }, [handleKeyDown])
-
-    const shortcuts: Record<string, () => void> = {
-        arrowright: () => goToNextSlide(),
-        arrowleft: () => goToPrevSlide(),
-    }
-    const setCurrentSlide = (index: number) => {
-        if (index >= 0 && index < slideDeckElements.length) {
-            setDirection(index > currentIndex ? 'right' : 'left')
-            setCurrentIndex(index)
-            window.location.hash = `#${index}` // Update URL hash
-        }
-    }
-
-    const goToNextSlide = () => {
-        setCurrentSlide(currentIndex + 1)
-    }
-
-    const goToPrevSlide = () => {
-        setCurrentSlide(currentIndex - 1)
-    }
+    }, [currentIndex, handleKeyDown, setCurrentSlide, slideDeckElements])
 
     const variants: Variants = {
         enter: (direction: Direction) => ({
@@ -71,7 +81,9 @@ export default function CrashCourseView({
     }
 
     return (
-        <BleedingBackgroundPageBlock as={'div'} className={styles.slideContainer}>
+        <BleedingBackgroundPageBlock
+            as={'div'}
+            className={'h-screen flex flex-col justify-between px-0 pt-8'}>
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
                 <motion.div
                     key={currentIndex}
@@ -80,24 +92,40 @@ export default function CrashCourseView({
                     initial="enter"
                     animate="center"
                     exit="exit"
+                    id={'main-content'}
+                    className={'overflow-y-auto overflow-x-clip'}
                     transition={{ type: 'tween', duration: 0.5 }}>
                     {slideDeckElements[currentIndex]}
                 </motion.div>
             </AnimatePresence>
 
-            <div className={styles.controls}>
-                <button onClick={goToPrevSlide} disabled={currentIndex === 0}>
-                    Previous
-                </button>
-                <span>
-                    {currentIndex + 1} / {slideDeckElements.length}
-                </span>
-                <button
-                    onClick={goToNextSlide}
-                    disabled={currentIndex === slideDeckElements.length - 1}>
-                    Next
-                </button>
-            </div>
+            <VStack gap={'4'} className={'p-4'}>
+                <HStack className={'self-center items-center'} gap={'8'}>
+                    <Button
+                        onClick={goToPrevSlide}
+                        disabled={currentIndex === 0}
+                        aria-label="Forrige slide">
+                        Forrige
+                    </Button>
+                    <BodyShort
+                        id={'slide-index-label'}
+                        aria-label={`Slide ${currentIndex + 1} av ${slideDeckElements.length}`}>
+                        {currentIndex + 1} / {slideDeckElements.length}
+                    </BodyShort>
+                    <Button
+                        onClick={goToNextSlide}
+                        disabled={currentIndex === slideDeckElements.length - 1}
+                        aria-label="Neste slide">
+                        Neste
+                    </Button>
+                </HStack>
+                <ProgressBar
+                    value={currentIndex}
+                    valueMax={slideDeckElements.length - 1}
+                    className={'w-full'}
+                    aria-labelledby={'slide-index-label'}
+                />
+            </VStack>
         </BleedingBackgroundPageBlock>
     )
 }
