@@ -97,7 +97,7 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                 footer: (
                     _env: DataFetchingEnvironment<object, LocalContextRecord, object>
                 ): {
-                    linkCategory?: Array<{
+                    linkCategory: Array<{
                         title?: string
                         links?: Array<ProcessedOverridableLink>
                     }>
@@ -105,11 +105,7 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                     return runInContext({ asAdmin: true }, () => {
                         const footerConfig = getSiteConfig()?.footer
 
-                        if (!footerConfig?.linkCategory) {
-                            return {}
-                        }
-
-                        const linkCategory = forceArray(footerConfig.linkCategory).map(
+                        const linkCategory = forceArray(footerConfig?.linkCategory).map(
                             (category) => ({
                                 title: category.title,
                                 links: mapOverridableContentLinks(category.links),
@@ -117,7 +113,7 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                         )
 
                         return {
-                            footerText: footerConfig.footerText,
+                            footerText: footerConfig?.footerText,
                             linkCategory,
                         }
                     })
