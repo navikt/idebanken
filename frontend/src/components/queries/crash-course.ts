@@ -1,10 +1,10 @@
 import { fetchContent, fetchGuillotine } from '@enonic/nextjs-adapter/server'
+import type { FetchContentResult } from '@enonic/nextjs-adapter'
 import { getContentApiUrl, getLocaleMapping, Result } from '@enonic/nextjs-adapter'
-import type { FetchContentResult } from '@enonic/nextjs-adapter/src/types'
 import { enonicSitePathToHref, forceArray } from '~/utils/utils'
 import { Query } from '~/types/generated'
 
-const getChildrenQuery = `
+const getChildrenPathsQuery = `
 query($path:ID!){
     guillotine {
         getChildren(key:$path) {
@@ -22,7 +22,7 @@ export async function getCrashCourseSlideContents(
         {
             method: 'POST',
             body: {
-                query: getChildrenQuery,
+                query: getChildrenPathsQuery,
                 variables: {
                     path: props.common?.get?._path,
                 },
@@ -48,5 +48,5 @@ export async function getCrashCourseSlideContents(
                 contentPath: path,
             })
         })
-    )?.then((res) => res.filter(Boolean) as FetchContentResult[]) // Filter out undefined results
+    )?.then((res) => res.filter(Boolean) as FetchContentResult[])
 }

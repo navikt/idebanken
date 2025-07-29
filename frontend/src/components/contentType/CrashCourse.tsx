@@ -1,4 +1,4 @@
-import type { FetchContentResult } from '@enonic/nextjs-adapter/src/types'
+import type { FetchContentResult } from '@enonic/nextjs-adapter'
 import { getCrashCourseSlideContents } from '~/components/queries/crash-course'
 import CrashCourseView from '~/components/views/CrashCourseView'
 import MainView from '@enonic/nextjs-adapter/views/MainView'

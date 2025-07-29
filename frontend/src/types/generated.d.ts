@@ -2049,7 +2049,6 @@ export type Idebanken_CrashCourse = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
-  data?: Maybe<Idebanken_CrashCourse_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -2191,19 +2190,6 @@ export type Idebanken_CrashCourseSlidePageAsJsonArgs = {
 export type Idebanken_CrashCourseSlidePageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
-};
-
-/** Lynkurs - idebanken:crash-course data */
-export type Idebanken_CrashCourse_Data = {
-  __typename?: 'idebanken_CrashCourse_Data';
-  ingress?: Maybe<RichText>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Lynkurs - idebanken:crash-course data */
-export type Idebanken_CrashCourse_DataIngressArgs = {
-  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Guide - idebanken:guide */
