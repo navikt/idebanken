@@ -5,7 +5,7 @@ import { BodyShort, HStack, VStack } from '@navikt/ds-react'
 import NextLink from 'next/link'
 import { HeadingView } from '~/components/parts/Heading'
 
-export default function Footer({ footerProps }: { footerProps?: FooterProps }) {
+export default function Footer({ footerProps }: Readonly<{ footerProps?: FooterProps }>) {
     return (
         <BleedingBackgroundPageBlock bgColor={'bg-brand-black'}>
             <PageBlock as="footer" width="2xl" className="container mx-auto py-8 text-brand-white">
@@ -16,7 +16,7 @@ export default function Footer({ footerProps }: { footerProps?: FooterProps }) {
                             {footerProps?.footerText ?? ''}
                         </BodyShort>
                     </VStack>
-                    {footerProps?.linkCategory?.map((category, i) => (
+                    {footerProps?.linkGroups?.map(({ title, links }, i) => (
                         <VStack key={i} gap="2">
                             <HeadingView
                                 key={i}
@@ -24,14 +24,14 @@ export default function Footer({ footerProps }: { footerProps?: FooterProps }) {
                                 size="xsmall"
                                 className="opacity-80"
                                 autoId={false}>
-                                {category?.title}
+                                {title}
                             </HeadingView>
-                            {category?.links?.map((link, j) => (
+                            {links?.map(({ href, linkText }, j) => (
                                 <NextLink
                                     key={j}
-                                    href={link?.href ?? '#'}
+                                    href={href ?? '#'}
                                     className="text-[#FFF3E2] underline hover:no-underline">
-                                    {link?.linkText ?? '[Default link text]'}
+                                    {linkText ?? '[Default link text]'}
                                 </NextLink>
                             ))}
                         </VStack>

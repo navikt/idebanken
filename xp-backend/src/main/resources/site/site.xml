@@ -59,17 +59,11 @@
                 </item-set>
             </items>
         </item-set>
-        <item-set name="menu">
-            <label>Lenker i meny</label>
-            <occurrences minimum="0" maximum="0"/>
+        <item-set name="header">
+            <label>Header</label>
+            <occurrences minimum="1" maximum="1"/>
             <items>
-                <input type="ContentSelector" name="link">
-                    <label>Lenke</label>
-                    <occurrences minimum="1" maximum="1"/>
-                </input>
-                <input type="TextLine" name="linkText">
-                    <label>Overskriv lenketekst</label>
-                </input>
+                <mixin name="link-groups"/>
             </items>
         </item-set>
         <item-set name="footer">
@@ -79,28 +73,7 @@
                 <input type="TextLine" name="footerText">
                     <label>Footer tekst</label>
                 </input>
-                <item-set name="linkCategory">
-                    <label>Lenkekategori</label>
-                    <occurrences minimum="0" maximum="0"/>
-                    <items>
-                        <input type="TextLine" name="title">
-                            <label>Kategori tittel</label>
-                        </input>
-                        <item-set name="links">
-                            <label>Lenker</label>
-                            <occurrences minimum="0" maximum="0"/>
-                            <items>
-                                <input type="ContentSelector" name="link">
-                                    <label>Lenke</label>
-                                    <occurrences minimum="1" maximum="1"/>
-                                </input>
-                                <input type="TextLine" name="linkText">
-                                    <label>Overskriv lenketekst</label>
-                                </input>
-                            </items>
-                        </item-set>
-                    </items>
-                </item-set>
+                <mixin name="link-groups"/>
             </items>
         </item-set>
     </form>

@@ -65,19 +65,34 @@ declare global {
       };
 
       /**
-       * Lenker i meny
+       * Header
        */
-      menu?: Array<{
+      header: {
         /**
-         * Lenke
+         * Lenkegrupper
          */
-        link: string;
+        linkGroups?: Array<{
+          /**
+           * Tittel
+           */
+          title?: string;
 
-        /**
-         * Overskriv lenketekst
-         */
-        linkText?: string;
-      }>;
+          /**
+           * Lenker
+           */
+          links?: Array<{
+            /**
+             * Lenke
+             */
+            link: string;
+
+            /**
+             * Overskriv lenketekst
+             */
+            linkText?: string;
+          }>;
+        }>;
+      };
 
       /**
        * Footer
@@ -89,11 +104,11 @@ declare global {
         footerText?: string;
 
         /**
-         * Lenkekategori
+         * Lenkegrupper
          */
-        linkCategory?: Array<{
+        linkGroups?: Array<{
           /**
-           * Kategori tittel
+           * Tittel
            */
           title?: string;
 

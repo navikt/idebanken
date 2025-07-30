@@ -6,12 +6,18 @@ import { get as getContent, query } from '/lib/xp/content'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { runInContext } from '/lib/repos/run-in-context'
 import { getSiteConfig } from '/lib/utils/site-config'
+import { SiteConfig } from '@xp-types/site'
 
 type Source<T> = {
     __contentId: string
 } & T
 
 type ProcessedOverridableLink = { href: string; linkText: string }
+
+type LinkGroups = Array<{
+    title?: string
+    links: Array<ProcessedOverridableLink>
+}>
 
 export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL): Extensions {
     return {
@@ -28,14 +34,14 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                 },
                 interfaces: [],
             },
-            LinkCategory: {
-                description: 'Link category',
+            LinkGroups: {
+                description: 'Link groups',
                 fields: {
                     title: {
                         type: GraphQLString,
                     },
                     links: {
-                        type: nonNull(list(reference('OverridableContentLink'))),
+                        type: nonNull(list(nonNull(reference('OverridableContentLink')))),
                     },
                 },
                 interfaces: [],
@@ -46,8 +52,8 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                     footerText: {
                         type: GraphQLString,
                     },
-                    linkCategory: {
-                        type: nonNull(list(reference('LinkCategory'))),
+                    linkGroups: {
+                        type: nonNull(list(nonNull(reference('LinkGroups')))),
                     },
                 },
                 interfaces: [],
@@ -85,36 +91,28 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                 },
             },
             HeadlessCms: {
-                menu: (
+                header: (
                     _env: DataFetchingEnvironment<object, LocalContextRecord, object>
-                ): Array<ProcessedOverridableLink> => {
+                ): LinkGroups => {
                     return runInContext({ asAdmin: true }, () => {
-                        const menuConfig = getSiteConfig()?.menu
+                        const menuConfig = getSiteConfig()?.header
 
-                        return mapOverridableContentLinks(menuConfig)
+                        return resolveLinkGroups(menuConfig?.linkGroups)
                     })
                 },
                 footer: (
                     _env: DataFetchingEnvironment<object, LocalContextRecord, object>
                 ): {
-                    linkCategory: Array<{
-                        title?: string
-                        links?: Array<ProcessedOverridableLink>
-                    }>
+                    linkGroups: LinkGroups
                 } => {
                     return runInContext({ asAdmin: true }, () => {
                         const footerConfig = getSiteConfig()?.footer
 
-                        const linkCategory = forceArray(footerConfig?.linkCategory).map(
-                            (category) => ({
-                                title: category.title,
-                                links: mapOverridableContentLinks(category.links),
-                            })
-                        )
+                        const linkGroups = resolveLinkGroups(footerConfig?.linkGroups)
 
                         return {
                             footerText: footerConfig?.footerText,
-                            linkCategory,
+                            linkGroups,
                         }
                     })
                 },
@@ -130,8 +128,8 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
             },
             HeadlessCms: (params): void => {
                 params.addFields({
-                    menu: {
-                        type: nonNull(list(reference('OverridableContentLink'))),
+                    header: {
+                        type: nonNull(list(nonNull(reference('LinkGroups')))),
                     },
                     footer: {
                         type: reference('Footer'),
@@ -142,18 +140,21 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
     }
 }
 
-function mapOverridableContentLinks<T extends { link: string; linkText?: string }>(
-    items?: T | T[]
-): Array<ProcessedOverridableLink> {
-    return forceArray(items).map(({ link, linkText }) => {
-        const content = getContent({ key: link })
-        return {
-            href: content?._path?.replace(/^\/[^/]*/, '') || '/',
-            linkText:
-                linkText ??
-                (content?.data?.title as string | undefined) ??
-                content?.displayName ??
-                '[Lenket innhold er ikke gyldig]',
-        }
-    })
+function resolveLinkGroups(
+    linkGroups?: SiteConfig['header']['linkGroups'] | SiteConfig['footer']['linkGroups']
+): LinkGroups {
+    return forceArray(linkGroups).map(({ title, links }) => ({
+        title: title,
+        links: forceArray(links).map(({ link, linkText }) => {
+            const content = getContent({ key: link })
+            return {
+                href: content?._path?.replace(/^\/[^/]*/, '') || '/',
+                linkText:
+                    linkText ??
+                    (content?.data?.title as string | undefined) ??
+                    content?.displayName ??
+                    '[Lenket innhold er ikke gyldig]',
+            }
+        }),
+    }))
 }

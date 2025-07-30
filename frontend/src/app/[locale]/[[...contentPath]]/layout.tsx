@@ -53,7 +53,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                 contentBlockPadding={'none'}>
                 <Header
                     meta={meta}
-                    menu={common?.menu}
+                    header={common?.header}
                     title={I18n.localize('idebanken')}
                     logoUrl={getAsset('/images/logo.svg', meta)}
                 />

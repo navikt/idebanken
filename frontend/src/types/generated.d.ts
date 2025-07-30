@@ -322,7 +322,7 @@ export type FilterInput = {
 export type Footer = {
   __typename?: 'Footer';
   footerText?: Maybe<Scalars['String']['output']>;
-  linkCategory: Array<Maybe<LinkCategory>>;
+  linkGroups: Array<LinkGroups>;
 };
 
 /** Form input. */
@@ -462,7 +462,7 @@ export type HeadlessCms = {
   getSite?: Maybe<Portal_Site>;
   getType?: Maybe<ContentType>;
   getTypes?: Maybe<Array<Maybe<ContentType>>>;
-  menu: Array<Maybe<OverridableContentLink>>;
+  header: Array<LinkGroups>;
   query?: Maybe<Array<Maybe<Content>>>;
   queryConnection?: Maybe<QueryContentConnection>;
   queryDsl?: Maybe<Array<Maybe<Content>>>;
@@ -722,10 +722,10 @@ export type Link = {
   uri?: Maybe<Scalars['String']['output']>;
 };
 
-/** Link category */
-export type LinkCategory = {
-  __typename?: 'LinkCategory';
-  links: Array<Maybe<OverridableContentLink>>;
+/** Link groups */
+export type LinkGroups = {
+  __typename?: 'LinkGroups';
+  links: Array<OverridableContentLink>;
   title?: Maybe<Scalars['String']['output']>;
 };
 

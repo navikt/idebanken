@@ -50,6 +50,14 @@ metaFields {
 }
 `
 
+const linkGroups = `
+title
+links {
+    href
+    linkText
+}
+`
+
 export const commonQuery = `
 query($path:ID!){
   guillotine {
@@ -66,18 +74,13 @@ query($path:ID!){
       displayName
       _path
     }
-    menu {
-      href
-      linkText
+    header {
+        ${linkGroups}
     }
     footer {
       footerText
-      linkCategory {
-        title
-        links {
-          href
-          linkText
-        }
+      linkGroups {
+        ${linkGroups}
       }
     }
   }
