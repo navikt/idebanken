@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Visning av søk</display-name>
+    <description>Skal bare brukes for /sok siden</description>
+    <form>
+        <input type="TextLine" name="text">
+            <label>Button text</label>
+        </input>
+    </form>
+    <config>
+        <allow-on-content-type>idebanken:special-page</allow-on-content-type>
+    </config>
+</part>

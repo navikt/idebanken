@@ -3,6 +3,7 @@ export type Category = import("./category").Category;
 export type CrashCourseSlide = import("./crash-course-slide").CrashCourseSlide;
 export type CrashCourse = import("./crash-course").CrashCourse;
 export type Guide = import("./guide").Guide;
+export type SpecialPage = import("./special-page").SpecialPage;
 
 declare global {
   namespace XP {
@@ -11,6 +12,7 @@ declare global {
       "idebanken:crash-course-slide": CrashCourseSlide;
       "idebanken:crash-course": CrashCourse;
       "idebanken:guide": Guide;
+      "idebanken:special-page": SpecialPage;
     }
   }
 }

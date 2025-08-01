@@ -16,6 +16,7 @@ import { LinkCardView } from './parts/LinkCard'
 import TitleIngressView from '~/components/parts/TitleIngress'
 import { HeadingViewPart } from '~/components/parts/Heading'
 import CrashCourse from '~/components/contentType/CrashCourse'
+import SearchView from '~/components/parts/SearchView'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -109,4 +110,8 @@ ComponentRegistry.addPart(`${APP_NAME}:link-card`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:title-ingress`, {
     view: TitleIngressView,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:search-view`, {
+    view: SearchView,
 })

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+    <display-name>Spesiell side</display-name>
+    <description>Side for innhold som søk og andre spesielle unntak</description>
+    <super-type>base:structured</super-type>
+    <is-final>true</is-final>
+    <allow-child-content-type>(?!idebanken:crash-course-slide$)(?!idebanken:category$)*</allow-child-content-type>
+    <form>
+        <mixin name="title-ingress"/>
+    </form>
+</content-type>

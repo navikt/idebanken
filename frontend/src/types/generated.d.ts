@@ -917,6 +917,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   image?: Maybe<Part_Idebanken_Image>;
   info_box?: Maybe<Part_Idebanken_Info_Box>;
   link_card?: Maybe<Part_Idebanken_Link_Card>;
+  search_view?: Maybe<Part_Idebanken_Search_View>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
   tip_panel?: Maybe<Part_Idebanken_Tip_Panel>;
 };
@@ -1083,6 +1084,12 @@ export type Part_Idebanken_Link_Card_ExternalLink = {
 export type Part_Idebanken_Link_Card_InternalLink = {
   __typename?: 'Part_idebanken_link_card_InternalLink';
   ideBankContentSelector?: Maybe<Content>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['search-view'] */
+export type Part_Idebanken_Search_View = {
+  __typename?: 'Part_idebanken_search_view';
+  text?: Maybe<Scalars['String']['output']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['text-editor'] */
@@ -2282,6 +2289,99 @@ export type Idebanken_Guide_Data = {
 
 /** Guide - idebanken:guide data */
 export type Idebanken_Guide_DataIngressArgs = {
+  processHtml?: InputMaybe<ProcessHtmlInput>;
+};
+
+/** Spesiell side - idebanken:special-page */
+export type Idebanken_SpecialPage = Content & {
+  __typename?: 'idebanken_SpecialPage';
+  _id: Scalars['ID']['output'];
+  _name: Scalars['String']['output'];
+  _path: Scalars['String']['output'];
+  _references?: Maybe<Array<Maybe<Content>>>;
+  _score?: Maybe<Scalars['Float']['output']>;
+  attachments?: Maybe<Array<Maybe<Attachment>>>;
+  children?: Maybe<Array<Maybe<Content>>>;
+  childrenConnection?: Maybe<ContentConnection>;
+  components?: Maybe<Array<Maybe<Component>>>;
+  contentType?: Maybe<ContentType>;
+  createdTime?: Maybe<Scalars['DateTime']['output']>;
+  creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_SpecialPage_Data>;
+  dataAsJson?: Maybe<Scalars['JSON']['output']>;
+  displayName?: Maybe<Scalars['String']['output']>;
+  hasChildren?: Maybe<Scalars['Boolean']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  metaFields?: Maybe<MetaFields>;
+  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
+  modifier?: Maybe<PrincipalKey>;
+  owner?: Maybe<PrincipalKey>;
+  pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageTemplate?: Maybe<Content>;
+  pageUrl?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Content>;
+  permissions?: Maybe<Permissions>;
+  publish?: Maybe<PublishInfo>;
+  site?: Maybe<Portal_Site>;
+  type?: Maybe<Scalars['String']['output']>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+  x?: Maybe<ExtraData>;
+  xAsJson?: Maybe<Scalars['JSON']['output']>;
+};
+
+
+/** Spesiell side - idebanken:special-page */
+export type Idebanken_SpecialPage_PathArgs = {
+  type?: InputMaybe<ContentPathType>;
+};
+
+
+/** Spesiell side - idebanken:special-page */
+export type Idebanken_SpecialPageChildrenArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Spesiell side - idebanken:special-page */
+export type Idebanken_SpecialPageChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Spesiell side - idebanken:special-page */
+export type Idebanken_SpecialPageComponentsArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Spesiell side - idebanken:special-page */
+export type Idebanken_SpecialPagePageAsJsonArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Spesiell side - idebanken:special-page */
+export type Idebanken_SpecialPagePageUrlArgs = {
+  params?: InputMaybe<Scalars['JSON']['input']>;
+  type?: InputMaybe<UrlType>;
+};
+
+/** Spesiell side - idebanken:special-page data */
+export type Idebanken_SpecialPage_Data = {
+  __typename?: 'idebanken_SpecialPage_Data';
+  ingress?: Maybe<RichText>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Spesiell side - idebanken:special-page data */
+export type Idebanken_SpecialPage_DataIngressArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
