@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { SearchWrapper, SOK_SEARCH_PARAM } from '~/components/common/SearchWrapper'
 
-export default function TemporarySearchClientComponent() {
+export default function SearchView() {
     const [searchResult, setSearchResult] = useState<
         { total: number; hits: Array<object>; word: string } | undefined
     >()
@@ -38,7 +38,7 @@ export default function TemporarySearchClientComponent() {
 
     return (
         <div>
-            <SearchWrapper />
+            <SearchWrapper onSubmit={(_) => search(searchParams.get(SOK_SEARCH_PARAM))} />
             <div>
                 {searchResult ? (
                     <div>

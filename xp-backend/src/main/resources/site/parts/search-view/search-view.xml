@@ -8,7 +8,6 @@
         </input>
     </form>
     <config>
-        <allow-on-content-type>idebanken:search</allow-on-content-type>
-        <allow-on-content-type>portal:page-template</allow-on-content-type>
+        <allow-on-content-type>idebanken:special-page</allow-on-content-type>
     </config>
 </part>
