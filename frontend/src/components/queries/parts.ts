@@ -24,23 +24,6 @@ export const imageQuery = `{
     }
 }`
 
-<<<<<<< HEAD
-export const linkQuery = `
-    { 
-        blockOptionSet {
-            _selected
-            externalLink {
-                url
-            }
-            internalLink {
-                ideBankContentSelector {
-                    pageUrl(type: server)
-                }
-            }
-        }   
-    }
-`
-=======
 export const linkQuery = `{
 	blockOptionSet {
 		_selected
@@ -54,4 +37,3 @@ export const linkQuery = `{
 		}
 	}
 }`
->>>>>>> main
