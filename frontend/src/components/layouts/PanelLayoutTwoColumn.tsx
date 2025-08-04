@@ -30,49 +30,6 @@ const PanelLayoutTwoColumn = (props: PanelLayoutTwoColumnProps) => {
 
     const [bgOuterBox, bgInnerBox] = layout.config?.background || []
 
-<<<<<<< HEAD
-	return (
-		<Box
-			as="section"
-			padding={{
-				xs: 'space-8',
-				sm: 'space-12',
-				md: 'space-16',
-				lg: 'space-20',
-				xl: 'space-24',
-			}}
-			className={bgOuterBox?.bgColor || 'bg-extra-light-pink'}>
-			<HGrid
-				gap={{ sm: 'space-8', md: 'space-12', lg: 'space-20', xl: 'space-24' }}
-				columns={{ xs: 1, md: 12 }}
-				padding={{
-					xs: 'space-8',
-					sm: 'space-12',
-					md: 'space-16',
-					lg: 'space-20',
-					xl: 'space-24',
-				}}
-				className={`${bgInnerBox?.bgColor || 'bg-extra-light-pink'} rounded-3xl`}>
-				<div className={`col-span-1 md:col-span-${leftSpan}`}>
-					<RegionView
-						name="left"
-						components={regions['left']?.components}
-						common={common}
-						meta={meta}
-					/>
-				</div>
-				<div className={`col-span-1 md:col-span-${rightSpan}`}>
-					<RegionView
-						name="right"
-						components={regions['right']?.components}
-						common={common}
-						meta={meta}
-					/>
-				</div>
-			</HGrid>
-		</Box>
-	)
-=======
     return (
         <BleedingBackgroundPageBlock bgColor={bgOuterBox?.bgColor}>
             <HGrid
@@ -105,7 +62,6 @@ const PanelLayoutTwoColumn = (props: PanelLayoutTwoColumnProps) => {
             </HGrid>
         </BleedingBackgroundPageBlock>
     )
->>>>>>> main
 }
 
 export default PanelLayoutTwoColumn
