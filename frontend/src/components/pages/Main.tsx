@@ -2,22 +2,22 @@ import type { PageProps } from '@enonic/nextjs-adapter'
 import RegionsView from '@enonic/nextjs-adapter/views/Region'
 
 const MainPage = (props: PageProps) => {
-	const page = props.page
+    const page = props.page
 
-	// NB: Should be moved from here
-	if (!page.regions || !Object.keys(page.regions).length) {
-		page.regions = {
-			main: {
-				name: 'main',
-				components: [],
-			},
-		}
-	}
-	return (
-		<>
-			<RegionsView {...props} name="main" />
-		</>
-	)
+    // NB: Should be moved from here
+    if (!page.regions || !Object.keys(page.regions).length) {
+        page.regions = {
+            main: {
+                name: 'main',
+                components: [],
+            },
+        }
+    }
+    return (
+        <>
+            <RegionsView {...props} name="main" />
+        </>
+    )
 }
 
 export default MainPage

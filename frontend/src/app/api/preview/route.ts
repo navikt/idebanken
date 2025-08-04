@@ -26,7 +26,7 @@ async function processRequest(req: NextRequest) {
         return response
     }
 
-    console.info(`Previewing [${path}]...`)
+    console.debug(`Previewing [${path}]...`)
 
     draftMode().then((draftMode) => draftMode.enable())
 

@@ -1,10 +1,8 @@
-import { APP_NAME, ComponentRegistry } from '@enonic/nextjs-adapter'
+import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
-import { linkQuery, imageQuery } from './queries/parts'
+import { imageQuery, linkQuery } from './queries/parts'
 import MainPage from './pages/Main'
-
 import '@enonic/nextjs-adapter/baseMappings'
-import HeadingView from './parts/Heading'
 import TwoColumnLayout from './layouts/TwoColumnLayout'
 import { ButtonView } from './parts/Button'
 import { TextEditorView } from './parts/TextEditor'
@@ -16,64 +14,104 @@ import { ImageView } from './parts/Image'
 import PanelLayoutTwoColumn from './layouts/PanelLayoutTwoColumn'
 import { LinkCardView } from './parts/LinkCard'
 import TitleIngressView from '~/components/parts/TitleIngress'
+import { HeadingViewPart } from '~/components/parts/Heading'
+import CrashCourse from '~/components/contentType/CrashCourse'
+import SearchView from '~/components/parts/SearchView'
+
+/**
+ * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
+ * @external richTextQuery
+ * There is an issue causing the default ComponentRegistry macro queries to not work properly
+ */
 
 // You can set common query for all views here
 ComponentRegistry.setCommonQuery([commonQuery, commonVariables])
 
 // Content type mappings
+ComponentRegistry.addContentType(`${APP_NAME}:crash-course`, {
+    view: CrashCourse,
+})
 
 // Page mappings
 ComponentRegistry.addPage(`${APP_NAME}:main`, {
-	view: MainPage,
+    view: MainPage,
 })
 
 // Layout mappings
 ComponentRegistry.addLayout(`${APP_NAME}:single-column`, {
-	view: SingleColumnLayout,
+    view: SingleColumnLayout,
 })
 ComponentRegistry.addLayout(`${APP_NAME}:2-column`, {
-	view: TwoColumnLayout,
+    view: TwoColumnLayout,
 })
 ComponentRegistry.addLayout(`${APP_NAME}:panel-2-column`, {
-	view: PanelLayoutTwoColumn,
+    view: PanelLayoutTwoColumn,
 })
 
 // Part mappings
 ComponentRegistry.addPart(`${APP_NAME}:heading`, {
-	view: HeadingView,
+    view: HeadingViewPart,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:button`, {
-	view: ButtonView,
-	configQuery: linkQuery,
+    view: ButtonView,
+    configQuery: linkQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:image`, {
-	view: ImageView,
-	configQuery: imageQuery,
+    view: ImageView,
+    configQuery: imageQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
-	view: TextEditorView,
+    view: TextEditorView,
+    configQuery: `{
+		${richTextQuery('simpleTextEditor')}
+	}`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:info-box`, {
-	view: InfoBoxView,
+    view: InfoBoxView,
+    configQuery: `{
+		infoBoxItems {
+			bgColor
+			${richTextQuery('simpleTextEditor')}
+		}
+	}`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:tip-panel`, {
-	view: TipPanelView,
+    view: TipPanelView,
+    configQuery: `{
+		bgColor
+		heading
+		reverse
+		panel {
+			bgColor
+			${richTextQuery('simpleTextEditor')}
+		}
+	}`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:accordion`, {
-	view: AccordionView,
+    view: AccordionView,
+    configQuery: `{
+		accordionItems {
+			header
+			${richTextQuery('simpleTextEditor')}
+		}
+	}`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:link-card`, {
-	view: LinkCardView,
-	configQuery: linkQuery,
+    view: LinkCardView,
+    configQuery: linkQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:title-ingress`, {
-	view: TitleIngressView,
+    view: TitleIngressView,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:search-view`, {
+    view: SearchView,
 })

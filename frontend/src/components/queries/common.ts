@@ -50,12 +50,21 @@ metaFields {
 }
 `
 
+const linkGroups = `
+title
+links {
+    href
+    linkText
+}
+`
+
 export const commonQuery = `
 query($path:ID!){
   guillotine {
     get(key:$path) {
       displayName
       _id
+      _path
       type
       dataAsJson
       xAsJson
@@ -65,31 +74,40 @@ query($path:ID!){
       displayName
       _path
     }
+    header {
+        ${linkGroups}
+    }
+    footer {
+      footerText
+      linkGroups {
+        ${linkGroups}
+      }
+    }
   }
 }`
 
 export function commonVariables(path: string) {
-	return {
-		path,
-	}
+    return {
+        path,
+    }
 }
 
 export type CommonType<T = UnknownJSONContent> = {
-	get: CommonGet<T>
-	getSite: CommonGetSite
+    get: CommonContentType<T>
+    getSite: CommonGetSite
 }
 
-type CommonGet<T = UnknownJSONContent> = {
-	displayName: string
-	_id: string
-	type: `${string}:${string}`
-	dataAsJson: T
-	xAsJson: UnknownJSONContent
+type CommonContentType<T = UnknownJSONContent> = {
+    displayName: string
+    _id: string
+    type: `${string}:${string}`
+    dataAsJson: T
+    xAsJson: UnknownJSONContent
 }
 
 type CommonGetSite = {
-	displayName: string
-	_path: string
+    displayName: string
+    _path: string
 }
 
 type UnknownJSONContent = Record<string, string | Array<string> | object>

@@ -7,5 +7,134 @@
             <label>Velg et bilde</label>
             <occurrences minimum="1" maximum="1"/>
         </input>
+
+        <input name="width" type="Long">
+            <label>Bredde (px)</label>
+            <default>440</default>
+            <config>
+                <min>0</min>
+                <max>2000</max>
+            </config>
+        </input>
+        <input name="height" type="Long">
+            <label>Høyde (px)</label>
+            <default>675</default>
+            <config>
+                <min>0</min>
+                <max>2000</max>
+            </config>
+        </input>
+
+        <input name="scale" type="Long">
+            <label>Skaleringsfaktor</label>
+            <help-text>Angir hvor mye bildet skal skaleres. 100 er 100% av originalstørrelsen.</help-text>
+            <default>90</default>
+            <config>
+                <min>0</min>
+                <max>100</max>
+            </config>
+        </input>
+
+        <input name="centerHorizontally" type="CheckBox">
+            <label>Sentrer horisontalt</label>
+            <default>checked</default>
+        </input>
+        <input name="centerVertically" type="CheckBox">
+            <label>Sentrer vertikalt</label>
+            <default>unchecked</default>
+        </input>
+
+        <input name="paddingX" type="Long">
+            <label>X-Polstring rundt bildet (px)</label>
+            <default>0</default>
+            <config>
+                <min>0</min>
+                <max>100</max>
+            </config>
+        </input>
+        <input name="paddingY" type="Long">
+            <label>Y-Polstring rundt bildet (px)</label>
+            <default>0</default>
+            <config>
+                <min>0</min>
+                <max>100</max>
+            </config>
+        </input>
+
+        <input name="hideOnMobile" type="CheckBox">
+            <label>Skjul på mobil</label>
+            <default>checked</default>
+        </input>
+
+        <field-set>
+            <label>Styling</label>
+            <items>
+                <input name="styleActive" type="CheckBox">
+                    <label>Aktiver styling</label>
+                    <default>unchecked</default>
+                </input>
+
+                <input name="borderRadius" type="Long">
+                    <label>Avrundet hjørne (px)</label>
+                    <default>9999</default>
+                    <config>
+                        <min>0</min>
+                        <max>9999</max>
+                    </config>
+                </input>
+                <input name="border" type="CheckBox">
+                    <label>Vis kantlinje</label>
+                    <default>checked</default>
+                </input>
+                <input name="borderDistance" type="Long">
+                    <label>Kantlinje avstand (px)</label>
+                    <default>50</default>
+                    <config>
+                        <min>0</min>
+                        <max>100</max>
+                    </config>
+                </input>
+                <item-set name="circles">
+                    <label>Rundinger</label>
+                    <occurrences minimum="0" maximum="0"/>
+                    <items>
+                        <input name="color" type="ComboBox">
+                            <label>Farge</label>
+                            <occurrences minimum="1" maximum="1"/>
+                            <config>
+                                <option value="pink">Rosa</option>
+                                <option value="red">Rød</option>
+                                <option value="blue">Blå</option>
+                            </config>
+                            <default>pink</default>
+                        </input>
+                        <input name="size" type="Long">
+                            <label>Størrelse (px)</label>
+                            <default>200</default>
+                            <config>
+                                <min>0</min>
+                                <max>400</max>
+                            </config>
+                        </input>
+                        <input name="bottom" type="Long">
+                            <label>Avstand fra bunn (y-akse i px)</label>
+                            <default>-10</default>
+                        </input>
+                        <input name="left" type="Long">
+                            <label>Avstand fra venstre (x-akse i px)</label>
+                            <default>-20</default>
+                        </input>
+                        <input name="opacity" type="Long">
+                            <label>Gjennomsiktig (0 er usynlig. 100 er ingen gjennomsiktighet)</label>
+                            <default>90</default>
+                            <config>
+                                <min>0</min>
+                                <max>100</max>
+                            </config>
+                        </input>
+                    </items>
+                </item-set>
+            </items>
+        </field-set>
     </form>
 </part>

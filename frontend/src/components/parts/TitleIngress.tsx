@@ -1,27 +1,27 @@
-import { Heading } from '@navikt/ds-react'
-import { CommonType } from '~/components/queries/common'
 import { Part_Idebanken_Heading } from '~/types/generated.d'
-import { parseHtml } from '~/utils/parseHtml'
+import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
+import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
+import { PartData } from '~/types/graphql-types'
+import { HeadingView } from '~/components/parts/Heading'
 
 type PageData = {
-	ingress: string
-	title: string
+    ingress: string
+    title: string
 }
 
-export interface TitleIngressData {
-	part: { descriptor?: string; config: Part_Idebanken_Heading }
-	common?: CommonType<PageData>
-}
-
-const TitleIngressView = ({ common }: TitleIngressData) => {
-	return (
-		<>
-			<Heading level={'1'} size={'xlarge'}>
-				{common?.get?.dataAsJson?.title || '[Mangler tittel på innholdet]'}
-			</Heading>
-			<>{parseHtml(common?.get?.dataAsJson?.ingress || '[Mangler ingress]')}</>
-		</>
-	)
+const TitleIngressView = ({ common, meta }: PartData<Part_Idebanken_Heading, PageData>) => {
+    return (
+        <>
+            <HeadingView level={'1'} size={'xlarge'}>
+                {common?.get?.dataAsJson?.title || '[Mangler tittel på innholdet]'}
+            </HeadingView>
+            <RichTextView
+                data={{ processedHtml: common?.get?.dataAsJson?.ingress }}
+                meta={meta}
+                customReplacer={htmlRichTextReplacer}
+            />
+        </>
+    )
 }
 
 export default TitleIngressView

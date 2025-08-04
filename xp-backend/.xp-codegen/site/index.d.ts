@@ -63,6 +63,71 @@ declare global {
           };
         }>;
       };
+
+      /**
+       * Header
+       */
+      header: {
+        /**
+         * Lenkegrupper
+         */
+        linkGroups?: Array<{
+          /**
+           * Tittel
+           */
+          title?: string;
+
+          /**
+           * Lenker
+           */
+          links?: Array<{
+            /**
+             * Lenke
+             */
+            link: string;
+
+            /**
+             * Overskriv lenketekst
+             */
+            linkText?: string;
+          }>;
+        }>;
+      };
+
+      /**
+       * Footer
+       */
+      footer: {
+        /**
+         * Footer tekst
+         */
+        footerText?: string;
+
+        /**
+         * Lenkegrupper
+         */
+        linkGroups?: Array<{
+          /**
+           * Tittel
+           */
+          title?: string;
+
+          /**
+           * Lenker
+           */
+          links?: Array<{
+            /**
+             * Lenke
+             */
+            link: string;
+
+            /**
+             * Overskriv lenketekst
+             */
+            linkText?: string;
+          }>;
+        }>;
+      };
     }
   }
 }

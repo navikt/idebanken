@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site xmlns="urn:enonic:xp:model:1.0">
+    <x-data name="category" allowContentTypes="idebanken:guide"/>
     <form>
         <item-set name="searchConfig">
             <label>Søkekonfigurasjon</label>
@@ -56,6 +57,23 @@
                         </item-set>
                     </items>
                 </item-set>
+            </items>
+        </item-set>
+        <item-set name="header">
+            <label>Header</label>
+            <occurrences minimum="1" maximum="1"/>
+            <items>
+                <mixin name="link-groups"/>
+            </items>
+        </item-set>
+        <item-set name="footer">
+            <label>Footer</label>
+            <occurrences minimum="1" maximum="1"/>
+            <items>
+                <input type="TextLine" name="footerText">
+                    <label>Footer tekst</label>
+                </input>
+                <mixin name="link-groups"/>
             </items>
         </item-set>
     </form>

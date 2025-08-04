@@ -1,4 +1,7 @@
 .next/**
 node_modules/**
 *.d.ts
+*.md
 src/phrases/*.json
+package-lock.json
+

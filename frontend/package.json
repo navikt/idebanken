@@ -5,10 +5,11 @@
   "private": true,
   "scripts": {
     "predev": "npm run generate-gql-types",
-    "dev": "next dev",
+    "dev": "concurrently 'next dev' 'npm run prettier-watch'",
     "prod": "npm run build && npm run start",
     "start": "next start -p 4242",
     "build": "next build",
+    "prettier-watch": "onchange \"src/*\" -- prettier --write --ignore-unknown {{changed}}",
     "generate-gql-types": "graphql-codegen",
     "lint": "next lint",
     "test": "echo \"no tests yet! :O\""
@@ -21,6 +22,7 @@
     "classnames": "^2.5.1",
     "cross-env": "^7.0.3",
     "domhandler": "^5.0.3",
+    "framer-motion": "^12.23.9",
     "html-react-parser": "^5.2.5",
     "next": "^15.3.2",
     "postcss": "^8.5.3",
@@ -40,9 +42,11 @@
     "@types/react-dom": "18.3.1",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
+    "concurrently": "^9.2.0",
     "eslint": "9.27.0",
     "eslint-config-next": "15.3.2",
     "eslint-config-prettier": "^10.1.5",
+    "onchange": "^7.1.0",
     "prettier": "^3.5.3",
     "typescript": "5.8.3"
   }

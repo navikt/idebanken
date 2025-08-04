@@ -3,7 +3,7 @@ import thymeleafLib from '/lib/thymeleaf'
 import { Request } from '@enonic-types/core'
 import { serviceUrl } from '/lib/xp/portal'
 import { externalSearchUpdateAll } from '/lib/search/update-all'
-import { runAsAdminInIdebankenContext } from '/lib/project-initializer'
+import { runAsAdmin } from '/lib/project-initializer'
 
 type ActionsMap = Record<string, { description: string; callback: () => unknown }>
 
@@ -28,7 +28,7 @@ export const get = (req: Request) => {
         taskLib.executeFunction({
             description: actionToRun.description,
             func: () => {
-                runAsAdminInIdebankenContext(() => actionToRun.callback)
+                runAsAdmin(() => actionToRun.callback)
             },
         })
     }

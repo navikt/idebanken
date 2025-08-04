@@ -10,8 +10,8 @@ const frontendOrigins: EnvRecord = {
 } as const
 
 const xpOrigins: EnvRecord = {
-    prod: 'https://www.nav.no',
-    test: 'https://portal-admin-dev.oera.no',
+    prod: 'https://idebanken-xp7prod.enonic.cloud',
+    test: 'https://idebanken-xp7test.enonic.cloud',
     local: 'http://localhost:8080',
 } as const
 
