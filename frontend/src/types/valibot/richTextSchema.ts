@@ -4,6 +4,7 @@ import {
     InferOutput,
     looseObject,
     nullable,
+    nullish,
     object,
     optional,
     picklist,
@@ -11,12 +12,10 @@ import {
     string,
 } from 'valibot'
 
-export const contentSchema = optional(
-    nullable(
-        looseObject({
-            _id: string(),
-        })
-    )
+export const contentSchema = nullish(
+    looseObject({
+        _id: string(),
+    })
 )
 
 export const mediaIntentTypeSchema = picklist(['download', 'inline'])
@@ -24,49 +23,47 @@ export const mediaIntentTypeSchema = picklist(['download', 'inline'])
 export const mediaSchema = object({
     __typename: optional(string()),
     content: contentSchema,
-    intent: optional(nullable(mediaIntentTypeSchema)),
+    intent: nullish(mediaIntentTypeSchema),
 })
 
 export const imageStyleSchema = object({
     __typename: optional(string()),
-    aspectRatio: optional(nullable(string())),
-    filter: optional(nullable(string())),
-    name: optional(nullable(string())),
+    aspectRatio: nullish(string()),
+    filter: nullish(string()),
+    name: nullish(string()),
 })
 
 export const imageSchema = object({
     __typename: optional(string()),
-    image: optional(nullable(contentSchema)),
-    ref: optional(nullable(string())),
-    style: optional(nullable(imageStyleSchema)),
+    image: nullish(contentSchema),
+    ref: nullish(string()),
+    style: nullish(imageStyleSchema),
 })
 
 export const linkSchema = object({
     __typename: optional(string()),
-    content: optional(nullable(contentSchema)),
-    media: optional(nullable(mediaSchema)),
-    ref: optional(nullable(string())),
-    uri: optional(nullable(string())),
+    content: nullish(contentSchema),
+    media: nullish(mediaSchema),
+    ref: nullish(string()),
+    uri: nullish(string()),
 })
 
 export const macroConfigSchema = record(
     string(),
-    optional(
-        nullable(
-            object({
-                __typename: optional(string()),
-                body: optional(nullable(string())),
-            })
-        )
+    nullish(
+        object({
+            __typename: optional(string()),
+            body: nullish(string()),
+        })
     )
 )
 
 export const macroSchema = object({
     __typename: optional(string()),
-    config: optional(nullable(macroConfigSchema)),
-    descriptor: optional(nullable(string())),
-    name: optional(nullable(string())),
-    ref: optional(nullable(string())),
+    config: nullish(macroConfigSchema),
+    descriptor: nullish(string()),
+    name: nullish(string()),
+    ref: nullish(string()),
 })
 
 export const richTextSchema = nullable(
@@ -75,9 +72,9 @@ export const richTextSchema = nullable(
         images: array(nullable(imageSchema)),
         links: array(nullable(linkSchema)),
         macros: array(nullable(macroSchema)),
-        macrosAsJson: optional(nullable(record(string(), any()))),
+        macrosAsJson: nullish(record(string(), any())),
         processedHtml: string(),
-        raw: optional(nullable(string())),
+        raw: nullish(string()),
     })
 )
 

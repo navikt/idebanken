@@ -467,6 +467,7 @@ export type HeadlessCms = {
   queryConnection?: Maybe<QueryContentConnection>;
   queryDsl?: Maybe<Array<Maybe<Content>>>;
   queryDslConnection?: Maybe<QueryDslContentConnection>;
+  sitemap?: Maybe<Sitemap>;
 };
 
 
@@ -1267,6 +1268,28 @@ export type SiteConfigurator = {
   __typename?: 'SiteConfigurator';
   applicationKey?: Maybe<Scalars['String']['output']>;
   configAsJson?: Maybe<Scalars['JSON']['output']>;
+};
+
+/** Sitemap */
+export type Sitemap = {
+  __typename?: 'Sitemap';
+  baseUrl?: Maybe<Scalars['String']['output']>;
+  urlset?: Maybe<Array<Maybe<Sitemap_Url>>>;
+};
+
+
+/** Sitemap */
+export type SitemapUrlsetArgs = {
+  count?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Sitemap URL item */
+export type Sitemap_Url = {
+  __typename?: 'Sitemap_Url';
+  changefreq?: Maybe<Scalars['String']['output']>;
+  lastmod?: Maybe<Scalars['DateTime']['output']>;
+  path: Scalars['String']['output'];
+  priority?: Maybe<Scalars['String']['output']>;
 };
 
 /** Sort Dsl input type */
