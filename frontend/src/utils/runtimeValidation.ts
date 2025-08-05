@@ -11,6 +11,8 @@ import {
     LinkCardConfig,
     linkCardConfigSchema,
 } from '~/types/valibot/parts'
+import { richTextSchema, RichTextData } from '~/types/valibot/richTextSchema'
+import { RichTextData as RichTExtDataAdapter } from '@enonic/nextjs-adapter'
 import {
     Part_Idebanken_Accordion,
     Part_Idebanken_Button,
@@ -62,6 +64,15 @@ export function validatedLinkCardConfig(config: Part_Idebanken_Link_Card): LinkC
         return parse(linkCardConfigSchema, config)
     } catch {
         console.error('Invalid link card config:', config)
+        return null
+    }
+}
+
+export function validatedRichTextData(data: RichTExtDataAdapter): RichTextData | null {
+    try {
+        return parse(richTextSchema, data)
+    } catch {
+        console.error('Invalid rich text data:', data)
         return null
     }
 }

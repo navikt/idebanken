@@ -3,7 +3,6 @@ import { MetaData, ReplacerResult, RichTextData, sanitizeGraphqlName } from '@en
 import { MACRO_ATTR } from '@enonic/react-components/constants'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 import BaseMacro from '@enonic/nextjs-adapter/views/BaseMacro'
-import React from 'react'
 
 export function handleMacro(
     el: Element,
