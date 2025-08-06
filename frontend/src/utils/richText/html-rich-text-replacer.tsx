@@ -15,21 +15,13 @@ import React from 'react'
 import { handleLink } from '~/utils/richText/handle-link'
 import { handleMacro } from '~/utils/richText/handle-macro'
 import { handleImage } from '~/utils/richText/handle-image'
-import { validatedRichTextData } from '~/utils/runtimeValidation'
-import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 
 export const htmlRichTextReplacer: Replacer = (
     domNode,
-    rawData,
+    data,
     meta,
     renderMacroInEditMode = true
 ): ReplacerResult => {
-    const data = validatedRichTextData(rawData)
-
-    if (!data) {
-        return <ErrorComponent reason={'Error processing rich text data!'} />
-    }
-
     const options: HTMLReactParserOptions = {
         replace: (domNode, _) => {
             if (domNode.type !== ElementType.Tag) {

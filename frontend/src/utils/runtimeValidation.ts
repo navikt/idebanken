@@ -71,8 +71,8 @@ export function validatedLinkCardConfig(config: Part_Idebanken_Link_Card): LinkC
 export function validatedRichTextData(data: RichTExtDataAdapter): RichTextData | null {
     try {
         return parse(richTextSchema, data)
-    } catch {
-        console.error('Invalid rich text data:', data)
+    } catch (e) {
+        console.error('Invalid rich text data:', data, e)
         return null
     }
 }

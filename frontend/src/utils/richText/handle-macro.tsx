@@ -3,15 +3,24 @@ import { MetaData, ReplacerResult, RichTextData, sanitizeGraphqlName } from '@en
 import { MACRO_ATTR } from '@enonic/react-components/constants'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 import BaseMacro from '@enonic/nextjs-adapter/views/BaseMacro'
+import { validatedRichTextData } from '~/utils/runtimeValidation'
 
 export function handleMacro(
     el: Element,
-    data: RichTextData,
+    rawData: RichTextData,
     meta: MetaData,
     renderMacroInEditMode: boolean,
     options: HTMLReactParserOptions
 ): ReplacerResult {
+    console.log('rawData--->', rawData)
+    const data = validatedRichTextData(rawData)
+
+    if (!data) {
+        return <span style={{ color: 'red', fontSize: '0.9em' }}>Some error</span> // <ErrorComponent reason={'Error processing rich text data!'} />
+    }
+
     const ref = el.attribs[MACRO_ATTR]
+
     if (!ref) {
         return <ErrorComponent reason={'Macro element has no data-macro-ref attribute!'} />
     }
