@@ -16,6 +16,20 @@ import { handleLink } from '~/utils/richText/handle-link'
 import { handleMacro } from '~/utils/richText/handle-macro'
 import { handleImage } from '~/utils/richText/handle-image'
 
+function isOnlyMacroChild(el: Element): Element | null {
+    if (el.children?.length === 1) {
+        const onlyChild = el.children[0]
+        if (
+            onlyChild &&
+            onlyChild.type === ElementType.Tag &&
+            (onlyChild as Element).name === MACRO_TAG
+        ) {
+            return onlyChild as Element
+        }
+    }
+    return null
+}
+
 export const htmlRichTextReplacer: Replacer = (
     domNode,
     data,
@@ -29,12 +43,18 @@ export const htmlRichTextReplacer: Replacer = (
             }
             const el = domNode as Element
             switch (el.name) {
-                case 'p':
+                case 'p': {
+                    // If the paragraph has only one child and that child is a macro tag, handle it
+                    const macroChild = isOnlyMacroChild(el)
+                    if (macroChild) {
+                        return options.replace?.(macroChild, 0)
+                    }
                     return (
                         <BodyLong {...attributesToProps(el.attribs)} className="font-light" spacing>
                             {domToReact(el.children as DOMNode[], options)}
                         </BodyLong>
                     )
+                }
                 case 'h1':
                     return (
                         <HeadingView level="1" size="xlarge">

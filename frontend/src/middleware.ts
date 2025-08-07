@@ -63,7 +63,7 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     base-uri 'self';
     form-action 'self';
     frame-ancestors ${enonicDomain};
-    frame-src 'self' https://www.youtube-nocookie.com;
+    frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com/;
     upgrade-insecure-requests;
 `
         // Replace newline characters and spaces

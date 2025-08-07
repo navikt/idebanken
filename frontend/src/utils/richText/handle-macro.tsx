@@ -16,7 +16,8 @@ export function handleMacro(
     const data = validatedRichTextData(rawData)
 
     if (!data) {
-        return <span style={{ color: 'red', fontSize: '0.9em' }}>Some error</span> // <ErrorComponent reason={'Error processing rich text data!'} />
+        //return <span style={{ color: 'red', fontSize: '0.9em' }}>Some error</span> // <ErrorComponent reason={'Error processing rich text data!'} />
+        return <ErrorComponent reason={'Macro element has no data-macro-ref attribute!'} />
     }
 
     const ref = el.attribs[MACRO_ATTR]
@@ -50,23 +51,27 @@ export function handleMacro(
             />
         )
     }
-    const config = configs[sanitizeGraphqlName(name)]
 
-    const data2 = {
-        name: name,
-        descriptor: descriptor,
-        config: {
-            [sanitizeGraphqlName(name)]: {
-                ...config,
-                body: config?.body?.replace(/youtube\.com/g, 'youtube-nocookie.com'),
-            },
-        },
+    const macroKey = sanitizeGraphqlName(name)
+    const originalConfig = configs[macroKey]
+
+    const macroProps = {
+        name,
+        descriptor: descriptor as `${string}:${string}`,
+        config: originalConfig
+            ? {
+                  [macroKey]: {
+                      ...originalConfig,
+                      body: originalConfig.body?.replace(/youtube\.com/g, 'youtube-nocookie.com'),
+                  },
+              }
+            : {},
     }
 
     const children = domToReact(el.children as DOMNode[], options)
 
     return (
-        <BaseMacro data={data2} meta={meta} renderInEditMode={renderMacroInEditMode}>
+        <BaseMacro data={macroProps} meta={meta} renderInEditMode={renderMacroInEditMode}>
             {children}
         </BaseMacro>
     )
