@@ -62,6 +62,8 @@ export const macroSchema = object({
     ref: string(),
 })
 
+export type MacroData = InferOutput<typeof macroSchema>
+
 export const richTextSchema = object({
     __typename: optional(string()),
     images: optional(array(imageSchema)),

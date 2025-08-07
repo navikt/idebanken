@@ -104,7 +104,7 @@ export const htmlRichTextReplacer: Replacer = (
                 case 'a':
                     return handleLink(el, data, meta, options)
                 case MACRO_TAG:
-                    return handleMacro(el, data, meta, renderMacroInEditMode, options)
+                    return handleMacro(el, data.macros, meta, renderMacroInEditMode, options)
                 case 'img':
                     return handleImage(el, data, meta)
                 default:

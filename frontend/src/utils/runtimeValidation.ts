@@ -1,4 +1,4 @@
-import { parse } from 'valibot'
+import { array, parse } from 'valibot'
 import {
     AccordionConfig,
     accordionConfigSchema,
@@ -11,8 +11,16 @@ import {
     LinkCardConfig,
     linkCardConfigSchema,
 } from '~/types/valibot/parts'
-import { richTextSchema, RichTextData } from '~/types/valibot/richTextSchema'
-import { RichTextData as RichTExtDataAdapter } from '@enonic/nextjs-adapter'
+import {
+    richTextSchema,
+    RichTextData,
+    macroSchema,
+    MacroData,
+} from '~/types/valibot/richTextSchema'
+import {
+    RichTextData as RichTExtDataAdapter,
+    MacroData as MacroDataAdapter,
+} from '@enonic/nextjs-adapter'
 import {
     Part_Idebanken_Accordion,
     Part_Idebanken_Button,
@@ -73,6 +81,15 @@ export function validatedRichTextData(data: RichTExtDataAdapter): RichTextData |
         return parse(richTextSchema, data)
     } catch (e) {
         console.error('Invalid rich text data:', data, e)
+        return null
+    }
+}
+
+export function validatedMacros(macros: MacroDataAdapter[] | undefined): MacroData[] | null {
+    try {
+        return parse(array(macroSchema), macros)
+    } catch (e) {
+        console.error('Invalid macros:', e)
         return null
     }
 }
