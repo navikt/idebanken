@@ -3,10 +3,11 @@ import { getUrl, MetaData, ReplacerResult, RichTextData } from '@enonic/nextjs-a
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 import { IMG_ATTR } from '@enonic/react-components/constants'
 import { cssToReactStyle } from '@enonic/react-components'
-import React from 'react'
 
 export function handleImage(el: Element, data: RichTextData, meta: MetaData): ReplacerResult {
     const { images } = data
+
+    console.log('handleImage', images)
 
     if (!images || !images.length) {
         return (
