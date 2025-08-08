@@ -3,7 +3,7 @@ import { MetaData, ReplacerResult, sanitizeGraphqlName, MacroData } from '@enoni
 import { MACRO_ATTR } from '@enonic/react-components/constants'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 import BaseMacro from '@enonic/nextjs-adapter/views/BaseMacro'
-// import { validatedMacros } from '~/utils/runtimeValidation'
+import { validatedMacro } from '~/utils/runtimeValidation'
 
 export function handleMacro(
     el: Element,
@@ -12,17 +12,9 @@ export function handleMacro(
     renderMacroInEditMode: boolean,
     options: HTMLReactParserOptions
 ): ReplacerResult {
-    // NB: should validate relevant macro
-
     if (!macros || !Array.isArray(macros)) {
-        return <ErrorComponent reason={'No macro elements found!'} />
+        return <ErrorComponent reason={'No macro-elements found!'} />
     }
-
-    // const macros = validatedMacros(rawMacrosData)
-
-    // if (!macros) {
-    //     return <ErrorComponent reason={'Macro element contains errors!'} />
-    // }
 
     const ref = el.attribs[MACRO_ATTR]
 
@@ -32,11 +24,13 @@ export function handleMacro(
 
     const macroData = macros.find((d) => d.ref === ref)
 
-    if (!macroData) {
-        return <ErrorComponent reason={'Unable to find macro with ref {ref} in macros object!'} />
+    const validMacroData = validatedMacro(macroData)
+
+    if (!validMacroData) {
+        return <ErrorComponent reason={'Invalid macro data!'} />
     }
 
-    const { descriptor, name, config: configs } = macroData
+    const { descriptor, name, config: configs } = validMacroData
 
     const macroKey = sanitizeGraphqlName(name)
     const originalConfig = configs[macroKey]

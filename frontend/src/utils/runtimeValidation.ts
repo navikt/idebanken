@@ -85,11 +85,11 @@ export function validatedRichTextData(data: RichTExtDataAdapter): RichTextData |
     }
 }
 
-export function validatedMacros(macros: MacroDataAdapter[] | undefined): MacroData[] | null {
+export function validatedMacro(macro: MacroDataAdapter | undefined): MacroData | null {
     try {
-        return parse(array(macroSchema), macros)
+        return parse(macroSchema, macro)
     } catch (e) {
-        console.error('Invalid macros:', e)
+        console.error('Invalid macro:', e)
         return null
     }
 }
