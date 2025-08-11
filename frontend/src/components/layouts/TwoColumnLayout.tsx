@@ -30,7 +30,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
     const breakLeftFirst = layout.config?.breakLeftFirst
 
     return (
-        <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor}>
+        <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor} className="py-6">
             <HGrid
                 gap={{
                     xs: 'space-8',
