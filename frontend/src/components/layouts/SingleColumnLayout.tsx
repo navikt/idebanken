@@ -24,7 +24,7 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
     const regions = layout.regions
 
     return (
-        <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor}>
+        <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor} className="py-6">
             <Box>
                 <RegionView
                     name="content"

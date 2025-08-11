@@ -31,7 +31,7 @@ const PanelLayoutTwoColumn = (props: PanelLayoutTwoColumnProps) => {
     const [bgOuterBox, bgInnerBox] = layout.config?.background || []
 
     return (
-        <BleedingBackgroundPageBlock bgColor={bgOuterBox?.bgColor}>
+        <BleedingBackgroundPageBlock bgColor={bgOuterBox?.bgColor} className="py-6">
             <HGrid
                 gap={{
                     xs: 'space-8',
