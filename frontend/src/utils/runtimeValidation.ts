@@ -1,3 +1,4 @@
+import { Image } from './../types/generated.d'
 import { parse } from 'valibot'
 import {
     AccordionConfig,
