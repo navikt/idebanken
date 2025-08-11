@@ -57,6 +57,7 @@ export function handleLink(
     }
 
     const linkData = links.find((data) => data.ref === linkRef)
+
     if (!linkData) {
         return (
             <ErrorComponent reason={`Unable to find link with ref ${linkRef} in links object!`} />

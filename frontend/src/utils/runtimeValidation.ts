@@ -1,4 +1,5 @@
-import { array, parse } from 'valibot'
+import { Image } from './../types/generated.d'
+import { parse } from 'valibot'
 import {
     AccordionConfig,
     accordionConfigSchema,
@@ -16,10 +17,13 @@ import {
     RichTextData,
     macroSchema,
     MacroData,
+    imageSchema,
+    ImageData,
 } from '~/types/valibot/richTextSchema'
 import {
     RichTextData as RichTExtDataAdapter,
     MacroData as MacroDataAdapter,
+    ImageData as ImageDataAdapter,
 } from '@enonic/nextjs-adapter'
 import {
     Part_Idebanken_Accordion,
@@ -90,6 +94,15 @@ export function validatedMacro(macro: MacroDataAdapter | undefined): MacroData |
         return parse(macroSchema, macro)
     } catch (e) {
         console.error('Invalid macro:', e)
+        return null
+    }
+}
+
+export function validatedImage(image: ImageDataAdapter | undefined): ImageData | null {
+    try {
+        return parse(imageSchema, image)
+    } catch (e) {
+        console.error('Invalid image:', e)
         return null
     }
 }

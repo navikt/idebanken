@@ -12,11 +12,12 @@ import {
     string,
 } from 'valibot'
 
-export const contentSchema = nullish(
-    looseObject({
-        _id: string(),
-    })
-)
+// export const contentSchema = nullish(
+//     looseObject({
+//         _id: string(),
+//     })
+// )
+export const contentSchema = record(string(), any())
 
 export const mediaIntentTypeSchema = picklist(['download', 'inline'])
 
@@ -28,17 +29,19 @@ export const mediaSchema = object({
 
 export const imageStyleSchema = object({
     __typename: optional(string()),
-    aspectRatio: nullish(string()),
-    filter: nullish(string()),
-    name: nullish(string()),
+    aspectRatio: string(),
+    filter: string(),
+    name: string(),
 })
 
 export const imageSchema = object({
     __typename: optional(string()),
-    image: nullish(contentSchema),
-    ref: nullish(string()),
-    style: nullish(imageStyleSchema),
+    image: contentSchema,
+    ref: string(),
+    style: optional(nullish(imageStyleSchema)),
 })
+
+export type ImageData = InferOutput<typeof imageSchema>
 
 export const linkSchema = object({
     __typename: optional(string()),
