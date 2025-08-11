@@ -2,6 +2,7 @@ import type { MetaData, PageComponent } from '@enonic/nextjs-adapter'
 import type { Layout_Idebanken_Single_Column } from '~/types/generated.d'
 import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
+import { Box } from '@navikt/ds-react'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 
 interface SingleColumnLayoutProps {
@@ -24,12 +25,14 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
 
     return (
         <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor}>
-            <RegionView
-                name="content"
-                components={regions['content']?.components}
-                common={common}
-                meta={meta}
-            />
+            <Box>
+                <RegionView
+                    name="content"
+                    components={regions['content']?.components}
+                    common={common}
+                    meta={meta}
+                />
+            </Box>
         </BleedingBackgroundPageBlock>
     )
 }

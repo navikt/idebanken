@@ -32,7 +32,13 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
     return (
         <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor}>
             <HGrid
-                gap={{ sm: 'space-8', md: 'space-12', lg: 'space-20', xl: 'space-24' }}
+                gap={{
+                    xs: 'space-8',
+                    sm: 'space-12',
+                    md: 'space-16',
+                    lg: 'space-20',
+                    xl: 'space-24',
+                }}
                 columns={{ xs: 1, md: 12 }}>
                 <div
                     className={`
