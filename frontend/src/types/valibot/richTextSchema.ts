@@ -2,7 +2,6 @@ import {
     any,
     array,
     InferOutput,
-    looseObject,
     custom,
     nullish,
     object,
@@ -12,11 +11,6 @@ import {
     string,
 } from 'valibot'
 
-// export const contentSchema = nullish(
-//     looseObject({
-//         _id: string(),
-//     })
-// )
 export const contentSchema = record(string(), any())
 
 export const mediaIntentTypeSchema = picklist(['download', 'inline'])

@@ -10,7 +10,6 @@ import {
 import { LINK_ATTR } from '@enonic/react-components/constants'
 import { ElementType } from 'domelementtype'
 import { Link } from '@navikt/ds-react'
-import React from 'react'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 
 export function handleLink(
