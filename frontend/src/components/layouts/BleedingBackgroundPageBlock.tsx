@@ -16,7 +16,7 @@ export default function BleedingBackgroundPageBlock({
     ...rest
 }: Readonly<BleedingBackgroundPageBlockProps>) {
     return (
-        <Bleed className={bgColor ?? 'bg-extra-light-pink'} marginInline={'full'}>
+        <Bleed className={`${bgColor ?? 'bg-extra-light-pink'} py-6`} marginInline={'full'}>
             <PageBlock {...rest} as={as ?? 'div'} width={'2xl'} gutters>
                 {children}
             </PageBlock>
