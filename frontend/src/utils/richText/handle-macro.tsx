@@ -1,64 +1,56 @@
 import { DOMNode, domToReact, Element, HTMLReactParserOptions } from 'html-react-parser'
-import { MetaData, ReplacerResult, RichTextData, sanitizeGraphqlName } from '@enonic/nextjs-adapter'
+import { MetaData, ReplacerResult, sanitizeGraphqlName, MacroData } from '@enonic/nextjs-adapter'
 import { MACRO_ATTR } from '@enonic/react-components/constants'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 import BaseMacro from '@enonic/nextjs-adapter/views/BaseMacro'
-import React from 'react'
+import { validatedMacro } from '~/utils/runtimeValidation'
 
 export function handleMacro(
     el: Element,
-    data: RichTextData,
+    macros: MacroData[] | undefined,
     meta: MetaData,
     renderMacroInEditMode: boolean,
     options: HTMLReactParserOptions
 ): ReplacerResult {
+    if (!macros || !Array.isArray(macros)) {
+        return <ErrorComponent reason={'No macro-elements found!'} />
+    }
+
     const ref = el.attribs[MACRO_ATTR]
+
     if (!ref) {
         return <ErrorComponent reason={'Macro element has no data-macro-ref attribute!'} />
     }
 
-    const { macros } = data
-
-    if (!macros?.length) {
-        return (
-            <ErrorComponent
-                reason={"Can't replace macro, when there are no macros in the data object!"}
-            />
-        )
-    }
-
     const macroData = macros.find((d) => d.ref === ref)
-    if (!macroData) {
-        return <ErrorComponent reason={'Unable to find macro with ref {ref} in macros object!'} />
+
+    const validMacroData = validatedMacro(macroData)
+
+    if (!validMacroData) {
+        return <ErrorComponent reason={'Invalid macro data!'} />
     }
 
-    const { descriptor, name, config: configs } = macroData
-    if (!configs) {
-        return (
-            <ErrorComponent
-                reason={
-                    'Macro "{name}" has no config, unable to render macro! Make sure you are using fun richTextQuery within _mappings.ts'
-                }
-            />
-        )
-    }
-    const config = configs[sanitizeGraphqlName(name)]
+    const { descriptor, name, config: configs } = validMacroData
 
-    const data2 = {
-        name: name,
-        descriptor: descriptor,
-        config: {
-            [sanitizeGraphqlName(name)]: {
-                ...config,
-                body: config?.body?.replace(/youtube\.com/g, 'youtube-nocookie.com'),
-            },
-        },
+    const macroKey = sanitizeGraphqlName(name)
+    const originalConfig = configs[macroKey]
+    const macroProps = {
+        name,
+        descriptor: descriptor as `${string}:${string}`,
+        config: originalConfig
+            ? {
+                  [macroKey]: {
+                      ...originalConfig,
+                      body: originalConfig.body?.replace(/youtube\.com/g, 'youtube-nocookie.com'),
+                  },
+              }
+            : {},
     }
 
     const children = domToReact(el.children as DOMNode[], options)
 
     return (
-        <BaseMacro data={data2} meta={meta} renderInEditMode={renderMacroInEditMode}>
+        <BaseMacro data={macroProps} meta={meta} renderInEditMode={renderMacroInEditMode}>
             {children}
         </BaseMacro>
     )

@@ -2,8 +2,8 @@ import {
     any,
     array,
     InferOutput,
-    looseObject,
-    nullable,
+    custom,
+    nullish,
     object,
     optional,
     picklist,
@@ -11,74 +11,64 @@ import {
     string,
 } from 'valibot'
 
-export const contentSchema = optional(
-    nullable(
-        looseObject({
-            _id: string(),
-        })
-    )
-)
+export const contentSchema = record(string(), any())
 
 export const mediaIntentTypeSchema = picklist(['download', 'inline'])
 
 export const mediaSchema = object({
     __typename: optional(string()),
     content: contentSchema,
-    intent: optional(nullable(mediaIntentTypeSchema)),
+    intent: nullish(mediaIntentTypeSchema),
 })
 
 export const imageStyleSchema = object({
     __typename: optional(string()),
-    aspectRatio: optional(nullable(string())),
-    filter: optional(nullable(string())),
-    name: optional(nullable(string())),
+    aspectRatio: string(),
+    filter: string(),
+    name: string(),
 })
 
 export const imageSchema = object({
     __typename: optional(string()),
-    image: optional(nullable(contentSchema)),
-    ref: optional(nullable(string())),
-    style: optional(nullable(imageStyleSchema)),
+    image: contentSchema,
+    ref: string(),
+    style: optional(nullish(imageStyleSchema)),
 })
+
+export type ImageData = InferOutput<typeof imageSchema>
 
 export const linkSchema = object({
     __typename: optional(string()),
-    content: optional(nullable(contentSchema)),
-    media: optional(nullable(mediaSchema)),
-    ref: optional(nullable(string())),
-    uri: optional(nullable(string())),
+    content: nullish(contentSchema),
+    media: nullish(mediaSchema),
+    ref: nullish(string()),
+    uri: nullish(string()),
 })
 
-export const macroConfigSchema = record(
-    string(),
-    optional(
-        nullable(
-            object({
-                __typename: optional(string()),
-                body: optional(nullable(string())),
-            })
-        )
-    )
+export const macroConfigSchema = record(string(), any())
+
+export const macroDescriptorSchema = custom<`${string}:${string}`>(
+    (input) => typeof input === 'string' && input.includes(':') && input.split(':').length === 2
 )
 
 export const macroSchema = object({
     __typename: optional(string()),
-    config: optional(nullable(macroConfigSchema)),
-    descriptor: optional(nullable(string())),
-    name: optional(nullable(string())),
-    ref: optional(nullable(string())),
+    config: record(string(), nullish(macroConfigSchema)),
+    descriptor: macroDescriptorSchema,
+    name: string(),
+    ref: string(),
 })
 
-export const richTextSchema = nullable(
-    object({
-        __typename: optional(string()),
-        images: array(nullable(imageSchema)),
-        links: array(nullable(linkSchema)),
-        macros: array(nullable(macroSchema)),
-        macrosAsJson: optional(nullable(record(string(), any()))),
-        processedHtml: string(),
-        raw: optional(nullable(string())),
-    })
-)
+export type MacroData = InferOutput<typeof macroSchema>
+
+export const richTextSchema = object({
+    __typename: optional(string()),
+    images: optional(array(imageSchema)),
+    links: optional(array(linkSchema)),
+    macros: optional(array(macroSchema)),
+    macrosAsJson: nullish(record(string(), any())),
+    processedHtml: string(),
+    raw: nullish(string()),
+})
 
 export type RichTextData = InferOutput<typeof richTextSchema>

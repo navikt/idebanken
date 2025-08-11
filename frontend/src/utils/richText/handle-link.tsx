@@ -10,7 +10,6 @@ import {
 import { LINK_ATTR } from '@enonic/react-components/constants'
 import { ElementType } from 'domelementtype'
 import { Link } from '@navikt/ds-react'
-import React from 'react'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 
 export function handleLink(
@@ -57,6 +56,7 @@ export function handleLink(
     }
 
     const linkData = links.find((data) => data.ref === linkRef)
+
     if (!linkData) {
         return (
             <ErrorComponent reason={`Unable to find link with ref ${linkRef} in links object!`} />

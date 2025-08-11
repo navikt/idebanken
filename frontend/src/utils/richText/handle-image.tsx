@@ -3,12 +3,12 @@ import { getUrl, MetaData, ReplacerResult, RichTextData } from '@enonic/nextjs-a
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 import { IMG_ATTR } from '@enonic/react-components/constants'
 import { cssToReactStyle } from '@enonic/react-components'
-import React from 'react'
+import { validatedImage } from '~/utils/runtimeValidation'
 
 export function handleImage(el: Element, data: RichTextData, meta: MetaData): ReplacerResult {
     const { images } = data
 
-    if (!images || !images.length) {
+    if (!images || !Array.isArray(images)) {
         return (
             <ErrorComponent
                 reason={"Can't replace image, when there are no images in the data object!"}
@@ -22,9 +22,16 @@ export function handleImage(el: Element, data: RichTextData, meta: MetaData): Re
     }
 
     const imageData = images.find((data) => data.ref === imageRef)
-    if (!imageData) {
+
+    const validImageData = validatedImage(imageData)
+
+    if (!validImageData) {
         return (
-            <ErrorComponent reason={'Unable to find image with ref {imageRef} in images object!'} />
+            <ErrorComponent
+                reason={
+                    'Invalid image or unable to find image with ref {imageRef} in images object!'
+                }
+            />
         )
     }
 
@@ -45,7 +52,7 @@ export function handleImage(el: Element, data: RichTextData, meta: MetaData): Re
         // eslint-disable-next-line @next/next/no-img-element
         <img
             src={getUrl(src, meta)}
-            style={{ ...cssToReactStyle(styleStr), ...imageData.style }}
+            style={{ ...cssToReactStyle(styleStr), ...validImageData.style }}
             alt={alt}
             sizes={sizes}
             srcSet={srcSetProcessed}

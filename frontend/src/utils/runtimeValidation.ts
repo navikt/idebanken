@@ -1,3 +1,4 @@
+import { Image } from './../types/generated.d'
 import { parse } from 'valibot'
 import {
     AccordionConfig,
@@ -11,6 +12,19 @@ import {
     LinkCardConfig,
     linkCardConfigSchema,
 } from '~/types/valibot/parts'
+import {
+    richTextSchema,
+    RichTextData,
+    macroSchema,
+    MacroData,
+    imageSchema,
+    ImageData,
+} from '~/types/valibot/richTextSchema'
+import {
+    RichTextData as RichTExtDataAdapter,
+    MacroData as MacroDataAdapter,
+    ImageData as ImageDataAdapter,
+} from '@enonic/nextjs-adapter'
 import {
     Part_Idebanken_Accordion,
     Part_Idebanken_Button,
@@ -62,6 +76,33 @@ export function validatedLinkCardConfig(config: Part_Idebanken_Link_Card): LinkC
         return parse(linkCardConfigSchema, config)
     } catch {
         console.error('Invalid link card config:', config)
+        return null
+    }
+}
+
+export function validatedRichTextData(data: RichTExtDataAdapter): RichTextData | null {
+    try {
+        return parse(richTextSchema, data)
+    } catch (e) {
+        console.error('Invalid rich text data:', data, e)
+        return null
+    }
+}
+
+export function validatedMacro(macro: MacroDataAdapter | undefined): MacroData | null {
+    try {
+        return parse(macroSchema, macro)
+    } catch (e) {
+        console.error('Invalid macro:', e)
+        return null
+    }
+}
+
+export function validatedImage(image: ImageDataAdapter | undefined): ImageData | null {
+    try {
+        return parse(imageSchema, image)
+    } catch (e) {
+        console.error('Invalid image:', e)
         return null
     }
 }

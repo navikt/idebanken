@@ -105,7 +105,7 @@
 body {
     /* Do not allow overscrolling on mobile as the page background will be different from the "section/layout" backgrounds */
     overscroll-behavior: none;
-    overflow-x: hidden
+    overflow-x: hidden;
 }
 
 /* NB: Is used in buttons text */
