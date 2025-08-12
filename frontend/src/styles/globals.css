@@ -31,36 +31,44 @@
 
     --ib-dark-blue-500: #181756;
 
-    /* Old colors */
+    /* Background colors */
     --bg-white: #fafaf9;
     --bg-extra-light-pink: #fff2f7;
     --bg-light-pink: #ffe4ef;
     --bg-pink: #ffbcd8;
     --bg-dark-blue: #181756;
-    /* End old colors */
+    --bg-blue: #7e9af8;
+    --bg-orange: #fa997b;
+    --bg-yellow: #fee196;
+    --bg-red: #e6374e;
+    /* End background colors */
 
     /* Font families */
     --a-font-family: var(--font-mundial);
 
     /* Text sizes */
-    --a-font-size-large: 1.5rem; /* Body Base & Body Thin */
-    --a-font-line-height-xlarge: 2.25rem; /* Body Base & Body Thin */
+    /*
+    --a-font-size-large: 1.5rem; 
+    --a-font-line-height-xlarge: 2.25rem;
+    */
 
     /* Headings */
-    --a-font-size-heading-2xlarge: 4.5rem; /* Display */
-    --a-font-line-height-heading-2xlarge: 5.4rem; /* Display line height*/
+    /*
+    --a-font-size-heading-2xlarge: 4.5rem; 
+    --a-font-line-height-heading-2xlarge: 5.4rem; 
 
-    --a-font-size-heading-xlarge: 3.75rem; /* Heading XL */
-    --a-font-line-height-heading-xlarge: 5.625rem; /* Heading XL line height */
+    --a-font-size-heading-xlarge: 3.75rem; 
+    --a-font-line-height-heading-xlarge: 5.625rem; 
 
-    --a-font-size-heading-medium: 3.25rem; /* Heading L */
-    --a-font-line-height-heading-medium: 4rem; /* Heading L line height */
+    --a-font-size-heading-medium: 3.25rem; 
+    --a-font-line-height-heading-medium: 4rem; 
 
-    --a-font-size-heading-small: 2.25rem; /* Heading M */
-    --a-font-line-height-heading-small: 4rem; /* Heading M line height */
+    --a-font-size-heading-small: 2.25rem; 
+    --a-font-line-height-heading-small: 4rem; 
 
-    --a-font-size-heading-xsmall: 2rem; /* Heading S */
-    --a-font-line-height-heading-xsmall: 2.625rem; /* Heading S line height */
+    --a-font-size-heading-xsmall: 2rem; 
+    --a-font-line-height-heading-xsmall: 2.625rem; 
+    */
 
     /* Radius */
     --a-border-radius-medium: 60px;

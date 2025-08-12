@@ -41,4 +41,14 @@ export type LinkCard = {
    * Lenketekst
    */
   text?: string;
+
+  /**
+   * Ikon
+   */
+  icon: "hand-shake-heart" | "reception" | "chat-2" | "hand-shake" | "person-group" | "task-list" | "clock";
+
+  /**
+   * Ikonens bakgrunnsfarge
+   */
+  iconColor: "bg-white" | "bg-blue" | "bg-orange" | "bg-yellow" | "bg-red";
 };
