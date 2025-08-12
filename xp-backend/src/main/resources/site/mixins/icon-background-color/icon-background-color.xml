@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>    
+        <input name="iconColor" type="ComboBox">
+            <label>Ikonens bakgrunnsfarge</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <option value="bg-white">Hvit</option>
+                <option value="bg-pink">Rosa</option>
+                <option value="bg-blue">Blå</option>
+                <option value="bg-orange">Orange</option>
+                <option value="bg-yellow">Gul</option>
+                <option value="bg-red">Rød</option>
+            </config>
+        </input>
+    </form>
+</mixin>

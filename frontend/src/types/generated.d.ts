@@ -1057,6 +1057,8 @@ export type Part_Idebanken_Info_Box_InfoBoxItemsSimpleTextEditorArgs = {
 export type Part_Idebanken_Link_Card = {
   __typename?: 'Part_idebanken_link_card';
   blockOptionSet?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet>;
+  icon?: Maybe<Scalars['String']['output']>;
+  iconColor?: Maybe<Scalars['String']['output']>;
   text?: Maybe<Scalars['String']['output']>;
 };
 

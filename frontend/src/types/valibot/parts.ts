@@ -3,6 +3,7 @@ import {
     boolean,
     InferOutput,
     nullable,
+    nullish,
     object,
     optional,
     picklist,
@@ -129,6 +130,8 @@ export type InfoBoxConfig = InferOutput<typeof infoBoxConfigSchema>
 export const linkCardConfigSchema = pipe(
     object({
         text: nullable(string()),
+        icon: nullish(string()),
+        iconColor: nullish(string()),
         blockOptionSet: blockOptionSetSchema,
     }),
     transform((config) => {
