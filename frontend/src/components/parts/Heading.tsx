@@ -21,6 +21,7 @@ const HeadingView = ({
             id={autoId ? headingIdOfString(extractText(children)) : undefined}
             level={level}
             size={size}
+            spacing
             className={`font-light ${className}`}>
             {children}
         </Heading>

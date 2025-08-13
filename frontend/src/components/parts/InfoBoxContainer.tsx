@@ -6,7 +6,7 @@ import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { validatedInfoBoxConfig } from '~/utils/runtimeValidation'
 
-export const InfoBoxView = ({ part, meta }: PartData<Part_Idebanken_Info_Box>) => {
+export const InfoBoxContainerView = ({ part, meta }: PartData<Part_Idebanken_Info_Box>) => {
     const config = validatedInfoBoxConfig(part.config)
 
     if (!config) return null

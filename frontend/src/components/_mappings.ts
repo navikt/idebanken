@@ -6,7 +6,7 @@ import '@enonic/nextjs-adapter/baseMappings'
 import TwoColumnLayout from './layouts/TwoColumnLayout'
 import { ButtonView } from './parts/Button'
 import { TextEditorView } from './parts/TextEditor'
-import { InfoBoxView } from './parts/InfoBox'
+import { InfoBoxContainerView } from './parts/InfoBoxContainer'
 import SingleColumnLayout from './layouts/SingleColumnLayout'
 import { TipPanelView } from './parts/TipPanel'
 import { AccordionView } from './parts/Accordion'
@@ -71,7 +71,7 @@ ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:info-box`, {
-    view: InfoBoxView,
+    view: InfoBoxContainerView,
     configQuery: `{
 		infoBoxItems {
 			bgColor

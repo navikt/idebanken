@@ -49,8 +49,12 @@ export const htmlRichTextReplacer: Replacer = (
                     if (macroChild) {
                         return options.replace?.(macroChild, 0)
                     }
+
                     return (
-                        <BodyLong {...attributesToProps(el.attribs)} className="font-light" spacing>
+                        <BodyLong
+                            {...attributesToProps(el.attribs)}
+                            className="font-light [&:last-child]:mb-0"
+                            spacing>
                             {domToReact(el.children as DOMNode[], options)}
                         </BodyLong>
                     )
