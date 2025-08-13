@@ -33,7 +33,7 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                     justify="space-between"
                     gap="6"
                     paddingBlock={{ xs: '0 space-8', md: 'space-16 space-20' }}
-                    className="shadow-[0_-1px_0_0_#CFCFCF_inset]">
+                    className={classNames(isMenuOpen ? '' : 'shadow-[0_-1px_0_0_#CFCFCF_inset]')}>
                     <NextLink href="/" className={'content-center h-12'}>
                         <NextImage
                             src={logoUrl}

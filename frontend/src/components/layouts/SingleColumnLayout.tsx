@@ -4,6 +4,7 @@ import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { Box } from '@navikt/ds-react'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
+import classNames from 'classnames'
 
 interface SingleColumnLayoutProps {
     layout: {
@@ -25,7 +26,10 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
 
     return (
         <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor} className="py-6">
-            <Box>
+            <Box
+                className={classNames(
+                    layout.config?.alignment ? `text-${layout.config.alignment}` : 'text-left'
+                )}>
                 <RegionView
                     name="content"
                     components={regions['content']?.components}

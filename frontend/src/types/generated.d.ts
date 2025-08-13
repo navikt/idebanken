@@ -703,6 +703,7 @@ export type Layout_Idebanken_Panel_2_Column_Background = {
 /** Layout component application config for application ['idebanken'] and descriptor ['single-column'] */
 export type Layout_Idebanken_Single_Column = {
   __typename?: 'Layout_idebanken_single_column';
+  alignment?: Maybe<Scalars['String']['output']>;
   bgColor?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1057,8 +1058,8 @@ export type Part_Idebanken_Info_Box_InfoBoxItemsSimpleTextEditorArgs = {
 export type Part_Idebanken_Link_Card = {
   __typename?: 'Part_idebanken_link_card';
   blockOptionSet?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet>;
-  icon?: Maybe<Scalars['String']['output']>;
   iconColor?: Maybe<Scalars['String']['output']>;
+  icon_name?: Maybe<Scalars['String']['output']>;
   text?: Maybe<Scalars['String']['output']>;
 };
 
