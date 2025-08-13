@@ -27,8 +27,13 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
         <>
             <BleedingBackgroundPageBlock
                 as={'header'}
-                className="bg-extra-light-pink relative z-50 shadow-[0_-1px_0_0_#CFCFCF_inset]">
-                <HStack align="center" justify="space-between" gap="6" paddingBlock="space-16">
+                className="bg-extra-light-pink relative z-50">
+                <HStack
+                    align="center"
+                    justify="space-between"
+                    gap="6"
+                    paddingBlock={{ xs: '0 space-8', md: 'space-16 space-20' }}
+                    className="shadow-[0_-1px_0_0_#CFCFCF_inset]">
                     <NextLink href="/" className={'content-center h-12'}>
                         <NextImage
                             src={logoUrl}
@@ -39,13 +44,20 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                             priority
                         />
                     </NextLink>
+
                     <Button
+                        variant="tertiary"
                         aria-label={isMenuOpen ? 'Lukk meny' : 'Åpne meny'}
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        className="[&_.navds-label]:translate-y-[2px] flex-col sm:flex-row"
                         icon={
                             <div
                                 className={`transition-transform duration-200 ${isMenuOpen ? 'rotate-180' : ''}`}>
-                                {isMenuOpen ? <XMarkIcon /> : <MenuHamburgerIcon />}
+                                {isMenuOpen ? (
+                                    <XMarkIcon aria-hidden />
+                                ) : (
+                                    <MenuHamburgerIcon aria-hidden />
+                                )}
                             </div>
                         }>
                         Meny
