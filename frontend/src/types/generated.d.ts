@@ -917,6 +917,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   heading?: Maybe<Part_Idebanken_Heading>;
   image?: Maybe<Part_Idebanken_Image>;
   info_box?: Maybe<Part_Idebanken_Info_Box>;
+  link_card?: Maybe<Part_Idebanken_Link_Card>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
   tip_panel?: Maybe<Part_Idebanken_Tip_Panel>;
@@ -1051,6 +1052,41 @@ export type Part_Idebanken_Info_Box_InfoBoxItems = {
 /** Info-boks */
 export type Part_Idebanken_Info_Box_InfoBoxItemsSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
+export type Part_Idebanken_Link_Card = {
+  __typename?: 'Part_idebanken_link_card';
+  blockOptionSet?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet>;
+  iconColor?: Maybe<Scalars['String']['output']>;
+  icon_name?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+};
+
+/** Select link type */
+export type Part_Idebanken_Link_Card_BlockOptionSet = {
+  __typename?: 'Part_idebanken_link_card_BlockOptionSet';
+  _selected?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet_OptionEnum>;
+  externalLink?: Maybe<Part_Idebanken_Link_Card_ExternalLink>;
+  internalLink?: Maybe<Part_Idebanken_Link_Card_InternalLink>;
+};
+
+/** Select link type option enum. */
+export enum Part_Idebanken_Link_Card_BlockOptionSet_OptionEnum {
+  ExternalLink = 'externalLink',
+  InternalLink = 'internalLink'
+}
+
+/** External URL */
+export type Part_Idebanken_Link_Card_ExternalLink = {
+  __typename?: 'Part_idebanken_link_card_ExternalLink';
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+/** Internal URL */
+export type Part_Idebanken_Link_Card_InternalLink = {
+  __typename?: 'Part_idebanken_link_card_InternalLink';
+  ideBankContentSelector?: Maybe<Content>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['search-view'] */
