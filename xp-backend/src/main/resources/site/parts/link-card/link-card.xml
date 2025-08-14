@@ -6,11 +6,7 @@
         <input type="TextLine" name="text">
             <label>Lenketekst</label>
         </input>
-<<<<<<< HEAD
         <mixin name="icon-name" />
-=======
-        <mixin name="icon" />
->>>>>>> main
         <mixin name="icon-background-color" />
     </form>
 </part>
