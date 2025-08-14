@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 @import '@navikt/ds-css' layer(components);
-@import '@navikt/ds-css' layer(components);
 @config '../../tailwind.config.ts';
 
 @source inline('{md:}col-span-{{1..11..1}}');

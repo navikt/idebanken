@@ -5,6 +5,9 @@
     <form>
         <mixin name="background-color"/>
         <mixin name="alignment"/>
+        <input  name="backgroundImage" type="CheckBox">
+            <label>Vis bakgrunnsbilde</label>
+        </input>
     </form>
     <regions>
         <region name="content"/>

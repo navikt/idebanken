@@ -8,6 +8,7 @@ interface BleedingBackgroundPageBlockProps extends React.HTMLAttributes<HTMLDivE
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     as?: React.ElementType<any, keyof React.JSX.IntrinsicElements>
     customClassNames?: string
+    backgroundStyle?: React.CSSProperties
 }
 
 export default function BleedingBackgroundPageBlock({
@@ -15,12 +16,14 @@ export default function BleedingBackgroundPageBlock({
     children,
     as,
     customClassNames,
+    backgroundStyle,
     ...rest
 }: Readonly<BleedingBackgroundPageBlockProps>) {
     return (
         <Bleed
             className={`${bgColor ?? 'bg-extra-light-pink'} ${customClassNames}`}
-            marginInline={'full'}>
+            marginInline={'full'}
+            style={backgroundStyle}>
             <PageBlock {...rest} as={as ?? 'div'} width={'2xl'} gutters>
                 {children}
             </PageBlock>
