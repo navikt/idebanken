@@ -6,7 +6,7 @@ import { MouseEventHandler } from 'react'
 import { PartData } from '~/types/graphql-types'
 
 export interface ButtonData {
-    config?: Part_Idebanken_Button // From Next.js
+    config?: Part_Idebanken_Button
     onClick?: MouseEventHandler<HTMLButtonElement>
 }
 

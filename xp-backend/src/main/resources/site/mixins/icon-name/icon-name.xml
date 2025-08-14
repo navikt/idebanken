@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>    
+        <input name="icon-name" type="ComboBox">
+            <label>Ikon</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <option value="hand-shake-heart">HandShakeHeart</option>
+                <option value="reception">Reception</option>
+                <option value="chat-2">Chat2</option>
+                <option value="hand-shake">Handshake</option>
+                <option value="person-group">PersonGroup</option>
+                <option value="task-list">Tasklist</option>
+                <option value="clock">Clock</option>
+            </config>
+        </input>
+    </form>
+</mixin>
