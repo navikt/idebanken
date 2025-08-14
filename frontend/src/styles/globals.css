@@ -3,6 +3,9 @@
 @import '@navikt/ds-css' layer(components);
 @config '../../tailwind.config.ts';
 
+@source inline('{md:}col-span-{{1..11..1}}');
+@source inline('{text-center,text-left,text-right}');
+
 :root {
     /* Colors */
     --ib-black: #121212;
@@ -124,8 +127,6 @@ body {
 * {
     text-underline-position: from-font;
 }
-
-@source inline('{md:}col-span-{{1..11..1}}');
 
 /* Old styles */
 html,
