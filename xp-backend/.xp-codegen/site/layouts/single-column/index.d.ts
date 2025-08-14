@@ -8,5 +8,5 @@ export type SingleColumn = {
   /**
    * Juster innhold
    */
-  alignment: "right" | "center" | "left";
+  alignment: "left" | "center" | "right";
 };
