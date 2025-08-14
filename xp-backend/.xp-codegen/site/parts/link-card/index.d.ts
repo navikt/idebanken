@@ -45,10 +45,10 @@ export type LinkCard = {
   /**
    * Ikon
    */
-  icon: "hand-shake-heart" | "reception" | "chat-2" | "hand-shake" | "person-group" | "task-list" | "clock";
+  "icon-name"?: "hand-shake-heart" | "reception" | "chat-2" | "hand-shake" | "person-group" | "task-list" | "clock";
 
   /**
    * Ikonens bakgrunnsfarge
    */
-  iconColor: "bg-white" | "bg-blue" | "bg-orange" | "bg-yellow" | "bg-red";
+  iconColor?: "bg-white" | "bg-pink" | "bg-blue" | "bg-orange" | "bg-yellow" | "bg-red";
 };

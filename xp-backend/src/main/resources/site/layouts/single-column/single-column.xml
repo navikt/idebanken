@@ -4,6 +4,7 @@
     <description>Provides a single region</description>
     <form>
         <mixin name="background-color"/>
+        <mixin name="alignment"/>
     </form>
     <regions>
         <region name="content"/>

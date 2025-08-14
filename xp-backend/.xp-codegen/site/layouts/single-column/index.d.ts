@@ -4,4 +4,9 @@ export type SingleColumn = {
    * Bakgrunnsfarge
    */
   bgColor: "bg-white" | "bg-extra-light-pink" | "bg-light-pink" | "bg-pink" | "bg-dark-blue";
+
+  /**
+   * Juster innhold
+   */
+  alignment: "right" | "center" | "left";
 };
