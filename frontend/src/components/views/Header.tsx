@@ -26,14 +26,15 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
     return (
         <>
             <BleedingBackgroundPageBlock
-                as={'header'}
-                className="bg-extra-light-pink relative z-50">
+                as="header"
+                bgColor="bg-brand-white"
+                className="relative"
+                customClassNames="shadow-[0_-1px_0_0_#CFCFCF_inset]">
                 <HStack
                     align="center"
                     justify="space-between"
                     gap="6"
-                    paddingBlock={{ xs: '0 space-8', md: 'space-16 space-20' }}
-                    className={classNames(isMenuOpen ? '' : 'shadow-[0_-1px_0_0_#CFCFCF_inset]')}>
+                    paddingBlock={{ xs: 'space-8', md: 'space-16' }}>
                     <NextLink href="/" className={'content-center h-12'}>
                         <NextImage
                             src={logoUrl}
@@ -110,7 +111,7 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
             {/* Overlay to darken the page */}
             <Bleed
                 className={classNames(
-                    'fixed inset-x-0 top-0 bottom-0 bg-black transition-opacity duration-300 z-30',
+                    'fixed inset-x-0 top-24 md:top-20 bottom-0 bg-black transition-opacity duration-300 z-30',
                     isMenuOpen ? 'opacity-30' : 'opacity-0 pointer-events-none'
                 )}
                 onClick={() => setIsMenuOpen(false)}></Bleed>

@@ -1,0 +1,34 @@
+<!-- filepath: /Users/igorkoudrik/developer/idebanken/frontend/src/assets/circles.svg -->
+<svg width="1440" height="1200" viewBox="0 0 1440 1200" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<clipPath id="clip0_8_11230">
+<rect width="1440" height="1200"/>
+</clipPath>
+</defs>
+<g clip-path="url(#clip0_8_11230)">
+<rect x="957.147" y="-608.999" width="788.173" height="787.666" rx="393.833" transform="rotate(51.9354 957.147 -608.999)" fill="#FEE196"/>
+<rect x="1349.66" y="-107.761" width="788.173" height="787.666" rx="393.833" transform="rotate(51.9354 1349.66 -107.761)" fill="#FFBCD8"/>
+<mask id="mask0_8_11230" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="337" y="-609" width="1107" height="1107">
+<rect x="957.142" y="-608.996" width="788.173" height="787.666" rx="393.833" transform="rotate(51.9354 957.142 -608.996)" fill="#FEE196"/>
+</mask>
+<g mask="url(#mask0_8_11230)">
+<rect x="1349.65" y="-107.762" width="788.173" height="787.666" rx="393.833" transform="rotate(51.9354 1349.65 -107.762)" fill="#FFC56E"/>
+</g>
+<rect width="235.047" height="234.984" rx="117.492" transform="matrix(-0.736355 0.676596 -0.677119 -0.735874 1665.01 49.1071)" fill="#F65523"/>
+<circle cx="1425" cy="177" r="117" fill="#FFBCD8"/>
+<mask id="mask1_8_11230" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="1332" y="-124" width="334" height="333">
+<rect width="235.004" height="235.027" rx="117.502" transform="matrix(-0.73639 0.676558 -0.677157 -0.735839 1665.02 49.1385)" fill="#181756"/>
+</mask>
+<g mask="url(#mask1_8_11230)">
+<circle cx="1425" cy="177" r="117" fill="#E00522"/>
+</g>
+<rect x="1829.07" y="427.807" width="507.06" height="505.979" rx="252.989" transform="rotate(131.959 1829.07 427.807)" fill="#181756"/>
+<rect x="1555.24" y="732.376" width="507.06" height="505.979" rx="252.989" transform="rotate(131.959 1555.24 732.376)" fill="#2857F3"/>
+<mask id="mask2_8_11230" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="1113" y="89" width="717" height="716">
+<rect x="1829.07" y="427.808" width="507.06" height="505.979" rx="252.989" transform="rotate(131.959 1829.07 427.808)" fill="#181756"/>
+</mask>
+<g mask="url(#mask2_8_11230)">
+<rect x="1555.23" y="732.376" width="507.06" height="505.979" rx="252.989" transform="rotate(131.959 1555.23 732.376)" fill="#3D5AAB"/>
+</g>
+</g>
+</svg>

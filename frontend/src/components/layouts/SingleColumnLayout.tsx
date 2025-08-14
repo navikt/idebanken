@@ -23,9 +23,20 @@ interface SingleColumnLayoutProps {
 const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
     const { common, meta, layout } = props
     const regions = layout.regions
+    const backgroundStyle = layout.config?.backgroundImage
+        ? {
+              backgroundImage: 'url(/images/circles.svg)',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'top right',
+              backgroundSize: '50% auto',
+          }
+        : {}
 
     return (
-        <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor} className="py-6">
+        <BleedingBackgroundPageBlock
+            bgColor={layout.config?.bgColor}
+            className="py-6"
+            backgroundStyle={backgroundStyle}>
             <Box
                 className={classNames(
                     layout.config?.alignment ? `text-${layout.config.alignment}` : 'text-left'

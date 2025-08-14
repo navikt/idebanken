@@ -704,6 +704,7 @@ export type Layout_Idebanken_Panel_2_Column_Background = {
 export type Layout_Idebanken_Single_Column = {
   __typename?: 'Layout_idebanken_single_column';
   alignment?: Maybe<Scalars['String']['output']>;
+  backgroundImage?: Maybe<Scalars['Boolean']['output']>;
   bgColor?: Maybe<Scalars['String']['output']>;
 };
 
