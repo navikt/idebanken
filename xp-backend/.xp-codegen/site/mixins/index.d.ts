@@ -6,4 +6,5 @@ export type IconName = import("./icon-name").IconName;
 export type LinkGroups = import("./link-groups").LinkGroups;
 export type LinkSelector = import("./link-selector").LinkSelector;
 export type SimpleTextEditor = import("./simple-text-editor").SimpleTextEditor;
+export type Tags = import("./tags").Tags;
 export type TitleIngress = import("./title-ingress").TitleIngress;

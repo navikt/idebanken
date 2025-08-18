@@ -1059,9 +1059,18 @@ export type Part_Idebanken_Info_Box_InfoBoxItemsSimpleTextEditorArgs = {
 export type Part_Idebanken_Link_Card = {
   __typename?: 'Part_idebanken_link_card';
   blockOptionSet?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet>;
+  description?: Maybe<Scalars['String']['output']>;
   iconColor?: Maybe<Scalars['String']['output']>;
-  icon_name?: Maybe<Scalars['String']['output']>;
+  iconName?: Maybe<Scalars['String']['output']>;
+  tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   text?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
+export type Part_Idebanken_Link_CardTagsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Select link type */

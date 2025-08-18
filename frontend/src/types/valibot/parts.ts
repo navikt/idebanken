@@ -81,7 +81,7 @@ export type HeadingConfig = InferOutput<typeof headingConfigSchema>
 // Button link
 export const buttonConfigSchema = pipe(
     object({
-        variant: picklist(['primary', 'secondary', 'tertiary']),
+        variant: picklist(['primary', 'secondary', 'tertiary', 'link']),
         size: picklist(['medium', 'small', 'xsmall']),
         text: nullable(string()),
         blockOptionSet: blockOptionSetSchema,
@@ -130,8 +130,15 @@ export type InfoBoxConfig = InferOutput<typeof infoBoxConfigSchema>
 export const linkCardConfigSchema = pipe(
     object({
         text: nullable(string()),
-        icon: nullish(string()),
+        description: nullish(string()),
+        iconName: nullish(string()),
         iconColor: nullish(string()),
+        tags: optional(
+            pipe(
+                union([string(), array(string())]),
+                transform((value) => (Array.isArray(value) ? value : value ? [value] : []))
+            )
+        ),
         blockOptionSet: blockOptionSetSchema,
     }),
     transform((config) => {

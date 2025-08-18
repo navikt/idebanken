@@ -125,6 +125,7 @@ body {
 
 * {
     text-underline-position: from-font;
+    text-underline-offset: 0.1em;
 }
 
 /* Old styles */

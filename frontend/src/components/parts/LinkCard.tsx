@@ -1,6 +1,13 @@
 import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
-import { Box } from '@navikt/ds-react'
-import { LinkCard, LinkCardIcon, LinkCardTitle, LinkCardAnchor } from '@navikt/ds-react/LinkCard'
+import { Box, Tag } from '@navikt/ds-react'
+import {
+    LinkCard,
+    LinkCardIcon,
+    LinkCardTitle,
+    LinkCardAnchor,
+    LinkCardDescription,
+    LinkCardFooter,
+} from '@navikt/ds-react/LinkCard'
 import {
     HandShakeHeartIcon,
     ReceptionIcon,
@@ -28,11 +35,11 @@ export interface LinkCardData {
 
 export const LinkCardView = (props: LinkCardData) => {
     const { part } = props
-    const link = validatedLinkCardConfig(part.config)
+    const card = validatedLinkCardConfig(part.config)
 
-    if (!link) return null
+    if (!card) return null
 
-    const Icon = iconMap[link.icon as keyof typeof iconMap] || null
+    const Icon = iconMap[card.iconName as keyof typeof iconMap] || null
 
     return (
         <LinkCard className="bg-pink-100">
@@ -42,7 +49,7 @@ export const LinkCardView = (props: LinkCardData) => {
                     padding="space-8"
                     borderRadius="12"
                     style={
-                        link.iconColor ? { backgroundColor: `var(--${link.iconColor})` } : undefined
+                        card.iconColor ? { backgroundColor: `var(--${card.iconColor})` } : undefined
                     }>
                     <LinkCardIcon>
                         <Icon fontSize="2.5rem" />
@@ -51,11 +58,19 @@ export const LinkCardView = (props: LinkCardData) => {
             )}
             <LinkCardTitle>
                 <LinkCardAnchor
-                    href={link.url || '#'}
-                    {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
-                    {link.text}
+                    href={card.url || '#'}
+                    {...(card.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                    {card.text}
                 </LinkCardAnchor>
             </LinkCardTitle>
+            <LinkCardDescription>{card.description}</LinkCardDescription>
+            <LinkCardFooter>
+                {card.tags?.map((tag, index) => (
+                    <Tag key={index} size="small" variant="neutral">
+                        {tag}
+                    </Tag>
+                ))}
+            </LinkCardFooter>
         </LinkCard>
     )
 }

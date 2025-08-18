@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mixin xmlns="urn:enonic:xp:model:1.0">
     <form>    
-        <input name="icon-name" type="ComboBox">
+        <input name="iconName" type="ComboBox">
             <label>Ikon</label>
             <occurrences minimum="0" maximum="1"/>
             <config>

@@ -43,6 +43,11 @@ export type LinkCard = {
   text?: string;
 
   /**
+   * Beskrivelse
+   */
+  description?: string;
+
+  /**
    * Ikon
    */
   "icon-name"?: "hand-shake-heart" | "reception" | "chat-2" | "hand-shake" | "person-group" | "task-list" | "clock";
@@ -51,4 +56,9 @@ export type LinkCard = {
    * Ikonens bakgrunnsfarge
    */
   iconColor?: "bg-white" | "bg-pink" | "bg-blue" | "bg-orange" | "bg-yellow" | "bg-red";
+
+  /**
+   * Tags
+   */
+  tags?: Array<"sykefravaer" | "arbeidsmiljo" | "partssamarbeid" | "psykiskHelse" | "inkludering" | "omstilling"> | "sykefravaer" | "arbeidsmiljo" | "partssamarbeid" | "psykiskHelse" | "inkludering" | "omstilling";
 };
