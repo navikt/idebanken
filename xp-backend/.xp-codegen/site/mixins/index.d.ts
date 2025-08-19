@@ -3,6 +3,7 @@ export type Alignment = import("./alignment").Alignment;
 export type BackgroundColor = import("./background-color").BackgroundColor;
 export type IconBackgroundColor = import("./icon-background-color").IconBackgroundColor;
 export type IconName = import("./icon-name").IconName;
+export type Image = import("./image").Image;
 export type LinkGroups = import("./link-groups").LinkGroups;
 export type LinkSelector = import("./link-selector").LinkSelector;
 export type SimpleTextEditor = import("./simple-text-editor").SimpleTextEditor;

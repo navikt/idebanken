@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
 import { Box, Tag } from '@navikt/ds-react'
 import {
@@ -7,6 +8,7 @@ import {
     LinkCardAnchor,
     LinkCardDescription,
     LinkCardFooter,
+    LinkCardImage,
 } from '@navikt/ds-react/LinkCard'
 import {
     HandShakeHeartIcon,
@@ -40,9 +42,16 @@ export const LinkCardView = (props: LinkCardData) => {
     if (!card) return null
 
     const Icon = iconMap[card.iconName as keyof typeof iconMap] || null
+    const imageUrl = card.image?.imageUrl || card.image?.mediaUrl || null
+    const altText = card.image?.data?.altText || card.image?.data?.caption || 'Illustrasjonsbilde'
 
     return (
-        <LinkCard className="bg-pink-100">
+        <LinkCard className={card.bgColor || 'bg-pink-100'}>
+            {imageUrl && (
+                <LinkCardImage aspectRatio="16/8">
+                    <img src={imageUrl} alt={altText} width="700" />
+                </LinkCardImage>
+            )}
             {Icon && (
                 <Box
                     asChild

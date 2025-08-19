@@ -45,10 +45,10 @@ export type Button = {
   /**
    * Button variant
    */
-  variant: "primary" | "secondary" | "tertiary";
+  variant: "primary" | "secondary" | "tertiary" | "link";
 
   /**
    * Button size
    */
-  size: "medium" | "small" | "xsmall";
+  size?: "medium" | "small" | "xsmall";
 };

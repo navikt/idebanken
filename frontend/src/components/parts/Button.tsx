@@ -25,7 +25,7 @@ export const ButtonView = ({
             <Link
                 as={NextLink}
                 href={btn.url || '#'}
-                className="text-inherit navds-heading--medium">
+                className="text-inherit navds-heading--medium hover:underline hover:[text-decoration-thickness:0.111em]">
                 {btn.text}
             </Link>
         )

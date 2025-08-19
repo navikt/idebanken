@@ -1,6 +1,6 @@
 import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
-import { imageQuery, linkQuery } from './queries/parts'
+import { imageQuery, linkQuery, linkCardQuery } from './queries/parts'
 import MainPage from './pages/Main'
 import '@enonic/nextjs-adapter/baseMappings'
 import TwoColumnLayout from './layouts/TwoColumnLayout'
@@ -17,6 +17,7 @@ import TitleIngressView from '~/components/parts/TitleIngress'
 import { HeadingViewPart } from '~/components/parts/Heading'
 import CrashCourse from '~/components/contentType/CrashCourse'
 import SearchView from '~/components/parts/SearchView'
+import ThreeColumnLayout from './layouts/ThreeColumnLayout'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -43,6 +44,9 @@ ComponentRegistry.addLayout(`${APP_NAME}:single-column`, {
 })
 ComponentRegistry.addLayout(`${APP_NAME}:2-column`, {
     view: TwoColumnLayout,
+})
+ComponentRegistry.addLayout(`${APP_NAME}:3-column`, {
+    view: ThreeColumnLayout,
 })
 ComponentRegistry.addLayout(`${APP_NAME}:panel-2-column`, {
     view: PanelLayoutTwoColumn,
@@ -105,7 +109,7 @@ ComponentRegistry.addPart(`${APP_NAME}:accordion`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:link-card`, {
     view: LinkCardView,
-    configQuery: linkQuery,
+    configQuery: linkCardQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:title-ingress`, {

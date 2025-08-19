@@ -48,9 +48,19 @@ export type LinkCard = {
   description?: string;
 
   /**
+   * Bakgrunnsfarge
+   */
+  bgColor: "bg-white" | "bg-extra-light-pink" | "bg-light-pink" | "bg-pink" | "bg-dark-blue";
+
+  /**
+   * Bilde
+   */
+  image?: string;
+
+  /**
    * Ikon
    */
-  "icon-name"?: "hand-shake-heart" | "reception" | "chat-2" | "hand-shake" | "person-group" | "task-list" | "clock";
+  iconName?: "hand-shake-heart" | "reception" | "chat-2" | "hand-shake" | "person-group" | "task-list" | "clock";
 
   /**
    * Ikonens bakgrunnsfarge

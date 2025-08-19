@@ -37,3 +37,25 @@ export const linkQuery = `{
 		}
 	}
 }`
+
+export const imageAndVectorQuery = `{
+    image {
+        ... on media_Image {
+            imageUrl(type: absolute, scale: "height(800)")
+            data {
+                altText
+            }
+        }
+		... on media_Vector {
+            mediaUrl(type: absolute)
+            data {
+                caption
+            }
+        }
+    }
+}`
+
+export const linkCardQuery = `{
+    ${linkQuery.slice(1, -1)}
+    ${imageAndVectorQuery.slice(1, -1)}
+}`

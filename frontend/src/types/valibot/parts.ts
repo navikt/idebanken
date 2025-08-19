@@ -126,6 +126,16 @@ export const infoBoxConfigSchema = object({
 
 export type InfoBoxConfig = InferOutput<typeof infoBoxConfigSchema>
 
+// Image
+export const imageDataSchema = object({
+    mediaUrl: optional(string()),
+    imageUrl: optional(string()),
+    data: object({
+        caption: nullish(string()),
+        altText: nullish(string()),
+    }),
+})
+
 // LinkCard
 export const linkCardConfigSchema = pipe(
     object({
@@ -133,12 +143,14 @@ export const linkCardConfigSchema = pipe(
         description: nullish(string()),
         iconName: nullish(string()),
         iconColor: nullish(string()),
+        image: nullish(imageDataSchema),
         tags: optional(
             pipe(
                 union([string(), array(string())]),
                 transform((value) => (Array.isArray(value) ? value : value ? [value] : []))
             )
         ),
+        bgColor: string(),
         blockOptionSet: blockOptionSetSchema,
     }),
     transform((config) => {
