@@ -1,5 +1,5 @@
 import NextLink from 'next/link'
-import { Button } from '@navikt/ds-react'
+import { Button, Link } from '@navikt/ds-react'
 import { Part_Idebanken_Button } from '~/types/generated.d'
 import { validatedButtonConfig } from '~/utils/runtimeValidation'
 import { MouseEventHandler } from 'react'
@@ -20,9 +20,19 @@ export const ButtonView = ({
 
     if (!btn) return null
 
+    if (btn.variant === 'link') {
+        return (
+            <Link
+                as={NextLink}
+                href={btn.url || '#'}
+                className="text-inherit navds-heading--medium hover:underline hover:[text-decoration-thickness:0.111em]">
+                {btn.text}
+            </Link>
+        )
+    }
     const buttonProps = {
         variant: btn.variant,
-        size: btn.size,
+        size: btn.size || 'medium',
         children: btn.text,
         ...(btn.external ? { target: '_blank' } : {}),
         ...(btn.url ? { as: NextLink, href: btn.url || '#' } : { onClick }),

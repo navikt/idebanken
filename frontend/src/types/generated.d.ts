@@ -668,6 +668,7 @@ export type LayoutComponentDataConfig = {
 export type Layout_Idebanken_ComponentDataApplicationConfig = {
   __typename?: 'Layout_idebanken_ComponentDataApplicationConfig';
   _2_column?: Maybe<Layout_Idebanken__2_Column>;
+  _3_column?: Maybe<Layout_Idebanken__3_Column>;
   panel_2_column?: Maybe<Layout_Idebanken_Panel_2_Column>;
   single_column?: Maybe<Layout_Idebanken_Single_Column>;
 };
@@ -678,6 +679,13 @@ export type Layout_Idebanken__2_Column = {
   bgColor?: Maybe<Scalars['String']['output']>;
   breakLeftFirst?: Maybe<Scalars['Boolean']['output']>;
   leftSpan?: Maybe<Scalars['String']['output']>;
+};
+
+/** Layout component application config for application ['idebanken'] and descriptor ['3-column'] */
+export type Layout_Idebanken__3_Column = {
+  __typename?: 'Layout_idebanken__3_column';
+  bgColor?: Maybe<Scalars['String']['output']>;
+  stackOrder?: Maybe<Scalars['String']['output']>;
 };
 
 /** Layout component application config for application ['idebanken'] and descriptor ['panel-2-column'] */
@@ -1058,10 +1066,21 @@ export type Part_Idebanken_Info_Box_InfoBoxItemsSimpleTextEditorArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
 export type Part_Idebanken_Link_Card = {
   __typename?: 'Part_idebanken_link_card';
+  bgColor?: Maybe<Scalars['String']['output']>;
   blockOptionSet?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet>;
+  description?: Maybe<Scalars['String']['output']>;
   iconColor?: Maybe<Scalars['String']['output']>;
-  icon_name?: Maybe<Scalars['String']['output']>;
+  iconName?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Content>;
+  tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   text?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
+export type Part_Idebanken_Link_CardTagsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Select link type */

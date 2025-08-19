@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<layout xmlns="urn:enonic:xp:model:1.0">
+    <display-name>3 columns</display-name>
+    <description>Gir venstre, midten og høyre regioner med lik bredde</description>
+    <form>
+        <mixin name="background-color"/>
+        <input name="stackOrder" type="ComboBox">
+            <label>Mobilvisning - Rekkefølge</label>
+            <help-text>Velg rekkefølge på kolonnene for mobilvisning</help-text>
+            <occurrences minimum="1" maximum="1"/>
+            <config>
+                <option value="left-center-right">Venstre - Midten - Høyre</option>
+                <option value="center-left-right">Midten - Venstre - Høyre</option>
+                <option value="right-center-left">Høyre - Midten - Venstre</option>
+            </config>
+            <default>left-center-right</default>
+        </input>
+    </form>
+    <regions>
+        <region name="left"/>
+        <region name="center"/>
+        <region name="right"/>
+    </regions>
+</layout>
