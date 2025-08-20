@@ -46,7 +46,7 @@ export const LinkCardView = (props: LinkCardData) => {
     const altText = card.image?.data?.altText || card.image?.data?.caption || 'Illustrasjonsbilde'
 
     return (
-        <LinkCard className={card.bgColor || 'bg-pink-100'}>
+        <LinkCard className={`h-full ${card.bgColor || 'bg-pink-100'}`}>
             {imageUrl && (
                 <LinkCardImage aspectRatio="16/8">
                     <img src={imageUrl} alt={altText} width="700" />
