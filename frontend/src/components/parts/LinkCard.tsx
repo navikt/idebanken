@@ -72,14 +72,16 @@ export const LinkCardView = (props: LinkCardData) => {
                     {card.text}
                 </LinkCardAnchor>
             </LinkCardTitle>
-            <LinkCardDescription>{card.description}</LinkCardDescription>
-            <LinkCardFooter>
-                {card.tags?.map((tag, index) => (
-                    <Tag key={index} size="small" variant="neutral">
-                        {tag}
-                    </Tag>
-                ))}
-            </LinkCardFooter>
+            {card.description && <LinkCardDescription>{card.description}</LinkCardDescription>}
+            {card.tags && card.tags.length > 0 && (
+                <LinkCardFooter>
+                    {card.tags?.map((tag, index) => (
+                        <Tag key={index} size="small" variant="neutral">
+                            {tag}
+                        </Tag>
+                    ))}
+                </LinkCardFooter>
+            )}
         </LinkCard>
     )
 }
