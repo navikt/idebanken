@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { draftMode, headers } from 'next/headers'
 import Script from 'next/script'
+import FrontPageDecoration from '~/components/parts/FrontPageDecoration'
 
 import '~/styles/globals.css'
 
@@ -30,16 +31,10 @@ export default async function RootLayout({ children }: LayoutProps) {
                     <></>
                 )}
             </head>
-            <div className="relative">{children}</div>
-            <div
-                aria-hidden
-                className="pointer-events-none absolute top-0 right-0 z-10
-                    hidden md:block
-                    md:h-[50vh] lg:h-[70vh]
-                    md:w-[800px] lg:w-[1200px]
-                    bg-[url('/images/circles.svg')] bg-no-repeat bg-right-top
-                    md:bg-[length:auto_50vh] lg:bg-[length:auto_70vh]"
-            />
+            <div className="relative">
+                {children}
+                <FrontPageDecoration />
+            </div>
         </>
     )
 }
