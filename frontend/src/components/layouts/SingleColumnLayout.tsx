@@ -39,6 +39,7 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
             backgroundStyle={backgroundStyle}>
             <Box
                 className={classNames(
+                    'relative z-20',
                     layout.config?.alignment ? `text-${layout.config.alignment}` : 'text-left'
                 )}>
                 <RegionView

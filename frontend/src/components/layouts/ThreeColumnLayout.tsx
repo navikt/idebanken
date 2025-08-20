@@ -65,7 +65,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                 columns={{ xs: 1, md: 12 }}>
                 <div
                     className={`
-                        col-span-1 md:col-span-${columnSpan}
+                        z-20 col-span-1 md:col-span-${columnSpan}
                         ${getOrderClass('left')}
                     `}>
                     <RegionView
@@ -78,7 +78,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                 </div>
                 <div
                     className={`
-                        col-span-1 md:col-span-${columnSpan}
+                        z-20 col-span-1 md:col-span-${columnSpan}
                         ${getOrderClass('center')}
                     `}>
                     <RegionView
@@ -91,7 +91,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                 </div>
                 <div
                     className={`
-                        col-span-1 md:col-span-${columnSpan}
+                        z-20 col-span-1 md:col-span-${columnSpan}
                         ${getOrderClass('right')}
                     `}>
                     <RegionView

@@ -30,7 +30,11 @@ export default async function RootLayout({ children }: LayoutProps) {
                     <></>
                 )}
             </head>
-            {children}
+            <div className="relative">{children}</div>
+            <div
+                aria-hidden
+                className="pointer-events-none absolute top-0 right-0 z-10 h-[60vh] w-[1200px] bg-[url('/images/circles.svg')] bg-no-repeat bg-right-top bg-[length:auto_60vh]"
+            />
         </>
     )
 }

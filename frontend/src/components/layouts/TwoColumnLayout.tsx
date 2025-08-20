@@ -40,7 +40,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                 columns={{ xs: 1, md: 12 }}>
                 <div
                     className={`
-						col-span-1 md:col-span-${leftSpan}
+						z-20 col-span-1 md:col-span-${leftSpan}
 						${breakLeftFirst ? 'max-md:order-1' : 'max-md:order-2'}
 					`}>
                     <RegionView
@@ -53,7 +53,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                 </div>
                 <div
                     className={`
-						col-span-1 md:col-span-${rightSpan}
+						z-20 col-span-1 md:col-span-${rightSpan}
 						${breakLeftFirst ? 'max-md:order-2' : 'max-md:order-1'}
 					`}>
                     <RegionView

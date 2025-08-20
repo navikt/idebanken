@@ -29,7 +29,7 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                 as="header"
                 bgColor="bg-brand-white"
                 className="relative"
-                customClassNames="shadow-[0_-1px_0_0_#CFCFCF_inset]">
+                customClassNames="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-40">
                 <HStack
                     align="center"
                     justify="space-between"
