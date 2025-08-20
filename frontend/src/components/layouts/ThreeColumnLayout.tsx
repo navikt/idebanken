@@ -57,6 +57,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
     return (
         <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor} className="py-6">
             <HGrid
+                className="relative z-20"
                 gap={{
                     xs: 'space-16',
                     lg: 'space-20',
@@ -65,7 +66,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                 columns={{ xs: 1, md: 12 }}>
                 <div
                     className={`
-                        z-20 col-span-1 md:col-span-${columnSpan}
+                        col-span-1 md:col-span-${columnSpan}
                         ${getOrderClass('left')}
                     `}>
                     <RegionView
@@ -78,7 +79,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                 </div>
                 <div
                     className={`
-                        z-20 col-span-1 md:col-span-${columnSpan}
+                        col-span-1 md:col-span-${columnSpan}
                         ${getOrderClass('center')}
                     `}>
                     <RegionView
@@ -91,7 +92,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                 </div>
                 <div
                     className={`
-                        z-20 col-span-1 md:col-span-${columnSpan}
+                        col-span-1 md:col-span-${columnSpan}
                         ${getOrderClass('right')}
                     `}>
                     <RegionView
