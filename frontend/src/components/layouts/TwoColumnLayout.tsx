@@ -32,6 +32,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
     return (
         <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor} className="py-6">
             <HGrid
+                className="relative z-20 items-stretch"
                 gap={{
                     xs: 'space-16',
                     lg: 'space-20',
@@ -42,6 +43,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                     className={`
 						col-span-1 md:col-span-${leftSpan}
 						${breakLeftFirst ? 'max-md:order-1' : 'max-md:order-2'}
+                        h-full
 					`}>
                     <RegionView
                         className="h-full flex flex-col gap-4"
@@ -55,6 +57,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                     className={`
 						col-span-1 md:col-span-${rightSpan}
 						${breakLeftFirst ? 'max-md:order-2' : 'max-md:order-1'}
+                        h-full
 					`}>
                     <RegionView
                         className="h-full flex flex-col gap-4"

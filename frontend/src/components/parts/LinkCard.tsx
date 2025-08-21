@@ -46,7 +46,7 @@ export const LinkCardView = (props: LinkCardData) => {
     const altText = card.image?.data?.altText || card.image?.data?.caption || 'Illustrasjonsbilde'
 
     return (
-        <LinkCard className={card.bgColor || 'bg-pink-100'}>
+        <LinkCard className={`h-full ${card.bgColor || 'bg-pink-100'}`}>
             {imageUrl && (
                 <LinkCardImage aspectRatio="16/8">
                     <img src={imageUrl} alt={altText} width="700" />
@@ -72,14 +72,16 @@ export const LinkCardView = (props: LinkCardData) => {
                     {card.text}
                 </LinkCardAnchor>
             </LinkCardTitle>
-            <LinkCardDescription>{card.description}</LinkCardDescription>
-            <LinkCardFooter>
-                {card.tags?.map((tag, index) => (
-                    <Tag key={index} size="small" variant="neutral">
-                        {tag}
-                    </Tag>
-                ))}
-            </LinkCardFooter>
+            {card.description && <LinkCardDescription>{card.description}</LinkCardDescription>}
+            {card.tags && card.tags.length > 0 && (
+                <LinkCardFooter>
+                    {card.tags?.map((tag, index) => (
+                        <Tag key={index} size="small" variant="neutral">
+                            {tag}
+                        </Tag>
+                    ))}
+                </LinkCardFooter>
+            )}
         </LinkCard>
     )
 }

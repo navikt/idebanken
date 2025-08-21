@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { draftMode, headers } from 'next/headers'
 import Script from 'next/script'
+import FrontPageDecoration from '~/components/parts/FrontPageDecoration'
 
 import '~/styles/globals.css'
 
@@ -30,7 +31,10 @@ export default async function RootLayout({ children }: LayoutProps) {
                     <></>
                 )}
             </head>
-            {children}
+            <div className="relative">
+                {children}
+                <FrontPageDecoration />
+            </div>
         </>
     )
 }
