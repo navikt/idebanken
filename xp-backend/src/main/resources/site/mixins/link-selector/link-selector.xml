@@ -13,6 +13,8 @@
                             <label>Select content</label>
                             <occurrences minimum="0" maximum="1"/>
                             <config>
+                                <allowContentType>idebanken:guide</allowContentType>
+                                <allowContentType>idebanken:section-page</allowContentType>
                                 <allowPath>${site}/*</allowPath>
                             </config>
                         </input> 
