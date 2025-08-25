@@ -462,6 +462,7 @@ export type HeadlessCms = {
   getSite?: Maybe<Portal_Site>;
   getType?: Maybe<ContentType>;
   getTypes?: Maybe<Array<Maybe<ContentType>>>;
+  guidesUnderSection?: Maybe<Array<Idebanken_Guide>>;
   header: Array<LinkGroups>;
   query?: Maybe<Array<Maybe<Content>>>;
   queryConnection?: Maybe<QueryContentConnection>;
@@ -504,6 +505,12 @@ export type HeadlessCmsGetPermissionsArgs = {
 /** Headless CMS */
 export type HeadlessCmsGetTypeArgs = {
   name: Scalars['String']['input'];
+};
+
+
+/** Headless CMS */
+export type HeadlessCmsGuidesUnderSectionArgs = {
+  section: Scalars['String']['input'];
 };
 
 

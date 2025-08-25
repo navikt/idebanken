@@ -2,7 +2,8 @@ import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
 import { Category as XDataCategory } from '@xp-types/site/x-data'
 import { forceArray } from '/lib/utils/array-utils'
-import { get as getContent, query } from '/lib/xp/content'
+import { get as getContent, query, getChildren } from '/lib/xp/content'
+import type { Content } from '/lib/xp/content'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { runInContext } from '/lib/repos/run-in-context'
 import { getSiteConfig } from '/lib/utils/site-config'
@@ -18,6 +19,9 @@ type LinkGroups = Array<{
     title?: string
     links: Array<ProcessedOverridableLink>
 }>
+
+type EmptyRecord = Record<string, unknown>
+type GuidesUnderSectionArgs = { section?: string }
 
 export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL): Extensions {
     return {
@@ -92,7 +96,7 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
             },
             HeadlessCms: {
                 header: (
-                    _env: DataFetchingEnvironment<object, LocalContextRecord, object>
+                    _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
                 ): LinkGroups => {
                     return runInContext({ asAdmin: true }, () => {
                         const menuConfig = getSiteConfig()?.header
@@ -101,7 +105,7 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                     })
                 },
                 footer: (
-                    _env: DataFetchingEnvironment<object, LocalContextRecord, object>
+                    _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
                 ): {
                     linkGroups: LinkGroups
                 } => {
@@ -116,6 +120,29 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                         }
                     })
                 },
+                guidesUnderSection: (
+                    rawEnv: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
+                ) =>
+                    runInContext({ asAdmin: true }, () => {
+                        const env = rawEnv as typeof rawEnv & { arguments?: GuidesUnderSectionArgs }
+                        const sectionPath = getSectionArg(env)
+                        if (!sectionPath) return []
+                        // Expect exact form /idebanken/<section-slug>
+                        if (!/^\/idebanken\/[^/]+$/.test(sectionPath)) return []
+
+                        const parent = getContent({ key: sectionPath }) as Content<unknown> | null
+                        if (!parent) return []
+
+                        // Fetch direct children
+                        const rawChildren = getChildren({ key: parent._id, count: 1000 })
+                        type ChildrenObj = { hits?: Array<Content<unknown>> }
+                        const children: Array<Content<unknown>> = Array.isArray(rawChildren)
+                            ? (rawChildren as Array<Content<unknown>>)
+                            : ((rawChildren as ChildrenObj).hits ?? [])
+
+                        // Ensure only guides since field type is idebanken_Guide
+                        return children.filter((c) => c.type === 'idebanken:guide')
+                    }),
             },
         },
         creationCallbacks: {
@@ -134,10 +161,22 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                     footer: {
                         type: reference('Footer'),
                     },
+                    guidesUnderSection: {
+                        type: list(nonNull(reference('idebanken_Guide'))),
+                        args: { section: nonNull(GraphQLString) },
+                    },
                 })
             },
         },
     }
+}
+
+function getSectionArg(env: unknown): string | undefined {
+    const e = env as { arguments?: GuidesUnderSectionArgs; args?: GuidesUnderSectionArgs }
+    const raw = e.arguments?.section ?? e.args?.section
+    if (!raw) return undefined
+    const trimmed = raw.trim()
+    return trimmed.length ? trimmed : undefined
 }
 
 function resolveLinkGroups(
