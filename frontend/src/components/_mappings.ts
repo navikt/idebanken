@@ -18,6 +18,7 @@ import { HeadingViewPart } from '~/components/parts/Heading'
 import CrashCourse from '~/components/contentType/CrashCourse'
 import SearchView from '~/components/parts/SearchView'
 import ThreeColumnLayout from './layouts/ThreeColumnLayout'
+import { SectionGuidesView } from './parts/SectionGuides'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -118,4 +119,15 @@ ComponentRegistry.addPart(`${APP_NAME}:title-ingress`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:search-view`, {
     view: SearchView,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:section-guides-view`, {
+    view: SectionGuidesView,
+    // configQuery: `{
+    //     overrideSection { _path }
+    //     selectedGuides { _path }
+    //     limit
+    //     showHeading
+    //     headingLevel
+    // }`,
 })

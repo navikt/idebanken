@@ -935,6 +935,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   info_box?: Maybe<Part_Idebanken_Info_Box>;
   link_card?: Maybe<Part_Idebanken_Link_Card>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
+  section_guides_view?: Maybe<Part_Idebanken_Section_Guides_View>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
   tip_panel?: Maybe<Part_Idebanken_Tip_Panel>;
 };
@@ -1120,6 +1121,22 @@ export type Part_Idebanken_Link_Card_InternalLink = {
 export type Part_Idebanken_Search_View = {
   __typename?: 'Part_idebanken_search_view';
   text?: Maybe<Scalars['String']['output']>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['section-guides-view'] */
+export type Part_Idebanken_Section_Guides_View = {
+  __typename?: 'Part_idebanken_section_guides_view';
+  limit?: Maybe<Scalars['String']['output']>;
+  overrideSection?: Maybe<Content>;
+  selectedGuides?: Maybe<Array<Maybe<Content>>>;
+  showHeading?: Maybe<Scalars['Boolean']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['section-guides-view'] */
+export type Part_Idebanken_Section_Guides_ViewSelectedGuidesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['text-editor'] */
