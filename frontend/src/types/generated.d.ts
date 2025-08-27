@@ -2329,6 +2329,9 @@ export type Idebanken_GuidePageUrlArgs = {
 /** Guide - idebanken:guide data */
 export type Idebanken_Guide_Data = {
   __typename?: 'idebanken_Guide_Data';
+  iconColor?: Maybe<Scalars['String']['output']>;
+  iconName?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Content>;
   ingress?: Maybe<RichText>;
   title?: Maybe<Scalars['String']['output']>;
 };

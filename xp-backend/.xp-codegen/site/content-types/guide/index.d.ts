@@ -9,4 +9,19 @@ export type Guide = {
    * Ingress
    */
   ingress: string;
+
+  /**
+   * Bilde
+   */
+  image?: string;
+
+  /**
+   * Ikon
+   */
+  iconName?: "hand-shake-heart" | "reception" | "chat-2" | "hand-shake" | "person-group" | "task-list" | "clock";
+
+  /**
+   * Ikonens bakgrunnsfarge
+   */
+  iconColor?: "bg-white" | "bg-pink" | "bg-blue" | "bg-orange" | "bg-yellow" | "bg-red";
 };

@@ -8,5 +8,8 @@
     <allow-child-content-type>(?!idebanken:crash-course-slide$)(?!idebanken:category$)*</allow-child-content-type>
     <form>
         <mixin name="title-ingress"/>
+        <mixin name="image" />
+        <mixin name="icon-name" />
+        <mixin name="icon-background-color" />
     </form>
 </content-type>
