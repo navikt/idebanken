@@ -8,6 +8,9 @@ import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalC
 import { runInContext } from '/lib/repos/run-in-context'
 import { getSiteConfig } from '/lib/utils/site-config'
 import { SiteConfig } from '@xp-types/site'
+import { logger } from '/lib/utils/logging'
+
+logger.debug('Guillotine initialized')
 
 type Source<T> = {
     __contentId: string
@@ -21,7 +24,11 @@ type LinkGroups = Array<{
 }>
 
 type EmptyRecord = Record<string, unknown>
-type GuidesUnderSectionArgs = { section?: string }
+type GuidesUnderSectionArgs = {
+    section?: string
+    selectedGuidePaths?: string[]
+    limit?: string // keep as string (GraphQLString) then parse
+}
 
 export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL): Extensions {
     return {
@@ -124,24 +131,41 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                     rawEnv: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
                 ) =>
                     runInContext({ asAdmin: true }, () => {
-                        const env = rawEnv as typeof rawEnv & { arguments?: GuidesUnderSectionArgs }
-                        const sectionPath = getSectionArg(env)
+                        const args = getArgs<GuidesUnderSectionArgs>(rawEnv)
+
+                        logger.info(JSON.stringify(args))
+
+                        const sectionPath = getSectionArg(rawEnv)
                         if (!sectionPath) return []
-                        // Expect exact form /idebanken/<section-slug>
                         if (!/^\/idebanken\/[^/]+$/.test(sectionPath)) return []
 
                         const parent = getContent({ key: sectionPath }) as Content<unknown> | null
-                        if (!parent) return []
+                        if (!parent || parent.type !== 'idebanken:section-page') return []
 
-                        // Fetch direct children
                         const rawChildren = getChildren({ key: parent._id, count: 1000 })
                         type ChildrenObj = { hits?: Array<Content<unknown>> }
                         const children: Array<Content<unknown>> = Array.isArray(rawChildren)
                             ? (rawChildren as Array<Content<unknown>>)
                             : ((rawChildren as ChildrenObj).hits ?? [])
 
-                        // Ensure only guides since field type is idebanken_Guide
-                        return children.filter((c) => c.type === 'idebanken:guide')
+                        let guides = children.filter((c) => c.type === 'idebanken:guide')
+
+                        if (args.selectedGuidePaths && args.selectedGuidePaths.length) {
+                            const wanted = args.selectedGuidePaths
+                                .map((p) => p && p.trim())
+                                .filter(Boolean) as string[]
+                            const order = new Map(wanted.map((p, i) => [p, i]))
+                            guides = guides
+                                .filter((g) => order.has(g._path))
+                                .sort((a, b) => order.get(a._path)! - order.get(b._path)!)
+                        }
+
+                        if (args.limit) {
+                            const lim = parseInt(args.limit, 10)
+                            if (lim > 0 && guides.length > lim) guides = guides.slice(0, lim)
+                        }
+
+                        return guides
                     }),
             },
         },
@@ -163,7 +187,11 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                     },
                     guidesUnderSection: {
                         type: list(nonNull(reference('idebanken_Guide'))),
-                        args: { section: nonNull(GraphQLString) },
+                        args: {
+                            section: nonNull(GraphQLString),
+                            selectedGuidePaths: list(nonNull(GraphQLString)),
+                            limit: GraphQLString,
+                        },
                     },
                 })
             },
@@ -171,9 +199,14 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
     }
 }
 
+function getArgs<T extends object>(env: unknown): T {
+    const e = env as { arguments?: T; args?: T }
+    return (e.arguments || e.args || {}) as T
+}
+
 function getSectionArg(env: unknown): string | undefined {
-    const e = env as { arguments?: GuidesUnderSectionArgs; args?: GuidesUnderSectionArgs }
-    const raw = e.arguments?.section ?? e.args?.section
+    const args = getArgs<GuidesUnderSectionArgs>(env)
+    const raw = args.section
     if (!raw) return undefined
     const trimmed = raw.trim()
     return trimmed.length ? trimmed : undefined

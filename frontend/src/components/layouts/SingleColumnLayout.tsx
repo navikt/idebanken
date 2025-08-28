@@ -23,6 +23,7 @@ interface SingleColumnLayoutProps {
 const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
     const { common, meta, layout } = props
     const regions = layout.regions
+
     const backgroundStyle = layout.config?.backgroundImage
         ? {
               backgroundImage: 'url(/images/circles.svg)',

@@ -1,5 +1,5 @@
 import { fetchGuillotine } from '@enonic/nextjs-adapter/server'
-import type { LocaleMapping } from '@enonic/nextjs-adapter'
+import type { ContentApiBaseBodyVariables, LocaleMapping } from '@enonic/nextjs-adapter'
 import { getContentApiUrl } from '@enonic/nextjs-adapter'
 
 type Guide = {
@@ -18,6 +18,7 @@ interface PartProps {
         descriptor: string
         config: null | {
             overrideSection?: { _path: string }
+            selectedGuides?: Array<string>
             limit?: number
             showHeading?: boolean
         }
@@ -33,31 +34,29 @@ interface PartProps {
     }
 }
 
-const QUERY = `query($section:String!){
+const QUERY = `query($section:String!, $selected:[String!], $limit:String!){
     guillotine {
-        guidesUnderSection(section:$section){
+        guidesUnderSection(
+            section:$section,
+            selectedGuidePaths:$selected,
+            limit:$limit
+        ){
             _path
             displayName
             ... on idebanken_Guide { 
                 data { 
                     title 
-                    ingress {
-                        processedHtml
-                    }
+                    ingress { processedHtml }
                     iconName
                     iconColor
                     image {
                         ... on media_Image {
-                            imageUrl(type: absolute, scale: "height(800)")
-                            data {
-                                altText
-                            }
+                            imageUrl(type:absolute scale:"height(800)")
+                            data { altText }
                         }
                         ... on media_Vector {
-                            mediaUrl(type: absolute)
-                            data {
-                                caption
-                            }
+                            mediaUrl(type:absolute)
+                            data { caption }
                         }
                     }
                 }
@@ -69,16 +68,21 @@ const QUERY = `query($section:String!){
 async function fetchGuides(
     apiUrl: string,
     sectionPath: string,
-    localeMapping: LocaleMapping
+    localeMapping: LocaleMapping,
+    selectedPaths?: string[],
+    limitStr?: string
 ): Promise<Guide[]> {
+    const variables = {
+        section: sectionPath,
+        ...(selectedPaths && selectedPaths.length ? { selected: selectedPaths } : {}),
+        ...(limitStr ? { limit: limitStr } : {}),
+    } as unknown as ContentApiBaseBodyVariables
+
     const res = (await fetchGuillotine(apiUrl, localeMapping, {
         method: 'POST',
-        body: {
-            query: QUERY,
-            variables: { section: sectionPath },
-        },
+        body: { query: QUERY, variables },
     })) as { guillotine?: { guidesUnderSection?: Guide[] } }
-    console.log('guilliotine', res)
+
     return res.guillotine?.guidesUnderSection ?? []
 }
 
@@ -93,12 +97,15 @@ export async function SectionGuidesView(props: PartProps) {
         site: props.common.getSite._path,
     }
 
+    const limit = cfg.limit && cfg.limit > 0 ? cfg.limit : undefined
+    const selectedPaths = cfg.selectedGuides?.length ? cfg.selectedGuides.map((g) => g) : undefined
+    const limitStr = limit ? String(limit) : undefined
+
     const apiUrl = getContentApiUrl({ contentPath: props.meta.apiUrl ?? '' })
 
-    const guides = await fetchGuides(apiUrl, sectionPath, localeMapping)
+    const guides = await fetchGuides(apiUrl, sectionPath, localeMapping, selectedPaths, limitStr)
 
-    const limit = cfg.limit && cfg.limit > 0 ? cfg.limit : undefined
-    const sliced = limit ? guides.slice(0, limit) : guides
+    const sliced = guides
     const showHeading = cfg.showHeading !== false
 
     return (
@@ -110,7 +117,6 @@ export async function SectionGuidesView(props: PartProps) {
                     {sliced.map((g) => (
                         <li key={g._path}>
                             {g.data?.title || g.displayName}
-                            <br />
                             {g.data?.ingress?.processedHtml && (
                                 <div
                                     dangerouslySetInnerHTML={{

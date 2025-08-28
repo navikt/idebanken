@@ -510,7 +510,9 @@ export type HeadlessCmsGetTypeArgs = {
 
 /** Headless CMS */
 export type HeadlessCmsGuidesUnderSectionArgs = {
+  limit?: InputMaybe<Scalars['String']['input']>;
   section: Scalars['String']['input'];
+  selectedGuidePaths?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
