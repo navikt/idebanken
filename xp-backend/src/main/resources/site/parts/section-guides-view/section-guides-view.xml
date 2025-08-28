@@ -25,5 +25,14 @@
             <label>Vis seksjonstittel</label>
             <default>true</default>
         </input>
+         <input name="cardType" type="RadioButton">
+            <label>Korttype</label>
+            <occurrences minimum="1" maximum="1"/>  
+            <config>
+                <option value="withIcon">Med ikon</option>
+                <option value="withImage">Med bilde</option>  
+            </config>
+            <default>withIcon</default>  
+        </input>
     </form>
 </part>

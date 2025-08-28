@@ -11,6 +11,11 @@ export type Guide = {
   ingress: string;
 
   /**
+   * Kort beskrivelse (brukes i listevisning)
+   */
+  description?: string;
+
+  /**
    * Bilde
    */
   image?: string;
