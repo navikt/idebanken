@@ -3,6 +3,7 @@ import type { ContentApiBaseBodyVariables, LocaleMapping } from '@enonic/nextjs-
 import { getContentApiUrl } from '@enonic/nextjs-adapter'
 import { LinkCardView } from './LinkCard'
 import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
+import { HGrid } from '@navikt/ds-react'
 
 type GuideImage =
     | {
@@ -31,6 +32,7 @@ interface PartProps {
             selectedGuides?: Array<string>
             limit?: number
             showHeading?: boolean
+            cardType?: 'withIcon' | 'withImage'
         }
     }
     common: {
@@ -97,65 +99,91 @@ async function fetchGuides(
 }
 
 // Helper: map a Guide -> LinkCard part config
-function guideToLinkCardConfig(g: Guide): Part_Idebanken_Link_Card {
+function guideToLinkCardConfig(
+    g: Guide,
+    cardType: 'withIcon' | 'withImage' | undefined
+): Part_Idebanken_Link_Card {
     return {
         // Required fields for validatedLinkCardConfig (supply safe fallbacks)
         url: g._path,
         external: false,
         text: g.data?.title || g.displayName,
         description: g.data?.description || '',
-        iconName: g.data?.iconName || '',
-        iconColor: g.data?.iconColor || '',
+        iconName: cardType === 'withIcon' ? g.data?.iconName || null : null,
+        iconColor: cardType === 'withIcon' ? g.data?.iconColor || null : null,
         bgColor: '', // or choose a default e.g. 'bg-pink-100'
         tags: [], // no tags yet
-        image: g.data?.image || undefined,
+        image: cardType === 'withImage' ? g.data?.image || null : null,
     } as Part_Idebanken_Link_Card
+}
+
+// Helper to split guides into N columns (round‑robin)
+function splitColumns<T>(items: T[], cols: number): T[][] {
+    const buckets: T[][] = Array.from({ length: cols }, () => [])
+    items.forEach((it, i) => buckets[i % cols].push(it))
+    return buckets
 }
 
 export async function SectionGuidesView(props: PartProps) {
     const cfg = props.part.config || {}
     const sectionPath = cfg.overrideSection?._path || props.common.get._path
+    const cardType = cfg.cardType
 
     const localeMapping: LocaleMapping = {
         locale: props.meta.locale,
         default: props.meta.locale === props.meta.defaultLocale,
         project: 'idebanken',
         site: props.common.getSite._path,
-    }
+    } as unknown as LocaleMapping
+
+    console.log('cfg.limit', cfg.limit)
 
     const limit = cfg.limit && cfg.limit > 0 ? cfg.limit : undefined
     const selectedPaths = cfg.selectedGuides?.length ? cfg.selectedGuides.map((g) => g) : undefined
     const limitStr = limit ? String(limit) : undefined
-
     const apiUrl = getContentApiUrl({ contentPath: props.meta.apiUrl ?? '' })
 
     const guides = await fetchGuides(apiUrl, sectionPath, localeMapping, selectedPaths, limitStr)
-
     const showHeading = cfg.showHeading !== false
+
+    if (!guides.length) {
+        return (
+            <section>
+                {showHeading && <h2>{props.common.get.displayName || 'Veiledere'}</h2>}
+                <p>Ingen veiledere.</p>
+            </section>
+        )
+    }
+
+    // Decide layout based on cardType
+    const useThreeColumn = cardType === 'withImage'
+    const columns = useThreeColumn ? 3 : 2
+    const spans = useThreeColumn ? 4 : 6 // 12 grid system
+    const grouped = splitColumns(guides, columns)
 
     return (
         <section>
             {showHeading && <h2>{props.common.get.displayName || 'Veiledere'}</h2>}
-            {!guides.length && <p>Ingen veiledere.</p>}
-            {guides.length > 0 && (
-                <div
-                    className="linkcards-grid"
-                    style={{
-                        display: 'grid',
-                        gap: '1rem',
-                        gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))',
-                    }}>
-                    {guides.map((g) => (
-                        <LinkCardView
-                            key={g._path}
-                            part={{
-                                descriptor: 'generated:link-card',
-                                config: guideToLinkCardConfig(g),
-                            }}
-                        />
-                    ))}
-                </div>
-            )}
+            <HGrid
+                columns={{ xs: 1, md: 12 }}
+                gap={{ xs: 'space-16', lg: 'space-20', xl: 'space-24' }}
+                className="items-stretch">
+                {grouped.map((col, idx) => (
+                    <div
+                        key={idx}
+                        className={`col-span-1 md:col-span-${spans} flex flex-col gap-4`}>
+                        {col.map((g) => (
+                            <LinkCardView
+                                key={g._path}
+                                part={{
+                                    descriptor: 'generated:link-card',
+                                    config: guideToLinkCardConfig(g, cardType),
+                                }}
+                            />
+                        ))}
+                    </div>
+                ))}
+            </HGrid>
         </section>
     )
 }

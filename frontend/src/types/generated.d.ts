@@ -1128,6 +1128,7 @@ export type Part_Idebanken_Search_View = {
 /** Part component application config for application ['idebanken'] and descriptor ['section-guides-view'] */
 export type Part_Idebanken_Section_Guides_View = {
   __typename?: 'Part_idebanken_section_guides_view';
+  cardType?: Maybe<Scalars['String']['output']>;
   limit?: Maybe<Scalars['String']['output']>;
   overrideSection?: Maybe<Content>;
   selectedGuides?: Maybe<Array<Maybe<Content>>>;
@@ -2331,6 +2332,7 @@ export type Idebanken_GuidePageUrlArgs = {
 /** Guide - idebanken:guide data */
 export type Idebanken_Guide_Data = {
   __typename?: 'idebanken_Guide_Data';
+  description?: Maybe<Scalars['String']['output']>;
   iconColor?: Maybe<Scalars['String']['output']>;
   iconName?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Content>;

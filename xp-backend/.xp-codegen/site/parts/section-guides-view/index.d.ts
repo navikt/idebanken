@@ -19,4 +19,9 @@ export type SectionGuidesView = {
    * Vis seksjonstittel
    */
   showHeading: boolean;
+
+  /**
+   * Korttype
+   */
+  cardType: "withIcon" | "withImage";
 };
