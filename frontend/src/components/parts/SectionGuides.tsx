@@ -4,6 +4,7 @@ import { getContentApiUrl } from '@enonic/nextjs-adapter'
 import { LinkCardView } from './LinkCard'
 import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
 import { HGrid } from '@navikt/ds-react'
+import { buildLocaleMapping } from '~/utils/buildLocaleMapping'
 
 type GuideImage =
     | {
@@ -37,7 +38,7 @@ interface PartProps {
     }
     common: {
         get: { _path: string; displayName?: string }
-        getSite: { _path: string }
+        getSite: { _path: string; displayName?: string }
     }
     meta: {
         apiUrl: string
@@ -129,14 +130,7 @@ export async function SectionGuidesView(props: PartProps) {
     const sectionPath = cfg.overrideSection?._path || props.common.get._path
     const cardType = cfg.cardType
 
-    const localeMapping: LocaleMapping = {
-        locale: props.meta.locale,
-        default: props.meta.locale === props.meta.defaultLocale,
-        project: 'idebanken',
-        site: props.common.getSite._path,
-    } as unknown as LocaleMapping
-
-    console.log('cfg.limit', cfg.limit)
+    const localeMapping = buildLocaleMapping(props.meta, props.common.getSite)
 
     const limit = cfg.limit && cfg.limit > 0 ? cfg.limit : undefined
     const selectedPaths = cfg.selectedGuides?.length ? cfg.selectedGuides.map((g) => g) : undefined
