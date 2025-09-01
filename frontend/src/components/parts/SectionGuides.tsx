@@ -46,7 +46,7 @@ interface PartProps {
     }
 }
 
-const QUERY = `query($section:String!, $selected:[String!], $limit:String!){
+const QUERY = `query($section:String!, $selected:[String!], $limit:String){
     guillotine {
         guidesUnderSection(
             section:$section,
