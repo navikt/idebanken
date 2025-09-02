@@ -39,6 +39,8 @@ export const LinkCardView = (props: LinkCardData) => {
     const { part } = props
     const card = validatedLinkCardConfig(part.config)
 
+    console.log('LinkCardView card-->', card)
+
     if (!card) return null
 
     const Icon = iconMap[card.iconName as keyof typeof iconMap] || null

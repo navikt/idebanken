@@ -38,6 +38,11 @@ export const linkQuery = `{
 	}
 }`
 
+export const sectionGuidesLinkQuery = `{
+	overrideSection { _path }
+  selectedGuides { _path }
+}`
+
 export const imageAndVectorFields = `
 image {
   ... on media_Image {

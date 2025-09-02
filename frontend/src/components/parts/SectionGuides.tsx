@@ -1,11 +1,12 @@
 import { fetchGuillotine } from '@enonic/nextjs-adapter/server'
-import type { ContentApiBaseBodyVariables, LocaleMapping } from '@enonic/nextjs-adapter'
+import type { ContentApiBaseBodyVariables, LocaleMapping, PartProps } from '@enonic/nextjs-adapter'
 import { getContentApiUrl } from '@enonic/nextjs-adapter'
 import { LinkCardView } from './LinkCard'
 import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
 import { HGrid } from '@navikt/ds-react'
 import { buildLocaleMapping } from '~/utils/buildLocaleMapping'
 import { sectionGuidesQuery } from '~/components/queries/parts'
+import { validatedSectionGuidesConfig } from '~/utils/runtimeValidation'
 
 type GuideImage =
     | {
@@ -23,28 +24,6 @@ type Guide = {
         iconName?: string
         iconColor?: string
         image?: GuideImage
-    }
-}
-
-interface PartProps {
-    part: {
-        descriptor: string
-        config: null | {
-            overrideSection?: { _path: string }
-            selectedGuides?: Array<string>
-            limit?: number
-            showHeading?: boolean
-            cardType?: 'withIcon' | 'withImage'
-        }
-    }
-    common: {
-        get: { _path: string; displayName?: string }
-        getSite: { _path: string; displayName?: string }
-    }
-    meta: {
-        apiUrl: string
-        locale: string
-        defaultLocale: string
     }
 }
 
@@ -69,26 +48,23 @@ async function fetchGuides(
     return res.guillotine?.guidesUnderSection ?? []
 }
 
-// Helper: map a Guide -> LinkCard part config
 function guideToLinkCardConfig(
     g: Guide,
     cardType: 'withIcon' | 'withImage' | undefined
 ): Part_Idebanken_Link_Card {
     return {
-        // Required fields for validatedLinkCardConfig (supply safe fallbacks)
         url: g._path,
         external: false,
         text: g.data?.title || g.displayName,
         description: g.data?.description || '',
         iconName: cardType === 'withIcon' ? g.data?.iconName || null : null,
         iconColor: cardType === 'withIcon' ? g.data?.iconColor || null : null,
-        bgColor: '', // or choose a default e.g. 'bg-pink-100'
+        bgColor: '',
         tags: [], // no tags yet
         image: cardType === 'withImage' ? g.data?.image || null : null,
     } as Part_Idebanken_Link_Card
 }
 
-// Helper to split guides into N columns (round‑robin)
 function splitColumns<T>(items: T[], cols: number): T[][] {
     const buckets: T[][] = Array.from({ length: cols }, () => [])
     items.forEach((it, i) => buckets[i % cols].push(it))
@@ -96,19 +72,24 @@ function splitColumns<T>(items: T[], cols: number): T[][] {
 }
 
 export async function SectionGuidesView(props: PartProps) {
-    const cfg = props.part.config || {}
+    const cfg = validatedSectionGuidesConfig(props.part.config)
+
+    if (!cfg) return null
+
     const sectionPath = cfg.overrideSection?._path || props.common.get._path
     const cardType = cfg.cardType
 
     const localeMapping = buildLocaleMapping(props.meta, props.common.getSite)
 
-    const limit = cfg.limit && cfg.limit > 0 ? cfg.limit : undefined
-    const selectedPaths = cfg.selectedGuides?.length ? cfg.selectedGuides.map((g) => g) : undefined
-    const limitStr = limit ? String(limit) : undefined
+    const limit = cfg.limit && cfg.limit > 0 ? String(cfg.limit) : undefined
+    const selectedPaths = cfg.selectedGuides?.length
+        ? cfg.selectedGuides.map((g) => g._path)
+        : undefined
+    const showHeading = cfg.showHeading !== false
+
     const apiUrl = getContentApiUrl({ contentPath: props.meta.apiUrl ?? '' })
 
-    const guides = await fetchGuides(apiUrl, sectionPath, localeMapping, selectedPaths, limitStr)
-    const showHeading = cfg.showHeading !== false
+    const guides = await fetchGuides(apiUrl, sectionPath, localeMapping, selectedPaths, limit)
 
     if (!guides.length) {
         return (

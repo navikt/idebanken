@@ -1,4 +1,3 @@
-import { Image } from './../types/generated.d'
 import { parse } from 'valibot'
 import {
     AccordionConfig,
@@ -11,6 +10,8 @@ import {
     infoBoxConfigSchema,
     LinkCardConfig,
     linkCardConfigSchema,
+    SectionGuidesConfig,
+    sectionGuidesConfigSchema,
 } from '~/types/valibot/parts'
 import {
     richTextSchema,
@@ -31,6 +32,7 @@ import {
     Part_Idebanken_Heading,
     Part_Idebanken_Info_Box,
     Part_Idebanken_Link_Card,
+    Part_Idebanken_Section_Guides_View,
 } from '~/types/generated.d'
 
 export function validatedHeadingConfig(config: Part_Idebanken_Heading): HeadingConfig | null {
@@ -103,6 +105,17 @@ export function validatedImage(image: ImageDataAdapter | undefined): ImageData |
         return parse(imageSchema, image)
     } catch (e) {
         console.error('Invalid image:', e)
+        return null
+    }
+}
+
+export function validatedSectionGuidesConfig(
+    config: Part_Idebanken_Section_Guides_View | undefined
+): SectionGuidesConfig | null {
+    try {
+        return parse(sectionGuidesConfigSchema, config)
+    } catch (e) {
+        console.error('Invalid section guides config:', e)
         return null
     }
 }

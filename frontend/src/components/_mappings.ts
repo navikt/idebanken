@@ -1,6 +1,6 @@
 import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
-import { imageQuery, linkQuery, linkCardQuery } from './queries/parts'
+import { imageQuery, linkQuery, linkCardQuery, sectionGuidesLinkQuery } from './queries/parts'
 import MainPage from './pages/Main'
 import '@enonic/nextjs-adapter/baseMappings'
 import TwoColumnLayout from './layouts/TwoColumnLayout'
@@ -123,11 +123,5 @@ ComponentRegistry.addPart(`${APP_NAME}:search-view`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:section-guides-view`, {
     view: SectionGuidesView,
-    // configQuery: `{
-    //     overrideSection { _path }
-    //     selectedGuides { _path }
-    //     limit
-    //     showHeading
-    //     headingLevel
-    // }`,
+    configQuery: sectionGuidesLinkQuery,
 })
