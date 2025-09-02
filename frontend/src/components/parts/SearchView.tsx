@@ -3,14 +3,18 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { SearchWrapper, SOK_SEARCH_PARAM } from '~/components/common/SearchWrapper'
-import { HeadingView } from '~/components/parts/Heading'
-import { BodyShort, List, VStack } from '@navikt/ds-react'
-import { ListItem } from '@navikt/ds-react/List'
-import NextLink from 'next/link'
+import { BodyShort, Tag, VStack } from '@navikt/ds-react'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { PartData } from '~/types/graphql-types'
 import { Idebanken_SpecialPage_Data, Part_Idebanken_Search_View } from '~/types/generated'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
+import {
+    LinkCard,
+    LinkCardAnchor,
+    LinkCardDescription,
+    LinkCardFooter,
+    LinkCardTitle,
+} from '@navikt/ds-react/LinkCard'
 
 type SearchResult = {
     total: number
@@ -60,35 +64,44 @@ export default function SearchView({
 
     return (
         <VStack>
-            <SearchWrapper onSubmit={(_) => search(searchParams.get(SOK_SEARCH_PARAM))} />
+            <SearchWrapper
+                aria-controls={'search-status'}
+                onSubmit={(_) => search(searchParams.get(SOK_SEARCH_PARAM))}
+            />
             <VStack>
-                {searchResult ? (
-                    <VStack>
-                        <BodyShort>
-                            {searchResult.total ?? 0} treff på &#34;{searchResult.word}&#34;
-                        </BodyShort>
-                        <List>
-                            {searchResult?.hits?.map((result, index) => (
-                                <ListItem key={index} className="pb-8">
-                                    <NextLink href={result.href}>
-                                        <HeadingView level={'2'} size={'medium'}>
-                                            {result.displayName}
-                                        </HeadingView>
-                                    </NextLink>
-                                    <RichTextView
-                                        className="font-extralight"
-                                        meta={meta}
-                                        data={{ processedHtml: result.highlight }}
-                                        customReplacer={htmlRichTextReplacer}
-                                    />
-                                    <BodyShort>score: {result.score}</BodyShort>
-                                </ListItem>
-                            ))}
-                        </List>
-                    </VStack>
-                ) : (
-                    <></>
-                )}
+                <VStack gap={'2'}>
+                    <BodyShort
+                        id={'search-status'}
+                        role={'status'}
+                        aria-live={'polite'}
+                        className={'pt-4 font-bold'}>
+                        {searchResult
+                            ? `${searchResult?.total ?? 0} treff på «${searchResult?.word ?? ''}»`
+                            : ''}
+                    </BodyShort>
+                    {searchResult?.hits?.map((result, index) => (
+                        <LinkCard key={index}>
+                            <LinkCardTitle>
+                                <LinkCardAnchor href={result.href}>
+                                    {result.displayName}
+                                </LinkCardAnchor>
+                            </LinkCardTitle>
+                            <LinkCardDescription>
+                                <RichTextView
+                                    className="font-extralight"
+                                    meta={meta}
+                                    data={{ processedHtml: result.highlight }}
+                                    customReplacer={htmlRichTextReplacer}
+                                />
+                                <LinkCardFooter>
+                                    <Tag size="small" variant="neutral">
+                                        Score: {result.score}
+                                    </Tag>
+                                </LinkCardFooter>
+                            </LinkCardDescription>
+                        </LinkCard>
+                    ))}
+                </VStack>
             </VStack>
         </VStack>
     )

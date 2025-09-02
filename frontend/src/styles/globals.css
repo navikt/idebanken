@@ -50,30 +50,30 @@
 
     /* Text sizes */
     /*
-    --a-font-size-large: 1.5rem; 
+    --a-font-size-large: 1.5rem;
     --a-font-line-height-xlarge: 2.25rem;
     */
 
     /* Headings */
     /*
-    --a-font-size-heading-2xlarge: 4.5rem; 
-    --a-font-line-height-heading-2xlarge: 5.4rem; 
+    --a-font-size-heading-2xlarge: 4.5rem;
+    --a-font-line-height-heading-2xlarge: 5.4rem;
 
-    --a-font-size-heading-xlarge: 3.75rem; 
-    --a-font-line-height-heading-xlarge: 5.625rem; 
+    --a-font-size-heading-xlarge: 3.75rem;
+    --a-font-line-height-heading-xlarge: 5.625rem;
 
-    --a-font-size-heading-medium: 3.25rem; 
-    --a-font-line-height-heading-medium: 4rem; 
+    --a-font-size-heading-medium: 3.25rem;
+    --a-font-line-height-heading-medium: 4rem;
 
-    --a-font-size-heading-small: 2.25rem; 
-    --a-font-line-height-heading-small: 4rem; 
+    --a-font-size-heading-small: 2.25rem;
+    --a-font-line-height-heading-small: 4rem;
 
-    --a-font-size-heading-xsmall: 2rem; 
-    --a-font-line-height-heading-xsmall: 2.625rem; 
+    --a-font-size-heading-xsmall: 2rem;
+    --a-font-line-height-heading-xsmall: 2.625rem;
     */
 
     /* Radius */
-    --a-border-radius-medium: 60px;
+    /*--a-border-radius-medium: 60px;*/
 
     /* Accordion */
     --ac-accordion-header-border: none;
