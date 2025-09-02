@@ -5,6 +5,7 @@ import { LinkCardView } from './LinkCard'
 import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
 import { HGrid } from '@navikt/ds-react'
 import { buildLocaleMapping } from '~/utils/buildLocaleMapping'
+import { sectionGuidesQuery } from '~/components/queries/parts'
 
 type GuideImage =
     | {
@@ -47,37 +48,6 @@ interface PartProps {
     }
 }
 
-const QUERY = `query($section:String!, $selected:[String!], $limit:String){
-    guillotine {
-        guidesUnderSection(
-            section:$section,
-            selectedGuidePaths:$selected,
-            limit:$limit
-        ){
-            _path
-            displayName
-            ... on idebanken_Guide { 
-                data { 
-                    title 
-                    description
-                    iconName
-                    iconColor
-                    image {
-                        ... on media_Image {
-                            imageUrl(type:absolute scale:"height(800)")
-                            data { altText }
-                        }
-                        ... on media_Vector {
-                            mediaUrl(type:absolute)
-                            data { caption }
-                        }
-                    }
-                }
-            }
-        }
-    }
-}`
-
 async function fetchGuides(
     apiUrl: string,
     sectionPath: string,
@@ -93,7 +63,7 @@ async function fetchGuides(
 
     const res = (await fetchGuillotine(apiUrl, localeMapping, {
         method: 'POST',
-        body: { query: QUERY, variables },
+        body: { query: sectionGuidesQuery, variables },
     })) as { guillotine?: { guidesUnderSection?: Guide[] } }
 
     return res.guillotine?.guidesUnderSection ?? []

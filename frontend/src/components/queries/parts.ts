@@ -38,24 +38,44 @@ export const linkQuery = `{
 	}
 }`
 
-export const imageAndVectorQuery = `{
-    image {
-        ... on media_Image {
-            imageUrl(type: absolute, scale: "height(800)")
-            data {
-                altText
-            }
-        }
-		... on media_Vector {
-            mediaUrl(type: absolute)
-            data {
-                caption
-            }
-        }
-    }
-}`
+export const imageAndVectorFields = `
+image {
+  ... on media_Image {
+    imageUrl(type:absolute scale:"height(800)")
+    data { altText }
+  }
+  ... on media_Vector {
+    mediaUrl(type:absolute)
+    data { caption }
+  }
+}
+`
+
+export const imageAndVectorQuery = `{${imageAndVectorFields}}`
 
 export const linkCardQuery = `{
     ${linkQuery.slice(1, -1)}
     ${imageAndVectorQuery.slice(1, -1)}
+}`
+
+export const sectionGuidesQuery = `query($section:String!, $selected:[String!], $limit:String){
+  guillotine {
+    guidesUnderSection(
+      section:$section,
+      selectedGuidePaths:$selected,
+      limit:$limit
+    ){
+      _path
+      displayName
+      ... on idebanken_Guide {
+        data {
+          title
+          description
+          iconName
+          iconColor
+          ${imageAndVectorFields}
+        }
+      }
+    }
+  }
 }`
