@@ -1,15 +1,14 @@
 package no.nav.idebankensearchapi.utils
 
+import java.time.ZonedDateTime
+import java.util.UUID
 import no.nav.idebankensearchapi.search.filters.FacetKeys
 import no.nav.idebankensearchapi.search.filters.UnderFacetKeys
 import no.nav.navnosearchadminapi.common.constants.NORWEGIAN_BOKMAAL
 import no.nav.navnosearchadminapi.common.enums.ValidAudiences
-import no.nav.navnosearchadminapi.common.enums.ValidFylker
 import no.nav.navnosearchadminapi.common.enums.ValidMetatags
 import no.nav.navnosearchadminapi.common.enums.ValidTypes
 import no.nav.navnosearchadminapi.common.model.Content
-import java.time.ZonedDateTime
-import java.util.UUID
 
 val now: ZonedDateTime = ZonedDateTime.now()
 val nowMinusTwoYears: ZonedDateTime = ZonedDateTime.now().minusYears(2)
@@ -70,14 +69,6 @@ val analyserOgForskningDummyData =
         }
     }
 
-val innholdFraFylkerDummyData =
-    buildList {
-        generatedText.forEach {
-            ValidFylker.entries.forEach { fylke ->
-                add(it.toInnholdFraFylkerDummyContent(fylke))
-            }
-        }
-    }
 
 val initialTestData =
     buildList {
@@ -87,7 +78,6 @@ val initialTestData =
         addAll(presseDummyData)
         addAll(statistikkDummyData)
         addAll(analyserOgForskningDummyData)
-        addAll(innholdFraFylkerDummyData)
     }
 
 fun additionalTestData(
@@ -109,7 +99,6 @@ fun additionalTestData(
             FacetKeys.PRESSE -> it.toPresseDummyContent()
             FacetKeys.STATISTIKK -> it.toStatistikkDummyContent(underFacet)
             FacetKeys.ANALYSER_OG_FORSKNING -> it.toAnalyserOgForskningDummyContent(underFacet)
-            FacetKeys.INNHOLD_FRA_FYLKER -> it.toInnholdFraFylkerDummyContent(ValidFylker.valueOf(underFacet))
             else -> error("Unsupported facet: $facet")
         }
     }
@@ -164,8 +153,6 @@ private fun TextData.toAnalyserOgForskningDummyContent(underfacet: String): Cont
         else -> error("unsupported underfacet")
     }
 
-private fun TextData.toInnholdFraFylkerDummyContent(fylke: ValidFylker): Content = this.toDummyContent(fylke = fylke.descriptor)
-
 private fun TextData.toDummyContentForAudience(
     audience: String,
     underfacet: String,
@@ -204,7 +191,6 @@ private fun TextData.toDummyContent(
     timestamp: ZonedDateTime = now,
     audience: List<String> = emptyList(),
     language: String = NORWEGIAN_BOKMAAL,
-    fylke: String? = null,
     metatags: List<String> = emptyList(),
 ) = Content.from(
     id = "$teamName-${UUID.randomUUID()}",
@@ -219,6 +205,5 @@ private fun TextData.toDummyContent(
     sortByDate = timestamp,
     audience = audience,
     language = language,
-    fylke = fylke,
     metatags = metatags,
 )

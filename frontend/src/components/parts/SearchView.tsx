@@ -43,7 +43,39 @@ export default function SearchView({
         if (!ord) {
             return
         }
-        search(ord)
+        //search(ord)
+        setSearchResult({
+            total: 2,
+            hits: [
+                {
+                    displayName: 'Resultat 1 for ' + ord,
+                    href: '/sok#test1',
+                    highlight:
+                        '<p>Dette er et <strong>fremhevet</strong> utdrag for ' + ord + '</p>',
+                    modifiedTime: '2023-10-01T12:00:00Z',
+                    publishedTime: '2023-09-01T12:00:00Z',
+                    audience: ['audience1', 'audience2'],
+                    score: 1.5,
+                    language: 'nb',
+                    type: 'article',
+                },
+                {
+                    displayName: 'Resultat 2 for ' + ord,
+                    href: '/sok#test2',
+                    highlight:
+                        '<p>Dette er et annet <strong>fremhevet</strong> utdrag for ' +
+                        ord +
+                        '</p>',
+                    modifiedTime: '2023-10-02T12:00:00Z',
+                    publishedTime: '2023-09-02T12:00:00Z',
+                    audience: ['audience3'],
+                    score: 1.2,
+                    language: 'nb',
+                    type: 'blog',
+                },
+            ],
+            word: ord,
+        })
     }, [searchParams])
 
     function search(searchTerm?: string | null) {

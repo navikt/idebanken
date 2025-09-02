@@ -7,9 +7,7 @@ import no.nav.idebankensearchapi.search.filters.UnderFacetNames
 import no.nav.idebankensearchapi.search.filters.mustHaveAudience
 import no.nav.idebankensearchapi.search.filters.mustHaveMetatags
 import no.nav.idebankensearchapi.search.filters.mustHaveOneOfTypes
-import no.nav.idebankensearchapi.search.filters.mustNotHaveField
 import no.nav.idebankensearchapi.search.filters.mustNotHaveMetatags
-import no.nav.navnosearchadminapi.common.constants.FYLKE
 import no.nav.navnosearchadminapi.common.enums.ValidAudiences
 import no.nav.navnosearchadminapi.common.enums.ValidMetatags
 import no.nav.navnosearchadminapi.common.enums.ValidTypes
@@ -123,5 +121,4 @@ private fun baseFilter(
             ValidMetatags.PRESSE,
             ValidMetatags.ANALYSE,
             ValidMetatags.STATISTIKK,
-        ).mustNotHaveField(FYLKE)
-        .mustHaveAudience(audience, isStrict)
+        ).mustHaveAudience(audience, isStrict)

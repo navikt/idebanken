@@ -1,5 +1,6 @@
 package no.nav.idebankensearchapi.search.mapper
 
+import java.time.ZonedDateTime
 import no.nav.idebankensearchapi.search.controller.Params
 import no.nav.idebankensearchapi.search.dto.Aggregations
 import no.nav.idebankensearchapi.search.dto.FacetBucket
@@ -15,7 +16,6 @@ import org.opensearch.data.client.orhlc.OpenSearchAggregations
 import org.opensearch.search.aggregations.bucket.filter.Filter
 import org.springframework.data.elasticsearch.core.AggregationsContainer
 import org.springframework.data.elasticsearch.core.SearchPage
-import java.time.ZonedDateTime
 
 private val providerSubaudiences =
     listOf(
@@ -64,7 +64,7 @@ private fun Content.toHit(
     highlight: String,
     score: Float,
 ): SearchHit {
-    val (publishedTime, modifiedTime) = resolveTimestamps(createdAt, lastUpdated, metatags, fylke)
+    val (publishedTime, modifiedTime) = resolveTimestamps(createdAt, lastUpdated, metatags)
     return SearchHit(
         displayName = title.value,
         href = href,
@@ -91,10 +91,9 @@ private fun resolveTimestamps(
     createdAt: ZonedDateTime,
     lastUpdated: ZonedDateTime,
     metatags: List<String>,
-    fylke: String?,
 ): Pair<ZonedDateTime?, ZonedDateTime?> {
     val showBothTimestamps = ValidMetatags.NYHET.descriptor in metatags
-    val showNoTimestamps = fylke.isNullOrBlank() && metatags.none { it in metatagsWithModifiedTime }
+    val showNoTimestamps = metatags.none { it in metatagsWithModifiedTime }
 
     return when {
         showBothTimestamps -> Pair(createdAt, lastUpdated.takeIf { createdAt != lastUpdated })

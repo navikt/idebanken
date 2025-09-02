@@ -6,7 +6,7 @@ import org.springframework.boot.runApplication
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories
 
 @SpringBootApplication(exclude = [ElasticsearchDataAutoConfiguration::class])
-@EnableElasticsearchRepositories(basePackages = ["no.nav.navnosearchadminapi.common"])
+@EnableElasticsearchRepositories(basePackages = ["no.nav.navnosearchadminapi.common", "no.nav.idebankensearchapi.common.repository"])
 class IdebankenSearchApiApplication
 
 fun main(args: Array<String>) {

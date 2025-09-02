@@ -3,9 +3,9 @@ package no.nav.idebankensearchapi.admin.service.mapper
 import no.nav.idebankensearchapi.admin.dto.inbound.ContentDto
 import no.nav.idebankensearchapi.admin.dto.inbound.ContentMetadata
 import no.nav.idebankensearchapi.admin.utils.extractExternalId
-import no.nav.navnosearchadminapi.common.model.Content
+import no.nav.idebankensearchapi.common.model.IBContent
 
-fun Content.toOutbound() = ContentDto(
+fun IBContent.toOutbound() = ContentDto(
     id = extractExternalId(id, teamOwnedBy),
     href = href,
     title = title.value,
@@ -17,7 +17,6 @@ fun Content.toOutbound() = ContentDto(
         lastUpdated = lastUpdated,
         audience = audience,
         language = language,
-        fylke = fylke,
         metatags = metatags,
         languageRefs = languageRefs,
     )

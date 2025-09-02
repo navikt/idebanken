@@ -1,0 +1,152 @@
+{
+  "index.mapping.coerce": "false",
+  "analysis": {
+    "char_filter": {
+      "remove_soft_hyphen": {
+        "type": "pattern_replace",
+        "pattern": "\u00AD",
+        "replacement": ""
+      },
+      "remove_zero_width_space": {
+        "type": "pattern_replace",
+        "pattern": "\u200B",
+        "replacement": ""
+      }
+    },
+    "filter": {
+      "english_stop": {
+        "type": "stop",
+        "stopwords": "_english_"
+      },
+      "english_stemmer": {
+        "type": "stemmer",
+        "language": "english"
+      },
+      "english_possessive_stemmer": {
+        "type": "stemmer",
+        "language": "possessive_english"
+      },
+      "norwegian_stop": {
+        "type": "stop",
+        "stopwords": "_norwegian_"
+      },
+      "norwegian_stemmer": {
+        "type": "stemmer",
+        "language": "norwegian"
+      },
+      "front_edge_ngram": {
+        "type": "edge_ngram",
+        "min_gram": 3,
+        "max_gram": 20,
+        "side": "front"
+      },
+      "back_edge_ngram": {
+        "type": "edge_ngram",
+        "min_gram": 6,
+        "max_gram": 20,
+        "side": "back"
+      },
+      "ngram_multiplexer": {
+        "type": "multiplexer",
+        "filters": [
+          "front_edge_ngram",
+          "back_edge_ngram"
+        ]
+      },
+      "norwegian_synonyms": {
+        "type": "synonym",
+        "synonyms": [
+          "søk, søknad",
+          "utbetalingsdato, utbetalingsoversikt, utbetaling",
+          "kontakt, skriv",
+          "pensjon, pensjonist",
+          "jobb, stilling",
+          "betvil, bestrid",
+          "attlev, gjenlev",
+          "eins, ens",
+          "heim, hjem",
+          "månad, måned",
+          "naudssituasjon, nødssituasjon",
+          "rettlei, veiled, veil",
+          "rettleiing, veiledning",
+          "sjuk, syk",
+          "skul, skol",
+          "tilskot, tilskudd",
+          "vek, uke",
+          "verksemd, virksom",
+          "klagerett, erstatning",
+          "serviceklag, klag servic"
+        ]
+      }
+    },
+    "analyzer": {
+      "custom_norwegian_index": {
+        "type": "custom",
+        "tokenizer": "letter",
+        "char_filter": [
+          "remove_soft_hyphen",
+          "remove_zero_width_space"
+        ],
+        "filter": [
+          "lowercase",
+          "norwegian_stop",
+          "norwegian_stemmer",
+          "norwegian_synonyms"
+        ]
+      },
+      "custom_norwegian_ngrams": {
+        "type": "custom",
+        "tokenizer": "letter",
+        "char_filter": [
+          "remove_soft_hyphen",
+          "remove_zero_width_space"
+        ],
+        "filter": [
+          "lowercase",
+          "norwegian_stop",
+          "norwegian_stemmer",
+          "ngram_multiplexer",
+          "unique"
+        ]
+      },
+      "custom_norwegian_search": {
+        "type": "custom",
+        "tokenizer": "letter",
+        "char_filter": [
+          "remove_soft_hyphen",
+          "remove_zero_width_space"
+        ],
+        "filter": [
+          "lowercase",
+          "norwegian_stop",
+          "norwegian_stemmer"
+        ]
+      },
+      "custom_english": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "char_filter": [
+          "remove_soft_hyphen",
+          "remove_zero_width_space"
+        ],
+        "filter": [
+          "english_possessive_stemmer",
+          "lowercase",
+          "english_stop",
+          "english_stemmer"
+        ]
+      },
+      "custom_standard": {
+        "type": "custom",
+        "tokenizer": "standard",
+        "char_filter": [
+          "remove_soft_hyphen",
+          "remove_zero_width_space"
+        ],
+        "filter": [
+          "lowercase"
+        ]
+      }
+    }
+  }
+}

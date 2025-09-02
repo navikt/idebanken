@@ -36,7 +36,6 @@ class InboundMapperTest {
             lastUpdated shouldBe contentDto.metadata!!.lastUpdated
             audience shouldBe contentDto.metadata!!.audience
             language shouldBe contentDto.metadata!!.language
-            fylke shouldBe contentDto.metadata!!.fylke
             metatags shouldBe contentDto.metadata!!.metatags
             languageRefs shouldBe contentDto.metadata!!.languageRefs
         }
