@@ -26,11 +26,8 @@ import CrashCourse from '~/components/contentType/CrashCourse'
 import SearchView from '~/components/parts/SearchView'
 import ThreeColumnLayout from './layouts/ThreeColumnLayout'
 import { SectionGuidesView } from './parts/SectionGuides'
-<<<<<<< HEAD
-=======
 import { TableOfContents } from '~/components/parts/TableOfContents'
 import { TableOfContentsSection } from '~/components/parts/TableOfContentsSection'
->>>>>>> main
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
