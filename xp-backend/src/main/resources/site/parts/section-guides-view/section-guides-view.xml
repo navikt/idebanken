@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Veiledere under seksjon</display-name>
+    <description>Viser veiledere som ligger direkte under en seksjon.</description>
+    <form>
+        <input name="overrideSection" type="ContentSelector">
+            <label>Overstyr seksjon</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <allowContentType>idebanken:section-page</allowContentType>
+            </config>
+        </input>
+        <input name="selectedGuides" type="ContentSelector">
+            <label>Valgte veiledere (valgfritt)</label>
+            <occurrences minimum="0" maximum="50"/>
+            <config>
+                <allowContentType>idebanken:guide</allowContentType>
+            </config>
+        </input>
+        <input name="limit" type="Long">
+            <label>Maks antall veiledere</label>
+            <help-text>Tom betyr ubegrenset.</help-text>
+        </input>
+        <input name="showHeading" type="CheckBox">
+            <label>Vis seksjonstittel</label>
+            <default>true</default>
+        </input>
+         <input name="cardType" type="RadioButton">
+            <label>Korttype</label>
+            <occurrences minimum="1" maximum="1"/>  
+            <config>
+                <option value="withIcon">Med ikon</option>
+                <option value="withImage">Med bilde</option>  
+            </config>
+            <default>withIcon</default>  
+        </input>
+    </form>
+</part>

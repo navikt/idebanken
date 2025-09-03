@@ -46,7 +46,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                         h-full
 					`}>
                     <RegionView
-                        className="h-full flex flex-col gap-4"
+                        className="h-full grid auto-rows-fr gap-4"
                         name="left"
                         components={regions['left']?.components}
                         common={common}
@@ -60,7 +60,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                         h-full
 					`}>
                     <RegionView
-                        className="h-full flex flex-col gap-4"
+                        className="h-full grid auto-rows-fr gap-4"
                         name="right"
                         components={regions['right']?.components}
                         common={common}

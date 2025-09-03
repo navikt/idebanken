@@ -7,6 +7,7 @@ import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalC
 import { runInContext } from '/lib/repos/run-in-context'
 import { getSiteConfig } from '/lib/utils/site-config'
 import { SiteConfig } from '@xp-types/site'
+import { guidesUnderSection } from './resolvers/guidesUnderSection'
 
 type Source<T> = {
     __contentId: string
@@ -18,6 +19,8 @@ type LinkGroups = Array<{
     title?: string
     links: Array<ProcessedOverridableLink>
 }>
+
+type EmptyRecord = Record<string, unknown>
 
 export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL): Extensions {
     return {
@@ -92,7 +95,7 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
             },
             HeadlessCms: {
                 header: (
-                    _env: DataFetchingEnvironment<object, LocalContextRecord, object>
+                    _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
                 ): LinkGroups => {
                     return runInContext({ asAdmin: true }, () => {
                         const menuConfig = getSiteConfig()?.header
@@ -101,7 +104,7 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                     })
                 },
                 footer: (
-                    _env: DataFetchingEnvironment<object, LocalContextRecord, object>
+                    _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
                 ): {
                     linkGroups: LinkGroups
                 } => {
@@ -116,6 +119,9 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                         }
                     })
                 },
+                guidesUnderSection: (
+                    rawEnv: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
+                ) => guidesUnderSection(rawEnv),
             },
         },
         creationCallbacks: {
@@ -133,6 +139,14 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
                     },
                     footer: {
                         type: reference('Footer'),
+                    },
+                    guidesUnderSection: {
+                        type: list(nonNull(reference('idebanken_Guide'))),
+                        args: {
+                            section: nonNull(GraphQLString),
+                            selectedGuidePaths: list(nonNull(GraphQLString)),
+                            limit: GraphQLString,
+                        },
                     },
                 })
             },

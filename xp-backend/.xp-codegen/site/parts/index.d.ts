@@ -6,6 +6,7 @@ export type Image = import("./image").Image;
 export type InfoBox = import("./info-box").InfoBox;
 export type LinkCard = import("./link-card").LinkCard;
 export type SearchView = import("./search-view").SearchView;
+export type SectionGuidesView = import("./section-guides-view").SectionGuidesView;
 export type TextEditor = import("./text-editor").TextEditor;
 export type TipPanel = import("./tip-panel").TipPanel;
 export type TitleIngress = import("./title-ingress").TitleIngress;
@@ -19,6 +20,7 @@ declare global {
     "idebanken:info-box": InfoBox;
     "idebanken:link-card": LinkCard;
     "idebanken:search-view": SearchView;
+    "idebanken:section-guides-view": SectionGuidesView;
     "idebanken:text-editor": TextEditor;
     "idebanken:tip-panel": TipPanel;
     "idebanken:title-ingress": TitleIngress;

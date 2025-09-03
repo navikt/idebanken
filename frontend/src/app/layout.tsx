@@ -31,10 +31,8 @@ export default async function RootLayout({ children }: LayoutProps) {
                     <></>
                 )}
             </head>
-            <div className="relative">
-                {children}
-                <FrontPageDecoration />
-            </div>
+            <div className="relative">{children}</div>
+            <FrontPageDecoration />
         </>
     )
 }

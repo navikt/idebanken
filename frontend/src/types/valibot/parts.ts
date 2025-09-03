@@ -11,8 +11,10 @@ import {
     string,
     transform,
     union,
+    number,
 } from 'valibot'
 import { richTextSchema } from '~/types/valibot/richTextSchema'
+import { buildRelativeInternalPath } from '~/utils/buildRelativeInternalPath'
 
 // External / Internal Link
 export type BlockOptionSet = {
@@ -46,25 +48,21 @@ export const blockOptionSetSchema = optional(
 )
 
 export function transformBlockOptionSet(config?: BlockOptionSet | null) {
-    let url: string | null = null
-    let external: boolean | null = null
-    const selected = config?._selected
-    if (selected === 'externalLink') {
-        external = true
-        const extUrl = config?.externalLink?.url || ''
-        if (extUrl) {
-            url = /^https?:\/\//i.test(extUrl) ? extUrl : `https://${extUrl}`
-        }
+    const sel = config?._selected
+
+    if (sel === 'externalLink') {
+        const raw = (config?.externalLink?.url || '').trim()
+        if (!raw) return { url: undefined, external: true }
+        const finalUrl = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`
+        return { url: finalUrl, external: true }
     }
-    if (selected === 'internalLink') {
-        external = false
+    if (sel === 'internalLink') {
         const pageUrl = config?.internalLink?.ideBankContentSelector?.pageUrl || ''
-        if (pageUrl) {
-            const match = pageUrl.match(/\/(?:master|draft)\/idebanken(\/.*)/)
-            url = match ? match[1] : pageUrl
-        }
+        const rel = buildRelativeInternalPath(pageUrl)
+        return { url: rel, external: false }
     }
-    return { url, external }
+
+    return { url: undefined, external: false }
 }
 
 // Heading
@@ -139,26 +137,81 @@ export const imageDataSchema = object({
 // LinkCard
 export const linkCardConfigSchema = pipe(
     object({
-        text: nullable(string()),
-        description: nullish(string()),
+        url: nullish(string()),
+        external: optional(nullable(boolean())),
+        blockOptionSet: optional(blockOptionSetSchema),
+        text: string(),
+        description: optional(string()),
         iconName: nullish(string()),
         iconColor: nullish(string()),
-        image: nullish(imageDataSchema),
-        tags: optional(
-            pipe(
-                union([string(), array(string())]),
-                transform((value) => (Array.isArray(value) ? value : value ? [value] : []))
-            )
-        ),
         bgColor: string(),
-        blockOptionSet: blockOptionSetSchema,
+        tags: optional(array(string())),
+        image: nullish(imageDataSchema),
     }),
-    transform((config) => {
-        const { url, external } = transformBlockOptionSet(config.blockOptionSet)
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { blockOptionSet, ...rest } = config
-        return { ...rest, url, external }
+    transform((c) => {
+        let url = c.url?.trim()
+        let external = c.external ?? null
+        if (!url && c.blockOptionSet) {
+            const { url: dUrl, external: dExt } = transformBlockOptionSet(c.blockOptionSet)
+            url = dUrl ?? undefined
+            external = dExt
+        }
+        // Normalize internal URLs to relative (strip site root)
+        if (url && external !== true) {
+            url = buildRelativeInternalPath(url)
+        }
+        return {
+            text: c.text,
+            description: c.description || '',
+            iconName: c.iconName || null,
+            iconColor: c.iconColor || null,
+            bgColor: c.bgColor,
+            tags: c.tags || [],
+            image: c.image || null,
+            url,
+            external: external ?? false,
+        }
     })
 )
 
 export type LinkCardConfig = InferOutput<typeof linkCardConfigSchema>
+
+export const sectionGuidesConfigSchema = object({
+    overrideSection: optional(
+        nullable(
+            object({
+                _path: string(),
+            })
+        )
+    ),
+    selectedGuides: optional(
+        nullable(
+            array(
+                object({
+                    _path: string(),
+                })
+            )
+        )
+    ),
+    limit: optional(nullable(number())),
+    showHeading: optional(nullable(boolean())),
+    cardType: optional(picklist(['withIcon', 'withImage'])),
+})
+
+export type SectionGuidesConfig = InferOutput<typeof sectionGuidesConfigSchema>
+
+export const documentCardSchema = object({
+    _path: string(),
+    displayName: string(),
+    data: optional(
+        object({
+            title: optional(string()),
+            description: optional(string()),
+            iconName: optional(string()),
+            iconColor: optional(string()),
+            image: optional(imageDataSchema),
+        })
+    ),
+})
+
+export type DocumentCardConfig = InferOutput<typeof documentCardSchema>
