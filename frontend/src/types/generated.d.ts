@@ -462,6 +462,7 @@ export type HeadlessCms = {
   getSite?: Maybe<Portal_Site>;
   getType?: Maybe<ContentType>;
   getTypes?: Maybe<Array<Maybe<ContentType>>>;
+  guidesUnderSection?: Maybe<Array<Idebanken_Guide>>;
   header: Array<LinkGroups>;
   query?: Maybe<Array<Maybe<Content>>>;
   queryConnection?: Maybe<QueryContentConnection>;
@@ -504,6 +505,14 @@ export type HeadlessCmsGetPermissionsArgs = {
 /** Headless CMS */
 export type HeadlessCmsGetTypeArgs = {
   name: Scalars['String']['input'];
+};
+
+
+/** Headless CMS */
+export type HeadlessCmsGuidesUnderSectionArgs = {
+  limit?: InputMaybe<Scalars['String']['input']>;
+  section: Scalars['String']['input'];
+  selectedGuidePaths?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
@@ -928,6 +937,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   info_box?: Maybe<Part_Idebanken_Info_Box>;
   link_card?: Maybe<Part_Idebanken_Link_Card>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
+  section_guides_view?: Maybe<Part_Idebanken_Section_Guides_View>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   table_of_contents_section?: Maybe<Part_Idebanken_Table_Of_Contents_Section>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
@@ -1115,6 +1125,23 @@ export type Part_Idebanken_Link_Card_InternalLink = {
 export type Part_Idebanken_Search_View = {
   __typename?: 'Part_idebanken_search_view';
   text?: Maybe<Scalars['String']['output']>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['section-guides-view'] */
+export type Part_Idebanken_Section_Guides_View = {
+  __typename?: 'Part_idebanken_section_guides_view';
+  cardType?: Maybe<Scalars['String']['output']>;
+  limit?: Maybe<Scalars['String']['output']>;
+  overrideSection?: Maybe<Content>;
+  selectedGuides?: Maybe<Array<Maybe<Content>>>;
+  showHeading?: Maybe<Scalars['Boolean']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['section-guides-view'] */
+export type Part_Idebanken_Section_Guides_ViewSelectedGuidesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['table-of-contents'] */
@@ -2333,6 +2360,10 @@ export type Idebanken_GuidePageUrlArgs = {
 /** Guide - idebanken:guide data */
 export type Idebanken_Guide_Data = {
   __typename?: 'idebanken_Guide_Data';
+  description?: Maybe<Scalars['String']['output']>;
+  iconColor?: Maybe<Scalars['String']['output']>;
+  iconName?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Content>;
   ingress?: Maybe<RichText>;
   title?: Maybe<Scalars['String']['output']>;
 };
@@ -2340,6 +2371,99 @@ export type Idebanken_Guide_Data = {
 
 /** Guide - idebanken:guide data */
 export type Idebanken_Guide_DataIngressArgs = {
+  processHtml?: InputMaybe<ProcessHtmlInput>;
+};
+
+/** Temaside - idebanken:section-page */
+export type Idebanken_SectionPage = Content & {
+  __typename?: 'idebanken_SectionPage';
+  _id: Scalars['ID']['output'];
+  _name: Scalars['String']['output'];
+  _path: Scalars['String']['output'];
+  _references?: Maybe<Array<Maybe<Content>>>;
+  _score?: Maybe<Scalars['Float']['output']>;
+  attachments?: Maybe<Array<Maybe<Attachment>>>;
+  children?: Maybe<Array<Maybe<Content>>>;
+  childrenConnection?: Maybe<ContentConnection>;
+  components?: Maybe<Array<Maybe<Component>>>;
+  contentType?: Maybe<ContentType>;
+  createdTime?: Maybe<Scalars['DateTime']['output']>;
+  creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_SectionPage_Data>;
+  dataAsJson?: Maybe<Scalars['JSON']['output']>;
+  displayName?: Maybe<Scalars['String']['output']>;
+  hasChildren?: Maybe<Scalars['Boolean']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  metaFields?: Maybe<MetaFields>;
+  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
+  modifier?: Maybe<PrincipalKey>;
+  owner?: Maybe<PrincipalKey>;
+  pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageTemplate?: Maybe<Content>;
+  pageUrl?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Content>;
+  permissions?: Maybe<Permissions>;
+  publish?: Maybe<PublishInfo>;
+  site?: Maybe<Portal_Site>;
+  type?: Maybe<Scalars['String']['output']>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+  x?: Maybe<ExtraData>;
+  xAsJson?: Maybe<Scalars['JSON']['output']>;
+};
+
+
+/** Temaside - idebanken:section-page */
+export type Idebanken_SectionPage_PathArgs = {
+  type?: InputMaybe<ContentPathType>;
+};
+
+
+/** Temaside - idebanken:section-page */
+export type Idebanken_SectionPageChildrenArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Temaside - idebanken:section-page */
+export type Idebanken_SectionPageChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Temaside - idebanken:section-page */
+export type Idebanken_SectionPageComponentsArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Temaside - idebanken:section-page */
+export type Idebanken_SectionPagePageAsJsonArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Temaside - idebanken:section-page */
+export type Idebanken_SectionPagePageUrlArgs = {
+  params?: InputMaybe<Scalars['JSON']['input']>;
+  type?: InputMaybe<UrlType>;
+};
+
+/** Temaside - idebanken:section-page data */
+export type Idebanken_SectionPage_Data = {
+  __typename?: 'idebanken_SectionPage_Data';
+  ingress?: Maybe<RichText>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Temaside - idebanken:section-page data */
+export type Idebanken_SectionPage_DataIngressArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
