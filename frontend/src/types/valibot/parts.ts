@@ -14,6 +14,7 @@ import {
     number,
 } from 'valibot'
 import { richTextSchema } from '~/types/valibot/richTextSchema'
+import { buildRelativeInternalPath } from '~/utils/buildRelativeInternalPath'
 
 // External / Internal Link
 export type BlockOptionSet = {
@@ -57,7 +58,7 @@ export function transformBlockOptionSet(config?: BlockOptionSet | null) {
     }
     if (sel === 'internalLink') {
         const pageUrl = config?.internalLink?.ideBankContentSelector?.pageUrl || ''
-        const rel = toRelativeInternalPath(pageUrl)
+        const rel = buildRelativeInternalPath(pageUrl)
         return { url: rel, external: false }
     }
 
@@ -134,23 +135,6 @@ export const imageDataSchema = object({
 })
 
 // LinkCard
-const SITE_ROOT = '/idebanken'
-
-// Generic helper: turn an internal XP path into site‑relative (strip /idebanken and branch prefixes)
-export function toRelativeInternalPath(p?: string | null): string | undefined {
-    if (!p) return undefined
-    let v = p.trim()
-    if (!v) return undefined
-    // Strip optional /site/<site>/branch/ prefix
-    v = v.replace(new RegExp(`^/site/${SITE_ROOT.slice(1)}/(master|draft)/`), '/')
-    // Strip optional /master/ or /draft/ prefix
-    v = v.replace(/^\/(master|draft)(?=\/)/, '')
-    if (v === SITE_ROOT) return '/'
-    if (v.startsWith(SITE_ROOT + '/')) v = v.slice(SITE_ROOT.length)
-    if (!v.startsWith('/')) v = '/' + v
-    return v || '/'
-}
-
 export const linkCardConfigSchema = pipe(
     object({
         url: nullish(string()),
@@ -174,7 +158,7 @@ export const linkCardConfigSchema = pipe(
         }
         // Normalize internal URLs to relative (strip site root)
         if (url && external !== true) {
-            url = toRelativeInternalPath(url)
+            url = buildRelativeInternalPath(url)
         }
         return {
             text: c.text,
@@ -215,3 +199,19 @@ export const sectionGuidesConfigSchema = object({
 })
 
 export type SectionGuidesConfig = InferOutput<typeof sectionGuidesConfigSchema>
+
+export const documentCardSchema = object({
+    _path: string(),
+    displayName: string(),
+    data: optional(
+        object({
+            title: optional(string()),
+            description: optional(string()),
+            iconName: optional(string()),
+            iconColor: optional(string()),
+            image: optional(imageDataSchema),
+        })
+    ),
+})
+
+export type DocumentCardConfig = InferOutput<typeof documentCardSchema>
