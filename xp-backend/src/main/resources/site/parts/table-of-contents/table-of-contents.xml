@@ -8,4 +8,7 @@
             <default>Innhold på siden</default>
         </input>
     </form>
+    <config>
+        <allow-on-content-type>idebanken:guide</allow-on-content-type>
+    </config>
 </part>
