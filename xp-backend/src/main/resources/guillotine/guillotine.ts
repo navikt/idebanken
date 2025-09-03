@@ -28,9 +28,10 @@ type EmptyRecord = Record<string, unknown>
 export function extensions({
     list,
     GraphQLString,
+    GraphQLID,
+    GraphQLInt,
     reference,
     nonNull,
-    GraphQLID,
 }: GraphQL): Extensions {
     return {
         types: {
@@ -83,23 +84,49 @@ export function extensions({
                     const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
                     if (!path) {
                         logger.warning(`Part_idebanken_table_of_contents is missing path arg`)
-                        return ''
+                        return []
                     }
                     const content = getContent({ key: path })
                     if (!content) {
                         logger.warning(
                             `Part_idebanken_table_of_contents could not find content at path: ${path}`
                         )
-                        return ''
+                        return []
                     }
-                    const tableOfContentSectionConfigs =
-                        getFieldByDescriptor<TableOfContentsSection>(
-                            content,
-                            'idebanken:table-of-contents-section'
-                        )
-                    logger.info(JSON.stringify(tableOfContentSectionConfigs, null, 2))
 
-                    return tableOfContentSectionConfigs
+                    return getFieldByDescriptor<TableOfContentsSection>(
+                        content,
+                        'idebanken:table-of-contents-section'
+                    )
+                },
+            },
+            Part_idebanken_table_of_contents_section: {
+                sectionNumber: (
+                    env: DataFetchingEnvironment<
+                        { path?: string },
+                        LocalContextRecord,
+                        Source<TableOfContentsSection>
+                    >
+                ): number => {
+                    const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
+                    if (!path) {
+                        logger.warning(`Part_idebanken_table_of_contents is missing path arg`)
+                        return 0
+                    }
+                    const content = getContent({ key: path })
+                    if (!content) {
+                        logger.warning(
+                            `Part_idebanken_table_of_contents could not find content at path: ${path}`
+                        )
+                        return 0
+                    }
+
+                    const tableOfContentSectionIndex = getFieldByDescriptor<TableOfContentsSection>(
+                        content,
+                        'idebanken:table-of-contents-section'
+                    ).findIndex((section) => section.title === env.source.title)
+
+                    return tableOfContentSectionIndex + 1
                 },
             },
             XData_idebanken_category_DataConfig: {
@@ -171,6 +198,16 @@ export function extensions({
                             path: nonNull(GraphQLID),
                         },
                         type: list(reference('Part_idebanken_table_of_contents_section')),
+                    },
+                })
+            },
+            Part_idebanken_table_of_contents_section: (params): void => {
+                params.addFields({
+                    sectionNumber: {
+                        args: {
+                            path: nonNull(GraphQLID),
+                        },
+                        type: GraphQLInt,
                     },
                 })
             },
