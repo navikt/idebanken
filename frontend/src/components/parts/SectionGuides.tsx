@@ -7,7 +7,7 @@ import { HGrid } from '@navikt/ds-react'
 import { buildLocaleMapping } from '~/utils/buildLocaleMapping'
 import { sectionGuidesQuery } from '~/components/queries/parts'
 import { validatedSectionGuidesConfig } from '~/utils/runtimeValidation'
-import { DocumentCardConfig } from '~/types/valibot/parts'
+import { DocumentCardConfigRaw } from '~/types/valibot/parts'
 
 async function fetchGuides(
     apiUrl: string,
@@ -15,7 +15,7 @@ async function fetchGuides(
     localeMapping: LocaleMapping,
     selectedPaths?: string[],
     limitStr?: string
-): Promise<DocumentCardConfig[]> {
+): Promise<DocumentCardConfigRaw[]> {
     const variables = {
         section: sectionPath,
         ...(selectedPaths && selectedPaths.length ? { selected: selectedPaths } : {}),
@@ -25,13 +25,13 @@ async function fetchGuides(
     const res = (await fetchGuillotine(apiUrl, localeMapping, {
         method: 'POST',
         body: { query: sectionGuidesQuery, variables },
-    })) as { guillotine?: { guidesUnderSection?: DocumentCardConfig[] } }
+    })) as { guillotine?: { guidesUnderSection?: DocumentCardConfigRaw[] } }
 
     return res.guillotine?.guidesUnderSection ?? []
 }
 
 function guideToLinkCardConfig(
-    g: DocumentCardConfig,
+    g: DocumentCardConfigRaw,
     cardType: 'withIcon' | 'withImage' | undefined
 ): Part_Idebanken_Link_Card {
     return {
@@ -72,7 +72,7 @@ export async function SectionGuidesView(props: PartProps) {
     const apiUrl = getContentApiUrl({ contentPath: props.meta.apiUrl ?? '' })
 
     const guides = await fetchGuides(apiUrl, sectionPath, localeMapping, selectedPaths, limit)
-
+    console.log('Guides-->', guides)
     if (!guides.length) {
         return (
             <section>

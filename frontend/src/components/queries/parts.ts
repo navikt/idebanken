@@ -73,6 +73,13 @@ export const sectionGuidesQuery = `query($section:String!, $selected:[String!], 
       _path
       displayName
       ... on idebanken_Guide {
+        x {
+          idebanken {
+            category {
+              categories
+            }
+          }
+        }
         data {
           title
           description
