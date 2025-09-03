@@ -6,7 +6,8 @@ import { HeadingView } from '~/components/parts/Heading'
 export function TableOfContentsSection({
     part,
 }: PartData<Part_Idebanken_Table_Of_Contents_Section>) {
-    const { title, sectionNumber } = part?.config
+    const { title, sectionNumber } = part?.config ?? {}
+
     return (
         <VStack gap={'8'} className={'my-6'}>
             <div className="w-10 h-1 bg-dark-blue"></div>
