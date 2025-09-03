@@ -13,15 +13,17 @@ const HeadingView = ({
     className = '',
     autoId = true,
     children,
+    ...rest
 }: Omit<HeadingConfig, 'text'> & {
     children: string | JSX.Element | JSX.Element[] | undefined | null
-}) => {
+} & React.HTMLAttributes<HTMLHeadingElement>) => {
     return (
         <Heading
             id={autoId ? headingIdOfString(extractText(children)) : undefined}
             level={level}
             size={size}
             spacing
+            {...rest}
             className={`font-light ${className}`}>
             {children}
         </Heading>
