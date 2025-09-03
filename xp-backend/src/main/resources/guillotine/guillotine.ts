@@ -8,6 +8,9 @@ import { runInContext } from '/lib/repos/run-in-context'
 import { getSiteConfig } from '/lib/utils/site-config'
 import { SiteConfig } from '@xp-types/site'
 import { guidesUnderSection } from './resolvers/guidesUnderSection'
+import { logger } from '/lib/utils/logging'
+import { TableOfContents, TableOfContentsSection } from '@xp-types/site/parts'
+import { getFieldByDescriptor } from '/lib/utils/object-utils'
 
 type Source<T> = {
     __contentId: string
@@ -22,7 +25,14 @@ type LinkGroups = Array<{
 
 type EmptyRecord = Record<string, unknown>
 
-export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL): Extensions {
+export function extensions({
+    list,
+    GraphQLString,
+    GraphQLID,
+    GraphQLInt,
+    reference,
+    nonNull,
+}: GraphQL): Extensions {
     return {
         types: {
             OverridableContentLink: {
@@ -63,6 +73,62 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
             },
         },
         resolvers: {
+            Part_idebanken_table_of_contents: {
+                sections: (
+                    env: DataFetchingEnvironment<
+                        { path?: string },
+                        LocalContextRecord,
+                        Source<TableOfContents>
+                    >
+                ): Array<TableOfContentsSection> => {
+                    const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
+                    if (!path) {
+                        logger.warning(`Part_idebanken_table_of_contents is missing path arg`)
+                        return []
+                    }
+                    const content = getContent({ key: path })
+                    if (!content) {
+                        logger.warning(
+                            `Part_idebanken_table_of_contents could not find content at path: ${path}`
+                        )
+                        return []
+                    }
+
+                    return getFieldByDescriptor<TableOfContentsSection>(
+                        content,
+                        'idebanken:table-of-contents-section'
+                    )
+                },
+            },
+            Part_idebanken_table_of_contents_section: {
+                sectionNumber: (
+                    env: DataFetchingEnvironment<
+                        { path?: string },
+                        LocalContextRecord,
+                        Source<TableOfContentsSection>
+                    >
+                ): number => {
+                    const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
+                    if (!path) {
+                        logger.warning(`Part_idebanken_table_of_contents is missing path arg`)
+                        return 0
+                    }
+                    const content = getContent({ key: path })
+                    if (!content) {
+                        logger.warning(
+                            `Part_idebanken_table_of_contents could not find content at path: ${path}`
+                        )
+                        return 0
+                    }
+
+                    const tableOfContentSectionIndex = getFieldByDescriptor<TableOfContentsSection>(
+                        content,
+                        'idebanken:table-of-contents-section'
+                    ).findIndex((section) => section.title === env.source.title)
+
+                    return tableOfContentSectionIndex + 1
+                },
+            },
             XData_idebanken_category_DataConfig: {
                 categories: (
                     env: DataFetchingEnvironment<object, LocalContextRecord, Source<XDataCategory>>
@@ -125,6 +191,26 @@ export function extensions({ list, GraphQLString, reference, nonNull }: GraphQL)
             },
         },
         creationCallbacks: {
+            Part_idebanken_table_of_contents: (params): void => {
+                params.addFields({
+                    sections: {
+                        args: {
+                            path: nonNull(GraphQLID),
+                        },
+                        type: list(reference('Part_idebanken_table_of_contents_section')),
+                    },
+                })
+            },
+            Part_idebanken_table_of_contents_section: (params): void => {
+                params.addFields({
+                    sectionNumber: {
+                        args: {
+                            path: nonNull(GraphQLID),
+                        },
+                        type: GraphQLInt,
+                    },
+                })
+            },
             XData_idebanken_category_DataConfig: (params): void => {
                 params.modifyFields({
                     categories: {

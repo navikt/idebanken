@@ -938,6 +938,8 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   link_card?: Maybe<Part_Idebanken_Link_Card>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
   section_guides_view?: Maybe<Part_Idebanken_Section_Guides_View>;
+  table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
+  table_of_contents_section?: Maybe<Part_Idebanken_Table_Of_Contents_Section>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
   tip_panel?: Maybe<Part_Idebanken_Tip_Panel>;
 };
@@ -1140,6 +1142,32 @@ export type Part_Idebanken_Section_Guides_View = {
 export type Part_Idebanken_Section_Guides_ViewSelectedGuidesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['table-of-contents'] */
+export type Part_Idebanken_Table_Of_Contents = {
+  __typename?: 'Part_idebanken_table_of_contents';
+  sections?: Maybe<Array<Maybe<Part_Idebanken_Table_Of_Contents_Section>>>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['table-of-contents'] */
+export type Part_Idebanken_Table_Of_ContentsSectionsArgs = {
+  path: Scalars['ID']['input'];
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['table-of-contents-section'] */
+export type Part_Idebanken_Table_Of_Contents_Section = {
+  __typename?: 'Part_idebanken_table_of_contents_section';
+  sectionNumber?: Maybe<Scalars['Int']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['table-of-contents-section'] */
+export type Part_Idebanken_Table_Of_Contents_SectionSectionNumberArgs = {
+  path: Scalars['ID']['input'];
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['text-editor'] */

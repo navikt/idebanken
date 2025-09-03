@@ -84,3 +84,15 @@ export const sectionGuidesQuery = `query($section:String!, $selected:[String!], 
     }
   }
 }`
+
+export const tableOfContentsQuery = `{
+    title
+    sections(path: $path) {
+        title
+    }
+}`
+
+export const tableOfContentsSectionQuery = `{
+    title
+    sectionNumber(path: $path)
+}`

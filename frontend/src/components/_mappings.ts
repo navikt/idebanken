@@ -1,6 +1,13 @@
 import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
-import { imageQuery, linkQuery, linkCardQuery, sectionGuidesLinkQuery } from './queries/parts'
+import {
+    imageQuery,
+    linkCardQuery,
+    linkQuery,
+    sectionGuidesLinkQuery,
+    tableOfContentsQuery,
+    tableOfContentsSectionQuery,
+} from './queries/parts'
 import MainPage from './pages/Main'
 import '@enonic/nextjs-adapter/baseMappings'
 import TwoColumnLayout from './layouts/TwoColumnLayout'
@@ -19,6 +26,8 @@ import CrashCourse from '~/components/contentType/CrashCourse'
 import SearchView from '~/components/parts/SearchView'
 import ThreeColumnLayout from './layouts/ThreeColumnLayout'
 import { SectionGuidesView } from './parts/SectionGuides'
+import { TableOfContents } from '~/components/parts/TableOfContents'
+import { TableOfContentsSection } from '~/components/parts/TableOfContentsSection'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -124,4 +133,14 @@ ComponentRegistry.addPart(`${APP_NAME}:search-view`, {
 ComponentRegistry.addPart(`${APP_NAME}:section-guides-view`, {
     view: SectionGuidesView,
     configQuery: sectionGuidesLinkQuery,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:table-of-contents`, {
+    view: TableOfContents,
+    configQuery: tableOfContentsQuery,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:table-of-contents-section`, {
+    view: TableOfContentsSection,
+    configQuery: tableOfContentsSectionQuery,
 })
