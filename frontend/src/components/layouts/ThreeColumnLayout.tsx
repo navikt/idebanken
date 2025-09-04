@@ -4,6 +4,8 @@ import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { HGrid } from '@navikt/ds-react'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
+import classNames from 'classnames'
+import { paddingsY } from '~/utils/tailwind-lookup-table'
 
 interface ThreeColumnLayoutProps {
     layout: {
@@ -29,7 +31,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
     const regions = props.layout.regions
     const { common, meta, layout } = props
     const columnSpan = 4 // Equal width for all columns (12/3 = 4)
-    const stackOrder = layout.config?.stackOrder || 'left-center-right'
+    const { stackOrder, bgColor, boxColor, paddingTop, paddingBottom } = layout.config ?? {}
 
     const getOrderClass = (column: 'left' | 'center' | 'right') => {
         if (stackOrder === 'center-left-right') {
@@ -55,9 +57,14 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
     }
 
     return (
-        <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor} className="py-6">
+        <BleedingBackgroundPageBlock
+            bgColor={bgColor}
+            className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}>
             <HGrid
-                className="relative z-20 items-stretch"
+                className={classNames(
+                    'items-stretch',
+                    boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : ''
+                )}
                 gap={{
                     xs: 'space-16',
                     lg: 'space-20',

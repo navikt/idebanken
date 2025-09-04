@@ -4,6 +4,8 @@ import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { HGrid } from '@navikt/ds-react'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
+import classNames from 'classnames'
+import { paddingsY } from '~/utils/tailwind-lookup-table'
 
 interface TwoColumnLayoutProps {
     layout: {
@@ -25,14 +27,19 @@ interface TwoColumnLayoutProps {
 const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
     const regions = props.layout.regions
     const { common, meta, layout } = props
-    const leftSpan = Number(layout.config?.leftSpan) || 6
-    const rightSpan = 12 - leftSpan
-    const breakLeftFirst = layout.config?.breakLeftFirst
+    const { leftSpan, breakLeftFirst, bgColor, boxColor, paddingTop, paddingBottom } =
+        layout.config ?? {}
+    const rightSpan = 12 - Number(leftSpan ?? 6)
 
     return (
-        <BleedingBackgroundPageBlock bgColor={layout.config?.bgColor} className="py-6">
+        <BleedingBackgroundPageBlock
+            bgColor={bgColor}
+            className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']} pb-0.5`}>
             <HGrid
-                className="relative z-20 items-stretch"
+                className={classNames(
+                    'items-stretch',
+                    boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : ''
+                )}
                 gap={{
                     xs: 'space-16',
                     lg: 'space-20',

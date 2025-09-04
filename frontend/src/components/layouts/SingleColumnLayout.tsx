@@ -5,6 +5,7 @@ import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { Box } from '@navikt/ds-react'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import classNames from 'classnames'
+import { paddingsY } from '~/utils/tailwind-lookup-table'
 
 interface SingleColumnLayoutProps {
     layout: {
@@ -23,8 +24,10 @@ interface SingleColumnLayoutProps {
 const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
     const { common, meta, layout } = props
     const regions = layout.regions
+    const config = layout.config ?? {}
+    const { backgroundImage, alignment, bgColor, boxColor, paddingTop, paddingBottom } = config
 
-    const backgroundStyle = layout.config?.backgroundImage
+    const backgroundStyle = backgroundImage
         ? {
               backgroundImage: 'url(/images/circles.svg)',
               backgroundRepeat: 'no-repeat',
@@ -35,13 +38,13 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
 
     return (
         <BleedingBackgroundPageBlock
-            bgColor={layout.config?.bgColor}
-            className="py-6"
+            bgColor={bgColor}
+            className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
             backgroundStyle={backgroundStyle}>
             <Box
                 className={classNames(
-                    'relative z-20',
-                    layout.config?.alignment ? `text-${layout.config.alignment}` : 'text-left'
+                    alignment ? `text-${alignment}` : 'text-left',
+                    boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : ''
                 )}>
                 <RegionView
                     name="content"
