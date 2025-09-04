@@ -151,7 +151,13 @@ ComponentRegistry.addPart(`${APP_NAME}:downloads`, {
     configQuery: `{
         selectedFiles { 
             displayName 
-            _path 
+            _path
+            ... on media_Document {
+                mediaUrl(type: absolute)
+                attachments {
+                    size
+                }
+            }
         }
   }`,
 })
