@@ -1,5 +1,5 @@
 import NextLink from 'next/link'
-import { Button, Link } from '@navikt/ds-react'
+import { Button } from '@navikt/ds-react'
 import { Part_Idebanken_Button } from '~/types/generated.d'
 import { validatedButtonConfig } from '~/utils/runtimeValidation'
 import { MouseEventHandler } from 'react'
