@@ -1,4 +1,4 @@
-import { parse } from 'valibot'
+import { parse, array } from 'valibot'
 import {
     AccordionConfig,
     accordionConfigSchema,
@@ -12,6 +12,9 @@ import {
     linkCardConfigSchema,
     SectionGuidesConfig,
     sectionGuidesConfigSchema,
+    DocumentCardConfigRaw,
+    DocumentCardConfig,
+    documentCardSchema,
 } from '~/types/valibot/parts'
 import {
     richTextSchema,
@@ -116,6 +119,19 @@ export function validatedSectionGuidesConfig(
         return parse(sectionGuidesConfigSchema, config)
     } catch (e) {
         console.error('Invalid section guides config:', e)
+        return null
+    }
+}
+
+export function validatedDocumentCardConfig(
+    config: DocumentCardConfigRaw[] | undefined
+): DocumentCardConfig[] | null {
+    const documentCardArraySchema = array(documentCardSchema)
+
+    try {
+        return parse(documentCardArraySchema, config)
+    } catch (e) {
+        console.error('Invalid document card config:', e)
         return null
     }
 }

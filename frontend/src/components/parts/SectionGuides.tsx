@@ -6,8 +6,13 @@ import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
 import { HGrid } from '@navikt/ds-react'
 import { buildLocaleMapping } from '~/utils/buildLocaleMapping'
 import { sectionGuidesQuery } from '~/components/queries/parts'
-import { validatedSectionGuidesConfig } from '~/utils/runtimeValidation'
-import { DocumentCardConfig } from '~/types/valibot/parts'
+import {
+    validatedSectionGuidesConfig,
+    validatedDocumentCardConfig,
+} from '~/utils/runtimeValidation'
+import { DocumentCardConfigRaw, DocumentCardConfig } from '~/types/valibot/parts'
+import { buildRelativeInternalPath } from '~/utils/buildRelativeInternalPath'
+import { LinkHeading } from './LinkHeading'
 
 async function fetchGuides(
     apiUrl: string,
@@ -25,9 +30,9 @@ async function fetchGuides(
     const res = (await fetchGuillotine(apiUrl, localeMapping, {
         method: 'POST',
         body: { query: sectionGuidesQuery, variables },
-    })) as { guillotine?: { guidesUnderSection?: DocumentCardConfig[] } }
-
-    return res.guillotine?.guidesUnderSection ?? []
+    })) as { guillotine?: { guidesUnderSection?: DocumentCardConfigRaw[] } }
+    const guides = validatedDocumentCardConfig(res.guillotine?.guidesUnderSection) || []
+    return guides
 }
 
 function guideToLinkCardConfig(
@@ -42,15 +47,9 @@ function guideToLinkCardConfig(
         iconName: cardType === 'withIcon' ? g.data?.iconName || null : null,
         iconColor: cardType === 'withIcon' ? g.data?.iconColor || null : null,
         bgColor: '',
-        tags: [], // no tags yet
+        tags: g.data?.categories || [],
         image: cardType === 'withImage' ? g.data?.image || null : null,
     } as Part_Idebanken_Link_Card
-}
-
-function splitColumns<T>(items: T[], cols: number): T[][] {
-    const buckets: T[][] = Array.from({ length: cols }, () => [])
-    items.forEach((it, i) => buckets[i % cols].push(it))
-    return buckets
 }
 
 export async function SectionGuidesView(props: PartProps) {
@@ -73,41 +72,48 @@ export async function SectionGuidesView(props: PartProps) {
 
     const guides = await fetchGuides(apiUrl, sectionPath, localeMapping, selectedPaths, limit)
 
+    const isImageCards = cardType === 'withImage'
+    const spanClass = isImageCards ? 'md:col-span-4' : 'md:col-span-6'
+    const headingLink = buildRelativeInternalPath(sectionPath)
+    const rawDisplayName = cfg.overrideSection?.displayName || props.common.get.displayName
+    const headingTitle = rawDisplayName
+        ? rawDisplayName.charAt(0).toUpperCase() + rawDisplayName.slice(1)
+        : rawDisplayName
+
     if (!guides.length) {
         return (
             <section>
-                {showHeading && <h2>{props.common.get.displayName || 'Veiledere'}</h2>}
+                <LinkHeading
+                    show={showHeading}
+                    title={headingTitle}
+                    href={headingLink}
+                    customClassName="mb-12"
+                />
                 <p>Ingen veiledere.</p>
             </section>
         )
     }
 
-    // Decide layout based on cardType
-    const useThreeColumn = cardType === 'withImage'
-    const columns = useThreeColumn ? 3 : 2
-    const spans = useThreeColumn ? 4 : 6 // 12 grid system
-    const grouped = splitColumns(guides, columns)
-
     return (
         <section>
-            {showHeading && <h2>{props.common.get.displayName || 'Veiledere'}</h2>}
+            <LinkHeading
+                show={showHeading}
+                title={headingTitle}
+                href={headingLink}
+                customClassName="mb-12"
+            />
             <HGrid
                 columns={{ xs: 1, md: 12 }}
                 gap={{ xs: 'space-16', lg: 'space-20', xl: 'space-24' }}
-                className="items-stretch">
-                {grouped.map((col, idx) => (
-                    <div
-                        key={idx}
-                        className={`col-span-1 md:col-span-${spans} flex flex-col gap-4`}>
-                        {col.map((g) => (
-                            <LinkCardView
-                                key={g._path}
-                                part={{
-                                    descriptor: 'generated:link-card',
-                                    config: guideToLinkCardConfig(g, cardType),
-                                }}
-                            />
-                        ))}
+                className="items-start">
+                {guides.map((g) => (
+                    <div key={g._path} className={`col-span-1 ${spanClass}`}>
+                        <LinkCardView
+                            part={{
+                                descriptor: 'generated:link-card',
+                                config: guideToLinkCardConfig(g, cardType),
+                            }}
+                        />
                     </div>
                 ))}
             </HGrid>

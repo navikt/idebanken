@@ -39,7 +39,10 @@ export const linkQuery = `{
 }`
 
 export const sectionGuidesLinkQuery = `{
-	overrideSection { _path }
+	overrideSection { 
+    displayName 
+    _path 
+  }
   selectedGuides { _path }
 }`
 
@@ -73,6 +76,13 @@ export const sectionGuidesQuery = `query($section:String!, $selected:[String!], 
       _path
       displayName
       ... on idebanken_Guide {
+        x {
+          idebanken {
+            category {
+              categories
+            }
+          }
+        }
         data {
           title
           description

@@ -4,6 +4,7 @@ import { Part_Idebanken_Button } from '~/types/generated.d'
 import { validatedButtonConfig } from '~/utils/runtimeValidation'
 import { MouseEventHandler } from 'react'
 import { PartData } from '~/types/graphql-types'
+import { LinkHeading } from './LinkHeading'
 
 export interface ButtonData {
     config?: Part_Idebanken_Button
@@ -21,14 +22,7 @@ export const ButtonView = ({
     if (!btn) return null
 
     if (btn.variant === 'link') {
-        return (
-            <Link
-                as={NextLink}
-                href={btn.url || '#'}
-                className="text-inherit navds-heading--medium hover:underline hover:[text-decoration-thickness:0.111em]">
-                {btn.text}
-            </Link>
-        )
+        return <LinkHeading show={true} title={btn.text} href={btn.url || '#'} />
     }
     const buttonProps = {
         variant: btn.variant,
