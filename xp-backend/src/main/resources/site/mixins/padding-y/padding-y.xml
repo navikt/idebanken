@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>
+        <input name="paddingTop" type="ComboBox">
+            <label>Avstand over</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <option value="pt-0">0</option>
+                <option value="pt-6">6 (vanlig)</option>
+                <option value="pt-10">10</option>
+            </config>
+            <default>pt-6</default>
+        </input>
+        <input name="paddingBottom" type="ComboBox">
+            <label>Avstand under</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <option value="pb-0">0</option>
+                <option value="pb-6">6 (vanlig)</option>
+                <option value="pb-10">10</option>
+            </config>
+            <default>pb-6</default>
+        </input>
+    </form>
+</mixin>

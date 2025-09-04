@@ -6,6 +6,21 @@ export type SingleColumn = {
   bgColor: "bg-white" | "bg-extra-light-pink" | "bg-light-pink" | "bg-pink" | "bg-dark-blue";
 
   /**
+   * Farge på boks
+   */
+  boxColor?: "bg-white" | "bg-extra-light-pink" | "bg-light-pink" | "bg-pink" | "bg-dark-blue";
+
+  /**
+   * Avstand over
+   */
+  paddingTop?: "0" | "6" | "10";
+
+  /**
+   * Avstand under
+   */
+  paddingBottom?: "0" | "6" | "10";
+
+  /**
    * Juster innhold
    */
   alignment: "left" | "center" | "right";

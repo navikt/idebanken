@@ -4,6 +4,8 @@
     <description>Gir venstre, midten og høyre regioner med lik bredde</description>
     <form>
         <mixin name="background-color"/>
+        <mixin name="box-color"/>
+        <mixin name="padding-y"/>
         <input name="stackOrder" type="ComboBox">
             <label>Mobilvisning - Rekkefølge</label>
             <help-text>Velg rekkefølge på kolonnene for mobilvisning</help-text>

@@ -6,6 +6,21 @@ export type _2Column = {
   bgColor: "bg-white" | "bg-extra-light-pink" | "bg-light-pink" | "bg-pink" | "bg-dark-blue";
 
   /**
+   * Farge på boks
+   */
+  boxColor?: "bg-white" | "bg-extra-light-pink" | "bg-light-pink" | "bg-pink" | "bg-dark-blue";
+
+  /**
+   * Avstand over
+   */
+  paddingTop?: "0" | "6" | "10";
+
+  /**
+   * Avstand under
+   */
+  paddingBottom?: "0" | "6" | "10";
+
+  /**
    * Venstre Kolonne - Bredde
    */
   leftSpan: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11";
