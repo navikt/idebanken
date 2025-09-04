@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <part xmlns="urn:enonic:xp:model:1.0">
     <display-name>Heading</display-name>
-    <!-- <description>H-heading</description> -->
+    <description>Heading/overskrift/underoverskrift</description>
     <form>
         <input type="TextLine" name="text">
             <label>Heading text</label>
         </input>
         <input type="ComboBox" name="level">
             <label>Heading level</label>
-            <occurrences minimum="1" maximum="1"/>  
+            <occurrences minimum="1" maximum="1"/>
             <config>
-                <option value="1">H1</option>  
+                <option value="1">H1</option>
                 <option value="2">H2</option>
                 <option value="3">H3</option>
                 <option value="4">H4</option>
                 <option value="5">H5</option>
                 <option value="6">H6</option>
             </config>
-            <default>1</default>  
+            <default>2</default>
         </input>
         <input type="ComboBox" name="size">
             <label>Heading size</label>
-            <occurrences minimum="1" maximum="1"/>  
+            <occurrences minimum="1" maximum="1"/>
             <config>
-                <option value="xlarge">XLarge</option>  
+                <option value="xlarge">XLarge</option>
                 <option value="large">Large</option>
                 <option value="medium">Medium</option>
                 <option value="small">Small</option>
                 <option value="xsmall">XSmall</option>
             </config>
-            <default>xlarge</default>  
+            <default>xlarge</default>
         </input>
     </form>
 </part>

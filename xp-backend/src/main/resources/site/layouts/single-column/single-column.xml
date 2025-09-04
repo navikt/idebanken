@@ -4,6 +4,8 @@
     <description>Provides a single region</description>
     <form>
         <mixin name="background-color"/>
+        <mixin name="box-color"/>
+        <mixin name="padding-y"/>
         <mixin name="alignment"/>
         <input  name="backgroundImage" type="CheckBox">
             <label>Vis bakgrunnsbilde</label>

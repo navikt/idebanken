@@ -14,7 +14,7 @@ export function TableOfContentsSection({
 
             <HStack className="flex items-center gap-4 text-[#404040] uppercase tracking-wide m-0">
                 <HeadingView
-                    level={'3'}
+                    level={'2'}
                     size={'xsmall'}
                     className="flex items-center gap-4 text-[#404040] uppercase tracking-wide m-0">
                     <span>STEG {sectionNumber}</span>

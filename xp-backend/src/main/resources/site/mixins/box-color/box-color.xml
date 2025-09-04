@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>
+        <input name="boxColor" type="ComboBox">
+            <label>Farge på boks</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <option value="bg-white">Hvit</option>
+                <option value="bg-extra-light-pink">Ekstra lys rosa</option>
+                <option value="bg-light-pink">Lys rosa</option>
+                <option value="bg-pink">Rosa</option>
+                <option value="bg-dark-blue">Mørk blå</option>
+            </config>
+        </input>
+    </form>
+</mixin>
