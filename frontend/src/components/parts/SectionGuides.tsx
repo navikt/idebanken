@@ -50,12 +50,6 @@ function guideToLinkCardConfig(
     } as Part_Idebanken_Link_Card
 }
 
-function splitColumns<T>(items: T[], cols: number): T[][] {
-    const buckets: T[][] = Array.from({ length: cols }, () => [])
-    items.forEach((it, i) => buckets[i % cols].push(it))
-    return buckets
-}
-
 export async function SectionGuidesView(props: PartProps) {
     const cfg = validatedSectionGuidesConfig(props.part.config)
 
@@ -85,11 +79,8 @@ export async function SectionGuidesView(props: PartProps) {
         )
     }
 
-    // Decide layout based on cardType
-    const useThreeColumn = cardType === 'withImage'
-    const columns = useThreeColumn ? 3 : 2
-    const spans = useThreeColumn ? 4 : 6 // 12 grid system
-    const grouped = splitColumns(guides, columns)
+    const isImageCards = cardType === 'withImage'
+    const spanClass = isImageCards ? 'md:col-span-4' : 'md:col-span-6'
 
     return (
         <section>
@@ -97,20 +88,15 @@ export async function SectionGuidesView(props: PartProps) {
             <HGrid
                 columns={{ xs: 1, md: 12 }}
                 gap={{ xs: 'space-16', lg: 'space-20', xl: 'space-24' }}
-                className="items-stretch">
-                {grouped.map((col, idx) => (
-                    <div
-                        key={idx}
-                        className={`col-span-1 md:col-span-${spans} flex flex-col gap-4`}>
-                        {col.map((g) => (
-                            <LinkCardView
-                                key={g._path}
-                                part={{
-                                    descriptor: 'generated:link-card',
-                                    config: guideToLinkCardConfig(g, cardType),
-                                }}
-                            />
-                        ))}
+                className="items-start">
+                {guides.map((g) => (
+                    <div key={g._path} className={`col-span-1 ${spanClass}`}>
+                        <LinkCardView
+                            part={{
+                                descriptor: 'generated:link-card',
+                                config: guideToLinkCardConfig(g, cardType),
+                            }}
+                        />
                     </div>
                 ))}
             </HGrid>
