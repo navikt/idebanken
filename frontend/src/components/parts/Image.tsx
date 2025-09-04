@@ -6,9 +6,9 @@ import { Part_Idebanken_Image, Part_Idebanken_Image_Circles } from '~/types/gene
 
 // Image
 export type ImageData = {
-    image: {
-        imageUrl: string
-        data: {
+    image?: {
+        imageUrl?: string
+        data?: {
             altText?: string | null
         }
     }
@@ -234,8 +234,8 @@ function parseImageProps(
     const scaledHeight = height ? Math.round(height * scale) : undefined
 
     return {
-        src: getFormattedImageUrl(config.image.imageUrl, meta, scaledWidth, scaledHeight),
-        alt: config.image.data.altText ?? '',
+        src: getFormattedImageUrl(meta, config.image?.imageUrl, scaledWidth, scaledHeight),
+        alt: config.image?.data?.altText ?? '',
         width,
         height,
         showBorder: config.border ?? false,
@@ -256,11 +256,12 @@ function parseImageProps(
 }
 
 const getFormattedImageUrl = (
-    imageUrl: string,
     meta: MetaData,
+    imageUrl?: string,
     width?: number,
     height?: number
 ) => {
+    if (!imageUrl) return '#'
     if (!width && !height) {
         return imageUrl
     }
