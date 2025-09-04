@@ -18,7 +18,6 @@ import SingleColumnLayout from './layouts/SingleColumnLayout'
 import { TipPanelView } from './parts/TipPanel'
 import { AccordionView } from './parts/Accordion'
 import { ImageView } from './parts/Image'
-import PanelLayoutTwoColumn from './layouts/PanelLayoutTwoColumn'
 import { LinkCardView } from './parts/LinkCard'
 import TitleIngressView from '~/components/parts/TitleIngress'
 import { HeadingViewPart } from '~/components/parts/Heading'
@@ -57,9 +56,6 @@ ComponentRegistry.addLayout(`${APP_NAME}:2-column`, {
 })
 ComponentRegistry.addLayout(`${APP_NAME}:3-column`, {
     view: ThreeColumnLayout,
-})
-ComponentRegistry.addLayout(`${APP_NAME}:panel-2-column`, {
-    view: PanelLayoutTwoColumn,
 })
 
 // Part mappings

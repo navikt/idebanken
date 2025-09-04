@@ -13,12 +13,12 @@ export type _3Column = {
   /**
    * Avstand over
    */
-  paddingTop?: "0" | "6" | "10";
+  paddingTop?: "pt-0" | "pt-6" | "pt-10";
 
   /**
    * Avstand under
    */
-  paddingBottom?: "0" | "6" | "10";
+  paddingBottom?: "pb-0" | "pb-6" | "pb-10";
 
   /**
    * Mobilvisning - Rekkefølge
