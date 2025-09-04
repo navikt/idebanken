@@ -6,8 +6,11 @@ import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
 import { HGrid } from '@navikt/ds-react'
 import { buildLocaleMapping } from '~/utils/buildLocaleMapping'
 import { sectionGuidesQuery } from '~/components/queries/parts'
-import { validatedSectionGuidesConfig } from '~/utils/runtimeValidation'
-import { DocumentCardConfigRaw } from '~/types/valibot/parts'
+import {
+    validatedSectionGuidesConfig,
+    validatedDocumentCardConfig,
+} from '~/utils/runtimeValidation'
+import { DocumentCardConfigRaw, DocumentCardConfig } from '~/types/valibot/parts'
 
 async function fetchGuides(
     apiUrl: string,
@@ -15,7 +18,7 @@ async function fetchGuides(
     localeMapping: LocaleMapping,
     selectedPaths?: string[],
     limitStr?: string
-): Promise<DocumentCardConfigRaw[]> {
+): Promise<DocumentCardConfig[]> {
     const variables = {
         section: sectionPath,
         ...(selectedPaths && selectedPaths.length ? { selected: selectedPaths } : {}),
@@ -26,12 +29,12 @@ async function fetchGuides(
         method: 'POST',
         body: { query: sectionGuidesQuery, variables },
     })) as { guillotine?: { guidesUnderSection?: DocumentCardConfigRaw[] } }
-
-    return res.guillotine?.guidesUnderSection ?? []
+    const guides = validatedDocumentCardConfig(res.guillotine?.guidesUnderSection) || []
+    return guides
 }
 
 function guideToLinkCardConfig(
-    g: DocumentCardConfigRaw,
+    g: DocumentCardConfig,
     cardType: 'withIcon' | 'withImage' | undefined
 ): Part_Idebanken_Link_Card {
     return {
@@ -42,7 +45,7 @@ function guideToLinkCardConfig(
         iconName: cardType === 'withIcon' ? g.data?.iconName || null : null,
         iconColor: cardType === 'withIcon' ? g.data?.iconColor || null : null,
         bgColor: '',
-        tags: [], // no tags yet
+        tags: g.data?.categories || [],
         image: cardType === 'withImage' ? g.data?.image || null : null,
     } as Part_Idebanken_Link_Card
 }
@@ -72,7 +75,7 @@ export async function SectionGuidesView(props: PartProps) {
     const apiUrl = getContentApiUrl({ contentPath: props.meta.apiUrl ?? '' })
 
     const guides = await fetchGuides(apiUrl, sectionPath, localeMapping, selectedPaths, limit)
-    console.log('Guides-->', guides)
+
     if (!guides.length) {
         return (
             <section>
