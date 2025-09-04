@@ -181,6 +181,7 @@ export const sectionGuidesConfigSchema = object({
     overrideSection: optional(
         nullable(
             object({
+                displayName: string(),
                 _path: string(),
             })
         )

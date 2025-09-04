@@ -11,6 +11,8 @@ import {
     validatedDocumentCardConfig,
 } from '~/utils/runtimeValidation'
 import { DocumentCardConfigRaw, DocumentCardConfig } from '~/types/valibot/parts'
+import { buildRelativeInternalPath } from '~/utils/buildRelativeInternalPath'
+import { LinkHeading } from './LinkHeading'
 
 async function fetchGuides(
     apiUrl: string,
@@ -70,21 +72,36 @@ export async function SectionGuidesView(props: PartProps) {
 
     const guides = await fetchGuides(apiUrl, sectionPath, localeMapping, selectedPaths, limit)
 
+    const isImageCards = cardType === 'withImage'
+    const spanClass = isImageCards ? 'md:col-span-4' : 'md:col-span-6'
+    const headingLink = buildRelativeInternalPath(sectionPath)
+    const rawDisplayName = cfg.overrideSection?.displayName || props.common.get.displayName
+    const headingTitle = rawDisplayName
+        ? rawDisplayName.charAt(0).toUpperCase() + rawDisplayName.slice(1)
+        : rawDisplayName
+
     if (!guides.length) {
         return (
             <section>
-                {showHeading && <h2>{props.common.get.displayName || 'Veiledere'}</h2>}
+                <LinkHeading
+                    show={showHeading}
+                    title={headingTitle}
+                    href={headingLink}
+                    customClassName="mb-12"
+                />
                 <p>Ingen veiledere.</p>
             </section>
         )
     }
 
-    const isImageCards = cardType === 'withImage'
-    const spanClass = isImageCards ? 'md:col-span-4' : 'md:col-span-6'
-
     return (
         <section>
-            {showHeading && <h2>{props.common.get.displayName || 'Veiledere'}</h2>}
+            <LinkHeading
+                show={showHeading}
+                title={headingTitle}
+                href={headingLink}
+                customClassName="mb-12"
+            />
             <HGrid
                 columns={{ xs: 1, md: 12 }}
                 gap={{ xs: 'space-16', lg: 'space-20', xl: 'space-24' }}

@@ -39,7 +39,10 @@ export const linkQuery = `{
 }`
 
 export const sectionGuidesLinkQuery = `{
-	overrideSection { _path }
+	overrideSection { 
+    displayName 
+    _path 
+  }
   selectedGuides { _path }
 }`
 
