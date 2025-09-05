@@ -2,6 +2,7 @@ import { I18n, PORTAL_COMPONENT_ATTRIBUTE } from '@enonic/nextjs-adapter'
 import { ReactNode } from 'react'
 import localFont from 'next/font/local'
 import { Metadata } from 'next'
+import classNames from 'classnames'
 
 import '~/styles/globals.css'
 
@@ -58,7 +59,9 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
     }
 
     return (
-        <html lang={resolvedParams.locale ?? 'no'} className={mundial.variable}>
+        <html
+            lang={resolvedParams.locale ?? 'no'}
+            className={classNames(mundial.variable, 'scroll-smooth')}>
             <body {...bodyAttrs}>
                 <a
                     className="transition left-0 bg-dark-blue text-primary-content absolute p-3 m-3 -translate-y-16 focus:translate-y-0"
