@@ -750,6 +750,13 @@ export type MacroConfig = {
   __typename?: 'MacroConfig';
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
+  separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['separator'] */
+export type Macro_Idebanken_Separator_DataConfig = {
+  __typename?: 'Macro_idebanken_separator_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['system'] and descriptor ['disable'] */
