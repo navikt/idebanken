@@ -1,8 +1,9 @@
-import { fetchGuillotine } from '@enonic/nextjs-adapter/server'
 import type { ContentApiBaseBodyVariables, LocaleMapping, PartProps } from '@enonic/nextjs-adapter'
+import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
+
+import { fetchGuillotine } from '@enonic/nextjs-adapter/server'
 import { getContentApiUrl } from '@enonic/nextjs-adapter'
 import { LinkCardView } from './LinkCard'
-import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
 import { HGrid } from '@navikt/ds-react'
 import { buildLocaleMapping } from '~/utils/buildLocaleMapping'
 import { sectionGuidesQuery } from '~/components/queries/parts'
@@ -31,7 +32,9 @@ async function fetchGuides(
         method: 'POST',
         body: { query: sectionGuidesQuery, variables },
     })) as { guillotine?: { guidesUnderSection?: DocumentCardConfigRaw[] } }
+
     const guides = validatedDocumentCardConfig(res.guillotine?.guidesUnderSection) || []
+
     return guides
 }
 
@@ -59,15 +62,13 @@ export async function SectionGuidesView(props: PartProps) {
 
     const sectionPath = cfg.overrideSection?._path || props.common.get._path
     const cardType = cfg.cardType
-
-    const localeMapping = buildLocaleMapping(props.meta, props.common.getSite)
-
     const limit = cfg.limit && cfg.limit > 0 ? String(cfg.limit) : undefined
     const selectedPaths = cfg.selectedGuides?.length
         ? cfg.selectedGuides.map((g) => g._path)
         : undefined
     const showHeading = cfg.showHeading !== false
 
+    const localeMapping = buildLocaleMapping(props.meta, props.common.getSite)
     const apiUrl = getContentApiUrl({ contentPath: props.meta.apiUrl ?? '' })
 
     const guides = await fetchGuides(apiUrl, sectionPath, localeMapping, selectedPaths, limit)
@@ -110,7 +111,7 @@ export async function SectionGuidesView(props: PartProps) {
                     <div key={g._path} className={`col-span-1 ${spanClass}`}>
                         <LinkCardView
                             part={{
-                                descriptor: 'generated:link-card',
+                                descriptor: 'idebanken:link-card',
                                 config: guideToLinkCardConfig(g, cardType),
                             }}
                         />

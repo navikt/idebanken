@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Last ned filer</display-name>
+    <description>Viser filer som kan lastes ned.</description>
+    <form>
+        <input name="selectedFiles" type="ContentSelector">
+            <label>Valgte filer</label>
+            <occurrences minimum="0" maximum="50"/>
+            <config>
+                <allowPath>${site}/ressurser/documents/*</allowPath>
+            </config>
+        </input>
+    </form>
+</part>

@@ -920,6 +920,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   __typename?: 'Part_idebanken_ComponentDataApplicationConfig';
   accordion?: Maybe<Part_Idebanken_Accordion>;
   button?: Maybe<Part_Idebanken_Button>;
+  downloads?: Maybe<Part_Idebanken_Downloads>;
   heading?: Maybe<Part_Idebanken_Heading>;
   image?: Maybe<Part_Idebanken_Image>;
   info_box?: Maybe<Part_Idebanken_Info_Box>;
@@ -991,6 +992,19 @@ export type Part_Idebanken_Button_ExternalLink = {
 export type Part_Idebanken_Button_InternalLink = {
   __typename?: 'Part_idebanken_button_InternalLink';
   ideBankContentSelector?: Maybe<Content>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['downloads'] */
+export type Part_Idebanken_Downloads = {
+  __typename?: 'Part_idebanken_downloads';
+  selectedFiles?: Maybe<Array<Maybe<Content>>>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['downloads'] */
+export type Part_Idebanken_DownloadsSelectedFilesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['heading'] */

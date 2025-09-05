@@ -27,6 +27,7 @@ import ThreeColumnLayout from './layouts/ThreeColumnLayout'
 import { SectionGuidesView } from './parts/SectionGuides'
 import { TableOfContents } from '~/components/parts/TableOfContents'
 import { TableOfContentsSection } from '~/components/parts/TableOfContentsSection'
+import { Downloads } from '~/components/parts/Downloads'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -139,4 +140,20 @@ ComponentRegistry.addPart(`${APP_NAME}:table-of-contents`, {
 ComponentRegistry.addPart(`${APP_NAME}:table-of-contents-section`, {
     view: TableOfContentsSection,
     configQuery: tableOfContentsSectionQuery,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:downloads`, {
+    view: Downloads,
+    configQuery: `{
+        selectedFiles { 
+            displayName 
+            _path
+            ... on media_Document {
+                mediaUrl(type: absolute)
+                attachments {
+                    size
+                }
+            }
+        }
+  }`,
 })
