@@ -28,6 +28,7 @@ import { SectionGuidesView } from './parts/SectionGuides'
 import { TableOfContents } from '~/components/parts/TableOfContents'
 import { TableOfContentsSection } from '~/components/parts/TableOfContentsSection'
 import { Downloads } from '~/components/parts/Downloads'
+import { Separator } from '~/components/macros/Separator'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -57,6 +58,11 @@ ComponentRegistry.addLayout(`${APP_NAME}:2-column`, {
 })
 ComponentRegistry.addLayout(`${APP_NAME}:3-column`, {
     view: ThreeColumnLayout,
+})
+
+// Macro mappings
+ComponentRegistry.addMacro(`${APP_NAME}:separator`, {
+    view: Separator,
 })
 
 // Part mappings
@@ -145,8 +151,8 @@ ComponentRegistry.addPart(`${APP_NAME}:table-of-contents-section`, {
 ComponentRegistry.addPart(`${APP_NAME}:downloads`, {
     view: Downloads,
     configQuery: `{
-        selectedFiles { 
-            displayName 
+        selectedFiles {
+            displayName
             _path
             ... on media_Document {
                 mediaUrl(type: absolute)
