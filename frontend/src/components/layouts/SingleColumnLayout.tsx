@@ -19,10 +19,11 @@ interface SingleColumnLayoutProps {
     }
     common: CommonType
     meta: MetaData
+    path: string
 }
 
 const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
-    const { common, meta, layout } = props
+    const { common, meta, layout, path } = props
     const regions = layout.regions
     const config = layout.config ?? {}
     const { backgroundImage, alignment, bgColor, boxColor, paddingTop, paddingBottom } = config
@@ -40,7 +41,8 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
         <BleedingBackgroundPageBlock
             bgColor={bgColor}
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
-            backgroundStyle={backgroundStyle}>
+            backgroundStyle={backgroundStyle}
+            layoutPath={path}>
             <Box
                 className={classNames(
                     alignment ? `text-${alignment}` : 'text-left',

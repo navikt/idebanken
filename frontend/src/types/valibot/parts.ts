@@ -4,6 +4,7 @@ import {
     InferOutput,
     nullable,
     nullish,
+    number,
     object,
     optional,
     picklist,
@@ -11,7 +12,6 @@ import {
     string,
     transform,
     union,
-    number,
 } from 'valibot'
 import { richTextSchema } from '~/types/valibot/richTextSchema'
 import { buildRelativeInternalPath } from '~/utils/buildRelativeInternalPath'
@@ -208,12 +208,12 @@ const documentCardRawSchema = object({
     displayName: string(),
     data: optional(
         object({
-            title: optional(string()),
-            description: optional(string()),
-            iconName: optional(string()),
-            iconColor: optional(string()),
-            image: optional(imageDataSchema),
-            categories: optional(array(string())), // in case backend already flattens
+            title: nullish(string()),
+            description: nullish(string()),
+            iconName: nullish(string()),
+            iconColor: nullish(string()),
+            image: nullish(imageDataSchema),
+            categories: nullish(array(string())), // in case backend already flattens
         })
     ),
     // x-data structure (optional)
@@ -221,9 +221,9 @@ const documentCardRawSchema = object({
         object({
             idebanken: optional(
                 object({
-                    category: optional(
+                    category: nullish(
                         object({
-                            categories: optional(array(string())),
+                            categories: nullish(array(string())),
                         })
                     ),
                 })

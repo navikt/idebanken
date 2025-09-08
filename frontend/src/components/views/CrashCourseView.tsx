@@ -83,7 +83,8 @@ export default function CrashCourseView({
     return (
         <BleedingBackgroundPageBlock
             as={'div'}
-            className={'h-screen flex flex-col justify-between px-0 pt-8'}>
+            className={'h-screen flex flex-col justify-between px-0 pt-8'}
+            width={'2xl'}>
             <AnimatePresence initial={false} custom={direction} mode="popLayout">
                 <motion.div
                     key={currentIndex}

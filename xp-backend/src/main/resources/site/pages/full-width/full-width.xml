@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<page xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Full bredde</display-name>
+    <description>Sidetype for å vise innholdet på siden i full bredde</description>
+    <form/>
+    <regions>
+        <!-- enonic is using a regex that fucks with dashes -->
+        <region name="full_width"/>
+    </regions>
+</page>
