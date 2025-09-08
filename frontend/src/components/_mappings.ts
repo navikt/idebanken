@@ -29,6 +29,7 @@ import { TableOfContents } from '~/components/parts/TableOfContents'
 import { TableOfContentsSection } from '~/components/parts/TableOfContentsSection'
 import { Downloads } from '~/components/parts/Downloads'
 import { Separator } from '~/components/macros/Separator'
+import { FullWidth } from '~/components/pages/FullWidth'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -47,6 +48,9 @@ ComponentRegistry.addContentType(`${APP_NAME}:crash-course`, {
 // Page mappings
 ComponentRegistry.addPage(`${APP_NAME}:main`, {
     view: MainPage,
+})
+ComponentRegistry.addPage(`${APP_NAME}:full-width`, {
+    view: FullWidth,
 })
 
 // Layout mappings

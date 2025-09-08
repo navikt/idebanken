@@ -27,6 +27,7 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
         <>
             <BleedingBackgroundPageBlock
                 as="header"
+                width={'2xl'}
                 bgColor="bg-pink-100"
                 className="relative"
                 customClassNames="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-40">

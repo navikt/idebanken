@@ -1,23 +1,30 @@
 import type { PageProps } from '@enonic/nextjs-adapter'
 import RegionsView from '@enonic/nextjs-adapter/views/Region'
+import type { RegionProps } from '@enonic/nextjs-adapter/src/types'
 
-const MainPage = (props: PageProps) => {
+export const appendRegionAttributes = (props: PageProps, regionName: string): void => {
     const page = props.page
 
-    // NB: Should be moved from here
     if (!page.regions || !Object.keys(page.regions).length) {
         page.regions = {
-            main: {
-                name: 'main',
+            [regionName]: {
+                name: regionName,
                 components: [],
             },
         }
     }
-    return (
-        <>
-            <RegionsView {...props} name="main" />
-        </>
-    )
+
+    // @ts-expect-error RegionView in RegionsView accepts className
+    page.regions[regionName] = {
+        ...page.regions[regionName],
+        className: props.page.descriptor?.replace(/^[^:]*:/, 'page-'),
+    } as RegionProps
+}
+
+const MainPage = (props: PageProps) => {
+    appendRegionAttributes(props, 'main')
+
+    return <RegionsView {...props} name="main" />
 }
 
 export default MainPage

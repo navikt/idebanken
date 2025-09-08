@@ -7,7 +7,7 @@ import { HeadingView } from '~/components/parts/Heading'
 
 export default function Footer({ footerProps }: Readonly<{ footerProps?: FooterProps }>) {
     return (
-        <BleedingBackgroundPageBlock bgColor={'bg-brand-black'}>
+        <BleedingBackgroundPageBlock bgColor={'bg-brand-black'} width={'2xl'}>
             <PageBlock as="footer" width="2xl" className="container mx-auto py-8 text-brand-white">
                 <HStack gap="8" justify="space-between" align="center">
                     <VStack>
