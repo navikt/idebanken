@@ -25,6 +25,17 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
 
+    // Shared class utilities to reduce duplication
+    const buttonLabelClass = '[&_.navds-label]:translate-y-[2px] flex-col sm:flex-row'
+    const rotatingIconClass = (on: boolean) =>
+        classNames('transition-transform duration-200', { 'rotate-90': on })
+    const dropdownBaseClass =
+        'absolute top-full right-0 transform bg-light-pink z-40 transition-all duration-300 rounded-b-4xl'
+    const dropdownStateClass = (open: boolean) =>
+        open
+            ? 'opacity-100 translate-y-0'
+            : 'opacity-0 -translate-y-3 pointer-events-none h-0 overflow-hidden'
+
     return (
         <>
             <BleedingBackgroundPageBlock
@@ -55,10 +66,9 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                                 setIsMenuOpen(!isMenuOpen)
                                 setIsSearchOpen(false)
                             }}
-                            className="[&_.navds-label]:translate-y-[2px] flex-col sm:flex-row"
+                            className={buttonLabelClass}
                             icon={
-                                <div
-                                    className={`transition-transform duration-200 ${isMenuOpen ? 'rotate-90' : ''}`}>
+                                <div className={rotatingIconClass(isMenuOpen)}>
                                     {isMenuOpen ? (
                                         <XMarkIcon aria-hidden />
                                     ) : (
@@ -75,10 +85,9 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                                 setIsSearchOpen(!isSearchOpen)
                                 setIsMenuOpen(false)
                             }}
-                            className={'[&_.navds-label]:translate-y-[2px] flex-col sm:flex-row'}
+                            className={buttonLabelClass}
                             icon={
-                                <div
-                                    className={`transition-transform duration-200 ${isSearchOpen ? 'rotate-90' : ''}`}>
+                                <div className={rotatingIconClass(isSearchOpen)}>
                                     {isSearchOpen ? (
                                         <XMarkIcon aria-hidden />
                                     ) : (
@@ -92,19 +101,7 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                 </HStack>
 
                 <PageBlock
-                    className={classNames(
-                        'absolute',
-                        'top-full',
-                        'right-0',
-                        'transform',
-                        'bg-light-pink',
-                        'z-40',
-                        'transition-all duration-300',
-                        'rounded-b-4xl',
-                        isMenuOpen
-                            ? 'opacity-100 translate-y-0'
-                            : 'opacity-0 -translate-y-3 pointer-events-none h-0 overflow-hidden'
-                    )}
+                    className={classNames(dropdownBaseClass, dropdownStateClass(isMenuOpen))}
                     aria-hidden={!isMenuOpen}
                     inert={!isMenuOpen}
                     width={'2xl'}
@@ -145,25 +142,13 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                 </PageBlock>
 
                 <PageBlock
-                    className={classNames(
-                        'absolute',
-                        'top-full',
-                        'right-0',
-                        'transform',
-                        'bg-light-pink',
-                        'z-40',
-                        'transition-all duration-300',
-                        'rounded-b-4xl',
-                        isSearchOpen
-                            ? 'opacity-100 translate-y-0'
-                            : 'opacity-0 -translate-y-3 pointer-events-none h-0 overflow-hidden'
-                    )}
+                    className={classNames(dropdownBaseClass, dropdownStateClass(isSearchOpen))}
                     aria-hidden={!isSearchOpen}
                     inert={!isSearchOpen}
                     width={'md'}
                     gutters>
-                    <VStack gap={'space-20'} className={'py-12'} maxWidth={'xs'} maxHeight={'xs'}>
-                        <SearchWrapper className={''} isSearchOpen={isSearchOpen} />
+                    <VStack gap={'space-20'} className={'py-12'}>
+                        <SearchWrapper isSearchOpen={isSearchOpen} />
                     </VStack>
                 </PageBlock>
             </BleedingBackgroundPageBlock>
