@@ -28,11 +28,8 @@ import { SectionGuidesView } from './parts/SectionGuides'
 import { TableOfContents } from '~/components/parts/TableOfContents'
 import { TableOfContentsSection } from '~/components/parts/TableOfContentsSection'
 import { Downloads } from '~/components/parts/Downloads'
-<<<<<<< HEAD
-=======
 import { Separator } from '~/components/macros/Separator'
 import { FullWidth } from '~/components/pages/FullWidth'
->>>>>>> main
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
