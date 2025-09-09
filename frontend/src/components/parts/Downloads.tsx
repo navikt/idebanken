@@ -38,7 +38,6 @@ function pickIcon(ext?: string) {
 }
 
 export const Downloads = (props: PartProps) => {
-    console.log(props)
     const config: DownloadsConfig = props.part.config
     const files = config?.selectedFiles as DownloadItem[] | undefined
     if (!files?.length) return null
