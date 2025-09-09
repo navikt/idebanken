@@ -11,6 +11,7 @@ import { guidesUnderSection } from './resolvers/guidesUnderSection'
 import { logger } from '/lib/utils/logging'
 import { TableOfContents, TableOfContentsSection } from '@xp-types/site/parts'
 import { getFieldByDescriptor } from '/lib/utils/object-utils'
+import { Link } from '@xp-types/site/mixins'
 
 type Source<T> = {
     __contentId: string
@@ -54,6 +55,18 @@ export function extensions({
                         type: GraphQLString,
                     },
                     links: {
+                        type: nonNull(list(nonNull(reference('OverridableContentLink')))),
+                    },
+                },
+                interfaces: [],
+            },
+            Header: {
+                description: 'Header configuration',
+                fields: {
+                    linkGroups: {
+                        type: nonNull(list(nonNull(reference('LinkGroups')))),
+                    },
+                    linksBottom: {
                         type: nonNull(list(nonNull(reference('OverridableContentLink')))),
                     },
                 },
@@ -162,16 +175,23 @@ export function extensions({
             HeadlessCms: {
                 header: (
                     _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
-                ): LinkGroups => {
+                ): {
+                    linkGroups: LinkGroups
+                    linksBottom: Array<ProcessedOverridableLink>
+                } => {
                     return runInContext({ asAdmin: true }, () => {
                         const menuConfig = getSiteConfig()?.header
 
-                        return resolveLinkGroups(menuConfig?.linkGroups)
+                        return {
+                            linkGroups: resolveLinkGroups(menuConfig?.linkGroups),
+                            linksBottom: resolveLinks(menuConfig?.linksBottom),
+                        }
                     })
                 },
                 footer: (
                     _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
                 ): {
+                    footerText?: string
                     linkGroups: LinkGroups
                 } => {
                     return runInContext({ asAdmin: true }, () => {
@@ -221,7 +241,7 @@ export function extensions({
             HeadlessCms: (params): void => {
                 params.addFields({
                     header: {
-                        type: nonNull(list(nonNull(reference('LinkGroups')))),
+                        type: reference('Header'),
                     },
                     footer: {
                         type: reference('Footer'),
@@ -245,16 +265,20 @@ function resolveLinkGroups(
 ): LinkGroups {
     return forceArray(linkGroups).map(({ title, links }) => ({
         title: title,
-        links: forceArray(links).map(({ link, linkText }) => {
-            const content = getContent({ key: link })
-            return {
-                href: content?._path?.replace(/^\/[^/]*/, '') || '/',
-                linkText:
-                    linkText ??
-                    (content?.data?.title as string | undefined) ??
-                    content?.displayName ??
-                    '[Lenket innhold er ikke gyldig]',
-            }
-        }),
+        links: resolveLinks(links),
     }))
+}
+
+function resolveLinks(links?: Array<Link>) {
+    return forceArray(links).map(({ link, linkText }) => {
+        const content = getContent({ key: link })
+        return {
+            href: content?._path?.replace(/^\/[^/]*/, '') || '/',
+            linkText:
+                linkText ??
+                (content?.data?.title as string | undefined) ??
+                content?.displayName ??
+                '[Lenket innhold er ikke gyldig]',
+        }
+    })
 }

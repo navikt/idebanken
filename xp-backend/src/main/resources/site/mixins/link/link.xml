@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>
+        <input type="ContentSelector" name="link">
+            <label>Lenke</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input type="TextLine" name="linkText">
+            <label>Overskriv lenketekst</label>
+        </input>
+    </form>
+</mixin>

@@ -64,6 +64,13 @@
             <occurrences minimum="1" maximum="1"/>
             <items>
                 <mixin name="link-groups"/>
+                <item-set name="linksBottom">
+                    <label>Lenker nederst i meny</label>
+                    <occurrences minimum="0" maximum="0"/>
+                    <items>
+                        <mixin name="link" />
+                    </items>
+                </item-set>
             </items>
         </item-set>
         <item-set name="footer">

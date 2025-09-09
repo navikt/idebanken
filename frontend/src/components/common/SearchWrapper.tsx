@@ -2,17 +2,37 @@
 import { Search } from '@navikt/ds-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { SearchButton } from '@navikt/ds-react/Search'
+import { useEffect, useRef } from 'react'
 
 export const SOK_SEARCH_PARAM = 'ord'
 
-export function SearchWrapper({
-    onSubmit,
-    ...rest
-}: Readonly<React.HTMLAttributes<HTMLFormElement>>) {
+interface SearchWrapperProps extends React.HTMLAttributes<HTMLFormElement> {
+    isSearchOpen?: boolean
+}
+
+export function SearchWrapper({ onSubmit, isSearchOpen, ...rest }: Readonly<SearchWrapperProps>) {
     const searchParams = useSearchParams()
     const router = useRouter()
+    const formRef = useRef<HTMLFormElement | null>(null)
+
+    useEffect(() => {
+        if (!isSearchOpen) return
+        const input = formRef.current?.querySelector(
+            `input[name="${SOK_SEARCH_PARAM}"]`
+        ) as HTMLInputElement | null
+
+        if (input) {
+            // Use rAF to ensure element is visible before focusing
+            requestAnimationFrame(() => {
+                input.focus()
+                input.select()
+            })
+        }
+    }, [isSearchOpen])
+
     return (
         <form
+            ref={formRef}
             role="search"
             name={'idebanken-search'}
             onSubmit={

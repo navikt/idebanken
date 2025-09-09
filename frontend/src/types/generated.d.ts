@@ -451,6 +451,13 @@ export type HasValueFilterInput = {
   stringValues?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+/** Header configuration */
+export type Header = {
+  __typename?: 'Header';
+  linkGroups: Array<LinkGroups>;
+  linksBottom: Array<OverridableContentLink>;
+};
+
 /** Headless CMS */
 export type HeadlessCms = {
   __typename?: 'HeadlessCms';
@@ -463,7 +470,7 @@ export type HeadlessCms = {
   getType?: Maybe<ContentType>;
   getTypes?: Maybe<Array<Maybe<ContentType>>>;
   guidesUnderSection?: Maybe<Array<Idebanken_Guide>>;
-  header: Array<LinkGroups>;
+  header?: Maybe<Header>;
   query?: Maybe<Array<Maybe<Content>>>;
   queryConnection?: Maybe<QueryContentConnection>;
   queryDsl?: Maybe<Array<Maybe<Content>>>;
