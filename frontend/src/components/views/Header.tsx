@@ -117,8 +117,7 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                                         key={id}
                                         level={'2'}
                                         size={'xsmall'}
-                                        className={'font-bold'}>
-                                        {/*TODO fix font bold*/}
+                                        className={'[&&]:font-normal'}>
                                         {title}
                                     </HeadingView>
                                     {links?.map(({ linkText, href }, id) => (
@@ -135,7 +134,7 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                         <hr className="separator" />
                         <HStack gap={{ xs: '4', md: '16' }}>
                             {header?.linksBottom?.map(({ linkText, href }, id) => (
-                                <LinkCard key={id}>
+                                <LinkCard key={id} size={'small'}>
                                     <LinkCardTitle>
                                         <LinkCardAnchor href={href}>{linkText}</LinkCardAnchor>
                                     </LinkCardTitle>
