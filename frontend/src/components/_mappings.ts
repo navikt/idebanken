@@ -28,6 +28,11 @@ import { SectionGuidesView } from './parts/SectionGuides'
 import { TableOfContents } from '~/components/parts/TableOfContents'
 import { TableOfContentsSection } from '~/components/parts/TableOfContentsSection'
 import { Downloads } from '~/components/parts/Downloads'
+<<<<<<< HEAD
+=======
+import { Separator } from '~/components/macros/Separator'
+import { FullWidth } from '~/components/pages/FullWidth'
+>>>>>>> main
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -47,6 +52,9 @@ ComponentRegistry.addContentType(`${APP_NAME}:crash-course`, {
 ComponentRegistry.addPage(`${APP_NAME}:main`, {
     view: MainPage,
 })
+ComponentRegistry.addPage(`${APP_NAME}:full-width`, {
+    view: FullWidth,
+})
 
 // Layout mappings
 ComponentRegistry.addLayout(`${APP_NAME}:single-column`, {
@@ -57,6 +65,11 @@ ComponentRegistry.addLayout(`${APP_NAME}:2-column`, {
 })
 ComponentRegistry.addLayout(`${APP_NAME}:3-column`, {
     view: ThreeColumnLayout,
+})
+
+// Macro mappings
+ComponentRegistry.addMacro(`${APP_NAME}:separator`, {
+    view: Separator,
 })
 
 // Part mappings

@@ -1,22 +1,24 @@
-import { Bleed } from '@navikt/ds-react'
+import { Bleed, PageBlockProps } from '@navikt/ds-react'
 import { PageBlock } from '@navikt/ds-react/Page'
 import React from 'react'
+import { PAGE_FULL_WIDTH } from '~/utils/constants'
 
-interface BleedingBackgroundPageBlockProps extends React.HTMLAttributes<HTMLDivElement> {
+interface BleedingBackgroundPageBlockProps extends PageBlockProps {
     bgColor?: string | null
     children: React.ReactNode
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     as?: React.ElementType<any, keyof React.JSX.IntrinsicElements>
     customClassNames?: string
+    layoutPath?: string
     backgroundStyle?: React.CSSProperties
 }
 
 export default function BleedingBackgroundPageBlock({
     bgColor,
     children,
-    as,
     customClassNames,
     backgroundStyle,
+    layoutPath,
     ...rest
 }: Readonly<BleedingBackgroundPageBlockProps>) {
     return (
@@ -24,7 +26,10 @@ export default function BleedingBackgroundPageBlock({
             className={`${bgColor ?? 'bg-extra-light-pink'} overflow-y-auto ${customClassNames}`}
             marginInline={'full'}
             style={backgroundStyle}>
-            <PageBlock {...rest} as={as ?? 'div'} width={'2xl'} gutters>
+            <PageBlock
+                width={layoutPath?.startsWith(`/${PAGE_FULL_WIDTH}/`) ? '2xl' : 'md'}
+                gutters
+                {...rest}>
                 {children}
             </PageBlock>
         </Bleed>

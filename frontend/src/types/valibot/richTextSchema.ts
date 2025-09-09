@@ -1,8 +1,8 @@
 import {
     any,
     array,
-    InferOutput,
     custom,
+    InferOutput,
     nullish,
     object,
     optional,

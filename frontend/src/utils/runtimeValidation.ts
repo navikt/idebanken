@@ -1,9 +1,12 @@
-import { parse, array } from 'valibot'
+import { array, parse } from 'valibot'
 import {
     AccordionConfig,
     accordionConfigSchema,
     ButtonConfig,
     buttonConfigSchema,
+    DocumentCardConfig,
+    DocumentCardConfigRaw,
+    documentCardSchema,
     HeadingConfig,
     headingConfigSchema,
     InfoBoxConfig,
@@ -12,22 +15,19 @@ import {
     linkCardConfigSchema,
     SectionGuidesConfig,
     sectionGuidesConfigSchema,
-    DocumentCardConfigRaw,
-    DocumentCardConfig,
-    documentCardSchema,
 } from '~/types/valibot/parts'
 import {
-    richTextSchema,
-    RichTextData,
-    macroSchema,
-    MacroData,
-    imageSchema,
     ImageData,
+    imageSchema,
+    MacroData,
+    macroSchema,
+    RichTextData,
+    richTextSchema,
 } from '~/types/valibot/richTextSchema'
 import {
-    RichTextData as RichTExtDataAdapter,
-    MacroData as MacroDataAdapter,
     ImageData as ImageDataAdapter,
+    MacroData as MacroDataAdapter,
+    RichTextData as RichTExtDataAdapter,
 } from '@enonic/nextjs-adapter'
 import {
     Part_Idebanken_Accordion,

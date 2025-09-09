@@ -22,11 +22,12 @@ interface TwoColumnLayoutProps {
     }
     common: CommonType
     meta: MetaData
+    path: string
 }
 
 const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
     const regions = props.layout.regions
-    const { common, meta, layout } = props
+    const { common, meta, layout, path } = props
     const { leftSpan, breakLeftFirst, bgColor, boxColor, paddingTop, paddingBottom } =
         layout.config ?? {}
     const rightSpan = 12 - Number(leftSpan ?? 6)
@@ -34,7 +35,8 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
     return (
         <BleedingBackgroundPageBlock
             bgColor={bgColor}
-            className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']} pb-0.5`}>
+            className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']} pb-0.5`}
+            layoutPath={path}>
             <HGrid
                 className={classNames(
                     'items-stretch',

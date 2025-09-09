@@ -25,11 +25,12 @@ interface ThreeColumnLayoutProps {
     }
     common: CommonType
     meta: MetaData
+    path: string
 }
 
 const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
     const regions = props.layout.regions
-    const { common, meta, layout } = props
+    const { common, meta, layout, path } = props
     const columnSpan = 4 // Equal width for all columns (12/3 = 4)
     const { stackOrder, bgColor, boxColor, paddingTop, paddingBottom } = layout.config ?? {}
 
@@ -59,7 +60,8 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
     return (
         <BleedingBackgroundPageBlock
             bgColor={bgColor}
-            className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}>
+            className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
+            layoutPath={path}>
             <HGrid
                 className={classNames(
                     'items-stretch',
