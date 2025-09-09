@@ -1009,7 +1009,9 @@ export type Part_Idebanken_Button_InternalLink = {
 /** Part component application config for application ['idebanken'] and descriptor ['downloads'] */
 export type Part_Idebanken_Downloads = {
   __typename?: 'Part_idebanken_downloads';
+  ingress?: Maybe<Scalars['String']['output']>;
   selectedFiles?: Maybe<Array<Maybe<Content>>>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 
