@@ -6,12 +6,13 @@ import NextImage from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { HeadlessCms } from '~/types/generated'
-import { Bleed, Box, Button, HGrid, HStack, VStack } from '@navikt/ds-react'
+import { Bleed, Button, HStack, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
 import { MagnifyingGlassIcon, MenuHamburgerIcon, XMarkIcon } from '@navikt/aksel-icons'
 import { useState } from 'react'
 import { PageBlock } from '@navikt/ds-react/Page'
 import classNames from 'classnames'
+import { LinkCard, LinkCardAnchor, LinkCardTitle } from '@navikt/ds-react/LinkCard'
 
 export interface HeaderProps {
     title: string
@@ -29,7 +30,6 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
             <BleedingBackgroundPageBlock
                 as="header"
                 width={'2xl'}
-                // bgColor="bg-pink-100"
                 className="relative items-center"
                 bleedClassName="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-40 overflow-y-visible">
                 <HStack
@@ -91,7 +91,6 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                     </HStack>
                 </HStack>
 
-                {/* Moved inside BleedingBackgroundPageBlock and positioned relative to header */}
                 <PageBlock
                     className={classNames(
                         'absolute',
@@ -110,30 +109,40 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                     inert={!isMenuOpen}
                     width={'2xl'}
                     gutters>
-                    <HGrid columns={{ xs: 1, md: 12 }} gap={'space-20'} className={'py-12'}>
-                        <SearchWrapper className={'col-span-1 md:col-span-4 md:order-2'} />
-                        <Box
-                            as={'nav'}
-                            className={
-                                'col-span-1 md:col-span-8 md:order-1 flex flex-wrap gap-x-20 gap-y-6'
-                            }>
-                            {header?.map(({ title, links }, id) => (
+                    <VStack as={'nav'} gap={'8'} className={''} padding={'10'}>
+                        <HStack gap={{ xs: '8', md: '16' }}>
+                            {header?.linkGroups?.map(({ title, links }, id) => (
                                 <VStack key={id} gap={'2'}>
-                                    <HeadingView key={id} level={'2'} size={'xsmall'}>
+                                    <HeadingView
+                                        key={id}
+                                        level={'2'}
+                                        size={'xsmall'}
+                                        className={'font-bold'}>
+                                        {/*TODO fix font bold*/}
                                         {title}
                                     </HeadingView>
                                     {links?.map(({ linkText, href }, id) => (
                                         <NextLink
                                             key={id}
                                             href={href ?? '/'}
-                                            className="underline hover:no-underline">
+                                            className="underline hover:no-underline w-fit">
                                             {linkText}
                                         </NextLink>
                                     ))}
                                 </VStack>
                             ))}
-                        </Box>
-                    </HGrid>
+                        </HStack>
+                        <hr className="separator" />
+                        <HStack gap={{ xs: '4', md: '16' }}>
+                            {header?.linksBottom?.map(({ linkText, href }, id) => (
+                                <LinkCard key={id}>
+                                    <LinkCardTitle>
+                                        <LinkCardAnchor href={href}>{linkText}</LinkCardAnchor>
+                                    </LinkCardTitle>
+                                </LinkCard>
+                            ))}
+                        </HStack>
+                    </VStack>
                 </PageBlock>
 
                 <PageBlock

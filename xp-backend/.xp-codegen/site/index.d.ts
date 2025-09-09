@@ -92,6 +92,21 @@ declare global {
             linkText?: string;
           }>;
         }>;
+
+        /**
+         * Lenker nederst i meny
+         */
+        linksBottom?: Array<{
+          /**
+           * Lenke
+           */
+          link: string;
+
+          /**
+           * Overskriv lenketekst
+           */
+          linkText?: string;
+        }>;
       };
 
       /**

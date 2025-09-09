@@ -75,7 +75,13 @@ query($path:ID!){
       _path
     }
     header {
-        ${linkGroups}
+        linkGroups {
+            ${linkGroups}
+        }
+        linksBottom {
+            href
+            linkText
+        }
     }
     footer {
       footerText

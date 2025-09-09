@@ -5,6 +5,7 @@ export type BoxColor = import("./box-color").BoxColor;
 export type IconBackgroundColor = import("./icon-background-color").IconBackgroundColor;
 export type IconName = import("./icon-name").IconName;
 export type Image = import("./image").Image;
+export type Link = import("./link").Link;
 export type LinkGroups = import("./link-groups").LinkGroups;
 export type LinkSelector = import("./link-selector").LinkSelector;
 export type PaddingY = import("./padding-y").PaddingY;
