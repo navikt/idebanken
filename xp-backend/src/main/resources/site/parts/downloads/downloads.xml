@@ -3,6 +3,12 @@
     <display-name>Last ned filer</display-name>
     <description>Viser filer som kan lastes ned.</description>
     <form>
+        <input type="TextLine" name="title">
+            <label>Tittel</label>
+        </input>
+        <input type="TextLine" name="ingress">
+            <label>Ingress</label>
+        </input>
         <input name="selectedFiles" type="ContentSelector">
             <label>Valgte filer</label>
             <occurrences minimum="0" maximum="50"/>

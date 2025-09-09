@@ -155,8 +155,8 @@ ComponentRegistry.addPart(`${APP_NAME}:table-of-contents-section`, {
 ComponentRegistry.addPart(`${APP_NAME}:downloads`, {
     view: Downloads,
     configQuery: `{
-        selectedFiles {
-            displayName
+        selectedFiles { 
+            displayName 
             _path
             ... on media_Document {
                 mediaUrl(type: absolute)

@@ -83,7 +83,7 @@ export async function SectionGuidesView(props: PartProps) {
 
     if (!guides.length) {
         return (
-            <section>
+            <section className="relative z-20">
                 <LinkHeading
                     show={showHeading}
                     title={headingTitle}
@@ -96,7 +96,7 @@ export async function SectionGuidesView(props: PartProps) {
     }
 
     return (
-        <section>
+        <section className="relative z-20">
             <LinkHeading
                 show={showHeading}
                 title={headingTitle}
