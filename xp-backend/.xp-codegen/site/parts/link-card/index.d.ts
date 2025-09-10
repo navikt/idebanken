@@ -8,7 +8,7 @@ export type LinkCard = {
         /**
          * Selected
          */
-        _selected: "internalLink";
+        _selected: 'internalLink';
 
         /**
          * Internal URL
@@ -24,7 +24,7 @@ export type LinkCard = {
         /**
          * Selected
          */
-        _selected: "externalLink";
+        _selected: 'externalLink';
 
         /**
          * External URL
@@ -50,7 +50,7 @@ export type LinkCard = {
   /**
    * Bakgrunnsfarge
    */
-  bgColor: "bg-white" | "bg-extra-light-pink" | "bg-light-pink" | "bg-pink" | "bg-dark-blue";
+  bgColor: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
 
   /**
    * Bilde
@@ -60,15 +60,15 @@ export type LinkCard = {
   /**
    * Ikon
    */
-  iconName?: "hand-shake-heart" | "reception" | "chat-2" | "hand-shake" | "person-group" | "task-list" | "clock";
+  iconName?: 'hand-shake-heart' | 'reception' | 'chat-2' | 'hand-shake' | 'person-group' | 'task-list' | 'clock';
 
   /**
    * Ikonens bakgrunnsfarge
    */
-  iconColor?: "bg-white" | "bg-pink" | "bg-blue" | "bg-orange" | "bg-yellow" | "bg-red";
+  iconColor?: 'bg-white' | 'bg-pink' | 'bg-blue' | 'bg-orange' | 'bg-yellow' | 'bg-red';
 
   /**
    * Tags
    */
-  tags?: Array<"sykefravaer" | "arbeidsmiljo" | "partssamarbeid" | "psykiskHelse" | "inkludering" | "omstilling"> | "sykefravaer" | "arbeidsmiljo" | "partssamarbeid" | "psykiskHelse" | "inkludering" | "omstilling";
+  tags?: Array<'sykefravaer' | 'arbeidsmiljo' | 'partssamarbeid' | 'psykiskHelse' | 'inkludering' | 'omstilling'> | 'sykefravaer' | 'arbeidsmiljo' | 'partssamarbeid' | 'psykiskHelse' | 'inkludering' | 'omstilling';
 };

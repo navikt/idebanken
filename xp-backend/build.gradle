@@ -53,12 +53,12 @@ apply from: "$projectDir/gradle/env.gradle"
 
 tasks.register('dev', NpmTask) {
     args = [
-            'run',
-            'watch'
+        'run',
+        'watch'
     ]
     dependsOn npmInstall, deploy, generateFrontendGqlTypes
     environment = [
-            'FORCE_COLOR': 'true',
+        'FORCE_COLOR': 'true',
     ]
 }
 
@@ -70,28 +70,54 @@ tasks.register('generateFrontendGqlTypes', Exec) {
 tasks.register('npmCheck', NpmTask) {
     dependsOn npmInstall
     args = [
-            'run',
-            'check'
+        'run',
+        'check'
     ]
     environment = [
-            'FORCE_COLOR': 'true',
+        'FORCE_COLOR': 'true',
     ]
 }
 
 tasks.register('npmBuild', NpmTask) {
     args = [
-            'run',
-            //'--silent',
-            isProd() ? 'minify' : 'build'
+        'run',
+        //'--silent',
+        isProd() ? 'minify' : 'build'
     ]
     dependsOn npmInstall
     environment = [
-            'FORCE_COLOR': 'true',
-            'LOG_LEVEL_FROM_GRADLE': gradle.startParameter.logLevel.toString(),
-            'NODE_ENV': nodeEnvironment()
+        'FORCE_COLOR'          : 'true',
+        'LOG_LEVEL_FROM_GRADLE': gradle.startParameter.logLevel.toString(),
+        'NODE_ENV'             : nodeEnvironment()
     ]
     inputs.dir 'src/main/resources'
     outputs.dir 'build/resources/main'
+}
+
+// Copy generated types to frontend/src/types folder and prefix types with XP_
+tasks.register('copyGeneratedTypes', Copy) {
+    dependsOn generateTypeScript
+    from("$projectDir/.xp-codegen")
+    into("${projectDir}/../frontend/src/types/.xp-codegen")
+    includeEmptyDirs = true
+
+    // Rewrite exported declarations to be prefixed with XP_
+    filteringCharset = 'UTF-8'
+    filesMatching("**/*.d.ts") {
+        filter { String line ->
+            line
+            // export type Button -> export type XP_Button
+                .replaceAll(/\bexport\s+type\s+([A-Z]\w*)\b/, 'export type XP_$1')
+            // export interface Button -> export interface XP_Button
+                .replaceAll(/\bexport\s+interface\s+([A-Z]\w*)\b/, 'export interface XP_$1')
+            // import("./button").Button; -> export interface XP_Button
+                .replaceAll(/(import\([^)]+\)*\.)([A-Z]\w*);?\b/, '$1XP_$2')
+        }
+    }
+
+}
+tasks.named('generateTypeScript') {
+    finalizedBy('copyGeneratedTypes')
 }
 
 check.dependsOn npmCheck
@@ -106,4 +132,7 @@ processResources {
     exclude '**/*.tsx'
 }
 
-processResources.dependsOn(generateTypeScript)
+processResources.dependsOn(generateTypeScript {
+    singleQuote = true
+})
+
