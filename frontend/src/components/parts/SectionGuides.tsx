@@ -1,17 +1,14 @@
 import type { ContentApiBaseBodyVariables, LocaleMapping, PartProps } from '@enonic/nextjs-adapter'
+import { getContentApiUrl } from '@enonic/nextjs-adapter'
 import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
 
 import { fetchGuillotine } from '@enonic/nextjs-adapter/server'
-import { getContentApiUrl } from '@enonic/nextjs-adapter'
 import { LinkCardView } from './LinkCard'
 import { HGrid } from '@navikt/ds-react'
 import { buildLocaleMapping } from '~/utils/buildLocaleMapping'
 import { sectionGuidesQuery } from '~/components/queries/parts'
-import {
-    validatedSectionGuidesConfig,
-    validatedDocumentCardConfig,
-} from '~/utils/runtimeValidation'
-import { DocumentCardConfigRaw, DocumentCardConfig } from '~/types/valibot/parts'
+import { validatedDocumentCardConfig, validatedSectionGuidesConfig, } from '~/utils/runtimeValidation'
+import { DocumentCardConfigRaw } from '~/types/valibot/parts'
 import { buildRelativeInternalPath } from '~/utils/buildRelativeInternalPath'
 import { LinkHeading } from './LinkHeading'
 
@@ -21,7 +18,7 @@ async function fetchGuides(
     localeMapping: LocaleMapping,
     selectedPaths?: string[],
     limitStr?: string
-): Promise<DocumentCardConfig[]> {
+): Promise<DocumentCardConfigRaw[]> {
     const variables = {
         section: sectionPath,
         ...(selectedPaths && selectedPaths.length ? { selected: selectedPaths } : {}),
@@ -31,7 +28,7 @@ async function fetchGuides(
     const res = (await fetchGuillotine(apiUrl, localeMapping, {
         method: 'POST',
         body: { query: sectionGuidesQuery, variables },
-    })) as { guillotine?: { guidesUnderSection?: DocumentCardConfigRaw[] } }
+    })) as { guillotine?: { guidesUnderSection?: Part_Idebanken_Link_Card[] } }
 
     const guides = validatedDocumentCardConfig(res.guillotine?.guidesUnderSection) || []
 
@@ -39,7 +36,7 @@ async function fetchGuides(
 }
 
 function guideToLinkCardConfig(
-    g: DocumentCardConfig,
+    g: DocumentCardConfigRaw,
     cardType: 'withIcon' | 'withImage' | undefined
 ): Part_Idebanken_Link_Card {
     return {
@@ -47,11 +44,11 @@ function guideToLinkCardConfig(
         external: false,
         text: g.data?.title || g.displayName,
         description: g.data?.description || '',
-        iconName: cardType === 'withIcon' ? g.data?.iconName || null : null,
-        iconColor: cardType === 'withIcon' ? g.data?.iconColor || null : null,
+        iconName: cardType === 'withIcon' ? g.x?.idebanken?.meta?.iconName || null : null,
+        iconColor: cardType === 'withIcon' ? g.x?.idebanken?.meta?.iconColor || null : null,
         bgColor: '',
-        tags: g.data?.categories || [],
-        image: cardType === 'withImage' ? g.data?.image || null : null,
+        tags: g.x?.idebanken?.category?.categories || [],
+        image: cardType === 'withImage' ? g.x?.idebanken?.meta?.image || null : null,
     } as Part_Idebanken_Link_Card
 }
 

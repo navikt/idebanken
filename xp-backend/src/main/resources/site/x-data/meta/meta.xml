@@ -1,0 +1,8 @@
+<x-data>
+    <display-name>Meta</display-name>
+    <form>
+        <mixin name="image" />
+        <mixin name="icon-name" />
+        <mixin name="icon-background-color" />
+    </form>
+</x-data>
