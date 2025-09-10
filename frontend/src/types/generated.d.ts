@@ -685,7 +685,6 @@ export type Layout_Idebanken_ComponentDataApplicationConfig = {
   __typename?: 'Layout_idebanken_ComponentDataApplicationConfig';
   _2_column?: Maybe<Layout_Idebanken__2_Column>;
   _3_column?: Maybe<Layout_Idebanken__3_Column>;
-  panel_2_column?: Maybe<Layout_Idebanken_Panel_2_Column>;
   single_column?: Maybe<Layout_Idebanken_Single_Column>;
 };
 
@@ -693,35 +692,21 @@ export type Layout_Idebanken_ComponentDataApplicationConfig = {
 export type Layout_Idebanken__2_Column = {
   __typename?: 'Layout_idebanken__2_column';
   bgColor?: Maybe<Scalars['String']['output']>;
+  boxColor?: Maybe<Scalars['String']['output']>;
   breakLeftFirst?: Maybe<Scalars['Boolean']['output']>;
   leftSpan?: Maybe<Scalars['String']['output']>;
+  paddingBottom?: Maybe<Scalars['String']['output']>;
+  paddingTop?: Maybe<Scalars['String']['output']>;
 };
 
 /** Layout component application config for application ['idebanken'] and descriptor ['3-column'] */
 export type Layout_Idebanken__3_Column = {
   __typename?: 'Layout_idebanken__3_column';
   bgColor?: Maybe<Scalars['String']['output']>;
+  boxColor?: Maybe<Scalars['String']['output']>;
+  paddingBottom?: Maybe<Scalars['String']['output']>;
+  paddingTop?: Maybe<Scalars['String']['output']>;
   stackOrder?: Maybe<Scalars['String']['output']>;
-};
-
-/** Layout component application config for application ['idebanken'] and descriptor ['panel-2-column'] */
-export type Layout_Idebanken_Panel_2_Column = {
-  __typename?: 'Layout_idebanken_panel_2_column';
-  background?: Maybe<Array<Maybe<Layout_Idebanken_Panel_2_Column_Background>>>;
-  leftSpan?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Layout component application config for application ['idebanken'] and descriptor ['panel-2-column'] */
-export type Layout_Idebanken_Panel_2_ColumnBackgroundArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Background (Outer Box / Inner Box) */
-export type Layout_Idebanken_Panel_2_Column_Background = {
-  __typename?: 'Layout_idebanken_panel_2_column_Background';
-  bgColor?: Maybe<Scalars['String']['output']>;
 };
 
 /** Layout component application config for application ['idebanken'] and descriptor ['single-column'] */
@@ -730,6 +715,9 @@ export type Layout_Idebanken_Single_Column = {
   alignment?: Maybe<Scalars['String']['output']>;
   backgroundImage?: Maybe<Scalars['Boolean']['output']>;
   bgColor?: Maybe<Scalars['String']['output']>;
+  boxColor?: Maybe<Scalars['String']['output']>;
+  paddingBottom?: Maybe<Scalars['String']['output']>;
+  paddingTop?: Maybe<Scalars['String']['output']>;
 };
 
 /** LikeDSLExpressionInput type */
@@ -769,6 +757,13 @@ export type MacroConfig = {
   __typename?: 'MacroConfig';
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
+  separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['separator'] */
+export type Macro_Idebanken_Separator_DataConfig = {
+  __typename?: 'Macro_idebanken_separator_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['system'] and descriptor ['disable'] */
