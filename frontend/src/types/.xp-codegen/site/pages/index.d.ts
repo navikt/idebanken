@@ -4,7 +4,7 @@ export type XP_Main = import('./main').XP_Main;
 
 declare global {
   interface XpPageMap {
-    'idebanken:full-width': FullWidth;
-    'idebanken:main': Main;
+    'idebanken:full-width': XP_FullWidth;
+    'idebanken:main': XP_Main;
   }
 }

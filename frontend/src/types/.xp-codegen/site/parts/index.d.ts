@@ -16,19 +16,19 @@ export type XP_TitleIngress = import('./title-ingress').XP_TitleIngress;
 
 declare global {
   interface XpPartMap {
-    'idebanken:accordion': Accordion;
-    'idebanken:button': Button;
-    'idebanken:downloads': Downloads;
-    'idebanken:heading': Heading;
-    'idebanken:image': Image;
-    'idebanken:info-box': InfoBox;
-    'idebanken:link-card': LinkCard;
-    'idebanken:search-view': SearchView;
-    'idebanken:section-guides-view': SectionGuidesView;
-    'idebanken:table-of-contents': TableOfContents;
-    'idebanken:table-of-contents-section': TableOfContentsSection;
-    'idebanken:text-editor': TextEditor;
-    'idebanken:tip-panel': TipPanel;
-    'idebanken:title-ingress': TitleIngress;
+    'idebanken:accordion': XP_Accordion;
+    'idebanken:button': XP_Button;
+    'idebanken:downloads': XP_Downloads;
+    'idebanken:heading': XP_Heading;
+    'idebanken:image': XP_Image;
+    'idebanken:info-box': XP_InfoBox;
+    'idebanken:link-card': XP_LinkCard;
+    'idebanken:search-view': XP_SearchView;
+    'idebanken:section-guides-view': XP_SectionGuidesView;
+    'idebanken:table-of-contents': XP_TableOfContents;
+    'idebanken:table-of-contents-section': XP_TableOfContentsSection;
+    'idebanken:text-editor': XP_TextEditor;
+    'idebanken:tip-panel': XP_TipPanel;
+    'idebanken:title-ingress': XP_TitleIngress;
   }
 }

@@ -9,12 +9,12 @@ export type XP_SpecialPage = import('./special-page').XP_SpecialPage;
 declare global {
   namespace XP {
     interface ContentTypes {
-      'idebanken:category': Category;
-      'idebanken:crash-course-slide': CrashCourseSlide;
-      'idebanken:crash-course': CrashCourse;
-      'idebanken:guide': Guide;
-      'idebanken:section-page': SectionPage;
-      'idebanken:special-page': SpecialPage;
+      'idebanken:category': XP_Category;
+      'idebanken:crash-course-slide': XP_CrashCourseSlide;
+      'idebanken:crash-course': XP_CrashCourse;
+      'idebanken:guide': XP_Guide;
+      'idebanken:section-page': XP_SectionPage;
+      'idebanken:special-page': XP_SpecialPage;
     }
   }
 }

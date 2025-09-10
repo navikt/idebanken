@@ -107,11 +107,13 @@ tasks.register('copyGeneratedTypes', Copy) {
         filter { String line ->
             line
             // export type Button -> export type XP_Button
-                .replaceAll(/\bexport\s+type\s+([A-Z]\w*)\b/, 'export type XP_$1')
+                .replaceAll(/\bexport\s+type\s+_?(\w*)\b/, 'export type XP_$1')
             // export interface Button -> export interface XP_Button
-                .replaceAll(/\bexport\s+interface\s+([A-Z]\w*)\b/, 'export interface XP_$1')
+                .replaceAll(/\bexport\s+interface\s+_?(\w*)\b/, 'export interface XP_$1')
             // import("./button").Button; -> export interface XP_Button
-                .replaceAll(/(import\([^)]+\)*\.)([A-Z]\w*);?\b/, '$1XP_$2')
+                .replaceAll(/(import\([^)]+\)*\.)_?(\w*)\b/, '$1XP_$2')
+            // 'idebanken:button': Button; -> 'idebanken:button': XP_Button;
+                .replaceAll(/(["'][a-zA-Z0-9_-]+:[a-zA-Z0-9_-]+["']: )_?(\w+)\b/, '$1XP_$2')
         }
     }
 
