@@ -451,6 +451,13 @@ export type HasValueFilterInput = {
   stringValues?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+/** Header configuration */
+export type Header = {
+  __typename?: 'Header';
+  linkGroups: Array<LinkGroups>;
+  linksBottom: Array<OverridableContentLink>;
+};
+
 /** Headless CMS */
 export type HeadlessCms = {
   __typename?: 'HeadlessCms';
@@ -463,7 +470,7 @@ export type HeadlessCms = {
   getType?: Maybe<ContentType>;
   getTypes?: Maybe<Array<Maybe<ContentType>>>;
   guidesUnderSection?: Maybe<Array<Idebanken_Guide>>;
-  header: Array<LinkGroups>;
+  header?: Maybe<Header>;
   query?: Maybe<Array<Maybe<Content>>>;
   queryConnection?: Maybe<QueryContentConnection>;
   queryDsl?: Maybe<Array<Maybe<Content>>>;
@@ -1554,6 +1561,7 @@ export type XData_Com_Enonic_App_Metafields_Meta_Data_DataConfig = {
 export type XData_Idebanken_ApplicationConfig = {
   __typename?: 'XData_idebanken_ApplicationConfig';
   category?: Maybe<XData_Idebanken_Category_DataConfig>;
+  meta?: Maybe<XData_Idebanken_Meta_DataConfig>;
 };
 
 /** Extra data config for application ['idebanken}'] and descriptor ['category'] */
@@ -1567,6 +1575,14 @@ export type XData_Idebanken_Category_DataConfig = {
 export type XData_Idebanken_Category_DataConfigCategoriesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Extra data config for application ['idebanken}'] and descriptor ['meta'] */
+export type XData_Idebanken_Meta_DataConfig = {
+  __typename?: 'XData_idebanken_meta_DataConfig';
+  iconColor?: Maybe<Scalars['String']['output']>;
+  iconName?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Content>;
 };
 
 /** XDataApplicationConfig for application ['media'] */
@@ -2372,9 +2388,6 @@ export type Idebanken_GuidePageUrlArgs = {
 export type Idebanken_Guide_Data = {
   __typename?: 'idebanken_Guide_Data';
   description?: Maybe<Scalars['String']['output']>;
-  iconColor?: Maybe<Scalars['String']['output']>;
-  iconName?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Content>;
   ingress?: Maybe<RichText>;
   title?: Maybe<Scalars['String']['output']>;
 };

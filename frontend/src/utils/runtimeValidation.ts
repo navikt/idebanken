@@ -4,9 +4,8 @@ import {
     accordionConfigSchema,
     ButtonConfig,
     buttonConfigSchema,
-    DocumentCardConfig,
     DocumentCardConfigRaw,
-    documentCardSchema,
+    documentCardRawSchema,
     HeadingConfig,
     headingConfigSchema,
     InfoBoxConfig,
@@ -31,12 +30,12 @@ import {
 } from '@enonic/nextjs-adapter'
 import {
     Part_Idebanken_Accordion,
-    Part_Idebanken_Button,
     Part_Idebanken_Heading,
     Part_Idebanken_Info_Box,
     Part_Idebanken_Link_Card,
     Part_Idebanken_Section_Guides_View,
 } from '~/types/generated.d'
+import { XP_Button } from '@xp-types/site/parts'
 
 export function validatedHeadingConfig(config: Part_Idebanken_Heading): HeadingConfig | null {
     try {
@@ -47,9 +46,7 @@ export function validatedHeadingConfig(config: Part_Idebanken_Heading): HeadingC
     }
 }
 
-export function validatedButtonConfig(
-    config: Part_Idebanken_Button | undefined
-): ButtonConfig | null {
+export function validatedButtonConfig(config: XP_Button | undefined): ButtonConfig | null {
     try {
         return parse(buttonConfigSchema, config)
     } catch {
@@ -124,12 +121,10 @@ export function validatedSectionGuidesConfig(
 }
 
 export function validatedDocumentCardConfig(
-    config: DocumentCardConfigRaw[] | undefined
-): DocumentCardConfig[] | null {
-    const documentCardArraySchema = array(documentCardSchema)
-
+    config: Part_Idebanken_Link_Card[] | undefined
+): DocumentCardConfigRaw[] | null {
     try {
-        return parse(documentCardArraySchema, config)
+        return parse(array(documentCardRawSchema), config)
     } catch (e) {
         console.error('Invalid document card config:', e)
         return null

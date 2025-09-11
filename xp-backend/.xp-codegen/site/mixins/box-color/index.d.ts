@@ -3,5 +3,5 @@ export type BoxColor = {
   /**
    * Farge på boks
    */
-  boxColor?: "bg-white" | "bg-extra-light-pink" | "bg-light-pink" | "bg-pink" | "bg-dark-blue";
+  boxColor?: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
 };

@@ -3,5 +3,5 @@ export type Alignment = {
   /**
    * Juster innhold
    */
-  alignment: "left" | "center" | "right";
+  alignment: 'left' | 'center' | 'right';
 };

@@ -3,10 +3,10 @@ export type PaddingY = {
   /**
    * Avstand over
    */
-  paddingTop?: "pt-0" | "pt-6" | "pt-10";
+  paddingTop?: 'pt-0' | 'pt-6' | 'pt-10';
 
   /**
    * Avstand under
    */
-  paddingBottom?: "pb-0" | "pb-6" | "pb-10";
+  paddingBottom?: 'pb-0' | 'pb-6' | 'pb-10';
 };

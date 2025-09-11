@@ -23,5 +23,5 @@ export type SectionGuidesView = {
   /**
    * Korttype
    */
-  cardType: "withIcon" | "withImage";
+  cardType: 'withIcon' | 'withImage';
 };

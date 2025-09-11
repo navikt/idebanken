@@ -202,21 +202,15 @@ export const sectionGuidesConfigSchema = object({
 
 export type SectionGuidesConfig = InferOutput<typeof sectionGuidesConfigSchema>
 
-// Raw document card (accepts optional x-data categories)
-const documentCardRawSchema = object({
+export const documentCardRawSchema = object({
     _path: string(),
     displayName: string(),
     data: optional(
         object({
             title: nullish(string()),
             description: nullish(string()),
-            iconName: nullish(string()),
-            iconColor: nullish(string()),
-            image: nullish(imageDataSchema),
-            categories: nullish(array(string())), // in case backend already flattens
         })
     ),
-    // x-data structure (optional)
     x: optional(
         object({
             idebanken: optional(
@@ -226,6 +220,13 @@ const documentCardRawSchema = object({
                             categories: nullish(array(string())),
                         })
                     ),
+                    meta: nullish(
+                        object({
+                            iconName: nullish(string()),
+                            iconColor: nullish(string()),
+                            image: nullish(imageDataSchema),
+                        })
+                    ),
                 })
             ),
         })
@@ -233,25 +234,3 @@ const documentCardRawSchema = object({
 })
 
 export type DocumentCardConfigRaw = InferOutput<typeof documentCardRawSchema>
-
-// Final normalized schema: categories always under data.categories (array<string>)
-export const documentCardSchema = pipe(
-    documentCardRawSchema,
-    transform((raw) => {
-        const catsFromX = raw.x?.idebanken?.category?.categories ?? raw.data?.categories ?? []
-        return {
-            _path: raw._path,
-            displayName: raw.displayName,
-            data: {
-                title: raw.data?.title,
-                description: raw.data?.description,
-                iconName: raw.data?.iconName,
-                iconColor: raw.data?.iconColor,
-                image: raw.data?.image,
-                categories: catsFromX,
-            },
-        }
-    })
-)
-
-export type DocumentCardConfig = InferOutput<typeof documentCardSchema>

@@ -1,6 +1,5 @@
-import type { PageProps } from '@enonic/nextjs-adapter'
+import type { PageProps, RegionProps } from '@enonic/nextjs-adapter'
 import RegionsView from '@enonic/nextjs-adapter/views/Region'
-import type { RegionProps } from '@enonic/nextjs-adapter/src/types'
 
 export const appendRegionAttributes = (props: PageProps, regionName: string): void => {
     const page = props.page

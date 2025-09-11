@@ -8,7 +8,7 @@ interface BleedingBackgroundPageBlockProps extends PageBlockProps {
     children: React.ReactNode
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     as?: React.ElementType<any, keyof React.JSX.IntrinsicElements>
-    customClassNames?: string
+    bleedClassName?: string
     layoutPath?: string
     backgroundStyle?: React.CSSProperties
 }
@@ -16,14 +16,14 @@ interface BleedingBackgroundPageBlockProps extends PageBlockProps {
 export default function BleedingBackgroundPageBlock({
     bgColor,
     children,
-    customClassNames,
+    bleedClassName,
     backgroundStyle,
     layoutPath,
     ...rest
 }: Readonly<BleedingBackgroundPageBlockProps>) {
     return (
         <Bleed
-            className={`${bgColor ?? 'bg-extra-light-pink'} overflow-y-auto ${customClassNames}`}
+            className={`${bgColor ?? 'bg-extra-light-pink'} overflow-y-auto ${bleedClassName}`}
             marginInline={'full'}
             style={backgroundStyle}>
             <PageBlock

@@ -3,5 +3,5 @@ export type Tags = {
   /**
    * Tags
    */
-  tags?: Array<"sykefravaer" | "arbeidsmiljo" | "partssamarbeid" | "psykiskHelse" | "inkludering" | "omstilling"> | "sykefravaer" | "arbeidsmiljo" | "partssamarbeid" | "psykiskHelse" | "inkludering" | "omstilling";
+  tags?: Array<'sykefravaer' | 'arbeidsmiljo' | 'partssamarbeid' | 'psykiskHelse' | 'inkludering' | 'omstilling'> | 'sykefravaer' | 'arbeidsmiljo' | 'partssamarbeid' | 'psykiskHelse' | 'inkludering' | 'omstilling';
 };
