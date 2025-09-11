@@ -4,5 +4,6 @@
     <description>Text editor for bruk av NAV-komponenter</description>
     <form>
         <mixin name="simple-text-editor" />
+        <mixin name="box-color"/>
     </form>
 </part>

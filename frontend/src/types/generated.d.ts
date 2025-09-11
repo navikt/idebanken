@@ -1191,6 +1191,7 @@ export type Part_Idebanken_Table_Of_Contents_SectionSectionNumberArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['text-editor'] */
 export type Part_Idebanken_Text_Editor = {
   __typename?: 'Part_idebanken_text_editor';
+  boxColor?: Maybe<Scalars['String']['output']>;
   simpleTextEditor?: Maybe<RichText>;
 };
 
