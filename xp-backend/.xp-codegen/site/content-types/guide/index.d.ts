@@ -23,10 +23,10 @@ export type Guide = {
   /**
    * Ikon
    */
-  iconName?: "hand-shake-heart" | "reception" | "chat-2" | "hand-shake" | "person-group" | "task-list" | "clock";
+  iconName?: 'hand-shake-heart' | 'reception' | 'chat-2' | 'hand-shake' | 'person-group' | 'task-list' | 'clock';
 
   /**
    * Ikonens bakgrunnsfarge
    */
-  iconColor?: "bg-white" | "bg-pink" | "bg-blue" | "bg-orange" | "bg-yellow" | "bg-red";
+  iconColor?: 'bg-white' | 'bg-pink' | 'bg-blue' | 'bg-orange' | 'bg-yellow' | 'bg-red';
 };

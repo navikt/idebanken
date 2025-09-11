@@ -21,7 +21,8 @@
         ],
         "baseUrl": "src",
         "paths": {
-            "~/*": ["*"]
+            "~/*": ["*"],
+            "@xp-types/*": ["types/.xp-codegen/*"],
         }
     },
     "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

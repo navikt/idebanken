@@ -3,5 +3,5 @@ export type IconName = {
   /**
    * Ikon
    */
-  iconName?: "hand-shake-heart" | "reception" | "chat-2" | "hand-shake" | "person-group" | "task-list" | "clock";
+  iconName?: 'hand-shake-heart' | 'reception' | 'chat-2' | 'hand-shake' | 'person-group' | 'task-list' | 'clock';
 };

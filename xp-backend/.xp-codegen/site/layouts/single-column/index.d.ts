@@ -3,27 +3,27 @@ export type SingleColumn = {
   /**
    * Bakgrunnsfarge
    */
-  bgColor: "bg-white" | "bg-extra-light-pink" | "bg-light-pink" | "bg-pink" | "bg-dark-blue";
+  bgColor: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
 
   /**
    * Farge på boks
    */
-  boxColor?: "bg-white" | "bg-extra-light-pink" | "bg-light-pink" | "bg-pink" | "bg-dark-blue";
+  boxColor?: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
 
   /**
    * Avstand over
    */
-  paddingTop?: "pt-0" | "pt-6" | "pt-10";
+  paddingTop?: 'pt-0' | 'pt-6' | 'pt-10';
 
   /**
    * Avstand under
    */
-  paddingBottom?: "pb-0" | "pb-6" | "pb-10";
+  paddingBottom?: 'pb-0' | 'pb-6' | 'pb-10';
 
   /**
    * Juster innhold
    */
-  alignment: "left" | "center" | "right";
+  alignment: 'left' | 'center' | 'right';
 
   /**
    * Vis bakgrunnsbilde

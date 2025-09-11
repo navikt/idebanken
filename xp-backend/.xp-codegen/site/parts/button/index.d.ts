@@ -8,7 +8,7 @@ export type Button = {
         /**
          * Selected
          */
-        _selected: "internalLink";
+        _selected: 'internalLink';
 
         /**
          * Internal URL
@@ -24,7 +24,7 @@ export type Button = {
         /**
          * Selected
          */
-        _selected: "externalLink";
+        _selected: 'externalLink';
 
         /**
          * External URL
@@ -45,10 +45,10 @@ export type Button = {
   /**
    * Button variant
    */
-  variant: "primary" | "secondary" | "tertiary" | "link";
+  variant: 'primary' | 'secondary' | 'tertiary' | 'link';
 
   /**
    * Button size
    */
-  size?: "medium" | "small" | "xsmall";
+  size?: 'medium' | 'small' | 'xsmall';
 };

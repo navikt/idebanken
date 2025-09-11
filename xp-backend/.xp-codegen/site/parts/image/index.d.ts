@@ -72,7 +72,7 @@ export type Image = {
     /**
      * Farge
      */
-    color: "pink" | "red" | "blue";
+    color: 'pink' | 'red' | 'blue';
 
     /**
      * Størrelse (px)

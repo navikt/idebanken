@@ -3,5 +3,5 @@ export type IconBackgroundColor = {
   /**
    * Ikonens bakgrunnsfarge
    */
-  iconColor?: "bg-white" | "bg-pink" | "bg-blue" | "bg-orange" | "bg-yellow" | "bg-red";
+  iconColor?: 'bg-white' | 'bg-pink' | 'bg-blue' | 'bg-orange' | 'bg-yellow' | 'bg-red';
 };

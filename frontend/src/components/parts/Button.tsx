@@ -1,21 +1,17 @@
 import NextLink from 'next/link'
 import { Button } from '@navikt/ds-react'
-import { Part_Idebanken_Button } from '~/types/generated.d'
 import { validatedButtonConfig } from '~/utils/runtimeValidation'
 import { MouseEventHandler } from 'react'
 import { PartData } from '~/types/graphql-types'
 import { LinkHeading } from './LinkHeading'
+import { XP_Button } from '@xp-types/site/parts'
 
 export interface ButtonData {
-    config?: Part_Idebanken_Button
+    config?: XP_Button
     onClick?: MouseEventHandler<HTMLButtonElement>
 }
 
-export const ButtonView = ({
-    part,
-    config,
-    onClick,
-}: PartData<Part_Idebanken_Button> & ButtonData) => {
+export const ButtonView = ({ part, config, onClick }: PartData<XP_Button> & ButtonData) => {
     const buttonConfig = part?.config ?? config
     const btn = validatedButtonConfig(buttonConfig)
 

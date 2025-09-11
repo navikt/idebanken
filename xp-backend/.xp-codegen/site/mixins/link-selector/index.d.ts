@@ -8,7 +8,7 @@ export type LinkSelector = {
         /**
          * Selected
          */
-        _selected: "internalLink";
+        _selected: 'internalLink';
 
         /**
          * Internal URL
@@ -24,7 +24,7 @@ export type LinkSelector = {
         /**
          * Selected
          */
-        _selected: "externalLink";
+        _selected: 'externalLink';
 
         /**
          * External URL
