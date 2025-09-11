@@ -50,6 +50,7 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
                 )}>
                 <RegionView
                     name="content"
+                    className="[&>*]:my-8 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
                     components={regions['content']?.components}
                     common={common}
                     meta={meta}
