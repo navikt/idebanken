@@ -4,9 +4,8 @@ import {
     accordionConfigSchema,
     ButtonConfig,
     buttonConfigSchema,
-    DocumentCardConfig,
     DocumentCardConfigRaw,
-    documentCardSchema,
+    documentCardRawSchema,
     HeadingConfig,
     headingConfigSchema,
     InfoBoxConfig,
@@ -122,12 +121,10 @@ export function validatedSectionGuidesConfig(
 }
 
 export function validatedDocumentCardConfig(
-    config: DocumentCardConfigRaw[] | undefined
-): DocumentCardConfig[] | null {
-    const documentCardArraySchema = array(documentCardSchema)
-
+    config: Part_Idebanken_Link_Card[] | undefined
+): DocumentCardConfigRaw[] | null {
     try {
-        return parse(documentCardArraySchema, config)
+        return parse(array(documentCardRawSchema), config)
     } catch (e) {
         console.error('Invalid document card config:', e)
         return null

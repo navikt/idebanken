@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site xmlns="urn:enonic:xp:model:1.0">
-    <x-data name="category" allowContentTypes="idebanken:guide"/>
+    <x-data name="category" allowContentTypes="^idebanken:(?!category).*"/>
+    <x-data name="meta" allowContentTypes="^idebanken:.*" optional="true"/>
+
     <form>
         <item-set name="searchConfig">
             <label>Søkekonfigurasjon</label>

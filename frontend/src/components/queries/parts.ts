@@ -39,9 +39,9 @@ export const linkQuery = `{
 }`
 
 export const sectionGuidesLinkQuery = `{
-	overrideSection { 
-    displayName 
-    _path 
+	overrideSection {
+    displayName
+    _path
   }
   selectedGuides { _path }
 }`
@@ -81,14 +81,16 @@ export const sectionGuidesQuery = `query($section:String!, $selected:[String!], 
             category {
               categories
             }
+            meta {
+                iconName
+                iconColor
+                ${imageAndVectorFields}
+            }
           }
         }
         data {
           title
           description
-          iconName
-          iconColor
-          ${imageAndVectorFields}
         }
       }
     }

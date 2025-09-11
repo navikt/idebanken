@@ -11,12 +11,9 @@
         <input name="description" type="TextArea">
             <label>Kort beskrivelse (brukes i listevisning)</label>
             <config>
-                <max-length>100</max-length>  
-                <show-counter>true</show-counter>  
+                <max-length>100</max-length>
+                <show-counter>true</show-counter>
             </config>
         </input>
-        <mixin name="image" />
-        <mixin name="icon-name" />
-        <mixin name="icon-background-color" />
     </form>
 </content-type>
