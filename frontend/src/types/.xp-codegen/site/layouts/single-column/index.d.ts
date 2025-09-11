@@ -24,9 +24,4 @@ export type XP_SingleColumn = {
    * Juster innhold
    */
   alignment: 'left' | 'center' | 'right';
-
-  /**
-   * Vis bakgrunnsbilde
-   */
-  backgroundImage: boolean;
 };

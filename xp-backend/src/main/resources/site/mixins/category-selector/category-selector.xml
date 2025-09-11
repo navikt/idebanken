@@ -1,0 +1,13 @@
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Category selector</display-name>
+    <form>
+        <input name="categories" type="ContentSelector">
+            <label>Kategorier</label>
+            <occurrences minimum="0" maximum="0"/>
+            <config>
+                <allowContentType>idebanken:category</allowContentType>
+                <allowPath>${site}/ressurser/*</allowPath>
+            </config>
+        </input>
+    </form>
+</mixin>
