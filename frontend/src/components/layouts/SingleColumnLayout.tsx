@@ -26,22 +26,12 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
     const { common, meta, layout, path } = props
     const regions = layout.regions
     const config = layout.config ?? {}
-    const { backgroundImage, alignment, bgColor, boxColor, paddingTop, paddingBottom } = config
-
-    const backgroundStyle = backgroundImage
-        ? {
-              backgroundImage: 'url(/images/circles.svg)',
-              backgroundRepeat: 'no-repeat',
-              backgroundPosition: 'top right',
-              backgroundSize: '50% auto',
-          }
-        : {}
+    const { alignment, bgColor, boxColor, paddingTop, paddingBottom } = config
 
     return (
         <BleedingBackgroundPageBlock
             bgColor={bgColor}
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
-            backgroundStyle={backgroundStyle}
             layoutPath={path}>
             <Box
                 className={classNames(
