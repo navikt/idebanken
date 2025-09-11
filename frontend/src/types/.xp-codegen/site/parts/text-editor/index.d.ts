@@ -4,4 +4,9 @@ export type XP_TextEditor = {
    * Innhold
    */
   simpleTextEditor?: string;
+
+  /**
+   * Farge på boks
+   */
+  boxColor?: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
 };
