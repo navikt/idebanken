@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Lenkekort liste</display-name>
+    <description>Vis en automatisk eller manuell liste med lenkekort. Kan også ha filter for kategorier</description>
+    <form>
+        <option-set name="listConfig">
+            <label>Liste type</label>
+            <help-text>Velg automatisk eller manuell utlisting. Du må resette dette valget for å endre type</help-text>
+            <occurrences minimum="1" maximum="1"/>
+            <options>
+                <option name="automatic">
+                    <label>Automatisk liste</label>
+                    <items>
+                        <input type="ContentTypeFilter" name="contentTypes">
+                            <occurrences minimum="0" maximum="0"/>
+                            <label>Innholdstyper som skal hentes</label>
+                            <config>
+                                <context>true</context>
+                            </config>
+                        </input>
+                        <input type="ContentSelector" name="parentContent">
+                            <occurrences minimum="0" maximum="1"/>
+                            <label>Hent kun barn av dette innholdet</label>
+                            <config>
+                                <allowContentType>^${app}:.*</allowContentType>
+                                <treeMode>true</treeMode>
+                            </config>
+                        </input>
+                        <input name="showHeading" type="CheckBox">
+                            <label>Vis tittel til innholdet som er valgt over</label>
+                            <default>true</default>
+                        </input>
+                        <input name="limit" type="Long">
+                            <label>Maks antall innhold</label>
+                            <help-text>Tom betyr ubegrenset.</help-text>
+                        </input>
+                    </items>
+                </option>
+                <option name="manual">
+                    <default>true</default>
+                    <label>Manuell liste</label>
+                    <items>
+                        <input type="ContentSelector" name="contents">
+                            <occurrences minimum="1" maximum="0"/>
+                            <label>Innhold i listen</label>
+                            <config>
+                                <allowContentType>^${app}:.*</allowContentType>
+                                <treeMode>true</treeMode>
+                            </config>
+                        </input>
+                    </items>
+                </option>
+            </options>
+        </option-set>
+
+        <input name="displayType" type="RadioButton">
+            <label>Visning</label>
+            <occurrences minimum="1" maximum="1"/>
+            <config>
+                <option value="withIcon">Med ikon</option>
+                <option value="withImage">Med bilde</option>
+            </config>
+            <default>withIcon</default>
+        </input>
+    </form>
+</part>
