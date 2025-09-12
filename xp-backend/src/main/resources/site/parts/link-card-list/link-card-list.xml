@@ -3,11 +3,11 @@
     <display-name>Lenkekort liste</display-name>
     <description>Vis en automatisk eller manuell liste med lenkekort. Kan også ha filter for kategorier</description>
     <form>
-        <option-set name="listConfig">
-            <label>Liste type</label>
+        <option-set name="list">
+            <label>Liste-type</label>
             <help-text>Velg automatisk eller manuell utlisting. Du må resette dette valget for å endre type</help-text>
             <occurrences minimum="1" maximum="1"/>
-            <options>
+            <options minimum="1" maximum="1">
                 <option name="automatic">
                     <label>Automatisk liste</label>
                     <items>
@@ -22,13 +22,12 @@
                             <occurrences minimum="0" maximum="1"/>
                             <label>Hent kun barn av dette innholdet</label>
                             <config>
-                                <allowContentType>^${app}:.*</allowContentType>
                                 <treeMode>true</treeMode>
                             </config>
                         </input>
                         <input name="showHeading" type="CheckBox">
                             <label>Vis tittel til innholdet som er valgt over</label>
-                            <default>true</default>
+                            <default>checked</default>
                         </input>
                         <input name="limit" type="Long">
                             <label>Maks antall innhold</label>
@@ -44,7 +43,7 @@
                             <occurrences minimum="1" maximum="0"/>
                             <label>Innhold i listen</label>
                             <config>
-                                <allowContentType>^${app}:.*</allowContentType>
+                                <allowContentType>^idebanken:.*</allowContentType>
                                 <treeMode>true</treeMode>
                             </config>
                         </input>
