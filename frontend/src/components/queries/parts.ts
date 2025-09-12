@@ -108,3 +108,15 @@ export const tableOfContentsSectionQuery = `{
     title
     sectionNumber(path: $path)
 }`
+
+export const linkCardListQuery = `{
+    list {
+        url
+        title
+        description
+        imageUrl
+        iconName
+        iconColor
+        categories
+    }
+}`

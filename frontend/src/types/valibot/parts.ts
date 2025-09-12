@@ -161,14 +161,15 @@ export const linkCardConfigSchema = pipe(
             url = buildRelativeInternalPath(url)
         }
         return {
-            text: c.text,
+            title: c.text,
             description: c.description || '',
-            iconName: c.iconName || null,
-            iconColor: c.iconColor || null,
+            iconName: c.iconName || undefined,
+            iconColor: c.iconColor || undefined,
             bgColor: c.bgColor,
-            tags: c.tags || [],
-            image: c.image || null,
-            url,
+            categories: c.tags || [],
+            imageUrl: c.image?.imageUrl || undefined,
+            altText: c.image?.data?.altText || c.image?.data?.caption || undefined,
+            url: url || '/',
             external: external ?? false,
         }
     })

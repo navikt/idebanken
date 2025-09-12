@@ -3,11 +3,14 @@ import { getContentApiUrl } from '@enonic/nextjs-adapter'
 import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
 
 import { fetchGuillotine } from '@enonic/nextjs-adapter/server'
-import { LinkCardView } from './LinkCard'
+import { LinkCardPartView } from './LinkCard'
 import { HGrid } from '@navikt/ds-react'
 import { buildLocaleMapping } from '~/utils/buildLocaleMapping'
 import { sectionGuidesQuery } from '~/components/queries/parts'
-import { validatedDocumentCardConfig, validatedSectionGuidesConfig, } from '~/utils/runtimeValidation'
+import {
+    validatedDocumentCardConfig,
+    validatedSectionGuidesConfig,
+} from '~/utils/runtimeValidation'
 import { DocumentCardConfigRaw } from '~/types/valibot/parts'
 import { buildRelativeInternalPath } from '~/utils/buildRelativeInternalPath'
 import { LinkHeading } from './LinkHeading'
@@ -106,7 +109,7 @@ export async function SectionGuidesView(props: PartProps) {
                 className="items-start">
                 {guides.map((g) => (
                     <div key={g._path} className={`col-span-1 ${spanClass}`}>
-                        <LinkCardView
+                        <LinkCardPartView
                             part={{
                                 descriptor: 'idebanken:link-card',
                                 config: guideToLinkCardConfig(g, cardType),

@@ -2,6 +2,7 @@ import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapt
 import { commonQuery, commonVariables } from './queries/common'
 import {
     imageQuery,
+    linkCardListQuery,
     linkCardQuery,
     linkQuery,
     sectionGuidesLinkQuery,
@@ -18,7 +19,7 @@ import SingleColumnLayout from './layouts/SingleColumnLayout'
 import { TipPanelView } from './parts/TipPanel'
 import { AccordionView } from './parts/Accordion'
 import { ImageView } from './parts/Image'
-import { LinkCardView } from './parts/LinkCard'
+import { LinkCardPartView } from './parts/LinkCard'
 import TitleIngressView from '~/components/parts/TitleIngress'
 import { HeadingViewPart } from '~/components/parts/Heading'
 import CrashCourse from '~/components/contentType/CrashCourse'
@@ -30,6 +31,7 @@ import { TableOfContentsSection } from '~/components/parts/TableOfContentsSectio
 import { Downloads } from '~/components/parts/Downloads'
 import { Separator } from '~/components/macros/Separator'
 import { FullWidth } from '~/components/pages/FullWidth'
+import { LinkCardList } from '~/components/parts/LinkCardList'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -125,7 +127,7 @@ ComponentRegistry.addPart(`${APP_NAME}:accordion`, {
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:link-card`, {
-    view: LinkCardView,
+    view: LinkCardPartView,
     configQuery: linkCardQuery,
 })
 
@@ -155,8 +157,8 @@ ComponentRegistry.addPart(`${APP_NAME}:table-of-contents-section`, {
 ComponentRegistry.addPart(`${APP_NAME}:downloads`, {
     view: Downloads,
     configQuery: `{
-        selectedFiles { 
-            displayName 
+        selectedFiles {
+            displayName
             _path
             ... on media_Document {
                 mediaUrl(type: absolute)
@@ -166,4 +168,9 @@ ComponentRegistry.addPart(`${APP_NAME}:downloads`, {
             }
         }
   }`,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:link-card-list`, {
+    view: LinkCardList,
+    configQuery: linkCardListQuery,
 })
