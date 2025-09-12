@@ -4,6 +4,7 @@ import { SiteConfig } from '@xp-types/site'
 import { forceArray } from '/lib/utils/array-utils'
 import { Link } from '@xp-types/site/mixins'
 import { get as getContent } from '/lib/xp/content'
+import { enonicSitePathToHref } from '/lib/utils/string-utils'
 
 export type Source<T> = {
     __contentId: string
@@ -62,7 +63,7 @@ export function resolveLinks(links?: Array<Link>): Array<ProcessedOverridableLin
     return forceArray(links).map(({ link, linkText }) => {
         const content = getContent({ key: link })
         return {
-            href: content?._path?.replace(/^\/[^/]*/, '') || '/',
+            href: enonicSitePathToHref(content?._path),
             linkText:
                 linkText ??
                 (content?.data?.title as string | undefined) ??
