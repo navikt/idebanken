@@ -2,7 +2,7 @@ import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { EmptyRecord, Source } from '../common-guillotine-types'
-import { Category as XDataCategory } from '@xp-types/site/x-data'
+import { Category, Category as XDataCategory } from '@xp-types/site/x-data'
 import { query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
 
@@ -19,30 +19,7 @@ export const categoryExtensions = ({
             categories: (
                 env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<XDataCategory>>
             ): Array<string> => {
-                const categoryContents = query({
-                    filters: {
-                        boolean: {
-                            must: [
-                                {
-                                    hasValue: {
-                                        field: 'type',
-                                        values: ['idebanken:category'],
-                                    },
-                                },
-                                {
-                                    hasValue: {
-                                        field: '_id',
-                                        values: forceArray(env.source.categories),
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                })?.hits
-
-                return forceArray(categoryContents)
-                    .map((hit) => hit.data?.title as string)
-                    .filter((it) => it)
+                return resolveCategories(env.source)
             },
         },
     },
@@ -56,3 +33,34 @@ export const categoryExtensions = ({
         },
     },
 })
+
+export function resolveCategories(category?: Category): Array<string> {
+    if (!category?.categories) {
+        return []
+    }
+
+    const categoryContents = query({
+        filters: {
+            boolean: {
+                must: [
+                    {
+                        hasValue: {
+                            field: 'type',
+                            values: ['idebanken:category'],
+                        },
+                    },
+                    {
+                        hasValue: {
+                            field: '_id',
+                            values: forceArray(category.categories),
+                        },
+                    },
+                ],
+            },
+        },
+    })?.hits
+
+    return forceArray(categoryContents)
+        .map((hit) => hit.data?.title as string)
+        .filter((it) => it)
+}
