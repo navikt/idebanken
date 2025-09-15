@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content-type>
     <display-name>Kategori</display-name>
-    <display-name-expression>${title}</display-name-expression>
     <description>Kategori som kan settes på innhold</description>
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
