@@ -3,7 +3,6 @@ import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/ex
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { runInContext } from '/lib/repos/run-in-context'
 import { getSiteConfig } from '/lib/utils/site-config'
-import { guidesUnderSection } from './guides-under-section'
 import {
     EmptyRecord,
     LinkGroups,
@@ -54,7 +53,6 @@ export const headlessCmsExtensions = ({
                     }
                 })
             },
-            guidesUnderSection: guidesUnderSection,
         },
     },
     types: {
@@ -91,14 +89,6 @@ export const headlessCmsExtensions = ({
                 },
                 footer: {
                     type: reference('Footer'),
-                },
-                guidesUnderSection: {
-                    type: list(nonNull(reference('idebanken_Guide'))),
-                    args: {
-                        section: nonNull(GraphQLString),
-                        selectedGuidePaths: list(nonNull(GraphQLString)),
-                        limit: GraphQLString,
-                    },
                 },
             })
         },

@@ -8,7 +8,6 @@ export type InfoBox = import('./info-box').InfoBox;
 export type LinkCard = import('./link-card').LinkCard;
 export type LinkCardList = import('./link-card-list').LinkCardList;
 export type SearchView = import('./search-view').SearchView;
-export type SectionGuidesView = import('./section-guides-view').SectionGuidesView;
 export type TableOfContents = import('./table-of-contents').TableOfContents;
 export type TableOfContentsSection = import('./table-of-contents-section').TableOfContentsSection;
 export type TextEditor = import('./text-editor').TextEditor;
@@ -26,7 +25,6 @@ declare global {
     'idebanken:link-card': LinkCard;
     'idebanken:link-card-list': LinkCardList;
     'idebanken:search-view': SearchView;
-    'idebanken:section-guides-view': SectionGuidesView;
     'idebanken:table-of-contents': TableOfContents;
     'idebanken:table-of-contents-section': TableOfContentsSection;
     'idebanken:text-editor': TextEditor;

@@ -8,7 +8,6 @@ export type XP_InfoBox = import('./info-box').XP_InfoBox;
 export type XP_LinkCard = import('./link-card').XP_LinkCard;
 export type XP_LinkCardList = import('./link-card-list').XP_LinkCardList;
 export type XP_SearchView = import('./search-view').XP_SearchView;
-export type XP_SectionGuidesView = import('./section-guides-view').XP_SectionGuidesView;
 export type XP_TableOfContents = import('./table-of-contents').XP_TableOfContents;
 export type XP_TableOfContentsSection = import('./table-of-contents-section').XP_TableOfContentsSection;
 export type XP_TextEditor = import('./text-editor').XP_TextEditor;
@@ -26,7 +25,6 @@ declare global {
     'idebanken:link-card': XP_LinkCard;
     'idebanken:link-card-list': XP_LinkCardList;
     'idebanken:search-view': XP_SearchView;
-    'idebanken:section-guides-view': XP_SectionGuidesView;
     'idebanken:table-of-contents': XP_TableOfContents;
     'idebanken:table-of-contents-section': XP_TableOfContentsSection;
     'idebanken:text-editor': XP_TextEditor;

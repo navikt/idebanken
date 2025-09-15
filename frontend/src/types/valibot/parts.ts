@@ -4,7 +4,6 @@ import {
     InferOutput,
     nullable,
     nullish,
-    number,
     object,
     optional,
     picklist,
@@ -176,32 +175,6 @@ export const linkCardConfigSchema = pipe(
 )
 
 export type LinkCardConfig = InferOutput<typeof linkCardConfigSchema>
-
-// Section Guides part
-export const sectionGuidesConfigSchema = object({
-    overrideSection: optional(
-        nullable(
-            object({
-                displayName: string(),
-                _path: string(),
-            })
-        )
-    ),
-    selectedGuides: optional(
-        nullable(
-            array(
-                object({
-                    _path: string(),
-                })
-            )
-        )
-    ),
-    limit: optional(nullable(number())),
-    showHeading: optional(nullable(boolean())),
-    cardType: optional(picklist(['withIcon', 'withImage'])),
-})
-
-export type SectionGuidesConfig = InferOutput<typeof sectionGuidesConfigSchema>
 
 export const documentCardRawSchema = object({
     _path: string(),

@@ -470,7 +470,6 @@ export type HeadlessCms = {
   getSite?: Maybe<Portal_Site>;
   getType?: Maybe<ContentType>;
   getTypes?: Maybe<Array<Maybe<ContentType>>>;
-  guidesUnderSection?: Maybe<Array<Idebanken_Guide>>;
   header?: Maybe<Header>;
   query?: Maybe<Array<Maybe<Content>>>;
   queryConnection?: Maybe<QueryContentConnection>;
@@ -513,14 +512,6 @@ export type HeadlessCmsGetPermissionsArgs = {
 /** Headless CMS */
 export type HeadlessCmsGetTypeArgs = {
   name: Scalars['String']['input'];
-};
-
-
-/** Headless CMS */
-export type HeadlessCmsGuidesUnderSectionArgs = {
-  limit?: InputMaybe<Scalars['String']['input']>;
-  section: Scalars['String']['input'];
-  selectedGuidePaths?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 
@@ -714,7 +705,6 @@ export type Layout_Idebanken__3_Column = {
 export type Layout_Idebanken_Single_Column = {
   __typename?: 'Layout_idebanken_single_column';
   alignment?: Maybe<Scalars['String']['output']>;
-  backgroundImage?: Maybe<Scalars['Boolean']['output']>;
   bgColor?: Maybe<Scalars['String']['output']>;
   boxColor?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
@@ -964,7 +954,6 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   link_card?: Maybe<Part_Idebanken_Link_Card>;
   link_card_list?: Maybe<Part_Idebanken_Link_Card_List>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
-  section_guides_view?: Maybe<Part_Idebanken_Section_Guides_View>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   table_of_contents_section?: Maybe<Part_Idebanken_Table_Of_Contents_Section>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
@@ -1225,23 +1214,6 @@ export type Part_Idebanken_Link_Card_List_Heading = {
 export type Part_Idebanken_Search_View = {
   __typename?: 'Part_idebanken_search_view';
   text?: Maybe<Scalars['String']['output']>;
-};
-
-/** Part component application config for application ['idebanken'] and descriptor ['section-guides-view'] */
-export type Part_Idebanken_Section_Guides_View = {
-  __typename?: 'Part_idebanken_section_guides_view';
-  cardType?: Maybe<Scalars['String']['output']>;
-  limit?: Maybe<Scalars['String']['output']>;
-  overrideSection?: Maybe<Content>;
-  selectedGuides?: Maybe<Array<Maybe<Content>>>;
-  showHeading?: Maybe<Scalars['Boolean']['output']>;
-};
-
-
-/** Part component application config for application ['idebanken'] and descriptor ['section-guides-view'] */
-export type Part_Idebanken_Section_Guides_ViewSelectedGuidesArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['table-of-contents'] */
