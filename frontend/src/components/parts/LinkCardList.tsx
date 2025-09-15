@@ -22,16 +22,16 @@ function guideToLinkCardConfig(
 }
 
 export function LinkCardList({ part }: PartData<Part_Idebanken_Link_Card_List>) {
-    const { list, displayType } = part.config
+    const { list, displayType, heading } = part.config
     const spanClass = displayType === 'withImage' ? 'md:col-span-4' : 'md:col-span-6'
 
     return (
         <>
             <section className="relative z-20">
                 <LinkHeading
-                    show={false}
-                    title={'headingTitle'}
-                    href={'headingLink'}
+                    show={Boolean(heading)}
+                    title={heading?.title}
+                    href={heading?.href}
                     customClassName="mb-12"
                 />
                 <HGrid

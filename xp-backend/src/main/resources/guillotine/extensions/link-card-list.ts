@@ -43,6 +43,28 @@ export const linkCardListExtensions = ({
                 }
                 return []
             },
+            heading: (
+                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<LinkCardList>>
+            ) => {
+                if (
+                    env.source.list._selected !== 'automatic' ||
+                    !env.source.list.automatic.showHeading
+                ) {
+                    return null
+                }
+                const { parentContent } = env.source.list.automatic
+                if (!parentContent) {
+                    return null
+                }
+                const content = get({ key: parentContent })
+                if (!content) {
+                    return null
+                }
+                return {
+                    title: content.data?.title || content.displayName || 'Ingen tittel',
+                    href: enonicSitePathToHref(content._path),
+                }
+            },
         },
     },
     creationCallbacks: {
@@ -50,6 +72,11 @@ export const linkCardListExtensions = ({
             params.modifyFields({
                 list: {
                     type: nonNull(list(nonNull(reference('Link_card_list_item')))),
+                },
+            })
+            params.addFields({
+                heading: {
+                    type: reference('Part_idebanken_link_card_list_heading'),
                 },
             })
         },
@@ -78,6 +105,18 @@ export const linkCardListExtensions = ({
                 },
                 categories: {
                     type: nonNull(list(nonNull(GraphQLString))),
+                },
+            },
+            interfaces: [],
+        },
+        Part_idebanken_link_card_list_heading: {
+            description: 'Automatic heading for link card list',
+            fields: {
+                title: {
+                    type: nonNull(GraphQLString),
+                },
+                href: {
+                    type: nonNull(GraphQLString),
                 },
             },
             interfaces: [],

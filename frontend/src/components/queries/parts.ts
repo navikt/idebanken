@@ -110,6 +110,11 @@ export const tableOfContentsSectionQuery = `{
 }`
 
 export const linkCardListQuery = `{
+    displayType
+    heading {
+        title
+        href
+    }
     list {
         url
         title
