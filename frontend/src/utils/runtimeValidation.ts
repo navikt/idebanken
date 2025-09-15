@@ -1,19 +1,15 @@
-import { array, parse } from 'valibot'
+import { parse } from 'valibot'
 import {
     AccordionConfig,
     accordionConfigSchema,
     ButtonConfig,
     buttonConfigSchema,
-    DocumentCardConfigRaw,
-    documentCardRawSchema,
     HeadingConfig,
     headingConfigSchema,
     InfoBoxConfig,
     infoBoxConfigSchema,
     LinkCardConfig,
     linkCardConfigSchema,
-    SectionGuidesConfig,
-    sectionGuidesConfigSchema,
 } from '~/types/valibot/parts'
 import {
     ImageData,
@@ -33,7 +29,6 @@ import {
     Part_Idebanken_Heading,
     Part_Idebanken_Info_Box,
     Part_Idebanken_Link_Card,
-    Part_Idebanken_Section_Guides_View,
 } from '~/types/generated.d'
 import { XP_Button } from '@xp-types/site/parts'
 
@@ -105,28 +100,6 @@ export function validatedImage(image: ImageDataAdapter | undefined): ImageData |
         return parse(imageSchema, image)
     } catch (e) {
         console.error('Invalid image:', e)
-        return null
-    }
-}
-
-export function validatedSectionGuidesConfig(
-    config: Part_Idebanken_Section_Guides_View | undefined
-): SectionGuidesConfig | null {
-    try {
-        return parse(sectionGuidesConfigSchema, config)
-    } catch (e) {
-        console.error('Invalid section guides config:', e)
-        return null
-    }
-}
-
-export function validatedDocumentCardConfig(
-    config: Part_Idebanken_Link_Card[] | undefined
-): DocumentCardConfigRaw[] | null {
-    try {
-        return parse(array(documentCardRawSchema), config)
-    } catch (e) {
-        console.error('Invalid document card config:', e)
         return null
     }
 }

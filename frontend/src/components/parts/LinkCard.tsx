@@ -1,23 +1,23 @@
 /* eslint-disable @next/next/no-img-element */
-import type { Part_Idebanken_Link_Card } from '~/types/generated.d'
+import type { Link_Card_List_Item, Part_Idebanken_Link_Card } from '~/types/generated.d'
 import { Box, Tag } from '@navikt/ds-react'
 import {
     LinkCard,
-    LinkCardIcon,
-    LinkCardTitle,
     LinkCardAnchor,
     LinkCardDescription,
     LinkCardFooter,
+    LinkCardIcon,
     LinkCardImage,
+    LinkCardTitle,
 } from '@navikt/ds-react/LinkCard'
 import {
-    HandShakeHeartIcon,
-    ReceptionIcon,
     Chat2Icon,
+    ClockIcon,
+    HandShakeHeartIcon,
     HandshakeIcon,
     PersonGroupIcon,
+    ReceptionIcon,
     TasklistIcon,
-    ClockIcon,
 } from '@navikt/aksel-icons'
 import { validatedLinkCardConfig } from '~/utils/runtimeValidation'
 
@@ -35,21 +35,31 @@ export interface LinkCardData {
     part: { descriptor: string; config: Part_Idebanken_Link_Card }
 }
 
-export const LinkCardView = (props: LinkCardData) => {
+export const LinkCardPartView = (props: LinkCardData) => {
     const { part } = props
     const card = validatedLinkCardConfig(part.config)
 
     if (!card) return null
 
-    const Icon = iconMap[card.iconName as keyof typeof iconMap] || null
-    const imageUrl = card.image?.imageUrl || card.image?.mediaUrl || null
-    const altText = card.image?.data?.altText || card.image?.data?.caption || 'Illustrasjonsbilde'
+    return LinkCardView(card)
+}
+
+export type LinkCardViewParams = Link_Card_List_Item & {
+    altText?: string
+    external?: boolean
+    bgColor?: string
+}
+
+export const LinkCardView = (card: LinkCardViewParams) => {
+    const { title, description, url, categories, imageUrl, altText, iconColor, iconName } =
+        card ?? {}
+    const Icon = iconMap[iconName as keyof typeof iconMap] || null
 
     return (
         <LinkCard className={`h-full ${card.bgColor || 'bg-pink-100'}`}>
             {imageUrl && (
                 <LinkCardImage aspectRatio="16/8">
-                    <img src={imageUrl} alt={altText} width="700" />
+                    <img src={imageUrl} alt={altText || 'Illustrasjonsbilde'} width="700" />
                 </LinkCardImage>
             )}
             {Icon && (
@@ -57,9 +67,7 @@ export const LinkCardView = (props: LinkCardData) => {
                     asChild
                     padding="space-8"
                     borderRadius="12"
-                    style={
-                        card.iconColor ? { backgroundColor: `var(--${card.iconColor})` } : undefined
-                    }>
+                    style={iconColor ? { backgroundColor: `var(--${iconColor})` } : undefined}>
                     <LinkCardIcon>
                         <Icon fontSize="2.5rem" />
                     </LinkCardIcon>
@@ -67,15 +75,15 @@ export const LinkCardView = (props: LinkCardData) => {
             )}
             <LinkCardTitle>
                 <LinkCardAnchor
-                    href={card.url || '#'}
+                    href={url || '#'}
                     {...(card.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
-                    {card.text}
+                    {title}
                 </LinkCardAnchor>
             </LinkCardTitle>
-            {card.description && <LinkCardDescription>{card.description}</LinkCardDescription>}
-            {card.tags && card.tags.length > 0 && (
+            {description && <LinkCardDescription>{description}</LinkCardDescription>}
+            {categories && categories.length > 0 && (
                 <LinkCardFooter>
-                    {card.tags?.map((tag, index) => (
+                    {categories?.map((tag, index) => (
                         <Tag key={index} size="small" variant="neutral">
                             {tag}
                         </Tag>

@@ -4,7 +4,6 @@ import {
     InferOutput,
     nullable,
     nullish,
-    number,
     object,
     optional,
     picklist,
@@ -161,46 +160,21 @@ export const linkCardConfigSchema = pipe(
             url = buildRelativeInternalPath(url)
         }
         return {
-            text: c.text,
+            title: c.text,
             description: c.description || '',
-            iconName: c.iconName || null,
-            iconColor: c.iconColor || null,
+            iconName: c.iconName || undefined,
+            iconColor: c.iconColor || undefined,
             bgColor: c.bgColor,
-            tags: c.tags || [],
-            image: c.image || null,
-            url,
+            categories: c.tags || [],
+            imageUrl: c.image?.imageUrl || undefined,
+            altText: c.image?.data?.altText || c.image?.data?.caption || undefined,
+            url: url || '/',
             external: external ?? false,
         }
     })
 )
 
 export type LinkCardConfig = InferOutput<typeof linkCardConfigSchema>
-
-// Section Guides part
-export const sectionGuidesConfigSchema = object({
-    overrideSection: optional(
-        nullable(
-            object({
-                displayName: string(),
-                _path: string(),
-            })
-        )
-    ),
-    selectedGuides: optional(
-        nullable(
-            array(
-                object({
-                    _path: string(),
-                })
-            )
-        )
-    ),
-    limit: optional(nullable(number())),
-    showHeading: optional(nullable(boolean())),
-    cardType: optional(picklist(['withIcon', 'withImage'])),
-})
-
-export type SectionGuidesConfig = InferOutput<typeof sectionGuidesConfigSchema>
 
 export const documentCardRawSchema = object({
     _path: string(),
