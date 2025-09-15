@@ -743,6 +743,18 @@ export type LinkGroups = {
   title?: Maybe<Scalars['String']['output']>;
 };
 
+/** Overridable content link */
+export type Link_Card_List_Item = {
+  __typename?: 'Link_card_list_item';
+  categories: Array<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  iconColor?: Maybe<Scalars['String']['output']>;
+  iconName?: Maybe<Scalars['String']['output']>;
+  imageUrl?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  url: Scalars['String']['output'];
+};
+
 /** Macro type. */
 export type Macro = {
   __typename?: 'Macro';
@@ -939,6 +951,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   image?: Maybe<Part_Idebanken_Image>;
   info_box?: Maybe<Part_Idebanken_Info_Box>;
   link_card?: Maybe<Part_Idebanken_Link_Card>;
+  link_card_list?: Maybe<Part_Idebanken_Link_Card_List>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
   section_guides_view?: Maybe<Part_Idebanken_Section_Guides_View>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
@@ -1139,6 +1152,56 @@ export type Part_Idebanken_Link_Card_InternalLink = {
   ideBankContentSelector?: Maybe<Content>;
 };
 
+/** Part component application config for application ['idebanken'] and descriptor ['link-card-list'] */
+export type Part_Idebanken_Link_Card_List = {
+  __typename?: 'Part_idebanken_link_card_list';
+  displayType?: Maybe<Scalars['String']['output']>;
+  list: Array<Link_Card_List_Item>;
+};
+
+/** Automatisk liste */
+export type Part_Idebanken_Link_Card_List_Automatic = {
+  __typename?: 'Part_idebanken_link_card_list_Automatic';
+  contentTypes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  limit?: Maybe<Scalars['String']['output']>;
+  parentContent?: Maybe<Content>;
+  showHeading?: Maybe<Scalars['Boolean']['output']>;
+};
+
+
+/** Automatisk liste */
+export type Part_Idebanken_Link_Card_List_AutomaticContentTypesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Liste-type */
+export type Part_Idebanken_Link_Card_List_List = {
+  __typename?: 'Part_idebanken_link_card_list_List';
+  _selected?: Maybe<Part_Idebanken_Link_Card_List_List_OptionEnum>;
+  automatic?: Maybe<Part_Idebanken_Link_Card_List_Automatic>;
+  manual?: Maybe<Part_Idebanken_Link_Card_List_Manual>;
+};
+
+/** Liste-type option enum. */
+export enum Part_Idebanken_Link_Card_List_List_OptionEnum {
+  Automatic = 'automatic',
+  Manual = 'manual'
+}
+
+/** Manuell liste */
+export type Part_Idebanken_Link_Card_List_Manual = {
+  __typename?: 'Part_idebanken_link_card_list_Manual';
+  contents?: Maybe<Array<Maybe<Content>>>;
+};
+
+
+/** Manuell liste */
+export type Part_Idebanken_Link_Card_List_ManualContentsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
 /** Part component application config for application ['idebanken'] and descriptor ['search-view'] */
 export type Part_Idebanken_Search_View = {
   __typename?: 'Part_idebanken_search_view';
@@ -1191,7 +1254,6 @@ export type Part_Idebanken_Table_Of_Contents_SectionSectionNumberArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['text-editor'] */
 export type Part_Idebanken_Text_Editor = {
   __typename?: 'Part_idebanken_text_editor';
-  boxColor?: Maybe<Scalars['String']['output']>;
   simpleTextEditor?: Maybe<RichText>;
 };
 
