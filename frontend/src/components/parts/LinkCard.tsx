@@ -20,8 +20,6 @@ import {
     ClockIcon,
 } from '@navikt/aksel-icons'
 import { validatedLinkCardConfig } from '~/utils/runtimeValidation'
-// import { XP_LinkCard } from '@xp-types/site/parts'
-import transformBlockOptionSet from '~/utils/transformBlockOptionSet'
 
 const iconMap = {
     'hand-shake-heart': HandShakeHeartIcon,
@@ -39,16 +37,6 @@ export interface LinkCardData {
 
 export const LinkCardView = (props: LinkCardData) => {
     const { part } = props
-
-    console.log('LinkCardView part', part.config)
-    if (part.config.blockOptionSet) {
-        const transformed = transformBlockOptionSet(part.config?.blockOptionSet || null)
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { blockOptionSet, ...rest } = part.config
-        const testCard = { ...rest, ...transformed }
-        console.log('LinkCardView transformed', testCard)
-    }
-
     const card = validatedLinkCardConfig(part.config)
 
     if (!card) return null

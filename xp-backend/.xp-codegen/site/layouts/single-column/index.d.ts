@@ -24,4 +24,9 @@ export type SingleColumn = {
    * Juster innhold
    */
   alignment: 'left' | 'center' | 'right';
+
+  /**
+   * Vis bakgrunnsbilde
+   */
+  backgroundImage: boolean;
 };

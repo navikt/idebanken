@@ -68,11 +68,6 @@ export type LinkCard = {
   iconColor?: 'bg-white' | 'bg-pink' | 'bg-blue' | 'bg-orange' | 'bg-yellow' | 'bg-red';
 
   /**
-   * Kategorier
-   */
-  categories?: Array<string> | string;
-
-  /**
    * Tags
    */
   tags?: Array<'sykefravaer' | 'arbeidsmiljo' | 'partssamarbeid' | 'psykiskHelse' | 'inkludering' | 'omstilling'> | 'sykefravaer' | 'arbeidsmiljo' | 'partssamarbeid' | 'psykiskHelse' | 'inkludering' | 'omstilling';

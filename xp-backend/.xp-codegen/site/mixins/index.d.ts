@@ -2,7 +2,6 @@
 export type Alignment = import('./alignment').Alignment;
 export type BackgroundColor = import('./background-color').BackgroundColor;
 export type BoxColor = import('./box-color').BoxColor;
-export type CategorySelector = import('./category-selector').CategorySelector;
 export type IconBackgroundColor = import('./icon-background-color').IconBackgroundColor;
 export type IconName = import('./icon-name').IconName;
 export type Image = import('./image').Image;
