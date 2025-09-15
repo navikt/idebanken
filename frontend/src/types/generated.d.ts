@@ -713,7 +713,6 @@ export type Layout_Idebanken__3_Column = {
 export type Layout_Idebanken_Single_Column = {
   __typename?: 'Layout_idebanken_single_column';
   alignment?: Maybe<Scalars['String']['output']>;
-  backgroundImage?: Maybe<Scalars['Boolean']['output']>;
   bgColor?: Maybe<Scalars['String']['output']>;
   boxColor?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
@@ -1098,12 +1097,20 @@ export type Part_Idebanken_Link_Card = {
   __typename?: 'Part_idebanken_link_card';
   bgColor?: Maybe<Scalars['String']['output']>;
   blockOptionSet?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet>;
+  categories?: Maybe<Array<Maybe<Content>>>;
   description?: Maybe<Scalars['String']['output']>;
   iconColor?: Maybe<Scalars['String']['output']>;
   iconName?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Content>;
   tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   text?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
+export type Part_Idebanken_Link_CardCategoriesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
