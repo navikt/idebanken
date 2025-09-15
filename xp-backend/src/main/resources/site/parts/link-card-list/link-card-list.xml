@@ -61,5 +61,7 @@
             </config>
             <default>withIcon</default>
         </input>
+
+        <mixin name="background-color"/>
     </form>
 </part>

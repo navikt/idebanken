@@ -72,6 +72,7 @@ export const tableOfContentsSectionQuery = `{
 
 export const linkCardListQuery = `{
     displayType
+    bgColor
     heading {
         title
         href

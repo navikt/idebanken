@@ -56,4 +56,9 @@ export type LinkCardList = {
    * Visning
    */
   displayType: 'withIcon' | 'withImage';
+
+  /**
+   * Bakgrunnsfarge
+   */
+  bgColor: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
 };
