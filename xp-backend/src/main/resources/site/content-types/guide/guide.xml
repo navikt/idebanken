@@ -8,12 +8,5 @@
     <allow-child-content-type>(?!idebanken:crash-course-slide$)(?!idebanken:category$)*</allow-child-content-type>
     <form>
         <mixin name="title-ingress" />
-        <input name="description" type="TextArea">
-            <label>Kort beskrivelse (brukes i listevisning)</label>
-            <config>
-                <max-length>100</max-length>
-                <show-counter>true</show-counter>
-            </config>
-        </input>
     </form>
 </content-type>
