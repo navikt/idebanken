@@ -7,6 +7,7 @@ import { logger } from '/lib/utils/logging'
 import { getSearchDocumentTextSegments } from './field-resolvers/text'
 import { buildSearchDocumentIngress } from './field-resolvers/ingress'
 import { SiteConfig } from '@xp-types/site'
+import { enonicSitePathToHref } from '/lib/utils/string-utils'
 
 export type SearchConfig = SiteConfig['searchConfig']
 type KeysConfig = Partial<SearchConfig['defaultKeys']>
@@ -53,7 +54,7 @@ class ExternalSearchDocumentBuilder {
     public build(): SearchDocument | null {
         const { content, locale } = this
 
-        const href = content._path //TODO fix getSearchNodeHref(content, locale)
+        const href = enonicSitePathToHref(content._path)
         if (!href) {
             logger.warning(`No href found for ${content._id} / ${locale}`)
             return null
