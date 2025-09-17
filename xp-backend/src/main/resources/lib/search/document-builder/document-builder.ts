@@ -22,9 +22,12 @@ export type SearchDocument = {
         createdAt: string
         lastUpdated: string
         language: string
-        type: 'guide' | string
+        type: string
         metatags?: string[]
         keywords?: string[]
+        iconName?: string
+        iconColor?: string
+        categories?: string[]
     }
 }
 
@@ -77,6 +80,9 @@ class ExternalSearchDocumentBuilder {
                 type: content.type?.split(':').pop() ?? content.type,
                 metatags: forceArray(content.data.metatags),
                 keywords: forceArray(content.data.keywords),
+                iconName: content.x?.idebanken?.meta?.iconName,
+                iconColor: content.x?.idebanken?.meta?.iconColor,
+                categories: forceArray(content.x.idebanken?.category?.categories),
             },
         }
     }
