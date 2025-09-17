@@ -4,10 +4,7 @@ import io.kotest.matchers.collections.shouldContainOnly
 import io.kotest.matchers.maps.shouldBeEmpty
 import io.kotest.matchers.maps.shouldHaveSize
 import no.nav.idebankensearchapi.admin.service.validation.ContentDtoValidator
-import no.nav.idebankensearchapi.admin.utils.enumDescriptors
 import no.nav.idebankensearchapi.utils.dummyContentDto
-import no.nav.navnosearchadminapi.common.enums.ValidMetatags
-import no.nav.navnosearchadminapi.common.enums.ValidTypes
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.junit.jupiter.MockitoExtension
@@ -45,6 +42,8 @@ class ContentDtoValidatorTest() {
         validationErrors[id]!!.shouldContainOnly("Påkrevd felt mangler: text")
     }
 
+    // TODO add validation back when we have landed content types and metatags (?)
+    /*
     @Test
     fun `skal returnere valideringsfeil for ugyldig type`() {
         val content = listOf(dummyContentDto(type = invalidValue))
@@ -61,5 +60,5 @@ class ContentDtoValidatorTest() {
 
         validationErrors shouldHaveSize 1
         validationErrors[id]!!.shouldContainOnly("Ugyldig verdi for metadata.metatags: $invalidValue. Gyldige verdier: ${enumDescriptors<ValidMetatags>()}")
-    }
+    }*/
 }

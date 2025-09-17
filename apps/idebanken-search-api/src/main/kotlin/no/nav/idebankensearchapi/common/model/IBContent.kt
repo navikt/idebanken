@@ -35,7 +35,8 @@ data class IBContent(
     @Field(type = FieldType.Keyword) val language: String,
     @Field(type = FieldType.Keyword) val metatags: List<String>,
     @Field(type = FieldType.Keyword) val languageRefs: List<String> = emptyList(),
-    @Field(type = FieldType.Keyword) val contentType: String,
+    @Field(type = FieldType.Keyword) val iconName: String,
+    @Field(type = FieldType.Keyword) val iconColor: String,
     @Field(type = FieldType.Keyword) val categories: List<String> = emptyList(),
 ) {
     companion object {
@@ -52,11 +53,12 @@ data class IBContent(
             sortByDate: ZonedDateTime,
             audience: List<String>,
             language: String,
-            contentType: String,
-            categories: List<String>,
+            categories: List<String> = emptyList(),
             metatags: List<String>,
             languageRefs: List<String> = emptyList(),
             includeTypeInAllText: Boolean = false,
+            iconName: String? = "",
+            iconColor: String? = "",
         ) = IBContent(
             id = id,
             teamOwnedBy = teamOwnedBy,
@@ -76,7 +78,8 @@ data class IBContent(
             language = language,
             metatags = metatags,
             languageRefs = languageRefs,
-            contentType = contentType,
+            iconName = iconName ?: "",
+            iconColor = iconColor ?: "",
             categories = categories,
         )
     }

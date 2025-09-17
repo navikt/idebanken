@@ -2,13 +2,13 @@ package no.nav.idebankensearchapi.utils
 
 import java.time.ZonedDateTime
 import java.util.UUID
+import no.nav.idebankensearchapi.common.model.IBContent
 import no.nav.idebankensearchapi.search.filters.FacetKeys
 import no.nav.idebankensearchapi.search.filters.UnderFacetKeys
 import no.nav.navnosearchadminapi.common.constants.NORWEGIAN_BOKMAAL
 import no.nav.navnosearchadminapi.common.enums.ValidAudiences
 import no.nav.navnosearchadminapi.common.enums.ValidMetatags
 import no.nav.navnosearchadminapi.common.enums.ValidTypes
-import no.nav.navnosearchadminapi.common.model.Content
 
 val now: ZonedDateTime = ZonedDateTime.now()
 val nowMinusTwoYears: ZonedDateTime = ZonedDateTime.now().minusYears(2)
@@ -86,7 +86,7 @@ fun additionalTestData(
     text: String = "text",
     facet: String = FacetKeys.PRIVATPERSON,
     underFacet: String = UnderFacetKeys.INFORMASJON,
-): Content =
+): IBContent =
     TextData(
         title = title,
         ingress = ingress,
@@ -103,21 +103,21 @@ fun additionalTestData(
         }
     }
 
-private fun TextData.toPrivatpersonDummyContent(underfacet: String): Content =
+private fun TextData.toPrivatpersonDummyContent(underfacet: String): IBContent =
     this.toDummyContentForAudience(ValidAudiences.PERSON.descriptor, underfacet)
 
-private fun TextData.toArbeidsgiverDummyContent(underfacet: String): Content =
+private fun TextData.toArbeidsgiverDummyContent(underfacet: String): IBContent =
     this.toDummyContentForAudience(ValidAudiences.EMPLOYER.descriptor, underfacet)
 
-private fun TextData.toSamarbeidspartnerDummyContent(underfacet: String): Content =
+private fun TextData.toSamarbeidspartnerDummyContent(underfacet: String): IBContent =
     this.toDummyContentForAudience(ValidAudiences.PROVIDER.descriptor, underfacet)
 
-private fun TextData.toPresseDummyContent(): Content =
+private fun TextData.toPresseDummyContent(): IBContent =
     this.toDummyContent(
         metatags = listOf(ValidMetatags.PRESSE.descriptor),
     )
 
-private fun TextData.toStatistikkDummyContent(underfacet: String): Content =
+private fun TextData.toStatistikkDummyContent(underfacet: String): IBContent =
     when (underfacet) {
         UnderFacetKeys.ARTIKLER ->
             this.toDummyContent(
@@ -138,7 +138,7 @@ private fun TextData.toStatistikkDummyContent(underfacet: String): Content =
         else -> error("unsupported underfacet")
     }
 
-private fun TextData.toAnalyserOgForskningDummyContent(underfacet: String): Content =
+private fun TextData.toAnalyserOgForskningDummyContent(underfacet: String): IBContent =
     when (underfacet) {
         UnderFacetKeys.ARTIKLER ->
             this.toDummyContent(
@@ -192,7 +192,7 @@ private fun TextData.toDummyContent(
     audience: List<String> = emptyList(),
     language: String = NORWEGIAN_BOKMAAL,
     metatags: List<String> = emptyList(),
-) = Content.from(
+) = IBContent.from(
     id = "$teamName-${UUID.randomUUID()}",
     teamOwnedBy = teamName,
     href = href,

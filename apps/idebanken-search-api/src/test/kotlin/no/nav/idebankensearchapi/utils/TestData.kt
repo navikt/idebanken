@@ -108,11 +108,9 @@ fun dummyContent(
     sortByDate = timestamp,
     audience = audience,
     language = language,
+    categories = listOf("category1", "category2"),
     metatags = metatags,
     languageRefs = listOf(NORWEGIAN_NYNORSK, ENGLISH),
-    includeTypeInAllText = false,
-    contentType = "contentType",
-    categories = listOf("category1", "category2"),
 )
 
 fun dummyContentDto(
