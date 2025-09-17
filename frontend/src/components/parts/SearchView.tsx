@@ -3,18 +3,13 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { SearchWrapper, SOK_SEARCH_PARAM } from '~/components/common/SearchWrapper'
-import { BodyShort, Tag, VStack } from '@navikt/ds-react'
+import { BodyShort, VStack } from '@navikt/ds-react'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { PartData } from '~/types/graphql-types'
 import { Idebanken_SpecialPage_Data, Part_Idebanken_Search_View } from '~/types/generated'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
-import {
-    LinkCard,
-    LinkCardAnchor,
-    LinkCardDescription,
-    LinkCardFooter,
-    LinkCardTitle,
-} from '@navikt/ds-react/LinkCard'
+import { LinkCardView } from '~/components/parts/LinkCard'
+import { forceArray } from '~/utils/utils'
 
 type SearchResult = {
     total: number
@@ -27,6 +22,9 @@ type SearchResult = {
         audience: Array<string>
         language: string
         type: string
+        iconName?: string
+        iconColor?: string
+        categories?: Array<string>
         score: number
     }>
     word: string
@@ -43,39 +41,7 @@ export default function SearchView({
         if (!ord) {
             return
         }
-        //search(ord)
-        setSearchResult({
-            total: 2,
-            hits: [
-                {
-                    displayName: 'Resultat 1 for ' + ord,
-                    href: '/sok#test1',
-                    highlight:
-                        '<p>Dette er et <strong>fremhevet</strong> utdrag for ' + ord + '</p>',
-                    modifiedTime: '2023-10-01T12:00:00Z',
-                    publishedTime: '2023-09-01T12:00:00Z',
-                    audience: ['audience1', 'audience2'],
-                    score: 1.5,
-                    language: 'nb',
-                    type: 'article',
-                },
-                {
-                    displayName: 'Resultat 2 for ' + ord,
-                    href: '/sok#test2',
-                    highlight:
-                        '<p>Dette er et annet <strong>fremhevet</strong> utdrag for ' +
-                        ord +
-                        '</p>',
-                    modifiedTime: '2023-10-02T12:00:00Z',
-                    publishedTime: '2023-09-02T12:00:00Z',
-                    audience: ['audience3'],
-                    score: 1.2,
-                    language: 'nb',
-                    type: 'blog',
-                },
-            ],
-            word: ord,
-        })
+        search(ord)
     }, [searchParams])
 
     function search(searchTerm?: string | null) {
@@ -112,26 +78,27 @@ export default function SearchView({
                             : ''}
                     </BodyShort>
                     {searchResult?.hits?.map((result, index) => (
-                        <LinkCard key={index}>
-                            <LinkCardTitle>
-                                <LinkCardAnchor href={result.href}>
-                                    {result.displayName}
-                                </LinkCardAnchor>
-                            </LinkCardTitle>
-                            <LinkCardDescription>
+                        <LinkCardView
+                            url={result.href}
+                            title={result.displayName}
+                            description={
                                 <RichTextView
                                     className="font-extralight"
                                     meta={meta}
                                     data={{ processedHtml: result.highlight }}
                                     customReplacer={htmlRichTextReplacer}
                                 />
-                                <LinkCardFooter>
-                                    <Tag size="small" variant="neutral">
-                                        Score: {result.score}
-                                    </Tag>
-                                </LinkCardFooter>
-                            </LinkCardDescription>
-                        </LinkCard>
+                            }
+                            categories={[
+                                ...forceArray(result.categories ?? []),
+                                result.type,
+                                `score: ${result.score}`,
+                            ]}
+                            bgColor={'bg-white'}
+                            iconName={result.iconName}
+                            iconColor={result.iconColor}
+                            key={index}
+                        />
                     ))}
                 </VStack>
             </VStack>
