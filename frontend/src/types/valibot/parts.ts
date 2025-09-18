@@ -14,6 +14,7 @@ import {
 } from 'valibot'
 import { richTextSchema } from '~/types/valibot/richTextSchema'
 import { buildRelativeInternalPath } from '~/utils/buildRelativeInternalPath'
+import { forceArray } from '~/utils/utils'
 
 // External / Internal Link
 export type BlockOptionSet = {
@@ -144,7 +145,7 @@ export const linkCardConfigSchema = pipe(
         iconName: nullish(string()),
         iconColor: nullish(string()),
         bgColor: string(),
-        tags: optional(array(string())),
+        tags: optional(union([array(string()), string()])),
         image: nullish(imageDataSchema),
     }),
     transform((c) => {
@@ -165,7 +166,7 @@ export const linkCardConfigSchema = pipe(
             iconName: c.iconName || undefined,
             iconColor: c.iconColor || undefined,
             bgColor: c.bgColor,
-            categories: c.tags?.map((it) => ({ name: it, id: '' })) || [],
+            categories: forceArray(c.tags)?.map((it) => ({ name: it, id: '' })) || [],
             imageUrl: c.image?.imageUrl || undefined,
             altText: c.image?.data?.altText || c.image?.data?.caption || undefined,
             url: url || '/',
