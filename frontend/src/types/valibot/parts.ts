@@ -165,7 +165,7 @@ export const linkCardConfigSchema = pipe(
             iconName: c.iconName || undefined,
             iconColor: c.iconColor || undefined,
             bgColor: c.bgColor,
-            categories: c.tags || [],
+            categories: c.tags?.map((it) => ({ name: it, id: '' })) || [],
             imageUrl: c.image?.imageUrl || undefined,
             altText: c.image?.data?.altText || c.image?.data?.caption || undefined,
             url: url || '/',

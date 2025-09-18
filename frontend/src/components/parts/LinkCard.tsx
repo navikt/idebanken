@@ -87,7 +87,7 @@ export const LinkCardView = (card: LinkCardViewParams) => {
                 <LinkCardFooter>
                     {categories?.map((tag, index) => (
                         <Tag key={index} size="small" variant="neutral">
-                            {tag}
+                            {tag.name}
                         </Tag>
                     ))}
                 </LinkCardFooter>

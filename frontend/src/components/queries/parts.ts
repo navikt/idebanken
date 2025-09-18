@@ -84,6 +84,11 @@ export const linkCardListQuery = `{
         imageUrl
         iconName
         iconColor
-        categories
+        categories {
+            name
+            id
+            iconName
+            iconColor
+        }
     }
 }`

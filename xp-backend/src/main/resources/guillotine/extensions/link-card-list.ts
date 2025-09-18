@@ -6,7 +6,7 @@ import { LinkCardList } from '@xp-types/site/parts'
 import { Content, get, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
 import { imageUrl } from '/lib/xp/portal'
-import { resolveCategories } from './category'
+import { resolveCategories, ResolvedCategory } from './category'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 
 type LinkCardListItem = {
@@ -16,7 +16,7 @@ type LinkCardListItem = {
     imageUrl?: string
     iconName?: string
     iconColor?: string
-    categories: Array<string>
+    categories: Array<ResolvedCategory>
 }
 
 export const linkCardListExtensions = ({
@@ -104,7 +104,7 @@ export const linkCardListExtensions = ({
                     type: GraphQLString,
                 },
                 categories: {
-                    type: nonNull(list(nonNull(GraphQLString))),
+                    type: nonNull(list(nonNull(reference('Category')))),
                 },
             },
             interfaces: [],

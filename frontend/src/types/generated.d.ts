@@ -76,6 +76,15 @@ export type BooleanFilterInput = {
   should?: InputMaybe<Array<InputMaybe<FilterInput>>>;
 };
 
+/** Resolved category */
+export type Category = {
+  __typename?: 'Category';
+  iconColor?: Maybe<Scalars['String']['output']>;
+  iconName?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 /** Component. */
 export type Component = {
   __typename?: 'Component';
@@ -462,6 +471,7 @@ export type Header = {
 /** Headless CMS */
 export type HeadlessCms = {
   __typename?: 'HeadlessCms';
+  categories: Array<Category>;
   footer?: Maybe<Footer>;
   get?: Maybe<Content>;
   getChildren?: Maybe<Array<Maybe<Content>>>;
@@ -737,7 +747,7 @@ export type LinkGroups = {
 /** Overridable content link */
 export type Link_Card_List_Item = {
   __typename?: 'Link_card_list_item';
-  categories: Array<Scalars['String']['output']>;
+  categories: Array<Category>;
   description?: Maybe<Scalars['String']['output']>;
   iconColor?: Maybe<Scalars['String']['output']>;
   iconName?: Maybe<Scalars['String']['output']>;
@@ -1776,7 +1786,7 @@ export type XData_Idebanken_ApplicationConfig = {
 /** Extra data config for application ['idebanken}'] and descriptor ['category'] */
 export type XData_Idebanken_Category_DataConfig = {
   __typename?: 'XData_idebanken_category_DataConfig';
-  categories: Array<Maybe<Scalars['String']['output']>>;
+  categories: Array<Category>;
 };
 
 
