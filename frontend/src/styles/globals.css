@@ -1,5 +1,7 @@
 @import 'tailwindcss';
-@import '@navikt/ds-css' layer(components);
+@import '@navikt/ds-css/darkside' layer(components);
+
+/* @import '@navikt/ds-css' layer(components); */
 @config '../../tailwind.config.ts';
 
 @source inline('{md:}col-span-{{1..11..1}}');
@@ -170,4 +172,21 @@ hr {
 .bg-dark-blue {
     background-color: var(--ib-dark-blue-500);
     color: white;
+}
+
+/* Background colors */
+.var-bg-white {
+    --ax-bg-raised: var(--ib-brand-white);
+}
+.var-bg-extra-light-pink {
+    --ax-bg-raised: var(--ib-pink-100);
+}
+.var-bg-light-pink {
+    --ax-bg-raised: var(--ib-pink-200);
+}
+.var-bg-pink {
+    --ax-bg-raised: var(--ib-pink-500);
+}
+.var-bg-dark-blue {
+    --ax-bg-raised: var(--ib-dark-blue-500);
 }

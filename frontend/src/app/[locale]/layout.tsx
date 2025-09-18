@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import localFont from 'next/font/local'
 import { Metadata } from 'next'
 import classNames from 'classnames'
+import { Providers } from './providers'
 
 import '~/styles/globals.css'
 
@@ -68,7 +69,8 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
                     href="#main-content">
                     Hopp til hovedinnhold
                 </a>
-                {children}
+                <Providers>{children}</Providers>
+                {/* {children} */}
             </body>
         </html>
     )
