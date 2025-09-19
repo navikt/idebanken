@@ -54,7 +54,6 @@ export interface LinkCardData {
 
 export const LinkCardPartView = (props: LinkCardData) => {
     const { part } = props
-    console.log('LinkCardPartView props', part.config)
     const card = validatedLinkCardConfig(part.config)
 
     if (!card) return null
@@ -86,7 +85,7 @@ export const LinkCardView = (card: LinkCardViewParams) => {
     const bgClass = resolveBgClass(bgColor)
 
     return (
-        <LinkCard className={`h-full ${bgClass}`}>
+        <LinkCard data-color="brand-beige" className={`h-full ${bgClass}`}>
             {imageUrl && (
                 <LinkCardImage aspectRatio="16/8">
                     <img src={imageUrl} alt={altText || 'Illustrasjonsbilde'} width="700" />
