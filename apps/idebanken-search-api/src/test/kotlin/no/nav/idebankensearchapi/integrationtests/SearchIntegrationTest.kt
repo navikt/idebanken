@@ -12,7 +12,6 @@ import no.nav.idebankensearchapi.utils.allUnderaggregationCounts
 import no.nav.idebankensearchapi.utils.analyserOgForskningDummyData
 import no.nav.idebankensearchapi.utils.arbeidsgiverDummyData
 import no.nav.idebankensearchapi.utils.generatedText
-import no.nav.idebankensearchapi.utils.innholdFraFylkerDummyData
 import no.nav.idebankensearchapi.utils.presseDummyData
 import no.nav.idebankensearchapi.utils.privatpersonDummyData
 import no.nav.idebankensearchapi.utils.samarbeidspartnerDummyData
@@ -52,8 +51,6 @@ class SearchIntegrationTest : AbstractIntegrationTest() {
             aggregationCount(FacetKeys.ANALYSER_OG_FORSKNING) shouldBe analyserOgForskningDummyData.size
             allUnderaggregationCounts(FacetKeys.ANALYSER_OG_FORSKNING).forEach { it shouldBe generatedText.size }
 
-            aggregationCount(FacetKeys.INNHOLD_FRA_FYLKER) shouldBe innholdFraFylkerDummyData.size
-            allUnderaggregationCounts(FacetKeys.INNHOLD_FRA_FYLKER).forEach { it shouldBe generatedText.size }
         }
     }
 
@@ -104,19 +101,6 @@ class SearchIntegrationTest : AbstractIntegrationTest() {
         assertSoftly(response.body!!) {
             total shouldBe 1L
             hits.first().displayName shouldContain frase
-        }
-    }
-
-    @Test
-    fun `søk med fasett skal returnere riktig søkeresultat`() {
-        val response =
-            get<SearchResult>(
-                searchUri(ord = "", f = FacetKeys.INNHOLD_FRA_FYLKER),
-            )
-
-        response.statusCode shouldBe HttpStatus.OK
-        assertSoftly(response.body!!) {
-            total shouldBe innholdFraFylkerDummyData.size
         }
     }
 

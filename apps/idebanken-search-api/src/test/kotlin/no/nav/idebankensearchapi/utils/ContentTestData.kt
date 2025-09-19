@@ -1,15 +1,14 @@
 package no.nav.idebankensearchapi.utils
 
+import java.time.ZonedDateTime
+import java.util.UUID
+import no.nav.idebankensearchapi.common.model.IBContent
 import no.nav.idebankensearchapi.search.filters.FacetKeys
 import no.nav.idebankensearchapi.search.filters.UnderFacetKeys
 import no.nav.navnosearchadminapi.common.constants.NORWEGIAN_BOKMAAL
 import no.nav.navnosearchadminapi.common.enums.ValidAudiences
-import no.nav.navnosearchadminapi.common.enums.ValidFylker
 import no.nav.navnosearchadminapi.common.enums.ValidMetatags
 import no.nav.navnosearchadminapi.common.enums.ValidTypes
-import no.nav.navnosearchadminapi.common.model.Content
-import java.time.ZonedDateTime
-import java.util.UUID
 
 val now: ZonedDateTime = ZonedDateTime.now()
 val nowMinusTwoYears: ZonedDateTime = ZonedDateTime.now().minusYears(2)
@@ -70,14 +69,6 @@ val analyserOgForskningDummyData =
         }
     }
 
-val innholdFraFylkerDummyData =
-    buildList {
-        generatedText.forEach {
-            ValidFylker.entries.forEach { fylke ->
-                add(it.toInnholdFraFylkerDummyContent(fylke))
-            }
-        }
-    }
 
 val initialTestData =
     buildList {
@@ -87,7 +78,6 @@ val initialTestData =
         addAll(presseDummyData)
         addAll(statistikkDummyData)
         addAll(analyserOgForskningDummyData)
-        addAll(innholdFraFylkerDummyData)
     }
 
 fun additionalTestData(
@@ -96,7 +86,7 @@ fun additionalTestData(
     text: String = "text",
     facet: String = FacetKeys.PRIVATPERSON,
     underFacet: String = UnderFacetKeys.INFORMASJON,
-): Content =
+): IBContent =
     TextData(
         title = title,
         ingress = ingress,
@@ -109,26 +99,25 @@ fun additionalTestData(
             FacetKeys.PRESSE -> it.toPresseDummyContent()
             FacetKeys.STATISTIKK -> it.toStatistikkDummyContent(underFacet)
             FacetKeys.ANALYSER_OG_FORSKNING -> it.toAnalyserOgForskningDummyContent(underFacet)
-            FacetKeys.INNHOLD_FRA_FYLKER -> it.toInnholdFraFylkerDummyContent(ValidFylker.valueOf(underFacet))
             else -> error("Unsupported facet: $facet")
         }
     }
 
-private fun TextData.toPrivatpersonDummyContent(underfacet: String): Content =
+private fun TextData.toPrivatpersonDummyContent(underfacet: String): IBContent =
     this.toDummyContentForAudience(ValidAudiences.PERSON.descriptor, underfacet)
 
-private fun TextData.toArbeidsgiverDummyContent(underfacet: String): Content =
+private fun TextData.toArbeidsgiverDummyContent(underfacet: String): IBContent =
     this.toDummyContentForAudience(ValidAudiences.EMPLOYER.descriptor, underfacet)
 
-private fun TextData.toSamarbeidspartnerDummyContent(underfacet: String): Content =
+private fun TextData.toSamarbeidspartnerDummyContent(underfacet: String): IBContent =
     this.toDummyContentForAudience(ValidAudiences.PROVIDER.descriptor, underfacet)
 
-private fun TextData.toPresseDummyContent(): Content =
+private fun TextData.toPresseDummyContent(): IBContent =
     this.toDummyContent(
         metatags = listOf(ValidMetatags.PRESSE.descriptor),
     )
 
-private fun TextData.toStatistikkDummyContent(underfacet: String): Content =
+private fun TextData.toStatistikkDummyContent(underfacet: String): IBContent =
     when (underfacet) {
         UnderFacetKeys.ARTIKLER ->
             this.toDummyContent(
@@ -149,7 +138,7 @@ private fun TextData.toStatistikkDummyContent(underfacet: String): Content =
         else -> error("unsupported underfacet")
     }
 
-private fun TextData.toAnalyserOgForskningDummyContent(underfacet: String): Content =
+private fun TextData.toAnalyserOgForskningDummyContent(underfacet: String): IBContent =
     when (underfacet) {
         UnderFacetKeys.ARTIKLER ->
             this.toDummyContent(
@@ -163,8 +152,6 @@ private fun TextData.toAnalyserOgForskningDummyContent(underfacet: String): Cont
 
         else -> error("unsupported underfacet")
     }
-
-private fun TextData.toInnholdFraFylkerDummyContent(fylke: ValidFylker): Content = this.toDummyContent(fylke = fylke.descriptor)
 
 private fun TextData.toDummyContentForAudience(
     audience: String,
@@ -204,9 +191,8 @@ private fun TextData.toDummyContent(
     timestamp: ZonedDateTime = now,
     audience: List<String> = emptyList(),
     language: String = NORWEGIAN_BOKMAAL,
-    fylke: String? = null,
     metatags: List<String> = emptyList(),
-) = Content.from(
+) = IBContent.from(
     id = "$teamName-${UUID.randomUUID()}",
     teamOwnedBy = teamName,
     href = href,
@@ -219,6 +205,5 @@ private fun TextData.toDummyContent(
     sortByDate = timestamp,
     audience = audience,
     language = language,
-    fylke = fylke,
     metatags = metatags,
 )

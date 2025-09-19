@@ -17,6 +17,7 @@ export function extensions(graphQL: GraphQL): Extensions {
         types: {
             ...commonGuillotineTypes(graphQL),
             ...headlessCms.types,
+            ...category.types,
             ...linkCardList.types,
         },
         resolvers: {

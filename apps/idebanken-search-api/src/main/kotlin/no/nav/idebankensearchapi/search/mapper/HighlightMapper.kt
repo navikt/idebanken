@@ -1,12 +1,12 @@
 package no.nav.idebankensearchapi.search.mapper
 
+import no.nav.idebankensearchapi.common.model.IBContent
 import no.nav.idebankensearchapi.search.enums.FieldType
 import no.nav.idebankensearchapi.search.utils.languageSubfieldKey
 import no.nav.navnosearchadminapi.common.constants.INGRESS
 import no.nav.navnosearchadminapi.common.constants.TEXT
 import no.nav.navnosearchadminapi.common.constants.TITLE
 import no.nav.navnosearchadminapi.common.enums.ValidTypes
-import no.nav.navnosearchadminapi.common.model.Content
 import org.springframework.data.elasticsearch.core.SearchHit
 
 private const val HIGHLIGHT_MAX_LENGTH = 250
@@ -14,7 +14,7 @@ private const val CUTOFF_PREFIX = "… "
 private const val CUTOFF_POSTFIX = " …"
 private const val TABELL = "Tabell"
 
-fun SearchHit<Content>.toHighlight(isMatchPhraseQuery: Boolean): String {
+fun SearchHit<IBContent>.toHighlight(isMatchPhraseQuery: Boolean): String {
     if (content.type == ValidTypes.TABELL.descriptor) return TABELL
 
     val defaultFieldType = if (isMatchPhraseQuery) FieldType.EXACT else FieldType.STANDARD
@@ -30,7 +30,7 @@ fun SearchHit<Content>.toHighlight(isMatchPhraseQuery: Boolean): String {
     }
 }
 
-private fun SearchHit<Content>.getHighlightField(
+private fun SearchHit<IBContent>.getHighlightField(
     baseField: String,
     defaultFieldType: FieldType,
     prioritizedFieldType: FieldType = FieldType.NGRAM,

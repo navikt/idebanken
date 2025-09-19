@@ -2,10 +2,10 @@ package no.nav.idebankensearchapi.integrationtests
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import no.nav.idebankensearchapi.admin.config.HeaderCheckAspect.Companion.API_KEY_HEADER
+import no.nav.idebankensearchapi.common.repository.IBContentRepository
 import no.nav.idebankensearchapi.integrationtests.config.ClockConfig
 import no.nav.idebankensearchapi.integrationtests.config.OpensearchConfig
 import no.nav.idebankensearchapi.utils.initialAdminTestData
-import no.nav.navnosearchadminapi.common.repository.ContentRepository
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -39,7 +39,7 @@ abstract class AbstractAdminIntegrationTest {
     lateinit var restTemplate: TestRestTemplate
 
     @Autowired
-    lateinit var repository: ContentRepository
+    lateinit var repository: IBContentRepository
 
     @Autowired
     lateinit var cacheManager: CacheManager

@@ -1,6 +1,8 @@
 // This query is executed for every page rendering.
 // Result is included in props.common
 
+import { Category, Footer, Header } from '~/types/generated'
+
 const metaFields = `
 metaFields {
   canonical {
@@ -89,6 +91,12 @@ query($path:ID!){
         ${linkGroups}
       }
     }
+    categories {
+        name
+        id
+        iconName
+        iconColor
+    }
   }
 }`
 
@@ -101,6 +109,9 @@ export function commonVariables(path: string) {
 export type CommonType<T = UnknownJSONContent> = {
     get: CommonContentType<T>
     getSite: CommonGetSite
+    header: Header
+    footer: Footer
+    categories: Array<Category>
 }
 
 type CommonContentType<T = UnknownJSONContent> = {

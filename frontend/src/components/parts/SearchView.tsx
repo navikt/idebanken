@@ -3,18 +3,13 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { SearchWrapper, SOK_SEARCH_PARAM } from '~/components/common/SearchWrapper'
-import { BodyShort, Tag, VStack } from '@navikt/ds-react'
+import { BodyShort, VStack } from '@navikt/ds-react'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { PartData } from '~/types/graphql-types'
-import { Idebanken_SpecialPage_Data, Part_Idebanken_Search_View } from '~/types/generated'
+import { Category, Idebanken_SpecialPage_Data, Part_Idebanken_Search_View } from '~/types/generated'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
-import {
-    LinkCard,
-    LinkCardAnchor,
-    LinkCardDescription,
-    LinkCardFooter,
-    LinkCardTitle,
-} from '@navikt/ds-react/LinkCard'
+import { LinkCardView } from '~/components/parts/LinkCard'
+import { forceArray } from '~/utils/utils'
 
 type SearchResult = {
     total: number
@@ -27,6 +22,9 @@ type SearchResult = {
         audience: Array<string>
         language: string
         type: string
+        iconName?: string
+        iconColor?: string
+        categories?: Array<string>
         score: number
     }>
     word: string
@@ -34,6 +32,7 @@ type SearchResult = {
 
 export default function SearchView({
     meta,
+    common,
 }: PartData<Part_Idebanken_Search_View, Idebanken_SpecialPage_Data>) {
     const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
     const searchParams = useSearchParams()
@@ -62,6 +61,20 @@ export default function SearchView({
             })
     }
 
+    function getResultCategories(result: SearchResult['hits'][0]) {
+        return [
+            ...forceArray(result.categories)?.reduce((acc: Array<Category>, curr) => {
+                const category = common.categories?.find((cat) => cat.id === curr)?.name
+                if (category) {
+                    acc.push({ name: category, id: '' })
+                }
+                return acc
+            }, []),
+            { name: result.type, id: '' },
+            { name: `score: ${result.score}`, id: '' },
+        ]
+    }
+
     return (
         <VStack>
             <SearchWrapper
@@ -80,26 +93,23 @@ export default function SearchView({
                             : ''}
                     </BodyShort>
                     {searchResult?.hits?.map((result, index) => (
-                        <LinkCard key={index}>
-                            <LinkCardTitle>
-                                <LinkCardAnchor href={result.href}>
-                                    {result.displayName}
-                                </LinkCardAnchor>
-                            </LinkCardTitle>
-                            <LinkCardDescription>
+                        <LinkCardView
+                            url={result.href}
+                            title={result.displayName}
+                            description={
                                 <RichTextView
                                     className="font-extralight"
                                     meta={meta}
                                     data={{ processedHtml: result.highlight }}
                                     customReplacer={htmlRichTextReplacer}
                                 />
-                                <LinkCardFooter>
-                                    <Tag size="small" variant="neutral">
-                                        Score: {result.score}
-                                    </Tag>
-                                </LinkCardFooter>
-                            </LinkCardDescription>
-                        </LinkCard>
+                            }
+                            categories={getResultCategories(result)}
+                            bgColor={'bg-white'}
+                            iconName={result.iconName}
+                            iconColor={result.iconColor}
+                            key={index}
+                        />
                     ))}
                 </VStack>
             </VStack>

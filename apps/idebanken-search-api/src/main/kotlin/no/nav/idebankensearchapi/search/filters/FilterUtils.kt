@@ -2,7 +2,6 @@ package no.nav.idebankensearchapi.search.filters
 
 import no.nav.navnosearchadminapi.common.constants.AUDIENCE
 import no.nav.navnosearchadminapi.common.constants.ENGLISH
-import no.nav.navnosearchadminapi.common.constants.FYLKE
 import no.nav.navnosearchadminapi.common.constants.LANGUAGE
 import no.nav.navnosearchadminapi.common.constants.LANGUAGE_REFS
 import no.nav.navnosearchadminapi.common.constants.METATAGS
@@ -10,7 +9,6 @@ import no.nav.navnosearchadminapi.common.constants.NORWEGIAN_BOKMAAL
 import no.nav.navnosearchadminapi.common.constants.NORWEGIAN_NYNORSK
 import no.nav.navnosearchadminapi.common.constants.TYPE
 import no.nav.navnosearchadminapi.common.enums.ValidAudiences
-import no.nav.navnosearchadminapi.common.enums.ValidFylker
 import no.nav.navnosearchadminapi.common.enums.ValidMetatags
 import no.nav.navnosearchadminapi.common.enums.ValidTypes
 import org.opensearch.index.query.BoolQueryBuilder
@@ -56,11 +54,6 @@ fun BoolQueryBuilder.mustHaveOneOfTypes(vararg types: ValidTypes) =
 fun BoolQueryBuilder.shouldHaveTypes(vararg types: ValidTypes) =
     apply {
         types.forEach { should(TermQueryBuilder(TYPE, it.descriptor)) }
-    }
-
-fun BoolQueryBuilder.mustHaveFylker(vararg fylker: ValidFylker) =
-    apply {
-        fylker.forEach { must(TermQueryBuilder(FYLKE, it.descriptor)) }
     }
 
 fun BoolQueryBuilder.mustHaveField(fieldName: String) =

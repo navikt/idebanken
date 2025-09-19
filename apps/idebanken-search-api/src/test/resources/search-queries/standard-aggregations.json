@@ -86,12 +86,6 @@
                         "boost": 1.0
                       }
                     }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
-                    }
                   }
                 ],
                 "adjust_pure_negative": true,
@@ -195,12 +189,6 @@
                         "value": "statistikk",
                         "boost": 1.0
                       }
-                    }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
                     }
                   }
                 ],
@@ -306,12 +294,6 @@
                         "boost": 1.0
                       }
                     }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
-                    }
                   }
                 ],
                 "adjust_pure_negative": true,
@@ -385,12 +367,6 @@
                         "value": "statistikk",
                         "boost": 1.0
                       }
-                    }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
                     }
                   }
                 ],
@@ -492,12 +468,6 @@
                         "boost": 1.0
                       }
                     }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
-                    }
                   }
                 ],
                 "adjust_pure_negative": true,
@@ -601,12 +571,6 @@
                         "value": "statistikk",
                         "boost": 1.0
                       }
-                    }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
                     }
                   }
                 ],
@@ -712,12 +676,6 @@
                         "boost": 1.0
                       }
                     }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
-                    }
                   }
                 ],
                 "adjust_pure_negative": true,
@@ -791,12 +749,6 @@
                         "value": "statistikk",
                         "boost": 1.0
                       }
-                    }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
                     }
                   }
                 ],
@@ -898,12 +850,6 @@
                         "boost": 1.0
                       }
                     }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
-                    }
                   }
                 ],
                 "adjust_pure_negative": true,
@@ -1007,12 +953,6 @@
                         "value": "statistikk",
                         "boost": 1.0
                       }
-                    }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
                     }
                   }
                 ],
@@ -1118,12 +1058,6 @@
                         "boost": 1.0
                       }
                     }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
-                    }
                   }
                 ],
                 "adjust_pure_negative": true,
@@ -1198,12 +1132,6 @@
                         "boost": 1.0
                       }
                     }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
-                    }
                   }
                 ],
                 "adjust_pure_negative": true,
@@ -1247,14 +1175,6 @@
               }
             }
           ],
-          "must_not": [
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
-              }
-            }
-          ],
           "adjust_pure_negative": true,
           "boost": 1.0
         }
@@ -1292,24 +1212,6 @@
                   "value": "analyse",
                   "boost": 1.0
                 }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Innhold fra fylker": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
               }
             }
           ],
@@ -1402,12 +1304,6 @@
                   "value": "statistikk",
                   "boost": 1.0
                 }
-              }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
               }
             }
           ],
@@ -1517,12 +1413,6 @@
                   "boost": 1.0
                 }
               }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
-              }
             }
           ],
           "adjust_pure_negative": true,
@@ -1631,12 +1521,6 @@
                   "boost": 1.0
                 }
               }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
-              }
             }
           ],
           "adjust_pure_negative": true,
@@ -1714,12 +1598,6 @@
                   "value": "statistikk",
                   "boost": 1.0
                 }
-              }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
               }
             }
           ],
@@ -1812,12 +1690,6 @@
                   "value": "statistikk",
                   "boost": 1.0
                 }
-              }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
               }
             }
           ],
@@ -1927,12 +1799,6 @@
                   "boost": 1.0
                 }
               }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
-              }
             }
           ],
           "adjust_pure_negative": true,
@@ -2041,12 +1907,6 @@
                   "boost": 1.0
                 }
               }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
-              }
             }
           ],
           "adjust_pure_negative": true,
@@ -2124,12 +1984,6 @@
                   "value": "statistikk",
                   "boost": 1.0
                 }
-              }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
               }
             }
           ],
@@ -2222,12 +2076,6 @@
                   "value": "statistikk",
                   "boost": 1.0
                 }
-              }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
               }
             }
           ],
@@ -2337,12 +2185,6 @@
                   "boost": 1.0
                 }
               }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
-              }
             }
           ],
           "adjust_pure_negative": true,
@@ -2451,12 +2293,6 @@
                   "boost": 1.0
                 }
               }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
-              }
             }
           ],
           "adjust_pure_negative": true,
@@ -2534,12 +2370,6 @@
                   "value": "statistikk",
                   "boost": 1.0
                 }
-              }
-            },
-            {
-              "exists": {
-                "field": "fylke",
-                "boost": 1.0
               }
             }
           ],
@@ -2740,246 +2570,6 @@
                 ],
                 "adjust_pure_negative": true,
                 "boost": 1.0
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Agder": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "agder",
-                  "boost": 1.0
-                }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Innlandet": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "innlandet",
-                  "boost": 1.0
-                }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Møre og Romsdal": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "more-og-romsdal",
-                  "boost": 1.0
-                }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Nordland": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "nordland",
-                  "boost": 1.0
-                }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Oslo": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "oslo",
-                  "boost": 1.0
-                }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Rogaland": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "rogaland",
-                  "boost": 1.0
-                }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Troms og Finnmark": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "troms-og-finnmark",
-                  "boost": 1.0
-                }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Trøndelag": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "trondelag",
-                  "boost": 1.0
-                }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Vestfold og Telemark": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "vestfold-og-telemark",
-                  "boost": 1.0
-                }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Vestland": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "vestland",
-                  "boost": 1.0
-                }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Vest-Viken": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "vest-viken",
-                  "boost": 1.0
-                }
-              }
-            }
-          ],
-          "adjust_pure_negative": true,
-          "boost": 1.0
-        }
-      }
-    }
-  },
-  {
-    "Øst-Viken": {
-      "filter": {
-        "bool": {
-          "must": [
-            {
-              "term": {
-                "fylke": {
-                  "value": "ost-viken",
-                  "boost": 1.0
-                }
               }
             }
           ],
