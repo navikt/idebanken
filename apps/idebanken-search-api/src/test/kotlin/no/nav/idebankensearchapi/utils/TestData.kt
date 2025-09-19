@@ -109,6 +109,8 @@ fun dummyContent(
     audience = audience,
     language = language,
     categories = listOf("category1", "category2"),
+    iconName = "",
+    iconColor = "",
     metatags = metatags,
     languageRefs = listOf(NORWEGIAN_NYNORSK, ENGLISH),
 )
