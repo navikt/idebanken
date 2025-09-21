@@ -86,12 +86,6 @@
                         "boost": 1.0
                       }
                     }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
-                    }
                   }
                 ],
                 "adjust_pure_negative": true,
@@ -195,12 +189,6 @@
                         "value": "statistikk",
                         "boost": 1.0
                       }
-                    }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
                     }
                   }
                 ],
@@ -306,12 +294,6 @@
                         "boost": 1.0
                       }
                     }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
-                    }
                   }
                 ],
                 "adjust_pure_negative": true,
@@ -385,12 +367,6 @@
                         "value": "statistikk",
                         "boost": 1.0
                       }
-                    }
-                  },
-                  {
-                    "exists": {
-                      "field": "fylke",
-                      "boost": 1.0
                     }
                   }
                 ],

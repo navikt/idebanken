@@ -24,6 +24,9 @@ data class SearchHit(
     val language: String,
     val type: String,
     val score: Float,
+    val iconName: String?,
+    val iconColor: String?,
+    val categories: List<String>,
 )
 
 data class Aggregations(

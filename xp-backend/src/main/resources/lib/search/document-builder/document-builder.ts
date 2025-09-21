@@ -7,6 +7,7 @@ import { logger } from '/lib/utils/logging'
 import { getSearchDocumentTextSegments } from './field-resolvers/text'
 import { buildSearchDocumentIngress } from './field-resolvers/ingress'
 import { SiteConfig } from '@xp-types/site'
+import { enonicSitePathToHref } from '/lib/utils/string-utils'
 
 export type SearchConfig = SiteConfig['searchConfig']
 type KeysConfig = Partial<SearchConfig['defaultKeys']>
@@ -22,9 +23,12 @@ export type SearchDocument = {
         createdAt: string
         lastUpdated: string
         language: string
-        type: 'guide' | string
+        type: string
         metatags?: string[]
         keywords?: string[]
+        iconName?: string
+        iconColor?: string
+        categories?: string[]
     }
 }
 
@@ -50,7 +54,7 @@ class ExternalSearchDocumentBuilder {
     public build(): SearchDocument | null {
         const { content, locale } = this
 
-        const href = content._path //TODO fix getSearchNodeHref(content, locale)
+        const href = enonicSitePathToHref(content._path)
         if (!href) {
             logger.warning(`No href found for ${content._id} / ${locale}`)
             return null
@@ -77,6 +81,9 @@ class ExternalSearchDocumentBuilder {
                 type: content.type?.split(':').pop() ?? content.type,
                 metatags: forceArray(content.data.metatags),
                 keywords: forceArray(content.data.keywords),
+                iconName: content.x?.idebanken?.meta?.iconName,
+                iconColor: content.x?.idebanken?.meta?.iconColor,
+                categories: forceArray(content.x.idebanken?.category?.categories),
             },
         }
     }

@@ -31,7 +31,6 @@ class OutboundMapperTest {
                 lastUpdated shouldBe content.lastUpdated
                 audience shouldBe content.audience
                 language shouldBe content.language
-                fylke shouldBe content.fylke
                 metatags shouldBe content.metatags
                 languageRefs shouldBe content.languageRefs
             }

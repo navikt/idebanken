@@ -9,7 +9,9 @@ data class ContentMetadata(
     val lastUpdated: ZonedDateTime? = null,
     val audience: List<String>? = null,
     val language: String? = null,
-    val fylke: String? = null,
     val metatags: List<String> = emptyList(),
     val languageRefs: List<String> = emptyList(),
+    val iconName: String? = null,
+    val iconColor: String? = null,
+    val categories: List<String> = emptyList(),
 )

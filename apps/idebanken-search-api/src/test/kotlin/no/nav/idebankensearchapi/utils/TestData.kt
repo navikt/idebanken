@@ -6,14 +6,13 @@ import java.time.ZonedDateTime
 import no.nav.idebankensearchapi.admin.dto.inbound.ContentDto
 import no.nav.idebankensearchapi.admin.dto.inbound.ContentMetadata
 import no.nav.idebankensearchapi.admin.utils.createInternalId
+import no.nav.idebankensearchapi.common.model.IBContent
 import no.nav.navnosearchadminapi.common.constants.ENGLISH
 import no.nav.navnosearchadminapi.common.constants.NORWEGIAN_BOKMAAL
 import no.nav.navnosearchadminapi.common.constants.NORWEGIAN_NYNORSK
 import no.nav.navnosearchadminapi.common.enums.ValidAudiences
-import no.nav.navnosearchadminapi.common.enums.ValidFylker
 import no.nav.navnosearchadminapi.common.enums.ValidMetatags
 import no.nav.navnosearchadminapi.common.enums.ValidTypes
-import no.nav.navnosearchadminapi.common.model.Content
 
 const val TEAM_NAME = "test-team"
 const val HINDI = "hi"
@@ -35,18 +34,15 @@ val initialAdminTestData = listOf(
             ValidAudiences.EMPLOYER.descriptor,
             ValidAudiences.PROVIDER.descriptor
         ),
-        fylke = ValidFylker.AGDER.descriptor,
         metatags = listOf(ValidMetatags.STATISTIKK.descriptor)
     ),
     dummyContent(
         externalId = "2",
-        fylke = ValidFylker.AGDER.descriptor,
         metatags = listOf(ValidMetatags.STATISTIKK.descriptor)
     ),
     dummyContent(
         externalId = "3",
         timestamp = fixedNowMinusTwoYears,
-        fylke = ValidFylker.AGDER.descriptor,
         metatags = listOf(ValidMetatags.STATISTIKK.descriptor)
     ),
     dummyContent(
@@ -98,9 +94,8 @@ fun dummyContent(
     timestamp: ZonedDateTime = fixedNow,
     audience: List<String> = listOf(ValidAudiences.PERSON.descriptor),
     language: String = NORWEGIAN_BOKMAAL,
-    fylke: String? = null,
     metatags: List<String> = emptyList()
-) = Content.from(
+) = IBContent.from(
     id = createInternalId(teamName, externalId),
     teamOwnedBy = teamName,
     href = "https://www.href.com",
@@ -113,10 +108,11 @@ fun dummyContent(
     sortByDate = timestamp,
     audience = audience,
     language = language,
-    fylke = fylke,
+    categories = listOf("category1", "category2"),
+    iconName = "",
+    iconColor = "",
     metatags = metatags,
     languageRefs = listOf(NORWEGIAN_NYNORSK, ENGLISH),
-    includeTypeInAllText = false
 )
 
 fun dummyContentDto(
@@ -130,7 +126,6 @@ fun dummyContentDto(
     lastUpdated: ZonedDateTime? = fixedNow,
     audience: List<String>? = listOf(ValidAudiences.PROVIDER.descriptor),
     language: String? = ENGLISH,
-    fylke: String? = null,
     metatags: List<String> = listOf(ValidMetatags.INFORMASJON.descriptor),
     languageRefs: List<String> = listOf(NORWEGIAN_BOKMAAL),
 ) = ContentDto(
@@ -145,7 +140,6 @@ fun dummyContentDto(
         lastUpdated = lastUpdated,
         audience = audience,
         language = language,
-        fylke = fylke,
         metatags = metatags,
         languageRefs = languageRefs,
     )
