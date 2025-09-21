@@ -1,10 +1,10 @@
 package no.nav.idebankensearchapi.integrationtests
 
+import no.nav.idebankensearchapi.common.repository.IBContentRepository
 import no.nav.idebankensearchapi.integrationtests.config.OpensearchConfig
 import no.nav.idebankensearchapi.search.filters.FacetKeys
 import no.nav.idebankensearchapi.utils.initialTestData
 import no.nav.navnosearchadminapi.common.constants.NORWEGIAN_BOKMAAL
-import no.nav.navnosearchadminapi.common.repository.ContentRepository
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -28,7 +28,7 @@ abstract class AbstractIntegrationTest {
     protected lateinit var restTemplate: TestRestTemplate
 
     @Autowired
-    protected lateinit var repository: ContentRepository
+    protected lateinit var repository: IBContentRepository
 
     @LocalServerPort
     private var serverPort: Int? = null

@@ -6,7 +6,7 @@ import no.nav.idebankensearchapi.admin.service.mapper.toInbound
 import no.nav.idebankensearchapi.admin.service.mapper.toOutbound
 import no.nav.idebankensearchapi.admin.service.validation.ContentDtoValidator
 import no.nav.idebankensearchapi.admin.utils.createInternalId
-import no.nav.navnosearchadminapi.common.repository.ContentRepository
+import no.nav.idebankensearchapi.common.repository.IBContentRepository
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service
 @Service
 class AdminService(
     val validator: ContentDtoValidator,
-    val repository: ContentRepository,
+    val repository: IBContentRepository,
     @Value("\${opensearch.page-size}") val pageSize: Int,
 ) {
     val logger: Logger = LoggerFactory.getLogger(AdminService::class.java)

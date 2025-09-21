@@ -10,6 +10,9 @@ import {
     resolveLinkGroups,
     resolveLinks,
 } from '../common-guillotine-types'
+import { Content, query } from '/lib/xp/content'
+import { Category } from '@xp-types/site/content-types'
+import { mapCategoryContentToResolved, ResolvedCategory } from './category'
 
 export const headlessCmsExtensions = ({
     list,
@@ -53,6 +56,22 @@ export const headlessCmsExtensions = ({
                     }
                 })
             },
+            categories: (
+                _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
+            ): Array<ResolvedCategory> => {
+                return runInContext({ asAdmin: true }, () => {
+                    const categories = query<Content<Category>>({
+                        filters: {
+                            hasValue: {
+                                field: 'type',
+                                values: ['idebanken:category'],
+                            },
+                        },
+                    }).hits
+
+                    return mapCategoryContentToResolved(categories)
+                })
+            },
         },
     },
     types: {
@@ -89,6 +108,9 @@ export const headlessCmsExtensions = ({
                 },
                 footer: {
                     type: reference('Footer'),
+                },
+                categories: {
+                    type: nonNull(list(nonNull(reference('Category')))),
                 },
             })
         },

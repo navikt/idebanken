@@ -7,7 +7,6 @@ object FacetKeys {
     const val PRESSE = "presse"
     const val STATISTIKK = "statistikk"
     const val ANALYSER_OG_FORSKNING = "analyser-og-forskning"
-    const val INNHOLD_FRA_FYLKER = "innhold-fra-fylker"
 }
 
 object FacetNames {
@@ -17,7 +16,6 @@ object FacetNames {
     const val PRESSE = "Presse"
     const val STATISTIKK = "Statistikk"
     const val ANALYSER_OG_FORSKNING = "Analyser og forskning"
-    const val INNHOLD_FRA_FYLKER = "Innhold fra fylker"
 }
 
 object UnderFacetKeys {

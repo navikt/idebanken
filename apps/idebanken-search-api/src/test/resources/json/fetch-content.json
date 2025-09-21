@@ -16,14 +16,16 @@
           "provider"
         ],
         "language": "nb",
-        "fylke": "agder",
         "metatags": [
           "statistikk"
         ],
         "languageRefs": [
           "nn",
           "en"
-        ]
+        ],
+        "iconName": "",
+        "iconColor": "",
+        "categories": ["category1", "category2"]
       }
     },
     {
@@ -40,14 +42,16 @@
           "person"
         ],
         "language": "nb",
-        "fylke": "agder",
         "metatags": [
           "statistikk"
         ],
         "languageRefs": [
           "nn",
           "en"
-        ]
+        ],
+        "iconName": "",
+        "iconColor": "",
+        "categories": ["category1", "category2"]
       }
     },
     {
@@ -64,14 +68,16 @@
           "person"
         ],
         "language": "nb",
-        "fylke": "agder",
         "metatags": [
           "statistikk"
         ],
         "languageRefs": [
           "nn",
           "en"
-        ]
+        ],
+        "iconName": "",
+        "iconColor": "",
+        "categories": ["category1", "category2"]
       }
     },
     {
@@ -88,12 +94,14 @@
           "person"
         ],
         "language": "en",
-        "fylke": null,
         "metatags": [],
         "languageRefs": [
           "nn",
           "en"
-        ]
+        ],
+        "iconName": "",
+        "iconColor": "",
+        "categories": ["category1", "category2"]
       }
     },
     {
@@ -110,12 +118,14 @@
           "employer"
         ],
         "language": "en",
-        "fylke": null,
         "metatags": [],
         "languageRefs": [
           "nn",
           "en"
-        ]
+        ],
+        "iconName": "",
+        "iconColor": "",
+        "categories": ["category1", "category2"]
       }
     },
     {
@@ -132,12 +142,14 @@
           "employer"
         ],
         "language": "en",
-        "fylke": null,
         "metatags": [],
         "languageRefs": [
           "nn",
           "en"
-        ]
+        ],
+        "iconName": "",
+        "iconColor": "",
+        "categories": ["category1", "category2"]
       }
     },
     {
@@ -154,12 +166,14 @@
           "employer"
         ],
         "language": "hi",
-        "fylke": null,
         "metatags": [],
         "languageRefs": [
           "nn",
           "en"
-        ]
+        ],
+        "iconName": "",
+        "iconColor": "",
+        "categories": ["category1", "category2"]
       }
     },
     {
@@ -176,12 +190,14 @@
           "provider"
         ],
         "language": "hi",
-        "fylke": null,
         "metatags": [],
         "languageRefs": [
           "nn",
           "en"
-        ]
+        ],
+        "iconName": "",
+        "iconColor": "",
+        "categories": ["category1", "category2"]
       }
     },
     {
@@ -198,12 +214,14 @@
           "provider"
         ],
         "language": "hi",
-        "fylke": null,
         "metatags": [],
         "languageRefs": [
           "nn",
           "en"
-        ]
+        ],
+        "iconName": "",
+        "iconColor": "",
+        "categories": ["category1", "category2"]
       }
     },
     {
@@ -220,12 +238,14 @@
           "provider"
         ],
         "language": "hi",
-        "fylke": null,
         "metatags": [],
         "languageRefs": [
           "nn",
           "en"
-        ]
+        ],
+        "iconName": "",
+        "iconColor": "",
+        "categories": ["category1", "category2"]
       }
     }
   ],

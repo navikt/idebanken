@@ -5,5 +5,5 @@ export function enonicSitePathToHref(path?: string) {
         logger.warning('sitePathToHref called with undefined or empty path')
         return '/'
     }
-    return path.replace(/^\/idebanken/, '') || '/'
+    return path.replace(/^(\/content)?\/idebanken/, '') || '/'
 }

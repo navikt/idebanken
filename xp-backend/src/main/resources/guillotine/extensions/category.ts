@@ -2,9 +2,17 @@ import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { EmptyRecord, Source } from '../common-guillotine-types'
-import { Category, Category as XDataCategory } from '@xp-types/site/x-data'
-import { query } from '/lib/xp/content'
+import { Category as XDataCategory } from '@xp-types/site/x-data'
+import { Content, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
+import { Category } from '@xp-types/site/content-types'
+
+export type ResolvedCategory = {
+    id: string
+    name: string
+    iconName?: string
+    iconColor?: string
+}
 
 export const categoryExtensions = ({
     list,
@@ -14,11 +22,31 @@ export const categoryExtensions = ({
     reference,
     nonNull,
 }: GraphQL): Extensions => ({
+    types: {
+        Category: {
+            description: 'Resolved category',
+            fields: {
+                id: {
+                    type: nonNull(GraphQLID),
+                },
+                name: {
+                    type: nonNull(GraphQLString),
+                },
+                iconName: {
+                    type: GraphQLString,
+                },
+                iconColor: {
+                    type: GraphQLString,
+                },
+            },
+            interfaces: [],
+        },
+    },
     resolvers: {
         XData_idebanken_category_DataConfig: {
             categories: (
                 env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<XDataCategory>>
-            ): Array<string> => {
+            ): Array<ResolvedCategory> => {
                 return resolveCategories(env.source)
             },
         },
@@ -27,19 +55,19 @@ export const categoryExtensions = ({
         XData_idebanken_category_DataConfig: (params): void => {
             params.modifyFields({
                 categories: {
-                    type: nonNull(list(GraphQLString)),
+                    type: nonNull(list(nonNull(reference('Category')))),
                 },
             })
         },
     },
 })
 
-export function resolveCategories(category?: Category): Array<string> {
+export function resolveCategories(category?: XDataCategory): Array<ResolvedCategory> {
     if (!category?.categories) {
         return []
     }
 
-    const categoryContents = query({
+    const categoryContents = query<Content<Category>>({
         filters: {
             boolean: {
                 must: [
@@ -60,7 +88,16 @@ export function resolveCategories(category?: Category): Array<string> {
         },
     })?.hits
 
+    return mapCategoryContentToResolved(categoryContents)
+}
+
+export function mapCategoryContentToResolved(categoryContents?: Array<Content<Category>>) {
     return forceArray(categoryContents)
-        .map((hit) => hit.data?.title as string)
-        .filter((it) => it)
+        .filter((it) => it?.data?.title && it._id)
+        .map((hit) => ({
+            name: hit.data.title,
+            id: hit._id,
+            iconName: hit.x?.idebanken?.meta?.iconName,
+            iconColor: hit.x?.idebanken?.meta?.iconColor,
+        }))
 }

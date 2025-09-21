@@ -20,6 +20,7 @@ import {
     TasklistIcon,
 } from '@navikt/aksel-icons'
 import { validatedLinkCardConfig } from '~/utils/runtimeValidation'
+import React from 'react'
 
 const iconMap = {
     'hand-shake-heart': HandShakeHeartIcon,
@@ -61,7 +62,8 @@ export const LinkCardPartView = (props: LinkCardData) => {
     return LinkCardView(card)
 }
 
-export type LinkCardViewParams = Link_Card_List_Item & {
+export type LinkCardViewParams = Omit<Link_Card_List_Item, 'description'> & {
+    description?: string | React.ReactNode
     altText?: string
     external?: boolean
     bgColor?: string
@@ -114,7 +116,7 @@ export const LinkCardView = (card: LinkCardViewParams) => {
                 <LinkCardFooter>
                     {categories.map((tag, index) => (
                         <Tag key={index} size="small" variant="neutral">
-                            {tag}
+                            {tag.name}
                         </Tag>
                     ))}
                 </LinkCardFooter>

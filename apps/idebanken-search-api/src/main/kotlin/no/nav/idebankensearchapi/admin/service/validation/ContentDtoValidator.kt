@@ -36,8 +36,9 @@ class ContentDtoValidator() {
         return buildList {
             addAll(validateNotNull(requiredFieldsMap(content)))
 
-            content.metadata?.type?.let { type -> addAll(validateType(type)) }
-            content.metadata?.metatags?.let { metatags -> addAll(validateMetatags(metatags)) }
+            // TODO add validation back when we have landed content types and metatags (?)
+//            content.metadata?.type?.let { type -> addAll(validateType(type)) }
+//            content.metadata?.metatags?.let { metatags -> addAll(validateMetatags(metatags)) }
         }
     }
 
