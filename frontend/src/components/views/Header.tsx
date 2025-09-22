@@ -8,7 +8,12 @@ import { SearchWrapper, SOK_SEARCH_PARAM } from '~/components/common/SearchWrapp
 import { HeadlessCms } from '~/types/generated'
 import { Bleed, Button, HStack, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
-import { ArrowRightIcon, MagnifyingGlassIcon, MenuHamburgerIcon, XMarkIcon, } from '@navikt/aksel-icons'
+import {
+    ArrowRightIcon,
+    MagnifyingGlassIcon,
+    MenuHamburgerIcon,
+    XMarkIcon,
+} from '@navikt/aksel-icons'
 import { useMemo, useState } from 'react'
 import { PageBlock } from '@navikt/ds-react/Page'
 import classNames from 'classnames'

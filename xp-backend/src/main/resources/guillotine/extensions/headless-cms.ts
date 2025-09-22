@@ -13,7 +13,6 @@ import {
 import { Content, get, query } from '/lib/xp/content'
 import { Category } from '@xp-types/site/content-types'
 import { mapCategoryContentToResolved, ResolvedCategory } from './category'
-import { logger } from '/lib/utils/logging'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 
 export const headlessCmsExtensions = ({
@@ -81,9 +80,6 @@ export const headlessCmsExtensions = ({
             } => {
                 return runInContext({ asAdmin: true }, () => {
                     const siteConfig = getSiteConfig()
-                    logger.info(
-                        `siteConfig?.searchConfig ${JSON.stringify(siteConfig?.searchConfig, null, 2)}`
-                    )
                     const searchPage = siteConfig?.searchConfig?.searchPage
                     const searchPageId = searchPage ? get({ key: searchPage })?._path : undefined
 
