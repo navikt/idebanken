@@ -21,10 +21,12 @@ export interface HeaderProps {
     title: string
     logoUrl: string
     meta: MetaData
-    header?: HeadlessCms['header']
+    common?: HeadlessCms
 }
 
-const Header = ({ title, logoUrl, header }: HeaderProps) => {
+const Header = ({ title, logoUrl, common }: HeaderProps) => {
+    const { header, siteConfiguration } = common ?? {}
+
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
     const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
@@ -181,13 +183,15 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                             onChange={handleFormChange}
                             onSubmit={(e) => {
                                 e.preventDefault()
-                                router.push(`/sok?${SOK_SEARCH_PARAM}=${searchValue}`)
+                                router.push(
+                                    `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`
+                                )
                             }}
                         />
                         {SearchResults(searchResult, undefined, undefined, loading)}
                         {searchResult ? (
                             <NextLink
-                                href={`/sok?${SOK_SEARCH_PARAM}=${searchValue}`}
+                                href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`}
                                 onClick={() => setIsSearchOpen(false)}
                                 className={
                                     'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'
