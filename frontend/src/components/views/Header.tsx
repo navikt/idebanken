@@ -6,7 +6,7 @@ import NextImage from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { SearchWrapper, SOK_SEARCH_PARAM } from '~/components/common/SearchWrapper'
 import { HeadlessCms } from '~/types/generated'
-import { Bleed, Button, HStack, Link, VStack } from '@navikt/ds-react'
+import { Bleed, Button, HStack, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
 import { ArrowRightIcon, MagnifyingGlassIcon, MenuHamburgerIcon, XMarkIcon, } from '@navikt/aksel-icons'
 import { useMemo, useState } from 'react'
@@ -15,7 +15,7 @@ import classNames from 'classnames'
 import { LinkCard, LinkCardAnchor, LinkCardTitle } from '@navikt/ds-react/LinkCard'
 import { debounce, search, SearchResult } from '~/utils/search'
 import SearchResults from '~/components/common/SearchResults'
-import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 export interface HeaderProps {
     title: string
@@ -28,7 +28,9 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
     const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
-    const searchParams = useSearchParams()
+    const [searchValue, setSearchValue] = useState('')
+    const [loading, setLoading] = useState(false)
+    const router = useRouter()
 
     // Shared class utilities to reduce duplication
     const buttonLabelClass = '[&_.navds-label]:translate-y-[2px] flex-col sm:flex-row'
@@ -44,7 +46,8 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
     const debouncedLiveSearch = useMemo(
         () =>
             debounce((term: string) => {
-                search(setSearchResult, term)
+                setLoading(true)
+                search(setSearchResult, term).finally(() => setLoading(false))
             }, 500),
         []
     )
@@ -52,6 +55,7 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
     const handleFormChange: React.FormEventHandler<HTMLFormElement> = (e) => {
         const target = e.target as HTMLInputElement | null
         const value = target?.value ?? ''
+        setSearchValue(value)
         if (value.length > 2) {
             debouncedLiveSearch(value)
         }
@@ -175,20 +179,21 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                         <SearchWrapper
                             isSearchOpen={isSearchOpen}
                             onChange={handleFormChange}
-                            onSubmit={() => {
-                                search(setSearchResult, searchParams.get(SOK_SEARCH_PARAM))
-                                setIsSearchOpen(false)
+                            onSubmit={(e) => {
+                                e.preventDefault()
+                                router.push(`/sok?${SOK_SEARCH_PARAM}=${searchValue}`)
                             }}
                         />
-                        {SearchResults(searchResult)}
-                        {searchResult?.total ? (
-                            <Link
-                                as={NextLink}
-                                href={`/sok?${SOK_SEARCH_PARAM}=${searchParams.get(SOK_SEARCH_PARAM) ?? ''}`}
+                        {SearchResults(searchResult, undefined, undefined, loading)}
+                        {searchResult ? (
+                            <NextLink
+                                href={`/sok?${SOK_SEARCH_PARAM}=${searchValue}`}
                                 onClick={() => setIsSearchOpen(false)}
-                                className={'mt-6 '}>
+                                className={
+                                    'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'
+                                }>
                                 Gå til avansert søk <ArrowRightIcon />
-                            </Link>
+                            </NextLink>
                         ) : (
                             <></>
                         )}

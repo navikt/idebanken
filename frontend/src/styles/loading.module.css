@@ -1,0 +1,19 @@
+
+.loading {
+    width: 56px;
+    height: 13.4px;
+    background:
+        radial-gradient(circle closest-side, hsla(14, 92%, 55%, 100%) 90%, #0000),
+        radial-gradient(circle closest-side at right 6.7px top 50%, hsla(241, 58%, 21%, 100%) 90%, #0000),
+        radial-gradient(circle closest-side at left 6.7px top 50%, hsla(335, 100%, 87%, 100%) 90%, #0000);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    animation: loading-xm0185md .5s infinite alternate;
+}
+
+@keyframes loading-xm0185md {
+    to {
+        width: 22.4px;
+        height: 26.9px;
+    }
+}

@@ -14,6 +14,7 @@ export default function SearchView({
     common,
 }: PartData<Part_Idebanken_Search_View, Idebanken_SpecialPage_Data>) {
     const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
+    const [loading, setLoading] = useState(false)
     const searchParams = useSearchParams()
 
     useEffect(() => {
@@ -21,16 +22,26 @@ export default function SearchView({
         if (!ord) {
             return
         }
-        search(setSearchResult, ord)
+        setLoading(true)
+        search(setSearchResult, ord).finally(() => setLoading(false))
     }, [searchParams])
 
     return (
         <VStack>
             <SearchWrapper
                 aria-controls={'search-status'}
-                onSubmit={(_) => search(setSearchResult, searchParams.get(SOK_SEARCH_PARAM))}
+                onSubmit={(e) => {
+                    e.preventDefault()
+
+                    const urlSearchParams = new URLSearchParams(searchParams.toString())
+                    urlSearchParams.set(
+                        SOK_SEARCH_PARAM,
+                        new FormData(e.currentTarget).get(SOK_SEARCH_PARAM)?.toString() || ''
+                    )
+                    window.history.replaceState(null, '', `?${urlSearchParams.toString()}`)
+                }}
             />
-            {SearchResults(searchResult, meta, common)}
+            {SearchResults(searchResult, meta, common, loading)}
         </VStack>
     )
 }
