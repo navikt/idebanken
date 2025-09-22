@@ -1,41 +1,18 @@
 @import 'tailwindcss';
 @import '@navikt/ds-css/darkside' layer(components);
-
-/* @import '@navikt/ds-css' layer(components); */
 @config '../../tailwind.config.ts';
-
 @source inline('{md:}col-span-{{1..11..1}}');
 @source inline('{text-center,text-left,text-right}');
 
-:root {
-    /* Colors */
+/* Light/base tokens (Aksel style) */
+:root,
+.light {
+    /* Base colors */
     --ib-black: #121212;
     --ib-brand-black: #201f1f;
     --ib-brand-white: #fafaf9;
 
-    --ib-red-100: #f9cdd3;
-    --ib-red-200: #f39ba7;
-    --ib-red-300: #ec697a;
-    --ib-red-400: #e6374e;
-    --ib-red-500: #e00522;
-    --ib-red-600: #b3041b;
-    --ib-red-700: #860314;
-    --ib-red-800: #5a020e;
-    --ib-red-900: #2d0107;
-
-    --ib-pink-100: #fff2f7;
-    --ib-pink-200: #ffe4ef;
-    --ib-pink-300: #ffd7e8;
-    --ib-pink-400: #ffc9e0;
-    --ib-pink-500: #ffbcd8;
-    --ib-pink-600: #cc96ad;
-    --ib-pink-700: #997182;
-    --ib-pink-800: #664b56;
-    --ib-pink-900: #33262b;
-
-    --ib-dark-blue-500: #181756;
-
-    /* Background colors */
+    /* Background helpers (non-adaptive utilities) */
     --bg-white: #fafaf9;
     --bg-extra-light-pink: #fff2f7;
     --bg-light-pink: #ffe4ef;
@@ -45,92 +22,204 @@
     --bg-orange: #fa997b;
     --bg-yellow: #fee196;
     --bg-red: #e6374e;
-    /* End background colors */
 
-    /* Font families */
+    /* Typography */
     --a-font-family: var(--font-mundial);
 
-    /* Text sizes */
-    /*
-    --a-font-size-large: 1.5rem;
-    --a-font-line-height-xlarge: 2.25rem;
-    */
-
-    /* Headings */
-    /*
-    --a-font-size-heading-2xlarge: 4.5rem;
-    --a-font-line-height-heading-2xlarge: 5.4rem;
-
-    --a-font-size-heading-xlarge: 3.75rem;
-    --a-font-line-height-heading-xlarge: 5.625rem;
-
-    --a-font-size-heading-medium: 3.25rem;
-    --a-font-line-height-heading-medium: 4rem;
-
-    --a-font-size-heading-small: 2.25rem;
-    --a-font-line-height-heading-small: 4rem;
-
-    --a-font-size-heading-xsmall: 2rem;
-    --a-font-line-height-heading-xsmall: 2.625rem;
-    */
-
-    /* Radius */
-    /*--a-border-radius-medium: 60px;*/
-
-    /* Accordion */
+    /* Components */
     --ac-accordion-header-border: none;
 
-    /* Spacing */
-    /* --a-space-1: 0.5rem;
-	--a-space-2: 1rem;
-	--a-space-3: 1.5rem;
-	--a-space-4: 2rem;
-	--a-space-5: 2.5rem;
-	--a-space-6: 3rem;
-	--a-space-7: 3.5rem;
-	--a-space-8: 4rem;
-	--a-space-9: 4.5rem;
-	--a-space-10: 5rem;
-	--a-space-11: 5.5rem;
-	--a-space-12: 6rem;
-	--a-space-13: 6.5rem;
-	--a-space-14: 7rem;
-	--a-space-15: 7.5rem;
-	--a-space-16: 8rem;
-	--a-space-17: 8.5rem;
-	--a-space-18: 9rem;
-	--a-space-19: 9.5rem;
-	--a-space-20: 10rem;
-	--a-space-21: 10.5rem;
-	--a-space-22: 11rem;
-	--a-space-23: 11.5rem;
-	--a-space-24: 12rem;
-	--a-space-25: 12.5rem;
-	--a-space-26: 13rem;
-	--a-space-27: 13.5rem;
-	--a-space-28: 14rem;
-	--a-space-29: 14.5rem;
-	--a-space-30: 15rem;
-	--a-space-31: 15.5rem;
-	--a-space-32: 16rem; */
+    /* Pink ramp (100..1000) */
+    --ib-pink-100: #fff3f8;
+    --ib-pink-200: #ffe8f1;
+    --ib-pink-300: #ffd9e9;
+    --ib-pink-400: #ffc2db;
+    --ib-pink-500: #a97d8f;
+    --ib-pink-600: #926c7c;
+    --ib-pink-700: #7c5c69;
+    --ib-pink-800: #735461;
+    --ib-pink-900: #644954;
+    --ib-pink-1000: #302328;
+    /* Alpha overlays (HSL with alpha) */
+    --ib-pink-100A: hsl(325 86% 54% / 0.06);
+    --ib-pink-200A: hsl(327 91% 48% / 0.09);
+    --ib-pink-300A: hsl(325 93% 48% / 0.15);
+    --ib-pink-400A: hsl(327 95% 50% / 0.25);
+
+    /* Dark Blue ramp (100..1000) */
+    --ib-dark-blue-100: #f5f5f8;
+    --ib-dark-blue-200: #eeeef3;
+    --ib-dark-blue-300: #e2e2ea;
+    --ib-dark-blue-400: #d1d1dd;
+    --ib-dark-blue-500: #8686a7;
+    --ib-dark-blue-600: #73739a;
+    --ib-dark-blue-700: #61608c;
+    --ib-dark-blue-800: #595886;
+    --ib-dark-blue-900: #4c4c7d;
+    --ib-dark-blue-1000: #201f5c;
+    /* Alpha overlays */
+    --ib-dark-blue-100A: hsl(240 88% 17% / 0.06);
+    --ib-dark-blue-200A: hsl(240 88% 17% / 0.09);
+    --ib-dark-blue-300A: hsl(240 88% 17% / 0.15);
+    --ib-dark-blue-400A: hsl(240 88% 17% / 0.25);
 }
+
+/* Dark overrides (Aksel style) */
+.dark {
+    /* Pink ramp (100..1000) */
+    --ib-pink-100: #100c0d;
+    --ib-pink-200: #1c1518;
+    --ib-pink-300: #271d21;
+    --ib-pink-400: #36282e;
+    --ib-pink-500: #7b5a68;
+    --ib-pink-600: #8f6a7a;
+    --ib-pink-700: #a77b8d;
+    --ib-pink-800: #b28397;
+    --ib-pink-900: #c591a7;
+    --ib-pink-1000: #ffcce2;
+    /* Alpha overlays */
+    --ib-pink-100A: hsl(1 85% 53% / 0.13);
+    --ib-pink-200A: hsl(359 90% 61% / 0.16);
+    --ib-pink-300A: hsl(356 93% 67% / 0.2);
+    --ib-pink-400A: hsl(352 92% 70% / 0.26);
+
+    /* Dark Blue ramp (100..1000) */
+    --ib-dark-blue-100: #0a0a24;
+    --ib-dark-blue-200: #11103e;
+    --ib-dark-blue-300: #181755;
+    --ib-dark-blue-400: #252460;
+    --ib-dark-blue-500: #5f5f8b;
+    --ib-dark-blue-600: #717198;
+    --ib-dark-blue-700: #8584a6;
+    --ib-dark-blue-800: #8e8dac;
+    --ib-dark-blue-900: #9e9db8;
+    --ib-dark-blue-1000: #dadae3;
+    /* Alpha overlays */
+    --ib-dark-blue-100A: hsl(240 85% 60% / 0.13);
+    --ib-dark-blue-200A: hsl(240 85% 60% / 0.16);
+    --ib-dark-blue-300A: hsl(240 85% 60% / 0.2);
+    --ib-dark-blue-400A: hsl(240 85% 60% / 0.26);
+}
+
+/* Semantic mappings */
+:root,
+.light,
+.dark {
+    /* Pink semantics */
+    --ib-border-pink-strong: var(--ib-pink-700);
+    --ib-border-pink-subtleA: var(--ib-pink-400A);
+    --ib-border-pink-subtle: var(--ib-pink-400);
+    --ib-border-pink: var(--ib-pink-600);
+    --ib-text-pink-contrast: var(--ax-neutral-000);
+    --ib-text-pink-icon: var(--ib-pink-600);
+    --ib-text-pink-subtle: var(--ib-pink-800);
+    --ib-text-pink: var(--ib-pink-1000);
+    --ib-bg-pink-strong-pressed: var(--ib-pink-800);
+    --ib-bg-pink-strong-hover: var(--ib-pink-700);
+    --ib-bg-pink-strong: var(--ib-pink-600);
+    --ib-bg-pink-moderate-pressedA: var(--ib-pink-400A);
+    --ib-bg-pink-moderate-pressed: var(--ib-pink-400);
+    --ib-bg-pink-moderate-hoverA: var(--ib-pink-300A);
+    --ib-bg-pink-moderate-hover: var(--ib-pink-300);
+    --ib-bg-pink-moderateA: var(--ib-pink-200A);
+    --ib-bg-pink-moderate: var(--ib-pink-200);
+    --ib-bg-pink-softA: var(--ib-pink-100A);
+    --ib-bg-pink-soft: var(--ib-pink-100);
+    --ib-bg-pink-raised: var(--ib-pink-300);
+
+    /* Dark Blue semantics */
+    --ib-border-dark-blue-strong: var(--ib-dark-blue-700);
+    --ib-border-dark-blue-subtleA: var(--ib-dark-blue-400A);
+    --ib-border-dark-blue-subtle: var(--ib-dark-blue-400);
+    --ib-border-dark-blue: var(--ib-dark-blue-600);
+    --ib-text-dark-blue-contrast: var(--ax-neutral-000);
+    --ib-text-dark-blue-icon: var(--ib-dark-blue-600);
+    --ib-text-dark-blue-subtle: var(--ib-dark-blue-800);
+    --ib-text-dark-blue: var(--ib-dark-blue-1000);
+    --ib-bg-dark-blue-strong-pressed: var(--ib-dark-blue-800);
+    --ib-bg-dark-blue-strong-hover: var(--ib-dark-blue-700);
+    --ib-bg-dark-blue-strong: var(--ib-dark-blue-600);
+    --ib-bg-dark-blue-moderate-pressedA: var(--ib-dark-blue-400A);
+    --ib-bg-dark-blue-moderate-pressed: var(--ib-dark-blue-400);
+    --ib-bg-dark-blue-moderate-hoverA: var(--ib-dark-blue-300A);
+    --ib-bg-dark-blue-moderate-hover: var(--ib-dark-blue-300);
+    --ib-bg-dark-blue-moderateA: var(--ib-dark-blue-200A);
+    --ib-bg-dark-blue-moderate: var(--ib-dark-blue-200);
+    --ib-bg-dark-blue-softA: var(--ib-dark-blue-100A);
+    --ib-bg-dark-blue-soft: var(--ib-dark-blue-100);
+    --ib-bg-dark-blue-raised: var(--ib-dark-blue-300);
+}
+
+/* Map semantics to Aksel component CSS vars via your data-color attribute */
+[data-color='ib-brand-pink'] {
+    --ax-border-strong: var(--ib-border-pink-strong);
+    --ax-border-subtleA: var(--ib-border-pink-subtleA);
+    --ax-border-subtle: var(--ib-border-pink-subtle);
+    --ax-border-default: var(--ib-border-pink);
+
+    --ax-text-contrast: var(--ib-text-pink-contrast);
+    --ax-text-icon: var(--ib-text-pink-icon);
+    --ax-text-subtle: var(--ib-text-pink-subtle);
+    --ax-text-neutral: var(--ib-text-pink);
+
+    --ax-bg-strong-pressed: var(--ib-bg-pink-strong-pressed);
+    --ax-bg-strong-hover: var(--ib-bg-pink-strong-hover);
+    --ax-bg-strong: var(--ib-bg-pink-strong);
+
+    --ax-bg-moderate-pressedA: var(--ib-bg-pink-moderate-pressedA);
+    --ax-bg-moderate-pressed: var(--ib-bg-pink-moderate-pressed);
+    --ax-bg-moderate-hoverA: var(--ib-bg-pink-moderate-hoverA);
+    --ax-bg-moderate-hover: var(--ib-bg-pink-moderate-hover);
+    --ax-bg-moderateA: var(--ib-bg-pink-moderateA);
+    --ax-bg-moderate: var(--ib-bg-pink-moderate);
+
+    --ax-bg-softA: var(--ib-bg-pink-softA);
+    --ax-bg-soft: var(--ib-bg-pink-soft);
+
+    --ax-bg-raised: var(--ib-bg-pink-raised);
+}
+
+[data-color='ib-brand-dark-blue'] {
+    --ax-border-strong: var(--ib-border-dark-blue-strong);
+    --ax-border-subtleA: var(--ib-border-dark-blue-subtleA);
+    --ax-border-subtle: var(--ib-border-dark-blue-subtle);
+    --ax-border-default: var(--ib-border-dark-blue);
+
+    --ax-text-contrast: var(--ib-text-dark-blue-contrast);
+    --ax-text-icon: var(--ib-text-dark-blue-icon);
+    --ax-text-subtle: var(--ib-text-dark-blue-subtle);
+    --ax-text-neutral: var(--ib-text-dark-blue);
+
+    --ax-bg-strong-pressed: var(--ib-bg-dark-blue-strong-pressed);
+    --ax-bg-strong-hover: var(--ib-bg-dark-blue-strong-hover);
+    --ax-bg-strong: var(--ib-bg-dark-blue-strong);
+
+    --ax-bg-moderate-pressedA: var(--ib-bg-dark-blue-moderate-pressedA);
+    --ax-bg-moderate-pressed: var(--ib-bg-dark-blue-moderate-pressed);
+    --ax-bg-moderate-hoverA: var(--ib-bg-dark-blue-moderate-hoverA);
+    --ax-bg-moderate-hover: var(--ib-bg-dark-blue-moderate-hover);
+    --ax-bg-moderateA: var(--ib-bg-dark-blue-moderateA);
+    --ax-bg-moderate: var(--ib-bg-dark-blue-moderate);
+
+    --ax-bg-softA: var(--ib-bg-dark-blue-softA);
+    --ax-bg-soft: var(--ib-bg-dark-blue-soft);
+
+    --ax-bg-raised: var(--ib-bg-dark-blue-raised);
+}
+
+/* Base document styles */
 body {
-    /* Do not allow overscrolling on mobile as the page background will be different from the "section/layout" backgrounds */
     overscroll-behavior: none;
     overflow-x: hidden;
 }
-
-/* NB: Is used in buttons text */
 .navds-label {
     font-weight: var(--a-font-weight-regular);
 }
-
 * {
     text-underline-position: from-font;
     text-underline-offset: 0.1em;
+    box-sizing: border-box;
 }
-
-/* Old styles */
 html,
 body {
     padding: 0;
@@ -138,55 +227,30 @@ body {
     font-family: var(--a-font-family);
     font-weight: 300;
 }
-
-* {
-    box-sizing: border-box;
-}
-
 hr {
     border-color: darkgray;
     border-style: solid;
     border-bottom: 0 none;
 }
 
+/* Utility background classes (explicit fixed backgrounds) */
 .bg-white {
     background-color: var(--ib-brand-white);
-    color: black;
+    color: #000;
 }
-
 .bg-extra-light-pink {
-    background-color: var(--ib-pink-100);
-    color: black;
+    background-color: var(--bg-extra-light-pink);
+    color: #000;
 }
-
 .bg-light-pink {
-    background-color: var(--ib-pink-200);
-    color: black;
+    background-color: var(--bg-light-pink);
+    color: #000;
 }
-
 .bg-pink {
-    background-color: var(--ib-pink-500);
-    color: black;
+    background-color: var(--bg-pink);
+    color: #000;
 }
-
 .bg-dark-blue {
     background-color: var(--ib-dark-blue-500);
-    color: white;
-}
-
-/* Background colors */
-.var-bg-white {
-    --ax-bg-raised: var(--ib-brand-white);
-}
-.var-bg-extra-light-pink {
-    --ax-bg-raised: var(--ib-pink-100);
-}
-.var-bg-light-pink {
-    --ax-bg-raised: var(--ib-pink-200);
-}
-.var-bg-pink {
-    --ax-bg-raised: var(--ib-pink-500);
-}
-.var-bg-dark-blue {
-    --ax-bg-raised: var(--ib-dark-blue-500);
+    color: #fff;
 }

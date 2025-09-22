@@ -32,23 +32,6 @@ const iconMap = {
     clock: ClockIcon,
 }
 
-// Update mapping to match actual config values (they include the 'bg-' prefix from background-color.xml)
-const bgClassMap: Record<string, string> = {
-    'bg-white': 'var-bg-white',
-    'bg-extra-light-pink': 'var-bg-extra-light-pink',
-    'bg-light-pink': 'var-bg-light-pink',
-    'bg-pink': 'var-bg-pink',
-    'bg-dark-blue': 'var-bg-dark-blue',
-}
-
-// Helper to normalize (in case future values come without prefix)
-function resolveBgClass(raw?: string): string {
-    if (!raw) return 'var-bg-extra-light-pink' // matches your XML default
-    if (bgClassMap[raw]) return bgClassMap[raw]
-    const withPrefixGuess = raw.startsWith('bg-') ? raw : `bg-${raw}`
-    return bgClassMap[withPrefixGuess] || 'var-bg-extra-light-pink'
-}
-
 export interface LinkCardData {
     part: { descriptor: string; config: Part_Idebanken_Link_Card }
 }
@@ -84,10 +67,8 @@ export const LinkCardView = (card: LinkCardViewParams) => {
     } = card
     const Icon = iconMap[iconName as keyof typeof iconMap] || null
 
-    const bgClass = resolveBgClass(bgColor)
-
     return (
-        <LinkCard data-color="brand-beige" className={`h-full ${bgClass}`}>
+        <LinkCard data-color="ib-brand-pink" className="h-full">
             {imageUrl && (
                 <LinkCardImage aspectRatio="16/8">
                     <img src={imageUrl} alt={altText || 'Illustrasjonsbilde'} width="700" />
