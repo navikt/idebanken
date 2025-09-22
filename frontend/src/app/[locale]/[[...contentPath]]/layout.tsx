@@ -10,6 +10,7 @@ import Header from '~/components/views/Header'
 import { PageBlock } from '@navikt/ds-react/Page'
 
 import '~/styles/globals.css'
+import { HeadlessCms } from '~/types/generated'
 
 type LayoutProps = {
     params: Promise<PageProps>
@@ -53,7 +54,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                 contentBlockPadding={'none'}>
                 <Header
                     meta={meta}
-                    header={common?.header}
+                    common={common as HeadlessCms}
                     title={I18n.localize('idebanken')}
                     logoUrl={getAsset('/images/logo.svg', meta)}
                 />

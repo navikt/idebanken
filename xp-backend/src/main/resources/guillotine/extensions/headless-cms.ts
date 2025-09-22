@@ -10,9 +10,10 @@ import {
     resolveLinkGroups,
     resolveLinks,
 } from '../common-guillotine-types'
-import { Content, query } from '/lib/xp/content'
+import { Content, get, query } from '/lib/xp/content'
 import { Category } from '@xp-types/site/content-types'
 import { mapCategoryContentToResolved, ResolvedCategory } from './category'
+import { enonicSitePathToHref } from '/lib/utils/string-utils'
 
 export const headlessCmsExtensions = ({
     list,
@@ -72,6 +73,21 @@ export const headlessCmsExtensions = ({
                     return mapCategoryContentToResolved(categories)
                 })
             },
+            siteConfiguration: (
+                _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
+            ): {
+                searchPageHref: string
+            } => {
+                return runInContext({ asAdmin: true }, () => {
+                    const siteConfig = getSiteConfig()
+                    const searchPage = siteConfig?.searchConfig?.searchPage
+                    const searchPageId = searchPage ? get({ key: searchPage })?._path : undefined
+
+                    return {
+                        searchPageHref: searchPageId ? enonicSitePathToHref(searchPageId) : '/sok',
+                    }
+                })
+            },
         },
     },
     types: {
@@ -99,6 +115,15 @@ export const headlessCmsExtensions = ({
             },
             interfaces: [],
         },
+        SiteConfiguration: {
+            description: 'Configuration for other parts of the site',
+            fields: {
+                searchPageHref: {
+                    type: nonNull(GraphQLString),
+                },
+            },
+            interfaces: [],
+        },
     },
     creationCallbacks: {
         HeadlessCms: (params): void => {
@@ -111,6 +136,9 @@ export const headlessCmsExtensions = ({
                 },
                 categories: {
                     type: nonNull(list(nonNull(reference('Category')))),
+                },
+                siteConfiguration: {
+                    type: nonNull(reference('SiteConfiguration')),
                 },
             })
         },

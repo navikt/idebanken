@@ -97,6 +97,9 @@ query($path:ID!){
         iconName
         iconColor
     }
+    siteConfiguration {
+        searchPageHref
+    }
   }
 }`
 

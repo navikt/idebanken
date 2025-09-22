@@ -62,6 +62,11 @@ declare global {
             textKey?: Array<string> | string;
           };
         }>;
+
+        /**
+         * Side for søk
+         */
+        searchPage: string;
       };
 
       /**
