@@ -1,7 +1,8 @@
-import { SOK_SEARCH_PARAM } from '~/components/common/SearchWrapper'
-import { forceArray } from '~/utils/utils'
-import { Category } from '~/types/generated'
-import { CommonType } from '~/components/queries/common'
+import {SOK_SEARCH_PARAM} from '~/components/common/SearchWrapper'
+import {forceArray} from '~/utils/utils'
+import {Category} from '~/types/generated'
+import {CommonType} from '~/components/queries/common'
+import {IS_DEV_MODE} from '@enonic/nextjs-adapter'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const debounce = (callback: (...args: any[]) => unknown, wait: number) => {
@@ -45,19 +46,39 @@ export const search = (setDataCallback: (data: SearchResult) => void, searchTerm
             console.error('Error fetching search results:', error)
         })
 
-export function getResultCategories(result: SearchResult['hits'][0], common?: CommonType<unknown>) {
-    if (!common) return []
+const isCommonType = (obj: object): obj is CommonType<unknown> =>
+    'categories' in obj && Array.isArray(obj.categories)
+
+export function getResultCategories(
+    result: SearchResult['hits'][0],
+    commonOrCategoryMap?: CommonType<unknown> | Record<string, Category>
+) {
+    if (!commonOrCategoryMap) return []
+    const isCommon = isCommonType(commonOrCategoryMap)
     return [
         ...forceArray(result.categories)?.reduce((acc: Array<Category>, curr) => {
-            const category = common?.categories?.find((cat) => cat.id === curr)?.name
+            const category = isCommon
+                ? commonOrCategoryMap?.categories?.find((cat) => cat.id === curr)?.name
+                : commonOrCategoryMap[curr]?.name
             if (category) {
                 acc.push({ name: category, id: '' })
             }
             return acc
         }, []),
         { name: result.type, id: '' },
-        { name: `score: ${result.score}`, id: '' },
+        ...(IS_DEV_MODE ? [{ name: `Score: ${result.score}`, id: '' }] : []),
     ]
+}
+
+export function getCategoriesMap(common?: CommonType<unknown>): Record<string, Category> {
+    if (!common) return {}
+    return common?.categories?.reduce(
+        (acc, curr) => {
+            acc[curr.id] = curr
+            return acc
+        },
+        {} as Record<string, Category>
+    )
 }
 
 export type SearchResult = {

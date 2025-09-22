@@ -1,26 +1,21 @@
 'use client'
 
-import { MetaData } from '@enonic/nextjs-adapter'
+import {MetaData} from '@enonic/nextjs-adapter'
 import NextLink from 'next/link'
 import NextImage from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
-import { SearchWrapper, SOK_SEARCH_PARAM } from '~/components/common/SearchWrapper'
-import { HeadlessCms } from '~/types/generated'
-import { Bleed, Button, HStack, VStack } from '@navikt/ds-react'
-import { HeadingView } from '~/components/parts/Heading'
-import {
-    ArrowRightIcon,
-    MagnifyingGlassIcon,
-    MenuHamburgerIcon,
-    XMarkIcon,
-} from '@navikt/aksel-icons'
-import { useMemo, useState } from 'react'
-import { PageBlock } from '@navikt/ds-react/Page'
+import {SearchWrapper, SOK_SEARCH_PARAM} from '~/components/common/SearchWrapper'
+import {HeadlessCms} from '~/types/generated'
+import {Bleed, Button, HStack, VStack} from '@navikt/ds-react'
+import {HeadingView} from '~/components/parts/Heading'
+import {ArrowRightIcon, MagnifyingGlassIcon, MenuHamburgerIcon, XMarkIcon,} from '@navikt/aksel-icons'
+import {useMemo, useState} from 'react'
+import {PageBlock} from '@navikt/ds-react/Page'
 import classNames from 'classnames'
-import { LinkCard, LinkCardAnchor, LinkCardTitle } from '@navikt/ds-react/LinkCard'
-import { debounce, search, SearchResult } from '~/utils/search'
+import {LinkCard, LinkCardAnchor, LinkCardTitle} from '@navikt/ds-react/LinkCard'
+import {debounce, search, SearchResult} from '~/utils/search'
 import SearchResults from '~/components/common/SearchResults'
-import { useRouter } from 'next/navigation'
+import {useRouter} from 'next/navigation'
 
 export interface HeaderProps {
     title: string
@@ -193,7 +188,7 @@ const Header = ({ title, logoUrl, common }: HeaderProps) => {
                                 )
                             }}
                         />
-                        {SearchResults(searchResult, undefined, undefined, loading)}
+                        {SearchResults(searchResult, loading)}
                         {searchResult ? (
                             <NextLink
                                 href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`}

@@ -1,21 +1,24 @@
-import { getResultCategories, SearchResult } from '~/utils/search'
-import { MetaData } from '@enonic/nextjs-adapter'
-import { BodyShort, VStack } from '@navikt/ds-react'
-import { LinkCardView } from '~/components/parts/LinkCard'
-import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
-import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
-import { CommonType } from '../queries/common'
-
 import styles from '../../styles/loading.module.css'
 
+import {getResultCategories, SearchResult} from '~/utils/search'
+import {MetaData} from '@enonic/nextjs-adapter'
+import {BodyShort, VStack} from '@navikt/ds-react'
+import {LinkCardView} from '~/components/parts/LinkCard'
+import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
+import {htmlRichTextReplacer} from '~/utils/richText/html-rich-text-replacer'
+import {CommonType} from '../queries/common'
+import type {JSX} from 'react'
+
 export default function SearchResults(
-    searchResult: SearchResult | undefined,
+    searchResult?: SearchResult | undefined,
+    loading: boolean = false,
     meta?: MetaData,
     common?: CommonType<unknown>, // for resolving categories
-    loading: boolean = false
+    filter?: JSX.Element
 ) {
     return (
         <VStack gap={'2'}>
+            {filter}
             <BodyShort
                 id={'search-status'}
                 role={'status'}
