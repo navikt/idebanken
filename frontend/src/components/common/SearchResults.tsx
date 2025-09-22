@@ -1,13 +1,13 @@
 import styles from '../../styles/loading.module.css'
 
-import {getResultCategories, SearchResult} from '~/utils/search'
-import {MetaData} from '@enonic/nextjs-adapter'
-import {BodyShort, VStack} from '@navikt/ds-react'
-import {LinkCardView} from '~/components/parts/LinkCard'
+import { getResultCategories, SearchResult } from '~/utils/search'
+import { MetaData } from '@enonic/nextjs-adapter'
+import { BodyShort, VStack } from '@navikt/ds-react'
+import { LinkCardView } from '~/components/parts/LinkCard'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
-import {htmlRichTextReplacer} from '~/utils/richText/html-rich-text-replacer'
-import {CommonType} from '../queries/common'
-import type {JSX} from 'react'
+import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
+import { CommonType } from '../queries/common'
+import type { JSX } from 'react'
 
 export default function SearchResults(
     searchResult?: SearchResult | undefined,
@@ -25,7 +25,7 @@ export default function SearchResults(
                 aria-live={'polite'}
                 className={'pt-4 font-bold'}>
                 {searchResult?.word
-                    ? `${searchResult?.total ?? 0} treff på «${searchResult?.word ?? ''}»`
+                    ? `Viser ${searchResult?.hits?.length} av ${searchResult?.total ?? 0} treff på «${searchResult?.word ?? ''}»`
                     : ''}
             </BodyShort>
             {loading ? (

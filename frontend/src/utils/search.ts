@@ -1,8 +1,9 @@
-import {SOK_SEARCH_PARAM} from '~/components/common/SearchWrapper'
-import {forceArray} from '~/utils/utils'
-import {Category} from '~/types/generated'
-import {CommonType} from '~/components/queries/common'
-import {IS_DEV_MODE} from '@enonic/nextjs-adapter'
+import { forceArray } from '~/utils/utils'
+import { Category } from '~/types/generated'
+import { CommonType } from '~/components/queries/common'
+import { IS_DEV_MODE } from '@enonic/nextjs-adapter'
+import { SOK_PAGE_PARAM, SOK_SEARCH_PARAM, SOK_SORT_PARAM } from '~/utils/constants'
+import { ReadonlyURLSearchParams } from 'next/navigation'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const debounce = (callback: (...args: any[]) => unknown, wait: number) => {
@@ -28,8 +29,21 @@ export const isSearchResult = (data: any): data is SearchResult => {
     )
 }
 
-export const search = (setDataCallback: (data: SearchResult) => void, searchTerm?: string | null) =>
-    fetch(`/api/search?${SOK_SEARCH_PARAM}=${searchTerm}`)
+export const search = (
+    setDataCallback: (data: SearchResult) => void,
+    paramsOrString: ReadonlyURLSearchParams | string
+) => {
+    let params = ''
+    if (typeof paramsOrString === 'string') {
+        params = `${SOK_SEARCH_PARAM}=${paramsOrString}`
+    } else {
+        const searchTerm = paramsOrString.get(SOK_SEARCH_PARAM)
+        const page = Number(paramsOrString.get(SOK_PAGE_PARAM) ?? 0)
+        const sort = paramsOrString.get(SOK_SORT_PARAM)
+        params = `${SOK_SEARCH_PARAM}=${searchTerm}${page ? `&${SOK_PAGE_PARAM}=${page}` : ''}${sort ? `&${SOK_SORT_PARAM}=${sort}` : ''}`
+    }
+
+    return fetch(`/api/search?${params}`)
         .then((response) => {
             if (!response.ok) {
                 throw new Error('Network response was not ok')
@@ -45,7 +59,7 @@ export const search = (setDataCallback: (data: SearchResult) => void, searchTerm
         .catch((error) => {
             console.error('Error fetching search results:', error)
         })
-
+}
 const isCommonType = (obj: object): obj is CommonType<unknown> =>
     'categories' in obj && Array.isArray(obj.categories)
 

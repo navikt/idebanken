@@ -1,15 +1,15 @@
 'use client'
 
-import {useEffect, useState} from 'react'
-import {useSearchParams} from 'next/navigation'
-import {SearchWrapper, SOK_SEARCH_PARAM} from '~/components/common/SearchWrapper'
-import {Chips, HStack, VStack} from '@navikt/ds-react'
-import {PartData} from '~/types/graphql-types'
-import {Category, Idebanken_SpecialPage_Data, Part_Idebanken_Search_View} from '~/types/generated'
-import {getCategoriesMap, search, SearchResult} from '~/utils/search'
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
+import { SearchWrapper } from '~/components/common/SearchWrapper'
+import { Chips, Fieldset, HStack, Radio, RadioGroup, VStack } from '@navikt/ds-react'
+import { PartData } from '~/types/graphql-types'
+import { Category, Idebanken_SpecialPage_Data, Part_Idebanken_Search_View } from '~/types/generated'
+import { getCategoriesMap, search, SearchResult } from '~/utils/search'
 import SearchResults from '~/components/common/SearchResults'
-import {HeadingView} from '~/components/parts/Heading'
-import {forceArray} from '~/utils/utils'
+import { forceArray } from '~/utils/utils'
+import { SOK_CATEGORIES_PARAM, SOK_SEARCH_PARAM, SOK_SORT_PARAM } from '~/utils/constants'
 
 export default function SearchView({
     meta,
@@ -25,14 +25,22 @@ export default function SearchView({
     const searchParams = useSearchParams()
     const categoriesMap = getCategoriesMap(common)
 
+    const searchString = searchParams.get(SOK_SEARCH_PARAM)
+    const sort = searchParams.get(SOK_SORT_PARAM)
+    const categoriesParamValue = searchParams.get(SOK_CATEGORIES_PARAM)
+
     useEffect(() => {
-        const ord = searchParams.get(SOK_SEARCH_PARAM)
-        if (!ord) {
+        if (!searchString) {
             return
         }
         setLoading(true)
-        search(setSearchResult, ord).finally(() => setLoading(false))
-    }, [searchParams])
+        search(setSearchResult, searchParams).finally(() => setLoading(false))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchString, sort])
+
+    useEffect(() => {
+        setSelected(categoriesParamValue?.split(',') ?? [allFilter])
+    }, [categoriesParamValue])
 
     useEffect(() => {
         const categoriesInSearchResults = searchResult?.hits?.reduce((acc, curr) => {
@@ -48,40 +56,87 @@ export default function SearchView({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchResult])
 
+    function updateUrlParams(mutator: (p: URLSearchParams) => void) {
+        const urlSearchParams = new URLSearchParams(searchParams.toString())
+        mutator(urlSearchParams)
+        window.history.replaceState(null, '', `?${urlSearchParams.toString()}`)
+    }
+
+    function setCategoriesParamNames(categoryNames: string[]) {
+        if (categoryNames.length === filter?.length) {
+            // all categories selected, reset to "all"
+            categoryNames = [allFilter]
+        }
+        updateUrlParams((p) => {
+            if (categoryNames.length === 0 || categoryNames.includes(allFilter)) {
+                p.delete(SOK_CATEGORIES_PARAM)
+            } else {
+                const names = Object.values(categoriesMap)
+                    .filter((category) => categoryNames.includes(category.name))
+                    .map((cat) => cat.name)
+                if (names.length > 0) {
+                    p.set(SOK_CATEGORIES_PARAM, names.join(','))
+                } else {
+                    p.delete(SOK_CATEGORIES_PARAM)
+                }
+            }
+        })
+        setSelected(categoryNames)
+    }
+
+    function setSortParam(sortValue: string | undefined) {
+        updateUrlParams((p) => {
+            if (!sortValue) {
+                p.delete(SOK_SORT_PARAM)
+            } else {
+                p.set(SOK_SORT_PARAM, sortValue)
+            }
+        })
+    }
+
     const filterElement = (
-        <>
-            <HeadingView id={'choose-category'} level={'2'} size={'xsmall'} className={'pt-4 mb-0'}>
-                Velg kategori
-            </HeadingView>
-            <HStack>
-                <Chips>
-                    {[{ name: allFilter, id: '' }].concat(filter ?? []).map(({ name }) => (
-                        <Chips.Toggle
-                            key={name}
-                            checkmark={false}
-                            selected={selected.includes(name)}
-                            aria-labelledby={'choose-category'}
-                            onClick={() => {
-                                if (name === allFilter) {
-                                    setSelected([allFilter])
-                                } else if (selected.includes(name)) {
-                                    const newSelected = selected.filter((sel) => sel !== name)
-                                    setSelected(
-                                        newSelected.length === 0 ? [allFilter] : newSelected
-                                    )
-                                } else {
-                                    setSelected([
-                                        ...selected.filter((it) => it !== allFilter),
-                                        name,
-                                    ])
-                                }
-                            }}>
-                            {name}
-                        </Chips.Toggle>
-                    ))}
-                </Chips>
-            </HStack>
-        </>
+        <VStack className={'mt-4'} gap={'4'}>
+            <RadioGroup
+                legend="Sorter etter:"
+                onChange={setSortParam}
+                size="small"
+                defaultValue={'0'}>
+                <HStack gap={'4'}>
+                    <Radio value="0">Beste treff</Radio>
+                    <Radio value="1">Dato</Radio>
+                </HStack>
+            </RadioGroup>
+            <Fieldset legend={'Velg kategori'} id={'choose-category'} size={'small'}>
+                <HStack>
+                    <Chips>
+                        {[{ name: allFilter, id: '' }].concat(filter ?? []).map(({ name }) => (
+                            <Chips.Toggle
+                                key={name}
+                                checkmark={false}
+                                selected={selected.includes(name)}
+                                aria-labelledby={'choose-category'}
+                                onClick={() => {
+                                    if (name === allFilter) {
+                                        setCategoriesParamNames([allFilter])
+                                    } else if (selected.includes(name)) {
+                                        const newSelected = selected.filter((sel) => sel !== name)
+                                        setCategoriesParamNames(
+                                            newSelected.length === 0 ? [allFilter] : newSelected
+                                        )
+                                    } else {
+                                        setCategoriesParamNames([
+                                            ...selected.filter((it) => it !== allFilter),
+                                            name,
+                                        ])
+                                    }
+                                }}>
+                                {name}
+                            </Chips.Toggle>
+                        ))}
+                    </Chips>
+                </HStack>
+            </Fieldset>
+        </VStack>
     )
 
     return (
@@ -90,13 +145,11 @@ export default function SearchView({
                 aria-controls={'search-status'}
                 onSubmit={(e) => {
                     e.preventDefault()
-
-                    const urlSearchParams = new URLSearchParams(searchParams.toString())
-                    urlSearchParams.set(
-                        SOK_SEARCH_PARAM,
+                    const value =
                         new FormData(e.currentTarget).get(SOK_SEARCH_PARAM)?.toString() || ''
-                    )
-                    window.history.replaceState(null, '', `?${urlSearchParams.toString()}`)
+                    updateUrlParams((p) => {
+                        p.set(SOK_SEARCH_PARAM, value)
+                    })
                 }}
             />
             {SearchResults(
