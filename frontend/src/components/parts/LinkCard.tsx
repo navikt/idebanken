@@ -49,7 +49,7 @@ export type LinkCardViewParams = Omit<Link_Card_List_Item, 'description'> & {
     description?: string | React.ReactNode
     altText?: string
     external?: boolean
-    bgColor?: string
+    brand?: string
 }
 
 export const LinkCardView = (card: LinkCardViewParams) => {
@@ -63,12 +63,12 @@ export const LinkCardView = (card: LinkCardViewParams) => {
         iconColor,
         iconName,
         external,
-        bgColor,
+        brand,
     } = card
     const Icon = iconMap[iconName as keyof typeof iconMap] || null
 
     return (
-        <LinkCard data-color="ib-brand-pink" className="h-full">
+        <LinkCard data-color={brand || 'neutral'} className="h-full">
             {imageUrl && (
                 <LinkCardImage aspectRatio="16/8">
                     <img src={imageUrl} alt={altText || 'Illustrasjonsbilde'} width="700" />
