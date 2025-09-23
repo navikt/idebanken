@@ -126,6 +126,7 @@
     --ib-bg-pink-softA: var(--ib-pink-100A);
     --ib-bg-pink-soft: var(--ib-pink-100);
     --ib-bg-pink-raised: var(--ib-pink-300);
+    --ib-bg-pink-default: var(--ib-pink-100);
 
     /* Dark Blue semantics */
     --ib-border-dark-blue-strong: var(--ib-dark-blue-700);
@@ -148,6 +149,7 @@
     --ib-bg-dark-blue-softA: var(--ib-dark-blue-100A);
     --ib-bg-dark-blue-soft: var(--ib-dark-blue-100);
     --ib-bg-dark-blue-raised: var(--ib-dark-blue-300);
+    --ib-bg-dark-blue-default: var(--ib-dark-blue-100);
 }
 
 /* Map semantics to Aksel component CSS vars via your data-color attribute */
@@ -235,22 +237,22 @@ hr {
 
 /* Utility background classes (explicit fixed backgrounds) */
 .bg-white {
-    background-color: var(--ib-brand-white);
-    color: #000;
+    background-color: var(--ax-bg-default);
+    color: var(--ax-text-neutral);
 }
 .bg-extra-light-pink {
-    background-color: var(--bg-extra-light-pink);
-    color: #000;
+    background-color: var(--ib-pink-100);
+    color: var(--ax-text-neutral);
 }
 .bg-light-pink {
-    background-color: var(--bg-light-pink);
-    color: #000;
+    background-color: var(--ib-pink-200);
+    color: var(--ax-text-neutral);
 }
 .bg-pink {
-    background-color: var(--bg-pink);
-    color: #000;
+    background-color: var(--ib-pink-300);
+    color: var(--ax-text-neutral);
 }
 .bg-dark-blue {
-    background-color: var(--ib-dark-blue-500);
-    color: #fff;
+    background-color: var(--ib-dark-blue-1000);
+    color: var(--ax-text-neutral-contrast);
 }
