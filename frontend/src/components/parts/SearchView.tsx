@@ -54,7 +54,8 @@ export default function SearchView({
         const categoriesInSearchResults = searchResult?.hits?.reduce((acc, curr) => {
             curr.categories?.forEach((catId) => {
                 if (catId && !acc.find((c) => c.id === catId)) {
-                    acc.push({ name: categoriesMap[catId].name, id: catId })
+                    const category = categoriesMap[catId]
+                    if (category) acc.push({ name: category.name, id: catId })
                 }
             })
             return acc
