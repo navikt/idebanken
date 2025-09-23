@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>    
+        <input name="brand" type="ComboBox">
+            <label>Brand farger</label>
+            <occurrences minimum="1" maximum="1"/>
+            <config>
+                <option value="neutral">Neutral</option>
+                <option value="ib-brand-pink">Rosa</option>
+                <option value="ib-brand-dark-blue">Mørk blå</option>
+            </config>
+            <default>neutral</default>
+        </input>
+    </form>
+</mixin>

@@ -49,16 +49,26 @@ export type LinkCardViewParams = Omit<Link_Card_List_Item, 'description'> & {
     description?: string | React.ReactNode
     altText?: string
     external?: boolean
-    bgColor?: string
+    brand?: string
 }
 
 export const LinkCardView = (card: LinkCardViewParams) => {
-    const { title, description, url, categories, imageUrl, altText, iconColor, iconName } =
-        card ?? {}
+    const {
+        title,
+        description,
+        url,
+        categories,
+        imageUrl,
+        altText,
+        iconColor,
+        iconName,
+        external,
+        brand,
+    } = card
     const Icon = iconMap[iconName as keyof typeof iconMap] || null
 
     return (
-        <LinkCard className={`h-full ${card.bgColor || 'bg-pink-100'}`}>
+        <LinkCard data-color={brand || 'neutral'} className="h-full">
             {imageUrl && (
                 <LinkCardImage aspectRatio="16/8">
                     <img src={imageUrl} alt={altText || 'Illustrasjonsbilde'} width="700" />
@@ -78,14 +88,14 @@ export const LinkCardView = (card: LinkCardViewParams) => {
             <LinkCardTitle>
                 <LinkCardAnchor
                     href={url || '#'}
-                    {...(card.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                     {title}
                 </LinkCardAnchor>
             </LinkCardTitle>
             {description && <LinkCardDescription>{description}</LinkCardDescription>}
             {categories && categories.length > 0 && (
                 <LinkCardFooter>
-                    {categories?.map((tag, index) => (
+                    {categories.map((tag, index) => (
                         <Tag key={index} size="small" variant="neutral">
                             {tag.name}
                         </Tag>

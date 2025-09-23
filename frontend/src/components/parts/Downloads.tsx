@@ -47,7 +47,7 @@ export const Downloads = (props: PartProps) => {
             <VStack
                 gap="space-28"
                 className="
-            list-none m-0 p-6 rounded-[20px] bg-brand-white 
+            list-none m-0 p-6 rounded-[20px] 
             shadow-[0_26px_44px_-12px_rgba(11,2,49,0.24)]
             ">
                 <VStack gap="space-16">

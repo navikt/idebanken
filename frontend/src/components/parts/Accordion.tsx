@@ -28,7 +28,6 @@ export const AccordionView = ({ part, meta }: PartData<Part_Idebanken_Accordion>
                     key={idx}
                     className="
                         rounded-[10px]
-                        bg-brand-white
                         shadow-accordion-item
                     ">
                     <AccordionHeader
