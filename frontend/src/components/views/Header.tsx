@@ -4,7 +4,7 @@ import { MetaData } from '@enonic/nextjs-adapter'
 import NextLink from 'next/link'
 import NextImage from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
-import { SearchWrapper, SOK_SEARCH_PARAM } from '~/components/common/SearchWrapper'
+import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { HeadlessCms } from '~/types/generated'
 import { Bleed, Button, HStack, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
@@ -21,6 +21,7 @@ import { LinkCard, LinkCardAnchor, LinkCardTitle } from '@navikt/ds-react/LinkCa
 import { debounce, search, SearchResult } from '~/utils/search'
 import SearchResults from '~/components/common/SearchResults'
 import { useRouter } from 'next/navigation'
+import { SOK_SEARCH_PARAM } from '~/utils/constants'
 
 export interface HeaderProps {
     title: string
@@ -54,7 +55,9 @@ const Header = ({ title, logoUrl, common }: HeaderProps) => {
         () =>
             debounce((term: string) => {
                 setLoading(true)
-                search(setSearchResult, term).finally(() => setLoading(false))
+                search(term)
+                    .then(setSearchResult)
+                    .finally(() => setLoading(false))
             }, 500),
         []
     )
@@ -193,7 +196,7 @@ const Header = ({ title, logoUrl, common }: HeaderProps) => {
                                 )
                             }}
                         />
-                        {SearchResults(searchResult, undefined, undefined, loading)}
+                        {SearchResults(searchResult, loading)}
                         {searchResult ? (
                             <NextLink
                                 href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`}

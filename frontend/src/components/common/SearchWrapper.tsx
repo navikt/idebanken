@@ -4,8 +4,7 @@ import { Search } from '@navikt/ds-react'
 import { useSearchParams } from 'next/navigation'
 import { SearchButton } from '@navikt/ds-react/Search'
 import { useEffect, useRef } from 'react'
-
-export const SOK_SEARCH_PARAM = 'ord'
+import { SOK_SEARCH_PARAM } from '~/utils/constants'
 
 interface SearchWrapperProps extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
     onSubmit: React.FormEventHandler<HTMLFormElement>
