@@ -68,7 +68,7 @@ export const LinkCardView = (card: LinkCardViewParams) => {
     const Icon = iconMap[iconName as keyof typeof iconMap] || null
 
     return (
-        <LinkCard data-color={brand || 'neutral'} className="h-full">
+        <LinkCard data-color={brand} className="h-full">
             {imageUrl && (
                 <LinkCardImage aspectRatio="16/8">
                     <img src={imageUrl} alt={altText || 'Illustrasjonsbilde'} width="700" />

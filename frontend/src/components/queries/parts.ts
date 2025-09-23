@@ -72,7 +72,7 @@ export const tableOfContentsSectionQuery = `{
 
 export const linkCardListQuery = `{
     displayType
-    bgColor
+    brand
     heading {
         title
         href

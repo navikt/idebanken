@@ -7,7 +7,7 @@ import { LinkCardView, LinkCardViewParams } from '~/components/parts/LinkCard'
 function guideToLinkCardConfig(
     g: Link_Card_List_Item,
     cardType: string | undefined | null,
-    bgColor: Maybe<string> | undefined
+    brand: Maybe<string> | undefined
 ): LinkCardViewParams {
     return {
         url: g.url,
@@ -16,14 +16,14 @@ function guideToLinkCardConfig(
         description: g.description || '',
         iconName: cardType === 'withIcon' ? g.iconName || null : null,
         iconColor: cardType === 'withIcon' ? g.iconColor || null : null,
-        bgColor: bgColor ?? '',
+        brand: brand ?? '',
         categories: g.categories || [],
         imageUrl: cardType === 'withImage' ? g.imageUrl || null : null,
     }
 }
 
 export function LinkCardList({ part }: PartData<Part_Idebanken_Link_Card_List>) {
-    const { list, displayType, heading, bgColor } = part.config
+    const { list, displayType, heading, brand } = part.config
     const spanClass = displayType === 'withImage' ? 'md:col-span-4' : 'md:col-span-6'
 
     return (
@@ -41,7 +41,7 @@ export function LinkCardList({ part }: PartData<Part_Idebanken_Link_Card_List>) 
                     className="items-start">
                     {list.map((g) => (
                         <div key={g.url} className={`col-span-1 ${spanClass}`}>
-                            {LinkCardView(guideToLinkCardConfig(g, displayType, bgColor))}
+                            {LinkCardView(guideToLinkCardConfig(g, displayType, brand))}
                         </div>
                     ))}
                 </HGrid>

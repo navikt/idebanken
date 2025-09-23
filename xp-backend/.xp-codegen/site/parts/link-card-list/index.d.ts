@@ -58,7 +58,7 @@ export type LinkCardList = {
   displayType: 'withIcon' | 'withImage';
 
   /**
-   * Bakgrunnsfarge
+   * Brand farger
    */
-  bgColor: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
+  brand: 'neutral' | 'ib-brand-pink' | 'ib-brand-dark-blue';
 };

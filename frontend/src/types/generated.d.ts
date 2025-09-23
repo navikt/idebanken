@@ -1142,7 +1142,7 @@ export type Part_Idebanken_Link_Card_InternalLink = {
 /** Part component application config for application ['idebanken'] and descriptor ['link-card-list'] */
 export type Part_Idebanken_Link_Card_List = {
     __typename?: 'Part_idebanken_link_card_list'
-    bgColor?: Maybe<Scalars['String']['output']>
+    brand?: Maybe<Scalars['String']['output']>
     displayType?: Maybe<Scalars['String']['output']>
     heading?: Maybe<Part_Idebanken_Link_Card_List_Heading>
     list: Array<Link_Card_List_Item>
