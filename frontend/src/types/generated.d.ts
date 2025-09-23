@@ -484,7 +484,6 @@ export type HeadlessCms = {
   queryConnection?: Maybe<QueryContentConnection>;
   queryDsl?: Maybe<Array<Maybe<Content>>>;
   queryDslConnection?: Maybe<QueryDslContentConnection>;
-  siteConfiguration: SiteConfiguration;
   sitemap?: Maybe<Sitemap>;
 };
 
@@ -1421,12 +1420,6 @@ export type RichText = {
   macrosAsJson?: Maybe<Scalars['JSON']['output']>;
   processedHtml?: Maybe<Scalars['String']['output']>;
   raw?: Maybe<Scalars['String']['output']>;
-};
-
-/** Configuration for other parts of the site */
-export type SiteConfiguration = {
-  __typename?: 'SiteConfiguration';
-  searchPageHref: Scalars['String']['output'];
 };
 
 /** Site configurator. */
