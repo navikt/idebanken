@@ -29,10 +29,9 @@ export const isSearchResult = (data: any): data is SearchResult => {
     )
 }
 
-export const search = (
-    setDataCallback: (data: SearchResult) => void,
+export const search = async (
     paramsOrString: ReadonlyURLSearchParams | string
-) => {
+): Promise<SearchResult> => {
     let params = ''
     if (typeof paramsOrString === 'string') {
         params = `${SOK_SEARCH_PARAM}=${paramsOrString}`
@@ -43,23 +42,17 @@ export const search = (
         params = `${SOK_SEARCH_PARAM}=${searchTerm}${page ? `&${SOK_PAGE_PARAM}=${page}` : ''}${sort ? `&${SOK_SORT_PARAM}=${sort}` : ''}`
     }
 
-    return fetch(`/api/search?${params}`)
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok')
-            }
-            return response.json()
-        })
-        .then((data) => {
-            if (!isSearchResult(data)) {
-                throw new Error('Invalid search response:', data)
-            }
-            setDataCallback(data)
-        })
-        .catch((error) => {
-            console.error('Error fetching search results:', error)
-        })
+    const response = await fetch(`/api/search?${params}`)
+    if (!response.ok) {
+        throw new Error('Network response was not ok')
+    }
+    const data = await response.json()
+    if (!isSearchResult(data)) {
+        throw new Error('Invalid search response:', data)
+    }
+    return data
 }
+
 const isCommonType = (obj: object): obj is CommonType<unknown> =>
     'categories' in obj && Array.isArray(obj.categories)
 
@@ -97,6 +90,9 @@ export function getCategoriesMap(common?: CommonType<unknown>): Record<string, C
 
 export type SearchResult = {
     total: number
+    word: string
+    page: number
+    isMore: boolean
     hits: Array<{
         displayName: string
         href: string
@@ -111,5 +107,4 @@ export type SearchResult = {
         categories?: Array<string>
         score: number
     }>
-    word: string
 }

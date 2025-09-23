@@ -55,7 +55,9 @@ const Header = ({ title, logoUrl, common }: HeaderProps) => {
         () =>
             debounce((term: string) => {
                 setLoading(true)
-                search(setSearchResult, term).finally(() => setLoading(false))
+                search(term)
+                    .then(setSearchResult)
+                    .finally(() => setLoading(false))
             }, 500),
         []
     )

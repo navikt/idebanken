@@ -3,13 +3,18 @@
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
-import { Chips, Fieldset, HStack, Radio, RadioGroup, VStack } from '@navikt/ds-react'
+import { Button, Chips, Fieldset, HStack, Radio, RadioGroup, VStack } from '@navikt/ds-react'
 import { PartData } from '~/types/graphql-types'
 import { Category, Idebanken_SpecialPage_Data, Part_Idebanken_Search_View } from '~/types/generated'
 import { getCategoriesMap, search, SearchResult } from '~/utils/search'
 import SearchResults from '~/components/common/SearchResults'
 import { forceArray } from '~/utils/utils'
-import { SOK_CATEGORIES_PARAM, SOK_SEARCH_PARAM, SOK_SORT_PARAM } from '~/utils/constants'
+import {
+    SOK_CATEGORIES_PARAM,
+    SOK_PAGE_PARAM,
+    SOK_SEARCH_PARAM,
+    SOK_SORT_PARAM,
+} from '~/utils/constants'
 
 export default function SearchView({
     meta,
@@ -19,6 +24,7 @@ export default function SearchView({
 
     const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
     const [loading, setLoading] = useState(false)
+    const [loadingMore, setLoadingMore] = useState(false)
     const [filter, setFilter] = useState<Array<Category>>()
     const [selected, setSelected] = useState([allFilter])
 
@@ -34,7 +40,9 @@ export default function SearchView({
             return
         }
         setLoading(true)
-        search(setSearchResult, searchParams).finally(() => setLoading(false))
+        search(searchParams)
+            .then(setSearchResult)
+            .finally(() => setLoading(false))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString, sort])
 
@@ -95,7 +103,7 @@ export default function SearchView({
     }
 
     const filterElement = (
-        <VStack className={'mt-4'} gap={'4'}>
+        <VStack gap={'4'}>
             <RadioGroup
                 legend="Sorter etter:"
                 onChange={setSortParam}
@@ -140,7 +148,7 @@ export default function SearchView({
     )
 
     return (
-        <VStack>
+        <VStack gap={'4'}>
             <SearchWrapper
                 aria-controls={'search-status'}
                 onSubmit={(e) => {
@@ -168,6 +176,31 @@ export default function SearchView({
                 meta,
                 common,
                 filterElement
+            )}
+            {searchResult?.isMore && (
+                <Button
+                    variant={'secondary'}
+                    loading={loadingMore}
+                    className={'rounded-xl'}
+                    onClick={() => {
+                        updateUrlParams((p) => {
+                            p.set(
+                                SOK_PAGE_PARAM,
+                                ((Number(p.get(SOK_PAGE_PARAM) ?? 0) || 0) + 1).toString()
+                            )
+                        })
+                        setLoadingMore(true)
+                        search(searchParams)
+                            .then((res) =>
+                                setSearchResult({
+                                    ...res,
+                                    hits: searchResult?.hits?.concat(res.hits) ?? res.hits,
+                                })
+                            )
+                            .finally(() => setLoadingMore(false))
+                    }}>
+                    Vis flere treff
+                </Button>
             )}
         </VStack>
     )
