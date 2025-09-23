@@ -1,18 +1,18 @@
 'use client'
+
 import { Search } from '@navikt/ds-react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { SearchButton } from '@navikt/ds-react/Search'
 import { useEffect, useRef } from 'react'
+import { SOK_SEARCH_PARAM } from '~/utils/constants'
 
-export const SOK_SEARCH_PARAM = 'ord'
-
-interface SearchWrapperProps extends React.HTMLAttributes<HTMLFormElement> {
+interface SearchWrapperProps extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
+    onSubmit: React.FormEventHandler<HTMLFormElement>
     isSearchOpen?: boolean
 }
 
 export function SearchWrapper({ onSubmit, isSearchOpen, ...rest }: Readonly<SearchWrapperProps>) {
     const searchParams = useSearchParams()
-    const router = useRouter()
     const formRef = useRef<HTMLFormElement | null>(null)
 
     useEffect(() => {
@@ -31,21 +31,7 @@ export function SearchWrapper({ onSubmit, isSearchOpen, ...rest }: Readonly<Sear
     }, [isSearchOpen])
 
     return (
-        <form
-            ref={formRef}
-            role="search"
-            name={'idebanken-search'}
-            onSubmit={
-                onSubmit
-                    ? onSubmit
-                    : (e) => {
-                          e.preventDefault()
-                          router.push(
-                              `/sok?ord=${encodeURIComponent((e.target as HTMLFormElement)[SOK_SEARCH_PARAM].value)}`
-                          )
-                      }
-            }
-            {...rest}>
+        <form ref={formRef} role="search" name={'idebanken-search'} onSubmit={onSubmit} {...rest}>
             <Search
                 defaultValue={searchParams.get(SOK_SEARCH_PARAM) ?? undefined}
                 variant="secondary"

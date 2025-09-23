@@ -8,22 +8,37 @@ import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { HeadlessCms } from '~/types/generated'
 import { Bleed, Button, HStack, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
-import { MagnifyingGlassIcon, MenuHamburgerIcon, XMarkIcon } from '@navikt/aksel-icons'
-import { useState } from 'react'
+import {
+    ArrowRightIcon,
+    MagnifyingGlassIcon,
+    MenuHamburgerIcon,
+    XMarkIcon,
+} from '@navikt/aksel-icons'
+import { useMemo, useState } from 'react'
 import { PageBlock } from '@navikt/ds-react/Page'
 import classNames from 'classnames'
 import { LinkCard, LinkCardAnchor, LinkCardTitle } from '@navikt/ds-react/LinkCard'
+import { debounce, search, SearchResult } from '~/utils/search'
+import SearchResults from '~/components/common/SearchResults'
+import { useRouter } from 'next/navigation'
+import { SOK_SEARCH_PARAM } from '~/utils/constants'
 
 export interface HeaderProps {
     title: string
     logoUrl: string
     meta: MetaData
-    header?: HeadlessCms['header']
+    common?: HeadlessCms
 }
 
-const Header = ({ title, logoUrl, header }: HeaderProps) => {
+const Header = ({ title, logoUrl, common }: HeaderProps) => {
+    const { header, siteConfiguration } = common ?? {}
+
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
+    const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
+    const [searchValue, setSearchValue] = useState('')
+    const [loading, setLoading] = useState(false)
+    const router = useRouter()
 
     // Shared class utilities to reduce duplication
     const buttonLabelClass = '[&_.navds-label]:translate-y-[2px] flex-col sm:flex-row'
@@ -35,6 +50,26 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
         open
             ? 'opacity-100 translate-y-0'
             : 'opacity-0 -translate-y-3 pointer-events-none h-0 overflow-hidden'
+
+    const debouncedLiveSearch = useMemo(
+        () =>
+            debounce((term: string) => {
+                setLoading(true)
+                search(term)
+                    .then(setSearchResult)
+                    .finally(() => setLoading(false))
+            }, 500),
+        []
+    )
+
+    const handleFormChange: React.FormEventHandler<HTMLFormElement> = (e) => {
+        const target = e.target as HTMLInputElement | null
+        const value = target?.value ?? ''
+        setSearchValue(value)
+        if (value.length > 2) {
+            debouncedLiveSearch(value)
+        }
+    }
 
     return (
         <>
@@ -147,8 +182,33 @@ const Header = ({ title, logoUrl, header }: HeaderProps) => {
                     inert={!isSearchOpen}
                     width={'md'}
                     gutters>
-                    <VStack gap={'space-20'} className={'py-12'}>
-                        <SearchWrapper isSearchOpen={isSearchOpen} />
+                    <VStack className={'py-8'}>
+                        <HeadingView level={'2'} size={'medium'} aria-hidden={true}>
+                            Søk på idébanken
+                        </HeadingView>
+                        <SearchWrapper
+                            isSearchOpen={isSearchOpen}
+                            onChange={handleFormChange}
+                            onSubmit={(e) => {
+                                e.preventDefault()
+                                router.push(
+                                    `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`
+                                )
+                            }}
+                        />
+                        {SearchResults(searchResult, loading)}
+                        {searchResult ? (
+                            <NextLink
+                                href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`}
+                                onClick={() => setIsSearchOpen(false)}
+                                className={
+                                    'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'
+                                }>
+                                Gå til avansert søk <ArrowRightIcon />
+                            </NextLink>
+                        ) : (
+                            <></>
+                        )}
                     </VStack>
                 </PageBlock>
             </BleedingBackgroundPageBlock>
