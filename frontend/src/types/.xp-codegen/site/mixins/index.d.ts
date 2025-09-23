@@ -2,6 +2,7 @@
 export type XP_Alignment = import('./alignment').XP_Alignment;
 export type XP_BackgroundColor = import('./background-color').XP_BackgroundColor;
 export type XP_BoxColor = import('./box-color').XP_BoxColor;
+export type XP_BrandColor = import('./brand-color').XP_BrandColor;
 export type XP_CategorySelector = import('./category-selector').XP_CategorySelector;
 export type XP_IconBackgroundColor = import('./icon-background-color').XP_IconBackgroundColor;
 export type XP_IconName = import('./icon-name').XP_IconName;
