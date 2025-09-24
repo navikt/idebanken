@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<layout xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Card</display-name>
+    <description>Provides a single region for card content</description>
+    <form>
+        <input type="TextLine" name="prefix">
+            <label>Heading prefix (f. eks 1, A eller I)</label>
+        </input>
+        <input type="TextLine" name="heading">
+            <label>Heading text</label>
+        </input>
+        <mixin name="background-color"/>
+        <mixin name="heading-color"/>
+        <mixin name="padding-y"/>
+        <mixin name="alignment"/>
+    </form>
+    <regions>
+        <region name="content"/>
+    </regions>
+</layout>

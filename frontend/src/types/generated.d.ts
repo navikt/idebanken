@@ -687,6 +687,7 @@ export type Layout_Idebanken_ComponentDataApplicationConfig = {
   __typename?: 'Layout_idebanken_ComponentDataApplicationConfig';
   _2_column?: Maybe<Layout_Idebanken__2_Column>;
   _3_column?: Maybe<Layout_Idebanken__3_Column>;
+  card?: Maybe<Layout_Idebanken_Card>;
   single_column?: Maybe<Layout_Idebanken_Single_Column>;
 };
 
@@ -709,6 +710,18 @@ export type Layout_Idebanken__3_Column = {
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
   stackOrder?: Maybe<Scalars['String']['output']>;
+};
+
+/** Layout component application config for application ['idebanken'] and descriptor ['card'] */
+export type Layout_Idebanken_Card = {
+  __typename?: 'Layout_idebanken_card';
+  alignment?: Maybe<Scalars['String']['output']>;
+  bgColor?: Maybe<Scalars['String']['output']>;
+  heading?: Maybe<Scalars['String']['output']>;
+  headingColor?: Maybe<Scalars['String']['output']>;
+  paddingBottom?: Maybe<Scalars['String']['output']>;
+  paddingTop?: Maybe<Scalars['String']['output']>;
+  prefix?: Maybe<Scalars['String']['output']>;
 };
 
 /** Layout component application config for application ['idebanken'] and descriptor ['single-column'] */
