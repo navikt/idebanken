@@ -34,6 +34,7 @@ jobs:
       contents: 'read'
       id-token: 'write'
       packages: 'read'
+    environment: ${{ inputs.environment }}
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
     steps:
@@ -53,6 +54,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          ENONIC_API: ${{ vars.ENONIC_API }} # needed for SSG
 
       - name: Build and push Docker image
         uses: nais/docker-build-push@v0
