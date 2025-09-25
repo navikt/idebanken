@@ -52,14 +52,14 @@ const CardLayout = (props: CardLayoutProps) => {
                             headingColor || ''
                         )}>
                         {heading && (
-                            <HeadingView level="2" size="large">
-                                <span className="inline-flex items-center gap-2">
+                            <HeadingView level="2" size="large" className="m-0">
+                                <span className="inline-flex items-center gap-4">
                                     {prefix ? (
-                                        <span className="inline-block rounded-full w-3 h-3 md:w-9 md:h-9 shrink-0 bg-amber-400 relative">
-                                            <span className="">{prefix}</span>
+                                        <span className="translate-y-[-3px] flex items-center justify-center rounded-full w-12 h-12 shrink-0 bg-amber-400 leading-none">
+                                            <span className="translate-y-[2px]">{prefix}</span>
                                         </span>
                                     ) : null}
-                                    <span>{heading}</span>
+                                    <span className="leading-tight">{heading}</span>
                                 </span>
                             </HeadingView>
                         )}
