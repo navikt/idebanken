@@ -6,8 +6,8 @@ import { Box } from '@navikt/ds-react'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
-import { Heading } from '@navikt/ds-react'
-import { HeadingView } from '../parts/Heading'
+import { useMemo } from 'react'
+import CardHeader from '../parts/CardHeader'
 
 interface CardLayoutProps {
     layout: {
@@ -26,50 +26,33 @@ interface CardLayoutProps {
 
 const CardLayout = (props: CardLayoutProps) => {
     const { common, meta, layout, path } = props
-    const regions = layout.regions
+    const { regions } = layout
     const config = layout.config ?? {}
-    console.log('config', config)
     const { alignment, bgColor, paddingTop, paddingBottom, prefix, heading, headingColor } = config
 
+    const containerClasses = useMemo(
+        () =>
+            classNames(
+                alignment ? `text-${alignment}` : 'text-left',
+                'rounded-3xl p-6 md:py-8 bg-white'
+            ),
+        [alignment]
+    )
+
+    const backgroundClasses = useMemo(
+        () => `${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`,
+        [paddingTop, paddingBottom]
+    )
+
     return (
-        <BleedingBackgroundPageBlock
-            bgColor={bgColor}
-            className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
-            layoutPath={path}>
-            <Box
-                className={classNames(
-                    alignment ? `text-${alignment}` : 'text-left',
-                    `rounded-3xl p-6 md:py-8 bg-white`
-                )}>
-                {(heading || prefix) && (
-                    <div
-                        className={classNames(
-                            'rounded-t-3xl',
-                            '-mt-6 md:-mt-8',
-                            '-mx-6',
-                            'px-6',
-                            'py-4 md:py-5',
-                            headingColor || ''
-                        )}>
-                        {heading && (
-                            <HeadingView level="2" size="large" className="m-0">
-                                <span className="inline-flex items-center gap-4">
-                                    {prefix ? (
-                                        <span className="translate-y-[-3px] flex items-center justify-center rounded-full w-12 h-12 shrink-0 bg-amber-400 leading-none">
-                                            <span className="translate-y-[2px]">{prefix}</span>
-                                        </span>
-                                    ) : null}
-                                    <span className="leading-tight">{heading}</span>
-                                </span>
-                            </HeadingView>
-                        )}
-                    </div>
-                )}
+        <BleedingBackgroundPageBlock bgColor={bgColor} className={backgroundClasses} layoutPath={path}>
+            <Box className={containerClasses} as="article">
+                <CardHeader prefix={prefix} heading={heading} headingColor={headingColor} />
 
                 <RegionView
                     name="content"
                     className="[&>*]:my-8 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
-                    components={regions['content']?.components}
+                    components={regions.content?.components}
                     common={common}
                     meta={meta}
                 />
