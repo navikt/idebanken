@@ -43,7 +43,7 @@ spec:
         - application: "*"
           namespace: idebanken
   envFrom:
-    - secret: idebanken-search-api
+    - secret: opensearch-idebanken-search
   secureLogs:
     enabled: true
   resources:
