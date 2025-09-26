@@ -28,12 +28,12 @@ function getExt(name: string): string | undefined {
 function pickIcon(ext?: string) {
     switch (ext) {
         case 'pdf':
-            return <FilePdfIcon aria-hidden fontSize="1.5rem" />
+            return <FilePdfIcon aria-hidden className="text-brand-black" fontSize="2.5rem" />
         case 'doc':
         case 'docx':
-            return <FileWordIcon aria-hidden fontSize="1.5rem" />
+            return <FileWordIcon aria-hidden className="text-brand-black" fontSize="2.5rem" />
         default:
-            return <FileIcon aria-hidden fontSize="1.5rem" />
+            return <FileIcon aria-hidden className="text-brand-black" fontSize="2.5rem" />
     }
 }
 
@@ -44,20 +44,17 @@ export const Downloads = (props: PartProps) => {
 
     return (
         <>
-            <VStack
-                gap="space-28"
-                className="
-            list-none m-0 p-6 rounded-[20px] 
-            shadow-[0_26px_44px_-12px_rgba(11,2,49,0.24)]
-            ">
-                <VStack gap="space-16">
-                    {config.title && <h2 className="text-2xl font-bold">{config?.title}</h2>}
-                    {config.ingress && (
-                        <BodyShort size="small" textColor="subtle">
-                            {config?.ingress}
-                        </BodyShort>
-                    )}
-                </VStack>
+            <VStack gap="space-28" className="list-none m-0 p-6 rounded-[20px]">
+                {(config.title || config.ingress) && (
+                    <VStack gap="space-16">
+                        {config.title && <h2 className="text-2xl font-bold">{config?.title}</h2>}
+                        {config.ingress && (
+                            <BodyShort size="small" textColor="subtle">
+                                {config?.ingress}
+                            </BodyShort>
+                        )}
+                    </VStack>
+                )}
 
                 <VStack as="ul" gap="space-28">
                     {files.map((item) => {
@@ -67,14 +64,14 @@ export const Downloads = (props: PartProps) => {
                         return (
                             <li
                                 key={item._path}
-                                className="flex items-center justify-between gap-6 rounded-lg border px-4 py-3"
+                                className="flex items-center justify-between gap-6 rounded-lg border px-4 py-3 shadow-ib-shadow"
                                 style={{
                                     borderColor: 'var(--Border-Subtle, rgba(7, 26, 54, 0.21))',
                                 }}>
                                 <div className="flex min-w-0 items-center gap-3">
                                     <span
                                         aria-hidden="true"
-                                        className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500 text-brand-black shadow-sm">
+                                        className="flex h-16 w-16 items-center justify-center rounded-xl bg-pink-400 text-brand-black shadow-sm">
                                         {icon}
                                     </span>
                                     <div className="min-w-0">

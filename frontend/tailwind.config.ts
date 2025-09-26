@@ -11,7 +11,6 @@ export default {
             },
             colors: {
                 // Base
-                black: 'var(--ib-black)',
                 'brand-black': 'var(--ib-brand-black)',
                 'brand-white': 'var(--ib-brand-white)',
 
@@ -52,7 +51,7 @@ export default {
                 'dark-blue-400A': 'var(--ib-dark-blue-400A)',
             },
             boxShadow: {
-                'accordion-item': '0px 26px 44px -12px rgba(32, 31, 31, 0.16)',
+                'ib-shadow': '1px -4px 30px 0 rgba(88, 84, 106, 0.30)',
             },
         },
     },
