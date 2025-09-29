@@ -1,11 +1,13 @@
-import { VStack, Button, BodyShort } from '@navikt/ds-react'
-import { FileIcon, FilePdfIcon, FileWordIcon, DownloadIcon } from '@navikt/aksel-icons'
+import { VStack, BodyShort } from '@navikt/ds-react'
+import { FileIcon, FilePdfIcon, FileWordIcon } from '@navikt/aksel-icons'
 import type { PartProps } from '@enonic/nextjs-adapter'
+import { ButtonView } from './Button'
 
 type DownloadItem = {
     displayName: string
     _path: string
     mediaUrl: string
+    attachments: { size: number }[]
 }
 
 type DownloadsConfig = {
@@ -28,13 +30,18 @@ function getExt(name: string): string | undefined {
 function pickIcon(ext?: string) {
     switch (ext) {
         case 'pdf':
-            return <FilePdfIcon aria-hidden fontSize="1.5rem" />
+            return <FilePdfIcon aria-hidden className="text-brand-black" fontSize="2.5rem" />
         case 'doc':
         case 'docx':
-            return <FileWordIcon aria-hidden fontSize="1.5rem" />
+            return <FileWordIcon aria-hidden className="text-brand-black" fontSize="2.5rem" />
         default:
-            return <FileIcon aria-hidden fontSize="1.5rem" />
+            return <FileIcon aria-hidden className="text-brand-black" fontSize="2.5rem" />
     }
+}
+
+function toKb(bytes: number, decimals = 0): number {
+    const div = 1024
+    return parseFloat((bytes / div).toFixed(decimals))
 }
 
 export const Downloads = (props: PartProps) => {
@@ -44,55 +51,57 @@ export const Downloads = (props: PartProps) => {
 
     return (
         <>
-            <VStack
-                gap="space-28"
-                className="
-            list-none m-0 p-6 rounded-[20px] 
-            shadow-[0_26px_44px_-12px_rgba(11,2,49,0.24)]
-            ">
-                <VStack gap="space-16">
-                    {config.title && <h2 className="text-2xl font-bold">{config?.title}</h2>}
-                    {config.ingress && (
-                        <BodyShort size="small" textColor="subtle">
-                            {config?.ingress}
-                        </BodyShort>
-                    )}
-                </VStack>
+            <VStack gap="space-28" className="list-none m-0 p-6 rounded-[20px]">
+                {(config.title || config.ingress) && (
+                    <VStack gap="space-16">
+                        {config.title && <h2 className="text-2xl font-bold">{config?.title}</h2>}
+                        {config.ingress && (
+                            <BodyShort size="small" textColor="subtle">
+                                {config?.ingress}
+                            </BodyShort>
+                        )}
+                    </VStack>
+                )}
 
                 <VStack as="ul" gap="space-28">
                     {files.map((item) => {
                         const ext =
                             getExt(item.mediaUrl) || getExt(item._path) || getExt(item.displayName)
                         const icon = pickIcon(ext)
+                        const fileName = `${item.displayName}${ext ? `.${ext}` : ''}`
                         return (
                             <li
                                 key={item._path}
-                                className="flex items-center justify-between gap-6 rounded-lg border px-4 py-3"
-                                style={{
-                                    borderColor: 'var(--Border-Subtle, rgba(7, 26, 54, 0.21))',
-                                }}>
+                                className="flex flex-wrap items-center justify-between gap-6 
+                                rounded-xl px-3 pt-6 pb-6
+                                bg-dark-blue-100 border-1 border-dark-blue-400">
                                 <div className="flex min-w-0 items-center gap-3">
                                     <span
                                         aria-hidden="true"
-                                        className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500 text-brand-black shadow-sm">
+                                        className="flex h-12 w-12 items-center justify-center rounded-full bg-pink-400 text-brand-black shadow-sm">
                                         {icon}
                                     </span>
-                                    <div className="min-w-0">
-                                        <BodyShort truncate title={item.displayName}>
-                                            {item.displayName}
+                                    <div className="max-w-80">
+                                        <BodyShort
+                                            truncate
+                                            title={fileName}
+                                            className="font-medium">
+                                            {fileName}
+                                        </BodyShort>
+                                        <BodyShort className="font-light">
+                                            {toKb(item.attachments[0]?.size)}kb
                                         </BodyShort>
                                     </div>
                                 </div>
-                                <Button
-                                    as="a"
-                                    href={item.mediaUrl}
-                                    variant="primary-neutral"
-                                    size="small"
-                                    icon={<DownloadIcon aria-hidden />}
-                                    aria-label={`Last ned ${item.displayName}`}
+                                <ButtonView
+                                    config={{
+                                        url: item.mediaUrl,
+                                        external: true,
+                                        variant: 'primary',
+                                        size: 'medium',
+                                        text: 'Last ned',
+                                    }}
                                     download
-                                    rel="noopener noreferrer"
-                                    target="_blank"
                                 />
                             </li>
                         )

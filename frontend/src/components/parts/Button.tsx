@@ -5,16 +5,18 @@ import { MouseEventHandler } from 'react'
 import { PartData } from '~/types/graphql-types'
 import { LinkHeading } from './LinkHeading'
 import { XP_Button } from '@xp-types/site/parts'
+import type { ButtonConfig } from '~/types/valibot/parts'
 
-export interface ButtonData {
-    config?: XP_Button
+const ButtonView = ({
+    config,
+    onClick,
+    download,
+}: {
+    config?: ButtonConfig
     onClick?: MouseEventHandler<HTMLButtonElement>
-}
-
-export const ButtonView = ({ part, config, onClick }: PartData<XP_Button> & ButtonData) => {
-    const buttonConfig = part?.config ?? config
-    const btn = validatedButtonConfig(buttonConfig)
-
+    download?: boolean
+}) => {
+    const btn = config
     if (!btn) return null
 
     if (btn.variant === 'link') {
@@ -24,9 +26,25 @@ export const ButtonView = ({ part, config, onClick }: PartData<XP_Button> & Butt
         variant: btn.variant,
         size: btn.size || 'medium',
         children: btn.text,
-        ...(btn.external ? { target: '_blank' } : {}),
+        ...(download ? { download: true } : {}),
+        ...(btn.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
         ...(btn.url ? { as: NextLink, href: btn.url || '#' } : { onClick }),
     }
 
-    return <Button {...buttonProps} />
+    return (
+        <Button
+            data-color="ib-brand-dark-blue"
+            className="rounded-[60px] font-light"
+            {...buttonProps}
+        />
+    )
 }
+
+const ButtonPart = ({ part }: PartData<XP_Button>) => {
+    const btn = validatedButtonConfig(part.config)
+    if (!btn) return null
+
+    return <ButtonView config={btn} />
+}
+
+export { ButtonView, ButtonPart }

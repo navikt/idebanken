@@ -8,7 +8,6 @@
 :root,
 .light {
     /* Base colors */
-    --ib-black: #121212;
     --ib-brand-black: #201f1f;
     --ib-brand-white: #fafaf9;
 
@@ -66,6 +65,10 @@
 
 /* Dark overrides (Aksel style) */
 .dark {
+    /* Base colors */
+    --ib-brand-black: #bbbaba;
+    --ib-brand-white: #bababa;
+
     /* Pink ramp (100..1000) */
     --ib-pink-100: #100c0d;
     --ib-pink-200: #1c1518;
@@ -260,4 +263,9 @@ hr {
     background-color: var(--ib-dark-blue-1000);
     color: var(--ax-text-neutral-contrast);
     --ib-prefix-bg: var(--ib-dark-blue-900);
+}
+
+/* Overwrite for use in buttons */
+a .aksel-label {
+    font-weight: var(--a-font-weight-normal);
 }

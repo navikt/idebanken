@@ -11,7 +11,7 @@ import {
 import MainPage from './pages/Main'
 import '@enonic/nextjs-adapter/baseMappings'
 import TwoColumnLayout from './layouts/TwoColumnLayout'
-import { ButtonView } from './parts/Button'
+import { ButtonPart } from './parts/Button'
 import { TextEditorView } from './parts/TextEditor'
 import { InfoBoxContainerView } from './parts/InfoBoxContainer'
 import SingleColumnLayout from './layouts/SingleColumnLayout'
@@ -79,7 +79,7 @@ ComponentRegistry.addPart(`${APP_NAME}:heading`, {
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:button`, {
-    view: ButtonView,
+    view: ButtonPart,
     configQuery: linkQuery,
 })
 
