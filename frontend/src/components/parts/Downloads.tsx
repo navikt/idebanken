@@ -1,11 +1,13 @@
-import { VStack, Button, BodyShort } from '@navikt/ds-react'
-import { FileIcon, FilePdfIcon, FileWordIcon, DownloadIcon } from '@navikt/aksel-icons'
+import { VStack, BodyShort } from '@navikt/ds-react'
+import { FileIcon, FilePdfIcon, FileWordIcon } from '@navikt/aksel-icons'
 import type { PartProps } from '@enonic/nextjs-adapter'
+import { ButtonView } from './Button'
 
 type DownloadItem = {
     displayName: string
     _path: string
     mediaUrl: string
+    attachments: { size: number }[]
 }
 
 type DownloadsConfig = {
@@ -37,6 +39,11 @@ function pickIcon(ext?: string) {
     }
 }
 
+function toKb(bytes: number, decimals = 0): number {
+    const div = 1024
+    return parseFloat((bytes / div).toFixed(decimals))
+}
+
 export const Downloads = (props: PartProps) => {
     const config: DownloadsConfig = props.part.config
     const files = config?.selectedFiles as DownloadItem[] | undefined
@@ -61,32 +68,40 @@ export const Downloads = (props: PartProps) => {
                         const ext =
                             getExt(item.mediaUrl) || getExt(item._path) || getExt(item.displayName)
                         const icon = pickIcon(ext)
+                        const fileName = `${item.displayName}${ext ? `.${ext}` : ''}`
                         return (
                             <li
                                 key={item._path}
-                                className="flex items-center justify-between gap-6 rounded-xl px-3 pt-3 pb-4 shadow-ib-shadow">
+                                className="flex flex-wrap items-center justify-between gap-6 
+                                rounded-xl px-3 pt-6 pb-6
+                                bg-dark-blue-100 border-1 border-dark-blue-400">
                                 <div className="flex min-w-0 items-center gap-3">
                                     <span
                                         aria-hidden="true"
-                                        className="flex h-16 w-16 items-center justify-center rounded-xl bg-pink-400 text-brand-black shadow-sm">
+                                        className="flex h-12 w-12 items-center justify-center rounded-full bg-pink-400 text-brand-black shadow-sm">
                                         {icon}
                                     </span>
-                                    <div className="min-w-0">
-                                        <BodyShort truncate title={item.displayName}>
-                                            {item.displayName}
+                                    <div className="max-w-80">
+                                        <BodyShort
+                                            truncate
+                                            title={fileName}
+                                            className="font-medium">
+                                            {fileName}
+                                        </BodyShort>
+                                        <BodyShort className="font-light">
+                                            {toKb(item.attachments[0]?.size)}kb
                                         </BodyShort>
                                     </div>
                                 </div>
-                                <Button
-                                    as="a"
-                                    href={item.mediaUrl}
-                                    variant="primary-neutral"
-                                    size="small"
-                                    icon={<DownloadIcon aria-hidden />}
-                                    aria-label={`Last ned ${item.displayName}`}
+                                <ButtonView
+                                    config={{
+                                        url: item.mediaUrl,
+                                        external: true,
+                                        variant: 'primary',
+                                        size: 'medium',
+                                        text: 'Last ned',
+                                    }}
                                     download
-                                    rel="noopener noreferrer"
-                                    target="_blank"
                                 />
                             </li>
                         )

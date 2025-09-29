@@ -264,3 +264,8 @@ hr {
     color: var(--ax-text-neutral-contrast);
     --ib-prefix-bg: var(--ib-dark-blue-900);
 }
+
+/* Overwrite for use in buttons */
+a .aksel-label {
+    font-weight: var(--a-font-weight-normal);
+}
