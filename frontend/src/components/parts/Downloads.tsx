@@ -64,10 +64,7 @@ export const Downloads = (props: PartProps) => {
                         return (
                             <li
                                 key={item._path}
-                                className="flex items-center justify-between gap-6 rounded-lg border px-4 py-3 shadow-ib-shadow"
-                                style={{
-                                    borderColor: 'var(--Border-Subtle, rgba(7, 26, 54, 0.21))',
-                                }}>
+                                className="flex items-center justify-between gap-6 rounded-xl px-3 pt-3 pb-4 shadow-ib-shadow">
                                 <div className="flex min-w-0 items-center gap-3">
                                     <span
                                         aria-hidden="true"
