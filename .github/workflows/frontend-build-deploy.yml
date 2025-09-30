@@ -53,6 +53,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          ENONIC_API: https://idebanken-xp7${{ inputs.environment }}.enonic.cloud/headless/ # needed for SSG
 
       - name: Build and push Docker image
         uses: nais/docker-build-push@v0

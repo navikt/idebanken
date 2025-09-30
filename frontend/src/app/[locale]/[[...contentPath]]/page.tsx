@@ -95,5 +95,6 @@ export async function generateMetadata({
 export async function generateStaticParams(props: {
     params: PageProps
 }): Promise<ContentPathItem[]> {
+    if (process.env.SKIP_SSG === 'true') return []
     return await fetchContentPathsForAllLocales('\${site}/')
 }

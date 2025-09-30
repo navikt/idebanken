@@ -9,12 +9,16 @@ Dette er frontend applikasjonen satt opp i Next.js for den fremtidige nye nettsi
 ### Sett lokale EVN-variabler
 
 ```bash
-cp ./.env .env.local
+echo """
+MODE=development
+NEXT_PUBLIC_MODE=development
+IS_LOCALHOST=true
+ENONIC_DOMAIN=localhost:8080
+ENONIC_API=http://\${ENONIC_DOMAIN}/site/
+ENONIC_API_TOKEN=mySecretKey
+SEARCH_API_URL=http://localhost:9000
+""" > .env.local
 ```
-
-Eller opprett filen `.env.local` basert på innholdet fra `.env`.
-
-Endre på `ENONIC_API`, `ENONIC_DOMAIN` og `IS_LOCALHOST` til å bruke localhost verdiene.
 
 ### Installer node moduler
 
