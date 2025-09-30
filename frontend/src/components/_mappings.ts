@@ -31,6 +31,7 @@ import { Separator } from '~/components/macros/Separator'
 import { FullWidth } from '~/components/pages/FullWidth'
 import { LinkCardList } from '~/components/parts/LinkCardList'
 import CardLayout from './layouts/CardLayout'
+import { HighlightedBox } from '~/components/macros/HighlightedBox'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -71,6 +72,19 @@ ComponentRegistry.addLayout(`${APP_NAME}:card`, {
 // Macro mappings
 ComponentRegistry.addMacro(`${APP_NAME}:separator`, {
     view: Separator,
+})
+ComponentRegistry.addMacro(`${APP_NAME}:box`, {
+    view: HighlightedBox,
+    configQuery: `{
+    title
+    iconName
+    brand
+    links {
+        _path
+        displayName
+        dataAsJson
+    }
+}`,
 })
 
 // Part mappings

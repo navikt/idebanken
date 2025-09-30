@@ -31,7 +31,7 @@ export function enonicSitePathToHref(path?: string) {
         console.warn('sitePathToHref called with undefined or empty path')
         return '/'
     }
-    return path.replace(/^\/[^/]+/, '')
+    return path.replace(/^\/[^/]+\/?/, '/')
 }
 
 export function headingIdOfString(string?: string) {
