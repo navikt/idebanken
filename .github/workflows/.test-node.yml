@@ -28,5 +28,7 @@ jobs:
         run: npm ci
       - name: Build application without SSG
         run: npm run build-skip-ssg
+        env:
+            ENONIC_API: "needed for build, but is not used when skipping SSG"
       - name: Run unit tests
         run: npm run test
