@@ -1,0 +1,29 @@
+<macro>
+    <display-name>Boks</display-name>
+    <description>En boks for å fremheve lenker eller innhold</description>
+
+    <form>
+        <mixin name="icon-name"/>
+        <input type="TextLine" name="title">
+            <label>Tittel</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input type="ComboBox" name="brand">
+            <label>Farge</label>
+            <occurrences minimum="1" maximum="1"/>
+            <config>
+                <option value="blue">Blå</option>
+                <option value="pink">Rosa</option>
+            </config>
+            <default>blue</default>
+        </input>
+        <input type="TextArea" name="body">
+            <label>Innhold</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input type="ContentSelector" name="links">
+            <label>Lenker</label>
+            <occurrences minimum="0" maximum="0"/>
+        </input>
+    </form>
+</macro>
