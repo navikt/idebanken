@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Expansion Card</display-name>
+    <form>
+        <input type="TextLine" name="header">
+            <label>Tittel</label>
+        </input>
+        <input name="description" type="TextArea">
+        <label>Beskrivelse</label>
+            <config>
+                <max-length>200</max-length>  
+                <show-counter>true</show-counter>  
+            </config>
+        </input>
+        <mixin name="simple-text-editor" />
+        <mixin name="brand-color" />
+    </form>
+</part>

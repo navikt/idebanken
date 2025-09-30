@@ -31,6 +31,7 @@ import { Separator } from '~/components/macros/Separator'
 import { FullWidth } from '~/components/pages/FullWidth'
 import { LinkCardList } from '~/components/parts/LinkCardList'
 import CardLayout from './layouts/CardLayout'
+import { ExpansionCardView } from './parts/ExpansionCard'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -170,4 +171,8 @@ ComponentRegistry.addPart(`${APP_NAME}:downloads`, {
 ComponentRegistry.addPart(`${APP_NAME}:link-card-list`, {
     view: LinkCardList,
     configQuery: linkCardListQuery,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:expansion-card`, {
+    view: ExpansionCardView,
 })
