@@ -47,7 +47,7 @@ export default function SearchResults(
                             />
                         }
                         categories={getResultCategories(result, common)}
-                        bgColor={'bg-white'}
+                        brand={'neutral'}
                         iconName={result.iconName}
                         iconColor={result.iconColor}
                         key={index}
