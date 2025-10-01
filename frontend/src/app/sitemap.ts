@@ -5,6 +5,8 @@ import { forceArray } from '~/utils/utils'
 import { fetchGuillotine } from '@enonic/nextjs-adapter/server'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    if (process.env.SKIP_SSG === 'true') return []
+
     const res = await fetchGuillotine(
         getContentApiUrl({ contentPath: process.env.ENONIC_API ?? '' }),
         {

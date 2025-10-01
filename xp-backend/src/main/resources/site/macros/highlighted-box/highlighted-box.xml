@@ -1,0 +1,44 @@
+<macro>
+    <display-name>Fremhevet boks</display-name>
+    <description>En boks for å fremheve lenker eller innhold</description>
+
+    <form>
+        <input type="MediaSelector" name="icon">
+            <label>Ikon</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <allowContentType>media:(vector|image)</allowContentType>
+                <allowPath>${site}/ressurser/ikoner/*</allowPath>
+            </config>
+        </input>
+        <input type="TextLine" name="title">
+            <label>Tittel</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input type="ComboBox" name="brand">
+            <label>Farge</label>
+            <occurrences minimum="1" maximum="1"/>
+            <config>
+                <option value="blue">Blå</option>
+                <option value="pink">Rosa</option>
+            </config>
+            <default>blue</default>
+        </input>
+        <input type="TextArea" name="body">
+            <label>Innhold</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input type="ContentSelector" name="links">
+            <label>Interne lenker</label>
+            <occurrences minimum="0" maximum="0"/>
+        </input>
+        <input type="TextLine" name="linksAbsolute">
+            <label>Eksterne lenker</label>
+            <help-text>Full lenke med https://</help-text>
+            <occurrences minimum="0" maximum="0"/>
+            <config>
+                <regexp>^https:\/\/</regexp>
+            </config>
+        </input>
+    </form>
+</macro>

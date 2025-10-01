@@ -31,7 +31,7 @@ export function enonicSitePathToHref(path?: string) {
         console.warn('sitePathToHref called with undefined or empty path')
         return '/'
     }
-    return path.replace(/^\/[^/]+/, '')
+    return path.replace(/^\/[^/]+\/?/, '/')
 }
 
 export function headingIdOfString(string?: string) {
@@ -64,4 +64,21 @@ export function forceArray<A>(data: A | ReadonlyArray<A> | undefined): ReadonlyA
 export function forceArray<A>(data: A | Array<A> | undefined): ReadonlyArray<A> {
     data = data ?? []
     return Array.isArray(data) ? data : [data]
+}
+
+export function truncateUrl(link?: string, maxLength = 50): string | undefined {
+    if (!link) return link
+
+    const linkWithoutProtocolAndParams = link.replace(/(https?:\/\/)?([^?]*?)\/?(\?[^\/]*)?$/, '$2')
+    if (linkWithoutProtocolAndParams.length <= maxLength) return linkWithoutProtocolAndParams
+
+    const truncatedUrl = linkWithoutProtocolAndParams.replace(
+        /^([^\/]+\/)(.+)?(\/[^\/]+)$/,
+        `$1...$3`
+    )
+    if (truncatedUrl.length > maxLength) {
+        return truncatedUrl.substring(0, maxLength).concat('...')
+    } else {
+        return truncatedUrl
+    }
 }

@@ -1,6 +1,7 @@
 import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
 import {
+    highlightedBoxMacroQuery,
     imageQuery,
     linkCardListQuery,
     linkCardQuery,
@@ -32,6 +33,7 @@ import { FullWidth } from '~/components/pages/FullWidth'
 import { LinkCardList } from '~/components/parts/LinkCardList'
 import CardLayout from './layouts/CardLayout'
 import { ExpansionCardView } from './parts/ExpansionCard'
+import { HighlightedBox } from '~/components/macros/HighlightedBox'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -72,6 +74,10 @@ ComponentRegistry.addLayout(`${APP_NAME}:card`, {
 // Macro mappings
 ComponentRegistry.addMacro(`${APP_NAME}:separator`, {
     view: Separator,
+})
+ComponentRegistry.addMacro(`${APP_NAME}:highlighted-box`, {
+    view: HighlightedBox,
+    configQuery: highlightedBoxMacroQuery,
 })
 
 // Part mappings

@@ -92,3 +92,22 @@ export const linkCardListQuery = `{
         }
     }
 }`
+
+export const highlightedBoxMacroQuery = `{
+    title
+    icon {
+        ... on media_Image {
+            url: imageUrl(type: absolute, scale: "block(30,30)")
+        }
+        ... on media_Vector {
+            url: mediaUrl(type: absolute)
+        }
+    }
+    brand
+    links {
+        _path
+        displayName
+        dataAsJson
+    }
+    linksAbsolute
+}`
