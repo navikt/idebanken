@@ -1,6 +1,7 @@
 import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
 import {
+    highlightedBoxMacroQuery,
     imageQuery,
     linkCardListQuery,
     linkCardQuery,
@@ -75,24 +76,7 @@ ComponentRegistry.addMacro(`${APP_NAME}:separator`, {
 })
 ComponentRegistry.addMacro(`${APP_NAME}:highlighted-box`, {
     view: HighlightedBox,
-    configQuery: `{
-    title
-    icon {
-        ... on media_Image {
-            url: imageUrl(type: absolute, scale: "block(30,30)")
-        }
-        ... on media_Vector {
-            url: mediaUrl(type: absolute)
-        }
-    }
-    brand
-    links {
-        _path
-        displayName
-        dataAsJson
-    }
-    linksAbsolute
-}`,
+    configQuery: highlightedBoxMacroQuery,
 })
 
 // Part mappings
