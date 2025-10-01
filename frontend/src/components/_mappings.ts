@@ -73,7 +73,7 @@ ComponentRegistry.addLayout(`${APP_NAME}:card`, {
 ComponentRegistry.addMacro(`${APP_NAME}:separator`, {
     view: Separator,
 })
-ComponentRegistry.addMacro(`${APP_NAME}:box`, {
+ComponentRegistry.addMacro(`${APP_NAME}:highlighted-box`, {
     view: HighlightedBox,
     configQuery: `{
     title
