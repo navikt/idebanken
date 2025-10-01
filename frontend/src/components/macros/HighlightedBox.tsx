@@ -1,9 +1,9 @@
 import { BodyLong, BodyShort, HStack, Link, List, VStack } from '@navikt/ds-react'
-import { enonicSitePathToHref } from '~/utils/utils'
+import { enonicSitePathToHref, truncateUrl } from '~/utils/utils'
 import { ListItem } from '@navikt/ds-react/List'
 import { MetaData } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Box_DataConfig } from '~/types/generated'
-import { iconMap } from '~/utils/iconMap'
+import Image from 'next/image'
 
 type Macro<T> = {
     name: string
@@ -11,6 +11,10 @@ type Macro<T> = {
     config: T
     meta: MetaData
 }
+
+type HighlightedBoxMacro = Macro<
+    Omit<Macro_Idebanken_Box_DataConfig, 'icon'> & { icon?: { url?: string } }
+>
 
 const brandColor: Record<string, Record<string, string>> = {
     blue: {
@@ -24,15 +28,16 @@ const brandColor: Record<string, Record<string, string>> = {
 }
 
 // TODO replace with upcoming Aksel part and create brands
-export function HighlightedBox(args: Macro<Macro_Idebanken_Box_DataConfig>) {
+export function HighlightedBox(args: HighlightedBoxMacro) {
     const { config, children } = args
     const brand = brandColor[config.brand ?? 'blue']
-    const Icon = iconMap[config.iconName as keyof typeof iconMap]
 
     return (
         <VStack className={'border border-[#E0E0E0] rounded-lg'}>
             <HStack className={`${brand.title} rounded-t-lg px-5 py-3 items-center`} gap={'2'}>
-                {Icon && <Icon width={'1.5em'} height={'1.5em'} />}
+                {config.icon?.url && (
+                    <Image src={config.icon.url} alt={'#'} width={24} height={24} />
+                )}
                 <BodyShort size={'large'}>{config.title}</BodyShort>
             </HStack>
             <VStack className={`${brand.body} rounded-b-lg p-5`}>
@@ -45,6 +50,15 @@ export function HighlightedBox(args: Macro<Macro_Idebanken_Box_DataConfig>) {
                                 <ListItem key={_path}>
                                     <Link href={enonicSitePathToHref(_path)}>
                                         {dataAsJson.shortTitle || dataAsJson.title || displayName}
+                                    </Link>
+                                </ListItem>
+                            ))}
+                        {config.linksAbsolute
+                            ?.filter((it) => it != null)
+                            ?.map((link) => (
+                                <ListItem key={link}>
+                                    <Link href={link} target="_blank" rel="noreferrer">
+                                        {truncateUrl(link)}
                                     </Link>
                                 </ListItem>
                             ))}

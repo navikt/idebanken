@@ -794,14 +794,22 @@ export type Macro_Idebanken_Box_DataConfig = {
   __typename?: 'Macro_idebanken_box_DataConfig';
   body?: Maybe<Scalars['String']['output']>;
   brand?: Maybe<Scalars['String']['output']>;
-  iconName?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Content>;
   links?: Maybe<Array<Maybe<Content>>>;
+  linksAbsolute?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
 export type Macro_Idebanken_Box_DataConfigLinksArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfigLinksAbsoluteArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };

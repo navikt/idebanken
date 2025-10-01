@@ -3,7 +3,14 @@
     <description>En boks for å fremheve lenker eller innhold</description>
 
     <form>
-        <mixin name="icon-name"/>
+        <input type="MediaSelector" name="icon">
+            <label>Ikon</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <allowContentType>media:(vector|image)</allowContentType>
+                <allowPath>${site}/ressurser/ikoner/*</allowPath>
+            </config>
+        </input>
         <input type="TextLine" name="title">
             <label>Tittel</label>
             <occurrences minimum="1" maximum="1"/>
@@ -22,8 +29,16 @@
             <occurrences minimum="1" maximum="1"/>
         </input>
         <input type="ContentSelector" name="links">
-            <label>Lenker</label>
+            <label>Interne lenker</label>
             <occurrences minimum="0" maximum="0"/>
+        </input>
+        <input type="TextLine" name="linksAbsolute">
+            <label>Eksterne lenker</label>
+            <help-text>Full lenke med https://</help-text>
+            <occurrences minimum="0" maximum="0"/>
+            <config>
+                <regexp>^https:\/\/</regexp>
+            </config>
         </input>
     </form>
 </macro>

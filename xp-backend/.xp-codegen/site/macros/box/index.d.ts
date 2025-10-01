@@ -3,7 +3,7 @@ export type Box = {
   /**
    * Ikon
    */
-  iconName?: 'hand-shake-heart' | 'reception' | 'chat-2' | 'hand-shake' | 'person-group' | 'task-list' | 'clock';
+  icon?: string;
 
   /**
    * Tittel
@@ -21,7 +21,12 @@ export type Box = {
   body: string;
 
   /**
-   * Lenker
+   * Interne lenker
    */
   links?: Array<string> | string;
+
+  /**
+   * Eksterne lenker
+   */
+  linksAbsolute?: Array<string> | string;
 };
