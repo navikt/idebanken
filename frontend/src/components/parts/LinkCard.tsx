@@ -10,27 +10,9 @@ import {
     LinkCardImage,
     LinkCardTitle,
 } from '@navikt/ds-react/LinkCard'
-import {
-    Chat2Icon,
-    ClockIcon,
-    HandShakeHeartIcon,
-    HandshakeIcon,
-    PersonGroupIcon,
-    ReceptionIcon,
-    TasklistIcon,
-} from '@navikt/aksel-icons'
 import { validatedLinkCardConfig } from '~/utils/runtimeValidation'
 import React from 'react'
-
-const iconMap = {
-    'hand-shake-heart': HandShakeHeartIcon,
-    reception: ReceptionIcon,
-    'chat-2': Chat2Icon,
-    'hand-shake': HandshakeIcon,
-    'person-group': PersonGroupIcon,
-    'task-list': TasklistIcon,
-    clock: ClockIcon,
-}
+import { iconMap } from '~/utils/iconMap'
 
 export interface LinkCardData {
     part: { descriptor: string; config: Part_Idebanken_Link_Card }
