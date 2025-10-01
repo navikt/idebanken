@@ -31,19 +31,30 @@ const brandColor: Record<string, Record<string, string>> = {
 export function HighlightedBox(args: HighlightedBoxMacro) {
     const { config, children } = args
     const brand = brandColor[config.brand ?? 'blue']
+    const title = config.title ?? ''
 
     return (
         <VStack className={'border border-[#E0E0E0] rounded-lg'}>
             <HStack className={`${brand.title} rounded-t-lg px-5 py-3 items-center`} gap={'2'}>
                 {config.icon?.url && (
-                    <Image src={config.icon.url} alt={'#'} width={24} height={24} />
+                    <Image
+                        src={config.icon.url}
+                        alt={'#'}
+                        width={24}
+                        height={24}
+                        aria-labelledby={config.icon.url.replace(/.*?([^\/]+)\..*$/, '$1 ikon')}
+                    />
                 )}
-                <BodyShort size={'large'}>{config.title}</BodyShort>
+                <BodyShort id={title} size={'large'}>
+                    {title}
+                </BodyShort>
             </HStack>
             <VStack className={`${brand.body} rounded-b-lg p-5`}>
-                <BodyLong className={'mb-3'}>{children}</BodyLong>
+                <BodyLong aria-labelledby={title} className={'mb-3'}>
+                    {children}
+                </BodyLong>
                 {config.links && config.links.length > 0 && (
-                    <List>
+                    <List aria-labelledby={title}>
                         {config.links
                             ?.filter((it) => it != null)
                             ?.map(({ _path, displayName, dataAsJson }) => (
