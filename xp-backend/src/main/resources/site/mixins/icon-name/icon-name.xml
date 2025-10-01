@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mixin xmlns="urn:enonic:xp:model:1.0">
-    <form>    
+    <form>
         <input name="iconName" type="ComboBox">
             <label>Ikon</label>
             <occurrences minimum="0" maximum="1"/>
@@ -12,6 +12,8 @@
                 <option value="person-group">PersonGroup</option>
                 <option value="task-list">Tasklist</option>
                 <option value="clock">Clock</option>
+                <option value="link">Link</option>
+                <option value="light-bulb">LightBulb</option>
             </config>
         </input>
     </form>
