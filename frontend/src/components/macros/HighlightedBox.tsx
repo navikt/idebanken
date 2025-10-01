@@ -2,7 +2,7 @@ import { BodyLong, BodyShort, HStack, Link, List, VStack } from '@navikt/ds-reac
 import { enonicSitePathToHref, truncateUrl } from '~/utils/utils'
 import { ListItem } from '@navikt/ds-react/List'
 import { MetaData } from '@enonic/nextjs-adapter'
-import { Macro_Idebanken_Box_DataConfig } from '~/types/generated'
+import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
 
 type Macro<T> = {
@@ -13,7 +13,7 @@ type Macro<T> = {
 }
 
 type HighlightedBoxMacro = Macro<
-    Omit<Macro_Idebanken_Box_DataConfig, 'icon'> & { icon?: { url?: string } }
+    Omit<Macro_Idebanken_Highlighted_Box_DataConfig, 'icon'> & { icon?: { url?: string } }
 >
 
 const brandColor: Record<string, Record<string, string>> = {
