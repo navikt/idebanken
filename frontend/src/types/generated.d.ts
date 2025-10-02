@@ -781,17 +781,10 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
-  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
-};
-
-/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
-export type Macro_Idebanken_Box_DataConfig = {
-  __typename?: 'Macro_idebanken_box_DataConfig';
-  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -994,6 +987,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   accordion?: Maybe<Part_Idebanken_Accordion>;
   button?: Maybe<Part_Idebanken_Button>;
   downloads?: Maybe<Part_Idebanken_Downloads>;
+  expansion_card?: Maybe<Part_Idebanken_Expansion_Card>;
   heading?: Maybe<Part_Idebanken_Heading>;
   image?: Maybe<Part_Idebanken_Image>;
   info_box?: Maybe<Part_Idebanken_Info_Box>;
@@ -1080,6 +1074,21 @@ export type Part_Idebanken_Downloads = {
 export type Part_Idebanken_DownloadsSelectedFilesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['expansion-card'] */
+export type Part_Idebanken_Expansion_Card = {
+  __typename?: 'Part_idebanken_expansion_card';
+  brand?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  header?: Maybe<Scalars['String']['output']>;
+  simpleTextEditor?: Maybe<RichText>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['expansion-card'] */
+export type Part_Idebanken_Expansion_CardSimpleTextEditorArgs = {
+  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['heading'] */

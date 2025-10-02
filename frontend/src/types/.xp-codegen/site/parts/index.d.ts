@@ -2,6 +2,7 @@
 export type XP_Accordion = import('./accordion').XP_Accordion;
 export type XP_Button = import('./button').XP_Button;
 export type XP_Downloads = import('./downloads').XP_Downloads;
+export type XP_ExpansionCard = import('./expansion-card').XP_ExpansionCard;
 export type XP_Heading = import('./heading').XP_Heading;
 export type XP_Image = import('./image').XP_Image;
 export type XP_InfoBox = import('./info-box').XP_InfoBox;
@@ -19,6 +20,7 @@ declare global {
     'idebanken:accordion': XP_Accordion;
     'idebanken:button': XP_Button;
     'idebanken:downloads': XP_Downloads;
+    'idebanken:expansion-card': XP_ExpansionCard;
     'idebanken:heading': XP_Heading;
     'idebanken:image': XP_Image;
     'idebanken:info-box': XP_InfoBox;
