@@ -181,4 +181,10 @@ ComponentRegistry.addPart(`${APP_NAME}:link-card-list`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:expansion-card`, {
     view: ExpansionCardView,
+    configQuery: `{
+        header
+        description
+        brand
+        ${richTextQuery('simpleTextEditor')}
+	}`,
 })

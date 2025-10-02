@@ -2,6 +2,7 @@
 export type Accordion = import('./accordion').Accordion;
 export type Button = import('./button').Button;
 export type Downloads = import('./downloads').Downloads;
+export type ExpansionCard = import('./expansion-card').ExpansionCard;
 export type Heading = import('./heading').Heading;
 export type Image = import('./image').Image;
 export type InfoBox = import('./info-box').InfoBox;
@@ -19,6 +20,7 @@ declare global {
     'idebanken:accordion': Accordion;
     'idebanken:button': Button;
     'idebanken:downloads': Downloads;
+    'idebanken:expansion-card': ExpansionCard;
     'idebanken:heading': Heading;
     'idebanken:image': Image;
     'idebanken:info-box': InfoBox;
