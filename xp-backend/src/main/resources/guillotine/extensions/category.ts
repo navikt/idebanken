@@ -6,7 +6,8 @@ import { Category as XDataCategory } from '@xp-types/site/x-data'
 import { Content, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
 import { Category } from '@xp-types/site/content-types'
-import { iconUrlOfId } from '/lib/utils/helpers'
+import { getOrNull, iconUrlOfId } from '/lib/utils/helpers'
+import { MediaImageContent } from '@enonic-types/guillotine'
 
 export type ResolvedCategory = {
     id: string
@@ -37,6 +38,9 @@ export const categoryExtensions = ({
                     type: GraphQLString,
                 },
                 iconColor: {
+                    type: GraphQLString,
+                },
+                caption: {
                     type: GraphQLString,
                 },
             },
@@ -95,10 +99,15 @@ export function resolveCategories(category?: XDataCategory): Array<ResolvedCateg
 export function mapCategoryContentToResolved(categoryContents?: Array<Content<Category>>) {
     return forceArray(categoryContents)
         .filter((it) => it?.data?.title && it._id)
-        .map((hit) => ({
-            name: hit.data.title,
-            id: hit._id,
-            iconUrl: iconUrlOfId(hit.x?.idebanken?.meta?.icon),
-            iconColor: hit.x?.idebanken?.meta?.iconColor,
-        }))
+        .map((hit) => {
+            const iconId = hit.x?.idebanken?.meta?.icon
+            const iconContent = getOrNull<MediaImageContent>(hit.x?.idebanken?.meta?.icon)
+            return {
+                name: hit.data.title,
+                id: hit._id,
+                iconUrl: iconUrlOfId(iconId),
+                caption: iconContent?.data?.caption,
+                iconColor: hit.x?.idebanken?.meta?.iconColor,
+            }
+        })
 }
