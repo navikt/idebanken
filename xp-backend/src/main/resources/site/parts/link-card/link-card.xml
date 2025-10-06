@@ -9,13 +9,13 @@
         <input name="description" type="TextArea">
         <label>Beskrivelse</label>
             <config>
-                <max-length>100</max-length>  
-                <show-counter>true</show-counter>  
+                <max-length>100</max-length>
+                <show-counter>true</show-counter>
             </config>
         </input>
         <mixin name="brand-color" />
         <mixin name="image" />
-        <mixin name="icon-name" />
+        <mixin name="icon" />
         <mixin name="icon-background-color" />
         <mixin name="category-selector" />
         <!-- NB: remove it-->
