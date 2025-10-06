@@ -35,7 +35,7 @@ data class IBContent(
     @Field(type = FieldType.Keyword) val language: String,
     @Field(type = FieldType.Keyword) val metatags: List<String>,
     @Field(type = FieldType.Keyword) val languageRefs: List<String> = emptyList(),
-    @Field(type = FieldType.Keyword) val iconName: String,
+    @Field(type = FieldType.Keyword) val iconUrl: String,
     @Field(type = FieldType.Keyword) val iconColor: String,
     @Field(type = FieldType.Keyword) val categories: List<String> = emptyList(),
 ) {
@@ -57,7 +57,7 @@ data class IBContent(
             metatags: List<String>,
             languageRefs: List<String> = emptyList(),
             includeTypeInAllText: Boolean = false,
-            iconName: String? = "",
+            iconUrl: String? = "",
             iconColor: String? = "",
         ) = IBContent(
             id = id,
@@ -78,7 +78,7 @@ data class IBContent(
             language = language,
             metatags = metatags,
             languageRefs = languageRefs,
-            iconName = iconName ?: "",
+            iconUrl = iconUrl ?: "",
             iconColor = iconColor ?: "",
             categories = categories,
         )

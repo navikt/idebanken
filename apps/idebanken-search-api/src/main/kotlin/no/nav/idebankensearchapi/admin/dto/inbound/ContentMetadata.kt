@@ -11,7 +11,7 @@ data class ContentMetadata(
     val language: String? = null,
     val metatags: List<String> = emptyList(),
     val languageRefs: List<String> = emptyList(),
-    val iconName: String? = null,
+    val iconUrl: String? = null,
     val iconColor: String? = null,
     val categories: List<String> = emptyList(),
 )

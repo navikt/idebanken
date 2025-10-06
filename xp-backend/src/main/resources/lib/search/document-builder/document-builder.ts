@@ -8,6 +8,7 @@ import { getSearchDocumentTextSegments } from './field-resolvers/text'
 import { buildSearchDocumentIngress } from './field-resolvers/ingress'
 import { SiteConfig } from '@xp-types/site'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
+import { iconUrlOfId } from '/lib/utils/helpers'
 
 export type SearchConfig = SiteConfig['searchConfig']
 type KeysConfig = Partial<SearchConfig['defaultKeys']>
@@ -26,7 +27,7 @@ export type SearchDocument = {
         type: string
         metatags?: string[]
         keywords?: string[]
-        iconName?: string
+        iconUrl?: string
         iconColor?: string
         categories?: string[]
     }
@@ -67,6 +68,7 @@ class ExternalSearchDocumentBuilder {
         }
 
         const publishedTime = content.publish?.from || content.createdTime
+        const ibX = content.x.idebanken
 
         return {
             id: generateSearchDocumentId(content._id, locale),
@@ -81,9 +83,9 @@ class ExternalSearchDocumentBuilder {
                 type: content.type?.split(':').pop() ?? content.type,
                 metatags: forceArray(content.data.metatags),
                 keywords: forceArray(content.data.keywords),
-                iconName: content.x?.idebanken?.meta?.iconName,
-                iconColor: content.x?.idebanken?.meta?.iconColor,
-                categories: forceArray(content.x.idebanken?.category?.categories),
+                iconUrl: iconUrlOfId(ibX?.meta?.icon),
+                iconColor: ibX?.meta?.iconColor,
+                categories: forceArray(ibX?.category?.categories),
             },
         }
     }

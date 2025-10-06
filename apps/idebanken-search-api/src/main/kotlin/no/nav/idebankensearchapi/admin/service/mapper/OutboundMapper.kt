@@ -19,7 +19,7 @@ fun IBContent.toOutbound() = ContentDto(
         language = language,
         metatags = metatags,
         languageRefs = languageRefs,
-        iconName = iconName,
+        iconUrl = iconUrl,
         iconColor = iconColor,
         categories = categories
     )
