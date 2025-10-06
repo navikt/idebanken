@@ -12,7 +12,7 @@ Dette er frontend applikasjonen satt opp i Next.js for den fremtidige nye nettsi
 echo """
 MODE=development
 NEXT_PUBLIC_MODE=development
-IS_LOCALHOST=true
+ENV=local
 ENONIC_DOMAIN=localhost:8080
 ENONIC_API=http://\${ENONIC_DOMAIN}/site/
 ENONIC_API_TOKEN=mySecretKey
