@@ -42,7 +42,7 @@ export function HighlightedBox(args: HighlightedBoxMacro) {
                         alt={'#'}
                         width={24}
                         height={24}
-                        aria-labelledby={config.icon.url.replace(/.*?([^\/]+)\..*$/, '$1 ikon')}
+                        aria-label={config.icon.url.replace(/.*?([^\/]+)\..*$/, '$1 ikon')}
                     />
                 )}
                 <BodyShort id={title} size={'large'}>

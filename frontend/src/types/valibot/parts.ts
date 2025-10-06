@@ -142,7 +142,7 @@ export const linkCardConfigSchema = pipe(
         blockOptionSet: optional(blockOptionSetSchema),
         text: string(),
         description: optional(string()),
-        iconName: nullish(string()),
+        iconUrl: nullish(string()),
         iconColor: nullish(string()),
         brand: string(),
         tags: optional(union([array(string()), string()])),
@@ -163,7 +163,7 @@ export const linkCardConfigSchema = pipe(
         return {
             title: c.text,
             description: c.description || '',
-            iconName: c.iconName || undefined,
+            iconUrl: c.iconUrl || undefined,
             iconColor: c.iconColor || undefined,
             brand: c.brand,
             categories: forceArray(c.tags)?.map((it) => ({ name: it, id: '' })) || [],

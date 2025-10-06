@@ -14,7 +14,7 @@ function guideToLinkCardConfig(
         external: false,
         title: g.title,
         description: g.description || '',
-        iconName: cardType === 'withIcon' ? g.iconName || null : null,
+        iconUrl: cardType === 'withIcon' ? g.iconUrl || null : null,
         iconColor: cardType === 'withIcon' ? g.iconColor || null : null,
         brand: brand ?? '',
         categories: g.categories || [],

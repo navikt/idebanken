@@ -94,7 +94,7 @@ query($path:ID!){
     categories {
         name
         id
-        iconName
+        iconUrl
         iconColor
     }
     siteConfiguration {

@@ -80,7 +80,7 @@ export type BooleanFilterInput = {
 export type Category = {
   __typename?: 'Category';
   iconColor?: Maybe<Scalars['String']['output']>;
-  iconName?: Maybe<Scalars['String']['output']>;
+  iconUrl?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
 };
@@ -763,7 +763,7 @@ export type Link_Card_List_Item = {
   categories: Array<Category>;
   description?: Maybe<Scalars['String']['output']>;
   iconColor?: Maybe<Scalars['String']['output']>;
-  iconName?: Maybe<Scalars['String']['output']>;
+  iconUrl?: Maybe<Scalars['String']['output']>;
   imageUrl?: Maybe<Scalars['String']['output']>;
   title: Scalars['String']['output'];
   url: Scalars['String']['output'];
@@ -781,10 +781,17 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1168,8 +1175,8 @@ export type Part_Idebanken_Link_Card = {
   brand?: Maybe<Scalars['String']['output']>;
   categories?: Maybe<Array<Maybe<Content>>>;
   description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Content>;
   iconColor?: Maybe<Scalars['String']['output']>;
-  iconName?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Content>;
   tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   text?: Maybe<Scalars['String']['output']>;
@@ -1705,8 +1712,8 @@ export type XData_Idebanken_Category_DataConfigCategoriesArgs = {
 /** Extra data config for application ['idebanken}'] and descriptor ['meta'] */
 export type XData_Idebanken_Meta_DataConfig = {
   __typename?: 'XData_idebanken_meta_DataConfig';
+  icon?: Maybe<Content>;
   iconColor?: Maybe<Scalars['String']['output']>;
-  iconName?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Content>;
 };
 

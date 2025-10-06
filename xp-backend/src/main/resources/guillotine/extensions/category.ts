@@ -6,11 +6,12 @@ import { Category as XDataCategory } from '@xp-types/site/x-data'
 import { Content, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
 import { Category } from '@xp-types/site/content-types'
+import { iconUrlOfId } from '/lib/utils/helpers'
 
 export type ResolvedCategory = {
     id: string
     name: string
-    iconName?: string
+    iconUrl?: string
     iconColor?: string
 }
 
@@ -32,7 +33,7 @@ export const categoryExtensions = ({
                 name: {
                     type: nonNull(GraphQLString),
                 },
-                iconName: {
+                iconUrl: {
                     type: GraphQLString,
                 },
                 iconColor: {
@@ -97,7 +98,7 @@ export function mapCategoryContentToResolved(categoryContents?: Array<Content<Ca
         .map((hit) => ({
             name: hit.data.title,
             id: hit._id,
-            iconName: hit.x?.idebanken?.meta?.iconName,
+            iconUrl: iconUrlOfId(hit.x?.idebanken?.meta?.icon),
             iconColor: hit.x?.idebanken?.meta?.iconColor,
         }))
 }

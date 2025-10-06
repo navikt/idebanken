@@ -8,13 +8,14 @@ import { forceArray } from '/lib/utils/array-utils'
 import { imageUrl } from '/lib/xp/portal'
 import { resolveCategories, ResolvedCategory } from './category'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
+import { iconUrlOfId } from '/lib/utils/helpers'
 
 type LinkCardListItem = {
     url: string
     title: string
     description?: string
     imageUrl?: string
-    iconName?: string
+    iconUrl?: string
     iconColor?: string
     categories: Array<ResolvedCategory>
 }
@@ -97,7 +98,7 @@ export const linkCardListExtensions = ({
                 imageUrl: {
                     type: GraphQLString,
                 },
-                iconName: {
+                iconUrl: {
                     type: GraphQLString,
                 },
                 iconColor: {
@@ -127,7 +128,7 @@ export const linkCardListExtensions = ({
 function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardListItem> {
     return contents.map((item) => {
         const ibxData = item.x.idebanken
-        const { image, iconName, iconColor } = ibxData?.meta ?? {}
+        const { image, icon, iconColor } = ibxData?.meta ?? {}
         const { shortTitle, title, description, displayName } =
             (item.data as Record<string, string>) ?? {}
 
@@ -140,7 +141,7 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardListItem>
             imageUrl: image
                 ? imageUrl({ id: image, type: 'absolute', scale: 'width(500)' })
                 : undefined,
-            iconName,
+            iconUrl: iconUrlOfId(icon),
             iconColor,
             categories,
         }
