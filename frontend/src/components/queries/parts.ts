@@ -1,3 +1,5 @@
+import { richTextQuery } from '@enonic/nextjs-adapter'
+
 export const imageQuery = `{
 	image {
 		... on media_Image {
@@ -110,4 +112,9 @@ export const highlightedBoxMacroQuery = `{
         dataAsJson
     }
     linksAbsolute
+}`
+
+export const titleIngressQuery = `{
+    bgColor
+    ${imageAndVectorQuery.slice(1, -1)}
 }`

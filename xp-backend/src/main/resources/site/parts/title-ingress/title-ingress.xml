@@ -2,5 +2,11 @@
 <part xmlns="urn:enonic:xp:model:1.0">
     <display-name>Tittel og ingress</display-name>
     <description>Visning av tittel og ingress</description>
-    <form/>
+    <form>
+        <input name="image" type="ImageSelector">
+            <label>Tittel bilde</label>
+            <occurrences minimum="0" maximum="1"/>
+        </input>
+        <mixin name="background-color" />
+    </form>
 </part>
