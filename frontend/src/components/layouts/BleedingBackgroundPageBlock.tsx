@@ -1,4 +1,4 @@
-import { Bleed, PageBlockProps } from '@navikt/ds-react'
+import { Bleed, BleedProps, PageBlockProps } from '@navikt/ds-react'
 import { PageBlock } from '@navikt/ds-react/Page'
 import React from 'react'
 import { PAGE_FULL_WIDTH } from '~/utils/constants'
@@ -11,6 +11,7 @@ interface BleedingBackgroundPageBlockProps extends PageBlockProps {
     bleedClassName?: string
     layoutPath?: string
     backgroundStyle?: React.CSSProperties
+    marginInline?: BleedProps['marginInline']
 }
 
 export default function BleedingBackgroundPageBlock({
@@ -19,12 +20,13 @@ export default function BleedingBackgroundPageBlock({
     bleedClassName,
     backgroundStyle,
     layoutPath,
+    marginInline = 'full',
     ...rest
 }: Readonly<BleedingBackgroundPageBlockProps>) {
     return (
         <Bleed
             className={`${bgColor ?? 'bg-extra-light-pink'} overflow-y-auto ${bleedClassName}`}
-            marginInline={'full'}
+            marginInline={marginInline}
             style={backgroundStyle}>
             <PageBlock
                 width={layoutPath?.startsWith(`/${PAGE_FULL_WIDTH}/`) ? '2xl' : 'md'}

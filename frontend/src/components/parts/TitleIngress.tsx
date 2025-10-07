@@ -17,6 +17,8 @@ type TitleIngressConfig = {
     image?: Media_Image
 }
 
+const isSvgUrl = (url?: string) => !!url && /\.svg(\?.*)?$/i.test(url)
+
 const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, PageData>) => {
     const data = common?.get?.dataAsJson
     const title = data?.title || '[Mangler tittel på innholdet]'
@@ -35,27 +37,35 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
         }
     }
 
+    if (config.bgColor) {
+        return (
+            <BleedingBackgroundPageBlock
+                bgColor={config.bgColor}
+                marginInline={{ xs: 'space-4', md: 'space-32' }}
+                bleedClassName="rounded-[100px] overflow-hidden lg:mx-[-18vw]">
+                <HStack align="center" gap="space-24" className="py-6">
+                    {titleImageSrc ? (
+                        <div className="hidden lg:block -ml-48 shrink-0 relative">
+                            <img
+                                src={titleImageSrc}
+                                alt={titleImageAlt}
+                                className="block h-auto lg:w-42 dark:invert dark:brightness-0 dark:contrast-200"
+                            />
+                        </div>
+                    ) : null}
+                    <HeadingView level="1" size="xlarge" className="m-0">
+                        {title}
+                    </HeadingView>
+                </HStack>
+            </BleedingBackgroundPageBlock>
+        )
+    }
+
     return (
         <>
-            {config.bgColor ? (
-                <BleedingBackgroundPageBlock
-                    bgColor={config.bgColor}
-                    bleedClassName="md:rounded-3xl md:mx-[-20%]">
-                    <HStack gap="space-16" align="center">
-                        {titleImageSrc ? (
-                            <img src={titleImageSrc} alt={titleImageAlt} width="100" />
-                        ) : null}
-                        <HeadingView level="1" size="xlarge" className="m-0">
-                            {title}
-                        </HeadingView>
-                    </HStack>
-                </BleedingBackgroundPageBlock>
-            ) : (
-                <HeadingView level="1" size="xlarge">
-                    {title}
-                </HeadingView>
-            )}
-
+            <HeadingView level="1" size="xlarge">
+                {title}
+            </HeadingView>
             <RichTextView
                 data={{ processedHtml: data?.ingress }}
                 meta={meta}
