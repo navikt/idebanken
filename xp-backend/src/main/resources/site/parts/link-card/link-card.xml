@@ -17,8 +17,5 @@
         <mixin name="image" />
         <mixin name="icon" />
         <mixin name="icon-background-color" />
-        <mixin name="category-selector" />
-        <!-- NB: remove it-->
-        <mixin name="tags" />
     </form>
 </part>

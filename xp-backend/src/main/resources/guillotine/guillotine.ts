@@ -6,12 +6,14 @@ import { headlessCmsExtensions } from './extensions/headless-cms'
 import { categoryExtensions } from './extensions/category'
 import { tableOfContentsExtensions } from './extensions/table-of-contents'
 import { linkCardListExtensions } from './extensions/link-card-list'
+import { linkCardExtensions } from './extensions/link-card'
 
 export function extensions(graphQL: GraphQL): Extensions {
     const headlessCms = headlessCmsExtensions(graphQL)
     const category = categoryExtensions(graphQL)
     const tableOfContents = tableOfContentsExtensions(graphQL)
     const linkCardList = linkCardListExtensions(graphQL)
+    const linkCard = linkCardExtensions(graphQL)
 
     return {
         types: {
@@ -19,18 +21,21 @@ export function extensions(graphQL: GraphQL): Extensions {
             ...headlessCms.types,
             ...category.types,
             ...linkCardList.types,
+            ...linkCard.types,
         },
         resolvers: {
             ...headlessCms.resolvers,
             ...category.resolvers,
             ...tableOfContents.resolvers,
             ...linkCardList.resolvers,
+            ...linkCard.resolvers,
         },
         creationCallbacks: {
             ...headlessCms.creationCallbacks,
             ...category.creationCallbacks,
             ...tableOfContents.creationCallbacks,
             ...linkCardList.creationCallbacks,
+            ...linkCard.creationCallbacks,
         },
     }
 }

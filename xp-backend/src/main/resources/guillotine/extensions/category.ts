@@ -6,14 +6,14 @@ import { Category as XDataCategory } from '@xp-types/site/x-data'
 import { Content, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
 import { Category } from '@xp-types/site/content-types'
-import { getOrNull, iconUrlOfId } from '/lib/utils/helpers'
-import { MediaImageContent } from '@enonic-types/guillotine'
+import { resolveMedia } from '/lib/utils/helpers'
 
 export type ResolvedCategory = {
     id: string
     name: string
     iconUrl?: string
     iconColor?: string
+    caption?: string
 }
 
 export const categoryExtensions = ({
@@ -96,17 +96,23 @@ export function resolveCategories(category?: XDataCategory): Array<ResolvedCateg
     return mapCategoryContentToResolved(categoryContents)
 }
 
-export function mapCategoryContentToResolved(categoryContents?: Array<Content<Category>>) {
+export function mapCategoryContentToResolved(
+    categoryContents?: Array<Content<Category>>
+): Array<ResolvedCategory> {
     return forceArray(categoryContents)
         .filter((it) => it?.data?.title && it._id)
         .map((hit) => {
-            const iconId = hit.x?.idebanken?.meta?.icon
-            const iconContent = getOrNull<MediaImageContent>(hit.x?.idebanken?.meta?.icon)
+            const icon = resolveMedia({
+                id: hit.x?.idebanken?.meta?.icon,
+                type: 'absolute',
+                scale: 'full',
+            })
+
             return {
                 name: hit.data.title,
                 id: hit._id,
-                iconUrl: iconUrlOfId(iconId),
-                caption: iconContent?.data?.caption,
+                iconUrl: icon?.url,
+                caption: icon?.caption,
                 iconColor: hit.x?.idebanken?.meta?.iconColor,
             }
         })

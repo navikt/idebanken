@@ -39,10 +39,10 @@ export function HighlightedBox(args: HighlightedBoxMacro) {
                 {config.icon?.url && (
                     <Image
                         src={config.icon.url}
-                        alt={'#'}
+                        alt={'Ikon'}
                         width={24}
                         height={24}
-                        aria-label={config.icon.url.replace(/.*?([^\/]+)\..*$/, '$1 ikon')}
+                        aria-label={config.icon.url.replace(/.*?([^\/]+)\..*$/, '$1 ikon')} // todo get alt text from content
                     />
                 )}
                 <BodyShort id={title} size={'large'}>

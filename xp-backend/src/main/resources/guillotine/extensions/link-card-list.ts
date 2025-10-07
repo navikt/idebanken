@@ -5,17 +5,16 @@ import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalC
 import { LinkCardList } from '@xp-types/site/parts'
 import { Content, get, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
-import { imageUrl } from '/lib/xp/portal'
 import { resolveCategories, ResolvedCategory } from './category'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
-import { iconUrlOfId } from '/lib/utils/helpers'
+import { ResolvedMedia, resolveMedia } from '/lib/utils/helpers'
 
 type LinkCardListItem = {
     url: string
     title: string
     description?: string
-    imageUrl?: string
-    iconUrl?: string
+    image?: ResolvedMedia
+    icon?: ResolvedMedia
     iconColor?: string
     categories: Array<ResolvedCategory>
 }
@@ -95,11 +94,11 @@ export const linkCardListExtensions = ({
                 description: {
                     type: GraphQLString,
                 },
-                imageUrl: {
-                    type: GraphQLString,
+                image: {
+                    type: reference('ResolvedMedia'),
                 },
-                iconUrl: {
-                    type: GraphQLString,
+                icon: {
+                    type: reference('ResolvedMedia'),
                 },
                 iconColor: {
                     type: GraphQLString,
@@ -138,10 +137,8 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardListItem>
             url: enonicSitePathToHref(item._path),
             title: shortTitle ?? title ?? displayName ?? 'Ingen tittel',
             description,
-            imageUrl: image
-                ? imageUrl({ id: image, type: 'absolute', scale: 'width(500)' })
-                : undefined,
-            iconUrl: iconUrlOfId(icon),
+            image: resolveMedia({ id: image, type: 'absolute', scale: 'width(500)' }),
+            icon: resolveMedia({ id: icon, type: 'absolute', scale: 'full' }),
             iconColor,
             categories,
         }

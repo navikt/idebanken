@@ -79,6 +79,7 @@ export type BooleanFilterInput = {
 /** Resolved category */
 export type Category = {
   __typename?: 'Category';
+  caption?: Maybe<Scalars['String']['output']>;
   iconColor?: Maybe<Scalars['String']['output']>;
   iconUrl?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -762,9 +763,9 @@ export type Link_Card_List_Item = {
   __typename?: 'Link_card_list_item';
   categories: Array<Category>;
   description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<ResolvedMedia>;
   iconColor?: Maybe<Scalars['String']['output']>;
-  iconUrl?: Maybe<Scalars['String']['output']>;
-  imageUrl?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<ResolvedMedia>;
   title: Scalars['String']['output'];
   url: Scalars['String']['output'];
 };
@@ -1171,29 +1172,12 @@ export type Part_Idebanken_Info_Box_InfoBoxItemsSimpleTextEditorArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
 export type Part_Idebanken_Link_Card = {
   __typename?: 'Part_idebanken_link_card';
-  blockOptionSet?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet>;
   brand?: Maybe<Scalars['String']['output']>;
-  categories?: Maybe<Array<Maybe<Content>>>;
+  categories: Array<Category>;
   description?: Maybe<Scalars['String']['output']>;
-  icon?: Maybe<Content>;
   iconColor?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Content>;
-  tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   text?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
-export type Part_Idebanken_Link_CardCategoriesArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
-export type Part_Idebanken_Link_CardTagsArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 /** Select link type */
@@ -1472,6 +1456,14 @@ export type RangeDslExpressionInput = {
   gte?: InputMaybe<DslExpressionValueInput>;
   lt?: InputMaybe<DslExpressionValueInput>;
   lte?: InputMaybe<DslExpressionValueInput>;
+};
+
+/** Resolved image or vector */
+export type ResolvedMedia = {
+  __typename?: 'ResolvedMedia';
+  altText?: Maybe<Scalars['String']['output']>;
+  caption?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 /** RichText type. */

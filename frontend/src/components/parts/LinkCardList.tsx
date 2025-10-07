@@ -14,11 +14,11 @@ function guideToLinkCardConfig(
         external: false,
         title: g.title,
         description: g.description || '',
-        iconUrl: cardType === 'withIcon' ? g.iconUrl || null : null,
+        icon: cardType === 'withIcon' ? g.icon || null : null,
         iconColor: cardType === 'withIcon' ? g.iconColor || null : null,
         brand: brand ?? '',
         categories: g.categories || [],
-        imageUrl: cardType === 'withImage' ? g.imageUrl || null : null,
+        image: cardType === 'withImage' ? g.image || null : null,
     }
 }
 
@@ -27,25 +27,23 @@ export function LinkCardList({ part }: PartData<Part_Idebanken_Link_Card_List>) 
     const spanClass = displayType === 'withImage' ? 'md:col-span-4' : 'md:col-span-6'
 
     return (
-        <>
-            <section className="relative z-20">
-                <LinkHeading
-                    show={Boolean(heading)}
-                    title={heading?.title}
-                    href={heading?.href}
-                    customClassName="mb-12"
-                />
-                <HGrid
-                    columns={{ xs: 1, md: 12 }}
-                    gap={{ xs: 'space-16', lg: 'space-20', xl: 'space-24' }}
-                    className="items-start">
-                    {list.map((g) => (
-                        <div key={g.url} className={`col-span-1 ${spanClass}`}>
-                            {LinkCardView(guideToLinkCardConfig(g, displayType, brand))}
-                        </div>
-                    ))}
-                </HGrid>
-            </section>
-        </>
+        <section className="relative z-20">
+            <LinkHeading
+                show={Boolean(heading)}
+                title={heading?.title}
+                href={heading?.href}
+                customClassName="mb-12"
+            />
+            <HGrid
+                columns={{ xs: 1, md: 12 }}
+                gap={{ xs: 'space-16', lg: 'space-20', xl: 'space-24' }}
+                className="items-start">
+                {list.map((g) => (
+                    <div key={g.url} className={`col-span-1 ${spanClass}`}>
+                        {LinkCardView(guideToLinkCardConfig(g, displayType, brand))}
+                    </div>
+                ))}
+            </HGrid>
+        </section>
     )
 }

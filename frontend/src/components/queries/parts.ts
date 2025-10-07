@@ -51,11 +51,15 @@ image {
 }
 `
 
-export const imageAndVectorQuery = `{${imageAndVectorFields}}`
-
 export const linkCardQuery = `{
-    ${linkQuery.slice(1, -1)}
-    ${imageAndVectorQuery.slice(1, -1)}
+    url
+    brand
+    text
+    description
+    iconColor
+    categories {
+        name
+    }
 }`
 
 export const tableOfContentsQuery = `{
@@ -81,14 +85,21 @@ export const linkCardListQuery = `{
         url
         title
         description
-        imageUrl
-        iconName
+        image {
+            url
+            caption
+        }
+        icon {
+            url
+            caption
+        }
         iconColor
         categories {
             name
             id
             iconUrl
             iconColor
+            caption
         }
     }
 }`

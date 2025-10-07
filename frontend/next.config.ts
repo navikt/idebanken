@@ -23,6 +23,20 @@ const config = {
     trailingSlash: false,
     transpilePackages: ['@enonic/nextjs-adapter'],
     webpack: getEnonicWebpackConfig,
+    images: {
+        remotePatterns: [
+            ...[
+                process.env.ENV === 'local'
+                    ? {
+                          protocol: 'http',
+                          hostname: 'localhost',
+                          port: '8080',
+                          pathname: '/**',
+                      }
+                    : {},
+            ],
+        ],
+    },
     experimental: {
         optimizePackageImports: ['@navikt/ds-react', '@navikt/aksel-icons'],
     },
