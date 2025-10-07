@@ -800,7 +800,7 @@ export type Macro_Idebanken_Highlighted_Box_DataConfig = {
   __typename?: 'Macro_idebanken_highlighted_box_DataConfig';
   body?: Maybe<Scalars['String']['output']>;
   brand?: Maybe<Scalars['String']['output']>;
-  icon?: Maybe<Content>;
+  icon?: Maybe<ResolvedMedia>;
   links?: Maybe<Array<Maybe<Content>>>;
   linksAbsolute?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   title?: Maybe<Scalars['String']['output']>;

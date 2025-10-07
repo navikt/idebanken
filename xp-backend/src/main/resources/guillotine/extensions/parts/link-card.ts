@@ -1,10 +1,10 @@
 import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
-import { EmptyRecord, Source } from '../common-guillotine-types'
+import { EmptyRecord, Source } from '../../common-guillotine-types'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { LinkCard } from '@xp-types/site/parts'
 import { getOrNull, resolveMedia } from '/lib/utils/helpers'
-import { resolveCategories } from './category'
+import { resolveCategories } from '../category'
 import { get } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 
