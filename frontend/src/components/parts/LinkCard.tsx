@@ -10,60 +10,65 @@ import {
     LinkCardImage,
     LinkCardTitle,
 } from '@navikt/ds-react/LinkCard'
-import { validatedLinkCardConfig } from '~/utils/runtimeValidation'
 import React from 'react'
-import { iconMap } from '~/utils/iconMap'
+import Image from 'next/image'
+import { MetaData } from '@enonic/nextjs-adapter'
 
 export interface LinkCardData {
     part: { descriptor: string; config: Part_Idebanken_Link_Card }
+    meta: MetaData
 }
 
-export const LinkCardPartView = (props: LinkCardData) => {
-    const { part } = props
-    const card = validatedLinkCardConfig(part.config)
+export const LinkCardPartView = ({ part, meta }: LinkCardData) => {
+    const { config } = part
 
-    if (!card) return null
-
-    return LinkCardView(card)
+    return LinkCardView({
+        ...config,
+        title: config.text ?? '',
+        url: config.url ?? '',
+        brand: config.brand ?? 'neutral',
+        meta,
+    })
 }
 
-export type LinkCardViewParams = Omit<Link_Card_List_Item, 'description'> & {
+export type LinkCardViewParams = Omit<Link_Card_List_Item, 'description' | '__typename'> & {
     description?: string | React.ReactNode
-    altText?: string
     external?: boolean
     brand?: string
+    meta?: MetaData
 }
 
 export const LinkCardView = (card: LinkCardViewParams) => {
-    const {
-        title,
-        description,
-        url,
-        categories,
-        imageUrl,
-        altText,
-        iconColor,
-        iconName,
-        external,
-        brand,
-    } = card
-    const Icon = iconMap[iconName as keyof typeof iconMap] || null
+    const { title, description, url, categories, image, iconColor, icon, external, brand, meta } =
+        card
 
     return (
         <LinkCard data-color={brand} className="h-full">
-            {imageUrl && (
+            {image?.url && (
                 <LinkCardImage aspectRatio="16/8">
-                    <img src={imageUrl} alt={altText || 'Illustrasjonsbilde'} width="700" />
+                    <Image
+                        unoptimized={meta?.renderMode !== 'next'}
+                        src={image.url}
+                        alt={image.altText ?? image.caption ?? 'Illustrasjonsbilde'}
+                        width={500}
+                        height={250}
+                    />
                 </LinkCardImage>
             )}
-            {Icon && (
+            {icon?.url && (
                 <Box
                     asChild
                     padding="space-8"
                     borderRadius="12"
                     style={iconColor ? { backgroundColor: `var(--${iconColor})` } : undefined}>
                     <LinkCardIcon>
-                        <Icon fontSize="2.5rem" />
+                        <Image
+                            unoptimized={meta?.renderMode !== 'next'}
+                            src={icon.url}
+                            alt={icon.caption ?? 'Ikon'}
+                            width={40}
+                            height={40}
+                        />
                     </LinkCardIcon>
                 </Box>
             )}

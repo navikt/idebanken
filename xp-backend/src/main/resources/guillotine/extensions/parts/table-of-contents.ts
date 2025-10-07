@@ -5,7 +5,7 @@ import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalC
 import { logger } from '/lib/utils/logging'
 import { TableOfContents, TableOfContentsSection } from '@xp-types/site/parts'
 import { getFieldByDescriptor } from '/lib/utils/object-utils'
-import { Source } from '../common-guillotine-types'
+import { Source } from '../../common-guillotine-types'
 
 export const tableOfContentsExtensions = ({
     list,

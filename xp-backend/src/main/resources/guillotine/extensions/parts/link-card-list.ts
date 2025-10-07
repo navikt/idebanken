@@ -1,20 +1,20 @@
 import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
-import { EmptyRecord, Source } from '../common-guillotine-types'
+import { EmptyRecord, Source } from '../../common-guillotine-types'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { LinkCardList } from '@xp-types/site/parts'
 import { Content, get, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
-import { imageUrl } from '/lib/xp/portal'
-import { resolveCategories, ResolvedCategory } from './category'
+import { resolveCategories, ResolvedCategory } from '../category'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
+import { ResolvedMedia, resolveMedia } from '/lib/utils/helpers'
 
 type LinkCardListItem = {
     url: string
     title: string
     description?: string
-    imageUrl?: string
-    iconName?: string
+    image?: ResolvedMedia
+    icon?: ResolvedMedia
     iconColor?: string
     categories: Array<ResolvedCategory>
 }
@@ -94,11 +94,11 @@ export const linkCardListExtensions = ({
                 description: {
                     type: GraphQLString,
                 },
-                imageUrl: {
-                    type: GraphQLString,
+                image: {
+                    type: reference('ResolvedMedia'),
                 },
-                iconName: {
-                    type: GraphQLString,
+                icon: {
+                    type: reference('ResolvedMedia'),
                 },
                 iconColor: {
                     type: GraphQLString,
@@ -127,7 +127,7 @@ export const linkCardListExtensions = ({
 function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardListItem> {
     return contents.map((item) => {
         const ibxData = item.x.idebanken
-        const { image, iconName, iconColor } = ibxData?.meta ?? {}
+        const { image, icon, iconColor } = ibxData?.meta ?? {}
         const { shortTitle, title, description, displayName } =
             (item.data as Record<string, string>) ?? {}
 
@@ -137,10 +137,8 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardListItem>
             url: enonicSitePathToHref(item._path),
             title: shortTitle ?? title ?? displayName ?? 'Ingen tittel',
             description,
-            imageUrl: image
-                ? imageUrl({ id: image, type: 'absolute', scale: 'width(500)' })
-                : undefined,
-            iconName,
+            image: resolveMedia({ id: image, type: 'absolute', scale: 'width(500)' }),
+            icon: resolveMedia({ id: icon, type: 'absolute', scale: 'full' }),
             iconColor,
             categories,
         }

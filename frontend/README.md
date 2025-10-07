@@ -10,8 +10,6 @@ Dette er frontend applikasjonen satt opp i Next.js for den fremtidige nye nettsi
 
 ```bash
 echo """
-MODE=development
-NEXT_PUBLIC_MODE=development
 ENV=local
 ENONIC_DOMAIN=localhost:8080
 ENONIC_API=http://\${ENONIC_DOMAIN}/site/

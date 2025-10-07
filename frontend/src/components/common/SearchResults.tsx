@@ -48,7 +48,7 @@ export default function SearchResults(
                         }
                         categories={getResultCategories(result, common)}
                         brand={'neutral'}
-                        iconName={result.iconName}
+                        icon={{ url: result.iconUrl }}
                         iconColor={result.iconColor}
                         key={index}
                     />

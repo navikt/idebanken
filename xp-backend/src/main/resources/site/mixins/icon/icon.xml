@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>
+        <input type="MediaSelector" name="icon">
+            <label>Ikon</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <allowContentType>media:(vector|image)</allowContentType>
+                <allowPath>${site}/ressurser/ikoner/*</allowPath>
+            </config>
+        </input>
+    </form>
+</mixin>

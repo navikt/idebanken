@@ -51,11 +51,15 @@ image {
 }
 `
 
-export const imageAndVectorQuery = `{${imageAndVectorFields}}`
-
 export const linkCardQuery = `{
-    ${linkQuery.slice(1, -1)}
-    ${imageAndVectorQuery.slice(1, -1)}
+    url
+    brand
+    text
+    description
+    iconColor
+    categories {
+        name
+    }
 }`
 
 export const tableOfContentsQuery = `{
@@ -81,14 +85,21 @@ export const linkCardListQuery = `{
         url
         title
         description
-        imageUrl
-        iconName
+        image {
+            url
+            caption
+        }
+        icon {
+            url
+            caption
+        }
         iconColor
         categories {
             name
             id
-            iconName
+            iconUrl
             iconColor
+            caption
         }
     }
 }`
@@ -96,12 +107,9 @@ export const linkCardListQuery = `{
 export const highlightedBoxMacroQuery = `{
     title
     icon {
-        ... on media_Image {
-            url: imageUrl(type: absolute, scale: "block(30,30)")
-        }
-        ... on media_Vector {
-            url: mediaUrl(type: absolute)
-        }
+        url
+        caption
+        altText
     }
     brand
     links {
