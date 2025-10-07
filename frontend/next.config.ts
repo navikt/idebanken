@@ -25,15 +25,15 @@ const config = {
     webpack: getEnonicWebpackConfig,
     images: {
         remotePatterns: [
-            ...[
-                process.env.ENV === 'local'
-                    ? {
+            ...(process.env.ENV === 'local'
+                ? [
+                      {
                           protocol: 'http',
                           hostname: 'localhost',
                           port: '8080',
-                      }
-                    : {},
-            ],
+                      },
+                  ]
+                : []),
         ],
     },
     experimental: {
