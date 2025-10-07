@@ -1,4 +1,4 @@
-import { imageUrl, ImageUrlParams } from '/lib/xp/portal'
+import { imageUrl, ImageUrlParams, XOR } from '/lib/xp/portal'
 import { Content, get } from '/lib/xp/content'
 import { MediaImageContent } from '@enonic-types/guillotine'
 
@@ -8,12 +8,15 @@ export type ResolvedMedia = {
     altText?: string
 }
 
-export function resolveMedia(media?: Omit<ImageUrlParams, 'id'> & { id?: string }): ResolvedMedia {
-    if (!media?.id) return {}
-    const mediaData = getOrNull<MediaImageContent>(media.id)?.data
+export function resolveMedia(
+    media?: Omit<ImageUrlParams, 'id' | 'path'> & XOR<{ id?: string }, { path?: string }>
+): ResolvedMedia {
+    if (!media?.id && !media?.path) return {}
+
+    const mediaData = getOrNull<MediaImageContent>(media.id || media.path)?.data
 
     return {
-        url: imageUrl({ id: media.id, type: 'absolute', scale: 'full' }),
+        url: imageUrl(media as ImageUrlParams),
         caption: mediaData?.caption,
         altText: mediaData?.altText ?? mediaData?.caption,
     }

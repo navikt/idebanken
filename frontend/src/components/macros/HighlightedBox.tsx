@@ -24,8 +24,11 @@ const brandColor: Record<string, Record<string, string>> = {
 }
 
 // TODO replace with upcoming Aksel part and create brands
-export function HighlightedBox(args: Macro<Macro_Idebanken_Highlighted_Box_DataConfig>) {
-    const { config, children } = args
+export function HighlightedBox({
+    config,
+    children,
+    meta,
+}: Macro<Macro_Idebanken_Highlighted_Box_DataConfig>) {
     const brand = brandColor[config.brand ?? 'blue']
     const title = config.title ?? ''
 
@@ -34,6 +37,7 @@ export function HighlightedBox(args: Macro<Macro_Idebanken_Highlighted_Box_DataC
             <HStack className={`${brand.title} rounded-t-lg px-5 py-3 items-center`} gap={'2'}>
                 {config.icon?.url && (
                     <Image
+                        unoptimized={meta?.renderMode !== 'next'}
                         src={config.icon.url}
                         alt={
                             config.icon.altText ?? config.icon.caption ?? 'Ikon for fremhevet boks'

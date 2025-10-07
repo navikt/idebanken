@@ -12,13 +12,14 @@ import {
 } from '@navikt/ds-react/LinkCard'
 import React from 'react'
 import Image from 'next/image'
+import { MetaData } from '@enonic/nextjs-adapter'
 
 export interface LinkCardData {
     part: { descriptor: string; config: Part_Idebanken_Link_Card }
+    meta: MetaData
 }
 
-export const LinkCardPartView = (props: LinkCardData) => {
-    const { part } = props
+export const LinkCardPartView = ({ part, meta }: LinkCardData) => {
     const { config } = part
 
     return LinkCardView({
@@ -26,6 +27,7 @@ export const LinkCardPartView = (props: LinkCardData) => {
         title: config.text ?? '',
         url: config.url ?? '',
         brand: config.brand ?? 'neutral',
+        meta,
     })
 }
 
@@ -33,16 +35,19 @@ export type LinkCardViewParams = Omit<Link_Card_List_Item, 'description' | '__ty
     description?: string | React.ReactNode
     external?: boolean
     brand?: string
+    meta?: MetaData
 }
 
 export const LinkCardView = (card: LinkCardViewParams) => {
-    const { title, description, url, categories, image, iconColor, icon, external, brand } = card
+    const { title, description, url, categories, image, iconColor, icon, external, brand, meta } =
+        card
 
     return (
         <LinkCard data-color={brand} className="h-full">
             {image?.url && (
                 <LinkCardImage aspectRatio="16/8">
                     <Image
+                        unoptimized={meta?.renderMode !== 'next'}
                         src={image.url}
                         alt={image.altText ?? image.caption ?? 'Illustrasjonsbilde'}
                         width={500}
@@ -57,7 +62,13 @@ export const LinkCardView = (card: LinkCardViewParams) => {
                     borderRadius="12"
                     style={iconColor ? { backgroundColor: `var(--${iconColor})` } : undefined}>
                     <LinkCardIcon>
-                        <Image src={icon.url} alt={icon.caption ?? 'Ikon'} width={40} height={40} />
+                        <Image
+                            unoptimized={meta?.renderMode !== 'next'}
+                            src={icon.url}
+                            alt={icon.caption ?? 'Ikon'}
+                            width={40}
+                            height={40}
+                        />
                     </LinkCardIcon>
                 </Box>
             )}

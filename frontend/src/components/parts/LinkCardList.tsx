@@ -3,11 +3,13 @@ import { Link_Card_List_Item, Maybe, Part_Idebanken_Link_Card_List } from '~/typ
 import { LinkHeading } from '~/components/parts/LinkHeading'
 import { HGrid } from '@navikt/ds-react'
 import { LinkCardView, LinkCardViewParams } from '~/components/parts/LinkCard'
+import { MetaData } from '@enonic/nextjs-adapter'
 
 function guideToLinkCardConfig(
     g: Link_Card_List_Item,
     cardType: string | undefined | null,
-    brand: Maybe<string> | undefined
+    brand: Maybe<string> | undefined,
+    meta: MetaData
 ): LinkCardViewParams {
     return {
         url: g.url,
@@ -19,10 +21,11 @@ function guideToLinkCardConfig(
         brand: brand ?? '',
         categories: g.categories || [],
         image: cardType === 'withImage' ? g.image || null : null,
+        meta,
     }
 }
 
-export function LinkCardList({ part }: PartData<Part_Idebanken_Link_Card_List>) {
+export function LinkCardList({ part, meta }: PartData<Part_Idebanken_Link_Card_List>) {
     const { list, displayType, heading, brand } = part.config
     const spanClass = displayType === 'withImage' ? 'md:col-span-4' : 'md:col-span-6'
 
@@ -40,7 +43,7 @@ export function LinkCardList({ part }: PartData<Part_Idebanken_Link_Card_List>) 
                 className="items-start">
                 {list.map((g) => (
                     <div key={g.url} className={`col-span-1 ${spanClass}`}>
-                        {LinkCardView(guideToLinkCardConfig(g, displayType, brand))}
+                        {LinkCardView(guideToLinkCardConfig(g, displayType, brand, meta))}
                     </div>
                 ))}
             </HGrid>
