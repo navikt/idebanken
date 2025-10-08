@@ -1,7 +1,6 @@
 import { imageUrl, ImageUrlParams, XOR } from '/lib/xp/portal'
 import { Content, get } from '/lib/xp/content'
 import { MediaImageContent } from '@enonic-types/guillotine'
-import { logger } from '/lib/utils/logging'
 
 export type ResolvedMedia = {
     url?: string
@@ -24,7 +23,6 @@ export function resolveImage(mediaUrlParams?: MediaUrlParams): ResolvedMedia {
         | string
         | undefined
 
-    logger.info('resolveImage' + JSON.stringify({ ibX: content?.x, seoImage }, null, 2))
     if (isMedia(content)) {
         const mediaData = content?.data
         return {

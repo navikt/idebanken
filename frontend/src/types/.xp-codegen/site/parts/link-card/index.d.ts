@@ -6,6 +6,11 @@ export type XP_LinkCard = {
   brand: 'neutral' | 'ib-brand-pink' | 'ib-brand-dark-blue';
 
   /**
+   * Visning
+   */
+  displayType: 'withIcon' | 'withImage';
+
+  /**
    * Lenke-type
    */
   internalOrExternalLink:
@@ -23,6 +28,11 @@ export type XP_LinkCard = {
            * Select content
            */
           contentId: string;
+
+          /**
+           * Overskriv lenketekst
+           */
+          linkText?: string;
         };
       }
     | {

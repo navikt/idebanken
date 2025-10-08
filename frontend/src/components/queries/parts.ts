@@ -52,13 +52,29 @@ image {
 `
 
 export const linkCardQuery = `{
-    url
     brand
-    text
-    description
-    iconColor
-    categories {
-        name
+    displayType
+    resolvedLinkCard {
+        url
+        external
+        title
+        description
+        image {
+            url
+            caption
+        }
+        icon {
+            url
+            caption
+        }
+        iconColor
+        categories {
+            name
+            id
+            iconUrl
+            iconColor
+            caption
+        }
     }
 }`
 
@@ -83,6 +99,7 @@ export const linkCardListQuery = `{
     }
     list {
         url
+        external
         title
         description
         image {

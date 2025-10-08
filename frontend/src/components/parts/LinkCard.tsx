@@ -1,5 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-import type { Link_Card_List_Item, Part_Idebanken_Link_Card } from '~/types/generated.d'
+import type { Link_Card, Part_Idebanken_Link_Card } from '~/types/generated.d'
 import { Box, Tag } from '@navikt/ds-react'
 import {
     LinkCard,
@@ -13,38 +12,45 @@ import {
 import React from 'react'
 import Image from 'next/image'
 import { MetaData } from '@enonic/nextjs-adapter'
+import { PartData } from '~/types/graphql-types'
 
-export interface LinkCardData {
-    part: { descriptor: string; config: Part_Idebanken_Link_Card }
-    meta: MetaData
-}
-
-export const LinkCardPartView = ({ part, meta }: LinkCardData) => {
+export const LinkCardPartView = ({ part, meta }: PartData<Part_Idebanken_Link_Card>) => {
     const { config } = part
+    const { resolvedLinkCard, displayType, brand } = config
 
     return LinkCardView({
-        ...config,
-        title: config.text ?? '',
-        url: config.url ?? '',
-        brand: config.brand ?? 'neutral',
+        ...resolvedLinkCard,
+        brand,
+        displayType,
         meta,
     })
 }
 
-export type LinkCardViewParams = Omit<Link_Card_List_Item, 'description' | '__typename'> & {
+export type LinkCardViewParams = Omit<Link_Card, 'description' | '__typename'> & {
     description?: string | React.ReactNode
-    external?: boolean
-    brand?: string
+    brand?: string | null
+    displayType?: 'withImage' | 'withIcon' | string | null
     meta?: MetaData
 }
 
-export const LinkCardView = (card: LinkCardViewParams) => {
-    const { title, description, url, categories, image, iconColor, icon, external, brand, meta } =
-        card
+export const LinkCardView = ({
+    title,
+    description,
+    url,
+    categories,
+    image,
+    iconColor,
+    icon,
+    external,
+    brand,
+    displayType,
+    meta,
+}: LinkCardViewParams) => {
+    const isIcon = displayType !== 'withImage'
 
     return (
-        <LinkCard data-color={brand} className="h-full">
-            {image?.url && (
+        <LinkCard data-color={brand ?? 'neutral'} className="h-full">
+            {!isIcon && image?.url && (
                 <LinkCardImage aspectRatio="16/8">
                     <Image
                         unoptimized={meta?.renderMode !== 'next'}
@@ -55,7 +61,7 @@ export const LinkCardView = (card: LinkCardViewParams) => {
                     />
                 </LinkCardImage>
             )}
-            {icon?.url && (
+            {isIcon && icon?.url && (
                 <Box
                     asChild
                     padding="space-8"
