@@ -7,7 +7,7 @@ import { Content, get, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
 import { resolveCategories, ResolvedCategory } from '../category'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
-import { ResolvedMedia, resolveMedia } from '/lib/utils/helpers'
+import { ResolvedMedia, resolveIcon, resolveImage } from '/lib/utils/helpers'
 
 export type LinkCardItem = {
     url: string
@@ -132,7 +132,7 @@ export const linkCardListExtensions = ({
 function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
     return contents.map((item) => {
         const ibxData = item.x.idebanken
-        const { image, icon, iconColor } = ibxData?.meta ?? {}
+        const { icon, iconColor } = ibxData?.meta ?? {}
         const { shortTitle, title, description, displayName } =
             (item.data as Record<string, string>) ?? {}
 
@@ -143,8 +143,8 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
             external: false,
             title: shortTitle || title || displayName || '[Mangler tittel]',
             description,
-            image: resolveMedia({ id: image, type: 'absolute', scale: 'width(500)' }),
-            icon: resolveMedia({ id: icon, type: 'absolute', scale: 'full' }),
+            image: resolveImage({ id: item._id, type: 'absolute', scale: 'width(500)' }),
+            icon: resolveIcon({ id: icon, type: 'absolute', scale: 'full' }),
             iconColor,
             categories,
         }

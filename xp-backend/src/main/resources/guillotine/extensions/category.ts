@@ -6,7 +6,7 @@ import { Category as XDataCategory } from '@xp-types/site/x-data'
 import { Content, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
 import { Category } from '@xp-types/site/content-types'
-import { resolveMedia } from '/lib/utils/helpers'
+import { resolveIcon } from '/lib/utils/helpers'
 
 export type ResolvedCategory = {
     id: string
@@ -102,7 +102,7 @@ export function mapCategoryContentToResolved(
     return forceArray(categoryContents)
         .filter((it) => it?.data?.title && it._id)
         .map((hit) => {
-            const icon = resolveMedia({
+            const icon = resolveIcon({
                 id: hit.x?.idebanken?.meta?.icon,
                 type: 'absolute',
                 scale: 'full',

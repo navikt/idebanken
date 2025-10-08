@@ -3,7 +3,7 @@ import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/ex
 import { EmptyRecord, Source } from '../../common-guillotine-types'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { LinkCard } from '@xp-types/site/parts'
-import { getOrNull, resolveMedia } from '/lib/utils/helpers'
+import { getOrNull, resolveIcon, resolveImage } from '/lib/utils/helpers'
 import { resolveCategories } from '../category'
 import { Content } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
@@ -22,9 +22,9 @@ export const linkCardExtensions = ({
 }: GraphQL): Extensions => ({
     resolvers: {
         Part_idebanken_link_card: {
-            resolvedLink: (
+            resolvedLinkCard: (
                 env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<LinkCard>>
-            ) => {
+            ): LinkCardItem => {
                 const linkTypeSelector = env.source.internalOrExternalLink
 
                 if (linkTypeSelector._selected === 'internalLink') {
@@ -88,16 +88,14 @@ function resolveInternalLink(internalLink: InternalLink): LinkCardItem {
             '[Mangler tittel]',
         description: content?.data?.description,
         categories,
-        icon: resolveMedia({
-            id: categories?.[0]?.id,
+        icon: resolveIcon({
+            id: content?._id,
             type: 'absolute',
             scale: 'full',
         }),
         iconColor: categories?.[0]?.iconColor,
-        image: resolveMedia({
-            id: content?.x?.['com-enonic-app-metafields']?.['meta-data']?.seoImage as
-                | string
-                | undefined,
+        image: resolveImage({
+            id: content?._id,
             type: 'absolute',
             scale: 'height(800)',
         }),
@@ -111,12 +109,12 @@ function resolveExternalLink(externalLink: ExternalLink): LinkCardItem {
         title: externalLink.linkText || '[Mangler tittel]',
         description: externalLink.description,
         categories: [],
-        icon: resolveMedia({
+        icon: resolveIcon({
             id: externalLink.icon,
             type: 'absolute',
             scale: 'full',
         }),
-        image: resolveMedia({
+        image: resolveImage({
             id: externalLink.image,
             type: 'absolute',
             scale: 'height(800)',

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mixin xmlns="urn:enonic:xp:model:1.0">
-    <form>    
+    <form>
         <input name="iconColor" type="ComboBox">
-            <label>Ikonens bakgrunnsfarge</label>
+            <label>Ikonets bakgrunnsfarge</label>
             <occurrences minimum="0" maximum="1"/>
             <config>
                 <option value="bg-white">Hvit</option>

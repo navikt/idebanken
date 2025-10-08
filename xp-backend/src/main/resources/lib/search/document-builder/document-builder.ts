@@ -8,7 +8,7 @@ import { getSearchDocumentTextSegments } from './field-resolvers/text'
 import { buildSearchDocumentIngress } from './field-resolvers/ingress'
 import { SiteConfig } from '@xp-types/site'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
-import { resolveMedia } from '/lib/utils/helpers'
+import { resolveIcon } from '/lib/utils/helpers'
 
 export type SearchConfig = SiteConfig['searchConfig']
 type KeysConfig = Partial<SearchConfig['defaultKeys']>
@@ -83,8 +83,7 @@ class ExternalSearchDocumentBuilder {
                 type: content.type?.split(':').pop() ?? content.type,
                 metatags: forceArray(content.data.metatags),
                 keywords: forceArray(content.data.keywords),
-                iconUrl: resolveMedia({ id: ibX?.meta?.icon, type: 'absolute', scale: 'full' })
-                    ?.url,
+                iconUrl: resolveIcon({ id: ibX?.meta?.icon, type: 'absolute', scale: 'full' })?.url,
                 iconColor: ibX?.meta?.iconColor,
                 categories: forceArray(ibX?.category?.categories),
             },
