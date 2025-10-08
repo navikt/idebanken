@@ -66,8 +66,8 @@ export const linkCardQuery = `{
         icon {
             url
             caption
+            iconColor
         }
-        iconColor
         categories {
             name
             id
@@ -109,8 +109,8 @@ export const linkCardListQuery = `{
         icon {
             url
             caption
+            iconColor
         }
-        iconColor
         categories {
             name
             id

@@ -765,7 +765,6 @@ export type Link_Card = {
   description?: Maybe<Scalars['String']['output']>;
   external: Scalars['Boolean']['output'];
   icon?: Maybe<ResolvedMedia>;
-  iconColor?: Maybe<Scalars['String']['output']>;
   image?: Maybe<ResolvedMedia>;
   title: Scalars['String']['output'];
   url: Scalars['String']['output'];
@@ -1467,6 +1466,7 @@ export type ResolvedMedia = {
   __typename?: 'ResolvedMedia';
   altText?: Maybe<Scalars['String']['output']>;
   caption?: Maybe<Scalars['String']['output']>;
+  iconColor?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
 };
 

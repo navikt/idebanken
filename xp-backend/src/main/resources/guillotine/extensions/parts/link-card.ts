@@ -3,12 +3,13 @@ import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/ex
 import { EmptyRecord, Source } from '../../common-guillotine-types'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { LinkCard } from '@xp-types/site/parts'
-import { getOrNull, resolveIcon, resolveImage } from '/lib/utils/helpers'
+import { getOrNull } from '/lib/utils/helpers'
 import { resolveCategories } from '../category'
 import { Content } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { TitleIngress } from '@xp-types/site/mixins'
 import { LinkCardItem } from './link-card-list'
+import { resolveIcon, resolveImage } from '/lib/utils/media'
 
 export const linkCardExtensions = ({
     list,
@@ -58,6 +59,9 @@ export const linkCardExtensions = ({
                 altText: {
                     type: GraphQLString,
                 },
+                iconColor: {
+                    type: GraphQLString,
+                },
             },
             interfaces: [],
         },
@@ -88,17 +92,8 @@ function resolveInternalLink(internalLink: InternalLink): LinkCardItem {
             '[Mangler tittel]',
         description: content?.data?.description,
         categories,
-        icon: resolveIcon({
-            id: content?._id,
-            type: 'absolute',
-            scale: 'full',
-        }),
-        iconColor: categories?.[0]?.iconColor,
-        image: resolveImage({
-            id: content?._id,
-            type: 'absolute',
-            scale: 'height(800)',
-        }),
+        icon: resolveIcon(content),
+        image: resolveImage(content, 'height(800)'),
     }
 }
 
@@ -109,16 +104,7 @@ function resolveExternalLink(externalLink: ExternalLink): LinkCardItem {
         title: externalLink.linkText || '[Mangler tittel]',
         description: externalLink.description,
         categories: [],
-        icon: resolveIcon({
-            id: externalLink.icon,
-            type: 'absolute',
-            scale: 'full',
-        }),
-        image: resolveImage({
-            id: externalLink.image,
-            type: 'absolute',
-            scale: 'height(800)',
-        }),
-        iconColor: externalLink.iconColor,
+        icon: resolveIcon(externalLink.icon, false, externalLink.iconColor),
+        image: resolveImage(externalLink.image, 'height(800)'),
     }
 }

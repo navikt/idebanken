@@ -39,7 +39,6 @@ export const LinkCardView = ({
     url,
     categories,
     image,
-    iconColor,
     icon,
     external,
     brand,
@@ -66,7 +65,11 @@ export const LinkCardView = ({
                     asChild
                     padding="space-8"
                     borderRadius="12"
-                    style={iconColor ? { backgroundColor: `var(--${iconColor})` } : undefined}>
+                    style={
+                        icon?.iconColor
+                            ? { backgroundColor: `var(--${icon?.iconColor})` }
+                            : undefined
+                    }>
                     <LinkCardIcon>
                         <Image
                             unoptimized={meta?.renderMode !== 'next'}

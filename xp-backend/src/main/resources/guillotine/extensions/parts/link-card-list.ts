@@ -7,7 +7,7 @@ import { Content, get, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
 import { resolveCategories, ResolvedCategory } from '../category'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
-import { ResolvedMedia, resolveIcon, resolveImage } from '/lib/utils/helpers'
+import { ResolvedMedia, resolveIcon, resolveImage } from '/lib/utils/media'
 
 export type LinkCardItem = {
     url: string
@@ -16,7 +16,6 @@ export type LinkCardItem = {
     description?: string
     image?: ResolvedMedia
     icon?: ResolvedMedia
-    iconColor?: string
     categories: Array<ResolvedCategory>
 }
 
@@ -105,9 +104,6 @@ export const linkCardListExtensions = ({
                 icon: {
                     type: reference('ResolvedMedia'),
                 },
-                iconColor: {
-                    type: GraphQLString,
-                },
                 categories: {
                     type: nonNull(list(nonNull(reference('Category')))),
                 },
@@ -132,7 +128,6 @@ export const linkCardListExtensions = ({
 function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
     return contents.map((item) => {
         const ibxData = item.x.idebanken
-        const { icon, iconColor } = ibxData?.meta ?? {}
         const { shortTitle, title, description, displayName } =
             (item.data as Record<string, string>) ?? {}
 
@@ -143,9 +138,8 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
             external: false,
             title: shortTitle || title || displayName || '[Mangler tittel]',
             description,
-            image: resolveImage({ id: item._id, type: 'absolute', scale: 'width(500)' }),
-            icon: resolveIcon({ id: icon, type: 'absolute', scale: 'full' }),
-            iconColor,
+            image: resolveImage(item, 'width(500)'),
+            icon: resolveIcon(item),
             categories,
         }
     })
@@ -153,7 +147,7 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
 
 const getManualList = (
     manual: Extract<LinkCardList['list'], { _selected: 'manual' }>['manual']
-): Array<unknown> => {
+): Array<LinkCardItem> => {
     if (!manual.contents) {
         return []
     }
@@ -172,7 +166,7 @@ const getManualList = (
 
 const getAutomaticList = (
     automatic: Extract<LinkCardList['list'], { _selected: 'automatic' }>['automatic']
-): Array<unknown> => {
+): Array<LinkCardItem> => {
     const contentTypes = forceArray(automatic.contentTypes)
 
     let parentContentPath
