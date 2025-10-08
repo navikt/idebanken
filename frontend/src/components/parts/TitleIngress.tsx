@@ -5,7 +5,7 @@ import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { PartData } from '~/types/graphql-types'
 import { HeadingView } from '~/components/parts/Heading'
 import BleedingBackgroundPageBlock from '../layouts/BleedingBackgroundPageBlock'
-import { HStack } from '@navikt/ds-react'
+import { HStack, Tag, VStack } from '@navikt/ds-react'
 
 type PageData = {
     ingress: string
@@ -21,34 +21,34 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
     const data = common?.get?.dataAsJson
     const title = data?.title || '[Mangler tittel på innholdet]'
     const config = part.config
+    const type = common?.get?.type || ''
+    const typeLabel = (type.split(':').pop() ?? '').toUpperCase()
 
     const titleImage = config.image
     let titleImageSrc: string | undefined
-    let titleImageAlt = 'Illustrasjonsbilde'
     if (titleImage) {
         if ('imageUrl' in titleImage) {
             titleImageSrc = titleImage.imageUrl ?? undefined
-            titleImageAlt = titleImage.data?.altText ?? titleImageAlt
         } else if ('mediaUrl' in titleImage) {
             titleImageSrc = titleImage.mediaUrl ?? undefined
-            titleImageAlt = titleImage.data?.caption ?? 'Illustrasjon'
         }
     }
 
     if (config.bgColor) {
         return (
-            <div className="md:mx-[calc(-2*var(--ax-space-128))]">
+            <div className="lg:mx-[calc(-2*var(--ax-space-96))]">
                 <BleedingBackgroundPageBlock
                     bgColor={config.bgColor}
-                    marginInline={{ xs: 'space-4', md: 'space-0' }} // keep xs token, disable md+
+                    marginInline={{ sm: 'space-4', md: 'space-48' }}
                     bleedClassName="rounded-[100px] overflow-hidden">
                     <HStack align="center" gap="space-24" className="py-6">
                         {titleImageSrc ? (
                             <div className="hidden lg:block -ml-48 shrink-0">
                                 <img
                                     aria-hidden="true"
+                                    alt=""
+                                    role="presentation"
                                     src={titleImageSrc}
-                                    alt={titleImageAlt}
                                     className={[
                                         'block h-auto w-40 filter',
                                         /\.svg(\?.*)?$/i.test(titleImageSrc)
@@ -58,9 +58,14 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                                 />
                             </div>
                         ) : null}
-                        <HeadingView level="1" size="xlarge" className="m-0">
-                            {title}
-                        </HeadingView>
+                        <VStack gap="space-8" align="start">
+                            <Tag variant="info-filled" size="small" className="rounded-3xl">
+                                {typeLabel}
+                            </Tag>
+                            <HeadingView level="1" size="xlarge" className="m-0">
+                                {title}
+                            </HeadingView>
+                        </VStack>
                     </HStack>
                 </BleedingBackgroundPageBlock>
             </div>
