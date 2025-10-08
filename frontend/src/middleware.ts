@@ -59,11 +59,11 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: ${enonicDomain};
     font-src 'self' cdn.nav.no;
-    object-src 'none';
+    object-src 'self' ${enonicDomain};
     base-uri 'self';
     form-action 'self';
     frame-ancestors ${enonicDomain};
-    frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com/;
+    frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com/ ${enonicDomain};
     upgrade-insecure-requests;
 `
         // Replace newline characters and spaces
