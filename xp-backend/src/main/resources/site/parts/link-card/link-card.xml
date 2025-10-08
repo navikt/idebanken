@@ -3,6 +3,17 @@
     <display-name>Lenkekort</display-name>
     <form>
         <mixin name="brand-color" />
+
+        <input name="displayType" type="RadioButton">
+            <label>Visning</label>
+            <occurrences minimum="1" maximum="1"/>
+            <config>
+                <option value="withIcon">Med ikon</option>
+                <option value="withImage">Med bilde</option>
+            </config>
+            <default>withIcon</default>
+        </input>
+
         <option-set name="internalOrExternalLink">
             <label>Lenke-type</label>
             <occurrences minimum="1" maximum="1"/>
@@ -18,6 +29,9 @@
                             <config>
                                 <allowContentType>^idebanken:(?!category)*</allowContentType>
                             </config>
+                        </input>
+                        <input type="TextLine" name="linkText">
+                            <label>Overskriv lenketekst</label>
                         </input>
                     </items>
                 </option>

@@ -9,8 +9,9 @@ import { resolveCategories, ResolvedCategory } from '../category'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveMedia } from '/lib/utils/helpers'
 
-type LinkCardListItem = {
+export type LinkCardItem = {
     url: string
+    external: boolean
     title: string
     description?: string
     image?: ResolvedMedia
@@ -24,6 +25,7 @@ export const linkCardListExtensions = ({
     GraphQLString,
     GraphQLID,
     GraphQLInt,
+    GraphQLBoolean,
     reference,
     nonNull,
     Json,
@@ -71,7 +73,7 @@ export const linkCardListExtensions = ({
         Part_idebanken_link_card_list: (params) => {
             params.modifyFields({
                 list: {
-                    type: nonNull(list(nonNull(reference('Link_card_list_item')))),
+                    type: nonNull(list(nonNull(reference('Link_card')))),
                 },
             })
             params.addFields({
@@ -82,11 +84,14 @@ export const linkCardListExtensions = ({
         },
     },
     types: {
-        Link_card_list_item: {
+        Link_card: {
             description: 'Overridable content link',
             fields: {
                 url: {
                     type: nonNull(GraphQLString),
+                },
+                external: {
+                    type: nonNull(GraphQLBoolean),
                 },
                 title: {
                     type: nonNull(GraphQLString),
@@ -124,7 +129,7 @@ export const linkCardListExtensions = ({
     },
 })
 
-function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardListItem> {
+function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
     return contents.map((item) => {
         const ibxData = item.x.idebanken
         const { image, icon, iconColor } = ibxData?.meta ?? {}
@@ -135,7 +140,8 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardListItem>
 
         return {
             url: enonicSitePathToHref(item._path),
-            title: shortTitle ?? title ?? displayName ?? 'Ingen tittel',
+            external: false,
+            title: shortTitle || title || displayName || '[Mangler tittel]',
             description,
             image: resolveMedia({ id: image, type: 'absolute', scale: 'width(500)' }),
             icon: resolveMedia({ id: icon, type: 'absolute', scale: 'full' }),

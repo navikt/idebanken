@@ -3,88 +3,35 @@ import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/ex
 import { EmptyRecord, Source } from '../../common-guillotine-types'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { LinkCard } from '@xp-types/site/parts'
-import { getOrNull, ResolvedMedia, resolveMedia } from '/lib/utils/helpers'
+import { getOrNull, resolveMedia } from '/lib/utils/helpers'
 import { resolveCategories } from '../category'
-import { get } from '/lib/xp/content'
+import { Content } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
+import { TitleIngress } from '@xp-types/site/mixins'
+import { LinkCardItem } from './link-card-list'
 
 export const linkCardExtensions = ({
     list,
     GraphQLString,
     GraphQLID,
     GraphQLInt,
+    GraphQLBoolean,
     reference,
     nonNull,
     Json,
 }: GraphQL): Extensions => ({
     resolvers: {
         Part_idebanken_link_card: {
-            categories: (
+            resolvedLink: (
                 env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<LinkCard>>
             ) => {
-                const linkSelector = env.source.internalOrExternalLink
-                if (
-                    linkSelector._selected === 'externalLink' ||
-                    !linkSelector.internalLink.contentId
-                ) {
-                    return []
+                const linkTypeSelector = env.source.internalOrExternalLink
+
+                if (linkTypeSelector._selected === 'internalLink') {
+                    return resolveInternalLink(linkTypeSelector.internalLink)
+                } else {
+                    return resolveExternalLink(linkTypeSelector.externalLink)
                 }
-                return resolveCategories(
-                    get({ key: linkSelector.internalLink.contentId })?.x?.idebanken?.category
-                )
-            },
-            url: (
-                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<LinkCard>>
-            ) => {
-                const linkSelector = env.source.internalOrExternalLink
-
-                if (linkSelector._selected === 'internalLink') {
-                    return enonicSitePathToHref(
-                        getOrNull(linkSelector.internalLink.contentId)?._path
-                    )
-                }
-                return linkSelector.externalLink.url
-            },
-            icon: (
-                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<LinkCard>>
-            ): ResolvedMedia => {
-                const linkSelector = env.source.internalOrExternalLink
-
-                if (linkSelector._selected === 'internalLink') {
-                    return resolveMedia({
-                        id: linkSelector.internalLink.contentId,
-                        type: 'absolute',
-                        scale: 'full',
-                    })
-                }
-
-                return resolveMedia({
-                    id: linkSelector.externalLink.icon,
-                    type: 'absolute',
-                    scale: 'full',
-                })
-            },
-            image: (
-                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<LinkCard>>
-            ) => {
-                const linkSelector = env.source.internalOrExternalLink
-                if (linkSelector._selected === 'internalLink') {
-                    const contentImage = getOrNull(linkSelector.internalLink.contentId)?.x?.[
-                        'com-enonic-app-metafields'
-                    ]?.['meta-data']?.seoImage as string | undefined
-
-                    return resolveMedia({
-                        id: contentImage,
-                        type: 'absolute',
-                        scale: 'height(800)',
-                    })
-                }
-
-                return resolveMedia({
-                    id: linkSelector.externalLink.image,
-                    type: 'absolute',
-                    scale: 'height(800)',
-                })
             },
         },
     },
@@ -92,20 +39,8 @@ export const linkCardExtensions = ({
         Part_idebanken_link_card: (params) => {
             params.removeFields(['internalOrExternalLink'])
             params.addFields({
-                categories: {
-                    type: nonNull(list(nonNull(reference('Category')))),
-                },
-                url: {
-                    type: GraphQLString,
-                },
-                icon: {
-                    type: reference('ResolvedMedia'),
-                },
-                image: {
-                    type: reference('ResolvedMedia'),
-                },
-                description: {
-                    type: GraphQLString,
+                resolvedLinkCard: {
+                    type: nonNull(reference('Link_card')),
                 },
             })
         },
@@ -128,3 +63,64 @@ export const linkCardExtensions = ({
         },
     },
 })
+
+type InternalLink = Extract<
+    LinkCard['internalOrExternalLink'],
+    { _selected: 'internalLink' }
+>['internalLink']
+
+type ExternalLink = Extract<
+    LinkCard['internalOrExternalLink'],
+    { _selected: 'externalLink' }
+>['externalLink']
+
+function resolveInternalLink(internalLink: InternalLink): LinkCardItem {
+    const content = getOrNull<Content<TitleIngress>>(internalLink.contentId)
+    const categories = resolveCategories(content?.x?.idebanken?.category)
+
+    return {
+        url: enonicSitePathToHref(content?._path),
+        external: false,
+        title:
+            internalLink?.linkText ||
+            content?.data?.shortTitle ||
+            content?.data?.title ||
+            '[Mangler tittel]',
+        description: content?.data?.description,
+        categories,
+        icon: resolveMedia({
+            id: categories?.[0]?.id,
+            type: 'absolute',
+            scale: 'full',
+        }),
+        iconColor: categories?.[0]?.iconColor,
+        image: resolveMedia({
+            id: content?.x?.['com-enonic-app-metafields']?.['meta-data']?.seoImage as
+                | string
+                | undefined,
+            type: 'absolute',
+            scale: 'height(800)',
+        }),
+    }
+}
+
+function resolveExternalLink(externalLink: ExternalLink): LinkCardItem {
+    return {
+        url: externalLink.url || '#',
+        external: true,
+        title: externalLink.linkText || '[Mangler tittel]',
+        description: externalLink.description,
+        categories: [],
+        icon: resolveMedia({
+            id: externalLink.icon,
+            type: 'absolute',
+            scale: 'full',
+        }),
+        image: resolveMedia({
+            id: externalLink.image,
+            type: 'absolute',
+            scale: 'height(800)',
+        }),
+        iconColor: externalLink.iconColor,
+    }
+}
