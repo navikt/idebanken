@@ -36,6 +36,7 @@ export default function SearchResults(
                 searchResult?.hits?.map((result, index) => (
                     <LinkCardView
                         url={result.href}
+                        external={false}
                         title={result.displayName}
                         description={
                             <RichTextView
@@ -48,8 +49,7 @@ export default function SearchResults(
                         }
                         categories={getResultCategories(result, common)}
                         brand={'neutral'}
-                        icon={{ url: result.iconUrl }}
-                        iconColor={result.iconColor}
+                        icon={{ url: result.iconUrl, iconColor: result.iconColor }}
                         key={index}
                     />
                 ))
