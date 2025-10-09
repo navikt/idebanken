@@ -1341,6 +1341,7 @@ export type Part_Idebanken_Title_Ingress = {
   __typename?: 'Part_idebanken_title_ingress';
   bgColor?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Content>;
+  showType?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** PathMatchDSLExpressionInput type */
