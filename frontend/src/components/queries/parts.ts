@@ -1,8 +1,4 @@
-const resolvedLink = `link {
-    url
-    external
-    linkText
-}`
+import { resolvedLinkSelector } from '~/components/queries/common'
 
 export const imageQuery = `{
 	image {
@@ -31,7 +27,9 @@ export const imageQuery = `{
 }`
 
 export const buttonQuery = `{
-	${resolvedLink}
+	link {
+	    ${resolvedLinkSelector}
+	}
 }`
 
 export const imageAndVectorFields = `

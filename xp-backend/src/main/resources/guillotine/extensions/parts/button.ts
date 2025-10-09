@@ -1,6 +1,11 @@
 import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
-import { EmptyRecord, ResolvedLink, resolveLink, Source } from '../../common-guillotine-types'
+import {
+    EmptyRecord,
+    ResolvedLinkSelector,
+    resolveLink,
+    Source,
+} from '../../common-guillotine-types'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { Button } from '@xp-types/site/parts'
 
@@ -18,7 +23,7 @@ export const buttonExtensions = ({
         Part_idebanken_button: {
             link: (
                 env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<Button>>
-            ): ResolvedLink => resolveLink(env.source.internalOrExternalLink),
+            ): ResolvedLinkSelector => resolveLink(env.source.internalOrExternalLink),
         },
     },
     creationCallbacks: {
@@ -26,7 +31,7 @@ export const buttonExtensions = ({
             params.removeFields(['internalOrExternalLink'])
             params.addFields({
                 link: {
-                    type: nonNull(reference('ResolvedLink')),
+                    type: nonNull(reference('ResolvedLinkSelector')),
                 },
             })
         },

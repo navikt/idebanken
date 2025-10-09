@@ -12,10 +12,10 @@ export type Source<T> = {
 } & T
 export type EmptyRecord = Record<string, unknown>
 
-export type ResolvedLink = { url: string; linkText: string; external: boolean }
+export type ResolvedLinkSelector = { url: string; linkText: string; external: boolean }
 export type LinkGroups = Array<{
     title?: string
-    links: Array<ResolvedLink>
+    links: Array<ResolvedLinkSelector>
 }>
 
 export const commonGuillotineTypes = ({
@@ -27,7 +27,7 @@ export const commonGuillotineTypes = ({
     reference,
     nonNull,
 }: GraphQL): Extensions['types'] => ({
-    ResolvedLink: {
+    ResolvedLinkSelector: {
         description: 'Overridable link',
         fields: {
             url: {
@@ -49,7 +49,7 @@ export const commonGuillotineTypes = ({
                 type: GraphQLString,
             },
             links: {
-                type: nonNull(list(nonNull(reference('ResolvedLink')))),
+                type: nonNull(list(nonNull(reference('ResolvedLinkSelector')))),
             },
         },
         interfaces: [],
@@ -83,7 +83,9 @@ export function resolveLinkGroups(
     }))
 }
 
-export function resolveLinks(links?: Array<LinkSelector> | LinkSelector): Array<ResolvedLink> {
+export function resolveLinks(
+    links?: Array<LinkSelector> | LinkSelector
+): Array<ResolvedLinkSelector> {
     return forceArray(links).map((link) => resolveLink(link?.internalOrExternalLink))
 }
 
@@ -99,7 +101,7 @@ type ExternalLink = Extract<
 
 export function resolveLink(
     internalOrExternalLink: LinkSelector['internalOrExternalLink']
-): ResolvedLink {
+): ResolvedLinkSelector {
     if (!internalOrExternalLink?._selected) {
         return {
             url: '#',
@@ -113,7 +115,7 @@ export function resolveLink(
     }
 }
 
-function resolveInternalLink(internalLink: InternalLink): ResolvedLink {
+function resolveInternalLink(internalLink: InternalLink): ResolvedLinkSelector {
     const content = getOrNull<Content<TitleIngress>>(internalLink.contentId)
 
     return {
@@ -128,7 +130,7 @@ function resolveInternalLink(internalLink: InternalLink): ResolvedLink {
     }
 }
 
-function resolveExternalLink(externalLink: ExternalLink): ResolvedLink {
+function resolveExternalLink(externalLink: ExternalLink): ResolvedLinkSelector {
     return {
         url: externalLink.url || '#',
         external: true,

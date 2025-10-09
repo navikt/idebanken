@@ -465,7 +465,7 @@ export type HasValueFilterInput = {
 export type Header = {
   __typename?: 'Header';
   linkGroups: Array<LinkGroups>;
-  linksBottom: Array<ResolvedLink>;
+  linksBottom: Array<ResolvedLinkSelector>;
 };
 
 /** Headless CMS */
@@ -754,7 +754,7 @@ export type Link = {
 /** Link groups */
 export type LinkGroups = {
   __typename?: 'LinkGroups';
-  links: Array<ResolvedLink>;
+  links: Array<ResolvedLinkSelector>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1031,7 +1031,7 @@ export type Part_Idebanken_Accordion_AccordionItemsSimpleTextEditorArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['button'] */
 export type Part_Idebanken_Button = {
   __typename?: 'Part_idebanken_button';
-  link: ResolvedLink;
+  link: ResolvedLinkSelector;
   size?: Maybe<Scalars['String']['output']>;
   variant?: Maybe<Scalars['String']['output']>;
 };
@@ -1464,8 +1464,8 @@ export type RangeDslExpressionInput = {
 };
 
 /** Overridable link */
-export type ResolvedLink = {
-  __typename?: 'ResolvedLink';
+export type ResolvedLinkSelector = {
+  __typename?: 'ResolvedLinkSelector';
   external: Scalars['Boolean']['output'];
   linkText: Scalars['String']['output'];
   url: Scalars['String']['output'];

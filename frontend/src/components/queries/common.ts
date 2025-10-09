@@ -51,13 +51,15 @@ metaFields {
   baseUrl
 }
 `
-
+export const resolvedLinkSelector = `
+url
+linkText
+external
+`
 const linkGroups = `
 title
 links {
-    url
-    external
-    linkText
+    ${resolvedLinkSelector}
 }
 `
 
@@ -82,9 +84,7 @@ query($path:ID!){
             ${linkGroups}
         }
         linksBottom {
-            url
-            external
-            linkText
+            ${resolvedLinkSelector}
         }
     }
     footer {
