@@ -14,14 +14,51 @@ export type XP_LinkGroups = {
      */
     links?: Array<{
       /**
-       * Lenke
+       * Lenke-type
        */
-      link: string;
+      internalOrExternalLink:
+        | {
+            /**
+             * Selected
+             */
+            _selected: 'internalLink';
 
-      /**
-       * Overskriv lenketekst
-       */
-      linkText?: string;
+            /**
+             * Intern lenke
+             */
+            internalLink: {
+              /**
+               * Innhold som skal lenkes til
+               */
+              contentId: string;
+
+              /**
+               * Overskriv lenketekst
+               */
+              linkText?: string;
+            };
+          }
+        | {
+            /**
+             * Selected
+             */
+            _selected: 'externalLink';
+
+            /**
+             * Ekstern lenke
+             */
+            externalLink: {
+              /**
+               * URL (https://...)
+               */
+              url: string;
+
+              /**
+               * Lenketekst
+               */
+              linkText?: string;
+            };
+          };
     }>;
   }>;
 };

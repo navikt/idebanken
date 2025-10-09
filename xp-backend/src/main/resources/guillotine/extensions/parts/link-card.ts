@@ -6,7 +6,7 @@ import { LinkCard } from '@xp-types/site/parts'
 import { getOrNull } from '/lib/utils/helpers'
 import { resolveCategories } from '../category'
 import { Content } from '/lib/xp/content'
-import { enonicSitePathToHref } from '/lib/utils/string-utils'
+import { enonicSitePathToHref, truncateUrl } from '/lib/utils/string-utils'
 import { TitleIngress } from '@xp-types/site/mixins'
 import { LinkCardItem } from './link-card-list'
 import { resolveIcon, resolveImage } from '/lib/utils/media'
@@ -29,9 +29,9 @@ export const linkCardExtensions = ({
                 const linkTypeSelector = env.source.internalOrExternalLink
 
                 if (linkTypeSelector._selected === 'internalLink') {
-                    return resolveInternalLink(linkTypeSelector.internalLink)
+                    return resolveLinkCardInternalLink(linkTypeSelector.internalLink)
                 } else {
-                    return resolveExternalLink(linkTypeSelector.externalLink)
+                    return resolveLinkCardExternalLink(linkTypeSelector.externalLink)
                 }
             },
         },
@@ -48,17 +48,17 @@ export const linkCardExtensions = ({
     },
 })
 
-type InternalLink = Extract<
+type LinkCardInternalLink = Extract<
     LinkCard['internalOrExternalLink'],
     { _selected: 'internalLink' }
 >['internalLink']
 
-type ExternalLink = Extract<
+type LinkCardExternalLink = Extract<
     LinkCard['internalOrExternalLink'],
     { _selected: 'externalLink' }
 >['externalLink']
 
-function resolveInternalLink(internalLink: InternalLink): LinkCardItem {
+function resolveLinkCardInternalLink(internalLink: LinkCardInternalLink): LinkCardItem {
     const content = getOrNull<Content<TitleIngress>>(internalLink.contentId)
     const categories = resolveCategories(content?.x?.idebanken?.category)
 
@@ -69,6 +69,7 @@ function resolveInternalLink(internalLink: InternalLink): LinkCardItem {
             internalLink?.linkText ||
             content?.data?.shortTitle ||
             content?.data?.title ||
+            content?.displayName ||
             '[Mangler tittel]',
         description: content?.data?.description,
         categories,
@@ -77,11 +78,11 @@ function resolveInternalLink(internalLink: InternalLink): LinkCardItem {
     }
 }
 
-function resolveExternalLink(externalLink: ExternalLink): LinkCardItem {
+function resolveLinkCardExternalLink(externalLink: LinkCardExternalLink): LinkCardItem {
     return {
         url: externalLink.url || '#',
         external: true,
-        title: externalLink.linkText || '[Mangler tittel]',
+        title: externalLink.linkText || truncateUrl(externalLink.url) || '[Mangler tittel]',
         description: externalLink.description,
         categories: [],
         icon: resolveIcon(externalLink.icon, false, externalLink.iconColor),

@@ -87,14 +87,51 @@ declare global {
            */
           links?: Array<{
             /**
-             * Lenke
+             * Lenke-type
              */
-            link: string;
+            internalOrExternalLink:
+              | {
+                  /**
+                   * Selected
+                   */
+                  _selected: 'internalLink';
 
-            /**
-             * Overskriv lenketekst
-             */
-            linkText?: string;
+                  /**
+                   * Intern lenke
+                   */
+                  internalLink: {
+                    /**
+                     * Innhold som skal lenkes til
+                     */
+                    contentId: string;
+
+                    /**
+                     * Overskriv lenketekst
+                     */
+                    linkText?: string;
+                  };
+                }
+              | {
+                  /**
+                   * Selected
+                   */
+                  _selected: 'externalLink';
+
+                  /**
+                   * Ekstern lenke
+                   */
+                  externalLink: {
+                    /**
+                     * URL (https://...)
+                     */
+                    url: string;
+
+                    /**
+                     * Lenketekst
+                     */
+                    linkText?: string;
+                  };
+                };
           }>;
         }>;
 
@@ -103,14 +140,51 @@ declare global {
          */
         linksBottom?: Array<{
           /**
-           * Lenke
+           * Lenke-type
            */
-          link: string;
+          internalOrExternalLink:
+            | {
+                /**
+                 * Selected
+                 */
+                _selected: 'internalLink';
 
-          /**
-           * Overskriv lenketekst
-           */
-          linkText?: string;
+                /**
+                 * Intern lenke
+                 */
+                internalLink: {
+                  /**
+                   * Innhold som skal lenkes til
+                   */
+                  contentId: string;
+
+                  /**
+                   * Overskriv lenketekst
+                   */
+                  linkText?: string;
+                };
+              }
+            | {
+                /**
+                 * Selected
+                 */
+                _selected: 'externalLink';
+
+                /**
+                 * Ekstern lenke
+                 */
+                externalLink: {
+                  /**
+                   * URL (https://...)
+                   */
+                  url: string;
+
+                  /**
+                   * Lenketekst
+                   */
+                  linkText?: string;
+                };
+              };
         }>;
       };
 
@@ -137,14 +211,51 @@ declare global {
            */
           links?: Array<{
             /**
-             * Lenke
+             * Lenke-type
              */
-            link: string;
+            internalOrExternalLink:
+              | {
+                  /**
+                   * Selected
+                   */
+                  _selected: 'internalLink';
 
-            /**
-             * Overskriv lenketekst
-             */
-            linkText?: string;
+                  /**
+                   * Intern lenke
+                   */
+                  internalLink: {
+                    /**
+                     * Innhold som skal lenkes til
+                     */
+                    contentId: string;
+
+                    /**
+                     * Overskriv lenketekst
+                     */
+                    linkText?: string;
+                  };
+                }
+              | {
+                  /**
+                   * Selected
+                   */
+                  _selected: 'externalLink';
+
+                  /**
+                   * Ekstern lenke
+                   */
+                  externalLink: {
+                    /**
+                     * URL (https://...)
+                     */
+                    url: string;
+
+                    /**
+                     * Lenketekst
+                     */
+                    linkText?: string;
+                  };
+                };
           }>;
         }>;
       };

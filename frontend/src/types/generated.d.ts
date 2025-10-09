@@ -465,7 +465,7 @@ export type HasValueFilterInput = {
 export type Header = {
   __typename?: 'Header';
   linkGroups: Array<LinkGroups>;
-  linksBottom: Array<OverridableContentLink>;
+  linksBottom: Array<ResolvedLinkSelector>;
 };
 
 /** Headless CMS */
@@ -754,7 +754,7 @@ export type Link = {
 /** Link groups */
 export type LinkGroups = {
   __typename?: 'LinkGroups';
-  links: Array<OverridableContentLink>;
+  links: Array<ResolvedLinkSelector>;
   title?: Maybe<Scalars['String']['output']>;
 };
 
@@ -782,10 +782,17 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -944,13 +951,6 @@ export type Occurrences = {
   minimum?: Maybe<Scalars['Int']['output']>;
 };
 
-/** Overridable content link */
-export type OverridableContentLink = {
-  __typename?: 'OverridableContentLink';
-  href: Scalars['String']['output'];
-  linkText: Scalars['String']['output'];
-};
-
 /** Page component data. */
 export type PageComponentData = {
   __typename?: 'PageComponentData';
@@ -1031,37 +1031,38 @@ export type Part_Idebanken_Accordion_AccordionItemsSimpleTextEditorArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['button'] */
 export type Part_Idebanken_Button = {
   __typename?: 'Part_idebanken_button';
-  blockOptionSet?: Maybe<Part_Idebanken_Button_BlockOptionSet>;
+  link: ResolvedLinkSelector;
   size?: Maybe<Scalars['String']['output']>;
-  text?: Maybe<Scalars['String']['output']>;
   variant?: Maybe<Scalars['String']['output']>;
 };
 
-/** Select link type */
-export type Part_Idebanken_Button_BlockOptionSet = {
-  __typename?: 'Part_idebanken_button_BlockOptionSet';
-  _selected?: Maybe<Part_Idebanken_Button_BlockOptionSet_OptionEnum>;
+/** Ekstern lenke */
+export type Part_Idebanken_Button_ExternalLink = {
+  __typename?: 'Part_idebanken_button_ExternalLink';
+  linkText?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+/** Intern lenke */
+export type Part_Idebanken_Button_InternalLink = {
+  __typename?: 'Part_idebanken_button_InternalLink';
+  contentId?: Maybe<Content>;
+  linkText?: Maybe<Scalars['String']['output']>;
+};
+
+/** Lenke-type */
+export type Part_Idebanken_Button_InternalOrExternalLink = {
+  __typename?: 'Part_idebanken_button_InternalOrExternalLink';
+  _selected?: Maybe<Part_Idebanken_Button_InternalOrExternalLink_OptionEnum>;
   externalLink?: Maybe<Part_Idebanken_Button_ExternalLink>;
   internalLink?: Maybe<Part_Idebanken_Button_InternalLink>;
 };
 
-/** Select link type option enum. */
-export enum Part_Idebanken_Button_BlockOptionSet_OptionEnum {
+/** Lenke-type option enum. */
+export enum Part_Idebanken_Button_InternalOrExternalLink_OptionEnum {
   ExternalLink = 'externalLink',
   InternalLink = 'internalLink'
 }
-
-/** External URL */
-export type Part_Idebanken_Button_ExternalLink = {
-  __typename?: 'Part_idebanken_button_ExternalLink';
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-/** Internal URL */
-export type Part_Idebanken_Button_InternalLink = {
-  __typename?: 'Part_idebanken_button_InternalLink';
-  ideBankContentSelector?: Maybe<Content>;
-};
 
 /** Part component application config for application ['idebanken'] and descriptor ['downloads'] */
 export type Part_Idebanken_Downloads = {
@@ -1460,6 +1461,14 @@ export type RangeDslExpressionInput = {
   gte?: InputMaybe<DslExpressionValueInput>;
   lt?: InputMaybe<DslExpressionValueInput>;
   lte?: InputMaybe<DslExpressionValueInput>;
+};
+
+/** Overridable link */
+export type ResolvedLinkSelector = {
+  __typename?: 'ResolvedLinkSelector';
+  external: Scalars['Boolean']['output'];
+  linkText: Scalars['String']['output'];
+  url: Scalars['String']['output'];
 };
 
 /** Resolved image or vector */

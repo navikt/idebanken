@@ -1,30 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mixin xmlns="urn:enonic:xp:model:1.0">
     <form>
-        <option-set name="blockOptionSet">
-            <label>Select link type</label>
-            <occurrences minimum="1" maximum="1"/>  
-            <help-text>Create internal or external button link</help-text>
-            <options minimum="1" maximum="1">   
+        <option-set name="internalOrExternalLink">
+            <label>Lenke-type</label>
+            <occurrences minimum="1" maximum="1"/>
+            <help-text>Velg intern eller ekstern lenke</help-text>
+            <options minimum="1" maximum="1">
                 <option name="internalLink">
-                    <label>Internal URL</label>
+                    <default>true</default>
+                    <label>Intern lenke</label>
                     <items>
-                        <input name="ideBankContentSelector" type="ContentSelector">
-                            <label>Select content</label>
-                            <occurrences minimum="0" maximum="1"/>
+                        <input type="ContentSelector" name="contentId">
+                            <label>Innhold som skal lenkes til</label>
+                            <occurrences minimum="1" maximum="1"/>
                             <config>
-                                <allowContentType>idebanken:guide</allowContentType>
-                                <allowContentType>idebanken:section-page</allowContentType>
-                                <allowPath>${site}/*</allowPath>
+                                <allowContentType>^(portal:site|idebanken:)(?!category)*</allowContentType>
                             </config>
-                        </input> 
+                        </input>
+                        <input type="TextLine" name="linkText">
+                            <label>Overskriv lenketekst</label>
+                            <occurrences minimum="0" maximum="1"/>
+                        </input>
                     </items>
                 </option>
                 <option name="externalLink">
-                    <label>External URL</label> 
-                    <items> 
+                    <label>Ekstern lenke</label>
+                    <items>
                         <input type="TextLine" name="url">
-                            <label>Paste in URL</label>
+                            <label>URL (https://...)</label>
+                            <help-text>Full lenke med https://</help-text>
+                            <occurrences minimum="1" maximum="1"/>
+                            <config>
+                                <regexp>^https:\/\/.*</regexp>
+                            </config>
+                        </input>
+                        <input type="TextLine" name="linkText">
+                            <label>Lenketekst</label>
+                            <occurrences minimum="0" maximum="1"/>
                         </input>
                     </items>
                 </option>
