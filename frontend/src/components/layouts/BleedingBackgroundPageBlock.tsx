@@ -25,7 +25,7 @@ export default function BleedingBackgroundPageBlock({
 }: Readonly<BleedingBackgroundPageBlockProps>) {
     return (
         <Bleed
-            className={`${bgColor ?? 'bg-extra-light-pink'} overflow-y-auto ${bleedClassName}`}
+            className={`${bgColor} overflow-y-auto ${bleedClassName}`}
             marginInline={marginInline}
             style={backgroundStyle}>
             <PageBlock

@@ -15,12 +15,13 @@ type PageData = {
 type TitleIngressConfig = {
     bgColor?: string
     image?: Media_Image
+    showType?: boolean
 }
 
 const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, PageData>) => {
     const data = common?.get?.dataAsJson
     const title = data?.title || '[Mangler tittel på innholdet]'
-    const config = part.config
+    const config = part.config ?? {}
     const type = common?.get?.type || ''
     const typeLabel = (type.split(':').pop() ?? '').toUpperCase()
 
@@ -34,13 +35,13 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
         }
     }
 
-    if (config.bgColor) {
+    if (config.bgColor || titleImageSrc) {
         return (
-            <div className="lg:mx-[calc(-2*var(--ax-space-96))]">
+            <div className={`${titleImageSrc ? 'lg:mx-[calc(-2*var(--ax-space-96))]' : ''}`}>
                 <BleedingBackgroundPageBlock
                     bgColor={config.bgColor}
                     marginInline={{ sm: 'space-4', md: 'space-48' }}
-                    bleedClassName="rounded-[100px] overflow-hidden">
+                    bleedClassName={`overflow-hidden ${config.bgColor ? 'rounded-[100px]' : ''}`}>
                     <HStack align="center" gap="space-24" className="py-6">
                         {titleImageSrc ? (
                             <div className="hidden lg:block -ml-48 shrink-0">
@@ -59,9 +60,11 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                             </div>
                         ) : null}
                         <VStack gap="space-8" align="start">
-                            <Tag variant="info-filled" size="small" className="rounded-3xl">
-                                {typeLabel}
-                            </Tag>
+                            {config.showType && typeLabel && (
+                                <Tag variant="info-filled" size="small" className="rounded-3xl">
+                                    {typeLabel}
+                                </Tag>
+                            )}
                             <HeadingView level="1" size="xlarge" className="m-0">
                                 {title}
                             </HeadingView>
@@ -74,9 +77,16 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
 
     return (
         <>
-            <HeadingView level="1" size="xlarge">
-                {title}
-            </HeadingView>
+            <VStack gap="space-8" align="start">
+                {config.showType && typeLabel && (
+                    <Tag variant="info-filled" size="small" className="rounded-3xl">
+                        {typeLabel}
+                    </Tag>
+                )}
+                <HeadingView level="1" size="xlarge" className="m-0">
+                    {title}
+                </HeadingView>
+            </VStack>
             <RichTextView
                 data={{ processedHtml: data?.ingress }}
                 meta={meta}

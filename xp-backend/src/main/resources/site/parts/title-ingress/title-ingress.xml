@@ -7,6 +7,19 @@
             <label>Tittel bilde</label>
             <occurrences minimum="0" maximum="1"/>
         </input>
-        <mixin name="background-color" />
+        <input name="bgColor" type="ComboBox">
+            <label>Tittel bakgrunsfarge</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <option value="bg-white">Hvit</option>
+                <option value="bg-extra-light-pink">Ekstra lys rosa</option>
+                <option value="bg-light-pink">Lys rosa</option>
+                <option value="bg-pink">Rosa</option>
+                <option value="bg-dark-blue">Mørk blå</option>
+            </config>
+        </input>
+        <input name="showType" type="CheckBox">
+            <label>Vis dokumenttype</label>
+        </input>
     </form>
 </part>
