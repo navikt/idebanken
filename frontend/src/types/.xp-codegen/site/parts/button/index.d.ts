@@ -38,12 +38,12 @@ export type XP_Button = {
           /**
            * URL (https://...)
            */
-          url?: string;
+          url: string;
 
           /**
            * Lenketekst
            */
-          linkText: string;
+          linkText?: string;
         };
       };
 

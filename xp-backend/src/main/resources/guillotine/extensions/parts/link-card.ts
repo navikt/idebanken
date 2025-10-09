@@ -6,7 +6,7 @@ import { LinkCard } from '@xp-types/site/parts'
 import { getOrNull } from '/lib/utils/helpers'
 import { resolveCategories } from '../category'
 import { Content } from '/lib/xp/content'
-import { enonicSitePathToHref } from '/lib/utils/string-utils'
+import { enonicSitePathToHref, truncateUrl } from '/lib/utils/string-utils'
 import { TitleIngress } from '@xp-types/site/mixins'
 import { LinkCardItem } from './link-card-list'
 import { resolveIcon, resolveImage } from '/lib/utils/media'
@@ -69,6 +69,7 @@ function resolveLinkCardInternalLink(internalLink: LinkCardInternalLink): LinkCa
             internalLink?.linkText ||
             content?.data?.shortTitle ||
             content?.data?.title ||
+            content?.displayName ||
             '[Mangler tittel]',
         description: content?.data?.description,
         categories,
@@ -81,7 +82,7 @@ function resolveLinkCardExternalLink(externalLink: LinkCardExternalLink): LinkCa
     return {
         url: externalLink.url || '#',
         external: true,
-        title: externalLink.linkText || '[Mangler tittel]',
+        title: externalLink.linkText || truncateUrl(externalLink.url) || '[Mangler tittel]',
         description: externalLink.description,
         categories: [],
         icon: resolveIcon(externalLink.icon, false, externalLink.iconColor),

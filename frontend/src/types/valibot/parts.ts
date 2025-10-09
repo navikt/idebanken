@@ -14,15 +14,6 @@ import {
 } from 'valibot'
 import { richTextSchema } from '~/types/valibot/richTextSchema'
 
-// External / Internal Link
-export type BlockOptionSet = {
-    _selected?: string
-    externalLink?: { url?: string | null } | null
-    internalLink?: {
-        ideBankContentSelector?: { pageUrl?: string | null } | null
-    } | null
-}
-
 // Heading
 export const headingConfigSchema = object({
     level: picklist(['1', '2', '3', '4', '5', '6']),

@@ -38,12 +38,12 @@ export type Button = {
           /**
            * URL (https://...)
            */
-          url?: string;
+          url: string;
 
           /**
            * Lenketekst
            */
-          linkText: string;
+          linkText?: string;
         };
       };
 
