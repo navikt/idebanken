@@ -1,4 +1,4 @@
-import { VStack, BodyShort } from '@navikt/ds-react'
+import { BodyShort, VStack } from '@navikt/ds-react'
 import { FileIcon, FilePdfIcon, FileWordIcon } from '@navikt/aksel-icons'
 import type { PartProps } from '@enonic/nextjs-adapter'
 import { ButtonView } from './Button'
@@ -72,7 +72,7 @@ export const Downloads = (props: PartProps) => {
                         return (
                             <li
                                 key={item._path}
-                                className="flex flex-wrap items-center justify-between gap-6 
+                                className="flex flex-wrap items-center justify-between gap-6
                                 rounded-xl px-3 pt-6 pb-6
                                 bg-dark-blue-100 border-1 border-dark-blue-400">
                                 <div className="flex min-w-0 items-center gap-3">
@@ -99,7 +99,7 @@ export const Downloads = (props: PartProps) => {
                                         external: true,
                                         variant: 'primary',
                                         size: 'medium',
-                                        text: 'Last ned',
+                                        linkText: 'Last ned',
                                     }}
                                     download
                                 />

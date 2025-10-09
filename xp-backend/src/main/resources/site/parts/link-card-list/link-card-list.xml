@@ -43,7 +43,7 @@
                             <occurrences minimum="1" maximum="0"/>
                             <label>Innhold i listen</label>
                             <config>
-                                <allowContentType>^idebanken:.*</allowContentType>
+                                <allowContentType>^idebanken:*</allowContentType>
                                 <treeMode>true</treeMode>
                             </config>
                         </input>
@@ -61,7 +61,7 @@
             </config>
             <default>withIcon</default>
         </input>
-        
+
         <mixin name="brand-color"/>
     </form>
 </part>

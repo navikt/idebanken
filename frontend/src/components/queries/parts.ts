@@ -1,3 +1,5 @@
+import { resolvedLinkSelector } from '~/components/queries/common'
+
 export const imageQuery = `{
 	image {
 		... on media_Image {
@@ -24,17 +26,9 @@ export const imageQuery = `{
     }
 }`
 
-export const linkQuery = `{
-	blockOptionSet {
-		_selected
-		externalLink {
-			url
-		}
-		internalLink {
-			ideBankContentSelector {
-				pageUrl(type: server)
-			}
-		}
+export const buttonQuery = `{
+	link {
+	    ${resolvedLinkSelector}
 	}
 }`
 

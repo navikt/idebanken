@@ -74,7 +74,7 @@
                     <label>Lenker nederst i meny</label>
                     <occurrences minimum="0" maximum="0"/>
                     <items>
-                        <mixin name="link" />
+                        <mixin name="link-selector" />
                     </items>
                 </item-set>
             </items>

@@ -8,6 +8,7 @@ import { tableOfContentsExtensions } from './extensions/parts/table-of-contents'
 import { linkCardListExtensions } from './extensions/parts/link-card-list'
 import { linkCardExtensions } from './extensions/parts/link-card'
 import { highlightedBoxMacroExtensions } from './extensions/highlighted-box-macro'
+import { buttonExtensions } from './extensions/parts/button'
 
 export function extensions(graphQL: GraphQL): Extensions {
     const extensions = [
@@ -17,6 +18,7 @@ export function extensions(graphQL: GraphQL): Extensions {
         linkCardListExtensions,
         linkCardExtensions,
         highlightedBoxMacroExtensions,
+        buttonExtensions,
     ].map((ext) => ext(graphQL))
 
     return {

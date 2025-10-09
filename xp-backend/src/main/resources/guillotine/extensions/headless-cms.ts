@@ -6,7 +6,7 @@ import { getSiteConfig } from '/lib/utils/site-config'
 import {
     EmptyRecord,
     LinkGroups,
-    ProcessedOverridableLink,
+    ResolvedLinkSelector,
     resolveLinkGroups,
     resolveLinks,
 } from '../common-guillotine-types'
@@ -29,7 +29,7 @@ export const headlessCmsExtensions = ({
                 _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
             ): {
                 linkGroups: LinkGroups
-                linksBottom: Array<ProcessedOverridableLink>
+                linksBottom: Array<ResolvedLinkSelector>
             } => {
                 return runInContext({ asAdmin: true }, () => {
                     const menuConfig = getSiteConfig()?.header
@@ -98,7 +98,7 @@ export const headlessCmsExtensions = ({
                     type: nonNull(list(nonNull(reference('LinkGroups')))),
                 },
                 linksBottom: {
-                    type: nonNull(list(nonNull(reference('OverridableContentLink')))),
+                    type: nonNull(list(nonNull(reference('ResolvedLinkSelector')))),
                 },
             },
             interfaces: [],

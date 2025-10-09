@@ -30,7 +30,7 @@
             <help-text>Full lenke med https://</help-text>
             <occurrences minimum="0" maximum="0"/>
             <config>
-                <regexp>^https:\/\/</regexp>
+                <regexp>^https:\/\/.*</regexp>
             </config>
         </input>
     </form>
