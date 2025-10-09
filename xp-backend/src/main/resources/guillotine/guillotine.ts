@@ -10,37 +10,34 @@ import { linkCardExtensions } from './extensions/parts/link-card'
 import { highlightedBoxMacroExtensions } from './extensions/highlighted-box-macro'
 
 export function extensions(graphQL: GraphQL): Extensions {
-    const headlessCms = headlessCmsExtensions(graphQL)
-    const category = categoryExtensions(graphQL)
-    const tableOfContents = tableOfContentsExtensions(graphQL)
-    const linkCardList = linkCardListExtensions(graphQL)
-    const linkCard = linkCardExtensions(graphQL)
-    const highlightedBoxMacro = highlightedBoxMacroExtensions(graphQL)
+    const extensions = [
+        headlessCmsExtensions,
+        categoryExtensions,
+        tableOfContentsExtensions,
+        linkCardListExtensions,
+        linkCardExtensions,
+        highlightedBoxMacroExtensions,
+    ].map((ext) => ext(graphQL))
 
     return {
         types: {
             ...commonGuillotineTypes(graphQL),
-            ...headlessCms.types,
-            ...category.types,
-            ...linkCardList.types,
-            ...linkCard.types,
-            ...highlightedBoxMacro.types,
+            ...extensions.reduce(
+                (acc, curr) => ({ ...acc, ...curr.types }),
+                {} as Extensions['types']
+            ),
         },
         resolvers: {
-            ...headlessCms.resolvers,
-            ...category.resolvers,
-            ...tableOfContents.resolvers,
-            ...linkCardList.resolvers,
-            ...linkCard.resolvers,
-            ...highlightedBoxMacro.resolvers,
+            ...extensions.reduce(
+                (acc, curr) => ({ ...acc, ...curr.resolvers }),
+                {} as Extensions['resolvers']
+            ),
         },
         creationCallbacks: {
-            ...headlessCms.creationCallbacks,
-            ...category.creationCallbacks,
-            ...tableOfContents.creationCallbacks,
-            ...linkCardList.creationCallbacks,
-            ...linkCard.creationCallbacks,
-            ...highlightedBoxMacro.creationCallbacks,
+            ...extensions.reduce(
+                (acc, curr) => ({ ...acc, ...curr.creationCallbacks }),
+                {} as Extensions['creationCallbacks']
+            ),
         },
     }
 }

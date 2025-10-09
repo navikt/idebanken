@@ -46,26 +46,6 @@ export const linkCardExtensions = ({
             })
         },
     },
-    types: {
-        ResolvedMedia: {
-            description: 'Resolved image or vector',
-            fields: {
-                url: {
-                    type: GraphQLString,
-                },
-                caption: {
-                    type: GraphQLString,
-                },
-                altText: {
-                    type: GraphQLString,
-                },
-                iconColor: {
-                    type: GraphQLString,
-                },
-            },
-            interfaces: [],
-        },
-    },
 })
 
 type InternalLink = Extract<

@@ -49,6 +49,24 @@ export const commonGuillotineTypes = ({
         },
         interfaces: [],
     },
+    ResolvedMedia: {
+        description: 'Resolved image or vector',
+        fields: {
+            url: {
+                type: GraphQLString,
+            },
+            caption: {
+                type: GraphQLString,
+            },
+            altText: {
+                type: GraphQLString,
+            },
+            iconColor: {
+                type: GraphQLString,
+            },
+        },
+        interfaces: [],
+    },
 })
 
 export function resolveLinkGroups(
