@@ -74,7 +74,7 @@ private fun IBContent.toHit(
         audience = toAudience(audience),
         language = language,
         type = type,
-        iconName = iconName,
+        iconUrl = iconUrl,
         iconColor = iconColor,
         categories = categories,
         score = score,

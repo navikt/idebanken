@@ -2,7 +2,7 @@ import { getRequestLocaleInfo } from '@enonic/nextjs-adapter'
 import { NextRequest, NextResponse } from 'next/server'
 
 const enonicDomain = process.env.ENONIC_DOMAIN
-const isLocalhost = process.env.IS_LOCALHOST === 'true'
+const isLocalhost = process.env.ENV === 'local'
 
 export function middleware(req: NextRequest) {
     const pathname = req.nextUrl.pathname

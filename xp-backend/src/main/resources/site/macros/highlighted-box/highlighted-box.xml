@@ -3,14 +3,7 @@
     <description>En boks for å fremheve lenker eller innhold</description>
 
     <form>
-        <input type="MediaSelector" name="icon">
-            <label>Ikon</label>
-            <occurrences minimum="0" maximum="1"/>
-            <config>
-                <allowContentType>media:(vector|image)</allowContentType>
-                <allowPath>${site}/ressurser/ikoner/*</allowPath>
-            </config>
-        </input>
+        <mixin name="icon"/>
         <input type="TextLine" name="title">
             <label>Tittel</label>
             <occurrences minimum="1" maximum="1"/>

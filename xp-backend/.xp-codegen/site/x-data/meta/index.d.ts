@@ -8,10 +8,10 @@ export type Meta = {
   /**
    * Ikon
    */
-  iconName?: 'hand-shake-heart' | 'reception' | 'chat-2' | 'hand-shake' | 'person-group' | 'task-list' | 'clock' | 'link' | 'light-bulb';
+  icon?: string;
 
   /**
-   * Ikonens bakgrunnsfarge
+   * Ikonets bakgrunnsfarge
    */
   iconColor?: 'bg-white' | 'bg-pink' | 'bg-blue' | 'bg-orange' | 'bg-yellow' | 'bg-red';
 };

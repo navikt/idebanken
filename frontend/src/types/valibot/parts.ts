@@ -14,7 +14,6 @@ import {
 } from 'valibot'
 import { richTextSchema } from '~/types/valibot/richTextSchema'
 import { buildRelativeInternalPath } from '~/utils/buildRelativeInternalPath'
-import { forceArray } from '~/utils/utils'
 
 // External / Internal Link
 export type BlockOptionSet = {
@@ -133,79 +132,3 @@ export const imageDataSchema = object({
         altText: nullish(string()),
     }),
 })
-
-// LinkCard
-export const linkCardConfigSchema = pipe(
-    object({
-        url: nullish(string()),
-        external: optional(nullable(boolean())),
-        blockOptionSet: optional(blockOptionSetSchema),
-        text: string(),
-        description: optional(string()),
-        iconName: nullish(string()),
-        iconColor: nullish(string()),
-        brand: string(),
-        tags: optional(union([array(string()), string()])),
-        image: nullish(imageDataSchema),
-    }),
-    transform((c) => {
-        let url = c.url?.trim()
-        let external = c.external ?? null
-        if (!url && c.blockOptionSet) {
-            const { url: dUrl, external: dExt } = transformBlockOptionSet(c.blockOptionSet)
-            url = dUrl ?? undefined
-            external = dExt
-        }
-        // Normalize internal URLs to relative (strip site root)
-        if (url && external !== true) {
-            url = buildRelativeInternalPath(url)
-        }
-        return {
-            title: c.text,
-            description: c.description || '',
-            iconName: c.iconName || undefined,
-            iconColor: c.iconColor || undefined,
-            brand: c.brand,
-            categories: forceArray(c.tags)?.map((it) => ({ name: it, id: '' })) || [],
-            imageUrl: c.image?.imageUrl || undefined,
-            altText: c.image?.data?.altText || c.image?.data?.caption || undefined,
-            url: url || '/',
-            external: external ?? false,
-        }
-    })
-)
-
-export type LinkCardConfig = InferOutput<typeof linkCardConfigSchema>
-
-export const documentCardRawSchema = object({
-    _path: string(),
-    displayName: string(),
-    data: optional(
-        object({
-            title: nullish(string()),
-            description: nullish(string()),
-        })
-    ),
-    x: optional(
-        object({
-            idebanken: optional(
-                object({
-                    category: nullish(
-                        object({
-                            categories: nullish(array(string())),
-                        })
-                    ),
-                    meta: nullish(
-                        object({
-                            iconName: nullish(string()),
-                            iconColor: nullish(string()),
-                            image: nullish(imageDataSchema),
-                        })
-                    ),
-                })
-            ),
-        })
-    ),
-})
-
-export type DocumentCardConfigRaw = InferOutput<typeof documentCardRawSchema>

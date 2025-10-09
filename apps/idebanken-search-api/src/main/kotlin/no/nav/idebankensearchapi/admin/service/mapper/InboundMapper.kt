@@ -45,7 +45,7 @@ fun ContentDto.toInbound(teamName: String): IBContent {
             .map { resolveLanguage(it) }
             .filter { it != resolveLanguage(metadata.language) },
         includeTypeInAllText = shouldBeIncludedInAllTextField(metadata.type),
-        iconName = metadata.iconName,
+        iconUrl = metadata.iconUrl,
         iconColor = metadata.iconColor,
         categories = metadata.categories
     )

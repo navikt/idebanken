@@ -35,7 +35,6 @@ import { LinkCardList } from '~/components/parts/LinkCardList'
 import CardLayout from './layouts/CardLayout'
 import { ExpansionCardView } from './parts/ExpansionCard'
 import { HighlightedBox } from '~/components/macros/HighlightedBox'
-import { title } from 'process'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE

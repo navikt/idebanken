@@ -79,8 +79,9 @@ export type BooleanFilterInput = {
 /** Resolved category */
 export type Category = {
   __typename?: 'Category';
+  caption?: Maybe<Scalars['String']['output']>;
   iconColor?: Maybe<Scalars['String']['output']>;
-  iconName?: Maybe<Scalars['String']['output']>;
+  iconUrl?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
 };
@@ -758,13 +759,13 @@ export type LinkGroups = {
 };
 
 /** Overridable content link */
-export type Link_Card_List_Item = {
-  __typename?: 'Link_card_list_item';
+export type Link_Card = {
+  __typename?: 'Link_card';
   categories: Array<Category>;
   description?: Maybe<Scalars['String']['output']>;
-  iconColor?: Maybe<Scalars['String']['output']>;
-  iconName?: Maybe<Scalars['String']['output']>;
-  imageUrl?: Maybe<Scalars['String']['output']>;
+  external: Scalars['Boolean']['output'];
+  icon?: Maybe<ResolvedMedia>;
+  image?: Maybe<ResolvedMedia>;
   title: Scalars['String']['output'];
   url: Scalars['String']['output'];
 };
@@ -792,7 +793,7 @@ export type Macro_Idebanken_Highlighted_Box_DataConfig = {
   __typename?: 'Macro_idebanken_highlighted_box_DataConfig';
   body?: Maybe<Scalars['String']['output']>;
   brand?: Maybe<Scalars['String']['output']>;
-  icon?: Maybe<Content>;
+  icon?: Maybe<ResolvedMedia>;
   links?: Maybe<Array<Maybe<Content>>>;
   linksAbsolute?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   title?: Maybe<Scalars['String']['output']>;
@@ -1165,56 +1166,42 @@ export type Part_Idebanken_Info_Box_InfoBoxItemsSimpleTextEditorArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
 export type Part_Idebanken_Link_Card = {
   __typename?: 'Part_idebanken_link_card';
-  blockOptionSet?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet>;
   brand?: Maybe<Scalars['String']['output']>;
-  categories?: Maybe<Array<Maybe<Content>>>;
+  displayType?: Maybe<Scalars['String']['output']>;
+  resolvedLinkCard: Link_Card;
+};
+
+/** Ekstern lenke */
+export type Part_Idebanken_Link_Card_ExternalLink = {
+  __typename?: 'Part_idebanken_link_card_ExternalLink';
   description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Content>;
   iconColor?: Maybe<Scalars['String']['output']>;
-  iconName?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Content>;
-  tags?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
-  text?: Maybe<Scalars['String']['output']>;
+  linkText?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
-
-/** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
-export type Part_Idebanken_Link_CardCategoriesArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
+/** Intern lenke */
+export type Part_Idebanken_Link_Card_InternalLink = {
+  __typename?: 'Part_idebanken_link_card_InternalLink';
+  contentId?: Maybe<Content>;
+  linkText?: Maybe<Scalars['String']['output']>;
 };
 
-
-/** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
-export type Part_Idebanken_Link_CardTagsArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Select link type */
-export type Part_Idebanken_Link_Card_BlockOptionSet = {
-  __typename?: 'Part_idebanken_link_card_BlockOptionSet';
-  _selected?: Maybe<Part_Idebanken_Link_Card_BlockOptionSet_OptionEnum>;
+/** Lenke-type */
+export type Part_Idebanken_Link_Card_InternalOrExternalLink = {
+  __typename?: 'Part_idebanken_link_card_InternalOrExternalLink';
+  _selected?: Maybe<Part_Idebanken_Link_Card_InternalOrExternalLink_OptionEnum>;
   externalLink?: Maybe<Part_Idebanken_Link_Card_ExternalLink>;
   internalLink?: Maybe<Part_Idebanken_Link_Card_InternalLink>;
 };
 
-/** Select link type option enum. */
-export enum Part_Idebanken_Link_Card_BlockOptionSet_OptionEnum {
+/** Lenke-type option enum. */
+export enum Part_Idebanken_Link_Card_InternalOrExternalLink_OptionEnum {
   ExternalLink = 'externalLink',
   InternalLink = 'internalLink'
 }
-
-/** External URL */
-export type Part_Idebanken_Link_Card_ExternalLink = {
-  __typename?: 'Part_idebanken_link_card_ExternalLink';
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-/** Internal URL */
-export type Part_Idebanken_Link_Card_InternalLink = {
-  __typename?: 'Part_idebanken_link_card_InternalLink';
-  ideBankContentSelector?: Maybe<Content>;
-};
 
 /** Part component application config for application ['idebanken'] and descriptor ['link-card-list'] */
 export type Part_Idebanken_Link_Card_List = {
@@ -1222,7 +1209,7 @@ export type Part_Idebanken_Link_Card_List = {
   brand?: Maybe<Scalars['String']['output']>;
   displayType?: Maybe<Scalars['String']['output']>;
   heading?: Maybe<Part_Idebanken_Link_Card_List_Heading>;
-  list: Array<Link_Card_List_Item>;
+  list: Array<Link_Card>;
 };
 
 /** Automatisk liste */
@@ -1475,6 +1462,15 @@ export type RangeDslExpressionInput = {
   lte?: InputMaybe<DslExpressionValueInput>;
 };
 
+/** Resolved image or vector */
+export type ResolvedMedia = {
+  __typename?: 'ResolvedMedia';
+  altText?: Maybe<Scalars['String']['output']>;
+  caption?: Maybe<Scalars['String']['output']>;
+  iconColor?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
 /** RichText type. */
 export type RichText = {
   __typename?: 'RichText';
@@ -1713,8 +1709,8 @@ export type XData_Idebanken_Category_DataConfigCategoriesArgs = {
 /** Extra data config for application ['idebanken}'] and descriptor ['meta'] */
 export type XData_Idebanken_Meta_DataConfig = {
   __typename?: 'XData_idebanken_meta_DataConfig';
+  icon?: Maybe<Content>;
   iconColor?: Maybe<Scalars['String']['output']>;
-  iconName?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Content>;
 };
 

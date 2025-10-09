@@ -2,23 +2,67 @@
 <part xmlns="urn:enonic:xp:model:1.0">
     <display-name>Lenkekort</display-name>
     <form>
-        <mixin name="link-selector" />
-        <input type="TextLine" name="text">
-            <label>Lenketekst</label>
-        </input>
-        <input name="description" type="TextArea">
-        <label>Beskrivelse</label>
-            <config>
-                <max-length>100</max-length>  
-                <show-counter>true</show-counter>  
-            </config>
-        </input>
         <mixin name="brand-color" />
-        <mixin name="image" />
-        <mixin name="icon-name" />
-        <mixin name="icon-background-color" />
-        <mixin name="category-selector" />
-        <!-- NB: remove it-->
-        <mixin name="tags" />
+
+        <input name="displayType" type="RadioButton">
+            <label>Visning</label>
+            <occurrences minimum="1" maximum="1"/>
+            <config>
+                <option value="withIcon">Med ikon</option>
+                <option value="withImage">Med bilde</option>
+            </config>
+            <default>withIcon</default>
+        </input>
+
+        <option-set name="internalOrExternalLink">
+            <label>Lenke-type</label>
+            <occurrences minimum="1" maximum="1"/>
+            <help-text>Intern eller ekstern lenke</help-text>
+            <options minimum="1" maximum="1">
+                <option name="internalLink">
+                    <default>true</default>
+                    <label>Intern lenke</label>
+                    <items>
+                        <input name="contentId" type="ContentSelector">
+                            <label>Select content</label>
+                            <occurrences minimum="1" maximum="1"/>
+                            <config>
+                                <allowContentType>^idebanken:(?!category)*</allowContentType>
+                            </config>
+                        </input>
+                        <input type="TextLine" name="linkText">
+                            <label>Overskriv lenketekst</label>
+                        </input>
+                    </items>
+                </option>
+                <option name="externalLink">
+                    <label>Ekstern lenke</label>
+                    <items>
+                        <input type="TextLine" name="url">
+                            <label>URL</label>
+                            <help-text>Full lenke med https://</help-text>
+                            <occurrences minimum="1" maximum="1"/>
+                            <config>
+                                <regexp>^https:\/\/</regexp>
+                            </config>
+                        </input>
+                        <input type="TextLine" name="linkText">
+                            <label>Lenketekst</label>
+                            <occurrences minimum="1" maximum="1"/>
+                        </input>
+                        <input name="description" type="TextArea">
+                            <label>Beskrivelse</label>
+                            <config>
+                                <max-length>100</max-length>
+                                <show-counter>true</show-counter>
+                            </config>
+                        </input>
+                        <mixin name="image" />
+                        <mixin name="icon" />
+                        <mixin name="icon-background-color" />
+                    </items>
+                </option>
+            </options>
+        </option-set>
     </form>
 </part>

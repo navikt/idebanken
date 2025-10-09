@@ -1,5 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-import type { Link_Card_List_Item, Part_Idebanken_Link_Card } from '~/types/generated.d'
+import type { Link_Card, Part_Idebanken_Link_Card } from '~/types/generated.d'
 import { Box, Tag } from '@navikt/ds-react'
 import {
     LinkCard,
@@ -10,60 +9,75 @@ import {
     LinkCardImage,
     LinkCardTitle,
 } from '@navikt/ds-react/LinkCard'
-import { validatedLinkCardConfig } from '~/utils/runtimeValidation'
 import React from 'react'
-import { iconMap } from '~/utils/iconMap'
+import Image from 'next/image'
+import { MetaData } from '@enonic/nextjs-adapter'
+import { PartData } from '~/types/graphql-types'
 
-export interface LinkCardData {
-    part: { descriptor: string; config: Part_Idebanken_Link_Card }
-}
+export const LinkCardPartView = ({ part, meta }: PartData<Part_Idebanken_Link_Card>) => {
+    const { config } = part
+    const { resolvedLinkCard, displayType, brand } = config
 
-export const LinkCardPartView = (props: LinkCardData) => {
-    const { part } = props
-    const card = validatedLinkCardConfig(part.config)
-
-    if (!card) return null
-
-    return LinkCardView(card)
-}
-
-export type LinkCardViewParams = Omit<Link_Card_List_Item, 'description'> & {
-    description?: string | React.ReactNode
-    altText?: string
-    external?: boolean
-    brand?: string
-}
-
-export const LinkCardView = (card: LinkCardViewParams) => {
-    const {
-        title,
-        description,
-        url,
-        categories,
-        imageUrl,
-        altText,
-        iconColor,
-        iconName,
-        external,
+    return LinkCardView({
+        ...resolvedLinkCard,
         brand,
-    } = card
-    const Icon = iconMap[iconName as keyof typeof iconMap] || null
+        displayType,
+        meta,
+    })
+}
+
+export type LinkCardViewParams = Omit<Link_Card, 'description' | '__typename'> & {
+    description?: string | React.ReactNode
+    brand?: string | null
+    displayType?: 'withImage' | 'withIcon' | string | null
+    meta?: MetaData
+}
+
+export const LinkCardView = ({
+    title,
+    description,
+    url,
+    categories,
+    image,
+    icon,
+    external,
+    brand,
+    displayType,
+    meta,
+}: LinkCardViewParams) => {
+    const isIcon = displayType !== 'withImage'
 
     return (
-        <LinkCard data-color={brand} className="h-full">
-            {imageUrl && (
+        <LinkCard data-color={brand ?? 'neutral'} className="h-full">
+            {!isIcon && image?.url && (
                 <LinkCardImage aspectRatio="16/8">
-                    <img src={imageUrl} alt={altText || 'Illustrasjonsbilde'} width="700" />
+                    <Image
+                        unoptimized={meta?.renderMode !== 'next'}
+                        src={image.url}
+                        alt={image.altText ?? image.caption ?? 'Illustrasjonsbilde'}
+                        width={500}
+                        height={250}
+                    />
                 </LinkCardImage>
             )}
-            {Icon && (
+            {isIcon && icon?.url && (
                 <Box
                     asChild
                     padding="space-8"
                     borderRadius="12"
-                    style={iconColor ? { backgroundColor: `var(--${iconColor})` } : undefined}>
+                    style={
+                        icon?.iconColor
+                            ? { backgroundColor: `var(--${icon?.iconColor})` }
+                            : undefined
+                    }>
                     <LinkCardIcon>
-                        <Icon fontSize="2.5rem" />
+                        <Image
+                            unoptimized={meta?.renderMode !== 'next'}
+                            src={icon.url}
+                            alt={icon.caption ?? 'Ikon'}
+                            width={40}
+                            height={40}
+                        />
                     </LinkCardIcon>
                 </Box>
             )}

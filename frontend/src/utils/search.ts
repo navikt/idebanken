@@ -102,7 +102,7 @@ export type SearchResult = {
         audience: Array<string>
         language: string
         type: string
-        iconName?: string
+        iconUrl?: string
         iconColor?: string
         categories?: Array<string>
         score: number

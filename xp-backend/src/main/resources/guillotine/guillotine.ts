@@ -4,33 +4,40 @@ import { Extensions } from '@enonic-types/guillotine/extensions'
 import { commonGuillotineTypes } from './common-guillotine-types'
 import { headlessCmsExtensions } from './extensions/headless-cms'
 import { categoryExtensions } from './extensions/category'
-import { tableOfContentsExtensions } from './extensions/table-of-contents'
-import { linkCardListExtensions } from './extensions/link-card-list'
+import { tableOfContentsExtensions } from './extensions/parts/table-of-contents'
+import { linkCardListExtensions } from './extensions/parts/link-card-list'
+import { linkCardExtensions } from './extensions/parts/link-card'
+import { highlightedBoxMacroExtensions } from './extensions/highlighted-box-macro'
 
 export function extensions(graphQL: GraphQL): Extensions {
-    const headlessCms = headlessCmsExtensions(graphQL)
-    const category = categoryExtensions(graphQL)
-    const tableOfContents = tableOfContentsExtensions(graphQL)
-    const linkCardList = linkCardListExtensions(graphQL)
+    const extensions = [
+        headlessCmsExtensions,
+        categoryExtensions,
+        tableOfContentsExtensions,
+        linkCardListExtensions,
+        linkCardExtensions,
+        highlightedBoxMacroExtensions,
+    ].map((ext) => ext(graphQL))
 
     return {
         types: {
             ...commonGuillotineTypes(graphQL),
-            ...headlessCms.types,
-            ...category.types,
-            ...linkCardList.types,
+            ...extensions.reduce(
+                (acc, curr) => ({ ...acc, ...curr.types }),
+                {} as Extensions['types']
+            ),
         },
         resolvers: {
-            ...headlessCms.resolvers,
-            ...category.resolvers,
-            ...tableOfContents.resolvers,
-            ...linkCardList.resolvers,
+            ...extensions.reduce(
+                (acc, curr) => ({ ...acc, ...curr.resolvers }),
+                {} as Extensions['resolvers']
+            ),
         },
         creationCallbacks: {
-            ...headlessCms.creationCallbacks,
-            ...category.creationCallbacks,
-            ...tableOfContents.creationCallbacks,
-            ...linkCardList.creationCallbacks,
+            ...extensions.reduce(
+                (acc, curr) => ({ ...acc, ...curr.creationCallbacks }),
+                {} as Extensions['creationCallbacks']
+            ),
         },
     }
 }

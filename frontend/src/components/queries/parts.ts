@@ -1,5 +1,3 @@
-import { richTextQuery } from '@enonic/nextjs-adapter'
-
 export const imageQuery = `{
 	image {
 		... on media_Image {
@@ -53,11 +51,31 @@ image {
 }
 `
 
-export const imageAndVectorQuery = `{${imageAndVectorFields}}`
-
 export const linkCardQuery = `{
-    ${linkQuery.slice(1, -1)}
-    ${imageAndVectorQuery.slice(1, -1)}
+    brand
+    displayType
+    resolvedLinkCard {
+        url
+        external
+        title
+        description
+        image {
+            url
+            caption
+        }
+        icon {
+            url
+            caption
+            iconColor
+        }
+        categories {
+            name
+            id
+            iconUrl
+            iconColor
+            caption
+        }
+    }
 }`
 
 export const tableOfContentsQuery = `{
@@ -81,16 +99,24 @@ export const linkCardListQuery = `{
     }
     list {
         url
+        external
         title
         description
-        imageUrl
-        iconName
-        iconColor
+        image {
+            url
+            caption
+        }
+        icon {
+            url
+            caption
+            iconColor
+        }
         categories {
             name
             id
-            iconName
+            iconUrl
             iconColor
+            caption
         }
     }
 }`
@@ -98,12 +124,9 @@ export const linkCardListQuery = `{
 export const highlightedBoxMacroQuery = `{
     title
     icon {
-        ... on media_Image {
-            url: imageUrl(type: absolute, scale: "block(30,30)")
-        }
-        ... on media_Vector {
-            url: mediaUrl(type: absolute)
-        }
+        url
+        caption
+        altText
     }
     brand
     links {
@@ -116,5 +139,5 @@ export const highlightedBoxMacroQuery = `{
 
 export const titleIngressQuery = `{
     bgColor
-    ${imageAndVectorQuery.slice(1, -1)}
+    ${imageAndVectorFields.slice(1, -1)}
 }`

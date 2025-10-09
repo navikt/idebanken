@@ -12,10 +12,6 @@ type Macro<T> = {
     meta: MetaData
 }
 
-type HighlightedBoxMacro = Macro<
-    Omit<Macro_Idebanken_Highlighted_Box_DataConfig, 'icon'> & { icon?: { url?: string } }
->
-
 const brandColor: Record<string, Record<string, string>> = {
     blue: {
         title: 'bg-[#D3DDFF]',
@@ -28,8 +24,11 @@ const brandColor: Record<string, Record<string, string>> = {
 }
 
 // TODO replace with upcoming Aksel part and create brands
-export function HighlightedBox(args: HighlightedBoxMacro) {
-    const { config, children } = args
+export function HighlightedBox({
+    config,
+    children,
+    meta,
+}: Macro<Macro_Idebanken_Highlighted_Box_DataConfig>) {
     const brand = brandColor[config.brand ?? 'blue']
     const title = config.title ?? ''
 
@@ -38,11 +37,13 @@ export function HighlightedBox(args: HighlightedBoxMacro) {
             <HStack className={`${brand.title} rounded-t-lg px-5 py-3 items-center`} gap={'2'}>
                 {config.icon?.url && (
                     <Image
+                        unoptimized={meta?.renderMode !== 'next'}
                         src={config.icon.url}
-                        alt={'#'}
+                        alt={
+                            config.icon.altText ?? config.icon.caption ?? 'Ikon for fremhevet boks'
+                        }
                         width={24}
                         height={24}
-                        aria-labelledby={config.icon.url.replace(/.*?([^\/]+)\..*$/, '$1 ikon')}
                     />
                 )}
                 <BodyShort id={title} size={'large'}>
