@@ -1,29 +1,8 @@
 import { PartData } from '~/types/graphql-types'
-import { Link_Card_List_Item, Maybe, Part_Idebanken_Link_Card_List } from '~/types/generated'
+import { Part_Idebanken_Link_Card_List } from '~/types/generated'
 import { LinkHeading } from '~/components/parts/LinkHeading'
 import { HGrid } from '@navikt/ds-react'
-import { LinkCardView, LinkCardViewParams } from '~/components/parts/LinkCard'
-import { MetaData } from '@enonic/nextjs-adapter'
-
-function guideToLinkCardConfig(
-    g: Link_Card_List_Item,
-    cardType: string | undefined | null,
-    brand: Maybe<string> | undefined,
-    meta: MetaData
-): LinkCardViewParams {
-    return {
-        url: g.url,
-        external: false,
-        title: g.title,
-        description: g.description || '',
-        icon: cardType === 'withIcon' ? g.icon || null : null,
-        iconColor: cardType === 'withIcon' ? g.iconColor || null : null,
-        brand: brand ?? '',
-        categories: g.categories || [],
-        image: cardType === 'withImage' ? g.image || null : null,
-        meta,
-    }
-}
+import { LinkCardView } from '~/components/parts/LinkCard'
 
 export function LinkCardList({ part, meta }: PartData<Part_Idebanken_Link_Card_List>) {
     const { list, displayType, heading, brand } = part.config
@@ -41,9 +20,9 @@ export function LinkCardList({ part, meta }: PartData<Part_Idebanken_Link_Card_L
                 columns={{ xs: 1, md: 12 }}
                 gap={{ xs: 'space-16', lg: 'space-20', xl: 'space-24' }}
                 className="items-start">
-                {list.map((g) => (
-                    <div key={g.url} className={`col-span-1 ${spanClass}`}>
-                        {LinkCardView(guideToLinkCardConfig(g, displayType, brand, meta))}
+                {list.map((linkCard) => (
+                    <div key={linkCard.url} className={`col-span-1 ${spanClass}`}>
+                        {LinkCardView({ ...linkCard, brand, displayType, meta })}
                     </div>
                 ))}
             </HGrid>

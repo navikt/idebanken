@@ -3,93 +3,88 @@ import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/ex
 import { EmptyRecord, Source } from '../../common-guillotine-types'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { LinkCard } from '@xp-types/site/parts'
-import { getOrNull, resolveMedia } from '/lib/utils/helpers'
+import { getOrNull } from '/lib/utils/helpers'
 import { resolveCategories } from '../category'
-import { get } from '/lib/xp/content'
+import { Content } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
+import { TitleIngress } from '@xp-types/site/mixins'
+import { LinkCardItem } from './link-card-list'
+import { resolveIcon, resolveImage } from '/lib/utils/media'
 
 export const linkCardExtensions = ({
     list,
     GraphQLString,
     GraphQLID,
     GraphQLInt,
+    GraphQLBoolean,
     reference,
     nonNull,
     Json,
 }: GraphQL): Extensions => ({
     resolvers: {
         Part_idebanken_link_card: {
-            categories: (
+            resolvedLinkCard: (
                 env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<LinkCard>>
-            ) => {
-                const linkSelector = env.source.blockOptionSet
-                if (
-                    linkSelector._selected === 'externalLink' ||
-                    !linkSelector.internalLink.ideBankContentSelector
-                ) {
-                    return []
-                }
-                return resolveCategories(
-                    get({ key: linkSelector.internalLink.ideBankContentSelector })?.x?.idebanken
-                        ?.category
-                )
-            },
-            url: (
-                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<LinkCard>>
-            ) => {
-                const linkSelector = env.source.blockOptionSet
-                if (linkSelector._selected === 'externalLink') {
-                    return linkSelector.externalLink.url
+            ): LinkCardItem => {
+                const linkTypeSelector = env.source.internalOrExternalLink
+
+                if (linkTypeSelector._selected === 'internalLink') {
+                    return resolveInternalLink(linkTypeSelector.internalLink)
                 } else {
-                    return enonicSitePathToHref(
-                        getOrNull(linkSelector.internalLink.ideBankContentSelector)?._path
-                    )
+                    return resolveExternalLink(linkTypeSelector.externalLink)
                 }
             },
-            icon: (
-                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<LinkCard>>
-            ) => resolveMedia({ id: env.source.icon, type: 'absolute', scale: 'full' }),
-            image: (
-                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<LinkCard>>
-            ) => resolveMedia({ id: env.source.image, type: 'absolute', scale: 'height(800)' }),
         },
     },
     creationCallbacks: {
         Part_idebanken_link_card: (params) => {
-            params.removeFields(['icon', 'image', 'blockOptionSet'])
-            params.modifyFields({
-                icon: {
-                    type: reference('ResolvedMedia'),
-                },
-                image: {
-                    type: reference('ResolvedMedia'),
-                },
-            })
+            params.removeFields(['internalOrExternalLink'])
             params.addFields({
-                categories: {
-                    type: nonNull(list(nonNull(reference('Category')))),
-                },
-                url: {
-                    type: GraphQLString,
+                resolvedLinkCard: {
+                    type: nonNull(reference('Link_card')),
                 },
             })
-        },
-    },
-    types: {
-        ResolvedMedia: {
-            description: 'Resolved image or vector',
-            fields: {
-                url: {
-                    type: GraphQLString,
-                },
-                caption: {
-                    type: GraphQLString,
-                },
-                altText: {
-                    type: GraphQLString,
-                },
-            },
-            interfaces: [],
         },
     },
 })
+
+type InternalLink = Extract<
+    LinkCard['internalOrExternalLink'],
+    { _selected: 'internalLink' }
+>['internalLink']
+
+type ExternalLink = Extract<
+    LinkCard['internalOrExternalLink'],
+    { _selected: 'externalLink' }
+>['externalLink']
+
+function resolveInternalLink(internalLink: InternalLink): LinkCardItem {
+    const content = getOrNull<Content<TitleIngress>>(internalLink.contentId)
+    const categories = resolveCategories(content?.x?.idebanken?.category)
+
+    return {
+        url: enonicSitePathToHref(content?._path),
+        external: false,
+        title:
+            internalLink?.linkText ||
+            content?.data?.shortTitle ||
+            content?.data?.title ||
+            '[Mangler tittel]',
+        description: content?.data?.description,
+        categories,
+        icon: resolveIcon(content),
+        image: resolveImage(content, 'height(800)'),
+    }
+}
+
+function resolveExternalLink(externalLink: ExternalLink): LinkCardItem {
+    return {
+        url: externalLink.url || '#',
+        external: true,
+        title: externalLink.linkText || '[Mangler tittel]',
+        description: externalLink.description,
+        categories: [],
+        icon: resolveIcon(externalLink.icon, false, externalLink.iconColor),
+        image: resolveImage(externalLink.image, 'height(800)'),
+    }
+}

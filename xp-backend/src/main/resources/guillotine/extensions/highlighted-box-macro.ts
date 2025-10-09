@@ -3,7 +3,7 @@ import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/ex
 import { EmptyRecord, Source } from '../common-guillotine-types'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { HighlightedBox } from '@xp-types/site/macros/highlighted-box'
-import { resolveMedia } from '/lib/utils/helpers'
+import { resolveIcon } from '/lib/utils/media'
 
 export const highlightedBoxMacroExtensions = ({
     list,
@@ -22,7 +22,7 @@ export const highlightedBoxMacroExtensions = ({
                     LocalContextRecord,
                     Source<HighlightedBox>
                 >
-            ) => resolveMedia({ id: env.source.icon, type: 'absolute', scale: 'full' }),
+            ) => resolveIcon(env.source.icon),
         },
     },
     creationCallbacks: {

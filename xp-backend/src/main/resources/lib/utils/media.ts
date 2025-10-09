@@ -1,0 +1,99 @@
+import { imageUrl, ImageUrlParams } from '/lib/xp/portal'
+import { Content } from '/lib/xp/content'
+import { MediaImageContent } from '@enonic-types/guillotine'
+import { getOrNull } from '/lib/utils/helpers'
+import { forceArray } from '/lib/utils/array-utils'
+
+export type ResolvedMedia = {
+    url?: string
+    caption?: string
+    altText?: string
+    iconColor?: string
+}
+type IdOrContent = Content | string | undefined
+
+const isMedia = (content: Content): content is MediaImageContent =>
+    content.type === 'media:image' || content.type === 'media:vector'
+
+export function resolveImage(
+    idOrContent?: IdOrContent | null,
+    scale: ImageUrlParams['scale'] = 'full'
+): ResolvedMedia {
+    const content = idOrContentToContent(idOrContent)
+    if (!content?._id) return {}
+
+    const seoImage = content.x?.['com-enonic-app-metafields']?.['meta-data']?.seoImage as
+        | string
+        | undefined
+
+    if (isMedia(content)) {
+        const mediaData = content?.data
+        return {
+            url: imageUrl({ id: content._id, scale, type: 'absolute' }),
+            caption: mediaData?.caption,
+            altText: mediaData?.altText ?? mediaData?.caption,
+        }
+    } else if (seoImage) {
+        return resolveMedia(seoImage, scale)
+    } else {
+        return {}
+    }
+}
+
+export function resolveIcon(
+    idOrContent?: IdOrContent | null,
+    defaultToCategoryIcon = true,
+    iconColor?: string
+): ResolvedMedia {
+    const content = idOrContentToContent(idOrContent)
+    if (!content?._id) return {}
+
+    const ibX = content?.x?.idebanken
+    const metaIcon = ibX?.meta?.icon
+    const fistCategoryIcon = forceArray(ibX?.category?.categories)[0]
+
+    if (isMedia(content)) {
+        return {
+            url: imageUrl({ id: content._id, scale: 'full', type: 'absolute' }),
+            caption: content?.data?.caption,
+            altText: content?.data?.altText ?? content?.data?.caption,
+            iconColor,
+        }
+    } else if (metaIcon) {
+        return resolveMedia(metaIcon, 'full', iconColor || ibX?.meta?.iconColor)
+    } else if (defaultToCategoryIcon && fistCategoryIcon) {
+        return resolveMedia(fistCategoryIcon, 'full', iconColor)
+    } else {
+        return {}
+    }
+}
+
+function resolveMedia(
+    idOrContent?: IdOrContent | null,
+    scale: ImageUrlParams['scale'] = 'full',
+    iconColor?: string
+): ResolvedMedia {
+    const content = idOrContentToContent(idOrContent)
+    if (!content?._id) return {}
+
+    if (content.type === 'idebanken:category') {
+        const meta = content?.x?.idebanken?.meta
+        return resolveMedia(meta?.icon, scale, iconColor || meta?.iconColor)
+    }
+
+    const data = content?.data as Record<string, string | undefined>
+
+    return {
+        url: imageUrl({ id: content._id, scale, type: 'absolute' }),
+        caption: data.caption,
+        altText: data?.altText || data?.caption,
+        iconColor,
+    }
+}
+
+const idOrContentToContent = (idOrContent?: string | Content | null): Content | null => {
+    if (typeof idOrContent === 'string') {
+        return getOrNull(idOrContent)
+    }
+    return idOrContent || null
+}
