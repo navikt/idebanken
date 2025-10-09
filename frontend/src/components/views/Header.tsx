@@ -152,10 +152,10 @@ const Header = ({ title, logoUrl, common }: HeaderProps) => {
                                         className={'[&&]:font-normal'}>
                                         {title}
                                     </HeadingView>
-                                    {links?.map(({ linkText, href }, id) => (
+                                    {links?.map(({ linkText, url }, id) => (
                                         <NextLink
                                             key={id}
-                                            href={href ?? '/'}
+                                            href={url}
                                             className="underline hover:no-underline w-fit">
                                             {linkText}
                                         </NextLink>
@@ -165,10 +165,10 @@ const Header = ({ title, logoUrl, common }: HeaderProps) => {
                         </HStack>
                         <hr className="separator" />
                         <HStack gap={{ xs: '4', md: '16' }}>
-                            {header?.linksBottom?.map(({ linkText, href }, id) => (
+                            {header?.linksBottom?.map(({ linkText, url }, id) => (
                                 <LinkCard key={id} size={'small'}>
                                     <LinkCardTitle>
-                                        <LinkCardAnchor href={href}>{linkText}</LinkCardAnchor>
+                                        <LinkCardAnchor href={url}>{linkText}</LinkCardAnchor>
                                     </LinkCardTitle>
                                 </LinkCard>
                             ))}

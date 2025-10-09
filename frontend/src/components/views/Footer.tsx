@@ -26,10 +26,10 @@ export default function Footer({ footerProps }: Readonly<{ footerProps?: FooterP
                                 autoId={false}>
                                 {title}
                             </HeadingView>
-                            {links?.map(({ href, linkText }, j) => (
+                            {links?.map(({ url, linkText }, j) => (
                                 <NextLink
                                     key={j}
-                                    href={href ?? '#'}
+                                    href={url}
                                     className="text-[#FFF3E2] underline hover:no-underline">
                                     {linkText ?? '[Default link text]'}
                                 </NextLink>

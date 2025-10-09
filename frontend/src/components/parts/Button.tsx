@@ -1,11 +1,15 @@
 import NextLink from 'next/link'
-import { Button } from '@navikt/ds-react'
-import { validatedButtonConfig } from '~/utils/runtimeValidation'
+import { Button, ButtonProps } from '@navikt/ds-react'
 import { MouseEventHandler } from 'react'
 import { PartData } from '~/types/graphql-types'
 import { LinkHeading } from './LinkHeading'
+import { Part_Idebanken_Button, ResolvedLink } from '~/types/generated'
 import { XP_Button } from '@xp-types/site/parts'
-import type { ButtonConfig } from '~/types/valibot/parts'
+
+type ButtonConfig = {
+    variant: ButtonProps['variant'] | 'link'
+    size: ButtonProps['size']
+} & Omit<ResolvedLink, '__typename'>
 
 const ButtonView = ({
     config,
@@ -20,12 +24,12 @@ const ButtonView = ({
     if (!btn) return null
 
     if (btn.variant === 'link') {
-        return <LinkHeading show={true} title={btn.text} href={btn.url || '#'} />
+        return <LinkHeading show={true} title={btn.linkText} href={btn.url || '#'} />
     }
     const buttonProps = {
         variant: btn.variant,
         size: btn.size || 'medium',
-        children: btn.text,
+        children: btn.linkText,
         ...(download ? { download: true } : {}),
         ...(btn.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
         ...(btn.url ? { as: NextLink, href: btn.url || '#' } : { onClick }),
@@ -40,11 +44,19 @@ const ButtonView = ({
     )
 }
 
-const ButtonPart = ({ part }: PartData<XP_Button>) => {
-    const btn = validatedButtonConfig(part.config)
-    if (!btn) return null
-
-    return <ButtonView config={btn} />
+const ButtonPart = ({ part }: PartData<Part_Idebanken_Button>) => {
+    const { config } = part
+    const { link, size, variant } = config
+    return (
+        <ButtonView
+            config={{
+                ...link,
+                size: size as XP_Button['size'],
+                variant: variant as XP_Button['variant'],
+                linkText: link.linkText,
+            }}
+        />
+    )
 }
 
 export { ButtonView, ButtonPart }

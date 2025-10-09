@@ -55,7 +55,8 @@ metaFields {
 const linkGroups = `
 title
 links {
-    href
+    url
+    external
     linkText
 }
 `
@@ -81,7 +82,8 @@ query($path:ID!){
             ${linkGroups}
         }
         linksBottom {
-            href
+            url
+            external
             linkText
         }
     }

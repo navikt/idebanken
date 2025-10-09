@@ -4,29 +4,26 @@
     <description>Link buttons</description>
     <form>
         <mixin name="link-selector" />
-        <input type="TextLine" name="text">
-            <label>Button text</label>
-        </input>
         <input type="ComboBox" name="variant">
             <label>Button variant</label>
-            <occurrences minimum="1" maximum="1"/>  
+            <occurrences minimum="1" maximum="1"/>
             <config>
-                <option value="primary">Primary</option>  
+                <option value="primary">Primary</option>
                 <option value="secondary">Secondary</option>
                 <option value="tertiary">Tertiary</option>
                 <option value="link">Lenke</option>
             </config>
-            <default>primary</default>  
+            <default>primary</default>
         </input>
         <input type="ComboBox" name="size">
             <label>Button size</label>
-            <occurrences minimum="0" maximum="1"/>  
+            <occurrences minimum="1" maximum="1"/>
             <config>
-                <option value="medium">Medium</option>  
+                <option value="medium">Medium</option>
                 <option value="small">Small</option>
                 <option value="xsmall">XSmall</option>
             </config>
-            <default>medium</default>  
+            <default>medium</default>
         </input>
     </form>
 </part>

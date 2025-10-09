@@ -29,9 +29,9 @@ export const linkCardExtensions = ({
                 const linkTypeSelector = env.source.internalOrExternalLink
 
                 if (linkTypeSelector._selected === 'internalLink') {
-                    return resolveInternalLink(linkTypeSelector.internalLink)
+                    return resolveLinkCardInternalLink(linkTypeSelector.internalLink)
                 } else {
-                    return resolveExternalLink(linkTypeSelector.externalLink)
+                    return resolveLinkCardExternalLink(linkTypeSelector.externalLink)
                 }
             },
         },
@@ -48,17 +48,17 @@ export const linkCardExtensions = ({
     },
 })
 
-type InternalLink = Extract<
+type LinkCardInternalLink = Extract<
     LinkCard['internalOrExternalLink'],
     { _selected: 'internalLink' }
 >['internalLink']
 
-type ExternalLink = Extract<
+type LinkCardExternalLink = Extract<
     LinkCard['internalOrExternalLink'],
     { _selected: 'externalLink' }
 >['externalLink']
 
-function resolveInternalLink(internalLink: InternalLink): LinkCardItem {
+function resolveLinkCardInternalLink(internalLink: LinkCardInternalLink): LinkCardItem {
     const content = getOrNull<Content<TitleIngress>>(internalLink.contentId)
     const categories = resolveCategories(content?.x?.idebanken?.category)
 
@@ -77,7 +77,7 @@ function resolveInternalLink(internalLink: InternalLink): LinkCardItem {
     }
 }
 
-function resolveExternalLink(externalLink: ExternalLink): LinkCardItem {
+function resolveLinkCardExternalLink(externalLink: LinkCardExternalLink): LinkCardItem {
     return {
         url: externalLink.url || '#',
         external: true,

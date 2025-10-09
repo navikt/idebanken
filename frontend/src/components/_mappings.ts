@@ -1,11 +1,11 @@
 import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
 import {
+    buttonQuery,
     highlightedBoxMacroQuery,
     imageQuery,
     linkCardListQuery,
     linkCardQuery,
-    linkQuery,
     tableOfContentsQuery,
     tableOfContentsSectionQuery,
     titleIngressQuery,
@@ -88,7 +88,7 @@ ComponentRegistry.addPart(`${APP_NAME}:heading`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:button`, {
     view: ButtonPart,
-    configQuery: linkQuery,
+    configQuery: buttonQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:image`, {
