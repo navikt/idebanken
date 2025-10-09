@@ -3,13 +3,13 @@ import { Button, ButtonProps } from '@navikt/ds-react'
 import { MouseEventHandler } from 'react'
 import { PartData } from '~/types/graphql-types'
 import { LinkHeading } from './LinkHeading'
-import { Part_Idebanken_Button, ResolvedLink } from '~/types/generated'
+import { Part_Idebanken_Button, ResolvedLinkSelector } from '~/types/generated'
 import { XP_Button } from '@xp-types/site/parts'
 
 type ButtonConfig = {
     variant: ButtonProps['variant'] | 'link'
     size: ButtonProps['size']
-} & Omit<ResolvedLink, '__typename'>
+} & Omit<ResolvedLinkSelector, '__typename'>
 
 const ButtonView = ({
     config,
