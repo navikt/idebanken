@@ -11,7 +11,7 @@ export type XP_Meta = {
   icon?: string;
 
   /**
-   * Ikonens bakgrunnsfarge
+   * Ikonets bakgrunnsfarge
    */
   iconColor?: 'bg-white' | 'bg-pink' | 'bg-blue' | 'bg-orange' | 'bg-yellow' | 'bg-red';
 };

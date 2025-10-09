@@ -2,7 +2,7 @@ import type { Config } from 'tailwindcss'
 
 export default {
     // Make Tailwind dark: variants work with html[data-theme="dark"] (Aksel) and .dark
-    darkMode: ['class', '[data-theme="dark"]'],
+    darkMode: 'class',
     content: ['./src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/app/**/*.{js,ts,jsx,tsx,mdx}'],
     theme: {
         extend: {
