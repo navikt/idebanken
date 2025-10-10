@@ -1720,7 +1720,6 @@ export type XData_Idebanken_Meta_DataConfig = {
   __typename?: 'XData_idebanken_meta_DataConfig';
   icon?: Maybe<Content>;
   iconColor?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Content>;
 };
 
 /** XDataApplicationConfig for application ['media'] */
