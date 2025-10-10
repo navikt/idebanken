@@ -8,6 +8,8 @@
                 <option value="neutral">Neutral</option>
                 <option value="ib-brand-pink">Rosa</option>
                 <option value="ib-brand-dark-blue">Mørk blå</option>
+                <option value="ib-brand-orange">Oransje</option>
+                <option value="ib-brand-pastel-yellow">Pastell gul</option>
             </config>
             <default>neutral</default>
         </input>
