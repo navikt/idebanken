@@ -49,6 +49,42 @@ export default {
                 'dark-blue-200A': 'var(--ib-dark-blue-200A)',
                 'dark-blue-300A': 'var(--ib-dark-blue-300A)',
                 'dark-blue-400A': 'var(--ib-dark-blue-400A)',
+
+                // Orange ramp (100..1000)
+                'orange-100': 'var(--ib-orange-100)',
+                'orange-200': 'var(--ib-orange-200)',
+                'orange-300': 'var(--ib-orange-300)',
+                'orange-400': 'var(--ib-orange-400)',
+                'orange-500': 'var(--ib-orange-500)',
+                'orange-600': 'var(--ib-orange-600)',
+                'orange-700': 'var(--ib-orange-700)',
+                'orange-800': 'var(--ib-orange-800)',
+                'orange-900': 'var(--ib-orange-900)',
+                'orange-1000': 'var(--ib-orange-1000)',
+
+                // Orange alpha overlays
+                'orange-100A': 'var(--ib-orange-100A)',
+                'orange-200A': 'var(--ib-orange-200A)',
+                'orange-300A': 'var(--ib-orange-300A)',
+                'orange-400A': 'var(--ib-orange-400A)',
+
+                // Pastel yellow ramp (100..1000)
+                'pastel-yellow-100': 'var(--ib-pastel-yellow-100)',
+                'pastel-yellow-200': 'var(--ib-pastel-yellow-200)',
+                'pastel-yellow-300': 'var(--ib-pastel-yellow-300)',
+                'pastel-yellow-400': 'var(--ib-pastel-yellow-400)',
+                'pastel-yellow-500': 'var(--ib-pastel-yellow-500)',
+                'pastel-yellow-600': 'var(--ib-pastel-yellow-600)',
+                'pastel-yellow-700': 'var(--ib-pastel-yellow-700)',
+                'pastel-yellow-800': 'var(--ib-pastel-yellow-800)',
+                'pastel-yellow-900': 'var(--ib-pastel-yellow-900)',
+                'pastel-yellow-1000': 'var(--ib-pastel-yellow-1000)',
+
+                // Pastel yellow alpha overlays
+                'pastel-yellow-100A': 'var(--ib-pastel-yellow-100A)',
+                'pastel-yellow-200A': 'var(--ib-pastel-yellow-200A)',
+                'pastel-yellow-300A': 'var(--ib-pastel-yellow-300A)',
+                'pastel-yellow-400A': 'var(--ib-pastel-yellow-400A)',
             },
             boxShadow: {
                 'ib-shadow': '1px -4px 30px 0 rgba(88, 84, 106, 0.30)',
