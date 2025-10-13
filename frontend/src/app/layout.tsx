@@ -4,6 +4,7 @@ import Script from 'next/script'
 import FrontPageDecoration from '~/components/parts/FrontPageDecoration'
 
 import '~/styles/globals.css'
+import GlobalUmamiAnalytics from '~/utils/analytics/GlobalUmamiAnalytics'
 
 type LayoutProps = {
     children: ReactNode
@@ -16,7 +17,7 @@ export default async function RootLayout({ children }: LayoutProps) {
     const nonce = (await headers()).get('x-nonce') ?? undefined
 
     return (
-        <>
+        <GlobalUmamiAnalytics>
             <head>
                 {shouldTrackWithUmami ? (
                     <Script
@@ -37,6 +38,6 @@ export default async function RootLayout({ children }: LayoutProps) {
             </head>
             <div className="relative">{children}</div>
             <FrontPageDecoration />
-        </>
+        </GlobalUmamiAnalytics>
     )
 }
