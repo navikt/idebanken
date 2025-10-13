@@ -22,7 +22,10 @@ export default function GlobalUmamiAnalytics({ children }: { children: React.Rea
 
         const handleUnload = () => {
             if (maxScroll.current > 0) {
-                umami('scroll prosent', { scrollProsent: maxScroll.current, url_path: pathname })
+                umami('scroll prosent', {
+                    scrollProsent: maxScroll.current,
+                    url_path: pathname || '/',
+                })
             }
         }
 
