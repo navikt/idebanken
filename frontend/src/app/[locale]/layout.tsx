@@ -3,7 +3,8 @@ import { ReactNode } from 'react'
 import localFont from 'next/font/local'
 import { Metadata } from 'next'
 import classNames from 'classnames'
-import { Providers } from './providers'
+import { ThemeProvider } from './theme-provider'
+import { headers } from 'next/headers'
 
 import '~/styles/globals.css'
 
@@ -59,18 +60,21 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
         ['data-theme']: 'idebanken',
     }
 
+    const nonce = (await headers()).get('x-nonce') ?? undefined
+
     return (
         <html
             lang={resolvedParams.locale ?? 'no'}
-            className={classNames(mundial.variable, 'scroll-smooth')}>
+            data-scroll-behavior="smooth"
+            className={classNames(mundial.variable, 'scroll-smooth')}
+            suppressHydrationWarning>
             <body {...bodyAttrs}>
                 <a
                     className="z-[100] transition left-0 bg-dark-blue text-primary-content absolute p-3 m-3 -translate-y-16 focus:translate-y-0"
                     href="#main-content">
                     Hopp til hovedinnhold
                 </a>
-                <Providers>{children}</Providers>
-                {/* {children} */}
+                <ThemeProvider nonce={nonce}>{children}</ThemeProvider>
             </body>
         </html>
     )
