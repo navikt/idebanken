@@ -16,14 +16,15 @@ export const revalidate = 3600
 
 export type PageProps = {
     locale: string
-    contentPath?: string[]
+    contentPath: string[]
 }
 
 export default async function Page({ params }: { params: Promise<PageProps> }) {
-    const { locale, contentPath } = await params
-    const ctx = { locale, contentPath: contentPath ?? '' }
-    const data: FetchContentResult = await fetchContent(ctx)
+    const resolvedParams = await params
+    const data: FetchContentResult = await fetchContent(resolvedParams)
+
     validateData(data)
+
     return <MainView {...data} />
 }
 
@@ -32,9 +33,7 @@ export async function generateMetadata({
 }: {
     params: Promise<PageProps>
 }): Promise<Metadata> {
-    const { locale, contentPath } = await params
-    const ctx = { locale, contentPath: contentPath ?? '' }
-    const { common } = await fetchContent(ctx)
+    const { common } = await fetchContent(await params)
 
     const metaFields = common?.get?.metaFields as MetaFields
     const image = metaFields?.image ?? undefined
