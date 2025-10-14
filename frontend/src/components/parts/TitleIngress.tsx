@@ -43,7 +43,11 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                 bleedClassName={`overflow-hidden ${config.bgColor ? 'rounded-[100px]' : ''}`}>
                 <HStack align="center" gap="space-24" className="py-6">
                     {titleImageSrc ? (
-                        <div className="hidden lg:block -ml-17 shrink-0">
+                        <div
+                            className="hidden -ml-17 lg:flex items-center justify-center shrink-0 rounded-full w-22 h-22"
+                            style={{
+                                backgroundColor: 'var(--ib-prefix-bg, var(--ib-pink-200))',
+                            }}>
                             <img
                                 aria-hidden="true"
                                 alt=""
