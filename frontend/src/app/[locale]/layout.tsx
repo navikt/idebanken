@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import localFont from 'next/font/local'
 import { Metadata } from 'next'
 import classNames from 'classnames'
-import { ThemeProvider } from './theme-provider'
+import { ThemeProvider } from './theming/theme-provider'
 import { headers } from 'next/headers'
 
 import '~/styles/globals.css'

@@ -1,6 +1,6 @@
 'use client'
 
-import { ThemeProvider as NextThemeProvider, useTheme } from 'next-themes'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { Theme } from '@navikt/ds-react'
 
 type SupportedThemes = 'light' | 'dark'
@@ -23,4 +23,4 @@ function ThemeProvider({ children, nonce }: { children: React.ReactNode; nonce?:
     )
 }
 
-export { ThemeProvider, useTheme }
+export { ThemeProvider }
