@@ -16,15 +16,14 @@ export const revalidate = 3600
 
 export type PageProps = {
     locale: string
-    contentPath: string[]
+    contentPath?: string[]
 }
 
 export default async function Page({ params }: { params: Promise<PageProps> }) {
-    const resolvedParams = await params
-    const data: FetchContentResult = await fetchContent(resolvedParams)
-
+    const { locale, contentPath } = await params
+    const ctx = { locale, contentPath: contentPath ?? '' }
+    const data: FetchContentResult = await fetchContent(ctx)
     validateData(data)
-
     return <MainView {...data} />
 }
 
@@ -33,7 +32,9 @@ export async function generateMetadata({
 }: {
     params: Promise<PageProps>
 }): Promise<Metadata> {
-    const { common } = await fetchContent(await params)
+    const { locale, contentPath } = await params
+    const ctx = { locale, contentPath: contentPath ?? '' }
+    const { common } = await fetchContent(ctx)
 
     const metaFields = common?.get?.metaFields as MetaFields
     const image = metaFields?.image ?? undefined
@@ -92,9 +93,7 @@ export async function generateMetadata({
     }
 }
 
-export async function generateStaticParams(props: {
-    params: PageProps
-}): Promise<ContentPathItem[]> {
+export async function generateStaticParams(): Promise<ContentPathItem[]> {
     if (process.env.SKIP_SSG === 'true') return []
-    return await fetchContentPathsForAllLocales('\${site}/')
+    return await fetchContentPathsForAllLocales('${site}/')
 }
