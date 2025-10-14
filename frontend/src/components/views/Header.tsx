@@ -22,6 +22,7 @@ import { debounce, search, SearchResult } from '~/utils/search'
 import SearchResults from '~/components/common/SearchResults'
 import { useRouter } from 'next/navigation'
 import { SOK_SEARCH_PARAM } from '~/utils/constants'
+import { ThemeButton } from '~/app/[locale]/theming/theme-button'
 
 export interface HeaderProps {
     title: string
@@ -132,6 +133,7 @@ const Header = ({ title, logoUrl, common }: HeaderProps) => {
                             }>
                             Søk
                         </Button>
+                        <ThemeButton />
                     </HStack>
                 </HStack>
 
