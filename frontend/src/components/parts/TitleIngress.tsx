@@ -37,43 +37,45 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
 
     if (config.bgColor || titleImageSrc) {
         return (
-            <BleedingBackgroundPageBlock
-                bgColor={config.bgColor}
-                marginInline={{ sm: 'space-4', md: 'space-48', lg: 'space-96' }}
-                bleedClassName={`overflow-hidden ${config.bgColor ? 'rounded-[100px]' : ''}`}>
-                <HStack align="center" gap="space-24" className="py-6">
-                    {titleImageSrc ? (
-                        <div
-                            className="hidden -ml-17 lg:flex items-center justify-center shrink-0 rounded-full w-22 h-22"
-                            style={{
-                                backgroundColor: 'var(--ib-prefix-bg, var(--ib-pink-200))',
-                            }}>
-                            <img
-                                aria-hidden="true"
-                                alt=""
-                                role="presentation"
-                                src={titleImageSrc}
-                                className={[
-                                    'block h-auto w-11 filter',
-                                    /\.svg(\?.*)?$/i.test(titleImageSrc)
-                                        ? 'dark:invert dark:brightness-0 dark:contrast-50'
-                                        : '',
-                                ].join(' ')}
-                            />
-                        </div>
-                    ) : null}
-                    <VStack gap="space-8" align="start">
-                        {config.showType && typeLabel && (
-                            <Tag variant="info-filled" size="small" className="rounded-3xl">
-                                {typeLabel}
-                            </Tag>
-                        )}
-                        <HeadingView level="1" size="xlarge" className="m-0">
-                            {title}
-                        </HeadingView>
-                    </VStack>
-                </HStack>
-            </BleedingBackgroundPageBlock>
+            <div className={`${titleImageSrc ? 'lg:mx-[calc(-2*var(--ax-space-64))]' : ''}`}>
+                <BleedingBackgroundPageBlock
+                    bgColor={config.bgColor}
+                    marginInline={{ sm: 'space-4', md: 'space-48' }}
+                    bleedClassName={`overflow-hidden ${config.bgColor ? 'rounded-[200px]' : ''}`}>
+                    <HStack align="center" gap="space-32" className="py-11" wrap={false}>
+                        {titleImageSrc ? (
+                            <div
+                                className="hidden self-center -ml-30 lg:flex items-center justify-center shrink-0 rounded-full w-22 h-22"
+                                style={{
+                                    backgroundColor: 'var(--ib-prefix-bg, var(--ib-pink-200))',
+                                }}>
+                                <img
+                                    aria-hidden="true"
+                                    alt=""
+                                    role="presentation"
+                                    src={titleImageSrc}
+                                    className={[
+                                        'block h-auto w-11 filter',
+                                        /\.svg(\?.*)?$/i.test(titleImageSrc)
+                                            ? 'dark:invert dark:brightness-0 dark:contrast-50'
+                                            : '',
+                                    ].join(' ')}
+                                />
+                            </div>
+                        ) : null}
+                        <VStack gap="space-12" align="start">
+                            {config.showType && typeLabel && (
+                                <Tag variant="info-filled" size="small" className="rounded-3xl">
+                                    {typeLabel}
+                                </Tag>
+                            )}
+                            <HeadingView level="1" size="xlarge" className="m-0">
+                                {title}
+                            </HeadingView>
+                        </VStack>
+                    </HStack>
+                </BleedingBackgroundPageBlock>
+            </div>
         )
     }
 
