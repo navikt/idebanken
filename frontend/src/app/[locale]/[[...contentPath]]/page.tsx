@@ -14,7 +14,6 @@ import '~/components/_mappings'
 // This means using the revalidate option with runtime = 'edge' will not work.
 export const revalidate = 3600
 
-// Make contentPath optional for [[...contentPath]]
 export type PageProps = {
     locale: string
     contentPath?: string[]
@@ -22,7 +21,7 @@ export type PageProps = {
 
 export default async function Page({ params }: { params: Promise<PageProps> }) {
     const { locale, contentPath } = await params
-    const ctx = { locale, contentPath: contentPath ?? '' } // fetchContent expects string | string[]
+    const ctx = { locale, contentPath: contentPath ?? '' }
     const data: FetchContentResult = await fetchContent(ctx)
     validateData(data)
     return <MainView {...data} />
