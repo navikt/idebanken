@@ -1,3 +1,5 @@
+'use client'
+
 import NextLink from 'next/link'
 import { Button, ButtonProps } from '@navikt/ds-react'
 import { MouseEventHandler } from 'react'
@@ -5,6 +7,7 @@ import { PartData } from '~/types/graphql-types'
 import { LinkHeading } from './LinkHeading'
 import { Part_Idebanken_Button, ResolvedLinkSelector } from '~/types/generated'
 import { XP_Button } from '@xp-types/site/parts'
+import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 
 type ButtonConfig = {
     variant: ButtonProps['variant'] | 'link'
@@ -15,10 +18,12 @@ const ButtonView = ({
     config,
     onClick,
     download,
+    trackWithUmami,
 }: {
     config?: ButtonConfig
     onClick?: MouseEventHandler<HTMLButtonElement>
     download?: boolean
+    trackWithUmami?: boolean
 }) => {
     const btn = config
     if (!btn) return null
@@ -26,13 +31,26 @@ const ButtonView = ({
     if (btn.variant === 'link') {
         return <LinkHeading show={true} title={btn.linkText} href={btn.url || '#'} />
     }
-    const buttonProps = {
+
+    const trackOnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+        umami(AnalyticsEvents.BUTTON_CLICKED, {
+            tekst: btn.linkText,
+            knappType: download ? 'download' : 'submit',
+            knappVariant: btn.variant ?? 'primary',
+        })
+
+        if (onClick !== null && typeof onClick === 'function') {
+            onClick(e)
+        }
+    }
+
+    const buttonProps: ButtonProps = {
         variant: btn.variant,
         size: btn.size || 'medium',
         children: btn.linkText,
         ...(download ? { download: true } : {}),
         ...(btn.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
-        ...(btn.url ? { as: NextLink, href: btn.url || '#' } : { onClick }),
+        ...(btn.url ? { as: NextLink, href: btn.url || '#' } : {}),
     }
 
     return (
@@ -40,6 +58,7 @@ const ButtonView = ({
             data-color="ib-brand-dark-blue"
             className="rounded-[60px] font-light"
             {...buttonProps}
+            onClick={trackWithUmami ? trackOnClick : onClick}
         />
     )
 }

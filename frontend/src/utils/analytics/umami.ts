@@ -24,6 +24,7 @@ export enum AnalyticsEvents {
     VIDEO_START = 'video start',
     VIDEO_STOP = 'video stopp',
     SCROLL_PERCENT = 'scroll prosent',
+    BUTTON_CLICKED = 'knapp klikket',
 }
 
 export async function umami(eventName: AnalyticsEvents, eventData: EventData = {}): Promise<void> {

@@ -102,6 +102,7 @@ export const Downloads = (props: PartProps) => {
                                         linkText: 'Last ned',
                                     }}
                                     download
+                                    trackWithUmami
                                 />
                             </li>
                         )
