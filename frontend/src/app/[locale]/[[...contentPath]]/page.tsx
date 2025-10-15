@@ -22,7 +22,7 @@ export type PageProps = {
 
 export default async function Page({ params }: { params: Promise<PageProps> }) {
     const { locale, contentPath } = await params
-    const ctx = { locale, contentPath: contentPath ?? '' } // fetchContent expects string | string[]
+    const ctx = { locale, contentPath: contentPath ?? '' }
     const data: FetchContentResult = await fetchContent(ctx)
     validateData(data)
     return <MainView {...data} />
