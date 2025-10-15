@@ -1,18 +1,17 @@
+'use client'
+
 import {
     Accordion,
-    AccordionItem,
-    AccordionHeader,
     AccordionContent,
+    AccordionHeader,
+    AccordionItem,
 } from '@navikt/ds-react/Accordion'
 import type { Part_Idebanken_Accordion } from '~/types/generated.d.ts'
 import { validatedAccordionConfig } from '~/utils/runtimeValidation'
 import { PartData } from '~/types/graphql-types'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
-
-export interface AccordionData {
-    part: { descriptor: string; config: Part_Idebanken_Accordion }
-}
+import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 
 export const AccordionView = ({ part, meta }: PartData<Part_Idebanken_Accordion>) => {
     const config = validatedAccordionConfig(part.config)
@@ -26,6 +25,11 @@ export const AccordionView = ({ part, meta }: PartData<Part_Idebanken_Accordion>
             {accordionItems.map((item, idx) => (
                 <AccordionItem
                     key={idx}
+                    onOpenChange={(open) =>
+                        umami(open ? AnalyticsEvents.ACC_EXPAND : AnalyticsEvents.ACC_COLLAPSE, {
+                            tittel: item.header,
+                        })
+                    }
                     className="
                         rounded-[10px]
                     ">

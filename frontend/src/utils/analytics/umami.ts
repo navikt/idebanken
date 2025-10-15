@@ -1,3 +1,5 @@
+import { draftMode } from 'next/headers'
+
 interface EventData {
     [key: string]: number | string | EventData | number[] | string[] | EventData[]
 }
@@ -14,8 +16,21 @@ declare global {
     }
 }
 
-export async function umami(eventName: string, eventData: EventData = {}): Promise<void> {
-    if (process.env.NODE_ENV === 'development') {
+export enum AnalyticsEvents {
+    NAVIGATION = 'navigere',
+    FILTER = 'filtervalg',
+    ACC_EXPAND = 'accordion åpnet',
+    ACC_COLLAPSE = 'accordion lukket',
+    MODAL_OPEN = 'modal åpnet',
+    MODAL_CLOSE = 'modal lukket',
+    VIDEO_START = 'video start',
+    VIDEO_STOP = 'video stopp',
+    SCROLL_PERCENT = 'scroll prosent',
+}
+
+export async function umami(eventName: AnalyticsEvents, eventData: EventData = {}): Promise<void> {
+    const { isEnabled } = await draftMode()
+    if (isEnabled || process.env.NODE_ENV === 'development') {
         console.info(`📊 [Analytics] ${eventName}`, eventData)
         return
     }
