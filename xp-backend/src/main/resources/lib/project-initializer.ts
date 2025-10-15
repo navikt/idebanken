@@ -52,11 +52,12 @@ export const initializeProject = () => {
     })
 }
 
-export const runAsAdmin = <T>(callback: () => T) => {
+export const runAsAdmin = <T>(callback: () => T, options = { branch: 'draft' }) => {
     let result
     try {
         result = run(
             {
+                branch: options.branch,
                 principals: ['role:system.admin'],
                 repository: 'com.enonic.cms.' + projectData.id,
             },

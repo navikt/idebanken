@@ -2,8 +2,8 @@ import * as taskLib from '/lib/xp/task'
 import thymeleafLib from '/lib/thymeleaf'
 import { Request } from '@enonic-types/core'
 import { serviceUrl } from '/lib/xp/portal'
-import { externalSearchUpdateAll } from '/lib/search/update-all'
 import { runAsAdmin } from '/lib/project-initializer'
+import { externalSearchUpdateAll } from '/lib/search/update-all'
 
 type ActionsMap = Record<string, { description: string; callback: () => unknown }>
 
@@ -28,7 +28,7 @@ export const get = (req: Request) => {
         taskLib.executeFunction({
             description: actionToRun.description,
             func: () => {
-                runAsAdmin(() => actionToRun.callback)
+                runAsAdmin(actionToRun.callback, { branch: 'master' })
             },
         })
     }

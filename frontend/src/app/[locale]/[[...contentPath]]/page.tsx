@@ -14,6 +14,7 @@ import '~/components/_mappings'
 // This means using the revalidate option with runtime = 'edge' will not work.
 export const revalidate = 3600
 
+// Make contentPath optional for [[...contentPath]]
 export type PageProps = {
     locale: string
     contentPath?: string[]

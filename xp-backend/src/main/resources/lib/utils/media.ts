@@ -3,6 +3,9 @@ import { Content } from '/lib/xp/content'
 import { MediaImageContent } from '@enonic-types/guillotine'
 import { getOrNull } from '/lib/utils/helpers'
 import { forceArray } from '/lib/utils/array-utils'
+import { logger } from '/lib/utils/logging'
+import { get as getContext } from '/lib/xp/context'
+import { URLS } from '/lib/constants'
 
 export type ResolvedMedia = {
     url?: string
@@ -81,19 +84,31 @@ function resolveMedia(
         return resolveMedia(meta?.icon, scale, iconColor || meta?.iconColor)
     }
 
-    const data = content?.data as Record<string, string | undefined>
+    const data = content?.data as MediaImageContent['data']
 
+    let url: string
+    try {
+        url = imageUrl({ id: content._id, scale, type: 'absolute' })
+    } catch (e) {
+        // For some reason, imageUrl fails when building search documents.
+        if (!data.media?.attachment) return {}
+        const context = getContext()
+        url = `${URLS.XP_ORIGIN}/site/${context.repository?.split('.')?.pop()}/${context.branch}/_/image/${content._id}/full/${data.media.attachment}`
+        logger.debug(
+            `Could not generate imageUrl from name: ${content.displayName}, with params: ${JSON.stringify({ id: content._id, scale, type: 'absolute' }, null, 2)}. Error: ${e.message}`
+        )
+    }
     return {
-        url: imageUrl({ id: content._id, scale, type: 'absolute' }),
+        url: url,
         caption: data.caption,
         altText: data?.altText || data?.caption,
         iconColor,
     }
 }
 
-const idOrContentToContent = (idOrContent?: string | Content | null): Content | null => {
+const idOrContentToContent = <T extends Content>(idOrContent?: string | T | null): T | null => {
     if (typeof idOrContent === 'string') {
-        return getOrNull(idOrContent)
+        return getOrNull<T>(idOrContent)
     }
     return idOrContent || null
 }

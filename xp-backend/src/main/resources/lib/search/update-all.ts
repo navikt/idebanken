@@ -20,26 +20,28 @@ const getValidContentTypes = (searchConfig: SearchConfig): string[] => {
         .flat()
 }
 
-const getContentToIndex = (contentTypes: string[]) => {
+const getIDsToIndex = (contentTypes: string[]) => {
     return getRepoConnection({
         repoId: CONTENT_ROOT_REPO_ID,
         branch: 'master',
         asAdmin: true,
-    }).query({
-        count: MAX_COUNT,
-        filters: {
-            boolean: {
-                must: [
-                    {
-                        hasValue: {
-                            field: 'type',
-                            values: contentTypes,
-                        },
-                    },
-                ],
-            },
-        },
     })
+        .query({
+            count: MAX_COUNT,
+            filters: {
+                boolean: {
+                    must: [
+                        {
+                            hasValue: {
+                                field: 'type',
+                                values: contentTypes,
+                            },
+                        },
+                    ],
+                },
+            },
+        })
+        .hits.map((it) => it.id)
 }
 
 const sendToSearchApi = (repoId: string, contentIds: string[]) => {
@@ -84,6 +86,7 @@ const sendToSearchApi = (repoId: string, contentIds: string[]) => {
 }
 
 export const externalSearchUpdateAll = () => {
+    logger.info('Starting external search full update...')
     const searchConfig = getSiteConfig()?.searchConfig
     if (!searchConfig) {
         logger.error('No search config found!')
@@ -98,12 +101,10 @@ export const externalSearchUpdateAll = () => {
 
     const start = Date.now()
 
-    const contentToIndex = getContentToIndex(validContentTypes)
+    const contentToIndex = getIDsToIndex(validContentTypes)
 
-    Object.entries(contentToIndex).forEach(([repoId, contentIds]) => {
-        logger.info(`Found ${contentIds.length} content to index in repo ${repoId}`)
-        sendToSearchApi(repoId, contentIds)
-    })
+    logger.info(`Found ${contentToIndex.length} content to index in repo ${CONTENT_ROOT_REPO_ID}`)
+    sendToSearchApi(CONTENT_ROOT_REPO_ID, contentToIndex)
 
     logger.info(`External search full update completed in ${(Date.now() - start) / 1000} seconds`)
 }
