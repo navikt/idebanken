@@ -41,11 +41,14 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                 <BleedingBackgroundPageBlock
                     bgColor={config.bgColor}
                     marginInline={{ sm: 'space-4', md: 'space-48' }}
-                    bleedClassName={`overflow-hidden ${config.bgColor ? 'rounded-[200px]' : ''}`}>
-                    <HStack align="center" gap="space-32" className="py-11" wrap={false}>
+                    bleedClassName={`overflow-hidden ${config.bgColor ? 'lg:rounded-[200px]' : ''}`}>
+                    <HStack
+                        align="center"
+                        gap="space-32"
+                        className="py-11 flex-wrap lg:flex-nowrap">
                         {titleImageSrc ? (
                             <div
-                                className="hidden self-center -ml-30 lg:flex items-center justify-center shrink-0 rounded-full w-22 h-22"
+                                className="self-center lg:-ml-30 flex items-center justify-center shrink-0 rounded-full w-22 h-22"
                                 style={{
                                     backgroundColor: 'var(--ib-prefix-bg, var(--ib-pink-200))',
                                 }}>
@@ -65,7 +68,10 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                         ) : null}
                         <VStack gap="space-12" align="start">
                             {config.showType && typeLabel && (
-                                <Tag variant="info-filled" size="small" className="rounded-3xl">
+                                <Tag
+                                    variant="info-filled"
+                                    size="xsmall"
+                                    className="rounded-3xl py-2 px-3">
                                     {typeLabel}
                                 </Tag>
                             )}

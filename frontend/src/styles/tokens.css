@@ -221,6 +221,39 @@
     --ib-bg-pastel-yellow-soft: var(--ib-bg-pastel-yellow-100);
     --ib-bg-pastel-yellow-raised: var(--ib-bg-pastel-yellow-300);
     --ib-bg-pastel-yellow-default: var(--ib-bg-pastel-yellow-100);
+
+    /* Info semantics (blue) */
+}
+
+/* Semantic mappings */
+
+[data-color='info'] {
+    --ax-border-strong: var(--ib-border-dark-blue-strong);
+    --ax-border-subtleA: var(--ib-border-dark-blue-subtleA);
+    --ax-border-subtle: var(--ib-border-dark-blue-subtle);
+    --ax-border-default: var(--ib-border-dark-blue);
+
+    --ax-text-contrast: var(--ib-text-dark-blue-contrast);
+    --ax-text-icon: var(--ib-text-dark-blue-icon);
+    --ax-text-subtle: var(--ib-text-dark-blue-subtle);
+    --ax-text-neutral: var(--ib-text-dark-blue);
+    --ax-text-decoration: var(--ib-text-dark-blue);
+
+    --ax-bg-strong-pressed: var(--ib-bg-dark-blue-strong-pressed);
+    --ax-bg-strong-hover: var(--ib-bg-dark-blue-strong-hover);
+    --ax-bg-strong: var(--ib-bg-dark-blue-strong);
+
+    --ax-bg-moderate-pressedA: var(--ib-bg-dark-blue-moderate-pressedA);
+    --ax-bg-moderate-pressed: var(--ib-bg-dark-blue-moderate-pressed);
+    --ax-bg-moderate-hoverA: var(--ib-bg-dark-blue-moderate-hoverA);
+    --ax-bg-moderate-hover: var(--ib-bg-dark-blue-moderate-hover);
+    --ax-bg-moderateA: var(--ib-bg-dark-blue-moderateA);
+    --ax-bg-moderate: var(--ib-bg-dark-blue-moderate);
+
+    --ax-bg-softA: var(--ib-bg-dark-blue-softA);
+    --ax-bg-soft: var(--ib-bg-dark-blue-soft);
+
+    --ax-bg-raised: var(--ib-bg-dark-blue-raised);
 }
 
 /* Brand mappings */
