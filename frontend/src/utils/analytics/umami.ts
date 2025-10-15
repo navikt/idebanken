@@ -1,5 +1,3 @@
-import { draftMode } from 'next/headers'
-
 interface EventData {
     [key: string]: number | string | EventData | number[] | string[] | EventData[]
 }
@@ -29,8 +27,7 @@ export enum AnalyticsEvents {
 }
 
 export async function umami(eventName: AnalyticsEvents, eventData: EventData = {}): Promise<void> {
-    const { isEnabled } = await draftMode()
-    if (isEnabled || process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' || process.env.ENV === 'local') {
         console.info(`📊 [Analytics] ${eventName}`, eventData)
         return
     }

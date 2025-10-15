@@ -11,7 +11,7 @@ import {
 } from '@navikt/ds-react/LinkCard'
 import React from 'react'
 import Image from 'next/image'
-import { MetaData } from '@enonic/nextjs-adapter'
+import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 
 export const LinkCardPartView = ({ part, meta }: PartData<Part_Idebanken_Link_Card>) => {
@@ -52,7 +52,7 @@ export const LinkCardView = ({
             {!isIcon && image?.url && (
                 <LinkCardImage aspectRatio="16/8">
                     <Image
-                        unoptimized={meta?.renderMode !== 'next'}
+                        unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
                         src={image.url}
                         alt={image.altText ?? image.caption ?? 'Illustrasjonsbilde'}
                         width={500}
@@ -72,7 +72,7 @@ export const LinkCardView = ({
                     }>
                     <LinkCardIcon>
                         <Image
-                            unoptimized={meta?.renderMode !== 'next'}
+                            unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
                             src={icon.url}
                             alt={icon.caption ?? 'Ikon'}
                             width={40}
