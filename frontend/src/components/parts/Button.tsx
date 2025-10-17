@@ -33,7 +33,7 @@ const ButtonView = ({
     }
 
     const trackOnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-        umami(AnalyticsEvents.BUTTON_CLICKED, {
+        void umami(AnalyticsEvents.BUTTON_CLICKED, {
             tekst: btn.linkText,
             knappType: download ? 'download' : 'submit',
             knappVariant: btn.variant ?? 'primary',

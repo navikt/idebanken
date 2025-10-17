@@ -23,7 +23,7 @@ import SearchResults from '~/components/common/SearchResults'
 import { usePathname, useRouter } from 'next/navigation'
 import { SOK_SEARCH_PARAM } from '~/utils/constants'
 import { ThemeButton } from '~/app/[locale]/theming/theme-button'
-import { trackSearchResult } from '~/utils/analytics/umami'
+import { SearchFrom, trackSearchResult } from '~/utils/analytics/umami'
 
 export interface HeaderProps {
     title: string
@@ -32,7 +32,7 @@ export interface HeaderProps {
     common?: HeadlessCms
 }
 
-const Header = ({ title, logoUrl, common }: HeaderProps) => {
+const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
     const { header, siteConfiguration } = common ?? {}
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -57,7 +57,7 @@ const Header = ({ title, logoUrl, common }: HeaderProps) => {
     useEffect(() => {
         const handleUnload = () => {
             if (searchResult?.word?.length && searchResult.word.length > 2) {
-                trackSearchResult(searchResult, 'hurtigsøk meny', pathname)
+                trackSearchResult(searchResult, SearchFrom.HURTIGSOK_MENY, pathname)
             }
         }
 
@@ -215,7 +215,7 @@ const Header = ({ title, logoUrl, common }: HeaderProps) => {
                                 )
                             }}
                         />
-                        {SearchResults(searchResult, loading)}
+                        {SearchResults(SearchFrom.HURTIGSOK_MENY, searchResult, loading)}
                         {searchResult ? (
                             <NextLink
                                 href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`}

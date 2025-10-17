@@ -15,7 +15,7 @@ import {
     SOK_SEARCH_PARAM,
     SOK_SORT_PARAM,
 } from '~/utils/constants'
-import { trackSearchResult } from '~/utils/analytics/umami'
+import { SearchFrom, trackSearchResult } from '~/utils/analytics/umami'
 
 export default function SearchView({
     meta,
@@ -23,7 +23,23 @@ export default function SearchView({
 }: PartData<Part_Idebanken_Search_View, Idebanken_SpecialPage_Data>) {
     const allFilter = 'Alle'
 
-    const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
+    const [searchResult, setSearchResult] = useState<SearchResult | undefined>({
+        total: 1,
+        hits: [
+            {
+                displayName: 'string',
+                href: 'string',
+                highlight: 'string',
+                audience: [],
+                language: 'string',
+                type: 'string',
+                score: 0,
+            },
+        ],
+        isMore: false,
+        word: 'hest',
+        page: 0,
+    })
     const [loading, setLoading] = useState(false)
     const [loadingMore, setLoadingMore] = useState(false)
     const [filter, setFilter] = useState<Array<Category>>()
@@ -43,7 +59,7 @@ export default function SearchView({
         }
         setLoading(true)
         search(searchParams)
-            .then((res) => trackSearchResult(res, 'søkeside', pathname))
+            .then((res) => trackSearchResult(res, SearchFrom.SOKESIDE, pathname))
             .then(setSearchResult)
             .finally(() => setLoading(false))
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -165,6 +181,7 @@ export default function SearchView({
                 }}
             />
             {SearchResults(
+                SearchFrom.SOKESIDE,
                 searchResult
                     ? {
                           ...searchResult,

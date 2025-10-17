@@ -26,9 +26,12 @@ export const AccordionView = ({ part, meta }: PartData<Part_Idebanken_Accordion>
                 <AccordionItem
                     key={idx}
                     onOpenChange={(open) =>
-                        umami(open ? AnalyticsEvents.ACC_EXPAND : AnalyticsEvents.ACC_COLLAPSE, {
-                            tittel: item.header,
-                        })
+                        void umami(
+                            open ? AnalyticsEvents.ACC_EXPAND : AnalyticsEvents.ACC_COLLAPSE,
+                            {
+                                tittel: item.header,
+                            }
+                        )
                     }
                     className="
                         rounded-[10px]
