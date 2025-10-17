@@ -19,8 +19,12 @@ export function TrackFirstLink({
         <UmamiTracker
             as={as}
             analyticsEventName={analyticsEventName}
-            getEventDataAction={(root) => {
-                const anchorText = root?.querySelector<HTMLAnchorElement>('a')?.textContent
+            getEventDataAction={(event) => {
+                const target = event?.target as HTMLElement | undefined
+                const anchor = target?.closest?.('a') as HTMLAnchorElement | null
+                if (!anchor) return
+
+                const anchorText = anchor.textContent
                 if (!anchorText) return {}
                 return {
                     ...(eventData || {}),

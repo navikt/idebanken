@@ -1,16 +1,15 @@
 'use client'
 
-import React, { PropsWithChildren, useCallback, useRef } from 'react'
+import React, { PropsWithChildren, useCallback } from 'react'
 import { AnalyticsEvents, EventData, umami } from '~/utils/analytics/umami'
 
 export type UmamiTrackerProps = PropsWithChildren<{
     as?: keyof React.JSX.IntrinsicElements
     analyticsEventName: AnalyticsEvents
     /**
-     * Callback to produce analytics payload based on the root element.
-     * Return value (if any) will be spread into the umami() eventData argument.
+     * Callback to produce analytics payload based on the event.
      */
-    getEventDataAction: (rootRef: HTMLElement | null) => EventData | undefined | null
+    getEventDataAction: (e: React.MouseEvent<Element, MouseEvent>) => EventData | undefined | null
     /**
      * Optional onClick to run in addition to analytics.
      */
@@ -28,12 +27,11 @@ export function UmamiTracker({
     onClick,
     children,
 }: UmamiTrackerProps) {
-    const rootRef = useRef<HTMLElement | null>(null)
-
     const handleClick = useCallback<React.MouseEventHandler>(
         (e) => {
             try {
-                const payload = getEventDataAction?.(rootRef.current) || {}
+                const payload = getEventDataAction(e)
+                if (!payload) return
                 void umami(analyticsEventName, {
                     ...(payload as EventData),
                 })
@@ -48,12 +46,7 @@ export function UmamiTracker({
         [analyticsEventName, getEventDataAction, onClick]
     )
 
-    return (
-        // @ts-expect-error ref type too complex to represent
-        <Tag ref={rootRef as never} onClick={handleClick}>
-            {children}
-        </Tag>
-    )
+    return <Tag onClick={handleClick}>{children}</Tag>
 }
 
 export default UmamiTracker
