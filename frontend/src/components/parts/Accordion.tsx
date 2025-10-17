@@ -18,10 +18,10 @@ export const AccordionView = ({ part, meta }: PartData<Part_Idebanken_Accordion>
 
     if (!config) return null
 
-    const { accordionItems } = config
+    const { accordionItems, brand } = config
 
     return (
-        <Accordion data-color="neutral" className="flex flex-col gap-3">
+        <Accordion data-color={brand ?? 'neutral'} className="flex flex-col gap-3">
             {accordionItems.map((item, idx) => (
                 <AccordionItem
                     key={idx}
