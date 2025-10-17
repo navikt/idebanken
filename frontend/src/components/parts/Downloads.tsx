@@ -96,7 +96,7 @@ export const Downloads = (props: PartProps) => {
                                     </div>
                                 </div>
                                 <TrackFirstLink
-                                    analyticsEventName={AnalyticsEvents.DOWNLOAD_BUTTON_CLICKED}
+                                    analyticsEventName={AnalyticsEvents.BUTTON_CLICKED}
                                     eventData={{
                                         knappType: 'download',
                                         knappVariant: 'primary',
