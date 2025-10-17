@@ -41,7 +41,7 @@ export default function SearchResults(
                         key={index}
                         analyticsEventName={AnalyticsEvents.SEARCH_RESULT_CLICKED}
                         eventData={{
-                            søktFra: searchFrom,
+                            soktFra: searchFrom,
                             treffnr: index + 1,
                         }}
                         meta={meta}>
