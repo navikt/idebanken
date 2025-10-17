@@ -81,7 +81,7 @@ export const Downloads = (props: PartProps) => {
                                         className="flex h-12 w-12 items-center justify-center rounded-full bg-pink-400 text-brand-black shadow-sm">
                                         {icon}
                                     </span>
-                                    <div className="max-w-80">
+                                    <div className="max-w-50 md:max-w-80">
                                         <BodyShort
                                             truncate
                                             title={fileName}
