@@ -43,7 +43,6 @@ export default function SearchResults(
                         eventData={{
                             søktFra: searchFrom,
                             treffnr: index + 1,
-                            komponent: 'SearchResults',
                         }}
                         meta={meta}>
                         <LinkCardView

@@ -38,9 +38,7 @@ export default function SearchView({
     const categoriesParamValue = searchParams.get(SOK_CATEGORIES_PARAM)
 
     useEffect(() => {
-        if (!searchString) {
-            return
-        }
+        if (!searchString) return
         setLoading(true)
         search(searchParams)
             .then((res) => trackSearchResult(res, SearchFrom.SOKESIDE, pathname))
