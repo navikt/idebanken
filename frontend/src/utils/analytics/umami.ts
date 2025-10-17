@@ -53,9 +53,9 @@ export const trackSearchResult = (
 ): SearchResult => {
     if (res?.word && res?.total !== undefined) {
         void umami(AnalyticsEvents.SEARCH_SUBMITTED, {
-            søkeord: res.word,
-            søkeresultater: res.total,
-            søktFra: searchFrom,
+            sokeord: res.word,
+            sokeresultater: res.total,
+            soktFra: searchFrom,
             url_path: urlPath,
         })
     }
