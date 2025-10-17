@@ -1,7 +1,7 @@
 import { BodyLong, BodyShort, HStack, Link, List, VStack } from '@navikt/ds-react'
 import { enonicSitePathToHref, truncateUrl } from '~/utils/utils'
 import { ListItem } from '@navikt/ds-react/List'
-import { MetaData } from '@enonic/nextjs-adapter'
+import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
 
@@ -37,7 +37,7 @@ export function HighlightedBox({
             <HStack className={`${brand.title} rounded-t-lg px-5 py-3 items-center`} gap={'2'}>
                 {config.icon?.url && (
                     <Image
-                        unoptimized={meta?.renderMode !== 'next'}
+                        unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
                         src={config.icon.url}
                         alt={
                             config.icon.altText ?? config.icon.caption ?? 'Ikon for fremhevet boks'

@@ -36,7 +36,7 @@ export default async function RootLayout({ children }: LayoutProps) {
                     <></>
                 )}
             </head>
-            <div className="relative">{children}</div>
+            {children}
             <FrontPageDecoration />
         </GlobalUmamiAnalytics>
     )
