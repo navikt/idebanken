@@ -23,23 +23,7 @@ export default function SearchView({
 }: PartData<Part_Idebanken_Search_View, Idebanken_SpecialPage_Data>) {
     const allFilter = 'Alle'
 
-    const [searchResult, setSearchResult] = useState<SearchResult | undefined>({
-        total: 1,
-        hits: [
-            {
-                displayName: 'string',
-                href: 'string',
-                highlight: 'string',
-                audience: [],
-                language: 'string',
-                type: 'string',
-                score: 0,
-            },
-        ],
-        isMore: false,
-        word: 'hest',
-        page: 0,
-    })
+    const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
     const [loading, setLoading] = useState(false)
     const [loadingMore, setLoadingMore] = useState(false)
     const [filter, setFilter] = useState<Array<Category>>()
