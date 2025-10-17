@@ -27,6 +27,7 @@ export enum AnalyticsEvents {
     VIDEO_STOP = 'video stopp',
     SCROLL_PERCENT = 'scroll prosent',
     BUTTON_CLICKED = 'knapp klikket',
+    DOWNLOAD_BUTTON_CLICKED = 'nedlastingsknapp klikket',
     SEARCH_SUBMITTED = 'søk gjennomført',
     SEARCH_RESULT_CLICKED = 'søkeresultat klikket',
     LINK_CLICKED = 'lenke klikket',

@@ -1,13 +1,9 @@
-'use client'
-
 import NextLink from 'next/link'
 import { Button, ButtonProps } from '@navikt/ds-react'
-import { MouseEventHandler } from 'react'
 import { PartData } from '~/types/graphql-types'
 import { LinkHeading } from './LinkHeading'
 import { Part_Idebanken_Button, ResolvedLinkSelector } from '~/types/generated'
 import { XP_Button } from '@xp-types/site/parts'
-import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 
 type ButtonConfig = {
     variant: ButtonProps['variant'] | 'link'
@@ -16,32 +12,17 @@ type ButtonConfig = {
 
 const ButtonView = ({
     config,
-    onClick,
     download,
-    trackWithUmami,
-}: {
+    ...rest
+}: ButtonProps & {
     config?: ButtonConfig
-    onClick?: MouseEventHandler<HTMLButtonElement>
     download?: boolean
-    trackWithUmami?: boolean
 }) => {
     const btn = config
     if (!btn) return null
 
     if (btn.variant === 'link') {
         return <LinkHeading show={true} title={btn.linkText} href={btn.url || '#'} />
-    }
-
-    const trackOnClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-        void umami(AnalyticsEvents.BUTTON_CLICKED, {
-            tekst: btn.linkText,
-            knappType: download ? 'download' : 'submit',
-            knappVariant: btn.variant ?? 'primary',
-        })
-
-        if (onClick !== null && typeof onClick === 'function') {
-            onClick(e)
-        }
     }
 
     const buttonProps: ButtonProps = {
@@ -57,8 +38,8 @@ const ButtonView = ({
         <Button
             data-color="ib-brand-dark-blue"
             className="rounded-[60px] font-light"
+            {...rest}
             {...buttonProps}
-            onClick={trackWithUmami ? trackOnClick : onClick}
         />
     )
 }
