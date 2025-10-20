@@ -3,9 +3,10 @@ import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/ex
 import { get as getContent } from '/lib/xp/content'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { logger } from '/lib/utils/logging'
-import { TableOfContents, TableOfContentsSection } from '@xp-types/site/parts'
+import { TableOfContents } from '@xp-types/site/parts'
 import { getFieldByDescriptor } from '/lib/utils/object-utils'
 import { Source } from '../../common-guillotine-types'
+import { Card } from '@xp-types/site/layouts'
 
 export const tableOfContentsExtensions = ({
     list,
@@ -23,7 +24,7 @@ export const tableOfContentsExtensions = ({
                     LocalContextRecord,
                     Source<TableOfContents>
                 >
-            ): Array<TableOfContentsSection> => {
+            ): Array<string> => {
                 const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
                 if (!path) {
                     logger.warning(`Part_idebanken_table_of_contents is missing path arg`)
@@ -37,39 +38,9 @@ export const tableOfContentsExtensions = ({
                     return []
                 }
 
-                return getFieldByDescriptor<TableOfContentsSection>(
-                    content,
-                    'idebanken:table-of-contents-section'
-                )
-            },
-        },
-        Part_idebanken_table_of_contents_section: {
-            sectionNumber: (
-                env: DataFetchingEnvironment<
-                    { path?: string },
-                    LocalContextRecord,
-                    Source<TableOfContentsSection>
-                >
-            ): number => {
-                const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
-                if (!path) {
-                    logger.warning(`Part_idebanken_table_of_contents is missing path arg`)
-                    return 0
-                }
-                const content = getContent({ key: path })
-                if (!content) {
-                    logger.warning(
-                        `Part_idebanken_table_of_contents could not find content at path: ${path}`
-                    )
-                    return 0
-                }
-
-                const tableOfContentSectionIndex = getFieldByDescriptor<TableOfContentsSection>(
-                    content,
-                    'idebanken:table-of-contents-section'
-                ).findIndex((section) => section.title === env.source.title)
-
-                return tableOfContentSectionIndex + 1
+                return getFieldByDescriptor<Card>(content, 'idebanken:card', 'layout')
+                    .filter((it) => it.heading?.length)
+                    .map((it) => it.heading as string)
             },
         },
     },
@@ -80,17 +51,7 @@ export const tableOfContentsExtensions = ({
                     args: {
                         path: nonNull(GraphQLID),
                     },
-                    type: list(reference('Part_idebanken_table_of_contents_section')),
-                },
-            })
-        },
-        Part_idebanken_table_of_contents_section: (params): void => {
-            params.addFields({
-                sectionNumber: {
-                    args: {
-                        path: nonNull(GraphQLID),
-                    },
-                    type: GraphQLInt,
+                    type: list(GraphQLString),
                 },
             })
         },

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <part xmlns="urn:enonic:xp:model:1.0">
     <display-name>Innholdsfortegnelse</display-name>
-    <description>Innholdsfortegnelse</description>
+    <description>Innholdsfortegnelse for "kort" layout på siden</description>
     <form>
         <input type="TextLine" name="title">
             <label>Tittel på innholdsfortegnelse</label>
-            <default>Innhold på siden</default>
+            <default>Denne siden hjelper deg til å:</default>
         </input>
     </form>
-    <config>
-        <allow-on-content-type>idebanken:guide</allow-on-content-type>
-    </config>
 </part>

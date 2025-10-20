@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <layout xmlns="urn:enonic:xp:model:1.0">
-    <display-name>Card</display-name>
-    <description>Provides a single region for card content</description>
+    <display-name>Kort</display-name>
+    <description>Kort som kan kobles til innholdsfortegnelse</description>
     <form>
         <input type="TextLine" name="prefix">
             <label>Heading prefix (f. eks 1, A eller I)</label>

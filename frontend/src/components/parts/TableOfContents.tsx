@@ -3,7 +3,6 @@ import { Part_Idebanken_Table_Of_Contents } from '~/types/generated'
 import { BodyShort, List, VStack } from '@navikt/ds-react'
 import { ListItem } from '@navikt/ds-react/List'
 import NextLink from 'next/link'
-import { ArrowDownRightIcon } from '@navikt/aksel-icons'
 import { HeadingView } from '~/components/parts/Heading'
 import { headingIdOfString } from '~/utils/utils'
 
@@ -11,23 +10,31 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
     const { sections, title } = part?.config ?? {}
 
     return (
-        <VStack className={'bg-[#FFE8E2] border-t-6 border-(--bg-pink) p-6'}>
-            <HeadingView level={'2'} size={'small'} className="mb-0">
+        <VStack className={'p-9 bg-(--ax-bg-accent-soft) rounded-xl'}>
+            <HeadingView
+                id={'table-of-contents-heading'}
+                level={'2'}
+                size={'small'}
+                fontClass={'font-normal'}>
                 {title}
             </HeadingView>
-            <List className="list-disc list-inside">
+            <List
+                as={'ol'}
+                className="list-disc list-inside"
+                size={'large'}
+                aria-labelledby={'table-of-contents-heading'}>
                 {sections?.length ? (
                     sections.map((section, index) => (
-                        <ListItem key={index} icon={<ArrowDownRightIcon />}>
+                        <ListItem key={index}>
                             <NextLink
-                                href={`#${headingIdOfString(section?.title ?? '')}`}
-                                className="hover:underline">
-                                {section?.title}
+                                href={`#${headingIdOfString(section ?? '')}`}
+                                className="text-(--ax-text-decoration) underline hover:no-underline text-lg">
+                                {section}
                             </NextLink>
                         </ListItem>
                     ))
                 ) : (
-                    <BodyShort>[Opprett parten &#34;Innholdsfortegnelse seksjon&#34;]</BodyShort>
+                    <BodyShort>[Opprett layouts av typen &#34;Kort&#34;]</BodyShort>
                 )}
             </List>
         </VStack>

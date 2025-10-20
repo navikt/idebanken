@@ -74,14 +74,7 @@ export const linkCardQuery = `{
 
 export const tableOfContentsQuery = `{
     title
-    sections(path: $path) {
-        title
-    }
-}`
-
-export const tableOfContentsSectionQuery = `{
-    title
-    sectionNumber(path: $path)
+    sections(path: $path)
 }`
 
 export const linkCardListQuery = `{

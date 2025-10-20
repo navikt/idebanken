@@ -4,7 +4,6 @@ import { ListItem } from '@navikt/ds-react/List'
 import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
-import { IconImage } from '../common/IconImage'
 
 type Macro<T> = {
     name: string
@@ -22,10 +21,8 @@ export function HighlightedBox({
     const title = config.title ?? ''
 
     return (
-        <VStack data-color={brand ?? 'neutral'} className="rounded-3xl shadow-[var(--ib-shadow)]">
-            <HStack
-                className="rounded-t-3xl px-5 py-3 items-center bg-[var(--ax-bg-moderate)]"
-                gap="2">
+        <VStack data-color={brand ?? 'neutral'} className="rounded-3xl shadow-ib-shadow">
+            <HStack className="rounded-t-3xl px-5 py-3 items-center bg-(--ax-bg-moderate)" gap="2">
                 {config.icon?.url && (
                     <Image
                         unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
@@ -47,7 +44,7 @@ export function HighlightedBox({
                     {title}
                 </BodyShort>
             </HStack>
-            <VStack className="rounded-b-3xl p-5 bg-[var(--ax-bg-soft)]">
+            <VStack className="rounded-b-3xl p-5 bg-(--ax-bg-soft)">
                 <BodyLong aria-labelledby={title} className="mb-3">
                     {children}
                 </BodyLong>
