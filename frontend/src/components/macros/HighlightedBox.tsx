@@ -4,6 +4,7 @@ import { ListItem } from '@navikt/ds-react/List'
 import { MetaData } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
+import { IconImage } from '../common/IconImage'
 
 type Macro<T> = {
     name: string
@@ -21,9 +22,7 @@ export function HighlightedBox({
     const title = config.title ?? ''
 
     return (
-        <VStack
-            data-color={brand ?? 'neutral'}
-            className="border border-[var(--ax-border-subtle)] rounded-3xl">
+        <VStack data-color={brand ?? 'neutral'} className="rounded-3xl shadow-[var(--ib-shadow)]">
             <HStack
                 className="rounded-t-3xl px-5 py-3 items-center bg-[var(--ax-bg-moderate)]"
                 gap="2">
@@ -36,6 +35,12 @@ export function HighlightedBox({
                         }
                         width={36}
                         height={36}
+                        className={[
+                            'filter',
+                            /\.svg(\?.*)?$/i.test(config.icon.url)
+                                ? 'dark:invert dark:brightness-0 dark:contrast-50'
+                                : '',
+                        ].join(' ')}
                     />
                 )}
                 <BodyShort id={title} size="large">
