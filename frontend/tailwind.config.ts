@@ -87,7 +87,7 @@ export default {
                 'pastel-yellow-400A': 'var(--ib-pastel-yellow-400A)',
             },
             boxShadow: {
-                'ib-shadow': '1px -4px 30px 0 rgba(88, 84, 106, 0.30)',
+                'ib-shadow': 'var(--ib-shadow)',
             },
         },
     },
