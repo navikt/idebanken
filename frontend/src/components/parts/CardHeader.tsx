@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import { HeadingView } from './Heading'
+import { headingIdOfString } from '~/utils/utils'
 
 interface CardHeaderProps {
     prefix?: string | null
@@ -11,13 +12,14 @@ const CardHeader = ({ prefix, heading, headingColor }: CardHeaderProps) => {
     if (!heading && !prefix) return null
     return (
         <div
+            id={headingIdOfString(heading)}
             className={classNames(
                 'rounded-t-3xl -mt-6 md:-mt-8 -mx-6 px-6 py-4 md:py-5 mb-10',
                 headingColor
             )}>
             {heading && (
                 <HeadingView
-                    id={heading}
+                    autoId={false}
                     level="2"
                     size="large"
                     className="m-0 inline-flex items-center gap-4">

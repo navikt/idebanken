@@ -11,9 +11,12 @@ const HeadingView = ({
     size,
     className = '',
     autoId = true,
+    fontClass = `font-light`,
     children,
     ...rest
-}: PropsWithChildren<Omit<HeadingConfig, 'text'> & React.HTMLAttributes<HTMLHeadingElement>>) => {
+}: PropsWithChildren<
+    Omit<HeadingConfig, 'text'> & React.HTMLAttributes<HTMLHeadingElement> & { fontClass?: string }
+>) => {
     return (
         <Heading
             id={autoId && !rest.id ? headingIdOfString(extractTextFromNodes(children)) : rest.id}
@@ -21,7 +24,7 @@ const HeadingView = ({
             size={size}
             spacing
             {...rest}
-            className={`font-light ${className}`}>
+            className={`${fontClass} ${className}`}>
             {children}
         </Heading>
     )

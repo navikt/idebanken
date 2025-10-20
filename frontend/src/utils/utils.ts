@@ -35,13 +35,16 @@ export function enonicSitePathToHref(path?: string) {
     return path.replace(/^\/[^/]+\/?/, '/')
 }
 
-export function headingIdOfString(string?: string) {
+export function headingIdOfString(string?: string | null) {
     const MAX_HEADING_LENGTH = 50
     if (!string) {
         return ''
     }
     const normalizedString = string
         .trim()
+        .replaceAll(/[æÆ]/g, 'ae')
+        .replaceAll(/[øØ]/g, 'oe')
+        .replaceAll(/[åÅ]/g, 'aa')
         .replaceAll(/\W+/g, '-')
         .replaceAll(/(^-|-$)/g, '')
         .toLowerCase()
