@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { PropsWithChildren, useEffect, useRef } from 'react'
 import { usePathname } from 'next/navigation'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 
-export default function GlobalUmamiAnalytics({ children }: { children: React.ReactNode }) {
+export default function GlobalUmamiAnalytics({ children }: PropsWithChildren) {
     const maxScroll = useRef(0)
     const pathname = usePathname()
 

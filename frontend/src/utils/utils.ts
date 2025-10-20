@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { DOMNode } from 'html-react-parser'
 
 export function validateToken(token: string | null) {
     if (token !== process.env.ENONIC_API_TOKEN) {
@@ -81,4 +82,17 @@ export function truncateUrl(link?: string, maxLength = 50): string | undefined {
     } else {
         return truncatedUrl
     }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function extractTextFromNodes(nodes: any): string {
+    return forceArray(nodes)
+        .map((node) => {
+            if (typeof node === 'string') return node
+            if (typeof node?.data === 'string') return node.data
+            if (node.children) return extractTextFromNodes(forceArray<DOMNode[]>(node.children))
+            if (node.props?.children) return extractTextFromNodes(forceArray(node.props.children))
+            return ''
+        })
+        .join(' ')
 }

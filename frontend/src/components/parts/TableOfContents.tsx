@@ -20,9 +20,9 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
                     sections.map((section, index) => (
                         <ListItem key={index} icon={<ArrowDownRightIcon />}>
                             <NextLink
-                                href={`#${headingIdOfString(section?.title ?? '')}`}
+                                href={`#${headingIdOfString(section ?? '')}`}
                                 className="hover:underline">
-                                {section?.title}
+                                {section}
                             </NextLink>
                         </ListItem>
                     ))

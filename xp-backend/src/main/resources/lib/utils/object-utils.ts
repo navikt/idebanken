@@ -44,6 +44,7 @@ export const getNestedValues = (obj: Record<string, any>, keysString: string) =>
 export function getFieldByDescriptor<T = unknown>(
     content: Content<unknown>,
     descriptor: `idebanken:${string}`,
+    componentType?: 'part' | 'layout' | 'fragment',
     fieldToMap: string = 'config'
 ): Array<T> {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -55,7 +56,11 @@ export function getFieldByDescriptor<T = unknown>(
             return
         }
 
-        if (obj.descriptor === descriptor && obj[fieldToMap]) {
+        if (
+            obj.descriptor === descriptor &&
+            obj[fieldToMap] &&
+            !(componentType && obj.type !== componentType)
+        ) {
             configs.push(obj[fieldToMap])
         }
 
