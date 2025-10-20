@@ -77,11 +77,6 @@ export const tableOfContentsQuery = `{
     sections(path: $path)
 }`
 
-export const tableOfContentsSectionQuery = `{
-    title
-    sectionNumber(path: $path)
-}`
-
 export const linkCardListQuery = `{
     displayType
     brand

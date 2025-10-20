@@ -3,7 +3,7 @@ export type XP_LinkCard = {
   /**
    * Brand farger
    */
-  brand: 'neutral' | 'ib-brand-pink' | 'ib-brand-dark-blue';
+  brand: 'neutral' | 'ib-brand-pink' | 'ib-brand-dark-blue' | 'ib-brand-orange' | 'ib-brand-pastel-yellow';
 
   /**
    * Visning
