@@ -1,5 +1,5 @@
 import { I18n, PORTAL_COMPONENT_ATTRIBUTE } from '@enonic/nextjs-adapter'
-import { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
 import localFont from 'next/font/local'
 import { Metadata } from 'next'
 import classNames from 'classnames'
@@ -8,10 +8,9 @@ import { headers } from 'next/headers'
 
 import '~/styles/globals.css'
 
-type LayoutProps = {
+type LayoutProps = PropsWithChildren<{
     params: Promise<{ locale: string }>
-    children: ReactNode
-}
+}>
 
 const mundial = localFont({
     variable: '--font-mundial',

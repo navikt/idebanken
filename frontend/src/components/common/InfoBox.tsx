@@ -1,7 +1,7 @@
 import { Info } from '~/components/icons/Info'
+import type { PropsWithChildren } from 'react'
 
-interface InfoBoxProps {
-    children: React.ReactNode
+interface InfoBoxProps extends PropsWithChildren {
     bgColorClass?: string
 }
 

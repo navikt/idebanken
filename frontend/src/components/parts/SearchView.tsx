@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { Button, Chips, Fieldset, HStack, Radio, RadioGroup, VStack } from '@navikt/ds-react'
 import { PartData } from '~/types/graphql-types'
@@ -15,6 +15,7 @@ import {
     SOK_SEARCH_PARAM,
     SOK_SORT_PARAM,
 } from '~/utils/constants'
+import { SearchFrom, trackSearchResult } from '~/utils/analytics/umami'
 
 export default function SearchView({
     meta,
@@ -29,6 +30,7 @@ export default function SearchView({
     const [selected, setSelected] = useState([allFilter])
 
     const searchParams = useSearchParams()
+    const pathname = usePathname()
     const categoriesMap = getCategoriesMap(common)
 
     const searchString = searchParams.get(SOK_SEARCH_PARAM)
@@ -36,11 +38,10 @@ export default function SearchView({
     const categoriesParamValue = searchParams.get(SOK_CATEGORIES_PARAM)
 
     useEffect(() => {
-        if (!searchString) {
-            return
-        }
+        if (!searchString) return
         setLoading(true)
         search(searchParams)
+            .then((res) => trackSearchResult(res, SearchFrom.SOKESIDE, pathname))
             .then(setSearchResult)
             .finally(() => setLoading(false))
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -162,6 +163,7 @@ export default function SearchView({
                 }}
             />
             {SearchResults(
+                SearchFrom.SOKESIDE,
                 searchResult
                     ? {
                           ...searchResult,

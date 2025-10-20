@@ -7,7 +7,6 @@ import {
     linkCardListQuery,
     linkCardQuery,
     tableOfContentsQuery,
-    tableOfContentsSectionQuery,
     titleIngressQuery,
 } from './queries/parts'
 import MainPage from './pages/Main'
@@ -27,7 +26,6 @@ import CrashCourse from '~/components/contentType/CrashCourse'
 import SearchView from '~/components/parts/SearchView'
 import ThreeColumnLayout from './layouts/ThreeColumnLayout'
 import { TableOfContents } from '~/components/parts/TableOfContents'
-import { TableOfContentsSection } from '~/components/parts/TableOfContentsSection'
 import { Downloads } from '~/components/parts/Downloads'
 import { Separator } from '~/components/macros/Separator'
 import { FullWidth } from '~/components/pages/FullWidth'
@@ -153,11 +151,6 @@ ComponentRegistry.addPart(`${APP_NAME}:search-view`, {
 ComponentRegistry.addPart(`${APP_NAME}:table-of-contents`, {
     view: TableOfContents,
     configQuery: tableOfContentsQuery,
-})
-
-ComponentRegistry.addPart(`${APP_NAME}:table-of-contents-section`, {
-    view: TableOfContentsSection,
-    configQuery: tableOfContentsSectionQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:downloads`, {

@@ -1,6 +1,5 @@
 import NextLink from 'next/link'
 import { Button, ButtonProps } from '@navikt/ds-react'
-import { MouseEventHandler } from 'react'
 import { PartData } from '~/types/graphql-types'
 import { LinkHeading } from './LinkHeading'
 import { Part_Idebanken_Button, ResolvedLinkSelector } from '~/types/generated'
@@ -13,11 +12,10 @@ type ButtonConfig = {
 
 const ButtonView = ({
     config,
-    onClick,
     download,
-}: {
+    ...rest
+}: ButtonProps & {
     config?: ButtonConfig
-    onClick?: MouseEventHandler<HTMLButtonElement>
     download?: boolean
 }) => {
     const btn = config
@@ -26,19 +24,21 @@ const ButtonView = ({
     if (btn.variant === 'link') {
         return <LinkHeading show={true} title={btn.linkText} href={btn.url || '#'} />
     }
-    const buttonProps = {
+
+    const buttonProps: ButtonProps = {
         variant: btn.variant,
         size: btn.size || 'medium',
         children: btn.linkText,
         ...(download ? { download: true } : {}),
         ...(btn.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
-        ...(btn.url ? { as: NextLink, href: btn.url || '#' } : { onClick }),
+        ...(btn.url ? { as: NextLink, href: btn.url || '#' } : {}),
     }
 
     return (
         <Button
             data-color="ib-brand-dark-blue"
             className="rounded-[60px] font-light"
+            {...rest}
             {...buttonProps}
         />
     )

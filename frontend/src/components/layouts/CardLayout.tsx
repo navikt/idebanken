@@ -34,7 +34,7 @@ const CardLayout = (props: CardLayoutProps) => {
         () =>
             classNames(
                 alignment ? `text-${alignment}` : 'text-left',
-                'rounded-3xl p-6 md:py-8 bg-white shadow-[var(--ib-shadow)]'
+                'rounded-3xl p-6 md:py-8 bg-white shadow-ib-shadow'
             ),
         [alignment]
     )

@@ -8,8 +8,11 @@ import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import { CommonType } from '../queries/common'
 import type { JSX } from 'react'
+import TrackFirstLink from '~/components/common/analytics/TrackFirstLink'
+import { AnalyticsEvents } from '~/utils/analytics/umami'
 
 export default function SearchResults(
+    searchFrom: 'hurtigsøk meny' | 'søkeside',
     searchResult?: SearchResult | undefined,
     loading: boolean = false,
     meta?: MetaData,
@@ -34,24 +37,33 @@ export default function SearchResults(
                 </div>
             ) : (
                 searchResult?.hits?.map((result, index) => (
-                    <LinkCardView
-                        url={result.href}
-                        external={false}
-                        title={result.displayName}
-                        description={
-                            <RichTextView
-                                className="font-extralight"
-                                // @ts-expect-error meta is not required
-                                meta={meta}
-                                data={{ processedHtml: result.highlight }}
-                                customReplacer={htmlRichTextReplacer}
-                            />
-                        }
-                        categories={getResultCategories(result, common)}
-                        brand={'neutral'}
-                        icon={{ url: result.iconUrl, iconColor: result.iconColor }}
+                    <TrackFirstLink
                         key={index}
-                    />
+                        analyticsEventName={AnalyticsEvents.SEARCH_RESULT_CLICKED}
+                        eventData={{
+                            soktFra: searchFrom,
+                            treffnr: index + 1,
+                        }}
+                        meta={meta}>
+                        <LinkCardView
+                            url={result.href}
+                            external={false}
+                            title={result.displayName}
+                            description={
+                                <RichTextView
+                                    className="font-extralight"
+                                    // @ts-expect-error meta is not required
+                                    meta={meta}
+                                    data={{ processedHtml: result.highlight }}
+                                    customReplacer={htmlRichTextReplacer}
+                                />
+                            }
+                            categories={getResultCategories(result, common)}
+                            brand={'neutral'}
+                            icon={{ url: result.iconUrl, iconColor: result.iconColor }}
+                            key={index}
+                        />
+                    </TrackFirstLink>
                 ))
             )}
         </VStack>

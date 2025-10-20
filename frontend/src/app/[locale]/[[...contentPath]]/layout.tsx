@@ -2,7 +2,7 @@ import { getAsset, I18n, MetaData, RENDER_MODE, XP_REQUEST_TYPE } from '@enonic/
 import { LocaleContextProvider } from '@enonic/nextjs-adapter/client'
 import { fetchContent } from '@enonic/nextjs-adapter/server'
 import StaticContent from '@enonic/nextjs-adapter/views/StaticContent'
-import { ReactNode } from 'react'
+import { PropsWithChildren, ReactNode } from 'react'
 import { Page } from '@navikt/ds-react'
 import Footer from '~/components/views/Footer'
 import Header from '~/components/views/Header'
@@ -12,7 +12,7 @@ import '~/styles/globals.css'
 import { HeadlessCms } from '~/types/generated'
 
 type LayoutParams = { locale: string; contentPath?: string[] }
-type LayoutProps = { params: Promise<LayoutParams>; children: ReactNode }
+type LayoutProps = PropsWithChildren<{ params: Promise<LayoutParams> }>
 
 export default async function PageLayout({ params, children }: LayoutProps) {
     const resolvedParams = await params
@@ -66,11 +66,10 @@ const EnonicWrapper = ({
     resolvedParams,
     meta,
     children,
-}: {
+}: PropsWithChildren<{
     resolvedParams: LayoutParams
     meta: MetaData
-    children: ReactNode
-}) => {
+}>) => {
     const isEdit = meta?.renderMode === RENDER_MODE.EDIT
     return (
         <LocaleContextProvider locale={resolvedParams.locale}>

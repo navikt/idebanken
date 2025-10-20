@@ -2,29 +2,29 @@ import { Heading } from '@navikt/ds-react'
 import { Part_Idebanken_Heading } from '~/types/generated.d'
 import { validatedHeadingConfig } from '~/utils/runtimeValidation'
 import { PartData } from '~/types/graphql-types'
-import { forceArray, headingIdOfString } from '~/utils/utils'
+import { extractTextFromNodes, headingIdOfString } from '~/utils/utils'
 import { HeadingConfig } from '~/types/valibot/parts'
-import { DOMNode } from 'html-react-parser'
-import type { JSX } from 'react'
+import type { PropsWithChildren } from 'react'
 
 const HeadingView = ({
     level,
     size,
     className = '',
     autoId = true,
+    fontClass = `font-light`,
     children,
     ...rest
-}: Omit<HeadingConfig, 'text'> & {
-    children: string | JSX.Element | JSX.Element[] | undefined | null
-} & React.HTMLAttributes<HTMLHeadingElement>) => {
+}: PropsWithChildren<
+    Omit<HeadingConfig, 'text'> & React.HTMLAttributes<HTMLHeadingElement> & { fontClass?: string }
+>) => {
     return (
         <Heading
-            id={autoId ? headingIdOfString(extractText(children)) : undefined}
+            id={autoId && !rest.id ? headingIdOfString(extractTextFromNodes(children)) : rest.id}
             level={level}
             size={size}
             spacing
             {...rest}
-            className={`font-light ${className}`}>
+            className={`${fontClass} ${className}`}>
             {children}
         </Heading>
     )
@@ -41,20 +41,6 @@ const HeadingViewPart = ({ part, common }: PartData<Part_Idebanken_Heading>) => 
             {config.text ?? common?.get?.displayName}
         </HeadingView>
     )
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function extractText(nodes: any): string {
-    return forceArray(nodes)
-        .map((node) => {
-            if (typeof node === 'string') return node
-            if ('data' in node && typeof node.data === 'string') return node.data
-            if ('children' in node && Array.isArray(node.children))
-                return extractText(node.children as DOMNode[])
-            if (typeof node.props?.children === 'string') return node.props?.children
-            return ''
-        })
-        .join('')
 }
 
 export { HeadingView, HeadingViewPart }

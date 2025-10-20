@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { PropsWithChildren } from 'react'
 import styles from './Card.module.css'
 import classNames from 'classnames'
 
 export type BgColorClasses = 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue'
 
-export interface CardProps {
-    children: React.ReactNode
+export interface CardProps extends PropsWithChildren {
     bgColorClass?: BgColorClasses
     className?: string
 }

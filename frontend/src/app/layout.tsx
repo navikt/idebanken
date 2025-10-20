@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { PropsWithChildren } from 'react'
 import { draftMode, headers } from 'next/headers'
 import Script from 'next/script'
 import FrontPageDecoration from '~/components/parts/FrontPageDecoration'
@@ -6,12 +6,8 @@ import FrontPageDecoration from '~/components/parts/FrontPageDecoration'
 import '~/styles/globals.css'
 import GlobalUmamiAnalytics from '~/utils/analytics/GlobalUmamiAnalytics'
 
-type LayoutProps = {
-    children: ReactNode
-}
-
 /* RootLayout is required by Next.js */
-export default async function RootLayout({ children }: LayoutProps) {
+export default async function RootLayout({ children }: PropsWithChildren) {
     const { isEnabled } = await draftMode()
     const shouldTrackWithUmami = !isEnabled && process.env.ENV !== 'local'
     const nonce = (await headers()).get('x-nonce') ?? undefined
@@ -36,7 +32,7 @@ export default async function RootLayout({ children }: LayoutProps) {
                     <></>
                 )}
             </head>
-            <div className="relative">{children}</div>
+            {children}
             <FrontPageDecoration />
         </GlobalUmamiAnalytics>
     )
