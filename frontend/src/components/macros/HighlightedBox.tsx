@@ -4,7 +4,6 @@ import { ListItem } from '@navikt/ds-react/List'
 import { MetaData } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
-import { IconImage } from '../common/IconImage'
 
 type Macro<T> = {
     name: string
