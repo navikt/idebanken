@@ -34,7 +34,7 @@ const CardLayout = (props: CardLayoutProps) => {
         () =>
             classNames(
                 alignment ? `text-${alignment}` : 'text-left',
-                'rounded-3xl p-6 md:py-8 bg-white'
+                'rounded-3xl p-6 md:py-8 bg-white shadow-[var(--ib-shadow)]'
             ),
         [alignment]
     )
@@ -45,7 +45,10 @@ const CardLayout = (props: CardLayoutProps) => {
     )
 
     return (
-        <BleedingBackgroundPageBlock bgColor={bgColor} className={backgroundClasses} layoutPath={path}>
+        <BleedingBackgroundPageBlock
+            bgColor={bgColor}
+            className={backgroundClasses}
+            layoutPath={path}>
             <Box className={containerClasses} as="article">
                 <CardHeader prefix={prefix} heading={heading} headingColor={headingColor} />
 

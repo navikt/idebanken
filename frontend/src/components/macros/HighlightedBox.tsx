@@ -4,6 +4,7 @@ import { ListItem } from '@navikt/ds-react/List'
 import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
+import { IconImage } from '../common/IconImage'
 
 type Macro<T> = {
     name: string
@@ -12,29 +13,19 @@ type Macro<T> = {
     meta: MetaData
 }
 
-const brandColor: Record<string, Record<string, string>> = {
-    blue: {
-        title: 'bg-[#D3DDFF]',
-        body: 'bg-[#F9FAFF]',
-    },
-    pink: {
-        title: 'bg-[#FEE2F0]',
-        body: 'bg-white',
-    },
-}
-
-// TODO replace with upcoming Aksel part and create brands
 export function HighlightedBox({
     config,
     children,
     meta,
 }: Macro<Macro_Idebanken_Highlighted_Box_DataConfig>) {
-    const brand = brandColor[config.brand ?? 'blue']
+    const brand = config.brand
     const title = config.title ?? ''
 
     return (
-        <VStack className={'border border-[#E0E0E0] rounded-lg'}>
-            <HStack className={`${brand.title} rounded-t-lg px-5 py-3 items-center`} gap={'2'}>
+        <VStack data-color={brand ?? 'neutral'} className="rounded-3xl shadow-[var(--ib-shadow)]">
+            <HStack
+                className="rounded-t-3xl px-5 py-3 items-center bg-[var(--ax-bg-moderate)]"
+                gap="2">
                 {config.icon?.url && (
                     <Image
                         unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
@@ -42,16 +33,22 @@ export function HighlightedBox({
                         alt={
                             config.icon.altText ?? config.icon.caption ?? 'Ikon for fremhevet boks'
                         }
-                        width={24}
-                        height={24}
+                        width={36}
+                        height={36}
+                        className={[
+                            'filter',
+                            /\.svg(\?.*)?$/i.test(config.icon.url)
+                                ? 'dark:invert dark:brightness-0 dark:contrast-50'
+                                : '',
+                        ].join(' ')}
                     />
                 )}
-                <BodyShort id={title} size={'large'}>
+                <BodyShort id={title} size="large">
                     {title}
                 </BodyShort>
             </HStack>
-            <VStack className={`${brand.body} rounded-b-lg p-5`}>
-                <BodyLong aria-labelledby={title} className={'mb-3'}>
+            <VStack className="rounded-b-3xl p-5 bg-[var(--ax-bg-soft)]">
+                <BodyLong aria-labelledby={title} className="mb-3">
                     {children}
                 </BodyLong>
                 {config.links && config.links.length > 0 && (

@@ -23,6 +23,9 @@
     --bg-yellow: #fee196;
     --bg-red: #e6374e;
 
+    /* Shadows */
+    --ib-shadow: 0 16px 24px -12px rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+
     /* Pink ramp */
     --ib-pink-100: #fff3f8;
     --ib-pink-200: #ffe7f1;
@@ -92,6 +95,11 @@
 .dark {
     --ib-brand-black: #bbbaba;
     --ib-brand-white: #bababa;
+
+    /* Shadows */
+    --ib-shadow:
+        0px 0px 1px 0px rgba(7, 9, 13, 0), 0px 2px 5px 0px rgba(7, 9, 13, 0.35),
+        0px 5px 12px 0px rgba(7, 9, 13, 0.5);
 
     /* Pink ramp */
     --ib-pink-100: #100c0d;
