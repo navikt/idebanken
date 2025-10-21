@@ -10,33 +10,29 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
     const { sections, title } = part?.config ?? {}
 
     return (
-        <VStack className={'p-9 bg-(--ax-bg-accent-soft) rounded-xl'}>
+        <VStack className={'p-9 bg-(--ax-bg-accent-soft) rounded-3xl'}>
             <HeadingView
                 id={'table-of-contents-heading'}
                 level={'2'}
-                size={'small'}
-                fontClass={'font-normal'}>
+                size={'medium'}
+                fontClass={'font-semibold'}>
                 {title}
             </HeadingView>
-            <List
-                as={'ol'}
-                className="list-disc list-inside"
-                size={'large'}
-                aria-labelledby={'table-of-contents-heading'}>
+            <ul className="pl-6 md:pl-8" aria-labelledby={'table-of-contents-heading'}>
                 {sections?.length ? (
                     sections.map((section, index) => (
-                        <ListItem key={index}>
+                        <li key={index} className="py-3">
                             <NextLink
                                 href={`#${headingIdOfString(section ?? '')}`}
-                                className="text-(--ax-text-decoration) underline hover:no-underline text-lg">
+                                className="text-(--ax-text-decoration) underline hover:no-underline text-xl font-[400]">
                                 {section}
                             </NextLink>
-                        </ListItem>
+                        </li>
                     ))
                 ) : (
                     <BodyShort>[Opprett layouts av typen &#34;Kort&#34;]</BodyShort>
                 )}
-            </List>
+            </ul>
         </VStack>
     )
 }

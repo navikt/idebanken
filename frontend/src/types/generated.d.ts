@@ -723,6 +723,7 @@ export type Layout_Idebanken_Card = {
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
   prefix?: Maybe<Scalars['String']['output']>;
+  shadow?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** Layout component application config for application ['idebanken'] and descriptor ['single-column'] */

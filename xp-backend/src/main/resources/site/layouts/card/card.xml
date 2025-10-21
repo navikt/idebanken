@@ -9,6 +9,10 @@
         <input type="TextLine" name="heading">
             <label>Heading text</label>
         </input>
+        <input name="shadow" type="CheckBox">
+            <label>Fremhevet (skygge)</label>
+            <default>checked</default>
+        </input>
         <mixin name="background-color"/>
         <mixin name="heading-color"/>
         <mixin name="padding-y"/>
