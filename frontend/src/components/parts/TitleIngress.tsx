@@ -37,51 +37,58 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
 
     if (config.bgColor || titleImageSrc) {
         return (
-            <div className={`${titleImageSrc ? 'lg:mx-[calc(-2*var(--ax-space-64))]' : ''}`}>
-                <BleedingBackgroundPageBlock
-                    bgColor={config.bgColor}
-                    marginInline={{ sm: 'space-4', md: 'space-28' }}
-                    bleedClassName={`overflow-hidden ${config.bgColor ? 'lg:rounded-[200px]' : ''}`}>
-                    <HStack
-                        align="center"
-                        gap="space-32"
-                        className="py-11 flex-wrap lg:flex-nowrap">
-                        {titleImageSrc ? (
-                            <div
-                                className="self-center lg:-ml-30 flex items-center justify-center shrink-0 rounded-full w-22 h-22"
-                                style={{
-                                    backgroundColor: 'var(--ib-prefix-bg, var(--ib-pink-200))',
-                                }}>
-                                <img
-                                    aria-hidden="true"
-                                    alt=""
-                                    role="presentation"
-                                    src={titleImageSrc}
-                                    className={[
-                                        'block h-auto w-11 filter',
-                                        /\.svg(\?.*)?$/i.test(titleImageSrc)
-                                            ? 'dark:invert dark:brightness-0 dark:contrast-50'
-                                            : '',
-                                    ].join(' ')}
-                                />
-                            </div>
-                        ) : null}
-                        <VStack gap="space-12" align="start">
-                            {config.showType && typeLabel && (
-                                <Tag
-                                    variant="info-filled"
-                                    size="xsmall"
-                                    className="rounded-3xl py-2 px-3">
-                                    {typeLabel}
-                                </Tag>
-                            )}
-                            <HeadingView level="1" size="xlarge" className="m-0">
-                                {title}
-                            </HeadingView>
-                        </VStack>
-                    </HStack>
-                </BleedingBackgroundPageBlock>
-            </div>
+            <>
+                <div className={`${titleImageSrc ? 'lg:mx-[calc(-2*var(--ax-space-64))]' : ''}`}>
+                    <BleedingBackgroundPageBlock
+                        bgColor={config.bgColor}
+                        marginInline={{ sm: 'space-4', md: 'space-28' }}
+                        bleedClassName={`overflow-hidden ${config.bgColor ? 'lg:rounded-[200px]' : ''}`}>
+                        <HStack
+                            align="center"
+                            gap="space-32"
+                            className="py-11 flex-wrap lg:flex-nowrap">
+                            {titleImageSrc ? (
+                                <div
+                                    className="self-center lg:-ml-30 flex items-center justify-center shrink-0 rounded-full w-22 h-22"
+                                    style={{
+                                        backgroundColor: 'var(--ib-prefix-bg, var(--ib-pink-200))',
+                                    }}>
+                                    <img
+                                        aria-hidden="true"
+                                        alt=""
+                                        role="presentation"
+                                        src={titleImageSrc}
+                                        className={[
+                                            'block h-auto w-11 filter',
+                                            /\.svg(\?.*)?$/i.test(titleImageSrc)
+                                                ? 'dark:invert dark:brightness-0 dark:contrast-50'
+                                                : '',
+                                        ].join(' ')}
+                                    />
+                                </div>
+                            ) : null}
+                            <VStack gap="space-12" align="start">
+                                {config.showType && typeLabel && (
+                                    <Tag
+                                        variant="info-filled"
+                                        size="xsmall"
+                                        className="rounded-3xl py-2 px-3">
+                                        {typeLabel}
+                                    </Tag>
+                                )}
+                                <HeadingView level="1" size="xlarge" className="m-0">
+                                    {title}
+                                </HeadingView>
+                            </VStack>
+                        </HStack>
+                    </BleedingBackgroundPageBlock>
+                </div>
+                <RichTextView
+                    data={{ processedHtml: data?.ingress }}
+                    meta={meta}
+                    customReplacer={htmlRichTextReplacer}
+                />
+            </>
         )
     }
 
