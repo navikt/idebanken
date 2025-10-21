@@ -998,6 +998,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
 export type Part_Idebanken_Accordion = {
   __typename?: 'Part_idebanken_accordion';
   accordionItems?: Maybe<Array<Maybe<Part_Idebanken_Accordion_AccordionItems>>>;
+  brand?: Maybe<Scalars['String']['output']>;
 };
 
 

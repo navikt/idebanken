@@ -3,5 +3,5 @@ export type BrandColor = {
   /**
    * Brand farger
    */
-  brand: 'neutral' | 'ib-brand-pink' | 'ib-brand-dark-blue' | 'ib-brand-orange' | 'ib-brand-pastel-yellow';
+  brand: 'neutral' | 'accent' | 'ib-brand-pink' | 'ib-brand-dark-blue' | 'ib-brand-orange' | 'ib-brand-pastel-yellow';
 };
