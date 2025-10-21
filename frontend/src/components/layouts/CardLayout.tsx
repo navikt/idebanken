@@ -28,15 +28,17 @@ const CardLayout = (props: CardLayoutProps) => {
     const { common, meta, layout, path } = props
     const { regions } = layout
     const config = layout.config ?? {}
-    const { alignment, bgColor, paddingTop, paddingBottom, prefix, heading, headingColor } = config
+    const { alignment, bgColor, paddingTop, paddingBottom, prefix, heading, headingColor, shadow } =
+        config
 
     const containerClasses = useMemo(
         () =>
             classNames(
                 alignment ? `text-${alignment}` : 'text-left',
-                'rounded-3xl p-6 md:py-8 bg-white shadow-ib-shadow'
+                shadow ? 'shadow-ib-shadow' : '',
+                'rounded-3xl p-6 md:py-8 bg-white'
             ),
-        [alignment]
+        [alignment, shadow]
     )
 
     const backgroundClasses = useMemo(

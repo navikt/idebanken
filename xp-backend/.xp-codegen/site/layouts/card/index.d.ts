@@ -11,6 +11,11 @@ export type Card = {
   heading?: string;
 
   /**
+   * Fremhevet (skygge)
+   */
+  shadow: boolean;
+
+  /**
    * Bakgrunnsfarge
    */
   bgColor: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
