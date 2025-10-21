@@ -11,9 +11,9 @@ export type HighlightedBox = {
   title: string;
 
   /**
-   * Farge
+   * Brand farger
    */
-  brand: 'blue' | 'pink';
+  brand: 'neutral' | 'accent' | 'ib-brand-pink' | 'ib-brand-dark-blue' | 'ib-brand-orange' | 'ib-brand-pastel-yellow';
 
   /**
    * Innhold

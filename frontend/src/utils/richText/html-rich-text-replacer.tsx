@@ -53,7 +53,7 @@ export const htmlRichTextReplacer: Replacer = (
                     return (
                         <BodyLong
                             {...attributesToProps(el.attribs)}
-                            className="font-light [&:last-child]:mb-0 [&:has(+hr)]:mb-(--a-spacing-4)"
+                            className="font-light [&:last-child]:mb-0 [&:has(+hr)]:mb-0"
                             spacing>
                             {domToReact(el.children as DOMNode[], options)}
                         </BodyLong>
@@ -96,9 +96,17 @@ export const htmlRichTextReplacer: Replacer = (
                         </HeadingView>
                     )
                 case 'ul':
-                    return <List as="ul">{domToReact(el.children as DOMNode[], options)}</List>
+                    return (
+                        <List as="ul" className="mb-(--ax-space-28) [&:last-child]:mb-0">
+                            {domToReact(el.children as DOMNode[], options)}
+                        </List>
+                    )
                 case 'ol':
-                    return <List as="ol">{domToReact(el.children as DOMNode[], options)}</List>
+                    return (
+                        <List as="ol" className="mb-(--ax-space-28) [&:last-child]:mb-0">
+                            {domToReact(el.children as DOMNode[], options)}
+                        </List>
+                    )
                 case 'li':
                     return (
                         <ListItem className="font-light">

@@ -21,7 +21,9 @@ export function HighlightedBox({
     const title = config.title ?? ''
 
     return (
-        <VStack data-color={brand ?? 'neutral'} className="rounded-3xl shadow-ib-shadow">
+        <VStack
+            data-color={brand ?? 'neutral'}
+            className="rounded-3xl shadow-ib-shadow mb-(--ax-space-28) [&:last-child]:mb-0">
             <HStack className="rounded-t-3xl px-5 py-3 items-center bg-(--ax-bg-moderate)" gap="2">
                 {config.icon?.url && (
                     <Image
