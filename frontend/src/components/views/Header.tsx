@@ -55,19 +55,18 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
             : 'opacity-0 -translate-y-3 pointer-events-none h-0 overflow-hidden'
 
     useEffect(() => {
-        const handleUnload = () => {
+        const trackBeforeNavigation = () => {
             if (searchResult?.word?.length && searchResult.word.length > 2) {
                 trackSearchResult(searchResult, SearchFrom.HURTIGSOK_MENY, pathname)
             }
         }
 
-        window.addEventListener('beforeunload', handleUnload)
-
+        window.addEventListener('beforeunload', trackBeforeNavigation)
         return () => {
-            window.removeEventListener('beforeunload', handleUnload)
-            handleUnload()
+            window.removeEventListener('beforeunload', trackBeforeNavigation)
+            trackBeforeNavigation()
         }
-    }, [])
+    }, [searchResult, pathname])
 
     const debouncedLiveSearch = useMemo(
         () =>
@@ -215,7 +214,7 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                                 )
                             }}
                         />
-                        {SearchResults(SearchFrom.HURTIGSOK_MENY, searchResult, loading)}
+                        {SearchResults(SearchFrom.HURTIGSOK_MENY, searchResult, loading, meta)}
                         {searchResult ? (
                             <NextLink
                                 href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`}
