@@ -1,7 +1,6 @@
 import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Table_Of_Contents } from '~/types/generated'
-import { BodyShort, List, VStack } from '@navikt/ds-react'
-import { ListItem } from '@navikt/ds-react/List'
+import { BodyShort, VStack } from '@navikt/ds-react'
 import NextLink from 'next/link'
 import { HeadingView } from '~/components/parts/Heading'
 import { headingIdOfString } from '~/utils/utils'
