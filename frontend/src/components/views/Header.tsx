@@ -159,39 +159,55 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                     inert={!isMenuOpen}
                     width={'2xl'}
                     gutters>
-                    <VStack as={'nav'} gap={'8'} className={''} padding={'10'}>
-                        <HStack gap={{ xs: '8', md: '16' }}>
+                    <Stack
+                        as={'nav'}
+                        gap={'8'}
+                        padding={'10'}
+                        justify={'space-between'}
+                        direction={{ xs: 'column', lg: 'row' }}>
+                        <Stack gap={{ xs: '8', md: '16' }} direction={{ xs: 'column', lg: 'row' }}>
                             {header?.linkGroups?.map(({ title, links }, id) => (
-                                <VStack key={id} gap={'2'}>
-                                    <HeadingView
-                                        key={id}
-                                        level={'2'}
-                                        size={'xsmall'}
-                                        className={'[&&]:font-normal'}>
-                                        {title}
-                                    </HeadingView>
+                                <VStack key={id} gap={'4'}>
+                                    {title && (
+                                        <HeadingView
+                                            key={id}
+                                            level={'2'}
+                                            size={'xsmall'}
+                                            fontClass={'font-semibold'}
+                                            className={'mb-0'}>
+                                            {title}
+                                        </HeadingView>
+                                    )}
                                     {links?.map(({ linkText, url }, id) => (
                                         <NextLink
                                             key={id}
                                             href={url}
-                                            className="underline hover:no-underline w-fit">
+                                            className="text-(--ax-text-decoration) underline hover:no-underline w-fit">
                                             {linkText}
                                         </NextLink>
                                     ))}
                                 </VStack>
                             ))}
-                        </HStack>
-                        <hr className="separator" />
-                        <HStack gap={{ xs: '4', md: '16' }}>
-                            {header?.linksBottom?.map(({ linkText, url }, id) => (
-                                <LinkCard key={id} size={'small'}>
+                        </Stack>
+                        <VStack gap={{ xs: '4', md: '4' }}>
+                            {header?.linksBottom?.map(({ linkText, url }, i) => (
+                                <LinkCard
+                                    key={i}
+                                    arrow={false}
+                                    className={
+                                        'p-6 text-(--ax-accent-600) hover:underline border-2 border-(--ib-bg-dark-blue-strong)'
+                                    }>
                                     <LinkCardTitle>
-                                        <LinkCardAnchor href={url}>{linkText}</LinkCardAnchor>
+                                        <LinkCardAnchor
+                                            href={url}
+                                            className={'text-(--ax-accent-600) no-underline'}>
+                                            {linkText}
+                                        </LinkCardAnchor>
                                     </LinkCardTitle>
                                 </LinkCard>
                             ))}
-                        </HStack>
-                    </VStack>
+                        </VStack>
+                    </Stack>
                 </PageBlock>
 
                 <PageBlock
