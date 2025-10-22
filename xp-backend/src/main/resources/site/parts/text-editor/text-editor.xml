@@ -5,5 +5,8 @@
     <form>
         <mixin name="simple-text-editor" />
         <mixin name="box-color"/>
+        <input name="halfWidth" type="CheckBox">
+            <label>Vis på 1/2 sjermbredde</label>
+        </input>
     </form>
 </part>

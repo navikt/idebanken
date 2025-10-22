@@ -7,13 +7,17 @@ export const TextEditorView = (props: PartData<Part_Idebanken_Text_Editor>) => {
     const { part } = props
     const richTextData = part.config?.simpleTextEditor ?? { processedHtml: '[Tomt innhold]' }
     const box = part.config?.boxColor ? `${part.config.boxColor} rounded-3xl p-6` : ''
+    const halfWidth = part.config?.halfWidth ? 'md:w-1/2' : ''
+
     return (
-        <RichTextView
-            // @ts-expect-error data.processedHtml is not required
-            data={richTextData}
-            meta={props.meta}
-            className={`${box}`}
-            customReplacer={htmlRichTextReplacer}
-        />
+        <div className={`w-full ${halfWidth}`}>
+            <RichTextView
+                // @ts-expect-error data.processedHtml is not required
+                data={richTextData}
+                meta={props.meta}
+                className={`${box}`}
+                customReplacer={htmlRichTextReplacer}
+            />
+        </div>
     )
 }

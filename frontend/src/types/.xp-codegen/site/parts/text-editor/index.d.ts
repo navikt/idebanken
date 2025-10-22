@@ -9,4 +9,9 @@ export type XP_TextEditor = {
    * Farge på boks
    */
   boxColor?: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
+
+  /**
+   * Vis på 1/2 sjermbredde
+   */
+  halfWidth: boolean;
 };

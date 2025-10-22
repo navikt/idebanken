@@ -17,6 +17,9 @@
         <mixin name="heading-color"/>
         <mixin name="padding-y"/>
         <mixin name="alignment"/>
+        <input name="centerHalfWidth" type="CheckBox">
+            <label>Vis på 1/2 sjermbredde og sentrert</label>
+        </input>
     </form>
     <regions>
         <region name="content"/>
