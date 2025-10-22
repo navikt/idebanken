@@ -49,7 +49,6 @@ export const LinkCardView = ({
     meta,
 }: LinkCardViewParams) => {
     const isIcon = displayType !== 'withImage'
-    console.log('icon', icon)
 
     return (
         <LinkCard data-color={brand ?? 'neutral'} className="h-full">
