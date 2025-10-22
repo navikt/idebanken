@@ -5,7 +5,12 @@ import { AnalyticsEvents, EventData, umami } from '~/utils/analytics/umami'
 
 export type UmamiTrackerProps = PropsWithChildren<{
     as?: keyof React.JSX.IntrinsicElements
-    analyticsEventName: AnalyticsEvents
+
+    /**
+     * analyticsEventName must be provided either here or in the EventData
+     * returned by getEventDataAction.
+     */
+    analyticsEventName?: AnalyticsEvents
     /**
      * Callback to produce analytics payload based on the event.
      */
@@ -30,11 +35,22 @@ export function UmamiTracker({
     const handleClick = useCallback<React.MouseEventHandler>(
         (e) => {
             try {
-                const payload = getEventDataAction(e)
-                if (!payload) return
-                void umami(analyticsEventName, {
-                    ...(payload as EventData),
-                })
+                const eventData = getEventDataAction(e)
+                const hasEventName =
+                    Boolean(analyticsEventName) ||
+                    (typeof eventData?.analyticsEventName === 'string' &&
+                        Object.values<string>(AnalyticsEvents).includes(
+                            eventData?.analyticsEventName
+                        ))
+
+                if (!eventData || !hasEventName) return
+
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const { analyticsEventName: _ignored, ...filteredEventData } = eventData
+                void umami(
+                    analyticsEventName || (eventData.analyticsEventName as AnalyticsEvents),
+                    filteredEventData
+                )
             } catch (err) {
                 // Fail quietly – analytics must never break UI
                 console.error('UmamiTracker error:', err)
