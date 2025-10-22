@@ -11,7 +11,7 @@ const HeadingView = ({
     size,
     className = '',
     autoId = true,
-    fontClass = `font-light`,
+    fontClass = `font-normal`,
     children,
     ...rest
 }: PropsWithChildren<

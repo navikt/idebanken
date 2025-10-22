@@ -19,9 +19,9 @@ export function LinkCardList({ part, meta }: PartData<Part_Idebanken_Link_Card_L
             <HGrid
                 columns={{ xs: 1, md: 12 }}
                 gap={{ xs: 'space-16', lg: 'space-20', xl: 'space-24' }}
-                className="items-start">
+                className="items-stretch">
                 {list.map((linkCard) => (
-                    <div key={linkCard.url} className={`col-span-1 ${spanClass}`}>
+                    <div key={linkCard.url} className={`col-span-1 ${spanClass} [&>*]:h-full`}>
                         {LinkCardView({ ...linkCard, brand, showDescription, displayType, meta })}
                     </div>
                 ))}
