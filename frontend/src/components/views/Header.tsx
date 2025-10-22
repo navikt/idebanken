@@ -130,6 +130,69 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                             }>
                             Meny
                         </Button>
+                        <PageBlock
+                            className={classNames(
+                                dropdownBaseClass,
+                                dropdownStateClass(isMenuOpen)
+                            )}
+                            aria-hidden={!isMenuOpen}
+                            inert={!isMenuOpen}
+                            width={'2xl'}
+                            gutters>
+                            <Stack
+                                as={'nav'}
+                                gap={'8'}
+                                padding={'10'}
+                                justify={'space-between'}
+                                direction={{ xs: 'column', lg: 'row' }}>
+                                <Stack
+                                    gap={{ xs: '8', lg: '16' }}
+                                    direction={{ xs: 'column', lg: 'row' }}>
+                                    {header?.linkGroups?.map(({ title, links }, id) => (
+                                        <VStack key={id} gap={'4'}>
+                                            {title && (
+                                                <HeadingView
+                                                    key={id}
+                                                    level={'2'}
+                                                    size={'xsmall'}
+                                                    fontClass={'font-semibold'}
+                                                    className={'mb-0'}>
+                                                    {title}
+                                                </HeadingView>
+                                            )}
+                                            {links?.map(({ linkText, url }, id) => (
+                                                <NextLink
+                                                    key={id}
+                                                    href={url}
+                                                    className="text-(--ax-text-decoration) underline hover:no-underline w-fit">
+                                                    {linkText}
+                                                </NextLink>
+                                            ))}
+                                        </VStack>
+                                    ))}
+                                </Stack>
+                                <VStack gap={{ xs: '4', lg: '6' }}>
+                                    {header?.linksBottom?.map(({ linkText, url }, i) => (
+                                        <LinkCard
+                                            key={i}
+                                            arrow={false}
+                                            className={
+                                                'p-6 text-(--ax-accent-600) hover:underline border-2 border-(--ib-bg-dark-blue-strong)'
+                                            }>
+                                            <LinkCardTitle>
+                                                <LinkCardAnchor
+                                                    href={url}
+                                                    className={
+                                                        'text-(--ax-accent-600) no-underline'
+                                                    }>
+                                                    {linkText}
+                                                </LinkCardAnchor>
+                                            </LinkCardTitle>
+                                        </LinkCard>
+                                    ))}
+                                </VStack>
+                            </Stack>
+                        </PageBlock>
                         <Button
                             variant={'tertiary'}
                             aria-label={isSearchOpen ? 'Lukk søk' : 'Åpne søk'}
@@ -149,102 +212,59 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                             }>
                             Søk
                         </Button>
-                        <ThemeButton />
-                    </HStack>
-                </HStack>
-
-                <PageBlock
-                    className={classNames(dropdownBaseClass, dropdownStateClass(isMenuOpen))}
-                    aria-hidden={!isMenuOpen}
-                    inert={!isMenuOpen}
-                    width={'2xl'}
-                    gutters>
-                    <Stack
-                        as={'nav'}
-                        gap={'8'}
-                        padding={'10'}
-                        justify={'space-between'}
-                        direction={{ xs: 'column', lg: 'row' }}>
-                        <Stack gap={{ xs: '8', lg: '16' }} direction={{ xs: 'column', lg: 'row' }}>
-                            {header?.linkGroups?.map(({ title, links }, id) => (
-                                <VStack key={id} gap={'4'}>
-                                    {title && (
-                                        <HeadingView
-                                            key={id}
-                                            level={'2'}
-                                            size={'xsmall'}
-                                            fontClass={'font-semibold'}
-                                            className={'mb-0'}>
-                                            {title}
-                                        </HeadingView>
-                                    )}
-                                    {links?.map(({ linkText, url }, id) => (
-                                        <NextLink
-                                            key={id}
-                                            href={url}
-                                            className="text-(--ax-text-decoration) underline hover:no-underline w-fit">
-                                            {linkText}
-                                        </NextLink>
-                                    ))}
-                                </VStack>
-                            ))}
-                        </Stack>
-                        <VStack gap={{ xs: '4', lg: '6' }}>
-                            {header?.linksBottom?.map(({ linkText, url }, i) => (
-                                <LinkCard
-                                    key={i}
-                                    arrow={false}
-                                    className={
-                                        'p-6 text-(--ax-accent-600) hover:underline border-2 border-(--ib-bg-dark-blue-strong)'
-                                    }>
-                                    <LinkCardTitle>
-                                        <LinkCardAnchor
-                                            href={url}
-                                            className={'text-(--ax-accent-600) no-underline'}>
-                                            {linkText}
-                                        </LinkCardAnchor>
-                                    </LinkCardTitle>
-                                </LinkCard>
-                            ))}
-                        </VStack>
-                    </Stack>
-                </PageBlock>
-
-                <PageBlock
-                    className={classNames(dropdownBaseClass, dropdownStateClass(isSearchOpen))}
-                    aria-hidden={!isSearchOpen}
-                    inert={!isSearchOpen}
-                    width={'md'}
-                    gutters>
-                    <VStack className={'py-8'}>
-                        <HeadingView level={'2'} size={'medium'} aria-hidden={true}>
-                            Søk på idébanken
-                        </HeadingView>
-                        <SearchWrapper
-                            isSearchOpen={isSearchOpen}
-                            onChange={handleFormChange}
-                            onSubmit={(e) => {
-                                e.preventDefault()
-                                router.push(
-                                    `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`
-                                )
+                        <PageBlock
+                            className={classNames(
+                                dropdownBaseClass,
+                                dropdownStateClass(isSearchOpen)
+                            )}
+                            aria-hidden={!isSearchOpen}
+                            inert={!isSearchOpen}
+                            width={'md'}
+                            gutters>
+                            <VStack className={'py-8'}>
+                                <HeadingView level={'2'} size={'medium'} aria-hidden={true}>
+                                    Søk på idébanken
+                                </HeadingView>
+                                <SearchWrapper
+                                    isSearchOpen={isSearchOpen}
+                                    onChange={handleFormChange}
+                                    onSubmit={(e) => {
+                                        e.preventDefault()
+                                        router.push(
+                                            `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`
+                                        )
+                                    }}
+                                />
+                                {SearchResults(
+                                    SearchFrom.HURTIGSOK_MENY,
+                                    searchResult,
+                                    loading,
+                                    meta
+                                )}
+                                {searchResult ? (
+                                    <NextLink
+                                        href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`}
+                                        onClick={() => setIsSearchOpen(false)}
+                                        className={
+                                            'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'
+                                        }>
+                                        Gå til avansert søk <ArrowRightIcon />
+                                    </NextLink>
+                                ) : (
+                                    <></>
+                                )}
+                            </VStack>
+                        </PageBlock>
+                        <ThemeButton
+                            onKeyDown={(e) => {
+                                if (e.key === 'Tab' && !e.shiftKey) {
+                                    setIsMenuOpen(false)
+                                    setIsSearchOpen(false)
+                                }
                             }}
                         />
-                        {SearchResults(SearchFrom.HURTIGSOK_MENY, searchResult, loading, meta)}
-                        {searchResult ? (
-                            <NextLink
-                                href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`}
-                                onClick={() => setIsSearchOpen(false)}
-                                className={
-                                    'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'
-                                }>
-                                Gå til avansert søk <ArrowRightIcon />
-                            </NextLink>
-                        ) : (
-                            <></>
-                        )}
-                    </VStack>
-                </PageBlock>
+                    </HStack>
+                </HStack>
             </BleedingBackgroundPageBlock>
 
             {/* Overlay to darken the page */}
