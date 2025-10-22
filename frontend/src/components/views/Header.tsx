@@ -6,7 +6,7 @@ import NextImage from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { HeadlessCms } from '~/types/generated'
-import { Bleed, Button, HStack, VStack } from '@navikt/ds-react'
+import { Bleed, Button, HStack, Stack, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
 import {
     ArrowRightIcon,
@@ -48,7 +48,7 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
     const rotatingIconClass = (on: boolean) =>
         classNames('transition-transform duration-200', { 'rotate-90': on })
     const dropdownBaseClass =
-        'absolute top-full right-0 transform bg-light-pink z-40 transition-all duration-300 rounded-b-4xl'
+        'absolute top-full right-0 transform z-40 bg-(--ax-bg-default) transition-all duration-300 rounded-b-4xl'
     const dropdownStateClass = (open: boolean) =>
         open
             ? 'opacity-100 translate-y-0'
@@ -94,7 +94,7 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                 as="header"
                 width={'2xl'}
                 className="relative items-center"
-                bleedClassName="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-40 overflow-y-visible">
+                bleedClassName="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-[99] overflow-y-visible bg-(--ax-bg-default)">
                 <HStack
                     align="center"
                     justify="space-between"
@@ -130,6 +130,69 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                             }>
                             Meny
                         </Button>
+                        <PageBlock
+                            className={classNames(
+                                dropdownBaseClass,
+                                dropdownStateClass(isMenuOpen)
+                            )}
+                            aria-hidden={!isMenuOpen}
+                            inert={!isMenuOpen}
+                            width={'2xl'}
+                            gutters>
+                            <Stack
+                                as={'nav'}
+                                gap={'8'}
+                                padding={'10'}
+                                justify={'space-between'}
+                                direction={{ xs: 'column', lg: 'row' }}>
+                                <Stack
+                                    gap={{ xs: '8', lg: '16' }}
+                                    direction={{ xs: 'column', lg: 'row' }}>
+                                    {header?.linkGroups?.map(({ title, links }, id) => (
+                                        <VStack key={id} gap={'4'}>
+                                            {title && (
+                                                <HeadingView
+                                                    key={id}
+                                                    level={'2'}
+                                                    size={'xsmall'}
+                                                    fontClass={'font-semibold'}
+                                                    className={'mb-0'}>
+                                                    {title}
+                                                </HeadingView>
+                                            )}
+                                            {links?.map(({ linkText, url }, id) => (
+                                                <NextLink
+                                                    key={id}
+                                                    href={url}
+                                                    className="text-(--ax-text-decoration) underline hover:no-underline w-fit">
+                                                    {linkText}
+                                                </NextLink>
+                                            ))}
+                                        </VStack>
+                                    ))}
+                                </Stack>
+                                <VStack gap={{ xs: '4', lg: '6' }}>
+                                    {header?.linksBottom?.map(({ linkText, url }, i) => (
+                                        <LinkCard
+                                            key={i}
+                                            arrow={false}
+                                            className={
+                                                'p-6 text-(--ax-accent-600) hover:underline border-2 border-(--ib-bg-dark-blue-strong)'
+                                            }>
+                                            <LinkCardTitle>
+                                                <LinkCardAnchor
+                                                    href={url}
+                                                    className={
+                                                        'text-(--ax-accent-600) no-underline'
+                                                    }>
+                                                    {linkText}
+                                                </LinkCardAnchor>
+                                            </LinkCardTitle>
+                                        </LinkCard>
+                                    ))}
+                                </VStack>
+                            </Stack>
+                        </PageBlock>
                         <Button
                             variant={'tertiary'}
                             aria-label={isSearchOpen ? 'Lukk søk' : 'Åpne søk'}
@@ -149,92 +212,65 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                             }>
                             Søk
                         </Button>
-                        <ThemeButton />
-                    </HStack>
-                </HStack>
-
-                <PageBlock
-                    className={classNames(dropdownBaseClass, dropdownStateClass(isMenuOpen))}
-                    aria-hidden={!isMenuOpen}
-                    inert={!isMenuOpen}
-                    width={'2xl'}
-                    gutters>
-                    <VStack as={'nav'} gap={'8'} className={''} padding={'10'}>
-                        <HStack gap={{ xs: '8', md: '16' }}>
-                            {header?.linkGroups?.map(({ title, links }, id) => (
-                                <VStack key={id} gap={'2'}>
-                                    <HeadingView
-                                        key={id}
-                                        level={'2'}
-                                        size={'xsmall'}
-                                        className={'[&&]:font-normal'}>
-                                        {title}
-                                    </HeadingView>
-                                    {links?.map(({ linkText, url }, id) => (
-                                        <NextLink
-                                            key={id}
-                                            href={url}
-                                            className="underline hover:no-underline w-fit">
-                                            {linkText}
-                                        </NextLink>
-                                    ))}
-                                </VStack>
-                            ))}
-                        </HStack>
-                        <hr className="separator" />
-                        <HStack gap={{ xs: '4', md: '16' }}>
-                            {header?.linksBottom?.map(({ linkText, url }, id) => (
-                                <LinkCard key={id} size={'small'}>
-                                    <LinkCardTitle>
-                                        <LinkCardAnchor href={url}>{linkText}</LinkCardAnchor>
-                                    </LinkCardTitle>
-                                </LinkCard>
-                            ))}
-                        </HStack>
-                    </VStack>
-                </PageBlock>
-
-                <PageBlock
-                    className={classNames(dropdownBaseClass, dropdownStateClass(isSearchOpen))}
-                    aria-hidden={!isSearchOpen}
-                    inert={!isSearchOpen}
-                    width={'md'}
-                    gutters>
-                    <VStack className={'py-8'}>
-                        <HeadingView level={'2'} size={'medium'} aria-hidden={true}>
-                            Søk på idébanken
-                        </HeadingView>
-                        <SearchWrapper
-                            isSearchOpen={isSearchOpen}
-                            onChange={handleFormChange}
-                            onSubmit={(e) => {
-                                e.preventDefault()
-                                router.push(
-                                    `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`
-                                )
+                        <PageBlock
+                            className={classNames(
+                                dropdownBaseClass,
+                                dropdownStateClass(isSearchOpen)
+                            )}
+                            aria-hidden={!isSearchOpen}
+                            inert={!isSearchOpen}
+                            width={'md'}
+                            gutters>
+                            <VStack className={'py-8'}>
+                                <HeadingView level={'2'} size={'medium'} aria-hidden={true}>
+                                    Søk på idébanken
+                                </HeadingView>
+                                <SearchWrapper
+                                    isSearchOpen={isSearchOpen}
+                                    onChange={handleFormChange}
+                                    onSubmit={(e) => {
+                                        e.preventDefault()
+                                        router.push(
+                                            `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`
+                                        )
+                                    }}
+                                />
+                                {SearchResults(
+                                    SearchFrom.HURTIGSOK_MENY,
+                                    searchResult,
+                                    loading,
+                                    meta
+                                )}
+                                {searchResult ? (
+                                    <NextLink
+                                        href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`}
+                                        onClick={() => setIsSearchOpen(false)}
+                                        className={
+                                            'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'
+                                        }>
+                                        Gå til avansert søk <ArrowRightIcon />
+                                    </NextLink>
+                                ) : (
+                                    <></>
+                                )}
+                            </VStack>
+                        </PageBlock>
+                        <ThemeButton
+                            onKeyDown={(e) => {
+                                if (e.key === 'Tab' && !e.shiftKey) {
+                                    setIsMenuOpen(false)
+                                    setIsSearchOpen(false)
+                                }
                             }}
                         />
-                        {SearchResults(SearchFrom.HURTIGSOK_MENY, searchResult, loading, meta)}
-                        {searchResult ? (
-                            <NextLink
-                                href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`}
-                                onClick={() => setIsSearchOpen(false)}
-                                className={
-                                    'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'
-                                }>
-                                Gå til avansert søk <ArrowRightIcon />
-                            </NextLink>
-                        ) : (
-                            <></>
-                        )}
-                    </VStack>
-                </PageBlock>
+                    </HStack>
+                </HStack>
             </BleedingBackgroundPageBlock>
 
             {/* Overlay to darken the page */}
             <Bleed
                 className={classNames(
-                    'absolute inset-x-0 top-24 md:top-20 bottom-0 bg-black transition-opacity duration-300 z-30',
+                    'fixed inset-x-0 top-0 bottom-0 bg-(--ib-brand-black) transition-opacity duration-300 z-30',
                     isMenuOpen || isSearchOpen ? 'opacity-30' : 'opacity-0 pointer-events-none'
                 )}
                 onClick={() => {
