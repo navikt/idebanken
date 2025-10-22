@@ -165,7 +165,7 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                         padding={'10'}
                         justify={'space-between'}
                         direction={{ xs: 'column', lg: 'row' }}>
-                        <Stack gap={{ xs: '8', md: '16' }} direction={{ xs: 'column', lg: 'row' }}>
+                        <Stack gap={{ xs: '8', lg: '16' }} direction={{ xs: 'column', lg: 'row' }}>
                             {header?.linkGroups?.map(({ title, links }, id) => (
                                 <VStack key={id} gap={'4'}>
                                     {title && (
@@ -189,7 +189,7 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                                 </VStack>
                             ))}
                         </Stack>
-                        <VStack gap={{ xs: '4', md: '4' }}>
+                        <VStack gap={{ xs: '4', lg: '6' }}>
                             {header?.linksBottom?.map(({ linkText, url }, i) => (
                                 <LinkCard
                                     key={i}
