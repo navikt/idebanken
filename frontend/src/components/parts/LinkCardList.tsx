@@ -6,7 +6,15 @@ import { LinkCardView } from '~/components/parts/LinkCard'
 
 export function LinkCardList({ part, meta }: PartData<Part_Idebanken_Link_Card_List>) {
     const { list, displayType, heading, brand, showDescription } = part.config
-    const spanClass = displayType === 'withImage' ? 'md:col-span-4' : 'md:col-span-6'
+    const isThree = list.length === 3
+
+    // 3-up if withImage; otherwise 2-up, except 3 items become 3-up at lg
+    const spanClass =
+        displayType === 'withImage'
+            ? 'md:col-span-4'
+            : isThree
+              ? 'md:col-span-6 lg:col-span-4'
+              : 'md:col-span-6'
 
     return (
         <section className="relative z-20">

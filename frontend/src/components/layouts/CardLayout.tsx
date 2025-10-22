@@ -28,17 +28,27 @@ const CardLayout = (props: CardLayoutProps) => {
     const { common, meta, layout, path } = props
     const { regions } = layout
     const config = layout.config ?? {}
-    const { alignment, bgColor, paddingTop, paddingBottom, prefix, heading, headingColor, shadow } =
-        config
+    const {
+        alignment,
+        bgColor,
+        paddingTop,
+        paddingBottom,
+        prefix,
+        heading,
+        headingColor,
+        shadow,
+        centerHalfWidth,
+    } = config
 
     const containerClasses = useMemo(
         () =>
             classNames(
                 alignment ? `text-${alignment}` : 'text-left',
                 shadow ? 'shadow-ib-shadow' : '',
-                'rounded-3xl p-6 md:py-8 bg-white'
+                'rounded-3xl p-6 md:py-8 bg-white',
+                centerHalfWidth ? 'w-full md:w-1/2 md:mx-auto' : '' // center + 50% on md+
             ),
-        [alignment, shadow]
+        [alignment, shadow, centerHalfWidth]
     )
 
     const backgroundClasses = useMemo(
@@ -53,7 +63,6 @@ const CardLayout = (props: CardLayoutProps) => {
             layoutPath={path}>
             <Box className={containerClasses} as="article">
                 <CardHeader prefix={prefix} heading={heading} headingColor={headingColor} />
-
                 <RegionView
                     name="content"
                     className="[&>*]:my-8 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"

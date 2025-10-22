@@ -718,6 +718,7 @@ export type Layout_Idebanken_Card = {
   __typename?: 'Layout_idebanken_card';
   alignment?: Maybe<Scalars['String']['output']>;
   bgColor?: Maybe<Scalars['String']['output']>;
+  centerHalfWidth?: Maybe<Scalars['Boolean']['output']>;
   heading?: Maybe<Scalars['String']['output']>;
   headingColor?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
@@ -1282,6 +1283,7 @@ export type Part_Idebanken_Table_Of_ContentsSectionsArgs = {
 export type Part_Idebanken_Text_Editor = {
   __typename?: 'Part_idebanken_text_editor';
   boxColor?: Maybe<Scalars['String']['output']>;
+  halfWidth?: Maybe<Scalars['Boolean']['output']>;
   simpleTextEditor?: Maybe<RichText>;
 };
 

@@ -63,7 +63,7 @@
         </input>
 
         <mixin name="brand-color"/>
-         <input name="showDescription" type="CheckBox">
+        <input name="showDescription" type="CheckBox">
             <label>Vis beskrivelse på kortene</label>
             <default>checked</default>
         </input>

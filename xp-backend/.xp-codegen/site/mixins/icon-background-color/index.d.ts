@@ -3,5 +3,5 @@ export type IconBackgroundColor = {
   /**
    * Ikonets bakgrunnsfarge
    */
-  iconColor?: 'bg-white' | 'ib-pink-400A' | 'bg-blue' | 'bg-orange' | 'bg-yellow' | 'bg-red';
+  iconColor?: 'ib-brand-white' | 'ib-pink-400A' | 'ib-dark-blue-400A' | 'ib-orange-400A';
 };
