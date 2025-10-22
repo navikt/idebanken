@@ -5,7 +5,7 @@ import { HGrid } from '@navikt/ds-react'
 import { LinkCardView } from '~/components/parts/LinkCard'
 
 export function LinkCardList({ part, meta }: PartData<Part_Idebanken_Link_Card_List>) {
-    const { list, displayType, heading, brand } = part.config
+    const { list, displayType, heading, brand, showDescription } = part.config
     const spanClass = displayType === 'withImage' ? 'md:col-span-4' : 'md:col-span-6'
 
     return (
@@ -22,7 +22,7 @@ export function LinkCardList({ part, meta }: PartData<Part_Idebanken_Link_Card_L
                 className="items-start">
                 {list.map((linkCard) => (
                     <div key={linkCard.url} className={`col-span-1 ${spanClass}`}>
-                        {LinkCardView({ ...linkCard, brand, displayType, meta })}
+                        {LinkCardView({ ...linkCard, brand, showDescription, displayType, meta })}
                     </div>
                 ))}
             </HGrid>

@@ -37,6 +37,11 @@ hr {
     color: var(--ax-text-neutral);
     --ib-prefix-bg: var(--ib-pink-200);
 }
+.bg-brand-white {
+    background-color: var(--ib-brand-white);
+    color: var(--ax-text-neutral);
+    --ib-prefix-bg: var(--ax-bg-neutral-moderate);
+}
 .bg-extra-light-pink {
     background-color: var(--ib-pink-100);
     color: var(--ax-text-neutral);

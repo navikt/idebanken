@@ -1164,6 +1164,7 @@ export type Part_Idebanken_Link_Card = {
   brand?: Maybe<Scalars['String']['output']>;
   displayType?: Maybe<Scalars['String']['output']>;
   resolvedLinkCard: Link_Card;
+  showDescription?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** Ekstern lenke */
@@ -1205,6 +1206,7 @@ export type Part_Idebanken_Link_Card_List = {
   displayType?: Maybe<Scalars['String']['output']>;
   heading?: Maybe<Part_Idebanken_Link_Card_List_Heading>;
   list: Array<Link_Card>;
+  showDescription?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** Automatisk liste */

@@ -5,12 +5,10 @@
             <label>Ikonets bakgrunnsfarge</label>
             <occurrences minimum="0" maximum="1"/>
             <config>
-                <option value="bg-white">Hvit</option>
-                <option value="bg-pink">Rosa</option>
-                <option value="bg-blue">Blå</option>
-                <option value="bg-orange">Orange</option>
-                <option value="bg-yellow">Gul</option>
-                <option value="bg-red">Rød</option>
+                <option value="ib-brand-white">Hvit</option>
+                <option value="ib-pink-400A">Rosa</option>
+                <option value="ib-dark-blue-400A">Blå</option>
+                <option value="ib-orange-400A">Orange</option>
             </config>
         </input>
     </form>

@@ -3,5 +3,5 @@ export type XP_IconBackgroundColor = {
   /**
    * Ikonets bakgrunnsfarge
    */
-  iconColor?: 'bg-white' | 'bg-pink' | 'bg-blue' | 'bg-orange' | 'bg-yellow' | 'bg-red';
+  iconColor?: 'bg-white' | 'ib-pink-400A' | 'bg-blue' | 'bg-orange' | 'bg-yellow' | 'bg-red';
 };
