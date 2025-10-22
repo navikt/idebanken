@@ -1,10 +1,10 @@
 import type { Link_Card, Part_Idebanken_Link_Card } from '~/types/generated.d'
-import { Box, Tag } from '@navikt/ds-react'
+import { Box /*, Tag */ } from '@navikt/ds-react'
 import {
     LinkCard,
     LinkCardAnchor,
     LinkCardDescription,
-    LinkCardFooter,
+    /*LinkCardFooter,*/
     LinkCardIcon,
     LinkCardImage,
     LinkCardTitle,
@@ -16,11 +16,12 @@ import { PartData } from '~/types/graphql-types'
 
 export const LinkCardPartView = ({ part, meta }: PartData<Part_Idebanken_Link_Card>) => {
     const { config } = part
-    const { resolvedLinkCard, displayType, brand } = config
+    const { resolvedLinkCard, displayType, brand, showDescription } = config
 
     return LinkCardView({
         ...resolvedLinkCard,
         brand,
+        showDescription,
         displayType,
         meta,
     })
@@ -29,6 +30,7 @@ export const LinkCardPartView = ({ part, meta }: PartData<Part_Idebanken_Link_Ca
 export type LinkCardViewParams = Omit<Link_Card, 'description' | '__typename'> & {
     description?: string | React.ReactNode
     brand?: string | null
+    showDescription?: boolean | null
     displayType?: 'withImage' | 'withIcon' | string | null
     meta?: MetaData
 }
@@ -42,10 +44,12 @@ export const LinkCardView = ({
     icon,
     external,
     brand,
+    showDescription,
     displayType,
     meta,
 }: LinkCardViewParams) => {
     const isIcon = displayType !== 'withImage'
+    console.log('icon', icon)
 
     return (
         <LinkCard data-color={brand ?? 'neutral'} className="h-full">
@@ -63,8 +67,8 @@ export const LinkCardView = ({
             {isIcon && icon?.url && (
                 <Box
                     asChild
-                    padding="space-8"
-                    borderRadius="12"
+                    padding="space-12"
+                    className="rounded-full"
                     style={
                         icon?.iconColor
                             ? { backgroundColor: `var(--${icon?.iconColor})` }
@@ -75,8 +79,14 @@ export const LinkCardView = ({
                             unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
                             src={icon.url}
                             alt={icon.caption ?? 'Ikon'}
-                            width={40}
-                            height={40}
+                            width={24}
+                            height={24}
+                            className={[
+                                'filter',
+                                /\.svg(\?.*)?$/i.test(icon.url)
+                                    ? 'dark:invert dark:brightness-0 dark:contrast-50'
+                                    : '',
+                            ].join(' ')}
                         />
                     </LinkCardIcon>
                 </Box>
@@ -88,8 +98,10 @@ export const LinkCardView = ({
                     {title}
                 </LinkCardAnchor>
             </LinkCardTitle>
-            {description && <LinkCardDescription>{description}</LinkCardDescription>}
-            {categories && categories.length > 0 && (
+            {description && showDescription && (
+                <LinkCardDescription>{description}</LinkCardDescription>
+            )}
+            {/* {categories && categories.length > 0 && (
                 <LinkCardFooter>
                     {categories.map((tag, index) => (
                         <Tag key={index} size="small" variant="neutral">
@@ -97,7 +109,7 @@ export const LinkCardView = ({
                         </Tag>
                     ))}
                 </LinkCardFooter>
-            )}
+            )} */}
         </LinkCard>
     )
 }

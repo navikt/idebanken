@@ -94,7 +94,7 @@
 /* Dark overrides */
 .dark {
     --ib-brand-black: #bbbaba;
-    --ib-brand-white: #bababa;
+    --ib-brand-white: #2a2a2a;
 
     /* Shadows */
     --ib-shadow:

@@ -6,6 +6,7 @@
             <occurrences minimum="1" maximum="1"/>
             <config>
                 <option value="bg-white">Hvit</option>
+                <option value="bg-brand-white">Lys grå</option>
                 <option value="bg-extra-light-pink">Ekstra lys rosa</option>
                 <option value="bg-light-pink">Lys rosa</option>
                 <option value="bg-pink">Rosa</option>

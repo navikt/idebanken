@@ -11,6 +11,11 @@ export type LinkCard = {
   displayType: 'withIcon' | 'withImage';
 
   /**
+   * Vis beskrivelse
+   */
+  showDescription: boolean;
+
+  /**
    * Lenke-type
    */
   internalOrExternalLink:

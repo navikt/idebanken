@@ -13,6 +13,10 @@
             </config>
             <default>withIcon</default>
         </input>
+        <input name="showDescription" type="CheckBox">
+            <label>Vis beskrivelse</label>
+            <default>checked</default>
+        </input>
 
         <option-set name="internalOrExternalLink">
             <label>Lenke-type</label>
