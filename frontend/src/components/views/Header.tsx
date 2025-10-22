@@ -231,7 +231,7 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                                     onSubmit={(e) => {
                                         e.preventDefault()
                                         router.push(
-                                            `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`
+                                            `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`
                                         )
                                     }}
                                 />
@@ -243,7 +243,7 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                                 )}
                                 {searchResult ? (
                                     <NextLink
-                                        href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${searchValue}`}
+                                        href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`}
                                         onClick={() => setIsSearchOpen(false)}
                                         className={
                                             'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'
