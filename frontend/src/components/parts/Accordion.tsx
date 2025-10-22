@@ -1,5 +1,3 @@
-'use client'
-
 import {
     Accordion,
     AccordionContent,
@@ -11,7 +9,7 @@ import { validatedAccordionConfig } from '~/utils/runtimeValidation'
 import { PartData } from '~/types/graphql-types'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
-import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
+import { TrackAccordion } from '~/components/common/analytics/TrackAccordion'
 
 export const AccordionView = ({ part, meta }: PartData<Part_Idebanken_Accordion>) => {
     const config = validatedAccordionConfig(part.config)
@@ -23,29 +21,19 @@ export const AccordionView = ({ part, meta }: PartData<Part_Idebanken_Accordion>
     return (
         <Accordion data-color={brand ?? 'neutral'} className="flex flex-col gap-3">
             {accordionItems.map((item, idx) => (
-                <AccordionItem
-                    key={idx}
-                    onOpenChange={(open) =>
-                        void umami(
-                            open ? AnalyticsEvents.ACC_EXPAND : AnalyticsEvents.ACC_COLLAPSE,
-                            {
-                                tittel: item.header,
-                            }
-                        )
-                    }
-                    className="
-                        rounded-[10px]
-                    ">
-                    <AccordionHeader>{item.header}</AccordionHeader>
-                    <AccordionContent>
-                        <RichTextView
-                            // @ts-expect-error data.processedHtml is not required
-                            data={item.simpleTextEditor ?? {}}
-                            meta={meta}
-                            customReplacer={htmlRichTextReplacer}
-                        />
-                    </AccordionContent>
-                </AccordionItem>
+                <TrackAccordion key={idx}>
+                    <AccordionItem className="rounded-[10px]">
+                        <AccordionHeader>{item.header}</AccordionHeader>
+                        <AccordionContent>
+                            <RichTextView
+                                // @ts-expect-error data.processedHtml is not required
+                                data={item.simpleTextEditor ?? {}}
+                                meta={meta}
+                                customReplacer={htmlRichTextReplacer}
+                            />
+                        </AccordionContent>
+                    </AccordionItem>
+                </TrackAccordion>
             ))}
         </Accordion>
     )
