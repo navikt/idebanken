@@ -6,7 +6,7 @@ import NextImage from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { HeadlessCms } from '~/types/generated'
-import { Bleed, Button, HStack, VStack } from '@navikt/ds-react'
+import { Bleed, Button, HStack, Stack, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
 import {
     ArrowRightIcon,
@@ -48,7 +48,7 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
     const rotatingIconClass = (on: boolean) =>
         classNames('transition-transform duration-200', { 'rotate-90': on })
     const dropdownBaseClass =
-        'absolute top-full right-0 transform bg-light-pink z-40 transition-all duration-300 rounded-b-4xl'
+        'absolute top-full right-0 transform z-40 bg-(--ax-bg-default) transition-all duration-300 rounded-b-4xl'
     const dropdownStateClass = (open: boolean) =>
         open
             ? 'opacity-100 translate-y-0'
@@ -94,7 +94,7 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                 as="header"
                 width={'2xl'}
                 className="relative items-center"
-                bleedClassName="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-40 overflow-y-visible">
+                bleedClassName="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-[99] overflow-y-visible bg-(--ax-bg-default)">
                 <HStack
                     align="center"
                     justify="space-between"
@@ -234,7 +234,7 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
             {/* Overlay to darken the page */}
             <Bleed
                 className={classNames(
-                    'absolute inset-x-0 top-24 md:top-20 bottom-0 bg-black transition-opacity duration-300 z-30',
+                    'fixed inset-x-0 top-0 bottom-0 bg-(--ib-brand-black) transition-opacity duration-300 z-30',
                     isMenuOpen || isSearchOpen ? 'opacity-30' : 'opacity-0 pointer-events-none'
                 )}
                 onClick={() => {
