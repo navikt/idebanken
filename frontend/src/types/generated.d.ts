@@ -331,7 +331,7 @@ export type FilterInput = {
 /** Footer configuration */
 export type Footer = {
   __typename?: 'Footer';
-  footerText?: Maybe<RichText>;
+  footerText?: Maybe<Scalars['String']['output']>;
   linkGroups: Array<LinkGroups>;
   newsletterSubscribeLink?: Maybe<ResolvedLinkSelector>;
   newsletterSubscribeText?: Maybe<Scalars['String']['output']>;
