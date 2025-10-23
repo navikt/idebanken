@@ -74,7 +74,7 @@
                     <label>Lenker nederst i meny</label>
                     <occurrences minimum="0" maximum="0"/>
                     <items>
-                        <mixin name="link-selector" />
+                        <mixin name="link-selector"/>
                     </items>
                 </item-set>
             </items>
@@ -83,8 +83,20 @@
             <label>Footer</label>
             <occurrences minimum="1" maximum="1"/>
             <items>
-                <input type="TextLine" name="footerText">
+                <field-set>
+                    <label>Nyhetsbrev</label>
+                    <items>
+                        <input type="TextLine" name="newsletterSubscribeText">
+                            <label>Tekst</label>
+                        </input>
+                        <mixin name="link-selector"/>
+                    </items>
+                </field-set>
+                <input type="HtmlArea" name="footerText">
                     <label>Footer tekst</label>
+                    <config>
+                        <exclude>*</exclude>
+                    </config>
                 </input>
                 <mixin name="link-groups"/>
             </items>

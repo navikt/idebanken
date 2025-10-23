@@ -88,6 +88,10 @@ query($path:ID!){
         }
     }
     footer {
+      newsletterSubscribeText
+      newsletterSubscribeLink {
+        ${resolvedLinkSelector}
+      }
       footerText
       linkGroups {
         ${linkGroups}

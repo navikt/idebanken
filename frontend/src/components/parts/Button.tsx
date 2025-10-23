@@ -4,6 +4,7 @@ import { PartData } from '~/types/graphql-types'
 import { LinkHeading } from './LinkHeading'
 import { Part_Idebanken_Button, ResolvedLinkSelector } from '~/types/generated'
 import { XP_Button } from '@xp-types/site/parts'
+import { PropsWithChildren } from 'react'
 
 type ButtonConfig = {
     variant: ButtonProps['variant'] | 'link'
@@ -13,22 +14,28 @@ type ButtonConfig = {
 const ButtonView = ({
     config,
     download,
+    children,
     ...rest
-}: ButtonProps & {
-    config?: ButtonConfig
-    download?: boolean
-}) => {
+}: PropsWithChildren<
+    ButtonProps & {
+        config?: ButtonConfig
+        download?: boolean
+    }
+>) => {
     const btn = config
     if (!btn) return null
 
     if (btn.variant === 'link') {
-        return <LinkHeading show={true} title={btn.linkText} href={btn.url || '#'} />
+        return (
+            <LinkHeading show={true} href={btn.url || '#'}>
+                {btn.linkText || children}
+            </LinkHeading>
+        )
     }
 
     const buttonProps: ButtonProps = {
         variant: btn.variant,
         size: btn.size || 'medium',
-        children: btn.linkText,
         ...(download ? { download: true } : {}),
         ...(btn.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
         ...(btn.url ? { as: NextLink, href: btn.url || '#' } : {}),
@@ -39,8 +46,9 @@ const ButtonView = ({
             data-color="ib-brand-dark-blue"
             className="rounded-[60px] font-light"
             {...rest}
-            {...buttonProps}
-        />
+            {...buttonProps}>
+            {btn.linkText || children}
+        </Button>
     )
 }
 

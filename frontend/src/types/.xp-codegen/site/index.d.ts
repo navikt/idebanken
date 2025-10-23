@@ -193,6 +193,58 @@ declare global {
        */
       footer: {
         /**
+         * Tekst
+         */
+        newsletterSubscribeText?: string;
+
+        /**
+         * Lenke-type
+         */
+        internalOrExternalLink:
+          | {
+              /**
+               * Selected
+               */
+              _selected: 'internalLink';
+
+              /**
+               * Intern lenke
+               */
+              internalLink: {
+                /**
+                 * Innhold som skal lenkes til
+                 */
+                contentId: string;
+
+                /**
+                 * Overskriv lenketekst
+                 */
+                linkText?: string;
+              };
+            }
+          | {
+              /**
+               * Selected
+               */
+              _selected: 'externalLink';
+
+              /**
+               * Ekstern lenke
+               */
+              externalLink: {
+                /**
+                 * URL (https://...)
+                 */
+                url: string;
+
+                /**
+                 * Lenketekst
+                 */
+                linkText?: string;
+              };
+            };
+
+        /**
          * Footer tekst
          */
         footerText?: string;

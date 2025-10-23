@@ -46,7 +46,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     return (
         <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
             <Page
-                footer={<Footer footerProps={common?.footer ?? undefined} />}
+                footer={<Footer footerProps={common?.footer ?? undefined} meta={meta} />}
                 contentBlockPadding="none">
                 <Header
                     meta={meta}
