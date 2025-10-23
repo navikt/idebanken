@@ -34,12 +34,11 @@ export function HighlightedBox({
                         }
                         width={36}
                         height={36}
-                        className={[
-                            'filter',
+                        className={
                             /\.svg(\?.*)?$/i.test(config.icon.url)
                                 ? 'dark:invert dark:brightness-0 dark:contrast-50'
-                                : '',
-                        ].join(' ')}
+                                : undefined
+                        }
                     />
                 )}
                 <BodyShort id={title} size="large">

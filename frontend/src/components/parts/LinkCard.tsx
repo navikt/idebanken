@@ -80,12 +80,11 @@ export const LinkCardView = ({
                             alt={icon.caption ?? 'Ikon'}
                             width={24}
                             height={24}
-                            className={[
-                                'filter',
+                            className={
                                 /\.svg(\?.*)?$/i.test(icon.url)
                                     ? 'dark:invert dark:brightness-0 dark:contrast-50'
-                                    : '',
-                            ].join(' ')}
+                                    : undefined
+                            }
                         />
                     </LinkCardIcon>
                 </Box>
