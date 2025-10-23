@@ -100,7 +100,7 @@ type ExternalLink = Extract<
 >['externalLink']
 
 export function resolveLink(
-    internalOrExternalLink: LinkSelector['internalOrExternalLink']
+    internalOrExternalLink?: LinkSelector['internalOrExternalLink']
 ): ResolvedLinkSelector {
     if (!internalOrExternalLink?._selected) {
         return {

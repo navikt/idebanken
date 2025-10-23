@@ -8,5 +8,5 @@ export type Meta = {
   /**
    * Ikonets bakgrunnsfarge
    */
-  iconColor?: 'bg-white' | 'bg-pink' | 'bg-blue' | 'bg-orange' | 'bg-yellow' | 'bg-red';
+  iconColor?: 'ib-brand-white' | 'ib-pink-400A' | 'ib-dark-blue-400A' | 'ib-orange-400A';
 };

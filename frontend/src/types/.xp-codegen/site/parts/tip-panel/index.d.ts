@@ -17,7 +17,7 @@ export type XP_TipPanel = {
     /**
      * Bakgrunnsfarge
      */
-    bgColor: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
+    bgColor: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
   }>;
 
   /**
@@ -28,5 +28,5 @@ export type XP_TipPanel = {
   /**
    * Bakgrunnsfarge
    */
-  bgColor: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
+  bgColor: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
 };
