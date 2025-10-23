@@ -7,6 +7,7 @@ import {
     EmptyRecord,
     LinkGroups,
     ResolvedLinkSelector,
+    resolveLink,
     resolveLinkGroups,
     resolveLinks,
 } from '../common-guillotine-types'
@@ -14,6 +15,8 @@ import { Content, get, query } from '/lib/xp/content'
 import { Category } from '@xp-types/site/content-types'
 import { mapCategoryContentToResolved, ResolvedCategory } from './category'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
+import { processHtml } from '/lib/xp/portal'
+import { logger } from '/lib/utils/logging'
 
 export const headlessCmsExtensions = ({
     list,
@@ -47,13 +50,21 @@ export const headlessCmsExtensions = ({
                 linkGroups: LinkGroups
             } => {
                 return runInContext({ asAdmin: true }, () => {
-                    const footerConfig = getSiteConfig()?.footer
-
-                    const linkGroups = resolveLinkGroups(footerConfig?.linkGroups)
-
-                    return {
-                        footerText: footerConfig?.footerText,
+                    const {
                         linkGroups,
+                        footerText,
+                        newsletterSubscribeText,
+                        internalOrExternalLink,
+                    } = getSiteConfig()?.footer ?? {}
+
+                    const resolvedLinkGroups = resolveLinkGroups(linkGroups)
+
+                    logger.info(`footerText ${JSON.stringify(footerText, null, 2)}`)
+                    return {
+                        newsletterSubscribeText,
+                        newsletterSubscribeLink: resolveLink(internalOrExternalLink),
+                        footerText: processHtml({ value: footerText ?? '' }),
+                        linkGroups: resolvedLinkGroups,
                     }
                 })
             },
@@ -106,6 +117,12 @@ export const headlessCmsExtensions = ({
         Footer: {
             description: 'Footer configuration',
             fields: {
+                newsletterSubscribeText: {
+                    type: GraphQLString,
+                },
+                newsletterSubscribeLink: {
+                    type: reference('ResolvedLinkSelector'),
+                },
                 footerText: {
                     type: GraphQLString,
                 },

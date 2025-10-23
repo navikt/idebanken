@@ -1,12 +1,15 @@
 import NextLink from 'next/link'
 import { Link } from '@navikt/ds-react'
+import { PropsWithChildren } from 'react'
 
-export const LinkHeading = (props: {
-    show: boolean
-    title?: string | null
-    href?: string
-    customClassName?: string
-}) => {
+export const LinkHeading = (
+    props: PropsWithChildren<{
+        show: boolean
+        title?: string | null
+        href?: string
+        customClassName?: string
+    }>
+) => {
     if (!props.show) return null
     const base =
         'text-inherit navds-heading--medium hover:underline hover:[text-decoration-thickness:0.111em]'
@@ -14,7 +17,7 @@ export const LinkHeading = (props: {
 
     return (
         <Link as={NextLink} href={props.href || '#'} className={className}>
-            {props.title}
+            {props.title || props.children}
         </Link>
     )
 }
