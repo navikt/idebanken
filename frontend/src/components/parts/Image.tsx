@@ -3,6 +3,7 @@ import { forceArray } from '~/utils/utils'
 import { getUrl, MetaData } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Image, Part_Idebanken_Image_Circles } from '~/types/generated'
+import { Circle } from '~/components/common/Circle'
 
 // Image
 export type ImageData = {
@@ -41,9 +42,9 @@ interface StyledImageProps extends BasicImageProps {
 }
 
 const accentColors: Record<string, string> = {
-    pink: 'bg-pink-500',
-    red: 'bg-red-500',
-    blue: 'bg-dark-blue-500',
+    pink: 'bg-(--ib-pink-100A)',
+    red: 'bg-(--ib-pink-400A)',
+    blue: 'bg-(--ib-dark-blue-100A)',
 }
 
 export const ImageView = ({ part, meta }: PartData<Part_Idebanken_Image & ImageData>) => {
@@ -205,18 +206,13 @@ function StyledImage({
                 />
             </div>
 
-            {circles?.map(({ size, color, bottom, left, opacity }, id) => (
-                <div
+            {circles?.map(({ size, color, bottom, left }, id) => (
+                <Circle
                     key={id}
-                    className={classNames(`absolute rounded-full `, color)}
-                    style={{
-                        width: `${size}px`,
-                        height: `${size}px`,
-                        bottom: `${bottom + paddingY}px`,
-                        left: `${left + paddingX}px`,
-                        zIndex: id + 1,
-                        opacity: opacity,
-                    }}
+                    className={color}
+                    diameter={size}
+                    bottom={bottom + paddingY}
+                    left={left + paddingX}
                 />
             ))}
         </div>
