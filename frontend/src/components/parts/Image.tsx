@@ -128,7 +128,7 @@ function BasicImage({
             <img
                 src={src}
                 alt={alt ?? 'Bilde'}
-                className="object-cover"
+                className="object-cover z-20"
                 style={{
                     width: width ? `${width}px` : 'auto',
                     height: height ? `${height}px` : 'auto',

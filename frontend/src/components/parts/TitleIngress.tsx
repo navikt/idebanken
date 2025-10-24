@@ -59,7 +59,7 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                                         role="presentation"
                                         src={titleImageSrc}
                                         className={[
-                                            'block h-auto w-11 filter',
+                                            'block h-auto w-11',
                                             /\.svg(\?.*)?$/i.test(titleImageSrc)
                                                 ? 'dark:invert dark:brightness-0 dark:contrast-50'
                                                 : '',

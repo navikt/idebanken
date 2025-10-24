@@ -106,7 +106,7 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                             alt={title}
                             width={200}
                             height={100}
-                            className="w-48 h-full"
+                            className="w-48 h-full dark:invert dark:brightness-0 dark:contrast-50"
                             priority
                         />
                     </NextLink>
