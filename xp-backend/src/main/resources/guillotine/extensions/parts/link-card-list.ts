@@ -173,6 +173,11 @@ const getAutomaticList = (
     if (automatic.parentContent) {
         parentContentPath = get({ key: automatic.parentContent })?._path
     }
+    if (!contentTypes?.length) {
+        return [
+            { url: '#', external: false, title: '[Ingen innholdstyper er valgt]', categories: [] },
+        ]
+    }
 
     const contents = query({
         count: automatic.limit || -1,
@@ -195,16 +200,12 @@ const getAutomaticList = (
         filters: {
             boolean: {
                 must: [
-                    ...(contentTypes.length
-                        ? [
-                              {
-                                  hasValue: {
-                                      field: 'type',
-                                      values: contentTypes,
-                                  },
-                              },
-                          ]
-                        : []),
+                    {
+                        hasValue: {
+                            field: 'type',
+                            values: contentTypes,
+                        },
+                    },
                 ],
             },
         },

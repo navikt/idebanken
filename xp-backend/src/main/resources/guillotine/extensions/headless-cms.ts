@@ -16,7 +16,6 @@ import { Category } from '@xp-types/site/content-types'
 import { mapCategoryContentToResolved, ResolvedCategory } from './category'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { processHtml } from '/lib/xp/portal'
-import { logger } from '/lib/utils/logging'
 
 export const headlessCmsExtensions = ({
     list,
@@ -59,7 +58,6 @@ export const headlessCmsExtensions = ({
 
                     const resolvedLinkGroups = resolveLinkGroups(linkGroups)
 
-                    logger.info(`footerText ${JSON.stringify(footerText, null, 2)}`)
                     return {
                         newsletterSubscribeText,
                         newsletterSubscribeLink: resolveLink(internalOrExternalLink),
