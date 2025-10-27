@@ -52,7 +52,8 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                     meta={meta}
                     common={common as HeadlessCms}
                     title={I18n.localize('idebanken')}
-                    logoUrl={getAsset('/images/logo.svg', meta)}
+                    logoLightUrl={getAsset('/images/logo.svg', meta)}
+                    logoDarkUrl={getAsset('/images/dark-logo.svg', meta)}
                 />
                 <PageBlock id="main-content" as="main" width="2xl">
                     {children}
