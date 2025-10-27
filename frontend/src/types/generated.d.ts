@@ -1094,6 +1094,8 @@ export type Part_Idebanken_Expansion_CardSimpleTextEditorArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['heading'] */
 export type Part_Idebanken_Heading = {
   __typename?: 'Part_idebanken_heading';
+  halfWidth?: Maybe<Scalars['Boolean']['output']>;
+  headingLede?: Maybe<Scalars['String']['output']>;
   level?: Maybe<Scalars['String']['output']>;
   size?: Maybe<Scalars['String']['output']>;
   text?: Maybe<Scalars['String']['output']>;
