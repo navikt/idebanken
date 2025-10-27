@@ -1,3 +1,5 @@
+import '~/styles/globals.css'
+
 import { getAsset, I18n, MetaData, RENDER_MODE, XP_REQUEST_TYPE } from '@enonic/nextjs-adapter'
 import { LocaleContextProvider } from '@enonic/nextjs-adapter/client'
 import { fetchContent } from '@enonic/nextjs-adapter/server'
@@ -7,8 +9,6 @@ import { Page } from '@navikt/ds-react'
 import Footer from '~/components/views/Footer'
 import Header from '~/components/views/Header'
 import { PageBlock } from '@navikt/ds-react/Page'
-
-import '~/styles/globals.css'
 import { HeadlessCms } from '~/types/generated'
 
 type LayoutParams = { locale: string; contentPath?: string[] }

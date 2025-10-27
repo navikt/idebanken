@@ -17,7 +17,7 @@ export type LinkCardList = {
           /**
            * Innholdstyper som skal hentes
            */
-          contentTypes?: Array<string> | string;
+          contentTypes: Array<string> | string;
 
           /**
            * Hent kun barn av dette innholdet

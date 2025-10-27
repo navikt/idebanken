@@ -10,7 +10,7 @@ import { ArrowUpIcon } from '@navikt/aksel-icons'
 import { ButtonView } from '~/components/parts/Button'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
-import { Circle } from '~/components/common/Circle'
+import { BubblesBackgroundSvgStyle } from '~/utils/BubblesBackgroundSvgStyle'
 
 export default function Footer({
     footerProps,
@@ -23,10 +23,15 @@ export default function Footer({
             bgColor={'bg-brand-white'}
             width={'2xl'}
             as="footer"
-            className={'py-11 relative'}>
-            <Circle className={'bg-(--ib-pastel-yellow-100A)'} bottom={50} left={-50} />
-            <Circle className={'bg-(--ib-pink-100A)'} bottom={10} left={-180} diameter={180} />
-            <Circle className={'bg-(--ib-pink-100A)'} right={10} bottom={40} diameter={300} />
+            className={'py-11'}
+            backgroundStyle={{
+                ...BubblesBackgroundSvgStyle([
+                    { radius: 150, down: 50, left: 50, fill: 'hsl(335 100% 53% / 0.05)' },
+                    { radius: 100, down: -50, left: 0, fill: 'hsl(43 100% 50% / 0.15)' },
+                    { radius: 100, down: 100, right: 100, fill: 'hsl(43 100% 50% / 0.15)' },
+                    { radius: 80, down: 220, right: 25, fill: 'hsl(335 100% 53% / 0.05)' },
+                ]),
+            }}>
             <NextLink
                 href={'#'}
                 shallow={true}
