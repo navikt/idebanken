@@ -13,9 +13,8 @@
             <config>
                 <exclude>*</exclude>
                 <include>
-                    Format FontSize | JustifyLeft JustifyRight | Bold Italic | BulletedList NumberedList | Undo Redo | Link
+                    Bold Italic Strike | JustifyLeft JustifyRight | Undo Redo RemoveFormat | SpecialChar
                 </include>
-                <allowHeadings>h2 h3 h4 h5 h6</allowHeadings>
             </config>
         </input>
         <input name="shortTitle" type="TextLine">
