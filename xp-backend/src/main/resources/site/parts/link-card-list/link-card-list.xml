@@ -12,7 +12,7 @@
                     <label>Automatisk liste</label>
                     <items>
                         <input type="ContentTypeFilter" name="contentTypes">
-                            <occurrences minimum="0" maximum="0"/>
+                            <occurrences minimum="1" maximum="0"/>
                             <label>Innholdstyper som skal hentes</label>
                             <config>
                                 <context>true</context>

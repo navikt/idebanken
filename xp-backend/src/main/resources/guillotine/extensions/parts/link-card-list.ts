@@ -148,7 +148,8 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
 const getManualList = (
     manual: Extract<LinkCardList['list'], { _selected: 'manual' }>['manual']
 ): Array<LinkCardItem> => {
-    if (!manual.contents) {
+    const selectedContentIds = forceArray(manual.contents)
+    if (!selectedContentIds.length) {
         return []
     }
 
@@ -156,12 +157,21 @@ const getManualList = (
         filters: {
             hasValue: {
                 field: '_id',
-                values: forceArray(manual.contents),
+                values: selectedContentIds,
             },
         },
     }).hits
 
-    return mapContentsToLinkCardList(contents)
+    // Sort contents according to the order of selectedContentIds. Could be solved by iterating selectedContentIds
+    // and fetching each content by id, but this way we do only one query to the repository.
+    const orderMap = new Map(selectedContentIds.map((id, index) => [id, index]))
+    const sortedContents = contents.sort((a, b) => {
+        const indexA = orderMap.get(a._id) ?? Number.MAX_SAFE_INTEGER
+        const indexB = orderMap.get(b._id) ?? Number.MAX_SAFE_INTEGER
+        return indexA - indexB
+    })
+
+    return mapContentsToLinkCardList(sortedContents)
 }
 
 const getAutomaticList = (
