@@ -84,6 +84,8 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                     </BleedingBackgroundPageBlock>
                 </div>
                 <RichTextView
+                    tag={'div'}
+                    className={'[&_p]:text-[32px]/[150%]'}
                     data={{ processedHtml: data?.ingress }}
                     meta={meta}
                     customReplacer={htmlRichTextReplacer}
@@ -105,6 +107,8 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                 </HeadingView>
             </VStack>
             <RichTextView
+                tag={'div'}
+                className={'[&_p]:text-[32px]/[150%]'}
                 data={{ processedHtml: data?.ingress }}
                 meta={meta}
                 customReplacer={htmlRichTextReplacer}
