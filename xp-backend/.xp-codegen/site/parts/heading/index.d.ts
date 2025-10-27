@@ -14,4 +14,14 @@ export type Heading = {
    * Heading size
    */
   size: 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+
+  /**
+   * Ingress
+   */
+  headingLede?: string;
+
+  /**
+   * Vis ingress på 1/2 sjermbredde
+   */
+  halfWidth: boolean;
 };

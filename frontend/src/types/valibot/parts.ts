@@ -21,6 +21,8 @@ export const headingConfigSchema = object({
     text: nullable(string()),
     className: optional(string()),
     autoId: optional(boolean()),
+    headingLede: optional(string()),
+    halfWidth: optional(boolean()),
 })
 
 export type HeadingConfig = InferOutput<typeof headingConfigSchema>

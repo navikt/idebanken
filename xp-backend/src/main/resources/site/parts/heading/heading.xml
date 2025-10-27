@@ -31,5 +31,12 @@
             </config>
             <default>xlarge</default>
         </input>
+        <input name="headingLede" type="TextArea">
+            <label>Ingress</label>
+        </input>
+         <input name="halfWidth" type="CheckBox">
+            <label>Vis ingress på 1/2 sjermbredde</label>
+            <default>checked</default>
+        </input>
     </form>
 </part>
