@@ -21,7 +21,7 @@ export const headingConfigSchema = object({
     text: nullable(string()),
     className: optional(string()),
     autoId: optional(boolean()),
-    headingLede: optional(string()),
+    headingLede: nullish(string()),
     halfWidth: optional(boolean()),
 })
 
