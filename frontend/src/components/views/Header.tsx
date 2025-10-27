@@ -27,12 +27,13 @@ import { SearchFrom, trackSearchResult } from '~/utils/analytics/umami'
 
 export interface HeaderProps {
     title: string
-    logoUrl: string
+    logoLightUrl: string
+    logoDarkUrl: string
     meta: MetaData
     common?: HeadlessCms
 }
 
-const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
+const Header = ({ title, logoLightUrl, logoDarkUrl, common, meta }: HeaderProps) => {
     const { header, siteConfiguration } = common ?? {}
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -101,14 +102,26 @@ const Header = ({ title, logoUrl, common, meta }: HeaderProps) => {
                     gap="6"
                     paddingBlock={{ xs: 'space-8', md: 'space-16' }}>
                     <NextLink href="/" className={'content-center h-12'}>
-                        <NextImage
-                            src={logoUrl}
-                            alt={title}
-                            width={200}
-                            height={100}
-                            className="w-48 h-full dark:invert dark:brightness-0 dark:contrast-50"
-                            priority
-                        />
+                        <span className="block h-12 w-48">
+                            {/* Light logo */}
+                            <NextImage
+                                src={logoLightUrl}
+                                alt={title}
+                                width={200}
+                                height={100}
+                                className="w-48 h-full dark:hidden"
+                                priority
+                            />
+                            {/* Dark logo */}
+                            <NextImage
+                                src={logoDarkUrl}
+                                alt={title}
+                                width={200}
+                                height={100}
+                                className="w-48 h-full hidden dark:block"
+                                priority
+                            />
+                        </span>
                     </NextLink>
                     <HStack gap="2">
                         <Button

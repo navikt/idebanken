@@ -63,12 +63,22 @@ export default function Footer({
             <Separator className={'my-(--ax-space-44)'} />
             <HGrid gap={{ xs: 'space-24', md: 'space-56' }} columns={{ xs: 1, md: 3, lg: 5 }}>
                 <VStack gridColumn={{ xs: '1', md: '1/4', lg: '1/3' }} gap={'space-16'}>
+                    {/* Light logo */}
                     <NextImage
                         src={getAsset('/images/logo.svg', meta)}
                         alt={'Idébanken logo'}
                         width={200}
                         height={100}
-                        className="w-48 h-full dark:invert dark:brightness-0 dark:contrast-50"
+                        className="w-48 h-full dark:hidden"
+                        priority
+                    />
+                    {/* Dark logo */}
+                    <NextImage
+                        src={getAsset('/images/dark-logo.svg', meta)}
+                        alt={'Idébanken logo'}
+                        width={200}
+                        height={100}
+                        className="w-48 h-full hidden dark:block"
                         priority
                     />
                     <RichTextView
