@@ -44,7 +44,7 @@ const ButtonView = ({
     return (
         <Button
             data-color="ib-brand-dark-blue"
-            className="rounded-[60px] font-light"
+            className="rounded-[60px] font-light inline-flex w-auto whitespace-nowrap justify-self-center self-center md:justify-self-start md:self-start"
             {...rest}
             {...buttonProps}>
             {btn.linkText || children}

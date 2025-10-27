@@ -43,7 +43,7 @@ export default function Footer({
             </NextLink>
             <HGrid
                 align={'center'}
-                gap={{ sm: 'space-16', md: 'space-44', lg: 'space-72' }}
+                gap={{ xs: 'space-16', md: 'space-44', lg: 'space-72' }}
                 columns={{ xs: 1, sm: 2, md: 4 }}>
                 <BodyLong id={'subscribe-to-newsletter'} size={'large'} className={'md:col-span-3'}>
                     {newsletterSubscribeText}
