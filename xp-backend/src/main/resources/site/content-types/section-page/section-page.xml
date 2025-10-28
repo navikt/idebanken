@@ -4,8 +4,7 @@
     <description>Landingsside for temainnhold</description>
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
-    <allow-child-content-type>idebanken:guide</allow-child-content-type>
-    <allow-child-content-type>base:folder</allow-child-content-type>
+    <allow-child-content-type>(?!idebanken:crash-course-slide$)(?!idebanken:category$)*</allow-child-content-type>
     <form>
         <mixin name="title-ingress"/>
     </form>
