@@ -15,7 +15,6 @@ import TwoColumnLayout from './layouts/TwoColumnLayout'
 import { ButtonPart } from './parts/Button'
 import { TextEditorView } from './parts/TextEditor'
 import SingleColumnLayout from './layouts/SingleColumnLayout'
-import { TipPanelView } from './parts/TipPanel'
 import { AccordionView } from './parts/Accordion'
 import { ImageView } from './parts/Image'
 import { LinkCardPartView } from './parts/LinkCard'
@@ -97,19 +96,6 @@ ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
     view: TextEditorView,
     configQuery: `{
 		${richTextQuery('simpleTextEditor')}
-	}`,
-})
-
-ComponentRegistry.addPart(`${APP_NAME}:tip-panel`, {
-    view: TipPanelView,
-    configQuery: `{
-		bgColor
-		heading
-		reverse
-		panel {
-			bgColor
-			${richTextQuery('simpleTextEditor')}
-		}
 	}`,
 })
 

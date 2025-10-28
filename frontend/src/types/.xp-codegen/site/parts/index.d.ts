@@ -10,7 +10,6 @@ export type XP_LinkCardList = import('./link-card-list').XP_LinkCardList;
 export type XP_SearchView = import('./search-view').XP_SearchView;
 export type XP_TableOfContents = import('./table-of-contents').XP_TableOfContents;
 export type XP_TextEditor = import('./text-editor').XP_TextEditor;
-export type XP_TipPanel = import('./tip-panel').XP_TipPanel;
 export type XP_TitleIngress = import('./title-ingress').XP_TitleIngress;
 
 declare global {
@@ -26,7 +25,6 @@ declare global {
     'idebanken:search-view': XP_SearchView;
     'idebanken:table-of-contents': XP_TableOfContents;
     'idebanken:text-editor': XP_TextEditor;
-    'idebanken:tip-panel': XP_TipPanel;
     'idebanken:title-ingress': XP_TitleIngress;
   }
 }
