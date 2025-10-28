@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+    <display-name>Virkemiddel</display-name>
+    <description>Virkemiddel</description>
+    <super-type>base:structured</super-type>
+    <is-final>true</is-final>
+    <allow-child-content-type>(?!idebanken:crash-course-slide$)(?!idebanken:category$)*</allow-child-content-type>
+    <form>
+        <mixin name="title-ingress" />
+    </form>
+</content-type>
