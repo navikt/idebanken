@@ -48,6 +48,7 @@ image {
 export const linkCardQuery = `{
     brand
     displayType
+    hideArrow
     resolvedLinkCard {
         url
         external
@@ -79,6 +80,7 @@ export const tableOfContentsQuery = `{
 
 export const linkCardListQuery = `{
     displayType
+    hideArrow
     brand
     heading {
         title

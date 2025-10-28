@@ -2,17 +2,14 @@
 <part xmlns="urn:enonic:xp:model:1.0">
     <display-name>Lenkekort</display-name>
     <form>
-        <mixin name="brand-color" />
+        <mixin name="brand-color"/>
 
-        <input name="displayType" type="RadioButton">
-            <label>Visning</label>
-            <occurrences minimum="1" maximum="1"/>
-            <config>
-                <option value="withIcon">Med ikon</option>
-                <option value="withImage">Med bilde</option>
-            </config>
-            <default>withIcon</default>
+        <mixin name="display-image-or-icon"/>
+
+        <input type="CheckBox" name="hideArrow">
+            <label>Skjul pil</label>
         </input>
+
         <input name="showDescription" type="CheckBox">
             <label>Vis beskrivelse</label>
             <default>checked</default>
@@ -61,9 +58,9 @@
                                 <show-counter>true</show-counter>
                             </config>
                         </input>
-                        <mixin name="image" />
-                        <mixin name="icon" />
-                        <mixin name="icon-background-color" />
+                        <mixin name="image"/>
+                        <mixin name="icon"/>
+                        <mixin name="icon-background-color"/>
                     </items>
                 </option>
             </options>

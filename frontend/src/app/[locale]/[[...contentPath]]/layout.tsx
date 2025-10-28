@@ -1,6 +1,6 @@
 import '~/styles/globals.css'
 
-import { getAsset, I18n, MetaData, RENDER_MODE, XP_REQUEST_TYPE } from '@enonic/nextjs-adapter'
+import { I18n, MetaData, RENDER_MODE, XP_REQUEST_TYPE } from '@enonic/nextjs-adapter'
 import { LocaleContextProvider } from '@enonic/nextjs-adapter/client'
 import { fetchContent } from '@enonic/nextjs-adapter/server'
 import StaticContent from '@enonic/nextjs-adapter/views/StaticContent'
@@ -52,8 +52,6 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                     meta={meta}
                     common={common as HeadlessCms}
                     title={I18n.localize('idebanken')}
-                    logoLightUrl={getAsset('/images/logo.svg', meta)}
-                    logoDarkUrl={getAsset('/images/dark-logo.svg', meta)}
                 />
                 <PageBlock id="main-content" as="main" width="2xl">
                     {children}

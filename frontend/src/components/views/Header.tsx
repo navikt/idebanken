@@ -1,6 +1,6 @@
 'use client'
 
-import { MetaData } from '@enonic/nextjs-adapter'
+import { getAsset, MetaData } from '@enonic/nextjs-adapter'
 import NextLink from 'next/link'
 import NextImage from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
@@ -27,13 +27,11 @@ import { SearchFrom, trackSearchResult } from '~/utils/analytics/umami'
 
 export interface HeaderProps {
     title: string
-    logoLightUrl: string
-    logoDarkUrl: string
     meta: MetaData
     common?: HeadlessCms
 }
 
-const Header = ({ title, logoLightUrl, logoDarkUrl, common, meta }: HeaderProps) => {
+const Header = ({ title, common, meta }: HeaderProps) => {
     const { header, siteConfiguration } = common ?? {}
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -103,22 +101,12 @@ const Header = ({ title, logoLightUrl, logoDarkUrl, common, meta }: HeaderProps)
                     paddingBlock={{ xs: 'space-8', md: 'space-16' }}>
                     <NextLink href="/" className={'content-center h-12'}>
                         <span className="block h-12 w-48">
-                            {/* Light logo */}
                             <NextImage
-                                src={logoLightUrl}
+                                src={getAsset('/images/logo.svg', meta)}
                                 alt={title}
                                 width={200}
                                 height={100}
-                                className="w-48 h-full dark:hidden"
-                                priority
-                            />
-                            {/* Dark logo */}
-                            <NextImage
-                                src={logoDarkUrl}
-                                alt={title}
-                                width={200}
-                                height={100}
-                                className="w-48 h-full hidden dark:block"
+                                className="w-48 h-full"
                                 priority
                             />
                         </span>

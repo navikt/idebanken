@@ -786,10 +786,17 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1168,6 +1175,7 @@ export type Part_Idebanken_Link_Card = {
   __typename?: 'Part_idebanken_link_card';
   brand?: Maybe<Scalars['String']['output']>;
   displayType?: Maybe<Scalars['String']['output']>;
+  hideArrow?: Maybe<Scalars['Boolean']['output']>;
   resolvedLinkCard: Link_Card;
   showDescription?: Maybe<Scalars['Boolean']['output']>;
 };
@@ -1210,6 +1218,7 @@ export type Part_Idebanken_Link_Card_List = {
   brand?: Maybe<Scalars['String']['output']>;
   displayType?: Maybe<Scalars['String']['output']>;
   heading?: Maybe<Part_Idebanken_Link_Card_List_Heading>;
+  hideArrow?: Maybe<Scalars['Boolean']['output']>;
   list: Array<Link_Card>;
   showDescription?: Maybe<Scalars['Boolean']['output']>;
 };

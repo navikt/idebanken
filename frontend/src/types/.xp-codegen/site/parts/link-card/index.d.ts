@@ -8,7 +8,12 @@ export type XP_LinkCard = {
   /**
    * Visning
    */
-  displayType: 'withIcon' | 'withImage';
+  displayType: 'none' | 'withIcon' | 'withImageAndIcon' | 'withImage';
+
+  /**
+   * Skjul pil
+   */
+  hideArrow: boolean;
 
   /**
    * Vis beskrivelse
