@@ -10,7 +10,6 @@ export type LinkCardList = import('./link-card-list').LinkCardList;
 export type SearchView = import('./search-view').SearchView;
 export type TableOfContents = import('./table-of-contents').TableOfContents;
 export type TextEditor = import('./text-editor').TextEditor;
-export type TipPanel = import('./tip-panel').TipPanel;
 export type TitleIngress = import('./title-ingress').TitleIngress;
 
 declare global {
@@ -26,7 +25,6 @@ declare global {
     'idebanken:search-view': SearchView;
     'idebanken:table-of-contents': TableOfContents;
     'idebanken:text-editor': TextEditor;
-    'idebanken:tip-panel': TipPanel;
     'idebanken:title-ingress': TitleIngress;
   }
 }

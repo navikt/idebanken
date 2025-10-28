@@ -993,7 +993,6 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   search_view?: Maybe<Part_Idebanken_Search_View>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
-  tip_panel?: Maybe<Part_Idebanken_Tip_Panel>;
   title_ingress?: Maybe<Part_Idebanken_Title_Ingress>;
 };
 
@@ -1269,35 +1268,6 @@ export type Part_Idebanken_Text_Editor = {
 
 /** Part component application config for application ['idebanken'] and descriptor ['text-editor'] */
 export type Part_Idebanken_Text_EditorSimpleTextEditorArgs = {
-  processHtml?: InputMaybe<ProcessHtmlInput>;
-};
-
-/** Part component application config for application ['idebanken'] and descriptor ['tip-panel'] */
-export type Part_Idebanken_Tip_Panel = {
-  __typename?: 'Part_idebanken_tip_panel';
-  bgColor?: Maybe<Scalars['String']['output']>;
-  heading?: Maybe<Scalars['String']['output']>;
-  panel?: Maybe<Array<Maybe<Part_Idebanken_Tip_Panel_Panel>>>;
-  reverse?: Maybe<Scalars['Boolean']['output']>;
-};
-
-
-/** Part component application config for application ['idebanken'] and descriptor ['tip-panel'] */
-export type Part_Idebanken_Tip_PanelPanelArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Panel */
-export type Part_Idebanken_Tip_Panel_Panel = {
-  __typename?: 'Part_idebanken_tip_panel_Panel';
-  bgColor?: Maybe<Scalars['String']['output']>;
-  simpleTextEditor?: Maybe<RichText>;
-};
-
-
-/** Panel */
-export type Part_Idebanken_Tip_Panel_PanelSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
