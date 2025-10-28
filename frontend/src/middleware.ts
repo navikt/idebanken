@@ -42,7 +42,7 @@ export function middleware(req: NextRequest) {
 export const config = {
     // NB: should contain all files and folders in the /public folder
     matcher: [
-        '/((?!robots.txt|sitemap.xml|manifest.json|api/|images/|fonts/|_next/webpack-hmr|_next/static|_next/image|assets|favicon.ico|sw.js).*)',
+        '/((?!robots.txt|sitemap.xml|manifest.json|api/|images/|fonts/|_next/webpack-hmr|_next/static|_next/image|assets|favicon/|favicon.ico|sw.js).*)',
     ],
     missing: [
         { type: 'header', key: 'next-router-prefetch' },

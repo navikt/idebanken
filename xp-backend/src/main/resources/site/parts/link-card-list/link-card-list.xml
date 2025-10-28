@@ -52,17 +52,14 @@
             </options>
         </option-set>
 
-        <input name="displayType" type="RadioButton">
-            <label>Visning</label>
-            <occurrences minimum="1" maximum="1"/>
-            <config>
-                <option value="withIcon">Med ikon</option>
-                <option value="withImage">Med bilde</option>
-            </config>
-            <default>withIcon</default>
+        <mixin name="display-image-or-icon"/>
+
+        <input type="CheckBox" name="hideArrow">
+            <label>Skjul pil</label>
         </input>
 
         <mixin name="brand-color"/>
+        
         <input name="showDescription" type="CheckBox">
             <label>Vis beskrivelse på kortene</label>
             <default>checked</default>

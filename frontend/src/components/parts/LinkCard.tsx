@@ -1,39 +1,43 @@
 import type { Link_Card, Part_Idebanken_Link_Card } from '~/types/generated.d'
-import { Box /*, Tag */ } from '@navikt/ds-react'
+import { Box } from '@navikt/ds-react'
 import {
     LinkCard,
     LinkCardAnchor,
     LinkCardDescription,
-    /*LinkCardFooter,*/
     LinkCardIcon,
     LinkCardImage,
     LinkCardTitle,
 } from '@navikt/ds-react/LinkCard'
 import React from 'react'
 import Image from 'next/image'
-import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
+import { getAsset, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
+import { XP_LinkCard, XP_LinkCardList } from '@xp-types/site/parts'
 
-export const LinkCardPartView = ({ part, meta }: PartData<Part_Idebanken_Link_Card>) => {
+export const LinkCardPartView = ({
+    part,
+    meta,
+}: PartData<
+    Pick<Part_Idebanken_Link_Card, 'resolvedLinkCard'> & Omit<XP_LinkCard, 'internalOrExternalLink'>
+>) => {
     const { config } = part
-    const { resolvedLinkCard, displayType, brand, showDescription } = config
+    const { resolvedLinkCard, displayType, brand, showDescription, hideArrow } = config
 
     return LinkCardView({
         ...resolvedLinkCard,
         brand,
         showDescription,
         displayType,
+        hideArrow,
         meta,
     })
 }
 
-export type LinkCardViewParams = Omit<Link_Card, 'description' | '__typename'> & {
-    description?: string | React.ReactNode
-    brand?: string | null
-    showDescription?: boolean | null
-    displayType?: 'withImage' | 'withIcon' | string | null
-    meta?: MetaData
-}
+export type LinkCardViewParams = Omit<Link_Card, 'description' | '__typename'> &
+    Partial<Omit<XP_LinkCardList, 'list'>> & {
+        description?: string | React.ReactNode
+        meta?: MetaData
+    }
 
 export const LinkCardView = ({
     title,
@@ -46,24 +50,27 @@ export const LinkCardView = ({
     brand,
     showDescription,
     displayType,
+    hideArrow,
     meta,
 }: LinkCardViewParams) => {
-    const isIcon = displayType !== 'withImage'
+    const showIcon = displayType === 'withIcon' || displayType === 'withImageAndIcon'
+    const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
 
     return (
-        <LinkCard data-color={brand ?? 'neutral'} className="h-full">
-            {!isIcon && image?.url && (
+        <LinkCard data-color={brand ?? 'neutral'} className="h-full" arrow={!hideArrow}>
+            {showImage && (
                 <LinkCardImage aspectRatio="16/8">
                     <Image
                         unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
-                        src={image.url}
-                        alt={image.altText ?? image.caption ?? 'Illustrasjonsbilde'}
+                        // @ts-expect-error meta is not really required
+                        src={getAsset(image?.url ?? '/favicon/favicon.svg', meta)}
+                        alt={image?.altText ?? image?.caption ?? 'Illustrasjonsbilde'}
                         width={500}
                         height={250}
                     />
                 </LinkCardImage>
             )}
-            {isIcon && icon?.url && (
+            {showIcon && icon?.url && (
                 <Box
                     asChild
                     padding="space-12"

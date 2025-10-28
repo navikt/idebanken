@@ -55,7 +55,12 @@ export type LinkCardList = {
   /**
    * Visning
    */
-  displayType: 'withIcon' | 'withImage';
+  displayType: 'none' | 'withIcon' | 'withImageAndIcon' | 'withImage';
+
+  /**
+   * Skjul pil
+   */
+  hideArrow: boolean;
 
   /**
    * Brand farger
