@@ -58,7 +58,7 @@
     --ib-dark-blue-300A: hsl(240 72% 18% / 0.12);
     --ib-dark-blue-400A: hsl(240 71% 17% / 0.19);
 
-    /* Pastel Yellow ramp*/
+    /* Pastel Yellow ramp */
     --ib-pastel-yellow-100: #fff4d9;
     --ib-pastel-yellow-200: #ffedbf;
     --ib-pastel-yellow-300: #fee196;
@@ -102,36 +102,68 @@
         0px 5px 12px 0px rgba(7, 9, 13, 0.5);
 
     /* Pink ramp */
-    --ib-pink-100: #100c0d;
-    --ib-pink-200: #1c1518;
-    --ib-pink-300: #271d21;
-    --ib-pink-400: #36282e;
-    --ib-pink-500: #7b5a68;
-    --ib-pink-600: #8f6a7a;
-    --ib-pink-700: #a77b8d;
-    --ib-pink-800: #b28397;
-    --ib-pink-900: #c591a7;
-    --ib-pink-1000: #ffcce2;
-    --ib-pink-100A: hsl(1 85% 53% / 0.13);
-    --ib-pink-200A: hsl(359 90% 61% / 0.16);
-    --ib-pink-300A: hsl(356 93% 67% / 0.2);
-    --ib-pink-400A: hsl(352 92% 70% / 0.26);
+    --ib-pink-100: #241a1e;
+    --ib-pink-200: #2a2024;
+    --ib-pink-300: #32282c;
+    --ib-pink-400: #3e3338;
+    --ib-pink-500: #816470;
+    --ib-pink-600: #967583;
+    --ib-pink-700: #ae8797;
+    --ib-pink-800: #b990a1;
+    --ib-pink-900: #cc9fb1;
+    --ib-pink-1000: #ffe0ed;
+    --ib-pink-100A: hsl(338 85% 3% / 0.9);
+    --ib-pink-200A: hsl(338 73% 3% / 0.88);
+    --ib-pink-300A: hsl(335 75% 3% / 0.85);
+    --ib-pink-400A: hsl(334 100% 3% / 0.8);
 
     /* Dark Blue ramp */
-    --ib-dark-blue-100: #0a0a24;
-    --ib-dark-blue-200: #11103e;
-    --ib-dark-blue-300: #181755;
-    --ib-dark-blue-400: #252460;
-    --ib-dark-blue-500: #5f5f8b;
-    --ib-dark-blue-600: #717198;
-    --ib-dark-blue-700: #8584a6;
-    --ib-dark-blue-800: #8e8dac;
-    --ib-dark-blue-900: #9e9db8;
-    --ib-dark-blue-1000: #dadae3;
-    --ib-dark-blue-100A: hsl(240 85% 60% / 0.13);
-    --ib-dark-blue-200A: hsl(240 85% 60% / 0.16);
-    --ib-dark-blue-300A: hsl(240 85% 60% / 0.2);
-    --ib-dark-blue-400A: hsl(240 85% 60% / 0.26);
+    --ib-dark-blue-100: #181b2f;
+    --ib-dark-blue-200: #1d2137;
+    --ib-dark-blue-300: #25293f;
+    --ib-dark-blue-400: #313449;
+    --ib-dark-blue-500: #696a8a;
+    --ib-dark-blue-600: #7b7c98;
+    --ib-dark-blue-700: #8f8fa8;
+    --ib-dark-blue-800: #9999b0;
+    --ib-dark-blue-900: #a9a9bc;
+    --ib-dark-blue-1000: #e7e8ee;
+    --ib-dark-blue-100A: hsl(233 93% 5% / 0.91);
+    --ib-dark-blue-200A: hsl(230 94% 6% / 0.89);
+    --ib-dark-blue-300A: hsl(232 88% 7% / 0.86);
+    --ib-dark-blue-400A: hsl(234 94% 6% / 0.81);
+
+    /* Pastel Yellow ramp */
+    --ib-pastel-yellow-100: #201c12;
+    --ib-pastel-yellow-200: #262218;
+    --ib-pastel-yellow-300: #2d2a1f;
+    --ib-pastel-yellow-400: #39352a;
+    --ib-pastel-yellow-500: #776b50;
+    --ib-pastel-yellow-600: #8a7d5d;
+    --ib-pastel-yellow-700: #a0906b;
+    --ib-pastel-yellow-800: #aa9a72;
+    --ib-pastel-yellow-900: #bbaa7e;
+    --ib-pastel-yellow-1000: #fee6aa;
+    --ib-pastel-yellow-100A: hsl(44 100% 3% / 0.93);
+    --ib-pastel-yellow-200A: hsl(41 89% 4% / 0.91);
+    --ib-pastel-yellow-300A: hsl(49 100% 3% / 0.88);
+    --ib-pastel-yellow-400A: hsl(47 90% 4% / 0.84);
+
+    /* Orange ramp */
+    --ib-orange-100: #2d1610;
+    --ib-orange-200: #361d17;
+    --ib-orange-300: #3d241d;
+    --ib-orange-400: #492f28;
+    --ib-orange-500: #b04f34;
+    --ib-orange-600: #cc5c3c;
+    --ib-orange-700: #e76d4c;
+    --ib-orange-800: #ea7c5d;
+    --ib-orange-900: #ef9479;
+    --ib-orange-1000: #fee2da;
+    --ib-orange-100A: hsl(12 94% 7% / 0.94);
+    --ib-orange-200A: hsl(12 100% 7% / 0.91);
+    --ib-orange-300A: hsl(13 95% 8% / 0.89);
+    --ib-orange-400A: hsl(12 91% 8% / 0.85);
 }
 
 /* Semantic mappings */
