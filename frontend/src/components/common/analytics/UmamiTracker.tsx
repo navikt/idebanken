@@ -4,7 +4,8 @@ import React, { PropsWithChildren, useCallback } from 'react'
 import { AnalyticsEvents, EventData, umami } from '~/utils/analytics/umami'
 
 export type UmamiTrackerProps = PropsWithChildren<{
-    as?: keyof React.JSX.IntrinsicElements
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    as?: React.ElementType<any, keyof React.JSX.IntrinsicElements>
 
     /**
      * analyticsEventName must be provided either here or in the EventData
