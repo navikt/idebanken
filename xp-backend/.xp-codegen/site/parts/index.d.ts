@@ -5,7 +5,6 @@ export type Downloads = import('./downloads').Downloads;
 export type ExpansionCard = import('./expansion-card').ExpansionCard;
 export type Heading = import('./heading').Heading;
 export type Image = import('./image').Image;
-export type InfoBox = import('./info-box').InfoBox;
 export type LinkCard = import('./link-card').LinkCard;
 export type LinkCardList = import('./link-card-list').LinkCardList;
 export type SearchView = import('./search-view').SearchView;
@@ -22,7 +21,6 @@ declare global {
     'idebanken:expansion-card': ExpansionCard;
     'idebanken:heading': Heading;
     'idebanken:image': Image;
-    'idebanken:info-box': InfoBox;
     'idebanken:link-card': LinkCard;
     'idebanken:link-card-list': LinkCardList;
     'idebanken:search-view': SearchView;

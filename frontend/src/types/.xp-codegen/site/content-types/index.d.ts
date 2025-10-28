@@ -5,6 +5,7 @@ export type XP_CrashCourse = import('./crash-course').XP_CrashCourse;
 export type XP_Guide = import('./guide').XP_Guide;
 export type XP_SectionPage = import('./section-page').XP_SectionPage;
 export type XP_SpecialPage = import('./special-page').XP_SpecialPage;
+export type XP_Virkemiddel = import('./virkemiddel').XP_Virkemiddel;
 
 declare global {
   namespace XP {
@@ -15,6 +16,7 @@ declare global {
       'idebanken:guide': XP_Guide;
       'idebanken:section-page': XP_SectionPage;
       'idebanken:special-page': XP_SpecialPage;
+      'idebanken:virkemiddel': XP_Virkemiddel;
     }
   }
 }

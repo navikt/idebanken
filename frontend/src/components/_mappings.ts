@@ -14,7 +14,6 @@ import '@enonic/nextjs-adapter/baseMappings'
 import TwoColumnLayout from './layouts/TwoColumnLayout'
 import { ButtonPart } from './parts/Button'
 import { TextEditorView } from './parts/TextEditor'
-import { InfoBoxContainerView } from './parts/InfoBoxContainer'
 import SingleColumnLayout from './layouts/SingleColumnLayout'
 import { TipPanelView } from './parts/TipPanel'
 import { AccordionView } from './parts/Accordion'
@@ -98,16 +97,6 @@ ComponentRegistry.addPart(`${APP_NAME}:text-editor`, {
     view: TextEditorView,
     configQuery: `{
 		${richTextQuery('simpleTextEditor')}
-	}`,
-})
-
-ComponentRegistry.addPart(`${APP_NAME}:info-box`, {
-    view: InfoBoxContainerView,
-    configQuery: `{
-		infoBoxItems {
-			bgColor
-			${richTextQuery('simpleTextEditor')}
-		}
 	}`,
 })
 

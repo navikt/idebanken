@@ -5,7 +5,6 @@ export type XP_Downloads = import('./downloads').XP_Downloads;
 export type XP_ExpansionCard = import('./expansion-card').XP_ExpansionCard;
 export type XP_Heading = import('./heading').XP_Heading;
 export type XP_Image = import('./image').XP_Image;
-export type XP_InfoBox = import('./info-box').XP_InfoBox;
 export type XP_LinkCard = import('./link-card').XP_LinkCard;
 export type XP_LinkCardList = import('./link-card-list').XP_LinkCardList;
 export type XP_SearchView = import('./search-view').XP_SearchView;
@@ -22,7 +21,6 @@ declare global {
     'idebanken:expansion-card': XP_ExpansionCard;
     'idebanken:heading': XP_Heading;
     'idebanken:image': XP_Image;
-    'idebanken:info-box': XP_InfoBox;
     'idebanken:link-card': XP_LinkCard;
     'idebanken:link-card-list': XP_LinkCardList;
     'idebanken:search-view': XP_SearchView;
