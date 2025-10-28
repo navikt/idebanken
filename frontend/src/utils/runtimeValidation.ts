@@ -4,8 +4,6 @@ import {
     accordionConfigSchema,
     HeadingConfig,
     headingConfigSchema,
-    InfoBoxConfig,
-    infoBoxConfigSchema,
 } from '~/types/valibot/parts'
 import {
     ImageData,
@@ -20,11 +18,7 @@ import {
     MacroData as MacroDataAdapter,
     RichTextData as RichTExtDataAdapter,
 } from '@enonic/nextjs-adapter'
-import {
-    Part_Idebanken_Accordion,
-    Part_Idebanken_Heading,
-    Part_Idebanken_Info_Box,
-} from '~/types/generated.d'
+import { Part_Idebanken_Accordion, Part_Idebanken_Heading } from '~/types/generated.d'
 
 export function validatedHeadingConfig(config: Part_Idebanken_Heading): HeadingConfig | null {
     try {
@@ -40,15 +34,6 @@ export function validatedAccordionConfig(config: Part_Idebanken_Accordion): Acco
         return parse(accordionConfigSchema, config)
     } catch {
         console.error('Invalid accordion config:', config)
-        return null
-    }
-}
-
-export function validatedInfoBoxConfig(config: Part_Idebanken_Info_Box): InfoBoxConfig | null {
-    try {
-        return parse(infoBoxConfigSchema, config)
-    } catch {
-        console.error('Invalid info box config:', config)
         return null
     }
 }
