@@ -61,7 +61,7 @@ const CardLayout = (props: CardLayoutProps) => {
             bgColor={bgColor}
             className={backgroundClasses}
             layoutPath={path}
-            overrideWidth={overrideWidth}>
+            width={overrideWidth}>
             <Box className={containerClasses} as="article">
                 <CardHeader prefix={prefix} heading={heading} headingColor={headingColor} />
                 <RegionView

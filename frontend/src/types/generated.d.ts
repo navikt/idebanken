@@ -802,7 +802,7 @@ export type Macro_Idebanken_Highlighted_Box_DataConfig = {
   body?: Maybe<Scalars['String']['output']>;
   brand?: Maybe<Scalars['String']['output']>;
   icon?: Maybe<ResolvedMedia>;
-  links?: Maybe<Array<Maybe<Content>>>;
+  links: Array<ResolvedLinkSelector>;
   linksAbsolute?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   title?: Maybe<Scalars['String']['output']>;
 };
