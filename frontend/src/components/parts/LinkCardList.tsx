@@ -58,6 +58,10 @@ function getSpanClass(
             return 'md:col-span-4'
         case '4':
             return 'md:col-span-3'
+        case '2-3':
+            return 'md:col-span-6 lg:col-span-4'
+        case '2-4':
+            return 'md:col-span-6 lg:col-span-4 xl:col-span-3'
         default: {
             if (displayType === 'withImage' || displayType === 'withImageAndIcon') {
                 return 'sm:col-span-6 md:col-span-4'

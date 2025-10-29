@@ -60,7 +60,7 @@ export type XP_LinkCardList = {
   /**
    * Antall lenkekort pr. rad
    */
-  nEachRow: '0' | '1' | '2' | '3' | '4';
+  nEachRow: '0' | '2-3' | '2-4' | '1' | '2' | '3' | '4';
 
   /**
    * Skjul pil
