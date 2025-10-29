@@ -25,6 +25,10 @@ const config = {
     webpack: getEnonicWebpackConfig,
     images: {
         remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: process.env.ENONIC_DOMAIN,
+            },
             ...(process.env.ENV === 'local'
                 ? [
                       {
