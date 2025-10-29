@@ -54,12 +54,25 @@
 
         <mixin name="display-image-or-icon"/>
 
+        <input type="ComboBox" name="nEachRow">
+            <label>Antall lenkekort pr. rad</label>
+            <occurrences minimum="1" maximum="1"/>
+            <config>
+                <option value="0">Automatisk</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </config>
+            <default>0</default>
+        </input>
+
         <input type="CheckBox" name="hideArrow">
             <label>Skjul pil</label>
         </input>
 
         <mixin name="brand-color"/>
-        
+
         <input name="showDescription" type="CheckBox">
             <label>Vis beskrivelse på kortene</label>
             <default>checked</default>

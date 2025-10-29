@@ -11,16 +11,9 @@ export function LinkCardList({
 }: PartData<
     Pick<Part_Idebanken_Link_Card_List, 'list' | 'heading'> & Omit<XP_LinkCardList, 'list'>
 >) {
-    const { list, displayType, hideArrow, heading, brand, showDescription } = part.config
-    const isThree = list.length === 3
+    const { list, displayType, hideArrow, nEachRow, heading, brand, showDescription } = part.config
 
-    // 3-up if withImage; otherwise 2-up, except 3 items become 3-up at lg
-    const spanClass =
-        displayType === 'withImage' || displayType === 'withImageAndIcon'
-            ? 'md:col-span-4'
-            : isThree
-              ? 'md:col-span-6 lg:col-span-4'
-              : 'md:col-span-6'
+    const spanClass = getSpanClass(nEachRow, list.length, displayType)
 
     return (
         <section className="relative z-20">
@@ -31,11 +24,11 @@ export function LinkCardList({
                 customClassName="mb-12"
             />
             <HGrid
-                columns={{ xs: 1, md: 12 }}
+                columns={12}
                 gap={{ xs: 'space-16', lg: 'space-20', xl: 'space-24' }}
                 className="items-stretch">
                 {list.map((linkCard) => (
-                    <div key={linkCard.url} className={`col-span-1 ${spanClass} [&>*]:h-full`}>
+                    <div key={linkCard.url} className={`col-span-12 ${spanClass} [&>*]:h-full`}>
                         {LinkCardView({
                             ...linkCard,
                             brand,
@@ -49,4 +42,32 @@ export function LinkCardList({
             </HGrid>
         </section>
     )
+}
+
+function getSpanClass(
+    nEachRow: XP_LinkCardList['nEachRow'],
+    nItems: number,
+    displayType: XP_LinkCardList['displayType']
+): string {
+    switch (nEachRow) {
+        case '1':
+            return 'md:col-span-12'
+        case '2':
+            return 'md:col-span-6'
+        case '3':
+            return 'md:col-span-4'
+        case '4':
+            return 'md:col-span-3'
+        default: {
+            if (displayType === 'withImage' || displayType === 'withImageAndIcon') {
+                return 'sm:col-span-6 md:col-span-4'
+            } else if (nItems % 3 === 0) {
+                return 'md:col-span-6 lg:col-span-4'
+            } else if (nItems % 2 === 0) {
+                return 'md:col-span-6'
+            } else {
+                return 'md:col-span-6 xl:col-span-4'
+            }
+        }
+    }
 }

@@ -58,6 +58,11 @@ export type LinkCardList = {
   displayType: 'none' | 'withIcon' | 'withImageAndIcon' | 'withImage';
 
   /**
+   * Antall lenkekort pr. rad
+   */
+  nEachRow: '0' | '1' | '2' | '3' | '4';
+
+  /**
    * Skjul pil
    */
   hideArrow: boolean;
