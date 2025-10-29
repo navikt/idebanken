@@ -5,7 +5,7 @@ import NextLink from 'next/link'
 import NextImage from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
-import { HeadlessCms } from '~/types/generated'
+import { HeadlessCms, SiteConfiguration } from '~/types/generated'
 import { Bleed, Button, HStack, Stack, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
 import {
@@ -24,6 +24,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { SOK_SEARCH_PARAM } from '~/utils/constants'
 import { ThemeButton } from '~/app/[locale]/theming/theme-button'
 import { SearchFrom, trackSearchResult } from '~/utils/analytics/umami'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 export interface HeaderProps {
     title: string
@@ -97,7 +98,6 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                 <HStack
                     align="center"
                     justify="space-between"
-                    gap="6"
                     paddingBlock={{ xs: 'space-8', md: 'space-16' }}>
                     <NextLink href="/" className={'content-center h-12'}>
                         <span className="block h-12 w-48">
@@ -140,12 +140,26 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                             inert={!isMenuOpen}
                             width={'2xl'}
                             gutters>
+                            <ThemeButton className={'absolute top-5 right-5 sm:hidden'} />
+
                             <Stack
                                 as={'nav'}
                                 gap={'8'}
-                                padding={'10'}
+                                padding={{ xs: '4', sm: '10' }}
                                 justify={'space-between'}
                                 direction={{ xs: 'column', lg: 'row' }}>
+                                {quickSearch({
+                                    isSearchOpen,
+                                    handleFormChange,
+                                    router,
+                                    siteConfiguration,
+                                    searchValue,
+                                    searchResult,
+                                    loading,
+                                    meta,
+                                    setIsSearchOpen,
+                                    className: 'sm:hidden',
+                                })}
                                 <Stack
                                     gap={{ xs: '8', lg: '16' }}
                                     direction={{ xs: 'column', lg: 'row' }}>
@@ -201,7 +215,7 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                                 setIsSearchOpen(!isSearchOpen)
                                 setIsMenuOpen(false)
                             }}
-                            className={buttonLabelClass}
+                            className={classNames(buttonLabelClass, 'max-sm:hidden')}
                             icon={
                                 <div className={rotatingIconClass(isSearchOpen)}>
                                     {isSearchOpen ? (
@@ -216,47 +230,28 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                         <PageBlock
                             className={classNames(
                                 dropdownBaseClass,
-                                dropdownStateClass(isSearchOpen)
+                                dropdownStateClass(isSearchOpen),
+                                'max-sm:hidden',
+                                'py-8'
                             )}
                             aria-hidden={!isSearchOpen}
                             inert={!isSearchOpen}
                             width={'md'}
                             gutters>
-                            <VStack className={'py-8'}>
-                                <HeadingView level={'2'} size={'medium'} aria-hidden={true}>
-                                    Søk på idébanken
-                                </HeadingView>
-                                <SearchWrapper
-                                    isSearchOpen={isSearchOpen}
-                                    onChange={handleFormChange}
-                                    onSubmit={(e) => {
-                                        e.preventDefault()
-                                        router.push(
-                                            `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`
-                                        )
-                                    }}
-                                />
-                                {SearchResults(
-                                    SearchFrom.HURTIGSOK_MENY,
-                                    searchResult,
-                                    loading,
-                                    meta
-                                )}
-                                {searchResult ? (
-                                    <NextLink
-                                        href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`}
-                                        onClick={() => setIsSearchOpen(false)}
-                                        className={
-                                            'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'
-                                        }>
-                                        Gå til avansert søk <ArrowRightIcon />
-                                    </NextLink>
-                                ) : (
-                                    <></>
-                                )}
-                            </VStack>
+                            {quickSearch({
+                                isSearchOpen,
+                                handleFormChange,
+                                router,
+                                siteConfiguration,
+                                searchValue,
+                                searchResult,
+                                loading,
+                                meta,
+                                setIsSearchOpen,
+                            })}
                         </PageBlock>
                         <ThemeButton
+                            className={'max-sm:hidden'}
                             onKeyDown={(e) => {
                                 if (e.key === 'Tab' && !e.shiftKey) {
                                     setIsMenuOpen(false)
@@ -279,6 +274,59 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                     setIsSearchOpen(false)
                 }}></Bleed>
         </>
+    )
+}
+
+function quickSearch({
+    isSearchOpen,
+    handleFormChange,
+    router,
+    siteConfiguration,
+    searchValue,
+    searchResult,
+    loading,
+    meta,
+    setIsSearchOpen,
+    className = '',
+}: {
+    isSearchOpen: boolean
+    handleFormChange: (event: React.FormEvent<HTMLFormElement>) => void
+    router: AppRouterInstance
+    siteConfiguration: SiteConfiguration | undefined
+    searchValue: string
+    searchResult: SearchResult | undefined
+    loading: boolean
+    meta: MetaData
+    setIsSearchOpen: (value: ((prevState: boolean) => boolean) | boolean) => void
+    className?: string
+}) {
+    return (
+        <VStack className={className}>
+            <HeadingView level={'2'} size={'medium'} aria-hidden={true}>
+                Søk på idébanken
+            </HeadingView>
+            <SearchWrapper
+                isSearchOpen={isSearchOpen}
+                onChange={handleFormChange}
+                onSubmit={(e) => {
+                    e.preventDefault()
+                    router.push(
+                        `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`
+                    )
+                }}
+            />
+            {SearchResults(SearchFrom.HURTIGSOK_MENY, searchResult, loading, meta)}
+            {searchResult ? (
+                <NextLink
+                    href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`}
+                    onClick={() => setIsSearchOpen(false)}
+                    className={'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'}>
+                    Gå til avansert søk <ArrowRightIcon />
+                </NextLink>
+            ) : (
+                <></>
+            )}
+        </VStack>
     )
 }
 
