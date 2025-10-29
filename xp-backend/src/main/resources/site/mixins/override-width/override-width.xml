@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>
+        <input type="ComboBox" name="overrideWidth">
+            <label>Overstyr bredde</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <option value="text">text</option>
+                <option value="md">md</option>
+                <option value="lg">lg</option>
+                <option value="xl">xl</option>
+                <option value="2xl">2xl</option>
+            </config>
+        </input>
+    </form>
+</mixin>

@@ -21,6 +21,11 @@ export type XP_3Column = {
   paddingBottom?: 'pb-0' | 'pb-6' | 'pb-10';
 
   /**
+   * Overstyr bredde
+   */
+  overrideWidth?: 'text' | 'md' | 'lg' | 'xl' | '2xl';
+
+  /**
    * Mobilvisning - Rekkefølge
    */
   stackOrder: 'left-center-right' | 'center-left-right' | 'right-center-left';

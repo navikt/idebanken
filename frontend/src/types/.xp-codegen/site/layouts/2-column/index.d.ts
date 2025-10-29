@@ -21,6 +21,11 @@ export type XP_2Column = {
   paddingBottom?: 'pb-0' | 'pb-6' | 'pb-10';
 
   /**
+   * Overstyr bredde
+   */
+  overrideWidth?: 'text' | 'md' | 'lg' | 'xl' | '2xl';
+
+  /**
    * Venstre Kolonne - Bredde
    */
   leftSpan: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11';

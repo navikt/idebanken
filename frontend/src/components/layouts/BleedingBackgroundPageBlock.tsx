@@ -11,6 +11,7 @@ interface BleedingBackgroundPageBlockProps extends PageBlockProps, PropsWithChil
     layoutPath?: string
     backgroundStyle?: React.CSSProperties
     marginInline?: BleedProps['marginInline']
+    overrideWidth?: PageBlockProps['width']
 }
 
 export default function BleedingBackgroundPageBlock({
@@ -20,6 +21,7 @@ export default function BleedingBackgroundPageBlock({
     backgroundStyle,
     layoutPath,
     marginInline = 'full',
+    overrideWidth,
     ...rest
 }: Readonly<BleedingBackgroundPageBlockProps>) {
     return (
@@ -28,7 +30,9 @@ export default function BleedingBackgroundPageBlock({
             marginInline={marginInline}
             style={backgroundStyle}>
             <PageBlock
-                width={layoutPath?.startsWith(`/${PAGE_FULL_WIDTH}/`) ? '2xl' : 'md'}
+                width={
+                    overrideWidth || (layoutPath?.startsWith(`/${PAGE_FULL_WIDTH}/`) ? '2xl' : 'md')
+                }
                 gutters
                 {...rest}>
                 {children}

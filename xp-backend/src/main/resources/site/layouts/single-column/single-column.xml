@@ -6,6 +6,7 @@
         <mixin name="background-color"/>
         <mixin name="box-color"/>
         <mixin name="padding-y"/>
+        <mixin name="override-width"/>
         <mixin name="alignment"/>
     </form>
     <regions>

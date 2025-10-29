@@ -6,6 +6,7 @@
         <mixin name="background-color"/>
         <mixin name="box-color"/>
         <mixin name="padding-y"/>
+        <mixin name="override-width"/>
         <input name="leftSpan" type="ComboBox">
             <label>Venstre Kolonne - Bredde</label>
             <occurrences minimum="1" maximum="1"/>

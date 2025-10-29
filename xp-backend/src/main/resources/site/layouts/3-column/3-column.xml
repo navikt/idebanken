@@ -6,6 +6,7 @@
         <mixin name="background-color"/>
         <mixin name="box-color"/>
         <mixin name="padding-y"/>
+        <mixin name="override-width"/>
         <input name="stackOrder" type="ComboBox">
             <label>Mobilvisning - Rekkefølge</label>
             <help-text>Velg rekkefølge på kolonnene for mobilvisning</help-text>

@@ -701,6 +701,7 @@ export type Layout_Idebanken__2_Column = {
   boxColor?: Maybe<Scalars['String']['output']>;
   breakLeftFirst?: Maybe<Scalars['Boolean']['output']>;
   leftSpan?: Maybe<Scalars['String']['output']>;
+  overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
 };
@@ -710,6 +711,7 @@ export type Layout_Idebanken__3_Column = {
   __typename?: 'Layout_idebanken__3_column';
   bgColor?: Maybe<Scalars['String']['output']>;
   boxColor?: Maybe<Scalars['String']['output']>;
+  overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
   stackOrder?: Maybe<Scalars['String']['output']>;
@@ -723,6 +725,7 @@ export type Layout_Idebanken_Card = {
   centerHalfWidth?: Maybe<Scalars['Boolean']['output']>;
   heading?: Maybe<Scalars['String']['output']>;
   headingColor?: Maybe<Scalars['String']['output']>;
+  overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
   prefix?: Maybe<Scalars['String']['output']>;
@@ -735,6 +738,7 @@ export type Layout_Idebanken_Single_Column = {
   alignment?: Maybe<Scalars['String']['output']>;
   bgColor?: Maybe<Scalars['String']['output']>;
   boxColor?: Maybe<Scalars['String']['output']>;
+  overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
 };
