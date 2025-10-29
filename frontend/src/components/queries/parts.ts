@@ -120,9 +120,7 @@ export const highlightedBoxMacroQuery = `{
     }
     brand
     links {
-        _path
-        displayName
-        dataAsJson
+        ${resolvedLinkSelector}
     }
     linksAbsolute
 }`

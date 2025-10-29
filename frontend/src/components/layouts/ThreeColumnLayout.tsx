@@ -63,7 +63,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
             bgColor={bgColor}
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
             layoutPath={path}
-            overrideWidth={overrideWidth}>
+            width={overrideWidth}>
             <HGrid
                 className={classNames(
                     'items-stretch',

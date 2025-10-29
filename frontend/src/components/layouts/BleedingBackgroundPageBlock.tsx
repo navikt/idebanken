@@ -21,7 +21,6 @@ export default function BleedingBackgroundPageBlock({
     backgroundStyle,
     layoutPath,
     marginInline = 'full',
-    overrideWidth,
     ...rest
 }: Readonly<BleedingBackgroundPageBlockProps>) {
     return (
@@ -30,11 +29,11 @@ export default function BleedingBackgroundPageBlock({
             marginInline={marginInline}
             style={backgroundStyle}>
             <PageBlock
-                width={
-                    overrideWidth || (layoutPath?.startsWith(`/${PAGE_FULL_WIDTH}/`) ? '2xl' : 'md')
-                }
+                {...rest}
                 gutters
-                {...rest}>
+                width={
+                    rest.width || (layoutPath?.startsWith(`/${PAGE_FULL_WIDTH}/`) ? '2xl' : 'md')
+                }>
                 {children}
             </PageBlock>
         </Bleed>

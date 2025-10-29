@@ -33,7 +33,7 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
             bgColor={bgColor}
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
             layoutPath={path}
-            overrideWidth={overrideWidth}>
+            width={overrideWidth}>
             <Box
                 className={classNames(
                     alignment ? `text-${alignment}` : 'text-left',

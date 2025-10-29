@@ -44,7 +44,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
             bgColor={bgColor}
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']} pb-0.5`}
             layoutPath={path}
-            overrideWidth={overrideWidth}>
+            width={overrideWidth}>
             <HGrid
                 className={classNames(
                     'items-stretch',

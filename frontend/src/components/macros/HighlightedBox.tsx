@@ -1,5 +1,5 @@
 import { BodyLong, BodyShort, HStack, Link, List, VStack } from '@navikt/ds-react'
-import { enonicSitePathToHref, truncateUrl } from '~/utils/utils'
+import { truncateUrl } from '~/utils/utils'
 import { ListItem } from '@navikt/ds-react/List'
 import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
@@ -53,11 +53,9 @@ export function HighlightedBox({
                     <List aria-labelledby={title}>
                         {config.links
                             ?.filter((it) => it != null)
-                            ?.map(({ _path, displayName, dataAsJson }) => (
-                                <ListItem key={_path}>
-                                    <Link href={enonicSitePathToHref(_path)}>
-                                        {dataAsJson.shortTitle || dataAsJson.title || displayName}
-                                    </Link>
+                            ?.map(({ url, linkText }) => (
+                                <ListItem key={url}>
+                                    <Link href={url}>{linkText}</Link>
                                 </ListItem>
                             ))}
                         {config.linksAbsolute

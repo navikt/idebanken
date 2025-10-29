@@ -6,6 +6,8 @@ import { LinkSelector, TitleIngress } from '@xp-types/site/mixins'
 import { Content } from '/lib/xp/content'
 import { enonicSitePathToHref, truncateUrl } from '/lib/utils/string-utils'
 import { getOrNull } from '/lib/utils/helpers'
+import { MediaImageContent } from '@enonic-types/guillotine'
+import { attachmentUrl } from '/lib/xp/portal'
 
 export type Source<T> = {
     __contentId: string
@@ -89,7 +91,7 @@ export function resolveLinks(
     return forceArray(links).map((link) => resolveLink(link?.internalOrExternalLink))
 }
 
-type InternalLink = Extract<
+export type InternalLink = Extract<
     LinkSelector['internalOrExternalLink'],
     { _selected: 'internalLink' }
 >['internalLink']
@@ -115,15 +117,22 @@ export function resolveLink(
     }
 }
 
-function resolveInternalLink(internalLink: InternalLink): ResolvedLinkSelector {
-    const content = getOrNull<Content<TitleIngress>>(internalLink.contentId)
+export function resolveInternalLink(internalLink: InternalLink): ResolvedLinkSelector {
+    const content = getOrNull<Content<TitleIngress> | MediaImageContent>(internalLink.contentId)
+
+    let url = enonicSitePathToHref(content?._path)
+    if (content?.type === 'media:document') {
+        url = attachmentUrl({ path: content._path, type: 'absolute' })
+    }
 
     return {
-        url: enonicSitePathToHref(content?._path),
+        url: url,
         external: false,
         linkText:
             internalLink?.linkText ||
+            // @ts-expect-error ignore data-type casting
             content?.data?.shortTitle ||
+            // @ts-expect-error ignore data-type casting
             content?.data?.title ||
             content?.displayName ||
             '[Mangler tittel]',
