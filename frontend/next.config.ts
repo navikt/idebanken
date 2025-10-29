@@ -27,7 +27,11 @@ const config = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: process.env.ENONIC_DOMAIN,
+                hostname: 'idebanken-xp7prod.enonic.cloud',
+            },
+            {
+                protocol: 'https',
+                hostname: 'idebanken-xp7test.enonic.cloud',
             },
             ...(process.env.ENV === 'local'
                 ? [
