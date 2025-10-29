@@ -1,4 +1,3 @@
-import type { Layout_Idebanken__3_Column } from '~/types/generated.d'
 import type { MetaData, PageComponent } from '@enonic/nextjs-adapter'
 import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
@@ -6,10 +5,11 @@ import { HGrid } from '@navikt/ds-react'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
+import { XP_3Column } from '@xp-types/site/layouts'
 
 interface ThreeColumnLayoutProps {
     layout: {
-        config: Layout_Idebanken__3_Column
+        config: XP_3Column
         descriptor: string
         regions: {
             left: {
@@ -32,7 +32,8 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
     const regions = props.layout.regions
     const { common, meta, layout, path } = props
     const columnSpan = 4 // Equal width for all columns (12/3 = 4)
-    const { stackOrder, bgColor, boxColor, paddingTop, paddingBottom } = layout.config ?? {}
+    const { stackOrder, bgColor, boxColor, paddingTop, paddingBottom, overrideWidth } =
+        layout.config ?? {}
 
     const getOrderClass = (column: 'left' | 'center' | 'right') => {
         if (stackOrder === 'center-left-right') {
@@ -61,7 +62,8 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
         <BleedingBackgroundPageBlock
             bgColor={bgColor}
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
-            layoutPath={path}>
+            layoutPath={path}
+            overrideWidth={overrideWidth}>
             <HGrid
                 className={classNames(
                     'items-stretch',

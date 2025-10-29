@@ -1,5 +1,4 @@
 import type { MetaData, PageComponent } from '@enonic/nextjs-adapter'
-import type { Layout_Idebanken_Card } from '~/types/generated.d'
 import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { Box } from '@navikt/ds-react'
@@ -8,10 +7,11 @@ import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
 import { useMemo } from 'react'
 import CardHeader from '../parts/CardHeader'
+import { XP_Card } from '@xp-types/site/layouts'
 
 interface CardLayoutProps {
     layout: {
-        config: Layout_Idebanken_Card
+        config: XP_Card
         descriptor: string
         regions: {
             content: {
@@ -27,7 +27,6 @@ interface CardLayoutProps {
 const CardLayout = (props: CardLayoutProps) => {
     const { common, meta, layout, path } = props
     const { regions } = layout
-    const config = layout.config ?? {}
     const {
         alignment,
         bgColor,
@@ -38,7 +37,8 @@ const CardLayout = (props: CardLayoutProps) => {
         headingColor,
         shadow,
         centerHalfWidth,
-    } = config
+        overrideWidth,
+    } = layout.config ?? {}
 
     const containerClasses = useMemo(
         () =>
@@ -60,7 +60,8 @@ const CardLayout = (props: CardLayoutProps) => {
         <BleedingBackgroundPageBlock
             bgColor={bgColor}
             className={backgroundClasses}
-            layoutPath={path}>
+            layoutPath={path}
+            overrideWidth={overrideWidth}>
             <Box className={containerClasses} as="article">
                 <CardHeader prefix={prefix} heading={heading} headingColor={headingColor} />
                 <RegionView

@@ -10,6 +10,7 @@ export type IconBackgroundColor = import('./icon-background-color').IconBackgrou
 export type Image = import('./image').Image;
 export type LinkGroups = import('./link-groups').LinkGroups;
 export type LinkSelector = import('./link-selector').LinkSelector;
+export type OverrideWidth = import('./override-width').OverrideWidth;
 export type PaddingY = import('./padding-y').PaddingY;
 export type SimpleTextEditor = import('./simple-text-editor').SimpleTextEditor;
 export type TitleIngress = import('./title-ingress').TitleIngress;

@@ -16,6 +16,7 @@
         <mixin name="background-color"/>
         <mixin name="heading-color"/>
         <mixin name="padding-y"/>
+        <mixin name="override-width"/>
         <mixin name="alignment"/>
         <input name="centerHalfWidth" type="CheckBox">
             <label>Vis på 1/2 sjermbredde og sentrert</label>

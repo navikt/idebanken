@@ -65,8 +65,7 @@ export const LinkCardView = ({
                         // @ts-expect-error meta is not really required
                         src={getAsset(image?.url ?? '/favicon/favicon.svg', meta)}
                         alt={image?.altText ?? image?.caption ?? 'Illustrasjonsbilde'}
-                        width={500}
-                        height={250}
+                        fill
                     />
                 </LinkCardImage>
             )}

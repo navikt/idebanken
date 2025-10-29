@@ -1,4 +1,3 @@
-import type { Layout_Idebanken__2_Column } from '~/types/generated.d'
 import type { MetaData, PageComponent } from '@enonic/nextjs-adapter'
 import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
@@ -6,10 +5,11 @@ import { HGrid } from '@navikt/ds-react'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
+import { XP_2Column } from '@xp-types/site/layouts'
 
 interface TwoColumnLayoutProps {
     layout: {
-        config: Layout_Idebanken__2_Column
+        config: XP_2Column
         descriptor: string
         regions: {
             left: {
@@ -28,15 +28,23 @@ interface TwoColumnLayoutProps {
 const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
     const regions = props.layout.regions
     const { common, meta, layout, path } = props
-    const { leftSpan, breakLeftFirst, bgColor, boxColor, paddingTop, paddingBottom } =
-        layout.config ?? {}
+    const {
+        leftSpan,
+        breakLeftFirst,
+        bgColor,
+        boxColor,
+        paddingTop,
+        paddingBottom,
+        overrideWidth,
+    } = layout.config ?? {}
     const rightSpan = 12 - Number(leftSpan ?? 6)
 
     return (
         <BleedingBackgroundPageBlock
             bgColor={bgColor}
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']} pb-0.5`}
-            layoutPath={path}>
+            layoutPath={path}
+            overrideWidth={overrideWidth}>
             <HGrid
                 className={classNames(
                     'items-stretch',

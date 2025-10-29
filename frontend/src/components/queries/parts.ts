@@ -80,6 +80,7 @@ export const tableOfContentsQuery = `{
 
 export const linkCardListQuery = `{
     displayType
+    nEachRow
     hideArrow
     brand
     heading {

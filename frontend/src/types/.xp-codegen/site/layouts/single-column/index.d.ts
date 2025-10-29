@@ -21,6 +21,11 @@ export type XP_SingleColumn = {
   paddingBottom?: 'pb-0' | 'pb-6' | 'pb-10';
 
   /**
+   * Overstyr bredde
+   */
+  overrideWidth?: 'text' | 'md' | 'lg' | 'xl' | '2xl';
+
+  /**
    * Juster innhold
    */
   alignment: 'left' | 'center' | 'right';
