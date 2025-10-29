@@ -57,14 +57,14 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${isLocalhost ? "'unsafe-eval'" : ''};
     connect-src 'self' umami.nav.no;
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: ${enonicDomain};
+    img-src 'self' blob: data: ${enonicDomain ?? ''};
     font-src 'self' cdn.nav.no;
-    object-src 'self' ${enonicDomain};
+    object-src 'self' ${enonicDomain ?? "'self'"};
     base-uri 'self';
     form-action 'self';
-    frame-ancestors ${enonicDomain};
-    frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com/ ${enonicDomain};
-    upgrade-insecure-requests;
+    frame-ancestors  ${enonicDomain ?? "'self'"};
+    frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com/ ${enonicDomain ?? ''};
+    ${!isLocalhost ? 'upgrade-insecure-requests;' : ''}
 `
         // Replace newline characters and spaces
         .replace(/\s{2,}/g, ' ')
