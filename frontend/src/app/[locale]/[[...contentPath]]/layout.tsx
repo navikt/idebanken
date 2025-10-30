@@ -10,6 +10,7 @@ import Footer from '~/components/views/Footer'
 import Header from '~/components/views/Header'
 import { PageBlock } from '@navikt/ds-react/Page'
 import { HeadlessCms } from '~/types/generated'
+import BubblesOverlayTop from '~/components/parts/BubblesOverlayTop'
 
 type LayoutParams = { locale: string; contentPath?: string[] }
 type LayoutProps = PropsWithChildren<{ params: Promise<LayoutParams> }>
@@ -57,6 +58,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                     {children}
                 </PageBlock>
             </Page>
+            <BubblesOverlayTop meta={meta} />
         </EnonicWrapper>
     )
 }

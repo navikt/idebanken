@@ -1,7 +1,6 @@
 import { PropsWithChildren } from 'react'
 import { draftMode, headers } from 'next/headers'
 import Script from 'next/script'
-import FrontPageDecoration from '~/components/parts/FrontPageDecoration'
 
 import '~/styles/globals.css'
 import GlobalUmamiAnalytics from '~/utils/analytics/GlobalUmamiAnalytics'
@@ -39,7 +38,6 @@ export default async function RootLayout({ children }: PropsWithChildren) {
                 )}
             </head>
             {children}
-            <FrontPageDecoration />
         </GlobalUmamiAnalytics>
     )
 }

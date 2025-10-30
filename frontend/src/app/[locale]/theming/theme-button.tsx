@@ -9,7 +9,7 @@ function ThemeButton({
     ...props
 }: React.HTMLAttributes<HTMLButtonElement> & { withTooltip?: boolean }) {
     const { resolvedTheme, setTheme } = useTheme()
-    const changeThemeText = `Endre til ${resolvedTheme === 'light' ? 'mørkt' : 'lyst'} tema`
+    const changeThemeText = `Endre til ${resolvedTheme === 'dark' ? 'lyst' : 'mørkt'} tema`
 
     const toggle = useCallback(() => {
         const next = resolvedTheme === 'dark' ? 'light' : 'dark'
