@@ -8,6 +8,7 @@ import { paddingsY } from '~/utils/tailwind-lookup-table'
 import { useMemo } from 'react'
 import CardHeader from '../parts/CardHeader'
 import { XP_Card } from '@xp-types/site/layouts'
+import { alignmentClassNames } from '~/utils/classNames'
 
 interface CardLayoutProps {
     layout: {
@@ -28,7 +29,6 @@ const CardLayout = (props: CardLayoutProps) => {
     const { common, meta, layout, path } = props
     const { regions } = layout
     const {
-        alignment,
         bgColor,
         paddingTop,
         paddingBottom,
@@ -38,17 +38,19 @@ const CardLayout = (props: CardLayoutProps) => {
         shadow,
         centerHalfWidth,
         overrideWidth,
+        xAlignment,
+        yAlignment,
     } = layout.config ?? {}
 
     const containerClasses = useMemo(
         () =>
             classNames(
-                alignment ? `text-${alignment}` : 'text-left',
                 shadow ? 'shadow-ib-shadow' : '',
                 'rounded-3xl p-6 md:py-8 bg-white',
-                centerHalfWidth ? 'w-full md:w-1/2 md:mx-auto' : '' // center + 50% on md+
+                centerHalfWidth ? 'w-full md:w-1/2 md:mx-auto' : '', // center + 50% on md+
+                alignmentClassNames(xAlignment, yAlignment)
             ),
-        [alignment, shadow, centerHalfWidth]
+        [shadow, centerHalfWidth, xAlignment, yAlignment]
     )
 
     const backgroundClasses = useMemo(
@@ -66,7 +68,7 @@ const CardLayout = (props: CardLayoutProps) => {
                 <CardHeader prefix={prefix} heading={heading} headingColor={headingColor} />
                 <RegionView
                     name="content"
-                    className="[&>*]:my-8 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+                    className="[&>*]:my-8 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 w-full"
                     components={regions.content?.components}
                     common={common}
                     meta={meta}

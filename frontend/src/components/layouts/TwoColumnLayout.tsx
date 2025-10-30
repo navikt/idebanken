@@ -6,6 +6,7 @@ import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackground
 import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
 import { XP_2Column } from '@xp-types/site/layouts'
+import { alignmentClassNames } from '~/utils/classNames'
 
 interface TwoColumnLayoutProps {
     layout: {
@@ -36,6 +37,8 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
         paddingTop,
         paddingBottom,
         overrideWidth,
+        xAlignment,
+        yAlignment,
     } = layout.config ?? {}
     const rightSpan = 12 - Number(leftSpan ?? 6)
     const hasContentInBothRegions =
@@ -48,10 +51,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
             layoutPath={path}
             width={overrideWidth}>
             <HGrid
-                className={classNames(
-                    'items-stretch',
-                    boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : ''
-                )}
+                className={boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : ''}
                 gap={
                     hasContentInBothRegions
                         ? {
@@ -63,13 +63,13 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                 }
                 columns={{ xs: 1, md: 12 }}>
                 <div
-                    className={`
-						col-span-1 md:col-span-${leftSpan}
-						${breakLeftFirst ? 'max-md:order-1' : 'max-md:order-2'}
-                        h-full
-					`}>
+                    className={classNames(
+                        `col-span-1 md:col-span-${leftSpan}`,
+                        breakLeftFirst ? 'max-md:order-1' : 'max-md:order-2',
+                        alignmentClassNames(xAlignment, yAlignment)
+                    )}>
                     <RegionView
-                        className="flex flex-col space-y-(--ax-space-24)"
+                        className="flex flex-col space-y-(--ax-space-24) w-full"
                         name="left"
                         components={regions['left']?.components}
                         common={common}
@@ -77,13 +77,13 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                     />
                 </div>
                 <div
-                    className={`
-						col-span-1 md:col-span-${rightSpan}
-						${breakLeftFirst ? 'max-md:order-2' : 'max-md:order-1'}
-                        h-full
-					`}>
+                    className={classNames(
+                        `col-span-1 md:col-span-${rightSpan}`,
+                        breakLeftFirst ? 'max-md:order-2' : 'max-md:order-1',
+                        alignmentClassNames(xAlignment, yAlignment)
+                    )}>
                     <RegionView
-                        className="flex flex-col space-y-(--ax-space-24)"
+                        className="flex flex-col space-y-(--ax-space-24) w-full"
                         name="right"
                         components={regions['right']?.components}
                         common={common}

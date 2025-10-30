@@ -18,6 +18,7 @@
             </config>
             <default>left-center-right</default>
         </input>
+        <mixin name="alignment"/>
     </form>
     <regions>
         <region name="left"/>

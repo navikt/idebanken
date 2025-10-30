@@ -29,4 +29,14 @@ export type _3Column = {
    * Mobilvisning - Rekkefølge
    */
   stackOrder: 'left-center-right' | 'center-left-right' | 'right-center-left';
+
+  /**
+   * Juster innhold x-akse
+   */
+  xAlignment?: 'center' | 'right';
+
+  /**
+   * Juster innhold y-akse
+   */
+  yAlignment?: 'center' | 'bottom';
 };

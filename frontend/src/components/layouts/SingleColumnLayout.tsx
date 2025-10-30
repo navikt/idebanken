@@ -6,6 +6,7 @@ import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackground
 import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
 import { XP_SingleColumn } from '@xp-types/site/layouts'
+import { alignmentClassNames } from '~/utils/classNames'
 
 interface SingleColumnLayoutProps {
     layout: {
@@ -26,7 +27,8 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
     const { common, meta, layout, path } = props
     const regions = layout.regions
     const config = layout.config ?? {}
-    const { alignment, bgColor, boxColor, paddingTop, paddingBottom, overrideWidth } = config
+    const { bgColor, boxColor, paddingTop, paddingBottom, overrideWidth, xAlignment, yAlignment } =
+        config
 
     return (
         <BleedingBackgroundPageBlock
@@ -36,12 +38,12 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
             width={overrideWidth}>
             <Box
                 className={classNames(
-                    alignment ? `text-${alignment}` : 'text-left',
-                    boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : ''
+                    boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : '',
+                    alignmentClassNames(xAlignment, yAlignment)
                 )}>
                 <RegionView
                     name="content"
-                    className="[&>*]:my-8 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
+                    className="[&>*]:my-8 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 w-full"
                     components={regions['content']?.components}
                     common={common}
                     meta={meta}
