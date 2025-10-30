@@ -57,7 +57,7 @@ export const LinkCardView = ({
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
 
     return (
-        <LinkCard data-color={brand ?? 'neutral'} className="h-full" arrow={!hideArrow}>
+        <LinkCard data-color={brand ?? 'neutral'} arrow={!hideArrow}>
             {showImage && (
                 <LinkCardImage aspectRatio="16/8">
                     <Image

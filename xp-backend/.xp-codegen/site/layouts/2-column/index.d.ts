@@ -34,4 +34,14 @@ export type _2Column = {
    * Venstre kolonne øverst for mobilvisning
    */
   breakLeftFirst: boolean;
+
+  /**
+   * Juster innhold x-akse
+   */
+  xAlignment?: 'center' | 'right';
+
+  /**
+   * Juster innhold y-akse
+   */
+  yAlignment?: 'center' | 'bottom';
 };

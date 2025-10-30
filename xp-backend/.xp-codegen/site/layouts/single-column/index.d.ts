@@ -26,7 +26,12 @@ export type SingleColumn = {
   overrideWidth?: 'text' | 'md' | 'lg' | 'xl' | '2xl';
 
   /**
-   * Juster innhold
+   * Juster innhold x-akse
    */
-  alignment: 'left' | 'center' | 'right';
+  xAlignment?: 'center' | 'right';
+
+  /**
+   * Juster innhold y-akse
+   */
+  yAlignment?: 'center' | 'bottom';
 };

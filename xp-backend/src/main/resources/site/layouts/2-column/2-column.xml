@@ -30,6 +30,7 @@
             <help-text>Vis innholdet i venstre kolonne øverst for mobilvisning</help-text>
             <default>checked</default>
         </input>
+        <mixin name="alignment"/>
     </form>
     <regions>
         <region name="left"/>
