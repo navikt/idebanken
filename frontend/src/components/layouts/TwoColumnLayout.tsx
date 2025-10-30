@@ -38,6 +38,8 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
         overrideWidth,
     } = layout.config ?? {}
     const rightSpan = 12 - Number(leftSpan ?? 6)
+    const hasContentInBothRegions =
+        regions['left']?.components?.length && regions['left']?.components?.length
 
     return (
         <BleedingBackgroundPageBlock
@@ -50,11 +52,15 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                     'items-stretch',
                     boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : ''
                 )}
-                gap={{
-                    xs: 'space-16',
-                    lg: 'space-20',
-                    xl: 'space-24',
-                }}
+                gap={
+                    hasContentInBothRegions
+                        ? {
+                              xs: 'space-16',
+                              lg: 'space-20',
+                              xl: 'space-24',
+                          }
+                        : {}
+                }
                 columns={{ xs: 1, md: 12 }}>
                 <div
                     className={`
@@ -63,7 +69,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                         h-full
 					`}>
                     <RegionView
-                        className="h-full grid auto-rows-fr gap-4"
+                        className="flex flex-col space-y-(--ax-space-24)"
                         name="left"
                         components={regions['left']?.components}
                         common={common}
@@ -77,7 +83,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                         h-full
 					`}>
                     <RegionView
-                        className="h-full grid auto-rows-fr gap-4"
+                        className="flex flex-col space-y-(--ax-space-24)"
                         name="right"
                         components={regions['right']?.components}
                         common={common}
