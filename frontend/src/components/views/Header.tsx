@@ -98,22 +98,20 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                 <HStack
                     align="center"
                     justify="space-between"
+                    wrap={false}
                     paddingBlock={{ xs: 'space-8', md: 'space-16' }}>
-                    <NextLink href="/" className={'content-center h-12'}>
-                        <span className="block h-12 w-48">
-                            <NextImage
-                                src={getAsset('/images/logo.svg', meta)}
-                                alt={title}
-                                width={200}
-                                height={100}
-                                className="w-48 h-full"
-                                priority
-                            />
-                        </span>
+                    <NextLink href="/" className={'content-center h-12 max-w-48'}>
+                        <NextImage
+                            src={getAsset('/images/logo.svg', meta)}
+                            alt={title}
+                            width={200}
+                            height={100}
+                            priority
+                        />
                     </NextLink>
                     <HStack gap="2">
                         <Button
-                            variant="tertiary"
+                            variant="tertiary-neutral"
                             aria-label={isMenuOpen ? 'Lukk meny' : 'Åpne meny'}
                             onClick={() => {
                                 setIsMenuOpen(!isMenuOpen)
@@ -140,12 +138,10 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                             inert={!isMenuOpen}
                             width={'2xl'}
                             gutters>
-                            <ThemeButton className={'absolute top-5 right-5 sm:hidden'} />
-
                             <Stack
                                 as={'nav'}
                                 gap={'8'}
-                                padding={{ xs: '4', sm: '10' }}
+                                className={'py-(--ax-space-24) lg:py-(--ax-space-32)'}
                                 justify={'space-between'}
                                 direction={{ xs: 'column', lg: 'row' }}>
                                 {quickSearch({
@@ -206,10 +202,11 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                                         </LinkCard>
                                     ))}
                                 </VStack>
+                                <ThemeButton className={'sm:hidden'} />
                             </Stack>
                         </PageBlock>
                         <Button
-                            variant={'tertiary'}
+                            variant={'tertiary-neutral'}
                             aria-label={isSearchOpen ? 'Lukk søk' : 'Åpne søk'}
                             onClick={() => {
                                 setIsSearchOpen(!isSearchOpen)
@@ -252,6 +249,7 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                         </PageBlock>
                         <ThemeButton
                             className={'max-sm:hidden'}
+                            withTooltip
                             onKeyDown={(e) => {
                                 if (e.key === 'Tab' && !e.shiftKey) {
                                     setIsMenuOpen(false)
