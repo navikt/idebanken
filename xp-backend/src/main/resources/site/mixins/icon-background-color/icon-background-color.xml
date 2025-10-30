@@ -9,6 +9,7 @@
                 <option value="ib-pink-400A">Rosa</option>
                 <option value="ib-dark-blue-400A">Blå</option>
                 <option value="ib-orange-400A">Orange</option>
+                <option value="ib-pastel-yellow-300A">Gul</option>
             </config>
         </input>
     </form>
