@@ -34,6 +34,10 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
     const columnSpan = 4 // Equal width for all columns (12/3 = 4)
     const { stackOrder, bgColor, boxColor, paddingTop, paddingBottom, overrideWidth } =
         layout.config ?? {}
+    const hasContentInOnlyOneRegion =
+        [regions['left'], regions['center'], regions['right']].filter(
+            (region) => region?.components?.length
+        ).length === 1
 
     const getOrderClass = (column: 'left' | 'center' | 'right') => {
         if (stackOrder === 'center-left-right') {
@@ -69,11 +73,15 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                     'items-stretch',
                     boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : ''
                 )}
-                gap={{
-                    xs: 'space-16',
-                    lg: 'space-20',
-                    xl: 'space-24',
-                }}
+                gap={
+                    hasContentInOnlyOneRegion
+                        ? {}
+                        : {
+                              xs: 'space-16',
+                              lg: 'space-20',
+                              xl: 'space-24',
+                          }
+                }
                 columns={{ xs: 1, md: 12 }}>
                 <div
                     className={`

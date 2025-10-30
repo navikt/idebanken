@@ -64,11 +64,19 @@ export default function Footer({
             <HGrid gap={{ xs: 'space-24', md: 'space-56' }} columns={{ xs: 1, md: 3, lg: 5 }}>
                 <VStack gridColumn={{ xs: '1', md: '1/4', lg: '1/3' }} gap={'space-16'}>
                     <NextImage
-                        src={getAsset('/images/logo.svg', meta)}
+                        src={getAsset('/images/logo-light.svg', meta)}
                         alt={'Idébanken logo'}
                         width={200}
                         height={100}
-                        className="w-48 h-full"
+                        className="w-48 block dark:hidden"
+                        priority
+                    />
+                    <NextImage
+                        src={getAsset('/images/logo-dark.svg', meta)}
+                        alt={'Idébanken logo'}
+                        width={200}
+                        height={100}
+                        className="w-48 hidden dark:block"
                         priority
                     />
                     <RichTextView
