@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mixin xmlns="urn:enonic:xp:model:1.0">
-    <form>    
-        <input name="alignment" type="RadioButton">
-            <label>Juster innhold</label>
-            <occurrences minimum="1" maximum="1"/>  
+    <form>
+        <input name="xAlignment" type="ComboBox">
+            <label>Juster innhold x-akse</label>
+            <occurrences minimum="0" maximum="1"/>
             <config>
-                <option value="left">Venstre</option>  
-                <option value="center">Senter</option>
+                <option value="center">Midten</option>
                 <option value="right">Høyre</option>
             </config>
-            <default>left</default>  
+        </input>
+        <input name="yAlignment" type="ComboBox">
+            <label>Juster innhold y-akse</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <option value="center">Midten</option>
+                <option value="bottom">Ned</option>
+            </config>
         </input>
     </form>
 </mixin>

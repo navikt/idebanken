@@ -21,6 +21,7 @@
         <input name="centerHalfWidth" type="CheckBox">
             <label>Vis på 1/2 sjermbredde og sentrert</label>
         </input>
+        <mixin name="alignment"/>
     </form>
     <regions>
         <region name="content"/>

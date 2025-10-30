@@ -6,6 +6,7 @@ import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackground
 import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
 import { XP_3Column } from '@xp-types/site/layouts'
+import { alignmentClassNames } from '~/utils/classNames'
 
 interface ThreeColumnLayoutProps {
     layout: {
@@ -32,8 +33,16 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
     const regions = props.layout.regions
     const { common, meta, layout, path } = props
     const columnSpan = 4 // Equal width for all columns (12/3 = 4)
-    const { stackOrder, bgColor, boxColor, paddingTop, paddingBottom, overrideWidth } =
-        layout.config ?? {}
+    const {
+        stackOrder,
+        bgColor,
+        boxColor,
+        paddingTop,
+        paddingBottom,
+        overrideWidth,
+        xAlignment,
+        yAlignment,
+    } = layout.config ?? {}
     const hasContentInOnlyOneRegion =
         [regions['left'], regions['center'], regions['right']].filter(
             (region) => region?.components?.length
@@ -69,10 +78,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
             layoutPath={path}
             width={overrideWidth}>
             <HGrid
-                className={classNames(
-                    'items-stretch',
-                    boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : ''
-                )}
+                className={classNames(boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : '')}
                 gap={
                     hasContentInOnlyOneRegion
                         ? {}
@@ -84,13 +90,13 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                 }
                 columns={{ xs: 1, md: 12 }}>
                 <div
-                    className={`
-                        col-span-1 md:col-span-${columnSpan}
-                        ${getOrderClass('left')}
-                        h-full
-                    `}>
+                    className={classNames(
+                        `col-span-1 md:col-span-${columnSpan}`,
+                        getOrderClass('left'),
+                        alignmentClassNames(xAlignment, yAlignment)
+                    )}>
                     <RegionView
-                        className="h-full flex flex-col gap-4"
+                        className="flex flex-col space-y-(--ax-space-24) w-full"
                         name="left"
                         components={regions['left']?.components}
                         common={common}
@@ -98,13 +104,13 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                     />
                 </div>
                 <div
-                    className={`
-                        col-span-1 md:col-span-${columnSpan}
-                        ${getOrderClass('center')}
-                        h-full
-                    `}>
+                    className={classNames(
+                        `col-span-1 md:col-span-${columnSpan}`,
+                        getOrderClass('center'),
+                        alignmentClassNames(xAlignment, yAlignment)
+                    )}>
                     <RegionView
-                        className="h-full flex flex-col gap-4"
+                        className="flex flex-col space-y-(--ax-space-24) w-full"
                         name="center"
                         components={regions['center']?.components}
                         common={common}
@@ -112,13 +118,13 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                     />
                 </div>
                 <div
-                    className={`
-                        col-span-1 md:col-span-${columnSpan}
-                        ${getOrderClass('right')}
-                        h-full
-                    `}>
+                    className={classNames(
+                        `col-span-1 md:col-span-${columnSpan}`,
+                        getOrderClass('right'),
+                        alignmentClassNames(xAlignment, yAlignment)
+                    )}>
                     <RegionView
-                        className="h-full flex flex-col gap-4"
+                        className="flex flex-col space-y-(--ax-space-24) w-full"
                         name="right"
                         components={regions['right']?.components}
                         common={common}
