@@ -1,31 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1022 141.49">
     <style>
         .logo-text {
-        fill: #181756;
-        }
-
-        .icon-1 {
-        fill: #2857F3;
-        }
-
-        .icon-2 {
-        fill: #FFBCD8;
-        }
-
-        .icon-3 {
-        fill: #E00522;
-        }
-
-        .icon-4 {
-        fill: #F65523;
-        }
-
-        .icon-5 {
-        fill: #0026BA;
-        }
-
-        @media (prefers-color-scheme: dark) {
-        .logo-text {
         fill: #f1f1f1;
         }
 
@@ -47,7 +22,6 @@
 
         .icon-5 {
         fill: #343434;
-        }
         }
     </style>
     <g>

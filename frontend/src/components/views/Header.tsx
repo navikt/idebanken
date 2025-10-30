@@ -100,9 +100,21 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                     justify="space-between"
                     wrap={false}
                     paddingBlock={{ xs: 'space-8', md: 'space-16' }}>
-                    <NextLink href="/" className={'content-center h-12 max-w-48'}>
+                    <NextLink
+                        aria-label={'Til forsiden'}
+                        href="/"
+                        className={'content-center h-12 max-w-48'}>
                         <NextImage
-                            src={getAsset('/images/logo.svg', meta)}
+                            className={'block dark:hidden'}
+                            src={getAsset('/images/logo-light.svg', meta)}
+                            alt={title}
+                            width={200}
+                            height={100}
+                            priority
+                        />
+                        <NextImage
+                            className={'hidden dark:block'}
+                            src={getAsset('/images/logo-dark.svg', meta)}
                             alt={title}
                             width={200}
                             height={100}
