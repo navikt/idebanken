@@ -64,6 +64,16 @@ declare global {
         }>;
 
         /**
+         * Ekskluder innhold og alle barn
+         */
+        excludeContentAndChildren?: Array<string> | string;
+
+        /**
+         * Ekskluder enkeltinnhold
+         */
+        excludeContent?: Array<string> | string;
+
+        /**
          * Side for søk
          */
         searchPage: string;
