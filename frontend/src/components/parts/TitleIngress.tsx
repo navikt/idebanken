@@ -41,7 +41,7 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                 <div className={`${titleImageSrc ? 'lg:mx-[calc(-2*var(--ax-space-64))]' : ''}`}>
                     <BleedingBackgroundPageBlock
                         bgColor={config.bgColor}
-                        marginInline={{ sm: 'space-4', md: 'space-28' }}
+                        marginInline={{ xs: 'full', lg: 'space-28' }}
                         bleedClassName={`overflow-hidden ${config.bgColor ? 'lg:rounded-[200px]' : ''}`}>
                         <HStack
                             align="center"
@@ -49,7 +49,7 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                             className="py-11 flex-wrap lg:flex-nowrap">
                             {titleImageSrc ? (
                                 <div
-                                    className="self-center lg:-ml-30 flex items-center justify-center shrink-0 rounded-full w-22 h-22"
+                                    className="hidden lg:flex self-center lg:-ml-30 items-center justify-center shrink-0 rounded-full w-22 h-22"
                                     style={{
                                         backgroundColor: 'var(--ib-prefix-bg, var(--ib-pink-200))',
                                     }}>
