@@ -1,4 +1,4 @@
-import { Content } from '/lib/xp/content'
+import { Content, get } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
 import { generateSearchDocumentId } from '../utils'
 import { getNestedValues } from '/lib/utils/object-utils'
@@ -154,37 +154,36 @@ const getContentGroupConfig = (searchConfig: SearchConfig, content: Content) => 
     )
 }
 
-const isExcludedContent = (content: Content) => {
+const isExcludedContent = (content: Content, searchConfig: SiteConfig['searchConfig']) => {
     if (!content?.data) {
         return true
     }
 
-    if (
-        // eslint-disable-next-line no-constant-condition
-        false
-        // TODO
-        // isContentAwaitingPrepublish(content) ||
-        // isContentNoIndex(content) ||
-        // isContentPreviewOnly(content) ||
-        // getContentLocaleRedirectTarget(content) ||
-        // isExcludedLocalContent(content)
-    ) {
-        return true
-    }
-    return false
+    const { excludeContent, excludeContentAndChildren } = searchConfig
+    const excludePaths = forceArray(excludeContentAndChildren).map(
+        (id) => get({ key: id })?._path?.replace(/^\/content/, '') ?? 'nowhere'
+    )
+    const contentPathStrippedPrefix = content._path.replace(/^\/content/, '')
+
+    return (
+        // TODO add when site is "live"
+        //  content.x?.['com-enonic-app-metafields']?.['meta-data']?.blockRobots ||
+        excludePaths.some((excludePath) => contentPathStrippedPrefix.startsWith(excludePath)) ||
+        forceArray(excludeContent).includes(content._id)
+    )
 }
 
 export const buildExternalSearchDocument = (
     content: Content,
     locale: string
 ): SearchDocument | null => {
-    if (isExcludedContent(content)) {
-        return null
-    }
-
     const searchConfig = getSiteConfig()?.searchConfig
     if (!searchConfig) {
         logger.error('No search config found!')
+        return null
+    }
+
+    if (isExcludedContent(content, searchConfig)) {
         return null
     }
 

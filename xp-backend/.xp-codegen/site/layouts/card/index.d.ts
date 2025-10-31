@@ -41,16 +41,6 @@ export type Card = {
   overrideWidth?: 'text' | 'md' | 'lg' | 'xl' | '2xl';
 
   /**
-   * Juster innhold x-akse
-   */
-  xAlignment?: 'center' | 'right';
-
-  /**
-   * Juster innhold y-akse
-   */
-  yAlignment?: 'center' | 'bottom';
-
-  /**
    * Vis på 1/2 sjermbredde og sentrert
    */
   centerHalfWidth: boolean;

@@ -59,6 +59,14 @@
                         </item-set>
                     </items>
                 </item-set>
+                <input type="ContentSelector" name="excludeContentAndChildren">
+                    <label>Ekskluder innhold og alle barn</label>
+                    <occurrences minimum="0" maximum="0"/>
+                </input>
+                <input type="ContentSelector" name="excludeContent">
+                    <label>Ekskluder enkeltinnhold</label>
+                    <occurrences minimum="0" maximum="0"/>
+                </input>
                 <input type="ContentSelector" name="searchPage">
                     <label>Side for søk</label>
                     <occurrences minimum="1" maximum="1"/>
