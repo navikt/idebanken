@@ -72,6 +72,17 @@ Object.defineProperty(Array.prototype, 'flat', {
     writable: true,
 })
 
+if (!Array.prototype.flatMap) {
+    Object.defineProperty(Array.prototype, 'flatMap', {
+        configurable: true,
+        value: function flatMap(callback) {
+            // eslint-disable-next-line prefer-rest-params
+            return Array.prototype.map.apply(this, arguments).flat()
+        },
+        writable: true,
+    })
+}
+
 Object.entries = function (obj) {
     if (obj === null || obj === undefined) {
         throw new TypeError('Cannot convert undefined or null to object')

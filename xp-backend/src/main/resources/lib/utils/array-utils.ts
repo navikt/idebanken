@@ -41,3 +41,26 @@ export const iterableToArray = <Type>(iterable: IterableIterator<Type>): Type[] 
 
     return array
 }
+
+export function flatMap<A, B>(
+    xs: Array<A>,
+    f: (a: A, i: number) => Array<B>,
+    thisArg?: unknown
+): Array<B>
+export function flatMap<A, B>(
+    xs: Array<A>,
+    f: (a: A, i: number) => Array<B>,
+    thisArg?: unknown
+): Array<B>
+export function flatMap<A, B>(
+    xs: ReadonlyArray<A>,
+    f: (a: A, i: number) => ReadonlyArray<B>,
+    thisArg?: unknown
+): ReadonlyArray<B>
+export function flatMap<A, B>(
+    xs: ReadonlyArray<A>,
+    f: (a: A, i: number) => ReadonlyArray<B>,
+    thisArg?: unknown
+): ReadonlyArray<B> {
+    return xs.reduce((result: Array<B>, x: A, i) => result.concat(f.call(thisArg ?? xs, x, i)), [])
+}

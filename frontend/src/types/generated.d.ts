@@ -138,6 +138,7 @@ export type Content = {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -690,6 +691,7 @@ export type Layout_Idebanken_ComponentDataApplicationConfig = {
   __typename?: 'Layout_idebanken_ComponentDataApplicationConfig';
   _2_column?: Maybe<Layout_Idebanken__2_Column>;
   _3_column?: Maybe<Layout_Idebanken__3_Column>;
+  card?: Maybe<Layout_Idebanken_Card>;
   single_column?: Maybe<Layout_Idebanken_Single_Column>;
 };
 
@@ -716,6 +718,22 @@ export type Layout_Idebanken__3_Column = {
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
   stackOrder?: Maybe<Scalars['String']['output']>;
+  xAlignment?: Maybe<Scalars['String']['output']>;
+  yAlignment?: Maybe<Scalars['String']['output']>;
+};
+
+/** Layout component application config for application ['idebanken'] and descriptor ['card'] */
+export type Layout_Idebanken_Card = {
+  __typename?: 'Layout_idebanken_card';
+  bgColor?: Maybe<Scalars['String']['output']>;
+  centerHalfWidth?: Maybe<Scalars['Boolean']['output']>;
+  heading?: Maybe<Scalars['String']['output']>;
+  headingColor?: Maybe<Scalars['String']['output']>;
+  overrideWidth?: Maybe<Scalars['String']['output']>;
+  paddingBottom?: Maybe<Scalars['String']['output']>;
+  paddingTop?: Maybe<Scalars['String']['output']>;
+  prefix?: Maybe<Scalars['String']['output']>;
+  shadow?: Maybe<Scalars['Boolean']['output']>;
   xAlignment?: Maybe<Scalars['String']['output']>;
   yAlignment?: Maybe<Scalars['String']['output']>;
 };
@@ -779,10 +797,17 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1455,6 +1480,13 @@ export type Sitemap_Url = {
   priority?: Maybe<Scalars['String']['output']>;
 };
 
+/** Data needed to add a Skyra form */
+export type SkyraData = {
+  __typename?: 'SkyraData';
+  slug: Scalars['String']['output'];
+  source?: Maybe<Scalars['ID']['output']>;
+};
+
 /** Sort Dsl input type */
 export type SortDslInput = {
   direction?: InputMaybe<DslSortDirectionType>;
@@ -1534,6 +1566,7 @@ export type UntypedContent = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -1629,6 +1662,7 @@ export type XData_Idebanken_ApplicationConfig = {
   __typename?: 'XData_idebanken_ApplicationConfig';
   category?: Maybe<XData_Idebanken_Category_DataConfig>;
   meta?: Maybe<XData_Idebanken_Meta_DataConfig>;
+  third_party?: Maybe<XData_Idebanken_Third_Party_DataConfig>;
 };
 
 /** Extra data config for application ['idebanken}'] and descriptor ['category'] */
@@ -1649,6 +1683,54 @@ export type XData_Idebanken_Meta_DataConfig = {
   __typename?: 'XData_idebanken_meta_DataConfig';
   icon?: Maybe<Content>;
   iconColor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Extra data config for application ['idebanken}'] and descriptor ['third-party'] */
+export type XData_Idebanken_Third_Party_DataConfig = {
+  __typename?: 'XData_idebanken_third_party_DataConfig';
+  ignoreSkyraFromParents?: Maybe<Scalars['Boolean']['output']>;
+  skyra?: Maybe<Array<Maybe<XData_Idebanken_Third_Party_DataConfig_Skyra>>>;
+};
+
+
+/** Extra data config for application ['idebanken}'] and descriptor ['third-party'] */
+export type XData_Idebanken_Third_Party_DataConfigSkyraArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Undersider */
+export type XData_Idebanken_Third_Party_DataConfig_Children = {
+  __typename?: 'XData_idebanken_third_party_DataConfig_Children';
+  contentTypes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  slug?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Undersider */
+export type XData_Idebanken_Third_Party_DataConfig_ChildrenContentTypesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Skjema */
+export type XData_Idebanken_Third_Party_DataConfig_Skyra = {
+  __typename?: 'XData_idebanken_third_party_DataConfig_Skyra';
+  _selected?: Maybe<XData_Idebanken_Third_Party_DataConfig_Skyra_OptionEnum>;
+  children?: Maybe<XData_Idebanken_Third_Party_DataConfig_Children>;
+  this?: Maybe<XData_Idebanken_Third_Party_DataConfig_This>;
+};
+
+/** Skjema option enum. */
+export enum XData_Idebanken_Third_Party_DataConfig_Skyra_OptionEnum {
+  Children = 'children',
+  This = 'this'
+}
+
+/** Denne siden */
+export type XData_Idebanken_Third_Party_DataConfig_This = {
+  __typename?: 'XData_idebanken_third_party_DataConfig_This';
+  slug?: Maybe<Scalars['String']['output']>;
 };
 
 /** XDataApplicationConfig for application ['media'] */
@@ -1739,6 +1821,7 @@ export type Base_Folder = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -1818,6 +1901,7 @@ export type Base_Media = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -1898,6 +1982,7 @@ export type Base_Shortcut = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -1998,6 +2083,7 @@ export type Base_Structured = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -2077,6 +2163,7 @@ export type Base_Unstructured = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -2157,6 +2244,7 @@ export type Idebanken_Category = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -2242,6 +2330,7 @@ export type Idebanken_CrashCourse = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -2321,6 +2410,7 @@ export type Idebanken_CrashCourseSlide = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -2401,6 +2491,7 @@ export type Idebanken_Guide = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -2496,6 +2587,7 @@ export type Idebanken_SectionPage = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -2591,6 +2683,7 @@ export type Idebanken_SpecialPage = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -2686,6 +2779,7 @@ export type Idebanken_Virkemiddel = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -2782,6 +2876,7 @@ export type Media_Archive = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -2885,6 +2980,7 @@ export type Media_Audio = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -2988,6 +3084,7 @@ export type Media_Code = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -3091,6 +3188,7 @@ export type Media_Data = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -3194,6 +3292,7 @@ export type Media_Document = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -3298,6 +3397,7 @@ export type Media_Executable = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -3402,6 +3502,7 @@ export type Media_Image = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -3528,6 +3629,7 @@ export type Media_Presentation = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -3631,6 +3733,7 @@ export type Media_Spreadsheet = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -3734,6 +3837,7 @@ export type Media_Text = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -3837,6 +3941,7 @@ export type Media_Unknown = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -3940,6 +4045,7 @@ export type Media_Vector = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -4053,6 +4159,7 @@ export type Media_Video = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -4154,6 +4261,7 @@ export type Portal_Fragment = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -4234,6 +4342,7 @@ export type Portal_PageTemplate = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -4327,6 +4436,7 @@ export type Portal_Site = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
@@ -4412,6 +4522,7 @@ export type Portal_TemplateFolder = Content & {
   permissions?: Maybe<Permissions>;
   publish?: Maybe<PublishInfo>;
   site?: Maybe<Portal_Site>;
+  skyra: Array<SkyraData>;
   type?: Maybe<Scalars['String']['output']>;
   valid?: Maybe<Scalars['Boolean']['output']>;
   x?: Maybe<ExtraData>;
