@@ -1484,7 +1484,7 @@ export type Sitemap_Url = {
 export type SkyraData = {
   __typename?: 'SkyraData';
   slug: Scalars['String']['output'];
-  source?: Maybe<Scalars['ID']['output']>;
+  source?: Maybe<Scalars['String']['output']>;
 };
 
 /** Sort Dsl input type */

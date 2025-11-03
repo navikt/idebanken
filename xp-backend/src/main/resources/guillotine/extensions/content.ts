@@ -85,7 +85,7 @@ export const contentExtensions = ({
             description: 'Data needed to add a Skyra form',
             fields: {
                 slug: { type: nonNull(GraphQLString) },
-                source: { type: GraphQLID },
+                source: { type: GraphQLString },
             },
             interfaces: [],
         },
