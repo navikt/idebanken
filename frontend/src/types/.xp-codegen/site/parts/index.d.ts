@@ -8,6 +8,7 @@ export type XP_Image = import('./image').XP_Image;
 export type XP_LinkCard = import('./link-card').XP_LinkCard;
 export type XP_LinkCardList = import('./link-card-list').XP_LinkCardList;
 export type XP_SearchView = import('./search-view').XP_SearchView;
+export type XP_Skyra = import('./skyra').XP_Skyra;
 export type XP_TableOfContents = import('./table-of-contents').XP_TableOfContents;
 export type XP_TextEditor = import('./text-editor').XP_TextEditor;
 export type XP_TitleIngress = import('./title-ingress').XP_TitleIngress;
@@ -23,6 +24,7 @@ declare global {
     'idebanken:link-card': XP_LinkCard;
     'idebanken:link-card-list': XP_LinkCardList;
     'idebanken:search-view': XP_SearchView;
+    'idebanken:skyra': XP_Skyra;
     'idebanken:table-of-contents': XP_TableOfContents;
     'idebanken:text-editor': XP_TextEditor;
     'idebanken:title-ingress': XP_TitleIngress;
