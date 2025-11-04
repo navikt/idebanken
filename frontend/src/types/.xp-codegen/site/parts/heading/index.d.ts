@@ -13,7 +13,7 @@ export type XP_Heading = {
   /**
    * Heading size
    */
-  size: 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+  size: 'display' | '3xlarge' | '2xlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
 
   /**
    * Ingress
