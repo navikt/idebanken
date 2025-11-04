@@ -1009,6 +1009,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   link_card?: Maybe<Part_Idebanken_Link_Card>;
   link_card_list?: Maybe<Part_Idebanken_Link_Card_List>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
+  skyra?: Maybe<Part_Idebanken_Skyra>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
   title_ingress?: Maybe<Part_Idebanken_Title_Ingress>;
@@ -1126,6 +1127,7 @@ export type Part_Idebanken_Image = {
   centerHorizontally?: Maybe<Scalars['Boolean']['output']>;
   centerVertically?: Maybe<Scalars['Boolean']['output']>;
   circles?: Maybe<Array<Maybe<Part_Idebanken_Image_Circles>>>;
+  decorative?: Maybe<Scalars['Boolean']['output']>;
   height?: Maybe<Scalars['String']['output']>;
   hideOnMobile?: Maybe<Scalars['Boolean']['output']>;
   image?: Maybe<Content>;
@@ -1261,6 +1263,12 @@ export type Part_Idebanken_Link_Card_List_Heading = {
 export type Part_Idebanken_Search_View = {
   __typename?: 'Part_idebanken_search_view';
   text?: Maybe<Scalars['String']['output']>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['skyra'] */
+export type Part_Idebanken_Skyra = {
+  __typename?: 'Part_idebanken_skyra';
+  slug?: Maybe<Scalars['String']['output']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['table-of-contents'] */

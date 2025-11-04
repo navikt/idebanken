@@ -9,6 +9,7 @@ export const imageQuery = `{
 			}
 		}
 	}
+	decorative
 	scale
     hideOnMobile
     styleActive

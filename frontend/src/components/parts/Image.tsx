@@ -2,8 +2,9 @@ import classNames from 'classnames'
 import { forceArray } from '~/utils/utils'
 import { getUrl, MetaData } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
-import { Part_Idebanken_Image, Part_Idebanken_Image_Circles } from '~/types/generated'
+import { Part_Idebanken_Image_Circles } from '~/types/generated'
 import { Circle } from '~/components/common/Circle'
+import { XP_Image } from '@xp-types/site/parts'
 
 // Image
 export type ImageData = {
@@ -17,6 +18,7 @@ export type ImageData = {
 
 interface BasicImageProps {
     src: string
+    decorative: boolean
     alt: string
     width?: number
     height?: number
@@ -47,11 +49,12 @@ const accentColors: Record<string, string> = {
     blue: 'bg-(--ib-dark-blue-100A)',
 }
 
-export const ImageView = ({ part, meta }: PartData<Part_Idebanken_Image & ImageData>) => {
+export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
     const { config } = part
 
     const {
         src,
+        decorative,
         alt,
         width,
         height,
@@ -70,6 +73,7 @@ export const ImageView = ({ part, meta }: PartData<Part_Idebanken_Image & ImageD
             {config.styleActive ? (
                 <StyledImage
                     src={src}
+                    decorative={decorative}
                     alt={alt}
                     width={width}
                     height={height}
@@ -86,6 +90,7 @@ export const ImageView = ({ part, meta }: PartData<Part_Idebanken_Image & ImageD
             ) : (
                 <BasicImage
                     src={src}
+                    decorative={decorative}
                     alt={alt}
                     width={width}
                     height={height}
@@ -102,6 +107,7 @@ export const ImageView = ({ part, meta }: PartData<Part_Idebanken_Image & ImageD
 
 function BasicImage({
     src,
+    decorative,
     alt,
     width,
     height,
@@ -127,7 +133,8 @@ function BasicImage({
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
                 src={src}
-                alt={alt ?? 'Bilde'}
+                aria-hidden={decorative}
+                alt={alt}
                 className="object-cover z-20"
                 style={{
                     width: width ? `${width}px` : 'auto',
@@ -142,6 +149,7 @@ function BasicImage({
 
 function StyledImage({
     src,
+    decorative,
     alt,
     width,
     height,
@@ -197,6 +205,7 @@ function StyledImage({
                     loading="lazy"
                     decoding="async"
                     src={src}
+                    aria-hidden={decorative}
                     alt={alt}
                     width={'100%'}
                     height={'100%'}
@@ -219,10 +228,7 @@ function StyledImage({
     )
 }
 
-function parseImageProps(
-    config: Part_Idebanken_Image & ImageData,
-    meta: MetaData
-): StyledImageProps {
+function parseImageProps(config: ImageData & XP_Image, meta: MetaData): StyledImageProps {
     const scale = config.scale ? Number(config.scale) / 100 : 1
     const width = config.width ? Number(config.width) : undefined
     const height = config.height ? Number(config.height) : undefined
@@ -231,6 +237,7 @@ function parseImageProps(
 
     return {
         src: getFormattedImageUrl(meta, config.image?.imageUrl, scaledWidth, scaledHeight),
+        decorative: Boolean(config.decorative),
         alt: config.image?.data?.altText ?? '',
         width,
         height,
