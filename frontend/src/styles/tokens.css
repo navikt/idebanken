@@ -1,8 +1,16 @@
 :root {
     /* Typography */
     --a-font-family: var(--font-mundial);
+
     /* Components */
     --ac-accordion-header-border: none;
+
+    /* Font weight */
+    --ib-font-weight-regular: 300;
+    --ib-font-weight-bold: 400;
+
+    --ax-font-weight-regular: var(--ib-font-weight-regular, 300);
+    --ax-font-weight-bold: var(--ib-font-weight-bold, 400);
 }
 
 /* Light/base tokens */

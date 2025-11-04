@@ -9,6 +9,10 @@ export default {
             fontFamily: {
                 mundial: 'var(--font-mundial)',
             },
+            fontWeight: {
+                'ib-regular': 'var(--ib-font-weight-regular)',
+                'ib-bold': 'var(--ib-font-weight-bold)',
+            },
             colors: {
                 // Base
                 'brand-black': 'var(--ib-brand-black)',

@@ -23,6 +23,9 @@
             <label>Heading size</label>
             <occurrences minimum="1" maximum="1"/>
             <config>
+                <option value="display">Display</option>
+                <option value="3xlarge">3XLarge</option>
+                <option value="2xlarge">2XLarge</option>
                 <option value="xlarge">XLarge</option>
                 <option value="large">Large</option>
                 <option value="medium">Medium</option>

@@ -17,7 +17,16 @@ import { richTextSchema } from '~/types/valibot/richTextSchema'
 // Heading
 export const headingConfigSchema = object({
     level: picklist(['1', '2', '3', '4', '5', '6']),
-    size: picklist(['xlarge', 'large', 'medium', 'small', 'xsmall']),
+    size: picklist([
+        'display',
+        '3xlarge',
+        '2xlarge',
+        'xlarge',
+        'large',
+        'medium',
+        'small',
+        'xsmall',
+    ]),
     text: nullable(string()),
     className: optional(string()),
     autoId: optional(boolean()),
