@@ -65,6 +65,7 @@ export const LinkCardView = ({
                         // @ts-expect-error meta is not really required
                         src={getAsset(image?.url ?? '/favicon/favicon.svg', meta)}
                         alt={image?.altText ?? image?.caption ?? 'Illustrasjonsbilde'}
+                        aria-hidden
                         fill
                     />
                 </LinkCardImage>
@@ -84,6 +85,7 @@ export const LinkCardView = ({
                             unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
                             src={icon.url}
                             alt={icon.caption ?? 'Ikon'}
+                            aria-hidden
                             width={24}
                             height={24}
                             className={

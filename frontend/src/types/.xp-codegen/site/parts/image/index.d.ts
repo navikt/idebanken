@@ -6,6 +6,11 @@ export type XP_Image = {
   image: string;
 
   /**
+   * Dekorativt bilde (skjul fra skjermleser)
+   */
+  decorative: boolean;
+
+  /**
    * Bredde (px)
    */
   width?: number;

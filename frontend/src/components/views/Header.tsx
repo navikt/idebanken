@@ -68,6 +68,17 @@ const Header = ({ title, common, meta }: HeaderProps) => {
         }
     }, [searchResult, pathname])
 
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') {
+                setIsMenuOpen(false)
+                setIsSearchOpen(false)
+            }
+        }
+        window.addEventListener('keydown', handleKeyDown)
+        return () => window.removeEventListener('keydown', handleKeyDown)
+    }, [])
+
     const debouncedLiveSearch = useMemo(
         () =>
             debounce((term: string) => {

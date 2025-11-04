@@ -31,6 +31,7 @@ import { LinkCardList } from '~/components/parts/LinkCardList'
 import CardLayout from './layouts/CardLayout'
 import { ExpansionCardView } from './parts/ExpansionCard'
 import { HighlightedBox } from '~/components/macros/HighlightedBox'
+import Skyra from '~/components/parts/Skyra'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -157,4 +158,8 @@ ComponentRegistry.addPart(`${APP_NAME}:expansion-card`, {
         brand
         ${richTextQuery('simpleTextEditor')}
     }`,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:skyra`, {
+    view: Skyra,
 })
