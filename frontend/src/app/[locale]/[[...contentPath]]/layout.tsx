@@ -11,7 +11,7 @@ import Header from '~/components/views/Header'
 import { PageBlock } from '@navikt/ds-react/Page'
 import { HeadlessCms } from '~/types/generated'
 import BubblesOverlayTop from '~/components/parts/BubblesOverlayTop'
-import Skyra from '~/components/common/analytics/Skyra'
+import GlobalSkyraForms from '~/components/common/analytics/GlobalSkyraForms'
 import { draftMode } from 'next/headers'
 
 type LayoutParams = { locale: string; contentPath?: string[] }
@@ -43,8 +43,10 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     if (isCrashCourse) {
         return (
             <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
-                <Page contentBlockPadding="none">{children}</Page>
-                <Skyra skyra={common?.get?.skyra} isDraftMode={isEnabled} />
+                <Page contentBlockPadding="none">
+                    {children}
+                    <GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />
+                </Page>
             </EnonicWrapper>
         )
     }
@@ -61,10 +63,10 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                 />
                 <PageBlock id="main-content" as="main" width="2xl">
                     {children}
+                    <GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />
                 </PageBlock>
             </Page>
             <BubblesOverlayTop meta={meta} />
-            <Skyra skyra={common?.get?.skyra} isDraftMode={isEnabled} />
         </EnonicWrapper>
     )
 }
