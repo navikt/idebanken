@@ -18,7 +18,7 @@ export type HighlightedBox = {
   /**
    * Innhold
    */
-  body: string;
+  body?: string;
 
   /**
    * Interne lenker
