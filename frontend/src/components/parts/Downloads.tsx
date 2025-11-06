@@ -46,8 +46,8 @@ function toKb(bytes: number, decimals = 0): number {
     return parseFloat((bytes / div).toFixed(decimals))
 }
 
-export const Downloads = (props: PartProps) => {
-    const config: DownloadsConfig = props.part.config
+export const Downloads = ({ part, meta }: PartProps) => {
+    const config: DownloadsConfig = part.config
     const files = config?.selectedFiles as DownloadItem[] | undefined
     if (!files?.length) return null
 
@@ -111,6 +111,7 @@ export const Downloads = (props: PartProps) => {
                                             linkText: 'Last ned',
                                         }}
                                         download
+                                        meta={meta}
                                     />
                                 </TrackFirstLink>
                             </li>

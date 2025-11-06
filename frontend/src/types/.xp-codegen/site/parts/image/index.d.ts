@@ -6,6 +6,11 @@ export type XP_Image = {
   image: string;
 
   /**
+   * Skjul på mobil
+   */
+  hideOnMobile: boolean;
+
+  /**
    * Dekorativt bilde (skjul fra skjermleser)
    */
   decorative: boolean;
@@ -21,9 +26,9 @@ export type XP_Image = {
   height?: number;
 
   /**
-   * Skaleringsfaktor
+   * Avrundet hjørne (px)
    */
-  scale?: number;
+  borderRadius?: number;
 
   /**
    * Sentrer horisontalt
@@ -46,19 +51,9 @@ export type XP_Image = {
   paddingY?: number;
 
   /**
-   * Skjul på mobil
+   * Komprimer bilde (1-100/mest-minst. 0=100)
    */
-  hideOnMobile: boolean;
-
-  /**
-   * Aktiver styling
-   */
-  styleActive: boolean;
-
-  /**
-   * Avrundet hjørne (px)
-   */
-  borderRadius?: number;
+  scale?: number;
 
   /**
    * Vis kantlinje
@@ -93,10 +88,5 @@ export type XP_Image = {
      * Avstand fra venstre (x-akse i px)
      */
     left?: number;
-
-    /**
-     * Gjennomsiktig (0 er usynlig. 100 er ingen gjennomsiktighet)
-     */
-    opacity?: number;
   }>;
 };

@@ -1,10 +1,11 @@
 import classNames from 'classnames'
 import { forceArray } from '~/utils/utils'
-import { getUrl, MetaData } from '@enonic/nextjs-adapter'
+import { getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Image_Circles } from '~/types/generated'
 import { Circle } from '~/components/common/Circle'
 import { XP_Image } from '@xp-types/site/parts'
+import Image from 'next/image'
 
 // Image
 export type ImageData = {
@@ -39,7 +40,6 @@ interface StyledImageProps extends BasicImageProps {
         color: string
         bottom: number
         left: number
-        opacity: number
     }>
 }
 
@@ -51,7 +51,6 @@ const accentColors: Record<string, string> = {
 
 export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
     const { config } = part
-
     const {
         src,
         decorative,
@@ -68,127 +67,30 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
         circles,
     } = parseImageProps(config, meta)
 
-    return (
-        <>
-            {config.styleActive ? (
-                <StyledImage
-                    src={src}
-                    decorative={decorative}
-                    alt={alt}
-                    width={width}
-                    height={height}
-                    centerHorizontally={centerHorizontally}
-                    centerVertically={centerVertically}
-                    paddingX={paddingX}
-                    paddingY={paddingY}
-                    borderRadius={borderRadius}
-                    showBorder={showBorder}
-                    borderDistance={borderDistance}
-                    circles={circles}
-                    hideOnMobile={config.hideOnMobile}
-                />
-            ) : (
-                <BasicImage
-                    src={src}
-                    decorative={decorative}
-                    alt={alt}
-                    width={width}
-                    height={height}
-                    centerHorizontally={centerHorizontally}
-                    centerVertically={centerVertically}
-                    paddingX={paddingX}
-                    paddingY={paddingY}
-                    hideOnMobile={config.hideOnMobile}
-                />
-            )}
-        </>
-    )
-}
-
-function BasicImage({
-    src,
-    decorative,
-    alt,
-    width,
-    height,
-    className,
-    centerHorizontally,
-    centerVertically,
-    paddingX,
-    paddingY,
-    hideOnMobile = true,
-}: Readonly<BasicImageProps>) {
-    return (
-        <div
-            className={classNames(
-                'relative flex',
-                className,
-                centerVertically ? 'h-full items-center self-center' : '',
-                centerHorizontally ? 'justify-center' : '',
-                hideOnMobile ? 'max-md:hidden' : ''
-            )}
-            style={{
-                padding: `${paddingY}px ${paddingX}px`,
-            }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-                src={src}
-                aria-hidden={decorative}
-                alt={alt}
-                className="object-cover z-20"
-                style={{
-                    width: width ? `${width}px` : 'auto',
-                    height: height ? `${height}px` : 'auto',
-                }}
-                loading="lazy"
-                decoding="async"
-            />
-        </div>
-    )
-}
-
-function StyledImage({
-    src,
-    decorative,
-    alt,
-    width,
-    height,
-    centerHorizontally,
-    centerVertically,
-    paddingX,
-    paddingY,
-    borderRadius,
-    showBorder,
-    borderDistance,
-    circles = [],
-    hideOnMobile = true,
-    className,
-}: Readonly<StyledImageProps>) {
-    const borderDist = borderDistance || 0
+    const borderDist = showBorder && borderDistance ? borderDistance : 0
     const paddingFullX = paddingX + borderDist
     const paddingFullY = paddingY + borderDist
+
     return (
         <div
             className={classNames(
                 'relative flex',
-                className,
                 centerVertically ? 'h-full items-center self-center' : '',
                 centerHorizontally ? 'justify-self-center' : '',
-                hideOnMobile ? 'max-md:hidden' : ''
+                config.hideOnMobile ? 'max-md:hidden' : ''
             )}
             style={{
                 padding: `${paddingFullY}px ${paddingFullX}px`,
             }}>
             {showBorder && (
                 <div
-                    className={classNames('absolute')}
+                    className={classNames('absolute border border-(--ib-border-dark-blue-subtleA)')}
                     style={{
                         width: width ? `${width + borderDist * 2}px` : 'auto',
                         height: height ? `${height + borderDist * 2}px` : 'auto',
                         top: paddingY,
                         left: paddingX,
                         borderRadius: `${borderRadius}px`,
-                        border: '1px solid #0000004D',
                     }}
                 />
             )}
@@ -200,18 +102,13 @@ function StyledImage({
                     height: height ? `${height}px` : 'auto',
                     borderRadius: `${borderRadius}px`,
                 }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                    loading="lazy"
-                    decoding="async"
+                <Image
+                    unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                     src={src}
-                    aria-hidden={decorative}
                     alt={alt}
-                    width={'100%'}
-                    height={'100%'}
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    style={{ height: '100%', width: '100%' }}
+                    aria-hidden={decorative}
+                    objectFit={'cover'}
+                    fill
                 />
             </div>
 
@@ -253,7 +150,6 @@ function parseImageProps(config: ImageData & XP_Image, meta: MetaData): StyledIm
             color: circle.color ? accentColors[circle.color] : accentColors.pink,
             bottom: circle.bottom ? Number(circle.bottom) : -50,
             left: circle.left ? Number(circle.left) : -90,
-            opacity: circle.opacity ? Number(circle.opacity) / 100 : 0.8,
         })),
     }
 }
@@ -264,7 +160,7 @@ const getFormattedImageUrl = (
     width?: number,
     height?: number
 ) => {
-    if (!imageUrl) return '#'
+    if (!imageUrl) return '/'
     if (!width && !height) {
         return imageUrl
     }

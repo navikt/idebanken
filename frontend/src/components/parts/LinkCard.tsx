@@ -10,7 +10,7 @@ import {
 } from '@navikt/ds-react/LinkCard'
 import React from 'react'
 import Image from 'next/image'
-import { getAsset, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
+import { getAsset, getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { XP_LinkCard, XP_LinkCardList } from '@xp-types/site/parts'
 
@@ -36,7 +36,7 @@ export const LinkCardPartView = ({
 export type LinkCardViewParams = Omit<Link_Card, 'description' | '__typename'> &
     Partial<Omit<XP_LinkCardList, 'list'>> & {
         description?: string | React.ReactNode
-        meta?: MetaData
+        meta: MetaData
     }
 
 export const LinkCardView = ({
@@ -61,10 +61,10 @@ export const LinkCardView = ({
             {showImage && (
                 <LinkCardImage aspectRatio="16/8">
                     <Image
-                        unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
-                        // @ts-expect-error meta is not really required
+                        unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                         src={getAsset(image?.url ?? '/favicon/favicon.svg', meta)}
-                        alt={image?.altText ?? image?.caption ?? 'Illustrasjonsbilde'}
+                        alt={''}
+                        aria-hidden
                         fill
                     />
                 </LinkCardImage>
@@ -81,11 +81,10 @@ export const LinkCardView = ({
                     }>
                     <LinkCardIcon>
                         <Image
-                            unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
+                            unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                             src={icon.url}
                             alt=""
                             aria-hidden
-                            role="presentation"
                             width={24}
                             height={24}
                             className={
@@ -99,7 +98,7 @@ export const LinkCardView = ({
             )}
             <LinkCardTitle>
                 <LinkCardAnchor
-                    href={url || '#'}
+                    href={getUrl(url, meta) || '#'}
                     {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                     {title}
                 </LinkCardAnchor>

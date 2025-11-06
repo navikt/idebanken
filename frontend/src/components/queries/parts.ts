@@ -12,7 +12,6 @@ export const imageQuery = `{
 	decorative
 	scale
     hideOnMobile
-    styleActive
     width
     height
     borderRadius
@@ -23,7 +22,6 @@ export const imageQuery = `{
       color
       bottom
       left
-      opacity
     }
 }`
 

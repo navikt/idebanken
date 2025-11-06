@@ -1,7 +1,7 @@
 import { BodyLong, BodyShort, HStack, Link, List, VStack } from '@navikt/ds-react'
 import { truncateUrl } from '~/utils/utils'
 import { ListItem } from '@navikt/ds-react/List'
-import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
+import { getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
 
@@ -27,11 +27,10 @@ export function HighlightedBox({
             <HStack className="rounded-t-3xl px-5 py-3 items-center bg-(--ax-bg-moderate)" gap="2">
                 {config.icon?.url && (
                     <Image
-                        unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
+                        unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                         src={config.icon.url}
                         alt=""
                         aria-hidden
-                        role="presentation"
                         width={36}
                         height={36}
                         className={
@@ -55,14 +54,17 @@ export function HighlightedBox({
                             ?.filter((it) => it != null)
                             ?.map(({ url, linkText }) => (
                                 <ListItem key={url}>
-                                    <Link href={url}>{linkText}</Link>
+                                    <Link href={getUrl(url, meta)}>{linkText}</Link>
                                 </ListItem>
                             ))}
                         {config.linksAbsolute
                             ?.filter((it) => it != null)
                             ?.map((link) => (
                                 <ListItem key={link}>
-                                    <Link href={link} target="_blank" rel="noreferrer">
+                                    <Link
+                                        href={getUrl(link, meta)}
+                                        target="_blank"
+                                        rel="noreferrer">
                                         {truncateUrl(link)}
                                     </Link>
                                 </ListItem>

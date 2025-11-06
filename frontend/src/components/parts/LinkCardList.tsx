@@ -4,6 +4,7 @@ import { LinkHeading } from '~/components/parts/LinkHeading'
 import { HGrid } from '@navikt/ds-react'
 import { LinkCardView } from '~/components/parts/LinkCard'
 import { XP_LinkCardList } from '@xp-types/site/parts'
+import { getUrl } from '@enonic/nextjs-adapter'
 
 export function LinkCardList({
     part,
@@ -20,7 +21,7 @@ export function LinkCardList({
             <LinkHeading
                 show={Boolean(heading)}
                 title={heading?.title}
-                href={heading?.href}
+                href={heading?.href ? getUrl(heading.href, meta) : undefined}
                 customClassName="mb-12"
             />
             <HGrid
