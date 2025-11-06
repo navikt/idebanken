@@ -4,7 +4,7 @@ import { BodyLong, HGrid, VStack } from '@navikt/ds-react'
 import NextLink from 'next/link'
 import { HeadingView } from '~/components/parts/Heading'
 import { Separator } from '~/components/macros/Separator'
-import { getAsset, MetaData } from '@enonic/nextjs-adapter'
+import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import NextImage from 'next/image'
 import { ArrowUpIcon } from '@navikt/aksel-icons'
 import { ButtonView } from '~/components/parts/Button'
@@ -56,6 +56,7 @@ export default function Footer({
                         linkText: '',
                         external: newsletterSubscribeLink?.external ?? false,
                     }}
+                    meta={meta}
                     aria-labelledby={'subscribe-to-newsletter'}>
                     {newsletterSubscribeLink?.linkText}
                 </ButtonView>
@@ -98,7 +99,10 @@ export default function Footer({
                             {title}
                         </HeadingView>
                         {links?.map(({ url, linkText }, j) => (
-                            <NextLink key={j} href={url} className="underline hover:no-underline">
+                            <NextLink
+                                key={j}
+                                href={getUrl(url, meta)}
+                                className="underline hover:no-underline">
                                 {linkText ?? '[Default link text]'}
                             </NextLink>
                         ))}

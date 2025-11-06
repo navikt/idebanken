@@ -1,6 +1,6 @@
 'use client'
 
-import { getAsset, MetaData } from '@enonic/nextjs-adapter'
+import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import NextLink from 'next/link'
 import NextImage from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
@@ -197,7 +197,7 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                                             {links?.map(({ linkText, url }, id) => (
                                                 <NextLink
                                                     key={id}
-                                                    href={url}
+                                                    href={getUrl(url, meta)}
                                                     className="text-(--ax-text-decoration) underline hover:no-underline w-fit">
                                                     {linkText}
                                                 </NextLink>
@@ -215,7 +215,7 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                                             }>
                                             <LinkCardTitle>
                                                 <LinkCardAnchor
-                                                    href={url}
+                                                    href={getUrl(url, meta)}
                                                     className={
                                                         'text-(--ax-accent-600) no-underline'
                                                     }>
@@ -339,7 +339,10 @@ function quickSearch({
             {SearchResults(SearchFrom.HURTIGSOK_MENY, searchResult, loading, meta)}
             {searchResult ? (
                 <NextLink
-                    href={`${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`}
+                    href={getUrl(
+                        `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`,
+                        meta
+                    )}
                     onClick={() => setIsSearchOpen(false)}
                     className={'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'}>
                     Gå til avansert søk <ArrowRightIcon />

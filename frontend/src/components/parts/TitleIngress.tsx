@@ -5,7 +5,8 @@ import { PartData } from '~/types/graphql-types'
 import { HeadingView } from '~/components/parts/Heading'
 import BleedingBackgroundPageBlock from '../layouts/BleedingBackgroundPageBlock'
 import { HStack, Tag, VStack } from '@navikt/ds-react'
-import Image from 'next/image'
+import NextImage from 'next/image'
+import classNames from 'classnames'
 import { RENDER_MODE } from '@enonic/nextjs-adapter'
 
 type PageData = {
@@ -54,20 +55,18 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                                     style={{
                                         backgroundColor: 'var(--ib-prefix-bg, var(--ib-pink-200))',
                                     }}>
-                                    <Image
-                                        unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
+                                    <NextImage
+                                        unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                                         width={44}
                                         height={44}
                                         aria-hidden
                                         alt=""
-                                        role="presentation"
                                         src={titleImageSrc}
-                                        className={[
-                                            'block h-auto w-11',
+                                        className={classNames(
                                             /\.svg(\?.*)?$/i.test(titleImageSrc)
                                                 ? 'dark:invert dark:brightness-0 dark:contrast-50'
-                                                : '',
-                                        ].join(' ')}
+                                                : ''
+                                        )}
                                     />
                                 </div>
                             ) : null}
