@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { Media_Image } from '~/types/generated.d'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
@@ -6,6 +5,8 @@ import { PartData } from '~/types/graphql-types'
 import { HeadingView } from '~/components/parts/Heading'
 import BleedingBackgroundPageBlock from '../layouts/BleedingBackgroundPageBlock'
 import { HStack, Tag, VStack } from '@navikt/ds-react'
+import Image from 'next/image'
+import { RENDER_MODE } from '@enonic/nextjs-adapter'
 
 type PageData = {
     ingress: string
@@ -53,8 +54,11 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                                     style={{
                                         backgroundColor: 'var(--ib-prefix-bg, var(--ib-pink-200))',
                                     }}>
-                                    <img
-                                        aria-hidden="true"
+                                    <Image
+                                        unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
+                                        width={44}
+                                        height={44}
+                                        aria-hidden
                                         alt=""
                                         role="presentation"
                                         src={titleImageSrc}
