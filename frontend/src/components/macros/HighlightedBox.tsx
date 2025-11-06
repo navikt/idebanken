@@ -3,7 +3,7 @@ import { truncateUrl } from '~/utils/utils'
 import { ListItem } from '@navikt/ds-react/List'
 import { getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
-import NextImage from 'next/image'
+import Image from 'next/image'
 
 type Macro<T> = {
     name: string
@@ -26,7 +26,7 @@ export function HighlightedBox({
             className="rounded-3xl shadow-ib-shadow mb-(--ax-space-28) [&:last-child]:mb-0">
             <HStack className="rounded-t-3xl px-5 py-3 items-center bg-(--ax-bg-moderate)" gap="2">
                 {config.icon?.url && (
-                    <NextImage
+                    <Image
                         unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                         src={config.icon.url}
                         alt=""

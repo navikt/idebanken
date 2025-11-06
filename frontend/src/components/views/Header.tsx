@@ -2,7 +2,7 @@
 
 import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import NextLink from 'next/link'
-import NextImage from 'next/image'
+import Image from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { HeadlessCms, SiteConfiguration } from '~/types/generated'
@@ -115,7 +115,7 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                         aria-label={'Til forsiden'}
                         href="/"
                         className={'content-center h-12 max-w-48'}>
-                        <NextImage
+                        <Image
                             className={'block dark:hidden'}
                             src={getAsset('/images/logo-light.svg', meta)}
                             alt={title}
@@ -123,7 +123,7 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                             height={100}
                             priority
                         />
-                        <NextImage
+                        <Image
                             className={'hidden dark:block'}
                             src={getAsset('/images/logo-dark.svg', meta)}
                             alt={title}

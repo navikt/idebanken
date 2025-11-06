@@ -5,7 +5,7 @@ import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Image_Circles } from '~/types/generated'
 import { Circle } from '~/components/common/Circle'
 import { XP_Image } from '@xp-types/site/parts'
-import NextImage from 'next/image'
+import Image from 'next/image'
 
 // Image
 export type ImageData = {
@@ -102,7 +102,7 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                     height: height ? `${height}px` : 'auto',
                     borderRadius: `${borderRadius}px`,
                 }}>
-                <NextImage
+                <Image
                     unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                     src={src}
                     alt={alt}

@@ -9,7 +9,7 @@ import {
     LinkCardTitle,
 } from '@navikt/ds-react/LinkCard'
 import React from 'react'
-import NextImage from 'next/image'
+import Image from 'next/image'
 import { getAsset, getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { XP_LinkCard, XP_LinkCardList } from '@xp-types/site/parts'
@@ -60,7 +60,7 @@ export const LinkCardView = ({
         <LinkCard data-color={brand ?? 'neutral'} arrow={!hideArrow}>
             {showImage && (
                 <LinkCardImage aspectRatio="16/8">
-                    <NextImage
+                    <Image
                         unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                         src={getAsset(image?.url ?? '/favicon/favicon.svg', meta)}
                         alt={''}
@@ -80,7 +80,7 @@ export const LinkCardView = ({
                             : undefined
                     }>
                     <LinkCardIcon>
-                        <NextImage
+                        <Image
                             unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                             src={icon.url}
                             alt=""

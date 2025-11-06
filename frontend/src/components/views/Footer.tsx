@@ -5,7 +5,7 @@ import NextLink from 'next/link'
 import { HeadingView } from '~/components/parts/Heading'
 import { Separator } from '~/components/macros/Separator'
 import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
-import NextImage from 'next/image'
+import Image from 'next/image'
 import { ArrowUpIcon } from '@navikt/aksel-icons'
 import { ButtonView } from '~/components/parts/Button'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
@@ -64,7 +64,7 @@ export default function Footer({
             <Separator className={'my-(--ax-space-44)'} />
             <HGrid gap={{ xs: 'space-24', md: 'space-56' }} columns={{ xs: 1, md: 3, lg: 5 }}>
                 <VStack gridColumn={{ xs: '1', md: '1/4', lg: '1/3' }} gap={'space-16'}>
-                    <NextImage
+                    <Image
                         src={getAsset('/images/logo-light.svg', meta)}
                         alt={'Idébanken logo'}
                         width={200}
@@ -72,7 +72,7 @@ export default function Footer({
                         className="w-48 block dark:hidden"
                         priority
                     />
-                    <NextImage
+                    <Image
                         src={getAsset('/images/logo-dark.svg', meta)}
                         alt={'Idébanken logo'}
                         width={200}
