@@ -336,7 +336,7 @@ function quickSearch({
                     )
                 }}
             />
-            {SearchResults(SearchFrom.HURTIGSOK_MENY, searchResult, loading, meta)}
+            {SearchResults(meta, SearchFrom.HURTIGSOK_MENY, searchResult, loading)}
             {searchResult ? (
                 <NextLink
                     href={getUrl(

@@ -163,6 +163,7 @@ export default function SearchView({
                 }}
             />
             {SearchResults(
+                meta,
                 SearchFrom.SOKESIDE,
                 searchResult
                     ? {
@@ -176,7 +177,7 @@ export default function SearchView({
                       }
                     : undefined,
                 loading,
-                meta,
+
                 common,
                 filterElement
             )}
