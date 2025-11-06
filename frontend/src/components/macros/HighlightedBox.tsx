@@ -29,9 +29,9 @@ export function HighlightedBox({
                     <Image
                         unoptimized={meta?.renderMode !== RENDER_MODE.NEXT}
                         src={config.icon.url}
-                        alt={
-                            config.icon.altText ?? config.icon.caption ?? 'Ikon for fremhevet boks'
-                        }
+                        alt=""
+                        aria-hidden
+                        role="presentation"
                         width={36}
                         height={36}
                         className={
