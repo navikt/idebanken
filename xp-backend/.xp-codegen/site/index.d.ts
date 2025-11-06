@@ -5,6 +5,16 @@ declare global {
   namespace XP {
     interface SiteConfig {
       /**
+       * Globale skyra skjema
+       */
+      skyra: {
+        /**
+         * Skyra sti (slug)
+         */
+        slugs?: Array<string> | string;
+      };
+
+      /**
        * Søkekonfigurasjon
        */
       searchConfig: {

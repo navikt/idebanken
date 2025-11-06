@@ -2,9 +2,21 @@
 <site xmlns="urn:enonic:xp:model:1.0">
     <x-data name="category" allowContentTypes="^idebanken:(?!category).*"/>
     <x-data name="meta" allowContentTypes="^idebanken:.*" optional="true"/>
-    <x-data name="third-party" allowContentTypes="^(idebanken|portal):.*" optional="true"/>
 
     <form>
+        <item-set name="skyra">
+            <label>Globale skyra skjema</label>
+            <help-text>
+                Bruk denne hvis du skal styre hvor skjema skal dukke opp fra skyra. Ellers bruk skyra parten
+            </help-text>
+            <occurrences minimum="1" maximum="1"/>
+            <items>
+                <input type="TextLine" name="slugs">
+                    <label>Skyra sti (slug)</label>
+                    <occurrences minimum="0" maximum="0"/>
+                </input>
+            </items>
+        </item-set>
         <item-set name="searchConfig">
             <label>Søkekonfigurasjon</label>
             <occurrences minimum="1" maximum="1"/>

@@ -74,10 +74,7 @@ query($path:ID!){
       dataAsJson
       xAsJson
       ${metaFields}
-      skyra {
-        slug
-        source
-      }
+      skyraSlugs
     }
     getSite {
       displayName
