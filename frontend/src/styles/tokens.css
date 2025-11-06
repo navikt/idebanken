@@ -6,6 +6,8 @@
     --ac-accordion-header-border: none;
 
     /* Font weight */
+    --ib-font-weight-thin: 100;
+    --ib-font-weight-light: 200;
     --ib-font-weight-regular: 300;
     --ib-font-weight-bold: 400;
 
