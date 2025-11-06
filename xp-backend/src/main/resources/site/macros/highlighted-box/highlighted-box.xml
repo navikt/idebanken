@@ -11,7 +11,7 @@
         <mixin name="brand-color" />
         <input type="TextArea" name="body">
             <label>Innhold</label>
-            <occurrences minimum="1" maximum="1"/>
+            <occurrences minimum="0" maximum="1"/>
         </input>
         <input type="ContentSelector" name="links">
             <label>Interne lenker</label>

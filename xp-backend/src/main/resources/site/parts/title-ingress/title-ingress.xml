@@ -6,6 +6,9 @@
         <input name="image" type="ImageSelector">
             <label>Tittel bilde</label>
             <occurrences minimum="0" maximum="1"/>
+            <config>
+                <allowPath>${site}/ressurser/*</allowPath>
+            </config>
         </input>
         <input name="bgColor" type="ComboBox">
             <label>Tittel bakgrunsfarge</label>

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mixin xmlns="urn:enonic:xp:model:1.0">
-    <form>    
+    <form>
         <input name="image" type="ImageSelector">
             <label>Bilde</label>
             <occurrences minimum="0" maximum="1"/>
+            <config>
+                <allowPath>${site}/ressurser/*</allowPath>
+            </config>
         </input>
     </form>
 </mixin>
