@@ -113,7 +113,7 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                     paddingBlock={{ xs: 'space-8', md: 'space-16' }}>
                     <NextLink
                         aria-label={'Til forsiden'}
-                        href="/"
+                        href={getUrl('/', meta)}
                         className={'content-center h-12 max-w-48'}>
                         <Image
                             className={'block dark:hidden'}
