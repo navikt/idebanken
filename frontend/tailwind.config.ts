@@ -10,6 +10,8 @@ export default {
                 mundial: 'var(--font-mundial)',
             },
             fontWeight: {
+                'ib-thin': 'var(--ib-font-weight-thin)',
+                'ib-light': 'var(--ib-font-weight-light)',
                 'ib-regular': 'var(--ib-font-weight-regular)',
                 'ib-bold': 'var(--ib-font-weight-bold)',
             },

@@ -189,7 +189,7 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                                                     key={id}
                                                     level={'2'}
                                                     size={'xsmall'}
-                                                    fontClass={'font-semibold'}
+                                                    fontClass={'ib-bold'}
                                                     className={'mb-0'}>
                                                     {title}
                                                 </HeadingView>

@@ -16,6 +16,26 @@ const mundial = localFont({
     variable: '--font-mundial',
     src: [
         {
+            path: '../fonts/1-mundial-hair-tty.woff2',
+            weight: '100',
+            style: 'normal',
+        },
+        {
+            path: '../fonts/1-mundial-hair-italic-tty.woff2',
+            weight: '100',
+            style: 'italic',
+        },
+        {
+            path: '../fonts/2-mundial-thin-tty.woff2',
+            weight: '200',
+            style: 'normal',
+        },
+        {
+            path: '../fonts/2-mundial-thin-italic-tty.woff2',
+            weight: '200',
+            style: 'italic',
+        },
+        {
             path: '../fonts/3-mundial-light-tty.woff2',
             weight: '300',
             style: 'normal',

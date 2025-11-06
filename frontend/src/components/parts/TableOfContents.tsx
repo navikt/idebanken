@@ -14,7 +14,7 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
                 id={'table-of-contents-heading'}
                 level={'2'}
                 size={'medium'}
-                fontClass={'font-semibold'}>
+                fontClass={'ib-bold'}>
                 {title}
             </HeadingView>
             <ul className="pl-6 md:pl-8" aria-labelledby={'table-of-contents-heading'}>
