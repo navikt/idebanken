@@ -8,4 +8,5 @@ export type PartData<Part, ContentType = unknown> = {
     }
     meta: MetaData
     common: CommonType<ContentType>
+    path: string
 }

@@ -13,10 +13,12 @@ import Image from 'next/image'
 import { getAsset, getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { XP_LinkCard, XP_LinkCardList } from '@xp-types/site/parts'
+import { imageLoadingPropsFromComponentPath } from '~/utils/utils'
 
 export const LinkCardPartView = ({
     part,
     meta,
+    path: componentPath,
 }: PartData<
     Pick<Part_Idebanken_Link_Card, 'resolvedLinkCard'> & Omit<XP_LinkCard, 'internalOrExternalLink'>
 >) => {
@@ -30,6 +32,7 @@ export const LinkCardPartView = ({
         displayType,
         hideArrow,
         meta,
+        componentPath,
     })
 }
 
@@ -37,6 +40,7 @@ export type LinkCardViewParams = Omit<Link_Card, 'description' | '__typename'> &
     Partial<Omit<XP_LinkCardList, 'list'>> & {
         description?: string | React.ReactNode
         meta: MetaData
+        componentPath: string
     }
 
 export const LinkCardView = ({
@@ -52,6 +56,7 @@ export const LinkCardView = ({
     displayType,
     hideArrow,
     meta,
+    componentPath,
 }: LinkCardViewParams) => {
     const showIcon = displayType === 'withIcon' || displayType === 'withImageAndIcon'
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
@@ -62,6 +67,7 @@ export const LinkCardView = ({
                 <LinkCardImage aspectRatio="16/8">
                     <Image
                         unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                        {...imageLoadingPropsFromComponentPath(componentPath)}
                         src={getAsset(image?.url ?? '/favicon/favicon.svg', meta)}
                         alt={''}
                         aria-hidden
@@ -82,6 +88,7 @@ export const LinkCardView = ({
                     <LinkCardIcon>
                         <Image
                             unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                            {...imageLoadingPropsFromComponentPath(componentPath)}
                             src={icon.url}
                             alt=""
                             aria-hidden

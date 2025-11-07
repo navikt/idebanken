@@ -118,6 +118,7 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                         <Image
                             className={'block dark:hidden'}
                             src={getAsset('/images/logo-light.svg', meta)}
+                            loading={'eager'}
                             alt={title}
                             width={200}
                             height={100}
@@ -126,6 +127,7 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                         <Image
                             className={'hidden dark:block'}
                             src={getAsset('/images/logo-dark.svg', meta)}
+                            loading={'eager'}
                             alt={title}
                             width={200}
                             height={100}

@@ -9,6 +9,7 @@ import { getUrl } from '@enonic/nextjs-adapter'
 export function LinkCardList({
     part,
     meta,
+    path: componentPath,
 }: PartData<
     Pick<Part_Idebanken_Link_Card_List, 'list' | 'heading'> & Omit<XP_LinkCardList, 'list'>
 >) {
@@ -37,6 +38,7 @@ export function LinkCardList({
                             displayType,
                             hideArrow,
                             meta,
+                            componentPath,
                         })}
                     </div>
                 ))}
