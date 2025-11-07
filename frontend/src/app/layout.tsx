@@ -39,7 +39,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
                         </Script>
                         <Script
                             defer
-                            strategy="afterInteractive"
+                            strategy="lazyOnload"
                             src="https://survey.skyra.no/skyra-survey.js"
                             nonce={nonce}
                         />
