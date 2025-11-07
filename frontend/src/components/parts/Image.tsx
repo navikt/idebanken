@@ -114,7 +114,7 @@ export const ImageView = ({ part, meta, path: componentPath }: PartData<ImageDat
                     src={src}
                     alt={alt}
                     aria-hidden={decorative}
-                    objectFit={'cover'}
+                    className={'object-cover'}
                     fill
                 />
             </div>
