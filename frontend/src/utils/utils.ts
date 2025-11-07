@@ -101,7 +101,10 @@ export function extractTextFromNodes(nodes: any): string {
         .join(' ')
 }
 
-export const imageLoadingPropsFromComponentPath = (componentPath: string): Partial<ImageProps> => {
+export const imageLoadingPropsFromComponentPath = (componentPath?: string): Partial<ImageProps> => {
+    if (!componentPath) {
+        return { loading: 'lazy' }
+    }
     const isFirstOrSecondLayout = Number(componentPath.replace(/^\/[^/]+\/(\d+).*/, '$1')) <= 1
     return {
         loading: isFirstOrSecondLayout ? 'eager' : 'lazy',

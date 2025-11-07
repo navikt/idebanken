@@ -40,7 +40,7 @@ export type LinkCardViewParams = Omit<Link_Card, 'description' | '__typename'> &
     Partial<Omit<XP_LinkCardList, 'list'>> & {
         description?: string | React.ReactNode
         meta: MetaData
-        componentPath: string
+        componentPath?: string
     }
 
 export const LinkCardView = ({
