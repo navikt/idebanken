@@ -5,7 +5,6 @@ import { Box } from '@navikt/ds-react'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
-import { useMemo } from 'react'
 import CardHeader from '../parts/CardHeader'
 import { XP_Card } from '@xp-types/site/layouts'
 import { alignmentClassNames } from '~/utils/classNames'
@@ -15,9 +14,7 @@ interface CardLayoutProps {
         config: XP_Card
         descriptor: string
         regions: {
-            content: {
-                components: PageComponent[]
-            }
+            content: { components: PageComponent[] }
         }
     }
     common: CommonType
@@ -34,29 +31,25 @@ const CardLayout = (props: CardLayoutProps) => {
         paddingBottom,
         prefix,
         heading,
-        headingColor,
-        shadow,
         centerHalfWidth,
         overrideWidth,
         xAlignment,
         yAlignment,
+        highlightedLayout,
     } = layout.config ?? {}
 
-    const containerClasses = useMemo(
-        () =>
-            classNames(
-                shadow ? 'shadow-ib-shadow' : '',
-                'rounded-3xl p-6 md:py-8 bg-white',
-                centerHalfWidth ? 'w-full md:w-1/2 md:mx-auto' : '', // center + 50% on md+
-                alignmentClassNames(xAlignment, yAlignment)
-            ),
-        [shadow, centerHalfWidth, xAlignment, yAlignment]
+    const shadow = highlightedLayout?._selected === 'shadow'
+    const headingColor = shadow ? highlightedLayout?.shadow?.headingColor : undefined
+
+    const asTag: 'article' | 'section' = heading ? 'article' : 'section'
+
+    const containerClasses = classNames(
+        shadow && 'shadow-ib-shadow rounded-3xl p-6 md:py-8 bg-white',
+        centerHalfWidth && 'w-full md:w-1/2 md:mx-auto',
+        alignmentClassNames(xAlignment, yAlignment)
     )
 
-    const backgroundClasses = useMemo(
-        () => `${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`,
-        [paddingTop, paddingBottom]
-    )
+    const backgroundClasses = `${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`
 
     return (
         <BleedingBackgroundPageBlock
@@ -64,8 +57,13 @@ const CardLayout = (props: CardLayoutProps) => {
             className={backgroundClasses}
             layoutPath={path}
             width={overrideWidth}>
-            <Box className={containerClasses} as="article">
-                <CardHeader prefix={prefix} heading={heading} headingColor={headingColor} />
+            <Box className={containerClasses} as={asTag}>
+                <CardHeader
+                    prefix={prefix}
+                    heading={heading}
+                    headingColor={headingColor}
+                    shadow={shadow}
+                />
                 <RegionView
                     name="content"
                     className="[&>*]:my-8 [&>*:first-child]:mt-0 [&>*:last-child]:mb-0 w-full"

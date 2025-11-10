@@ -9,12 +9,24 @@
         <input type="TextLine" name="heading">
             <label>Heading text</label>
         </input>
-        <input name="shadow" type="CheckBox">
-            <label>Fremhevet (skygge)</label>
-            <default>checked</default>
-        </input>
+        <option-set name="highlightedLayout">
+            <label>Fremhevet / normal</label>
+            <occurrences minimum="1" maximum="1"/>  
+            <options minimum="1" maximum="1">   
+                <option name="shadow">  
+                    <label>Fremhevet (skygge)</label>
+                    <help-text>Legger til skygge</help-text>
+                    <items>
+                        <mixin name="heading-color"/>
+                    </items>
+                    <default>true</default>
+                </option>
+                <option name="plain">
+                    <label>Normal</label>
+                </option>
+            </options>
+        </option-set>
         <mixin name="background-color"/>
-        <mixin name="heading-color"/>
         <mixin name="padding-y"/>
         <mixin name="override-width"/>
         <input name="centerHalfWidth" type="CheckBox">
