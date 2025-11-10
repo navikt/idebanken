@@ -1309,7 +1309,7 @@ export type Part_Idebanken_Text_EditorSimpleTextEditorArgs = {
 export type Part_Idebanken_Title_Ingress = {
   __typename?: 'Part_idebanken_title_ingress';
   bgColor?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Content>;
+  displayType?: Maybe<Scalars['String']['output']>;
   showType?: Maybe<Scalars['Boolean']['output']>;
 };
 

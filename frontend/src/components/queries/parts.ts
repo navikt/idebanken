@@ -126,7 +126,6 @@ export const highlightedBoxMacroQuery = `{
 
 export const titleIngressQuery = `{
     bgColor
-    ${imageAndVectorFields.slice(1, -1)}
 }`
 
 export const newsletterQuery = `{

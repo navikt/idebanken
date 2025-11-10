@@ -1,4 +1,3 @@
-import { Media_Image } from '~/types/generated.d'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { PartData } from '~/types/graphql-types'
@@ -8,43 +7,31 @@ import { HStack, Tag, VStack } from '@navikt/ds-react'
 import Image from 'next/image'
 import classNames from 'classnames'
 import { RENDER_MODE } from '@enonic/nextjs-adapter'
+import { XP_TitleIngress } from '@xp-types/site/parts'
 
 type PageData = {
     ingress: string
     title: string
 }
 
-type TitleIngressConfig = {
-    bgColor?: string
-    image?: Media_Image
-    showType?: boolean
-}
-
-const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, PageData>) => {
+const TitleIngressView = ({ common, meta, part }: PartData<XP_TitleIngress, PageData>) => {
     const data = common?.get?.dataAsJson
     const title = data?.title || '[Mangler tittel på innholdet]'
     const config = part.config ?? {}
+    const { bgColor, showType, displayType } = config
     const type = common?.get?.type || ''
     const typeLabel = (type.split(':').pop() ?? '').toUpperCase()
 
-    const titleImage = config.image
-    let titleImageSrc: string | undefined
-    if (titleImage) {
-        if ('imageUrl' in titleImage) {
-            titleImageSrc = titleImage.imageUrl ?? undefined
-        } else if ('mediaUrl' in titleImage) {
-            titleImageSrc = titleImage.mediaUrl ?? undefined
-        }
-    }
+    const titleImageSrc = common?.get?.x?.idebanken?.meta?.icon?.mediaUrl
 
-    if (config.bgColor || titleImageSrc) {
+    if ((bgColor || titleImageSrc) && displayType === 'icon') {
         return (
             <>
                 <div className={`${titleImageSrc ? 'lg:mx-[calc(-2*var(--ax-space-64))]' : ''}`}>
                     <BleedingBackgroundPageBlock
-                        bgColor={config.bgColor}
+                        bgColor={bgColor}
                         marginInline={{ xs: 'full', lg: 'space-28' }}
-                        bleedClassName={`overflow-hidden ${config.bgColor ? 'lg:rounded-[200px]' : ''}`}>
+                        bleedClassName={`overflow-hidden ${bgColor ? 'lg:rounded-[200px]' : ''}`}>
                         <HStack
                             align="center"
                             gap="space-32"
@@ -71,7 +58,7 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
                                 </div>
                             ) : null}
                             <VStack gap="space-12" align="start">
-                                {config.showType && typeLabel && (
+                                {showType && typeLabel && (
                                     <Tag
                                         variant="info-filled"
                                         size="xsmall"
@@ -100,7 +87,7 @@ const TitleIngressView = ({ common, meta, part }: PartData<TitleIngressConfig, P
     return (
         <>
             <VStack gap="space-8" align="start">
-                {config.showType && typeLabel && (
+                {showType && typeLabel && (
                     <Tag variant="info-filled" size="small" className="rounded-3xl">
                         {typeLabel}
                     </Tag>
