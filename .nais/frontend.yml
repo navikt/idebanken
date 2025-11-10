@@ -36,3 +36,4 @@ spec:
         - application: idebanken-search-api
       external:
         - host: {{external-host}}
+        - host: se.api.anpdm.com # APSIS PRO API
