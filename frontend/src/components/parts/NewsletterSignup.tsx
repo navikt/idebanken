@@ -65,7 +65,7 @@ export default function NewsletterSignup({
                             (state.previousValues as Record<string, string> | undefined)?.consent,
                         ]}>
                         <Checkbox value={'consent'} name="consent">
-                            Jeg ønsker å abbonere
+                            Jeg ønsker å abonnere
                         </Checkbox>
                     </CheckboxGroup>
                     {state.fetchError && (
