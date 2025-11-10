@@ -323,10 +323,15 @@ function quickSearch({
 }) {
     return (
         <VStack className={className}>
-            <HeadingView level={'2'} size={'medium'} aria-hidden={true}>
+            <HeadingView
+                id={'idebanken-quicksearch-title'}
+                level={'2'}
+                size={'medium'}
+                aria-hidden={true}>
                 Søk på idébanken
             </HeadingView>
             <SearchWrapper
+                aria-labelledby={'idebanken-quicksearch-title'}
                 isSearchOpen={isSearchOpen}
                 onChange={handleFormChange}
                 onSubmit={(e) => {
