@@ -11,19 +11,41 @@ export type XP_Card = {
   heading?: string;
 
   /**
-   * Fremhevet (skygge)
+   * Fremhevet / normal
    */
-  shadow: boolean;
+  highlightedLayout:
+    | {
+        /**
+         * Selected
+         */
+        _selected: 'shadow';
+
+        /**
+         * Fremhevet (skygge)
+         */
+        shadow: {
+          /**
+           * Heading farge
+           */
+          headingColor?: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
+        };
+      }
+    | {
+        /**
+         * Selected
+         */
+        _selected: 'plain';
+
+        /**
+         * Normal
+         */
+        plain: Record<string, unknown>;
+      };
 
   /**
    * Bakgrunnsfarge
    */
   bgColor: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
-
-  /**
-   * Heading farge
-   */
-  headingColor?: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
 
   /**
    * Avstand over

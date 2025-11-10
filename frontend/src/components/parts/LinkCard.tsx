@@ -85,6 +85,7 @@ export const LinkCardView = ({
                             src={icon.url}
                             alt=""
                             aria-hidden
+                            role="presentation"
                             width={24}
                             height={24}
                             className={

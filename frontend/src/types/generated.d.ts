@@ -728,14 +728,33 @@ export type Layout_Idebanken_Card = {
   bgColor?: Maybe<Scalars['String']['output']>;
   centerHalfWidth?: Maybe<Scalars['Boolean']['output']>;
   heading?: Maybe<Scalars['String']['output']>;
-  headingColor?: Maybe<Scalars['String']['output']>;
+  highlightedLayout?: Maybe<Layout_Idebanken_Card_HighlightedLayout>;
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
   prefix?: Maybe<Scalars['String']['output']>;
-  shadow?: Maybe<Scalars['Boolean']['output']>;
   xAlignment?: Maybe<Scalars['String']['output']>;
   yAlignment?: Maybe<Scalars['String']['output']>;
+};
+
+/** Fremhevet / normal */
+export type Layout_Idebanken_Card_HighlightedLayout = {
+  __typename?: 'Layout_idebanken_card_HighlightedLayout';
+  _selected?: Maybe<Layout_Idebanken_Card_HighlightedLayout_OptionEnum>;
+  plain?: Maybe<Scalars['String']['output']>;
+  shadow?: Maybe<Layout_Idebanken_Card_Shadow>;
+};
+
+/** Fremhevet / normal option enum. */
+export enum Layout_Idebanken_Card_HighlightedLayout_OptionEnum {
+  Plain = 'plain',
+  Shadow = 'shadow'
+}
+
+/** Fremhevet (skygge) */
+export type Layout_Idebanken_Card_Shadow = {
+  __typename?: 'Layout_idebanken_card_Shadow';
+  headingColor?: Maybe<Scalars['String']['output']>;
 };
 
 /** Layout component application config for application ['idebanken'] and descriptor ['single-column'] */
@@ -797,17 +816,10 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
-  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
-};
-
-/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
-export type Macro_Idebanken_Box_DataConfig = {
-  __typename?: 'Macro_idebanken_box_DataConfig';
-  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
