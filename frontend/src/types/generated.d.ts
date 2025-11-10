@@ -1008,6 +1008,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   image?: Maybe<Part_Idebanken_Image>;
   link_card?: Maybe<Part_Idebanken_Link_Card>;
   link_card_list?: Maybe<Part_Idebanken_Link_Card_List>;
+  newsletter_signup?: Maybe<Part_Idebanken_Newsletter_Signup>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
   skyra?: Maybe<Part_Idebanken_Skyra>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
@@ -1255,6 +1256,14 @@ export type Part_Idebanken_Link_Card_List_Heading = {
   __typename?: 'Part_idebanken_link_card_list_heading';
   href: Scalars['String']['output'];
   title: Scalars['String']['output'];
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['newsletter-signup'] */
+export type Part_Idebanken_Newsletter_Signup = {
+  __typename?: 'Part_idebanken_newsletter_signup';
+  description?: Maybe<Scalars['String']['output']>;
+  redirectContent?: Maybe<Content>;
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['search-view'] */

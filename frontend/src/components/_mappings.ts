@@ -6,6 +6,7 @@ import {
     imageQuery,
     linkCardListQuery,
     linkCardQuery,
+    newsletterQuery,
     tableOfContentsQuery,
     titleIngressQuery,
 } from './queries/parts'
@@ -32,6 +33,7 @@ import CardLayout from './layouts/CardLayout'
 import { ExpansionCardView } from './parts/ExpansionCard'
 import { HighlightedBox } from '~/components/macros/HighlightedBox'
 import Skyra from '~/components/parts/Skyra'
+import NewsletterSignup from '~/components/parts/NewsletterSignup'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -79,6 +81,11 @@ ComponentRegistry.addMacro(`${APP_NAME}:highlighted-box`, {
 })
 
 // Part mappings
+ComponentRegistry.addPart(`${APP_NAME}:newsletter-signup`, {
+    view: NewsletterSignup,
+    configQuery: newsletterQuery,
+})
+
 ComponentRegistry.addPart(`${APP_NAME}:heading`, {
     view: HeadingViewPart,
 })

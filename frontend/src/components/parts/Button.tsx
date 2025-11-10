@@ -6,11 +6,24 @@ import { Part_Idebanken_Button, ResolvedLinkSelector } from '~/types/generated'
 import { XP_Button } from '@xp-types/site/parts'
 import { PropsWithChildren } from 'react'
 import { getUrl, MetaData } from '@enonic/nextjs-adapter'
+import classNames from 'classnames'
 
-type ButtonConfig = {
-    variant: ButtonProps['variant'] | 'link'
+type ButtonConfigBase = Partial<Omit<ResolvedLinkSelector, '__typename'>> & {
     size: ButtonProps['size']
-} & Omit<ResolvedLinkSelector, '__typename'>
+}
+
+type ButtonConfigLink = ButtonConfigBase & {
+    variant: 'link'
+    size: ButtonProps['size']
+    url: string
+}
+
+type ButtonConfigOther = ButtonConfigBase & {
+    variant: Exclude<ButtonProps['variant'], 'link'>
+    size: ButtonProps['size']
+}
+
+type ButtonConfig = ButtonConfigLink | ButtonConfigOther
 
 const ButtonView = ({
     config,
@@ -47,8 +60,11 @@ const ButtonView = ({
     return (
         <Button
             data-color="ib-brand-dark-blue"
-            className="rounded-[60px] font-light inline-flex w-auto whitespace-nowrap justify-self-center self-center md:justify-self-start md:self-start"
             {...rest}
+            className={classNames(
+                'rounded-[60px] font-light inline-flex w-auto whitespace-nowrap justify-self-center self-center md:justify-self-start md:self-start',
+                rest.className
+            )}
             {...buttonProps}>
             {btn.linkText || children}
         </Button>

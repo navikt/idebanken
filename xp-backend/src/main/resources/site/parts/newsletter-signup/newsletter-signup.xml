@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Nyhetsbrev påmelding</display-name>
+    <description>Part for å kunne melde seg på nyhetsbrevet</description>
+    <form>
+        <input type="TextLine" name="title">
+            <label>Tittel</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input type="TextLine" name="description">
+            <label>innhold</label>
+        </input>
+        <input type="ContentSelector" name="redirectContent">
+            <label>Naviger til side etter vellykket påmelding</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+    </form>
+</part>

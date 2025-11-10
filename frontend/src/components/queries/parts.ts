@@ -128,3 +128,11 @@ export const titleIngressQuery = `{
     bgColor
     ${imageAndVectorFields.slice(1, -1)}
 }`
+
+export const newsletterQuery = `{
+    title
+    description
+    redirectContent {
+        _path
+    }
+}`

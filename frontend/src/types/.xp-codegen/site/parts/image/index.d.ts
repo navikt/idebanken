@@ -51,11 +51,6 @@ export type XP_Image = {
   paddingY?: number;
 
   /**
-   * Komprimer bilde (1-100/mest-minst. 0=100)
-   */
-  scale?: number;
-
-  /**
    * Vis kantlinje
    */
   border: boolean;
@@ -89,4 +84,9 @@ export type XP_Image = {
      */
     left?: number;
   }>;
+
+  /**
+   * Komprimer bilde (1-100/mest-minst. 0=ingen)
+   */
+  scale?: number;
 };

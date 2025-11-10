@@ -38,7 +38,7 @@ export default function Footer({
                 className={
                     'w-fit gap-1 flex flex-row underline hover:no-underline mb-(--ax-space-24)'
                 }>
-                <ArrowUpIcon />
+                <ArrowUpIcon aria-hidden={true} />
                 Til toppen
             </NextLink>
             <HGrid
@@ -57,7 +57,7 @@ export default function Footer({
                         external: newsletterSubscribeLink?.external ?? false,
                     }}
                     meta={meta}
-                    aria-labelledby={'subscribe-to-newsletter'}>
+                    aria-describedby={'subscribe-to-newsletter'}>
                     {newsletterSubscribeLink?.linkText}
                 </ButtonView>
             </HGrid>
