@@ -4,6 +4,7 @@ export async function newsletterSignup(
     _initialState: Record<string, string | Record<string, string>>,
     formData: FormData
 ) {
+    console.log('formData', formData)
     const response: Record<string, string | Record<string, string>> = {}
     if (formData.get('honningkrukke')) {
         console.debug('Bot detected, form submission ignored.')
@@ -33,12 +34,14 @@ export async function newsletterSignup(
         return response
     }
 
+    console.log('before process env')
     const apsisApi = process.env.APSIS_API
     const apsisApiKey = process.env.APSIS_API_KEY
     if (!apsisApi || !apsisApiKey) {
         throw new Error('APISIS_API and/or APSIS_API_KEY is not defined')
     }
 
+    console.log('Subscribing email to newsletter:', email)
     const res = await fetch(apsisApi, {
         method: 'POST',
         headers: {
@@ -49,6 +52,7 @@ export async function newsletterSignup(
         body: JSON.stringify({ Email: email }),
     })
 
+    console.log('response from apsis:', res)
     if (!res.ok) {
         console.error(
             `Failed to subscribe email. Status: ${res.status}, Message: ${await res.text()}`
