@@ -6,63 +6,8 @@
         <input name="image" type="ImageSelector">
             <label>Velg et bilde</label>
             <occurrences minimum="1" maximum="1"/>
-        </input>
-
-        <input type="CheckBox" name="decorative">
-            <label>Dekorativt bilde (skjul fra skjermleser)</label>
-            <default>unchecked</default>
-        </input>
-
-        <input name="width" type="Long">
-            <label>Bredde (px)</label>
-            <default>300</default>
             <config>
-                <min>0</min>
-                <max>2000</max>
-            </config>
-        </input>
-        <input name="height" type="Long">
-            <label>Høyde (px)</label>
-            <default>300</default>
-            <config>
-                <min>0</min>
-                <max>2000</max>
-            </config>
-        </input>
-
-        <input name="scale" type="Long">
-            <label>Skaleringsfaktor</label>
-            <help-text>Angir hvor mye bildet skal skaleres. 100 er 100% av originalstørrelsen.</help-text>
-            <default>90</default>
-            <config>
-                <min>0</min>
-                <max>100</max>
-            </config>
-        </input>
-
-        <input name="centerHorizontally" type="CheckBox">
-            <label>Sentrer horisontalt</label>
-            <default>checked</default>
-        </input>
-        <input name="centerVertically" type="CheckBox">
-            <label>Sentrer vertikalt</label>
-            <default>unchecked</default>
-        </input>
-
-        <input name="paddingX" type="Long">
-            <label>X-Polstring rundt bildet (px)</label>
-            <default>0</default>
-            <config>
-                <min>0</min>
-                <max>100</max>
-            </config>
-        </input>
-        <input name="paddingY" type="Long">
-            <label>Y-Polstring rundt bildet (px)</label>
-            <default>0</default>
-            <config>
-                <min>0</min>
-                <max>100</max>
+                <allowPath>${site}/ressurser/*</allowPath>
             </config>
         </input>
 
@@ -71,33 +16,83 @@
             <default>checked</default>
         </input>
 
+        <input type="CheckBox" name="decorative">
+            <label>Dekorativt bilde (skjul fra skjermleser)</label>
+            <default>checked</default>
+        </input>
+
+        <input name="width" type="Long">
+            <label>Bredde (px)</label>
+            <default>400</default>
+            <config>
+                <min>1</min>
+                <max>2000</max>
+            </config>
+        </input>
+
+        <input name="height" type="Long">
+            <label>Høyde (px)</label>
+            <default>250</default>
+            <config>
+                <min>1</min>
+                <max>2000</max>
+            </config>
+        </input>
+
+        <input name="borderRadius" type="Long">
+            <label>Avrundet hjørne (px)</label>
+            <default>12</default>
+            <config>
+                <min>0</min>
+                <max>9999</max>
+            </config>
+        </input>
+
         <field-set>
-            <label>Styling</label>
+            <label>Avansert styling</label>
             <items>
-                <input name="styleActive" type="CheckBox">
-                    <label>Aktiver styling</label>
+
+                <input name="centerHorizontally" type="CheckBox">
+                    <label>Sentrer horisontalt</label>
+                    <default>checked</default>
+                </input>
+                <input name="centerVertically" type="CheckBox">
+                    <label>Sentrer vertikalt</label>
                     <default>unchecked</default>
                 </input>
 
-                <input name="borderRadius" type="Long">
-                    <label>Avrundet hjørne (px)</label>
-                    <default>12</default>
-                    <config>
-                        <min>0</min>
-                        <max>9999</max>
-                    </config>
-                </input>
-                <input name="border" type="CheckBox">
-                    <label>Vis kantlinje</label>
-                </input>
-                <input name="borderDistance" type="Long">
-                    <label>Kantlinje avstand (px)</label>
+
+                <input name="paddingX" type="Long">
+                    <label>X-Polstring rundt bildet (px)</label>
                     <default>0</default>
                     <config>
                         <min>0</min>
                         <max>100</max>
                     </config>
                 </input>
+
+                <input name="paddingY" type="Long">
+                    <label>Y-Polstring rundt bildet (px)</label>
+                    <default>0</default>
+                    <config>
+                        <min>0</min>
+                        <max>100</max>
+                    </config>
+                </input>
+
+                <input name="border" type="CheckBox">
+                    <label>Vis kantlinje</label>
+                </input>
+
+                <input name="borderDistance" type="Long">
+                    <label>Kantlinje avstand (px)</label>
+                    <default>1</default>
+                    <config>
+                        <min>1</min>
+                        <max>100</max>
+                    </config>
+                </input>
+
                 <item-set name="circles">
                     <label>Rundinger</label>
                     <occurrences minimum="0" maximum="0"/>
@@ -128,16 +123,17 @@
                             <label>Avstand fra venstre (x-akse i px)</label>
                             <default>-20</default>
                         </input>
-                        <input name="opacity" type="Long">
-                            <label>Gjennomsiktig (0 er usynlig. 100 er ingen gjennomsiktighet)</label>
-                            <default>90</default>
-                            <config>
-                                <min>0</min>
-                                <max>100</max>
-                            </config>
-                        </input>
                     </items>
                 </item-set>
+
+                <input name="scale" type="Long">
+                    <label>Komprimer bilde (1-100/mest-minst. 0=ingen)</label>
+                    <default>0</default>
+                    <config>
+                        <min>0</min>
+                        <max>100</max>
+                    </config>
+                </input>
             </items>
         </field-set>
     </form>

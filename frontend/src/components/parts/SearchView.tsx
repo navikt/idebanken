@@ -152,6 +152,7 @@ export default function SearchView({
     return (
         <VStack gap={'4'}>
             <SearchWrapper
+                aria-label={'Søk etter innhold på idébanken'}
                 aria-controls={'search-status'}
                 onSubmit={(e) => {
                     e.preventDefault()
@@ -163,6 +164,7 @@ export default function SearchView({
                 }}
             />
             {SearchResults(
+                meta,
                 SearchFrom.SOKESIDE,
                 searchResult
                     ? {
@@ -176,7 +178,7 @@ export default function SearchView({
                       }
                     : undefined,
                 loading,
-                meta,
+
                 common,
                 filterElement
             )}

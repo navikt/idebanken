@@ -1020,6 +1020,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   image?: Maybe<Part_Idebanken_Image>;
   link_card?: Maybe<Part_Idebanken_Link_Card>;
   link_card_list?: Maybe<Part_Idebanken_Link_Card_List>;
+  newsletter_signup?: Maybe<Part_Idebanken_Newsletter_Signup>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
   skyra?: Maybe<Part_Idebanken_Skyra>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
@@ -1146,7 +1147,6 @@ export type Part_Idebanken_Image = {
   paddingX?: Maybe<Scalars['String']['output']>;
   paddingY?: Maybe<Scalars['String']['output']>;
   scale?: Maybe<Scalars['String']['output']>;
-  styleActive?: Maybe<Scalars['Boolean']['output']>;
   width?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1163,7 +1163,6 @@ export type Part_Idebanken_Image_Circles = {
   bottom?: Maybe<Scalars['String']['output']>;
   color?: Maybe<Scalars['String']['output']>;
   left?: Maybe<Scalars['String']['output']>;
-  opacity?: Maybe<Scalars['String']['output']>;
   size?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1271,6 +1270,14 @@ export type Part_Idebanken_Link_Card_List_Heading = {
   title: Scalars['String']['output'];
 };
 
+/** Part component application config for application ['idebanken'] and descriptor ['newsletter-signup'] */
+export type Part_Idebanken_Newsletter_Signup = {
+  __typename?: 'Part_idebanken_newsletter_signup';
+  description?: Maybe<Scalars['String']['output']>;
+  redirectContent?: Maybe<Content>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
 /** Part component application config for application ['idebanken'] and descriptor ['search-view'] */
 export type Part_Idebanken_Search_View = {
   __typename?: 'Part_idebanken_search_view';
@@ -1314,7 +1321,7 @@ export type Part_Idebanken_Text_EditorSimpleTextEditorArgs = {
 export type Part_Idebanken_Title_Ingress = {
   __typename?: 'Part_idebanken_title_ingress';
   bgColor?: Maybe<Scalars['String']['output']>;
-  image?: Maybe<Content>;
+  displayType?: Maybe<Scalars['String']['output']>;
   showType?: Maybe<Scalars['Boolean']['output']>;
 };
 

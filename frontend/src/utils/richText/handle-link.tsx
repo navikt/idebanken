@@ -37,7 +37,7 @@ export function handleLink(
         }
         const children = domToReact(el.children as DOMNode[], basicOptions)
         return (
-            <Link href={href || '#'} target={target} rel={el.attribs?.rel} title={title}>
+            <Link href={getUrl(href, meta)} target={target} rel={el.attribs?.rel} title={title}>
                 {children}
             </Link>
         )

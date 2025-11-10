@@ -73,6 +73,20 @@ query($path:ID!){
       type
       dataAsJson
       xAsJson
+      x {
+        idebanken {
+          meta {
+            icon {
+              ... on media_Vector {
+                mediaUrl(type: absolute)
+                data {
+                  caption
+                }
+              }
+            }
+          }
+        }
+      }
       ${metaFields}
       skyraSlugs
     }
@@ -130,6 +144,15 @@ type CommonContentType<T = UnknownJSONContent> = {
     type: `${string}:${string}`
     dataAsJson: T
     xAsJson: UnknownJSONContent
+    x: {
+        idebanken: {
+            meta: {
+                icon: {
+                    mediaUrl: string
+                }
+            }
+        }
+    }
 }
 
 type CommonGetSite = {

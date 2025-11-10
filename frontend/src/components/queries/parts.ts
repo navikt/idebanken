@@ -12,7 +12,6 @@ export const imageQuery = `{
 	decorative
 	scale
     hideOnMobile
-    styleActive
     width
     height
     borderRadius
@@ -23,7 +22,6 @@ export const imageQuery = `{
       color
       bottom
       left
-      opacity
     }
 }`
 
@@ -128,5 +126,12 @@ export const highlightedBoxMacroQuery = `{
 
 export const titleIngressQuery = `{
     bgColor
-    ${imageAndVectorFields.slice(1, -1)}
+}`
+
+export const newsletterQuery = `{
+    title
+    description
+    redirectContent {
+        _path
+    }
 }`

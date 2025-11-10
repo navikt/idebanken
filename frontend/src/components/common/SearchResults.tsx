@@ -12,10 +12,10 @@ import TrackFirstLink from '~/components/common/analytics/TrackFirstLink'
 import { AnalyticsEvents } from '~/utils/analytics/umami'
 
 export default function SearchResults(
+    meta: MetaData,
     searchFrom: 'hurtigsøk meny' | 'søkeside',
     searchResult?: SearchResult | undefined,
     loading: boolean = false,
-    meta?: MetaData,
     common?: CommonType<unknown>, // for resolving categories
     filter?: JSX.Element
 ) {
@@ -52,7 +52,6 @@ export default function SearchResults(
                             description={
                                 <RichTextView
                                     className="font-extralight"
-                                    // @ts-expect-error meta is not required
                                     meta={meta}
                                     data={{ processedHtml: result.highlight }}
                                     customReplacer={htmlRichTextReplacer}
@@ -62,6 +61,7 @@ export default function SearchResults(
                             brand={'neutral'}
                             icon={{ url: result.iconUrl, iconColor: result.iconColor }}
                             key={index}
+                            meta={meta}
                         />
                     </TrackFirstLink>
                 ))

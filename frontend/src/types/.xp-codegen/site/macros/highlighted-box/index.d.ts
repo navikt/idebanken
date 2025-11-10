@@ -18,7 +18,7 @@ export type XP_HighlightedBox = {
   /**
    * Innhold
    */
-  body: string;
+  body?: string;
 
   /**
    * Interne lenker

@@ -6,6 +6,11 @@ export type Image = {
   image: string;
 
   /**
+   * Skjul på mobil
+   */
+  hideOnMobile: boolean;
+
+  /**
    * Dekorativt bilde (skjul fra skjermleser)
    */
   decorative: boolean;
@@ -21,9 +26,9 @@ export type Image = {
   height?: number;
 
   /**
-   * Skaleringsfaktor
+   * Avrundet hjørne (px)
    */
-  scale?: number;
+  borderRadius?: number;
 
   /**
    * Sentrer horisontalt
@@ -44,21 +49,6 @@ export type Image = {
    * Y-Polstring rundt bildet (px)
    */
   paddingY?: number;
-
-  /**
-   * Skjul på mobil
-   */
-  hideOnMobile: boolean;
-
-  /**
-   * Aktiver styling
-   */
-  styleActive: boolean;
-
-  /**
-   * Avrundet hjørne (px)
-   */
-  borderRadius?: number;
 
   /**
    * Vis kantlinje
@@ -93,10 +83,10 @@ export type Image = {
      * Avstand fra venstre (x-akse i px)
      */
     left?: number;
-
-    /**
-     * Gjennomsiktig (0 er usynlig. 100 er ingen gjennomsiktighet)
-     */
-    opacity?: number;
   }>;
+
+  /**
+   * Komprimer bilde (1-100/mest-minst. 0=ingen)
+   */
+  scale?: number;
 };

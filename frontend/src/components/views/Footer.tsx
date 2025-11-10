@@ -4,8 +4,8 @@ import { BodyLong, HGrid, VStack } from '@navikt/ds-react'
 import NextLink from 'next/link'
 import { HeadingView } from '~/components/parts/Heading'
 import { Separator } from '~/components/macros/Separator'
-import { getAsset, MetaData } from '@enonic/nextjs-adapter'
-import NextImage from 'next/image'
+import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
+import Image from 'next/image'
 import { ArrowUpIcon } from '@navikt/aksel-icons'
 import { ButtonView } from '~/components/parts/Button'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
@@ -38,7 +38,7 @@ export default function Footer({
                 className={
                     'w-fit gap-1 flex flex-row underline hover:no-underline mb-(--ax-space-24)'
                 }>
-                <ArrowUpIcon />
+                <ArrowUpIcon aria-hidden={true} />
                 Til toppen
             </NextLink>
             <HGrid
@@ -56,14 +56,15 @@ export default function Footer({
                         linkText: '',
                         external: newsletterSubscribeLink?.external ?? false,
                     }}
-                    aria-labelledby={'subscribe-to-newsletter'}>
+                    meta={meta}
+                    aria-describedby={'subscribe-to-newsletter'}>
                     {newsletterSubscribeLink?.linkText}
                 </ButtonView>
             </HGrid>
             <Separator className={'my-(--ax-space-44)'} />
             <HGrid gap={{ xs: 'space-24', md: 'space-56' }} columns={{ xs: 1, md: 3, lg: 5 }}>
                 <VStack gridColumn={{ xs: '1', md: '1/4', lg: '1/3' }} gap={'space-16'}>
-                    <NextImage
+                    <Image
                         src={getAsset('/images/logo-light.svg', meta)}
                         alt={'Idébanken logo'}
                         width={200}
@@ -71,7 +72,7 @@ export default function Footer({
                         className="w-48 block dark:hidden"
                         priority
                     />
-                    <NextImage
+                    <Image
                         src={getAsset('/images/logo-dark.svg', meta)}
                         alt={'Idébanken logo'}
                         width={200}
@@ -98,7 +99,10 @@ export default function Footer({
                             {title}
                         </HeadingView>
                         {links?.map(({ url, linkText }, j) => (
-                            <NextLink key={j} href={url} className="underline hover:no-underline">
+                            <NextLink
+                                key={j}
+                                href={getUrl(url, meta)}
+                                className="underline hover:no-underline">
                                 {linkText ?? '[Default link text]'}
                             </NextLink>
                         ))}
