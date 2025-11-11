@@ -1151,6 +1151,8 @@ export type Part_Idebanken_Image = {
   height?: Maybe<Scalars['String']['output']>;
   hideOnMobile?: Maybe<Scalars['Boolean']['output']>;
   image?: Maybe<Content>;
+  includeCaption?: Maybe<Scalars['Boolean']['output']>;
+  overrideCaption?: Maybe<Scalars['String']['output']>;
   paddingX?: Maybe<Scalars['String']['output']>;
   paddingY?: Maybe<Scalars['String']['output']>;
   scale?: Maybe<Scalars['String']['output']>;
