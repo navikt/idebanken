@@ -29,7 +29,11 @@ export function resolveImage(
         | string
         | undefined
 
-    if (isMedia(content)) {
+    const overrideImage = content.data?.overrideImage as string | undefined
+
+    if (overrideImage) {
+        return resolveMedia(overrideImage, scale)
+    } else if (isMedia(content)) {
         const mediaData = content?.data
         return {
             url: imageUrl({ id: content._id, scale, type: 'absolute' }),
@@ -95,6 +99,7 @@ function resolveMedia(
         const context = getContext()
         url = `${URLS.XP_ORIGIN}/site/${context.repository?.split('.')?.pop()}/${context.branch}/_/image/${content._id}/full/${data.media.attachment}`
         logger.debug(
+            // @ts-expect-error exception is an unknown type
             `Could not generate imageUrl from name: ${content.displayName}, with params: ${JSON.stringify({ id: content._id, scale, type: 'absolute' }, null, 2)}. Error: ${e.message}`
         )
     }
