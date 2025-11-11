@@ -6,6 +6,7 @@ import { Part_Idebanken_Image_Circles } from '~/types/generated'
 import { Circle } from '~/components/common/Circle'
 import { XP_Image } from '@xp-types/site/parts'
 import Image from 'next/image'
+import { BodyShort } from '@navikt/ds-react'
 
 // Image
 export type ImageData = {
@@ -13,12 +14,15 @@ export type ImageData = {
         imageUrl?: string
         data?: {
             altText?: string | null
+            caption?: string | null
+            artist?: Array<string> | null
         }
     }
 }
 
 interface BasicImageProps {
     src: string
+    caption?: string
     decorative: boolean
     alt: string
     width?: number
@@ -53,6 +57,7 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
     const { config } = part
     const {
         src,
+        caption,
         decorative,
         alt,
         width,
@@ -72,22 +77,23 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
     const paddingFullY = paddingY + borderDist
 
     return (
-        <div
+        <figure
             className={classNames(
-                'relative flex',
+                'relative flex flex-col',
                 centerVertically ? 'h-full items-center self-center' : '',
                 centerHorizontally ? 'justify-self-center' : '',
                 config.hideOnMobile ? 'max-md:hidden' : ''
             )}
             style={{
                 padding: `${paddingFullY}px ${paddingFullX}px`,
+                width: width ? `min(${width}px, 90vw)` : 'auto',
             }}>
             {showBorder && (
                 <div
                     className={classNames('absolute border border-(--ib-border-dark-blue-subtleA)')}
                     style={{
-                        width: width ? `${width + borderDist * 2}px` : 'auto',
-                        height: height ? `${height + borderDist * 2}px` : 'auto',
+                        width: width ? `min(${width + borderDist * 2}px, 92vw)` : 'auto',
+                        height: height ? `min(${height + borderDist * 2}px, 82vh)` : 'auto',
                         top: paddingY,
                         left: paddingX,
                         borderRadius: `${borderRadius}px`,
@@ -98,8 +104,8 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
             <div
                 className={classNames('relative overflow-hidden')}
                 style={{
-                    width: width ? `${width}px` : 'auto',
-                    height: height ? `${height}px` : 'auto',
+                    width: width ? `min(${width}px, 90vw)` : 'auto',
+                    height: height ? `min(${height}px, 80vh)` : 'auto',
                     borderRadius: `${borderRadius}px`,
                 }}>
                 <Image
@@ -111,6 +117,11 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                     fill
                 />
             </div>
+            {caption && (
+                <figcaption className={'mt-(--ax-space-16)'}>
+                    <BodyShort size={'small'}>{caption}</BodyShort>
+                </figcaption>
+            )}
 
             {circles?.map(({ size, color, bottom, left }, id) => (
                 <Circle
@@ -121,31 +132,61 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                     left={left + paddingX}
                 />
             ))}
-        </div>
+        </figure>
     )
 }
 
-function parseImageProps(config: ImageData & XP_Image, meta: MetaData): StyledImageProps {
-    const scale = config.scale ? Number(config.scale) / 100 : 1
-    const width = config.width ? Number(config.width) : undefined
-    const height = config.height ? Number(config.height) : undefined
-    const scaledWidth = width ? Math.round(width * scale) : undefined
-    const scaledHeight = height ? Math.round(height * scale) : undefined
-
-    return {
-        src: getFormattedImageUrl(meta, config.image?.imageUrl, scaledWidth, scaledHeight),
-        decorative: Boolean(config.decorative),
-        alt: config.image?.data?.altText ?? '',
+function parseImageProps(
+    {
+        image,
+        scale,
         width,
         height,
-        showBorder: config.border ?? false,
-        borderRadius: config.borderRadius ? Number(config.borderRadius) : 0,
-        borderDistance: config.borderDistance ? Number(config.borderDistance) : 0,
-        centerHorizontally: config.centerHorizontally ?? false,
-        centerVertically: config.centerVertically ?? false,
-        paddingX: config.paddingX ? Number(config.paddingX) : 0,
-        paddingY: config.paddingY ? Number(config.paddingY) : 0,
-        circles: forceArray(config.circles as Part_Idebanken_Image_Circles[]).map((circle) => ({
+        overrideCaption,
+        includeCaption,
+        decorative,
+        borderDistance,
+        borderRadius,
+        border,
+        centerHorizontally,
+        centerVertically,
+        paddingX,
+        paddingY,
+        circles,
+    }: ImageData & XP_Image,
+    meta: MetaData
+): StyledImageProps {
+    const pScale = scale ? Number(scale) / 100 : 1
+    const pWidth = width ? Number(width) : undefined
+    const pHeight = height ? Number(height) : undefined
+    const scaledWidth = pWidth ? Math.round(pWidth * pScale) : undefined
+    const scaledHeight = pHeight ? Math.round(pHeight * pScale) : undefined
+
+    const caption = includeCaption ? (overrideCaption ?? image?.data?.caption ?? '') : undefined
+    return {
+        src: getFormattedImageUrl(meta, image?.imageUrl, scaledWidth, scaledHeight),
+        caption:
+            typeof caption === 'string'
+                ? caption
+                      .concat(caption.length ? ' ' : '')
+                      .concat(
+                          image?.data?.artist
+                              ? `Foto: ${forceArray(image?.data?.artist).join(' / ')}`
+                              : ''
+                      )
+                : undefined,
+        decorative: Boolean(decorative),
+        alt: image?.data?.altText ?? '',
+        width: pWidth,
+        height: pHeight,
+        showBorder: border ?? false,
+        borderRadius: borderRadius ? Number(borderRadius) : 0,
+        borderDistance: borderDistance ? Number(borderDistance) : 0,
+        centerHorizontally: centerHorizontally ?? false,
+        centerVertically: centerVertically ?? false,
+        paddingX: paddingX ? Number(paddingX) : 0,
+        paddingY: paddingY ? Number(paddingY) : 0,
+        circles: forceArray(circles as Part_Idebanken_Image_Circles[]).map((circle) => ({
             size: circle.size ? Number(circle.size) : 200,
             color: circle.color ? accentColors[circle.color] : accentColors.pink,
             bottom: circle.bottom ? Number(circle.bottom) : -50,

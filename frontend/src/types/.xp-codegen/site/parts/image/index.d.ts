@@ -6,6 +6,16 @@ export type XP_Image = {
   image: string;
 
   /**
+   * Inkluder bildetekst
+   */
+  includeCaption: boolean;
+
+  /**
+   * Overskriv bildetekst
+   */
+  overrideCaption?: string;
+
+  /**
    * Skjul på mobil
    */
   hideOnMobile: boolean;

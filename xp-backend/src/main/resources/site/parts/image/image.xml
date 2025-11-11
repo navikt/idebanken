@@ -11,6 +11,13 @@
             </config>
         </input>
 
+        <input type="CheckBox" name="includeCaption">
+            <label>Inkluder bildetekst</label>
+        </input>
+        <input type="TextLine" name="overrideCaption">
+            <label>Overskriv bildetekst</label>
+        </input>
+
         <input name="hideOnMobile" type="CheckBox">
             <label>Skjul på mobil</label>
             <default>checked</default>
