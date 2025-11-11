@@ -21,7 +21,7 @@ export type Virkemiddel = {
   description?: string;
 
   /**
-   * Overskriv bilde (listevisning)
+   * Overskriv lenkekort bilde
    */
-  image?: string;
+  overrideImage?: string;
 };
