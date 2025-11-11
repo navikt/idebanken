@@ -2517,6 +2517,7 @@ export type Idebanken_Guide_Data = {
   __typename?: 'idebanken_Guide_Data';
   description?: Maybe<Scalars['String']['output']>;
   ingress?: Maybe<RichText>;
+  overrideImage?: Maybe<Content>;
   shortTitle?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
@@ -2613,6 +2614,7 @@ export type Idebanken_SectionPage_Data = {
   __typename?: 'idebanken_SectionPage_Data';
   description?: Maybe<Scalars['String']['output']>;
   ingress?: Maybe<RichText>;
+  overrideImage?: Maybe<Content>;
   shortTitle?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
@@ -2709,6 +2711,7 @@ export type Idebanken_SpecialPage_Data = {
   __typename?: 'idebanken_SpecialPage_Data';
   description?: Maybe<Scalars['String']['output']>;
   ingress?: Maybe<RichText>;
+  overrideImage?: Maybe<Content>;
   shortTitle?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
@@ -2805,6 +2808,7 @@ export type Idebanken_Virkemiddel_Data = {
   __typename?: 'idebanken_Virkemiddel_Data';
   description?: Maybe<Scalars['String']['output']>;
   ingress?: Maybe<RichText>;
+  overrideImage?: Maybe<Content>;
   shortTitle?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };

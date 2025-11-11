@@ -18,17 +18,24 @@
             </config>
         </input>
         <input name="shortTitle" type="TextLine">
-            <label>Kort tittel (brukes i listevisning)</label>
+            <label>Kort tittel (listevisning)</label>
             <config>
                 <max-length>50</max-length>
                 <show-counter>true</show-counter>
             </config>
         </input>
         <input name="description" type="TextArea">
-            <label>Kort beskrivelse (brukes i listevisning)</label>
+            <label>Kort beskrivelse (listevisning)</label>
             <config>
                 <max-length>100</max-length>
                 <show-counter>true</show-counter>
+            </config>
+        </input>
+        <input name="overrideImage" type="ImageSelector">
+            <label>Overskriv lenkekort bilde</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <allowPath>${site}/ressurser/*</allowPath>
             </config>
         </input>
     </form>

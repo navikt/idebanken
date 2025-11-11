@@ -11,12 +11,17 @@ export type XP_Guide = {
   ingress: string;
 
   /**
-   * Kort tittel (brukes i listevisning)
+   * Kort tittel (listevisning)
    */
   shortTitle?: string;
 
   /**
-   * Kort beskrivelse (brukes i listevisning)
+   * Kort beskrivelse (listevisning)
    */
   description?: string;
+
+  /**
+   * Overskriv bilde (listevisning)
+   */
+  image?: string;
 };
