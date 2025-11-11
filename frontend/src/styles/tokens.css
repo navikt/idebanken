@@ -275,7 +275,7 @@
 
 /* Semantic mappings */
 
-[data-color='info'] {
+/*[data-color='info'] {
     --ax-border-strong: var(--ib-border-dark-blue-strong);
     --ax-border-subtleA: var(--ib-border-dark-blue-subtleA);
     --ax-border-subtle: var(--ib-border-dark-blue-subtle);
@@ -302,7 +302,7 @@
     --ax-bg-soft: var(--ib-bg-dark-blue-soft);
 
     --ax-bg-raised: var(--ib-bg-dark-blue-raised);
-}
+}*/
 
 /* Brand mappings */
 [data-color='ib-brand-pink'] {

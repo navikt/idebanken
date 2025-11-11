@@ -21,7 +21,7 @@ export type SectionPage = {
   description?: string;
 
   /**
-   * Overskriv bilde (listevisning)
+   * Overskriv lenkekort bilde
    */
-  image?: string;
+  overrideImage?: string;
 };

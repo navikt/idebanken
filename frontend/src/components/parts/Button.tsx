@@ -62,7 +62,7 @@ const ButtonView = ({
             data-color="ib-brand-dark-blue"
             {...rest}
             className={classNames(
-                'rounded-[60px] font-light inline-flex w-auto whitespace-nowrap justify-self-center self-center md:justify-self-start md:self-start',
+                'rounded-full font-light inline-flex w-auto whitespace-nowrap justify-self-center self-center md:justify-self-start md:self-start',
                 rest.className
             )}
             {...buttonProps}>
