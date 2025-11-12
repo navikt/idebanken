@@ -6,9 +6,13 @@ export const imageQuery = `{
 			imageUrl(type: absolute, scale: "height(800)")
 			data {
 				altText
+				caption
+				artist
 			}
 		}
 	}
+	includeCaption
+    overrideCaption
 	decorative
 	scale
     hideOnMobile
