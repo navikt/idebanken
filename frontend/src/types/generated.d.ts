@@ -816,10 +816,17 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1022,6 +1029,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   link_card_list?: Maybe<Part_Idebanken_Link_Card_List>;
   newsletter_signup?: Maybe<Part_Idebanken_Newsletter_Signup>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
+  show_more?: Maybe<Part_Idebanken_Show_More>;
   skyra?: Maybe<Part_Idebanken_Skyra>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
@@ -1284,6 +1292,19 @@ export type Part_Idebanken_Newsletter_Signup = {
 export type Part_Idebanken_Search_View = {
   __typename?: 'Part_idebanken_search_view';
   text?: Maybe<Scalars['String']['output']>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['show-more'] */
+export type Part_Idebanken_Show_More = {
+  __typename?: 'Part_idebanken_show_more';
+  simpleTextEditor?: Maybe<RichText>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['show-more'] */
+export type Part_Idebanken_Show_MoreSimpleTextEditorArgs = {
+  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['skyra'] */
@@ -2184,6 +2205,103 @@ export type Base_UnstructuredPageAsJsonArgs = {
 export type Base_UnstructuredPageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
+};
+
+/** Artikkel - idebanken:artikkel */
+export type Idebanken_Artikkel = Content & {
+  __typename?: 'idebanken_Artikkel';
+  _id: Scalars['ID']['output'];
+  _name: Scalars['String']['output'];
+  _path: Scalars['String']['output'];
+  _references?: Maybe<Array<Maybe<Content>>>;
+  _score?: Maybe<Scalars['Float']['output']>;
+  attachments?: Maybe<Array<Maybe<Attachment>>>;
+  children?: Maybe<Array<Maybe<Content>>>;
+  childrenConnection?: Maybe<ContentConnection>;
+  components?: Maybe<Array<Maybe<Component>>>;
+  contentType?: Maybe<ContentType>;
+  createdTime?: Maybe<Scalars['DateTime']['output']>;
+  creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_Artikkel_Data>;
+  dataAsJson?: Maybe<Scalars['JSON']['output']>;
+  displayName?: Maybe<Scalars['String']['output']>;
+  hasChildren?: Maybe<Scalars['Boolean']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  metaFields?: Maybe<MetaFields>;
+  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
+  modifier?: Maybe<PrincipalKey>;
+  owner?: Maybe<PrincipalKey>;
+  pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageTemplate?: Maybe<Content>;
+  pageUrl?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Content>;
+  permissions?: Maybe<Permissions>;
+  publish?: Maybe<PublishInfo>;
+  site?: Maybe<Portal_Site>;
+  skyraSlugs: Array<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+  x?: Maybe<ExtraData>;
+  xAsJson?: Maybe<Scalars['JSON']['output']>;
+};
+
+
+/** Artikkel - idebanken:artikkel */
+export type Idebanken_Artikkel_PathArgs = {
+  type?: InputMaybe<ContentPathType>;
+};
+
+
+/** Artikkel - idebanken:artikkel */
+export type Idebanken_ArtikkelChildrenArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Artikkel - idebanken:artikkel */
+export type Idebanken_ArtikkelChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Artikkel - idebanken:artikkel */
+export type Idebanken_ArtikkelComponentsArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Artikkel - idebanken:artikkel */
+export type Idebanken_ArtikkelPageAsJsonArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Artikkel - idebanken:artikkel */
+export type Idebanken_ArtikkelPageUrlArgs = {
+  params?: InputMaybe<Scalars['JSON']['input']>;
+  type?: InputMaybe<UrlType>;
+};
+
+/** Artikkel - idebanken:artikkel data */
+export type Idebanken_Artikkel_Data = {
+  __typename?: 'idebanken_Artikkel_Data';
+  description?: Maybe<Scalars['String']['output']>;
+  ingress?: Maybe<RichText>;
+  overrideImage?: Maybe<Content>;
+  shortTitle?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Artikkel - idebanken:artikkel data */
+export type Idebanken_Artikkel_DataIngressArgs = {
+  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Kategori - idebanken:category */

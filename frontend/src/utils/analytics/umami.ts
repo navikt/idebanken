@@ -30,6 +30,8 @@ export enum AnalyticsEvents {
     SEARCH_SUBMITTED = 'søk gjennomført',
     SEARCH_RESULT_CLICKED = 'søkeresultat klikket',
     LINK_CLICKED = 'lenke klikket',
+    SHOW_MORE_EXPAND = 'vis mer åpnet',
+    SHOW_MORE_COLLAPSE = 'vis mer lukket',
 }
 
 export async function umami(eventName: AnalyticsEvents, eventData: EventData = {}): Promise<void> {

@@ -34,6 +34,7 @@ import { ExpansionCardView } from './parts/ExpansionCard'
 import { HighlightedBox } from '~/components/macros/HighlightedBox'
 import Skyra from '~/components/parts/Skyra'
 import NewsletterSignup from '~/components/parts/NewsletterSignup'
+import ShowMorePart from '~/components/parts/ShowMorePart'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -169,4 +170,12 @@ ComponentRegistry.addPart(`${APP_NAME}:expansion-card`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:skyra`, {
     view: Skyra,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:show-more`, {
+    view: ShowMorePart,
+    configQuery: `{
+        title
+        ${richTextQuery('simpleTextEditor')}
+    }`,
 })
