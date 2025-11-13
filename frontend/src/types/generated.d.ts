@@ -816,10 +816,17 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1022,6 +1029,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   link_card_list?: Maybe<Part_Idebanken_Link_Card_List>;
   newsletter_signup?: Maybe<Part_Idebanken_Newsletter_Signup>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
+  show_more?: Maybe<Part_Idebanken_Show_More>;
   skyra?: Maybe<Part_Idebanken_Skyra>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
@@ -1284,6 +1292,19 @@ export type Part_Idebanken_Newsletter_Signup = {
 export type Part_Idebanken_Search_View = {
   __typename?: 'Part_idebanken_search_view';
   text?: Maybe<Scalars['String']['output']>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['show-more'] */
+export type Part_Idebanken_Show_More = {
+  __typename?: 'Part_idebanken_show_more';
+  simpleTextEditor?: Maybe<RichText>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['show-more'] */
+export type Part_Idebanken_Show_MoreSimpleTextEditorArgs = {
+  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['skyra'] */
