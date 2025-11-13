@@ -1,7 +1,7 @@
 'use client'
 
 import classNames from 'classnames'
-import { forceArray } from '~/utils/utils'
+import { forceArray, imageLoadingPropsFromComponentPath } from '~/utils/utils'
 import { getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Image_Circles } from '~/types/generated'
@@ -55,7 +55,7 @@ const accentColors: Record<string, string> = {
     blue: 'bg-(--ib-dark-blue-100A)',
 }
 
-export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
+export const ImageView = ({ part, meta, path: componentPath }: PartData<ImageData & XP_Image>) => {
     const { config } = part
     const {
         src,
@@ -112,10 +112,11 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                 }}>
                 <Image
                     unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                    {...imageLoadingPropsFromComponentPath(componentPath)}
                     src={src}
                     alt={alt}
                     aria-hidden={decorative}
-                    objectFit={'cover'}
+                    className={'object-cover'}
                     fill
                 />
             </div>

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { DOMNode } from 'html-react-parser'
+import { ImageProps } from 'next/dist/shared/lib/get-img-props'
 
 export function validateToken(token: string | null) {
     if (token !== process.env.ENONIC_API_TOKEN) {
@@ -98,4 +99,15 @@ export function extractTextFromNodes(nodes: any): string {
             return ''
         })
         .join(' ')
+}
+
+export const imageLoadingPropsFromComponentPath = (componentPath?: string): Partial<ImageProps> => {
+    if (!componentPath) {
+        return {}
+    }
+    const isFirstOrSecondLayout = Number(componentPath.replace(/^\/[^/]+\/(\d+).*/, '$1')) <= 1
+    return {
+        loading: isFirstOrSecondLayout ? 'eager' : 'lazy',
+        fetchPriority: isFirstOrSecondLayout ? 'high' : 'auto',
+    }
 }

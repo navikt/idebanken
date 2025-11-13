@@ -44,6 +44,7 @@ const TitleIngressView = ({ common, meta, part }: PartData<XP_TitleIngress, Page
                                     }}>
                                     <Image
                                         unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                                        loading={'eager'}
                                         width={44}
                                         height={44}
                                         aria-hidden
