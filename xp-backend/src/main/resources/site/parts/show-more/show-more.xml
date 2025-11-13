@@ -10,4 +10,7 @@
         </input>
         <mixin name="simple-text-editor" />
     </form>
+    <config>
+        <allow-on-content-type>idebanken:artikkel</allow-on-content-type>
+    </config>
 </part>
