@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Vis mer boks</display-name>
+    <description>Primært brukt for "Kort info om artikkel"</description>
+    <form>
+        <input type="TextLine" name="title">
+            <label>Tittel</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>Kort om denne artikkelen</default>
+        </input>
+        <mixin name="simple-text-editor" />
+    </form>
+</part>

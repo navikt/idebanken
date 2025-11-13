@@ -9,6 +9,7 @@ export type LinkCard = import('./link-card').LinkCard;
 export type LinkCardList = import('./link-card-list').LinkCardList;
 export type NewsletterSignup = import('./newsletter-signup').NewsletterSignup;
 export type SearchView = import('./search-view').SearchView;
+export type ShowMore = import('./show-more').ShowMore;
 export type Skyra = import('./skyra').Skyra;
 export type TableOfContents = import('./table-of-contents').TableOfContents;
 export type TextEditor = import('./text-editor').TextEditor;
@@ -26,6 +27,7 @@ declare global {
     'idebanken:link-card-list': LinkCardList;
     'idebanken:newsletter-signup': NewsletterSignup;
     'idebanken:search-view': SearchView;
+    'idebanken:show-more': ShowMore;
     'idebanken:skyra': Skyra;
     'idebanken:table-of-contents': TableOfContents;
     'idebanken:text-editor': TextEditor;

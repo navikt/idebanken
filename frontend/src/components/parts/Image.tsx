@@ -1,3 +1,5 @@
+'use client'
+
 import classNames from 'classnames'
 import { forceArray } from '~/utils/utils'
 import { getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
@@ -168,10 +170,10 @@ function parseImageProps(
         caption:
             typeof caption === 'string'
                 ? caption
-                      .concat(caption.length ? ' ' : '')
+                      .concat(caption.length ? ' / ' : '')
                       .concat(
                           image?.data?.artist
-                              ? `Foto: ${forceArray(image?.data?.artist).join(' / ')}`
+                              ? `FOTO: ${forceArray(image?.data?.artist).join(', ')}`
                               : ''
                       )
                 : undefined,

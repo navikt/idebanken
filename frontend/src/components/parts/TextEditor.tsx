@@ -13,7 +13,7 @@ export const TextEditorView = (props: PartData<Part_Idebanken_Text_Editor>) => {
         <div className={`w-full ${halfWidth}`}>
             <RichTextView
                 // @ts-expect-error data.processedHtml is not required
-                data={richTextData}
+                data={richTextData ?? {}}
                 meta={props.meta}
                 className={`${box}`}
                 customReplacer={htmlRichTextReplacer}
