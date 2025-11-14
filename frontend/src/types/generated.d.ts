@@ -1026,7 +1026,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   skyra?: Maybe<Part_Idebanken_Skyra>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
-  title_ingress?: Maybe<Part_Idebanken_Title_Ingress>;
+  title_ingress_icon?: Maybe<Part_Idebanken_Title_Ingress_Icon>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['accordion'] */
@@ -1333,9 +1333,9 @@ export type Part_Idebanken_Text_EditorSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
-/** Part component application config for application ['idebanken'] and descriptor ['title-ingress'] */
-export type Part_Idebanken_Title_Ingress = {
-  __typename?: 'Part_idebanken_title_ingress';
+/** Part component application config for application ['idebanken'] and descriptor ['title-ingress-icon'] */
+export type Part_Idebanken_Title_Ingress_Icon = {
+  __typename?: 'Part_idebanken_title_ingress_icon';
   bgColor?: Maybe<Scalars['String']['output']>;
   displayType?: Maybe<Scalars['String']['output']>;
   showType?: Maybe<Scalars['Boolean']['output']>;

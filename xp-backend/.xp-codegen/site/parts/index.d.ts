@@ -14,6 +14,7 @@ export type Skyra = import('./skyra').Skyra;
 export type TableOfContents = import('./table-of-contents').TableOfContents;
 export type TextEditor = import('./text-editor').TextEditor;
 export type TitleIngress = import('./title-ingress').TitleIngress;
+export type TitleIngressIcon = import('./title-ingress-icon').TitleIngressIcon;
 
 declare global {
   interface XpPartMap {
@@ -32,5 +33,6 @@ declare global {
     'idebanken:table-of-contents': TableOfContents;
     'idebanken:text-editor': TextEditor;
     'idebanken:title-ingress': TitleIngress;
+    'idebanken:title-ingress-icon': TitleIngressIcon;
   }
 }

@@ -125,6 +125,11 @@ ComponentRegistry.addPart(`${APP_NAME}:link-card`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:title-ingress`, {
     view: TitleIngressView,
+    //configQuery: titleIngressQuery,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:title-ingress-icon`, {
+    view: TitleIngressView,
     configQuery: titleIngressQuery,
 })
 
