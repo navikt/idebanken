@@ -2284,11 +2284,19 @@ export type Idebanken_ArtikkelPageUrlArgs = {
 /** Artikkel - idebanken:artikkel data */
 export type Idebanken_Artikkel_Data = {
   __typename?: 'idebanken_Artikkel_Data';
+  authors?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   description?: Maybe<Scalars['String']['output']>;
   ingress?: Maybe<RichText>;
   overrideImage?: Maybe<Content>;
   shortTitle?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Artikkel - idebanken:artikkel data */
+export type Idebanken_Artikkel_DataAuthorsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 

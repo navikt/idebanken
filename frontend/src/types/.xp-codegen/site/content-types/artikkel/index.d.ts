@@ -24,4 +24,9 @@ export type XP_Artikkel = {
    * Overskriv lenkekort bilde
    */
   overrideImage?: string;
+
+  /**
+   * Forfatter(e)
+   */
+  authors: Array<string> | string;
 };
