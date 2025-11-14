@@ -89,6 +89,9 @@ query($path:ID!){
       }
       ${metaFields}
       skyraSlugs
+      publish {
+        first
+      }
     }
     getSite {
       displayName
@@ -144,6 +147,9 @@ type CommonContentType<T = UnknownJSONContent> = {
     type: `${string}:${string}`
     dataAsJson: T
     xAsJson: UnknownJSONContent
+    publish: {
+        first: string
+    }
     x: {
         idebanken: {
             meta: {

@@ -99,3 +99,11 @@ export function extractTextFromNodes(nodes: any): string {
         })
         .join(' ')
 }
+
+export function joinArrayWithCommasAndAnd(arrOrString: string | string[]): string {
+    const arr = forceArray(arrOrString)
+    if (arr.length === 0) return ''
+    if (arr.length === 1) return arr[0]
+    if (arr.length === 2) return `${arr[0]} og ${arr[1]}`
+    return `${arr.slice(0, -1).join(', ')} og ${arr[arr.length - 1]}`
+}
