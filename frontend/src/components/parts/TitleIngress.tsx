@@ -3,26 +3,32 @@ import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { PartData } from '~/types/graphql-types'
 import { HeadingView } from '~/components/parts/Heading'
 import BleedingBackgroundPageBlock from '../layouts/BleedingBackgroundPageBlock'
-import { HStack, Tag, VStack } from '@navikt/ds-react'
+import { BodyShort, HStack, Tag, VStack } from '@navikt/ds-react'
 import Image from 'next/image'
 import classNames from 'classnames'
 import { RENDER_MODE } from '@enonic/nextjs-adapter'
 import { XP_TitleIngress } from '@xp-types/site/parts'
+import { joinArrayWithCommasAndAnd } from '~/utils/utils'
+import { Separator } from '~/components/macros/Separator'
+import { localizedDateTime } from '~/components/common/localizedDateTime'
 
 type PageData = {
     ingress: string
     title: string
+    authors?: string | Array<string>
 }
 
 const TitleIngressView = ({ common, meta, part }: PartData<XP_TitleIngress, PageData>) => {
-    const data = common?.get?.dataAsJson
+    const commonGet = common?.get
+
+    const data = commonGet?.dataAsJson
     const title = data?.title || '[Mangler tittel på innholdet]'
     const config = part.config ?? {}
     const { bgColor, showType, displayType } = config
-    const type = common?.get?.type || ''
+    const type = commonGet?.type || ''
     const typeLabel = (type.split(':').pop() ?? '').toUpperCase()
 
-    const titleImageSrc = common?.get?.x?.idebanken?.meta?.icon?.mediaUrl
+    const titleImageSrc = commonGet?.x?.idebanken?.meta?.icon?.mediaUrl
 
     if ((bgColor || titleImageSrc) && displayType === 'icon') {
         return (
@@ -103,6 +109,18 @@ const TitleIngressView = ({ common, meta, part }: PartData<XP_TitleIngress, Page
                 meta={meta}
                 customReplacer={htmlRichTextReplacer}
             />
+            {data?.authors && (
+                <VStack className={'mt-0!'}>
+                    <Separator className={'mb-(--ax-space-16) border-t-2'} />
+                    <BodyShort size={'small'} className={'mb-(--ax-space-2)'}>
+                        TEKST: {joinArrayWithCommasAndAnd(data.authors)}
+                    </BodyShort>
+                    <BodyShort size={'small'}>
+                        Publisert {localizedDateTime(commonGet?.publish?.first)}
+                    </BodyShort>
+                    <Separator className={'mt-(--ax-space-16) border-t-2'} />
+                </VStack>
+            )}
         </>
     )
 }

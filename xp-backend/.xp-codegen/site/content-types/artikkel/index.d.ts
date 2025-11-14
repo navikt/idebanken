@@ -24,4 +24,9 @@ export type Artikkel = {
    * Overskriv lenkekort bilde
    */
   overrideImage?: string;
+
+  /**
+   * Forfatter(e)
+   */
+  authors: Array<string> | string;
 };

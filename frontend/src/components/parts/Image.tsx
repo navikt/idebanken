@@ -1,7 +1,7 @@
 'use client'
 
 import classNames from 'classnames'
-import { forceArray } from '~/utils/utils'
+import { forceArray, joinArrayWithCommasAndAnd } from '~/utils/utils'
 import { getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Image_Circles } from '~/types/generated'
@@ -165,17 +165,14 @@ function parseImageProps(
     const scaledHeight = pHeight ? Math.round(pHeight * pScale) : undefined
 
     const caption = includeCaption ? (overrideCaption ?? image?.data?.caption ?? '') : undefined
+    const fotoBy = image?.data?.artist
+        ? `FOTO: ${joinArrayWithCommasAndAnd(image.data.artist)}.`
+        : ''
     return {
         src: getFormattedImageUrl(meta, image?.imageUrl, scaledWidth, scaledHeight),
         caption:
             typeof caption === 'string'
-                ? caption
-                      .concat(caption.length ? ' / ' : '')
-                      .concat(
-                          image?.data?.artist
-                              ? `FOTO: ${forceArray(image?.data?.artist).join(', ')}`
-                              : ''
-                      )
+                ? caption.concat(caption.length ? ' / ' : '').concat(fotoBy)
                 : undefined,
         decorative: Boolean(decorative),
         alt: image?.data?.altText ?? '',

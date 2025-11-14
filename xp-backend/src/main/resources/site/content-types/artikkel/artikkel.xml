@@ -6,6 +6,7 @@
     <is-final>true</is-final>
     <allow-child-content-type>(?!idebanken:crash-course-slide$)(?!idebanken:category$)*</allow-child-content-type>
     <form>
-        <mixin name="title-ingress" />
+        <mixin name="title-ingress"/>
+        <mixin name="byline"/>
     </form>
 </content-type>
