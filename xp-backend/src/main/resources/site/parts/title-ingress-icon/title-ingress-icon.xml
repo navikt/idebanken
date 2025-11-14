@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <part xmlns="urn:enonic:xp:model:1.0">
     <display-name>Tittel og ingress</display-name>
-    <description>Visning av tittel og ingress</description>
+    <description>Visning av tittel og ingress med ikon</description>
     <form>
-        <input type="ComboBox" name="displayType">
-            <label>Visning</label>
-            <occurrences minimum="1" maximum="1"/>
-            <config>
-                <option value="icon">Med ikon</option>
-                <option value="standard">Vanlig</option>
-            </config>
-            <default>standard</default>
-        </input>
         <input name="bgColor" type="ComboBox">
             <label>Tittel bakgrunsfarge</label>
             <occurrences minimum="0" maximum="1"/>
@@ -22,12 +13,15 @@
                 <option value="bg-pink">Rosa</option>
                 <option value="bg-dark-blue">Mørk blå</option>
             </config>
+            <default>bg-light-pink</default>
         </input>
         <input name="showType" type="CheckBox">
             <label>Vis dokumenttype</label>
+            <default>checked</default>
         </input>
     </form>
     <config>
         <allow-on-content-type>idebanken:guide</allow-on-content-type>
+        <allow-on-content-type>idebanken:virkemiddel</allow-on-content-type>
     </config>
 </part>

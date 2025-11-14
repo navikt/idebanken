@@ -19,6 +19,7 @@ import SingleColumnLayout from './layouts/SingleColumnLayout'
 import { AccordionView } from './parts/Accordion'
 import { ImageView } from './parts/Image'
 import { LinkCardPartView } from './parts/LinkCard'
+import TitleIngressWithIconView from '~/components/parts/TitleIngressWithIcon'
 import TitleIngressView from '~/components/parts/TitleIngress'
 import { HeadingViewPart } from '~/components/parts/Heading'
 import CrashCourse from '~/components/contentType/CrashCourse'
@@ -125,11 +126,10 @@ ComponentRegistry.addPart(`${APP_NAME}:link-card`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:title-ingress`, {
     view: TitleIngressView,
-    //configQuery: titleIngressQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:title-ingress-icon`, {
-    view: TitleIngressView,
+    view: TitleIngressWithIconView,
     configQuery: titleIngressQuery,
 })
 
