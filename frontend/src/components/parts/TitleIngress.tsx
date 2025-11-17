@@ -6,7 +6,6 @@ import { AuthorsAndDate } from '~/components/common/AuthorsAndDate'
 import { XP_TitleIngress } from '@xp-types/site/parts'
 import { RENDER_MODE } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
-import BleedingBackgroundPageBlock from '../layouts/BleedingBackgroundPageBlock'
 
 type PageData = {
     ingress: string
@@ -18,13 +17,14 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
     const commonGet = common?.get
 
     const data = commonGet?.dataAsJson
+    // console.log('TitleIngressView data:', commonGet.data)
     const src = commonGet?.data?.heroImage?.url || ''
     const title = data?.title || '[Mangler tittel på innholdet]'
 
     return (
         <>
             {src && (
-                <div className="lg:mx-[-11rem]">
+                <div className="lg:mx-[calc(-2*(var(--ax-space-96)_-_0.5rem))]">
                     <Image
                         unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                         src={src}
