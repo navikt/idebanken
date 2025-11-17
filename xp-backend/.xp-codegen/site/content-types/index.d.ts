@@ -6,6 +6,7 @@ export type CrashCourse = import('./crash-course').CrashCourse;
 export type Guide = import('./guide').Guide;
 export type SectionPage = import('./section-page').SectionPage;
 export type SpecialPage = import('./special-page').SpecialPage;
+export type Video = import('./video').Video;
 export type Virkemiddel = import('./virkemiddel').Virkemiddel;
 
 declare global {
@@ -18,6 +19,7 @@ declare global {
       'idebanken:guide': Guide;
       'idebanken:section-page': SectionPage;
       'idebanken:special-page': SpecialPage;
+      'idebanken:video': Video;
       'idebanken:virkemiddel': Virkemiddel;
     }
   }

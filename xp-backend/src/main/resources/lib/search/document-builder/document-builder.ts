@@ -166,8 +166,7 @@ const isExcludedContent = (content: Content, searchConfig: SiteConfig['searchCon
     const contentPathStrippedPrefix = content._path.replace(/^\/content/, '')
 
     return (
-        // TODO add when site is "live"
-        //  content.x?.['com-enonic-app-metafields']?.['meta-data']?.blockRobots ||
+        content.x?.['com-enonic-app-metafields']?.['meta-data']?.blockRobots ||
         excludePaths.some((excludePath) => contentPathStrippedPrefix.startsWith(excludePath)) ||
         forceArray(excludeContent).includes(content._id)
     )
