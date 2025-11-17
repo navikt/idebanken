@@ -71,11 +71,13 @@ export const fetchQbrickMissingProps = async (
 
 const TIMEOUT_DEFAULT = 15000
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const fetchWithTimeout = <ResponseType = any>(
     url: string,
     timeoutMs = TIMEOUT_DEFAULT,
-    config?: Record<string, any>
+    config?: Record<string, unknown>
 ): Promise<ResponseType> =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Promise.race<any>([
         fetch(url, config),
         new Promise((res) =>
@@ -91,10 +93,11 @@ export const fetchWithTimeout = <ResponseType = any>(
         ),
     ])
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const fetchJson = <ResponseType = any>(
     url: string,
     timeout = TIMEOUT_DEFAULT,
-    config?: Record<string, any>,
+    config?: Record<string, unknown>,
     retries = 0
 ): Promise<ResponseType | null> =>
     fetchWithTimeout(url, timeout, config)

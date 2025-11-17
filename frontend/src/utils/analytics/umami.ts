@@ -14,8 +14,11 @@ declare global {
             }
         }
         GoBrain?: {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             create: (element: HTMLElement, config: Record<string, any>) => any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             destroy: (widgetId: string, deleteElement?: boolean) => any
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             widgets: (widgetId: string) => any
         }
     }
