@@ -2285,6 +2285,7 @@ export type Idebanken_Artikkel_Data = {
   __typename?: 'idebanken_Artikkel_Data';
   authors?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   description?: Maybe<Scalars['String']['output']>;
+  heroImage?: Maybe<Content>;
   ingress?: Maybe<RichText>;
   overrideImage?: Maybe<Content>;
   shortTitle?: Maybe<Scalars['String']['output']>;

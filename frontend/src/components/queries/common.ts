@@ -87,6 +87,15 @@ query($path:ID!){
           }
         }
       }
+      ... on idebanken_Artikkel {
+        data {
+          heroImage {
+            ... on media_Image  { url: imageUrl(type: absolute, scale: "block(1024,576)") }
+            ... on media_Vector { url: mediaUrl(type: absolute) }
+          }
+        }
+      }
+        
       ${metaFields}
       skyraSlugs
       publish {
@@ -157,6 +166,11 @@ type CommonContentType<T = UnknownJSONContent> = {
                     mediaUrl: string
                 }
             }
+        }
+    }
+    data: {
+        heroImage?: {
+            url: string
         }
     }
 }

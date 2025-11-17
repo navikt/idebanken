@@ -3,6 +3,7 @@ import { commonQuery, commonVariables } from './queries/common'
 import {
     buttonQuery,
     highlightedBoxMacroQuery,
+    imageAndVectorFields,
     imageQuery,
     linkCardListQuery,
     linkCardQuery,

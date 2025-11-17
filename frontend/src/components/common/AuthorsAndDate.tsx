@@ -8,7 +8,7 @@ interface AuthorsProps {
     published?: string
 }
 
-export const Authors = ({ authors, published }: AuthorsProps) => {
+export const AuthorsAndDate = ({ authors, published }: AuthorsProps) => {
     if (!authors) return null
     return (
         <VStack className="mt-0">

@@ -6,6 +6,13 @@
     <is-final>true</is-final>
     <allow-child-content-type>(?!idebanken:crash-course-slide$)(?!idebanken:category$)*</allow-child-content-type>
     <form>
+        <input name="heroImage" type="ImageSelector">
+            <label>Hoved artikkelbilde</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <allowPath>${site}/ressurser/*</allowPath>
+            </config>
+        </input>
         <mixin name="title-ingress"/>
         <mixin name="byline"/>
     </form>

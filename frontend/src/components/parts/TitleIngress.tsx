@@ -2,8 +2,11 @@ import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { PartData } from '~/types/graphql-types'
 import { HeadingView } from '~/components/parts/Heading'
-import { Authors } from '~/components/common/Authors'
+import { AuthorsAndDate } from '~/components/common/AuthorsAndDate'
 import { XP_TitleIngress } from '@xp-types/site/parts'
+import { RENDER_MODE } from '@enonic/nextjs-adapter'
+import Image from 'next/image'
+import BleedingBackgroundPageBlock from '../layouts/BleedingBackgroundPageBlock'
 
 type PageData = {
     ingress: string
@@ -15,10 +18,24 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
     const commonGet = common?.get
 
     const data = commonGet?.dataAsJson
+    const src = commonGet?.data?.heroImage?.url || ''
     const title = data?.title || '[Mangler tittel på innholdet]'
 
     return (
         <>
+            {src && (
+                <div className="lg:mx-[-11rem]">
+                    <Image
+                        unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                        src={src}
+                        alt="Test"
+                        width={1024}
+                        height={576}
+                        sizes="(min-width: 1024px) 1024px, 100vw"
+                        className="w-full h-auto object-cover rounded-xl"
+                    />
+                </div>
+            )}
             <HeadingView level="1" size="xlarge" className="m-0">
                 {title}
             </HeadingView>
@@ -29,7 +46,7 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
                 meta={meta}
                 customReplacer={htmlRichTextReplacer}
             />
-            <Authors authors={data?.authors} published={commonGet?.publish?.first} />
+            <AuthorsAndDate authors={data?.authors} published={commonGet?.publish?.first} />
         </>
     )
 }
