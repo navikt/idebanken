@@ -1,15 +1,16 @@
 .wrapper {
-    margin-bottom: var(--a-spacing-8);
+    margin-bottom: var(--ax-space-32);
 }
 
 .button {
     width: 100%;
+    border-radius: var(--ax-border-radius-medium);
     justify-content: flex-start;
     align-items: center;
-    gap: var(--a-spacing-3);
-    padding: var(--a-spacing-1);
+    gap: var(--ax-space-12);
+    padding: var(--ax-space-4);
 
-    :global(.navds-button__icon) {
+    :global(.aksel-button__icon) {
         margin: 0;
     }
 }
@@ -22,7 +23,7 @@
 
 .playBadge {
     /* Set up the circle background */
-    background-color: var(--default-action-color);
+    background-color: var(--ib-bg-dark-blue-strong);
     border-radius: 50%;
     height: 40px;
     width: 40px;
@@ -64,13 +65,11 @@
 
 .macroVideo {
     :global(.gobrain-poster) {
-    //hindrer "flash" av forhåndsvisningsbilde før videoen starter
-    display: none;
+        display: none;
     }
 
     & > div {
-    //styling fra Qbrick doc: https://video.qbrick.com/docs/api/#examples.play2-script-adaptive
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
         position: relative !important;
         height: 100% !important;
         width: 100% !important;
@@ -88,24 +87,24 @@
 }
 
 .previewImage {
-    border-radius: var(--a-border-radius-small);
+    border-radius: var(--ax-border-radius-medium);
     display: block;
     max-width: 100%;
-    min-height: 74px; // Keep video height in golden ratio rather than 16:9
-object-fit: cover;
+    min-height: 74px;
+    object-fit: cover;
 }
 
 .text {
-    color: var(--a-text-default);
-    margin-bottom: 0 !important; //overstyr kanskje litt for generell regel i ArtikkelPermanent?
-text-align: left;
+    color: var(--ib-text-dark-blue);
+    margin-bottom: 0 !important;
+    text-align: left;
     line-height: 1.5;
 }
 
 .videoLength {
-    padding-top: var(--a-spacing-1);
+    padding-top: var(--ax-space-4);
     font-weight: 400;
-    color: var(--a-text-subtle);
+    color: var(--ib-text-dark-blue-subtle);
     width: fit-content;
 }
 

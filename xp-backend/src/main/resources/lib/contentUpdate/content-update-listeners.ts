@@ -1,9 +1,11 @@
 import * as eventLib from '/lib/xp/event'
 import * as contentLib from '/lib/xp/content'
+import { Content } from '/lib/xp/content'
 import { updateQbrickVideoContent } from './video-update'
 import { CONTENT_REPO_PREFIX } from '/lib/constants'
 import { runInContext } from '/lib/repos/run-in-context'
 import { isMaster } from '/lib/xp/cluster'
+import { Video } from '@xp-types/site/content-types'
 
 let hasContentUpdateListener = false
 
@@ -25,11 +27,11 @@ const handleUpdateEvent = (event: eventLib.EnonicEvent) => {
                 return
             }
 
-            const { _path, type } = content
+            const { type } = content
 
             switch (type) {
-                case 'no.nav.navno:video': {
-                    updateQbrickVideoContent(content)
+                case 'idebanken:video': {
+                    updateQbrickVideoContent(content as Content<Video>)
                     break
                 }
             }

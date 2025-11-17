@@ -1,25 +1,26 @@
+'use client'
+
+import style from './QbrickVideo.module.css'
+
+import Image from 'next/image'
 import React, { useEffect, useId } from 'react'
 import { Alert, Button, Detail, Label, Loader } from '@navikt/ds-react'
 import Script from 'next/script'
 import classNames from 'classnames'
-import Image from 'next/image'
 import { QbrickVideoProps } from '~/components/common/qbrick-video/videoProps'
 import { useQbrickPlayerState } from '~/components/common/qbrick-video/useQbrickPlayerState'
 import { getTimestampFromDuration } from '~/components/common/qbrick-video/videoHelpers'
-import { PartData } from '~/types/graphql-types'
-import style from './QbrickVideo.module.scss'
-import { getUrl } from '@enonic/nextjs-adapter'
+import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 
-export const QbrickVideo = ({ part, meta }: PartData<QbrickVideoProps>) => {
-    const editorView = meta.renderMode !== 'next' ? 'edit' : undefined
-    const { language, title, duration, poster } = part.config ?? {}
+export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: MetaData }) => {
+    const { language, title, duration, poster } = config ?? {}
+
     const videoContainerId = useId()
     const { createAndStartPlayer, resetPlayer, playerState, setPlayerState } = useQbrickPlayerState(
         {
-            videoProps: part.config,
+            videoProps: config,
             videoContainerId,
-            context: 'TODO',
-            innholdstype: 'artikkel', //innholdsTypeMap[contentProps.type],
+            innholdstype: meta.type,
         }
     )
 
@@ -28,7 +29,6 @@ export const QbrickVideo = ({ part, meta }: PartData<QbrickVideoProps>) => {
     }, [resetPlayer])
 
     const durationAsString = getTimestampFromDuration(duration)
-    const imageUrl = poster?.startsWith('http') ? getUrl(poster, meta) : undefined
 
     return (
         <div className={style.wrapper}>
@@ -44,13 +44,22 @@ export const QbrickVideo = ({ part, meta }: PartData<QbrickVideoProps>) => {
                 className={classNames(style.button, playerState === 'ready' && style.hidden)}
                 variant={'tertiary'}
                 onClick={() => {
-                    if (editorView !== 'edit') {
+                    if (meta.renderMode !== 'edit') {
                         createAndStartPlayer()
                     }
                 }}
                 icon={
                     <div className={style.posterWrapper}>
-                        {imageUrl && <Image className={style.previewImage} src={imageUrl} alt="" />}
+                        {poster && (
+                            <Image
+                                unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                                className={style.previewImage}
+                                src={poster}
+                                alt=""
+                                width={124}
+                                height={74}
+                            />
+                        )}
                         <div className={style.playBadge}>
                             {playerState === 'loading' ? (
                                 <Loader className={style.playLoader} />

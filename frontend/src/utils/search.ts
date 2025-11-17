@@ -1,9 +1,9 @@
 import { forceArray } from '~/utils/utils'
 import { Category } from '~/types/generated'
-import { CommonType } from '~/components/queries/common'
 import { IS_DEV_MODE } from '@enonic/nextjs-adapter'
 import { SOK_PAGE_PARAM, SOK_SEARCH_PARAM, SOK_SORT_PARAM } from '~/utils/constants'
 import { ReadonlyURLSearchParams } from 'next/navigation'
+import { CommonType } from '~/types/graphql-types'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const debounce = (callback: (...args: any[]) => unknown, wait: number) => {

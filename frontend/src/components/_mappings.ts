@@ -1,5 +1,5 @@
 import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
-import { commonQuery, commonVariables } from './queries/common'
+import { commonGetQuery, commonQuery, commonVariables } from './queries/common'
 import {
     buttonQuery,
     highlightedBoxMacroQuery,
@@ -35,6 +35,7 @@ import { HighlightedBox } from '~/components/macros/HighlightedBox'
 import Skyra from '~/components/parts/Skyra'
 import NewsletterSignup from '~/components/parts/NewsletterSignup'
 import ShowMorePart from '~/components/parts/ShowMorePart'
+import { VideoPreview } from '~/components/contentType/VideoPreview'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -48,6 +49,26 @@ ComponentRegistry.setCommonQuery([commonQuery, commonVariables])
 // Content type mappings
 ComponentRegistry.addContentType(`${APP_NAME}:crash-course`, {
     view: CrashCourse,
+})
+
+ComponentRegistry.addContentType(`${APP_NAME}:video`, {
+    view: VideoPreview,
+    query: commonGetQuery(`
+    ... on idebanken_Video {
+        data {
+            title
+            mediaId
+            accountId
+            duration
+            poster {
+                ... on media_Image {
+                    imageUrl(type: absolute, scale: "block(200, 100)")
+                }
+            }
+            subtitles
+        }
+    }
+    `),
 })
 
 // Page mappings

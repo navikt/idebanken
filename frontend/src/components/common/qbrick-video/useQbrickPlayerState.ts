@@ -1,3 +1,5 @@
+'use client'
+
 import { useCallback, useId, useState } from 'react'
 import { QbrickVideoProps } from '~/components/common/qbrick-video/videoProps'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
@@ -10,16 +12,10 @@ const PLAYER_POLLING_RATE_MS = 50
 type Props = {
     videoProps: QbrickVideoProps
     videoContainerId: string
-    context?: string
-    innholdstype?: string
+    innholdstype: string
 }
 
-export const useQbrickPlayerState = ({
-    videoProps,
-    videoContainerId,
-    context,
-    innholdstype,
-}: Props) => {
+export const useQbrickPlayerState = ({ videoProps, videoContainerId, innholdstype }: Props) => {
     const [playerState, setPlayerState] = useState<PlayerState>('stopped')
     const widgetId = useId()
 
@@ -34,8 +30,8 @@ export const useQbrickPlayerState = ({
             return
         }
 
-        createAndStart(videoProps, videoContainer, widgetId, setPlayerState, context, innholdstype)
-    }, [videoProps, videoContainerId, widgetId, playerState, setPlayerState, context, innholdstype])
+        createAndStart(videoProps, videoContainer, widgetId, setPlayerState, innholdstype)
+    }, [videoProps, videoContainerId, widgetId, playerState, setPlayerState, innholdstype])
 
     const resetPlayer = useCallback(() => {
         setPlayerState('stopped')
@@ -58,8 +54,7 @@ const createAndStart = (
     videoContainer: HTMLElement,
     widgetId: string,
     setPlayerState: (state: PlayerState) => void,
-    context?: string,
-    innholdstype?: string
+    innholdstype: string
 ) => {
     const createPlayer = (timeLeft: number = PLAYER_TIMEOUT_MS) => {
         if (timeLeft <= 0) {
@@ -96,8 +91,7 @@ const createAndStart = (
                 void umami(AnalyticsEvents.VIDEO_START, {
                     tittel: title,
                     varighet: duration,
-                    språk: language,
-                    målgruppe: context,
+                    sprak: language ?? 'nb',
                     innholdstype,
                 })
             })

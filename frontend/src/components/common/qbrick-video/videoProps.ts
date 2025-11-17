@@ -1,3 +1,6 @@
+import { VideoData } from '~/components/contentType/VideoPreview'
+import { getUrl, MetaData } from '@enonic/nextjs-adapter'
+
 export type QbrickVideoProps = {
     accountId: string
     mediaId: string
@@ -7,7 +10,7 @@ export type QbrickVideoProps = {
     language?: string
 }
 
-export const buildQbrickVideoProps = (videoData: VideoData, language: string): QbrickVideoProps => {
+export const buildQbrickVideoProps = (videoData: VideoData, meta: MetaData): QbrickVideoProps => {
     const { accountId, mediaId, poster, duration, title, subtitles } = videoData
 
     return {
@@ -15,7 +18,7 @@ export const buildQbrickVideoProps = (videoData: VideoData, language: string): Q
         mediaId,
         title,
         duration,
-        poster: poster?.mediaUrl,
-        language: getSubtitlesLanguage(language, subtitles),
+        poster: poster?.imageUrl ? getUrl(poster?.imageUrl, meta) : undefined,
+        language: subtitles ? meta.locale : undefined,
     }
 }

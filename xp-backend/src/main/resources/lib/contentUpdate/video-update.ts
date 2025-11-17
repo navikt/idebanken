@@ -14,23 +14,13 @@ type UpdateVideoContentParams = {
     subtitles?: string[]
 }
 
-const proxyConfig =
-    app.config.env === 'localhost' || app.config.env === 'test'
-        ? {}
-        : {
-              proxy: {
-                  host: 'webproxy-internett.nav.no',
-                  port: 8088,
-              },
-          }
-
 const updateVideoContent = ({
     videoContentId,
     posterImageId,
     duration,
     subtitles,
 }: UpdateVideoContentParams) => {
-    contentLib.modify<'no.nav.navno:video'>({
+    contentLib.modify<Video>({
         key: videoContentId,
         requireValid: false,
         editor: (content) => {
@@ -53,7 +43,6 @@ const createImageAsset = (imageUrl: string, targetPath: string, targetName: stri
         contentType: 'image/jpeg',
         connectionTimeout: 10000,
         followRedirects: false,
-        ...proxyConfig,
     })
 
     const posterExists = contentLib.exists({ key: `${targetPath}/${targetName}.jpg` })
@@ -92,9 +81,7 @@ const findImageUrl = (qbrickMediaData: QbrickMeta) => {
         return
     }
 
-    const imageLink = image.renditions[0]?.links[0]?.href
-
-    return imageLink
+    return image.renditions[0]?.links[0]?.href
 }
 
 const findVideoDuration = (qbrickMediaData: QbrickMeta) => {
@@ -130,7 +117,6 @@ const fetchMetaData = (accountId: number, mediaId: string) => {
             url: qbrickURI,
             connectionTimeout: 10000,
             followRedirects: false,
-            //...proxyConfig,
         })
 
         if (response.status !== 200 || !response.body) {

@@ -2850,6 +2850,105 @@ export type Idebanken_SpecialPage_DataIngressArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
+/** Qbrick Video - idebanken:video */
+export type Idebanken_Video = Content & {
+  __typename?: 'idebanken_Video';
+  _id: Scalars['ID']['output'];
+  _name: Scalars['String']['output'];
+  _path: Scalars['String']['output'];
+  _references?: Maybe<Array<Maybe<Content>>>;
+  _score?: Maybe<Scalars['Float']['output']>;
+  attachments?: Maybe<Array<Maybe<Attachment>>>;
+  children?: Maybe<Array<Maybe<Content>>>;
+  childrenConnection?: Maybe<ContentConnection>;
+  components?: Maybe<Array<Maybe<Component>>>;
+  contentType?: Maybe<ContentType>;
+  createdTime?: Maybe<Scalars['DateTime']['output']>;
+  creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_Video_Data>;
+  dataAsJson?: Maybe<Scalars['JSON']['output']>;
+  displayName?: Maybe<Scalars['String']['output']>;
+  hasChildren?: Maybe<Scalars['Boolean']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  metaFields?: Maybe<MetaFields>;
+  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
+  modifier?: Maybe<PrincipalKey>;
+  owner?: Maybe<PrincipalKey>;
+  pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageTemplate?: Maybe<Content>;
+  pageUrl?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Content>;
+  permissions?: Maybe<Permissions>;
+  publish?: Maybe<PublishInfo>;
+  site?: Maybe<Portal_Site>;
+  skyraSlugs: Array<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+  x?: Maybe<ExtraData>;
+  xAsJson?: Maybe<Scalars['JSON']['output']>;
+};
+
+
+/** Qbrick Video - idebanken:video */
+export type Idebanken_Video_PathArgs = {
+  type?: InputMaybe<ContentPathType>;
+};
+
+
+/** Qbrick Video - idebanken:video */
+export type Idebanken_VideoChildrenArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Qbrick Video - idebanken:video */
+export type Idebanken_VideoChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Qbrick Video - idebanken:video */
+export type Idebanken_VideoComponentsArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Qbrick Video - idebanken:video */
+export type Idebanken_VideoPageAsJsonArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Qbrick Video - idebanken:video */
+export type Idebanken_VideoPageUrlArgs = {
+  params?: InputMaybe<Scalars['JSON']['input']>;
+  type?: InputMaybe<UrlType>;
+};
+
+/** Qbrick Video - idebanken:video data */
+export type Idebanken_Video_Data = {
+  __typename?: 'idebanken_Video_Data';
+  accountId?: Maybe<Scalars['String']['output']>;
+  duration?: Maybe<Scalars['String']['output']>;
+  mediaId?: Maybe<Scalars['String']['output']>;
+  poster?: Maybe<Content>;
+  subtitles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Qbrick Video - idebanken:video data */
+export type Idebanken_Video_DataSubtitlesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
 /** Virkemiddel - idebanken:virkemiddel */
 export type Idebanken_Virkemiddel = Content & {
   __typename?: 'idebanken_Virkemiddel';

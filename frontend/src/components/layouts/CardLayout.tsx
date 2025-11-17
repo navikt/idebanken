@@ -1,5 +1,4 @@
 import type { MetaData, PageComponent } from '@enonic/nextjs-adapter'
-import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { Box } from '@navikt/ds-react'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
@@ -8,6 +7,7 @@ import { paddingsY } from '~/utils/tailwind-lookup-table'
 import CardHeader from '../parts/CardHeader'
 import { XP_Card } from '@xp-types/site/layouts'
 import { alignmentClassNames } from '~/utils/classNames'
+import { CommonType } from '~/types/graphql-types'
 
 interface CardLayoutProps {
     layout: {
