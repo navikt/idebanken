@@ -15,6 +15,7 @@ export type XP_TableOfContents = import('./table-of-contents').XP_TableOfContent
 export type XP_TextEditor = import('./text-editor').XP_TextEditor;
 export type XP_TitleIngress = import('./title-ingress').XP_TitleIngress;
 export type XP_TitleIngressIcon = import('./title-ingress-icon').XP_TitleIngressIcon;
+export type XP_Video = import('./video').XP_Video;
 
 declare global {
   interface XpPartMap {
@@ -34,5 +35,6 @@ declare global {
     'idebanken:text-editor': XP_TextEditor;
     'idebanken:title-ingress': XP_TitleIngress;
     'idebanken:title-ingress-icon': XP_TitleIngressIcon;
+    'idebanken:video': XP_Video;
   }
 }

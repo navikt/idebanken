@@ -1,0 +1,113 @@
+.wrapper {
+    margin-bottom: var(--ax-space-32);
+}
+
+.button {
+    width: 100%;
+    border-radius: var(--ax-border-radius-medium);
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--ax-space-12);
+    padding: var(--ax-space-4);
+
+    :global(.aksel-button__icon) {
+        margin: 0;
+    }
+}
+
+.posterWrapper {
+    display: flex;
+    position: relative;
+    width: 124px;
+}
+
+.playBadge {
+    /* Set up the circle background */
+    background-color: var(--ib-bg-dark-blue-strong);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+
+    /* Add some basic centering and positioning */
+    display: block;
+}
+
+.playLoader {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+
+    :global(.navds-loader__background) {
+        stroke: white !important;
+    }
+}
+
+.playArrow {
+    position: absolute;
+    left: 4px;
+    right: 0;
+    top: 0;
+    width: 14px;
+    height: 18px;
+    bottom: 0;
+    margin: auto;
+}
+
+.macroVideo {
+    :global(.gobrain-poster) {
+        display: none;
+    }
+
+    & > div {
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        position: relative !important;
+        height: 100% !important;
+        width: 100% !important;
+
+        & > div:first-of-type {
+            bottom: 0;
+            left: 0;
+            position: absolute !important;
+            right: 0;
+            top: 0;
+            height: 100% !important;
+            width: 100% !important;
+        }
+    }
+}
+
+.previewImage {
+    border-radius: var(--ax-border-radius-medium);
+    display: block;
+    max-width: 100%;
+    min-height: 74px;
+    object-fit: cover;
+}
+
+.text {
+    color: var(--ib-text-dark-blue);
+    margin-bottom: 0 !important;
+    text-align: left;
+    line-height: 1.5;
+}
+
+.videoLength {
+    padding-top: var(--ax-space-4);
+    font-weight: 400;
+    color: var(--ib-text-dark-blue-subtle);
+    width: fit-content;
+}
+
+.hidden {
+    display: none;
+}

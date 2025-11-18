@@ -1,8 +1,6 @@
 // This query is executed for every page rendering.
 // Result is included in props.common
 
-import { Category, Footer, Header } from '~/types/generated'
-
 const metaFields = `
 metaFields {
   canonical {
@@ -62,7 +60,6 @@ links {
     ${resolvedLinkSelector}
 }
 `
-
 export const commonQuery = `
 query($path:ID!){
   guillotine {
@@ -149,53 +146,18 @@ query($path:ID!){
   }
 }`
 
+export const commonGetQuery = (getRequest: string) => `
+query($path:ID!){
+  guillotine {
+    get(key:$path) {
+      type
+      ${getRequest}
+    }
+  }
+}`
+
 export function commonVariables(path: string) {
     return {
         path,
     }
 }
-
-export type CommonType<T = UnknownJSONContent> = {
-    get: CommonContentType<T>
-    getSite: CommonGetSite
-    header: Header
-    footer: Footer
-    categories: Array<Category>
-}
-
-type CommonContentType<T = UnknownJSONContent> = {
-    displayName: string
-    _id: string
-    type: `${string}:${string}`
-    dataAsJson: T
-    xAsJson: UnknownJSONContent
-    publish: {
-        first: string
-    }
-    x: {
-        idebanken: {
-            meta: {
-                icon: {
-                    mediaUrl: string
-                }
-            }
-        }
-    }
-    data: {
-        heroImage?: {
-            url: string
-            data: {
-                altText?: string
-                caption?: string
-                artist?: string
-            }
-        }
-    }
-}
-
-type CommonGetSite = {
-    displayName: string
-    _path: string
-}
-
-type UnknownJSONContent = Record<string, string | Array<string> | object>

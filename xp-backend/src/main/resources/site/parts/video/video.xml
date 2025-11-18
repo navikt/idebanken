@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Video</display-name>
+    <description>Qbrick video part</description>
+    <form>
+        <input name="targetContent" type="ContentSelector">
+            <label>Velg video-innhold</label>
+            <occurrences minimum="1" maximum="1"/>
+            <config>
+                <allowContentType>${app}:video</allowContentType>
+            </config>
+        </input>
+        <input name="language" type="TextLine">
+            <label>Overstyr språk for undertekster</label>
+            <help-text>To-bokstavers kode, f.eks. "nb" eller "en". Som standard benyttes samme språk som på siden.
+            </help-text>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <regexp>^[a-z]{2}$</regexp>
+            </config>
+        </input>
+    </form>
+</part>

@@ -2,6 +2,7 @@ import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapt
 import { commonQuery, commonVariables } from './queries/common'
 import {
     buttonQuery,
+    downloadsQuery,
     highlightedBoxMacroQuery,
     imageAndVectorFields,
     imageQuery,
@@ -10,6 +11,7 @@ import {
     newsletterQuery,
     tableOfContentsQuery,
     titleIngressQuery,
+    videoMacroQuery,
 } from './queries/parts'
 import MainPage from './pages/Main'
 import '@enonic/nextjs-adapter/baseMappings'
@@ -37,6 +39,9 @@ import { HighlightedBox } from '~/components/macros/HighlightedBox'
 import Skyra from '~/components/parts/Skyra'
 import NewsletterSignup from '~/components/parts/NewsletterSignup'
 import ShowMorePart from '~/components/parts/ShowMorePart'
+import { VideoPreview } from '~/components/contentType/VideoPreview'
+import { VideoPartOrMacro } from '~/components/parts/VideoPartOrMacro'
+import { videoContentTypeQuery } from '~/components/queries/content-types'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -50,6 +55,11 @@ ComponentRegistry.setCommonQuery([commonQuery, commonVariables])
 // Content type mappings
 ComponentRegistry.addContentType(`${APP_NAME}:crash-course`, {
     view: CrashCourse,
+})
+
+ComponentRegistry.addContentType(`${APP_NAME}:video`, {
+    view: VideoPreview,
+    query: videoContentTypeQuery,
 })
 
 // Page mappings
@@ -81,6 +91,10 @@ ComponentRegistry.addMacro(`${APP_NAME}:separator`, {
 ComponentRegistry.addMacro(`${APP_NAME}:highlighted-box`, {
     view: HighlightedBox,
     configQuery: highlightedBoxMacroQuery,
+})
+ComponentRegistry.addMacro(`${APP_NAME}:video`, {
+    view: VideoPartOrMacro,
+    configQuery: videoMacroQuery,
 })
 
 // Part mappings
@@ -145,18 +159,7 @@ ComponentRegistry.addPart(`${APP_NAME}:table-of-contents`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:downloads`, {
     view: Downloads,
-    configQuery: `{
-        selectedFiles {
-            displayName
-            _path
-            ... on media_Document {
-                mediaUrl(type: absolute)
-                attachments {
-                    size
-                }
-            }
-        }
-  }`,
+    configQuery: downloadsQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:link-card-list`, {
@@ -184,4 +187,9 @@ ComponentRegistry.addPart(`${APP_NAME}:show-more`, {
         title
         ${richTextQuery('simpleTextEditor')}
     }`,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:video`, {
+    view: VideoPartOrMacro,
+    configQuery: videoMacroQuery,
 })

@@ -128,6 +128,26 @@ export const highlightedBoxMacroQuery = `{
     linksAbsolute
 }`
 
+export const videoMacroQuery = `{
+    targetContent {
+        ... on idebanken_Video {
+            data {
+                title
+                mediaId
+                accountId
+                duration
+                poster {
+                    ... on media_Image {
+                        imageUrl(type: absolute, scale: "block(200, 100)")
+                    }
+                }
+                subtitles
+            }
+        }
+    }
+    language
+}`
+
 export const titleIngressQuery = `{
     bgColor
 }`
@@ -137,5 +157,18 @@ export const newsletterQuery = `{
     description
     redirectContent {
         _path
+    }
+}`
+
+export const downloadsQuery = `{
+    selectedFiles {
+        displayName
+        _path
+        ... on media_Document {
+            mediaUrl(type: absolute)
+            attachments {
+                size
+            }
+        }
     }
 }`

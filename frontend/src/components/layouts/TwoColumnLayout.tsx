@@ -1,5 +1,4 @@
 import type { MetaData, PageComponent } from '@enonic/nextjs-adapter'
-import type { CommonType } from '../queries/common'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { HGrid } from '@navikt/ds-react'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
@@ -7,6 +6,7 @@ import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
 import { XP_2Column } from '@xp-types/site/layouts'
 import { alignmentClassNames } from '~/utils/classNames'
+import { CommonType } from '~/types/graphql-types'
 
 interface TwoColumnLayoutProps {
     layout: {

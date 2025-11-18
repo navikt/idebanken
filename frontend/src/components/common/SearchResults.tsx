@@ -6,10 +6,10 @@ import { BodyShort, VStack } from '@navikt/ds-react'
 import { LinkCardView } from '~/components/parts/LinkCard'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
-import { CommonType } from '../queries/common'
 import type { JSX } from 'react'
 import TrackFirstLink from '~/components/common/analytics/TrackFirstLink'
 import { AnalyticsEvents } from '~/utils/analytics/umami'
+import { CommonType } from '~/types/graphql-types'
 
 export default function SearchResults(
     meta: MetaData,
