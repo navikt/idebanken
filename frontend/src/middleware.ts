@@ -52,19 +52,27 @@ export const config = {
 
 function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     const nonce = Buffer.from(crypto.randomUUID()).toString('base64')
+    const qbrickHosts = [
+        'video.qbrick.com',
+        'play2.qbrick.com',
+        'analytics.qbrick.com',
+        '*.ip-only.net',
+        'blob:',
+    ].join(' ')
+
     const cspHeader = `
     default-src 'self';
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${isLocalhost ? "'unsafe-eval'" : ''};
-    connect-src 'self' *.nav.no *.skyra.no video.qbrick.com play2.qbrick.com analytics.qbrick.com;
+    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${qbrickHosts} ${isLocalhost ? "'unsafe-eval'" : ''};
+    connect-src 'self' *.nav.no *.skyra.no ${qbrickHosts};
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: ${enonicDomain ?? ''};
-    font-src 'self' *.nav.no;
-    object-src 'self' video.qbrick.com play2.qbrick.com ${enonicDomain ?? "'self'"};
+    img-src 'self' blob: data: ${qbrickHosts} ${enonicDomain ?? ''};
+    font-src 'self' *.nav.no ${qbrickHosts};
+    object-src 'self' ${qbrickHosts} ${enonicDomain ?? "'self'"};
     base-uri 'self';
     form-action 'self';
     frame-ancestors  ${enonicDomain ?? "'self'"};
-    frame-src 'self' youtube-nocookie.com player.vimeo.com video.qbrick.com play2.qbrick.com ${enonicDomain ?? ''};
-    media-src 'self' video.qbrick.com play2.qbrick.com;
+    frame-src 'self' youtube-nocookie.com player.vimeo.com ${enonicDomain ?? ''};
+    media-src 'self' ${qbrickHosts};
     ${!isLocalhost ? 'upgrade-insecure-requests;' : ''}
 `
         // Replace newline characters and spaces
