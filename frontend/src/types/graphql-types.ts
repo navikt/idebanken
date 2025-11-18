@@ -48,6 +48,16 @@ export type CommonContentType<T = UnknownJSONContent> = {
             }
         }
     }
+    data: {
+        heroImage?: {
+            url?: string
+            data?: {
+                altText?: string
+                caption?: string
+                artist?: string
+            }
+        }
+    }
 }
 
 type CommonGetSite = {

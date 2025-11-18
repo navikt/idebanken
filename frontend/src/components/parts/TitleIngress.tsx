@@ -18,9 +18,7 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
     const commonGet = common?.get
     const data = commonGet?.dataAsJson
 
-    const hero = commonGet?.data?.heroImage as
-        | { url?: string; data?: { altText?: string; caption?: string; artist?: string } }
-        | undefined
+    const hero = commonGet?.data?.heroImage
 
     const src = hero?.url || null
     const altText = hero?.data?.altText
