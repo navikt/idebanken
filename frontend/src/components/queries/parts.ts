@@ -159,3 +159,16 @@ export const newsletterQuery = `{
         _path
     }
 }`
+
+export const downloadsQuery = `{
+    selectedFiles {
+        displayName
+        _path
+        ... on media_Document {
+            mediaUrl(type: absolute)
+            attachments {
+                size
+            }
+        }
+    }
+}`
