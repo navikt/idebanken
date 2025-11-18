@@ -9,6 +9,7 @@ import {
     newsletterQuery,
     tableOfContentsQuery,
     titleIngressQuery,
+    videoMacroQuery,
 } from './queries/parts'
 import MainPage from './pages/Main'
 import '@enonic/nextjs-adapter/baseMappings'
@@ -36,6 +37,7 @@ import Skyra from '~/components/parts/Skyra'
 import NewsletterSignup from '~/components/parts/NewsletterSignup'
 import ShowMorePart from '~/components/parts/ShowMorePart'
 import { VideoPreview } from '~/components/contentType/VideoPreview'
+import { Video } from '~/components/macros/Video'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -100,6 +102,10 @@ ComponentRegistry.addMacro(`${APP_NAME}:separator`, {
 ComponentRegistry.addMacro(`${APP_NAME}:highlighted-box`, {
     view: HighlightedBox,
     configQuery: highlightedBoxMacroQuery,
+})
+ComponentRegistry.addMacro(`${APP_NAME}:video`, {
+    view: Video,
+    configQuery: videoMacroQuery,
 })
 
 // Part mappings

@@ -58,6 +58,7 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
         'analytics.qbrick.com',
         '*.dna.ip-only.net', // Depricated by 2026-01-31
         '*.dna.contentdelivery.net',
+        'blob:',
     ].join(' ')
 
     const cspHeader = `
@@ -66,7 +67,7 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${qbrickHosts} ${isLocalhost ? "'unsafe-eval'" : ''};
     connect-src 'self' *.nav.no *.skyra.no ${qbrickHosts};
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: *.skyra.no ${qbrickHosts} ${enonicDomain};
+    img-src 'self' data: *.skyra.no ${qbrickHosts} ${enonicDomain};
     font-src 'self' data: *.nav.no *.skyra.no ${qbrickHosts};
     object-src 'self' ${qbrickHosts} ${enonicDomain};
     form-action 'self';

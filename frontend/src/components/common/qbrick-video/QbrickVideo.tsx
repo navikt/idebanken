@@ -13,7 +13,7 @@ import { getTimestampFromDuration } from '~/components/common/qbrick-video/video
 import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 
 export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: MetaData }) => {
-    const { language, title, duration, poster } = config ?? {}
+    const { title, duration, poster } = config ?? {}
 
     const videoContainerId = useId()
     const { createAndStartPlayer, resetPlayer, playerState, setPlayerState } = useQbrickPlayerState(

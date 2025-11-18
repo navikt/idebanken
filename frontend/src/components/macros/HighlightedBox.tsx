@@ -5,7 +5,7 @@ import { getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
 
-type Macro<T> = {
+export type Macro<T> = {
     name: string
     children?: string
     config: T

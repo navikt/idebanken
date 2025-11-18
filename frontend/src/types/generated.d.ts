@@ -821,6 +821,7 @@ export type MacroConfig = {
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
+  video?: Maybe<Macro_Idebanken_Video_DataConfig>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
@@ -858,6 +859,14 @@ export type Macro_Idebanken_Highlighted_Box_DataConfigLinksAbsoluteArgs = {
 export type Macro_Idebanken_Separator_DataConfig = {
   __typename?: 'Macro_idebanken_separator_DataConfig';
   body?: Maybe<Scalars['String']['output']>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['video'] */
+export type Macro_Idebanken_Video_DataConfig = {
+  __typename?: 'Macro_idebanken_video_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  targetContent?: Maybe<Content>;
 };
 
 /** Macro descriptor data config for application ['system'] and descriptor ['disable'] */
