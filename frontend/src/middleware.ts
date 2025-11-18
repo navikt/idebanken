@@ -55,15 +55,16 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     const cspHeader = `
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${isLocalhost ? "'unsafe-eval'" : ''};
-    connect-src 'self' umami.nav.no survey.skyra.no ingest.staging.skyra.no video.qbrick.com;
+    connect-src 'self' *.nav.no *.skyra.no video.qbrick.com play2.qbrick.com analytics.qbrick.com;
     style-src 'self' 'unsafe-inline';
     img-src 'self' blob: data: ${enonicDomain ?? ''};
-    font-src 'self' cdn.nav.no;
-    object-src 'self' ${enonicDomain ?? "'self'"};
+    font-src 'self' *.nav.no;
+    object-src 'self' video.qbrick.com play2.qbrick.com ${enonicDomain ?? "'self'"};
     base-uri 'self';
     form-action 'self';
     frame-ancestors  ${enonicDomain ?? "'self'"};
-    frame-src 'self' https://www.youtube-nocookie.com https://player.vimeo.com/ ${enonicDomain ?? ''};
+    frame-src 'self' youtube-nocookie.com player.vimeo.com video.qbrick.com play2.qbrick.com ${enonicDomain ?? ''};
+    media-src 'self' video.qbrick.com play2.qbrick.com;
     ${!isLocalhost ? 'upgrade-insecure-requests;' : ''}
 `
         // Replace newline characters and spaces
