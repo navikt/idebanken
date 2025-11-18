@@ -56,3 +56,10 @@ type CommonGetSite = {
 }
 
 type UnknownJSONContent = Record<string, string | Array<string> | object>
+
+export type Macro<T> = {
+    name: string
+    children?: string
+    config: T
+    meta: MetaData
+}

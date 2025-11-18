@@ -1,16 +1,10 @@
 import { BodyLong, BodyShort, HStack, Link, List, VStack } from '@navikt/ds-react'
 import { truncateUrl } from '~/utils/utils'
 import { ListItem } from '@navikt/ds-react/List'
-import { getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
+import { getUrl, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
-
-export type Macro<T> = {
-    name: string
-    children?: string
-    config: T
-    meta: MetaData
-}
+import { Macro } from '~/types/graphql-types'
 
 export function HighlightedBox({
     config,

@@ -1,7 +1,6 @@
 import React from 'react'
 import { buildQbrickVideoProps } from '~/components/common/qbrick-video/videoProps'
 import { QbrickVideo } from '~/components/common/qbrick-video/QbrickVideo'
-import { Macro } from '~/components/macros/HighlightedBox'
 import { MetaData } from '@enonic/nextjs-adapter'
 import {
     Idebanken_Video,
@@ -9,7 +8,7 @@ import {
     Part_Idebanken_Video,
 } from '~/types/generated'
 import { VideoData } from '~/components/contentType/VideoPreview'
-import { PartData } from '~/types/graphql-types'
+import { Macro, PartData } from '~/types/graphql-types'
 
 type VideoMacro = Macro<Macro_Idebanken_Video_DataConfig>
 type VideoPart = PartData<Part_Idebanken_Video>
