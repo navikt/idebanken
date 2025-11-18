@@ -11,7 +11,7 @@ import {
     newsletterQuery,
     tableOfContentsQuery,
     titleIngressQuery,
-    videoMacroQuery,
+    videoPartOrMacroQuery,
 } from './queries/parts'
 import MainPage from './pages/Main'
 import '@enonic/nextjs-adapter/baseMappings'
@@ -94,7 +94,7 @@ ComponentRegistry.addMacro(`${APP_NAME}:highlighted-box`, {
 })
 ComponentRegistry.addMacro(`${APP_NAME}:video`, {
     view: VideoPartOrMacro,
-    configQuery: videoMacroQuery,
+    configQuery: videoPartOrMacroQuery,
 })
 
 // Part mappings
@@ -191,5 +191,5 @@ ComponentRegistry.addPart(`${APP_NAME}:show-more`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:video`, {
     view: VideoPartOrMacro,
-    configQuery: videoMacroQuery,
+    configQuery: videoPartOrMacroQuery,
 })
