@@ -61,6 +61,7 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     ].join(' ')
 
     const cspHeader = `
+    base-uri 'self' ${qbrickHosts};
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${qbrickHosts} ${isLocalhost ? "'unsafe-eval'" : ''};
     connect-src 'self' *.nav.no *.skyra.no ${qbrickHosts};
