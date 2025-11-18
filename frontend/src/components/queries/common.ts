@@ -89,9 +89,22 @@ query($path:ID!){
       }
       ... on idebanken_Artikkel {
         data {
-          heroImage {
-            ... on media_Image  { url: imageUrl(type: absolute, scale: "block(1024,576)") }
-            ... on media_Vector { url: mediaUrl(type: absolute) }
+            heroImage {
+                ... on media_Image  { 
+                    url: imageUrl(type: absolute, scale: "block(1024,576)") 
+                    data {
+                        altText
+                        caption
+                        artist
+                    }
+                }
+                ... on media_Vector { 
+                    url: mediaUrl(type: absolute) 
+                    data {
+                        caption
+                        artist
+                    }
+                }
           }
         }
       }
@@ -171,6 +184,11 @@ type CommonContentType<T = UnknownJSONContent> = {
     data: {
         heroImage?: {
             url: string
+            data: {
+                altText?: string
+                caption?: string
+                artist?: string
+            }
         }
     }
 }
