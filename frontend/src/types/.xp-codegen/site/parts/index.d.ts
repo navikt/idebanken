@@ -14,6 +14,7 @@ export type XP_Skyra = import('./skyra').XP_Skyra;
 export type XP_TableOfContents = import('./table-of-contents').XP_TableOfContents;
 export type XP_TextEditor = import('./text-editor').XP_TextEditor;
 export type XP_TitleIngress = import('./title-ingress').XP_TitleIngress;
+export type XP_Video = import('./video').XP_Video;
 
 declare global {
   interface XpPartMap {
@@ -32,5 +33,6 @@ declare global {
     'idebanken:table-of-contents': XP_TableOfContents;
     'idebanken:text-editor': XP_TextEditor;
     'idebanken:title-ingress': XP_TitleIngress;
+    'idebanken:video': XP_Video;
   }
 }

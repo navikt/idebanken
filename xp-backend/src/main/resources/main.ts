@@ -4,10 +4,12 @@ import { activateExternalSearchIndexEventHandlers } from '/lib/search/event-hand
 import { setupSchedulers } from '/lib/scheduler'
 
 import './lib/polyfills'
+import { activateContentUpdateListener } from '/lib/contentUpdate/content-update-listeners'
 
 if (isMaster()) {
     initializeProject()
 }
 
 activateExternalSearchIndexEventHandlers()
+activateContentUpdateListener()
 setupSchedulers()
