@@ -12,7 +12,7 @@
                 <option value="bg-pink">Rosa</option>
                 <option value="bg-dark-blue">Mørk blå</option>
             </config>
-            <default>bg-extra-light-pink</default>
+            <default>bg-white</default>
         </input>
     </form>
 </mixin>

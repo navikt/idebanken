@@ -816,18 +816,11 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
-  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
-};
-
-/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
-export type Macro_Idebanken_Box_DataConfig = {
-  __typename?: 'Macro_idebanken_box_DataConfig';
-  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1042,7 +1035,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   skyra?: Maybe<Part_Idebanken_Skyra>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
-  title_ingress?: Maybe<Part_Idebanken_Title_Ingress>;
+  title_ingress_icon?: Maybe<Part_Idebanken_Title_Ingress_Icon>;
   video?: Maybe<Part_Idebanken_Video>;
 };
 
@@ -1350,11 +1343,10 @@ export type Part_Idebanken_Text_EditorSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
-/** Part component application config for application ['idebanken'] and descriptor ['title-ingress'] */
-export type Part_Idebanken_Title_Ingress = {
-  __typename?: 'Part_idebanken_title_ingress';
+/** Part component application config for application ['idebanken'] and descriptor ['title-ingress-icon'] */
+export type Part_Idebanken_Title_Ingress_Icon = {
+  __typename?: 'Part_idebanken_title_ingress_icon';
   bgColor?: Maybe<Scalars['String']['output']>;
-  displayType?: Maybe<Scalars['String']['output']>;
   showType?: Maybe<Scalars['Boolean']['output']>;
 };
 
@@ -2310,7 +2302,9 @@ export type Idebanken_Artikkel_Data = {
   __typename?: 'idebanken_Artikkel_Data';
   authors?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   description?: Maybe<Scalars['String']['output']>;
+  heroImage?: Maybe<Content>;
   ingress?: Maybe<RichText>;
+  overrideHeroImageText?: Maybe<Scalars['String']['output']>;
   overrideImage?: Maybe<Content>;
   shortTitle?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;

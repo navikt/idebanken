@@ -25,6 +25,8 @@ export function resolveImage(
     const content = idOrContentToContent(idOrContent)
     if (!content?._id) return {}
 
+    const heroImage = content?.data?.heroImage as string | undefined
+
     const seoImage = content.x?.['com-enonic-app-metafields']?.['meta-data']?.seoImage as
         | string
         | undefined
@@ -33,6 +35,8 @@ export function resolveImage(
 
     if (overrideImage) {
         return resolveMedia(overrideImage, scale)
+    } else if (heroImage) {
+        return resolveMedia(heroImage, scale)
     } else if (isMedia(content)) {
         const mediaData = content?.data
         return {
