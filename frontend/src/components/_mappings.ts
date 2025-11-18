@@ -37,7 +37,7 @@ import Skyra from '~/components/parts/Skyra'
 import NewsletterSignup from '~/components/parts/NewsletterSignup'
 import ShowMorePart from '~/components/parts/ShowMorePart'
 import { VideoPreview } from '~/components/contentType/VideoPreview'
-import { Video } from '~/components/macros/Video'
+import { VideoPartOrMacro } from '~/components/parts/VideoPartOrMacro'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -104,7 +104,7 @@ ComponentRegistry.addMacro(`${APP_NAME}:highlighted-box`, {
     configQuery: highlightedBoxMacroQuery,
 })
 ComponentRegistry.addMacro(`${APP_NAME}:video`, {
-    view: Video,
+    view: VideoPartOrMacro,
     configQuery: videoMacroQuery,
 })
 
@@ -205,4 +205,9 @@ ComponentRegistry.addPart(`${APP_NAME}:show-more`, {
         title
         ${richTextQuery('simpleTextEditor')}
     }`,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:video`, {
+    view: VideoPartOrMacro,
+    configQuery: videoMacroQuery,
 })

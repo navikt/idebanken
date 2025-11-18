@@ -1043,6 +1043,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
   title_ingress?: Maybe<Part_Idebanken_Title_Ingress>;
+  video?: Maybe<Part_Idebanken_Video>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['accordion'] */
@@ -1355,6 +1356,13 @@ export type Part_Idebanken_Title_Ingress = {
   bgColor?: Maybe<Scalars['String']['output']>;
   displayType?: Maybe<Scalars['String']['output']>;
   showType?: Maybe<Scalars['Boolean']['output']>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['video'] */
+export type Part_Idebanken_Video = {
+  __typename?: 'Part_idebanken_video';
+  language?: Maybe<Scalars['String']['output']>;
+  targetContent?: Maybe<Content>;
 };
 
 /** PathMatchDSLExpressionInput type */
