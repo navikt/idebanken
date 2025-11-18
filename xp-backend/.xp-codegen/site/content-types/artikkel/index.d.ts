@@ -6,6 +6,11 @@ export type Artikkel = {
   heroImage?: string;
 
   /**
+   * Overskriv artikkelbildetekst
+   */
+  overrideHeroImageText?: string;
+
+  /**
    * Tittel
    */
   title: string;

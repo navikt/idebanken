@@ -6,6 +6,11 @@ export type XP_Artikkel = {
   heroImage?: string;
 
   /**
+   * Overskriv artikkelbildetekst
+   */
+  overrideHeroImageText?: string;
+
+  /**
    * Tittel
    */
   title: string;
