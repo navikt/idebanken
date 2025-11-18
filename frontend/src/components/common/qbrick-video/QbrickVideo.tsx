@@ -44,7 +44,7 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                 className={classNames(style.button, playerState === 'ready' && style.hidden)}
                 variant={'tertiary'}
                 onClick={() => {
-                    if (meta.renderMode !== 'edit') {
+                    if (meta.renderMode === 'next') {
                         createAndStartPlayer()
                     }
                 }}
