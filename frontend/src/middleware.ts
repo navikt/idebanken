@@ -1,7 +1,7 @@
 import { getRequestLocaleInfo } from '@enonic/nextjs-adapter'
 import { NextRequest, NextResponse } from 'next/server'
 
-const enonicDomain = process.env.ENONIC_DOMAIN
+const enonicDomain = new URL(process.env.ENONIC_API ?? '').host
 const isLocalhost = process.env.ENV === 'local'
 
 export function middleware(req: NextRequest) {
@@ -56,23 +56,22 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
         'video.qbrick.com',
         'play2.qbrick.com',
         'analytics.qbrick.com',
-        '*.ip-only.net',
-        'blob:',
+        '*.dna.ip-only.net', // Depricated by 2026-01-31
+        '*.dna.contentdelivery.net',
     ].join(' ')
 
     const cspHeader = `
-    base-uri 'self' ${qbrickHosts};
+    base-uri 'self' ${qbrickHosts} ${enonicDomain};
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${qbrickHosts} ${isLocalhost ? "'unsafe-eval'" : ''};
     connect-src 'self' *.nav.no *.skyra.no ${qbrickHosts};
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data: ${qbrickHosts} ${enonicDomain ?? ''};
-    font-src 'self' *.nav.no ${qbrickHosts};
-    object-src 'self' ${qbrickHosts} ${enonicDomain ?? "'self'"};
-    base-uri 'self';
+    img-src 'self' blob: data: *.skyra.no ${qbrickHosts} ${enonicDomain};
+    font-src 'self' data: *.nav.no *.skyra.no ${qbrickHosts};
+    object-src 'self' ${qbrickHosts} ${enonicDomain};
     form-action 'self';
-    frame-ancestors  ${enonicDomain ?? "'self'"};
-    frame-src 'self' youtube-nocookie.com player.vimeo.com ${enonicDomain ?? ''};
+    frame-ancestors 'self' ${enonicDomain};
+    frame-src 'self' youtube-nocookie.com player.vimeo.com ${enonicDomain};
     media-src 'self' ${qbrickHosts};
     ${!isLocalhost ? 'upgrade-insecure-requests;' : ''}
 `

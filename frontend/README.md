@@ -11,8 +11,7 @@ Dette er frontend applikasjonen satt opp i Next.js for den fremtidige nye nettsi
 ```bash
 echo """
 ENV=local
-ENONIC_DOMAIN=localhost:8080
-ENONIC_API=http://\${ENONIC_DOMAIN}/site/
+ENONIC_API=http://localhost:8080/site/
 ENONIC_API_TOKEN=mySecretKey
 SEARCH_API_URL=http://localhost:9000
 """ > .env.local
