@@ -46,6 +46,8 @@ interface StyledImageProps extends BasicImageProps {
         left: number
     }>
     bleed: boolean
+    standard: boolean
+    sizeVariant?: 'standard' | 'medium' | 'large'
 }
 
 const accentColors: Record<string, string> = {
@@ -79,6 +81,8 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
         circles,
         hideOnMobile,
         bleed,
+        standard,
+        sizeVariant,
     } = parseImageProps(config, meta)
 
     if (!src) return null
@@ -86,6 +90,9 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
     const borderDist = showBorder && borderDistance ? borderDistance : 0
     const paddingFullX = paddingX + borderDist
     const paddingFullY = paddingY + borderDist
+
+    const bleedClass =
+        sizeVariant === 'large' ? 'lg:mx-[-11rem]' : sizeVariant === 'medium' ? 'lg:mx-[-3rem]' : ''
 
     const figure = (
         <figure
@@ -97,7 +104,7 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
             )}
             style={{
                 padding: `${paddingFullY}px ${paddingFullX}px`,
-                width: width ? `min(${width}px, 90vw)` : 'auto',
+                width: width && !standard ? `min(${width}px, 90vw)` : 'auto',
             }}>
             {showBorder && width && height && (
                 <div
@@ -111,23 +118,36 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                     }}
                 />
             )}
-            <div
-                className="relative overflow-hidden"
-                style={{
-                    width: width ? `min(${width}px, 90vw)` : 'auto',
-                    height: height ? `min(${height}px, 80vh)` : 'auto',
-                    borderRadius,
-                }}>
+            {!standard ? (
+                <div
+                    className={classNames('relative overflow-hidden')}
+                    style={{
+                        width: width ? `min(${width}px, 90vw)` : 'auto',
+                        ...(height ? { height: `min(${height}px, 80vh)` } : {}),
+                        borderRadius,
+                    }}>
+                    <Image
+                        unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                        src={src}
+                        alt={caption ? '' : alt}
+                        aria-hidden={decorative || undefined}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1024px) 1024px, 100vw"
+                    />
+                </div>
+            ) : (
                 <Image
                     unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                     src={src}
                     alt={caption ? '' : alt}
                     aria-hidden={decorative || undefined}
-                    fill
-                    className="object-cover"
+                    width={width}
+                    height={height}
+                    className="w-full h-auto object-cover rounded-lg"
                     sizes="(min-width: 1024px) 1024px, 100vw"
                 />
-            </div>
+            )}
             {caption && (
                 <figcaption className="mt-(--ax-space-16)">
                     <BodyShort size="small">{caption}</BodyShort>
@@ -145,8 +165,8 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
         </figure>
     )
 
-    // Bleed only for standard-size
-    return bleed ? <div className="lg:mx-[calc(-2*var(--ax-space-96))]">{figure}</div> : figure
+    // Bleed only for standard-size 'medium'/'large'
+    return bleed ? <div className={bleedClass}>{figure}</div> : figure
 }
 
 function parseImageProps(config: ImageData & XP_Image, meta: MetaData): StyledImageProps {
@@ -158,21 +178,17 @@ function parseImageProps(config: ImageData & XP_Image, meta: MetaData): StyledIm
         hideOnMobile,
         'image-size': imageSize,
     } = config
-    const media = image // enriched by configQuery (url + data.*)
-
-    // Base caption data
-    const cmsCaption = media?.data?.caption?.trim() || ''
+    const cmsCaption = image?.data?.caption?.trim() || ''
     const overrideCap = overrideCaption?.trim() || ''
     const captionRaw = includeCaption ? overrideCap || cmsCaption : ''
-    const artists = media?.data?.artist?.filter(Boolean) || []
+    const artists = image?.data?.artist?.filter(Boolean) || []
     const fotoBy = artists.length ? `FOTO: ${joinArrayWithCommasAndAnd(artists)}.` : ''
     const caption =
         captionRaw || fotoBy ? [captionRaw, fotoBy].filter(Boolean).join(' / ') : undefined
 
-    // Width/height from option-set
     let width: number | undefined
     let height: number | undefined
-    let borderRadius = 12
+    let borderRadius = 0
     let centerHorizontally = false
     let centerVertically = false
     let paddingX = 0
@@ -181,13 +197,19 @@ function parseImageProps(config: ImageData & XP_Image, meta: MetaData): StyledIm
     let borderDistance = 0
     let circles: StyledImageProps['circles'] = []
     let bleed = false
+    let standard = false
+    let sizeVariant: 'standard' | 'medium' | 'large' | undefined
 
     if (imageSize?._selected === 'standard-size') {
         const sel = imageSize['standard-size'].standardWidth
         width = standardSizeMap[sel]
-        height = Math.round((width * 9) / 16) // 16:9 derived
+        height = Math.round((width * 9) / 16)
+        standard = true
         centerHorizontally = true
-        bleed = sel !== 'standard'
+
+        // Bleed only for medium and large
+        bleed = sel === 'medium' || sel === 'large'
+        sizeVariant = sel
     } else if (imageSize?._selected === 'custom-size') {
         const c = imageSize['custom-size']
         const scale = c.scale ? c.scale / 100 : 1
@@ -210,13 +232,13 @@ function parseImageProps(config: ImageData & XP_Image, meta: MetaData): StyledIm
         }))
     }
 
-    const src = formatImageUrl(meta, media?.imageUrl, width, height)
+    const src = formatImageUrl(meta, image?.imageUrl, width, height)
 
     return {
         src,
         caption,
         decorative: Boolean(decorative),
-        alt: media?.data?.altText?.trim() || '',
+        alt: image?.data?.altText?.trim() || '',
         width,
         height,
         centerHorizontally,
@@ -229,6 +251,8 @@ function parseImageProps(config: ImageData & XP_Image, meta: MetaData): StyledIm
         borderDistance,
         circles,
         bleed,
+        standard,
+        sizeVariant, // 'standard' | 'medium' | 'large'
     }
 }
 
