@@ -9,7 +9,6 @@ import { XP_Image } from '@xp-types/site/parts'
 import Image from 'next/image'
 import { BodyShort } from '@navikt/ds-react'
 
-// Image
 export type ImageData = {
     image?: {
         imageUrl?: string
@@ -118,7 +117,18 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                     }}
                 />
             )}
-            {!standard ? (
+            {standard ? (
+                <Image
+                    unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                    src={src}
+                    alt={caption ? '' : alt}
+                    aria-hidden={decorative || undefined}
+                    width={width}
+                    height={height}
+                    className="w-full h-auto object-cover rounded-lg"
+                    sizes="(min-width: 1024px) 1024px, 100vw"
+                />
+            ) : (
                 <div
                     className={classNames('relative overflow-hidden')}
                     style={{
@@ -136,17 +146,6 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                         sizes="(min-width: 1024px) 1024px, 100vw"
                     />
                 </div>
-            ) : (
-                <Image
-                    unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
-                    src={src}
-                    alt={caption ? '' : alt}
-                    aria-hidden={decorative || undefined}
-                    width={width}
-                    height={height}
-                    className="w-full h-auto object-cover rounded-lg"
-                    sizes="(min-width: 1024px) 1024px, 100vw"
-                />
             )}
             {caption && (
                 <figcaption className="mt-(--ax-space-16)">
