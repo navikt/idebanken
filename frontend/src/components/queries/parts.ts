@@ -14,18 +14,29 @@ export const imageQuery = `{
 	includeCaption
     overrideCaption
 	decorative
-	scale
-    hideOnMobile
-    width
-    height
-    borderRadius
-    border
-    borderDistance
-    circles {
-      size
-      color
-      bottom
-      left
+	image_size {
+      _selected
+      standard_size {
+        standardWidth
+      }
+      custom_size {
+        width
+        height
+        borderRadius
+        centerHorizontally
+        centerVertically
+        paddingX
+        paddingY
+        border
+        borderDistance
+        scale
+        circles {
+          color
+          size
+          bottom
+          left
+        }
+      }
     }
 }`
 

@@ -26,77 +26,109 @@ export type Image = {
   decorative: boolean;
 
   /**
-   * Bredde (px)
+   * Bilde størrelse
    */
-  width?: number;
+  'image-size':
+    | {
+        /**
+         * Selected
+         */
+        _selected: 'standard-size';
 
-  /**
-   * Høyde (px)
-   */
-  height?: number;
+        /**
+         * Standard størrelse
+         */
+        'standard-size': {
+          /**
+           * Bredde
+           */
+          standardWidth: 'standard' | 'medium' | 'large';
+        };
+      }
+    | {
+        /**
+         * Selected
+         */
+        _selected: 'custom-size';
 
-  /**
-   * Avrundet hjørne (px)
-   */
-  borderRadius?: number;
+        /**
+         * Egendefinert størrelse og styling
+         */
+        'custom-size': {
+          /**
+           * Egendefinert bredde (px)
+           */
+          width?: number;
 
-  /**
-   * Sentrer horisontalt
-   */
-  centerHorizontally: boolean;
+          /**
+           * Egendefinert høyde (px)
+           */
+          height?: number;
 
-  /**
-   * Sentrer vertikalt
-   */
-  centerVertically: boolean;
+          /**
+           * Avrundet hjørne (px)
+           */
+          borderRadius?: number;
 
-  /**
-   * X-Polstring rundt bildet (px)
-   */
-  paddingX?: number;
+          /**
+           * Sentrer horisontalt
+           */
+          centerHorizontally: boolean;
 
-  /**
-   * Y-Polstring rundt bildet (px)
-   */
-  paddingY?: number;
+          /**
+           * Sentrer vertikalt
+           */
+          centerVertically: boolean;
 
-  /**
-   * Vis kantlinje
-   */
-  border: boolean;
+          /**
+           * X-Polstring rundt bildet (px)
+           */
+          paddingX?: number;
 
-  /**
-   * Kantlinje avstand (px)
-   */
-  borderDistance?: number;
+          /**
+           * Y-Polstring rundt bildet (px)
+           */
+          paddingY?: number;
 
-  /**
-   * Rundinger
-   */
-  circles?: Array<{
-    /**
-     * Farge
-     */
-    color: 'pink' | 'red' | 'blue';
+          /**
+           * Vis kantlinje
+           */
+          border: boolean;
 
-    /**
-     * Størrelse (px)
-     */
-    size?: number;
+          /**
+           * Kantlinje avstand (px)
+           */
+          borderDistance?: number;
 
-    /**
-     * Avstand fra bunn (y-akse i px)
-     */
-    bottom?: number;
+          /**
+           * Rundinger
+           */
+          circles?: Array<{
+            /**
+             * Farge
+             */
+            color: 'pink' | 'red' | 'blue';
 
-    /**
-     * Avstand fra venstre (x-akse i px)
-     */
-    left?: number;
-  }>;
+            /**
+             * Størrelse (px)
+             */
+            size?: number;
 
-  /**
-   * Komprimer bilde (1-100/mest-minst. 0=ingen)
-   */
-  scale?: number;
+            /**
+             * Avstand fra bunn (y-akse i px)
+             */
+            bottom?: number;
+
+            /**
+             * Avstand fra venstre (x-akse i px)
+             */
+            left?: number;
+          }>;
+
+          /**
+           * Komprimer bilde (1-100/mest-minst. 0=ingen)
+           */
+          scale?: number;
+        };
+      };
 };
