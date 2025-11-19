@@ -10,6 +10,7 @@ import { linkCardExtensions } from './extensions/parts/link-card'
 import { highlightedBoxMacroExtensions } from './extensions/highlighted-box-macro'
 import { buttonExtensions } from './extensions/parts/button'
 import { contentExtensions } from './extensions/content'
+import { articleCardListExtensions } from './extensions/parts/articleCardListExtensions'
 
 export function extensions(graphQL: GraphQL): Extensions {
     const extensions = [
@@ -17,6 +18,7 @@ export function extensions(graphQL: GraphQL): Extensions {
         categoryExtensions,
         tableOfContentsExtensions,
         linkCardListExtensions,
+        articleCardListExtensions,
         linkCardExtensions,
         highlightedBoxMacroExtensions,
         buttonExtensions,

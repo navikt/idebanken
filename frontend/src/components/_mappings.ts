@@ -42,6 +42,7 @@ import ShowMorePart from '~/components/parts/ShowMorePart'
 import { VideoPreview } from '~/components/contentType/VideoPreview'
 import { VideoPartOrMacro } from '~/components/parts/VideoPartOrMacro'
 import { videoContentTypeQuery } from '~/components/queries/content-types'
+import { ArticleCardList } from '~/components/parts/ArticleListCard'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -165,6 +166,21 @@ ComponentRegistry.addPart(`${APP_NAME}:downloads`, {
 ComponentRegistry.addPart(`${APP_NAME}:link-card-list`, {
     view: LinkCardList,
     configQuery: linkCardListQuery,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
+    view: ArticleCardList,
+    configQuery: `{
+        list {
+            url
+            external
+            title
+            description
+            image { url caption }
+            icon { url caption }
+            categories { id name }
+        }
+    }`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:expansion-card`, {

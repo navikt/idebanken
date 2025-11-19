@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+  <display-name>Artikkelkort</display-name>
+  <form>
+    <input name="enabled" type="Checkbox">
+      <label>Aktiv</label>
+      <default>true</default>
+    </input>
+  </form>
+</part>
