@@ -819,6 +819,7 @@ export type MacroConfig = {
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
+  quote?: Maybe<Macro_Idebanken_Quote_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
 };
@@ -846,6 +847,13 @@ export type Macro_Idebanken_Highlighted_Box_DataConfigLinksArgs = {
 export type Macro_Idebanken_Highlighted_Box_DataConfigLinksAbsoluteArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['quote'] */
+export type Macro_Idebanken_Quote_DataConfig = {
+  __typename?: 'Macro_idebanken_quote_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
+  source?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['separator'] */

@@ -4,7 +4,6 @@ import {
     buttonQuery,
     downloadsQuery,
     highlightedBoxMacroQuery,
-    imageAndVectorFields,
     imageQuery,
     linkCardListQuery,
     linkCardQuery,
@@ -42,6 +41,7 @@ import ShowMorePart from '~/components/parts/ShowMorePart'
 import { VideoPreview } from '~/components/contentType/VideoPreview'
 import { VideoPartOrMacro } from '~/components/parts/VideoPartOrMacro'
 import { videoContentTypeQuery } from '~/components/queries/content-types'
+import { Quote } from '~/components/macros/Quote'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -95,6 +95,14 @@ ComponentRegistry.addMacro(`${APP_NAME}:highlighted-box`, {
 ComponentRegistry.addMacro(`${APP_NAME}:video`, {
     view: VideoPartOrMacro,
     configQuery: videoMacroQuery,
+})
+
+ComponentRegistry.addMacro(`${APP_NAME}:quote`, {
+    view: Quote,
+    configQuery: `{
+        body
+        source
+    }`,
 })
 
 // Part mappings
