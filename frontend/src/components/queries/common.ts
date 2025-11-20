@@ -87,16 +87,16 @@ query($path:ID!){
       ... on idebanken_Artikkel {
         data {
             heroImage {
-                ... on media_Image  { 
-                    url: imageUrl(type: absolute, scale: "block(1024,576)") 
+                ... on media_Image  {
+                    url: imageUrl(type: absolute, scale: "block(1024,576)")
                     data {
                         altText
                         caption
                         artist
                     }
                 }
-                ... on media_Vector { 
-                    url: mediaUrl(type: absolute) 
+                ... on media_Vector {
+                    url: mediaUrl(type: absolute)
                     data {
                         caption
                         artist
@@ -105,7 +105,7 @@ query($path:ID!){
           }
         }
       }
-        
+
       ${metaFields}
       skyraSlugs
       publish {
@@ -142,6 +142,7 @@ query($path:ID!){
     }
     siteConfiguration {
         searchPageHref
+        cookieInfoText
     }
   }
 }`

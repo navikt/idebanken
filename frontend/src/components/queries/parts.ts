@@ -139,7 +139,7 @@ export const highlightedBoxMacroQuery = `{
     linksAbsolute
 }`
 
-export const videoMacroQuery = `{
+export const videoPartOrMacroQuery = `{
     targetContent {
         ... on idebanken_Video {
             data {

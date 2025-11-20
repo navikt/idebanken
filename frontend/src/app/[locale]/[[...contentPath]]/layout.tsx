@@ -7,12 +7,13 @@ import StaticContent from '@enonic/nextjs-adapter/views/StaticContent'
 import { PropsWithChildren, ReactNode } from 'react'
 import { Page } from '@navikt/ds-react'
 import Footer from '~/components/views/Footer'
-import Header from '~/components/views/Header'
+import { Header } from '~/components/views/Header'
 import { PageBlock } from '@navikt/ds-react/Page'
 import { HeadlessCms } from '~/types/generated'
 import BubblesOverlayTop from '~/components/parts/BubblesOverlayTop'
 import GlobalSkyraForms from '~/components/common/analytics/GlobalSkyraForms'
 import { draftMode } from 'next/headers'
+import { CookieBanner } from '~/components/common/cookies/CookieBanner'
 
 type LayoutParams = { locale: string; contentPath?: string[] }
 type LayoutProps = PropsWithChildren<{ params: Promise<LayoutParams> }>
@@ -22,7 +23,8 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     const { isEnabled } = await draftMode()
 
     const ctx = { locale: resolvedParams.locale, contentPath: resolvedParams.contentPath ?? '' }
-    const { meta, common } = await fetchContent(ctx)
+    const contentResult = await fetchContent(ctx)
+    const { meta, common } = contentResult
 
     if (meta.requestType === XP_REQUEST_TYPE.COMPONENT) {
         const content: ReactNode =
@@ -44,6 +46,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
         return (
             <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
                 <Page contentBlockPadding="none">
+                    <CookieBanner meta={meta} common={common as HeadlessCms} />
                     {children}
                     <GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />
                 </Page>
