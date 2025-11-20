@@ -27,7 +27,6 @@ export function CookieBannerProvider({
     useEffect(() => {
         // Check if user has already made a choice about cookies
         const hasMadeChoice = getUserActionTakenValue()
-        console.log('CookieBannerProvider - hasMadeChoice:', hasMadeChoice)
         setShowCookieBanner(!hasMadeChoice)
     }, [])
 

@@ -16,17 +16,12 @@ export const BubblesBackgroundSvgStyle = (
 ): CSSProperties => {
     const circleSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}">
             ${forceArray(circles).map(({ radius, down, right = 0, left, center, fill }) => {
-                const c = `<circle
+                return `<circle
                     cx="${left !== undefined ? `calc(${center ? '50%' : '100%'} - ${radius}px - ${left}px)` : right !== undefined ? `calc(${center ? `50%` : `${radius}px`} + ${right}px)` : `${center ? '50%' : `0px`}`}"
                     cy="calc(${center ? '50%' : `${radius}px`} + ${down ? `${down}px` : '0px'})"
                     r="${radius}px"
                     fill="${fill}"
                 />`
-
-                if (center) {
-                    console.log('circle:', c)
-                }
-                return c
             })}
         </svg>`
 
