@@ -23,6 +23,16 @@ export function handleLink(
         attribs: { href, [LINK_ATTR]: linkRef, target, title },
     } = el
 
+    if (!href) {
+        return <ErrorComponent reason={'Link element has no href attribute!'} />
+    }
+
+    // Remove /(site|headless)/idebanken/{branch}/idebanken if the RichText is rendered in a client component
+    const processedHref = getUrl(
+        href.replace(/\/(site|headless)\/idebanken\/[^/]+\/idebanken/, ''),
+        meta
+    )
+
     if (!linkRef) {
         // non-content links like mailto and external links
         const basicOptions: HTMLReactParserOptions = {
@@ -37,14 +47,10 @@ export function handleLink(
         }
         const children = domToReact(el.children as DOMNode[], basicOptions)
         return (
-            <Link href={getUrl(href, meta)} target={target} rel={el.attribs?.rel} title={title}>
+            <Link href={processedHref} target={target} rel={el.attribs?.rel} title={title}>
                 {children}
             </Link>
         )
-    }
-
-    if (!href) {
-        return <ErrorComponent reason={'Link element has no href attribute!'} />
     }
 
     if (!links?.length) {
@@ -63,7 +69,6 @@ export function handleLink(
         )
     }
 
-    const processedHref = getUrl(href, meta)
     const children = domToReact(el.children as DOMNode[], options)
 
     return (

@@ -25,6 +25,7 @@ import { SOK_SEARCH_PARAM } from '~/utils/constants'
 import { ThemeButton } from '~/app/[locale]/theming/theme-button'
 import { SearchFrom, trackSearchResult } from '~/utils/analytics/umami'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+import { CookieBanner } from '~/components/common/cookies/CookieBanner'
 
 export interface HeaderProps {
     title: string
@@ -32,7 +33,7 @@ export interface HeaderProps {
     common?: HeadlessCms
 }
 
-const Header = ({ title, common, meta }: HeaderProps) => {
+export const Header = ({ title, common, meta }: HeaderProps) => {
     const { header, siteConfiguration } = common ?? {}
 
     const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -106,6 +107,12 @@ const Header = ({ title, common, meta }: HeaderProps) => {
                 width={'2xl'}
                 className="relative items-center"
                 bleedClassName="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-[99] overflow-y-visible bg-(--ax-bg-default)">
+                <CookieBanner meta={meta} common={common} />
+                <a
+                    className="z-[100] transition left-0 bg-dark-blue text-primary-content absolute p-3 m-3 -translate-y-16 focus:translate-y-0"
+                    href="#main-content">
+                    Hopp til hovedinnhold
+                </a>
                 <HStack
                     align="center"
                     justify="space-between"
@@ -358,5 +365,3 @@ function quickSearch({
         </VStack>
     )
 }
-
-export default Header
