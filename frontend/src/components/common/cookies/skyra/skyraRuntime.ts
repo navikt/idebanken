@@ -20,6 +20,7 @@ declare global {
 /** Oppdater samtykke for Skyra dynamisk (cookieless <-> cookies). */
 export const updateSkyraConsent = (consented: boolean): void => {
     if (typeof window === 'undefined') return
+    if (!consented) clearSkyraCookies()
 
     // Hvis runtime er klar: bruk API direkte
     if (window.skyra?.setConsent) {
@@ -40,8 +41,7 @@ export const updateSkyraConsent = (consented: boolean): void => {
     }
 }
 
-/** Fjern kjente Skyra-cookies ved tilbaketrekking av samtykke. */
-export const clearSkyraCookies = (): void => {
+const clearSkyraCookies = (): void => {
     if (typeof document === 'undefined') return
     const names = document.cookie.split('; ').map((c) => c.split('=')[0])
     for (const name of names) {

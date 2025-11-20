@@ -1,4 +1,4 @@
-type ConsentCookie = {
+export type ConsentCookie = {
     consent: {
         analytics: boolean
         surveys: boolean
@@ -43,7 +43,7 @@ export function setCookie(value: ConsentCookie, days = 90) {
     }
 }
 
-export function getCookie(cookies?: string) {
+function getCookie(cookies?: string) {
     if (cookies) {
         const match = cookies.match(
             new RegExp(

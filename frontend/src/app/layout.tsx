@@ -5,7 +5,7 @@ import { cookies, draftMode, headers } from 'next/headers'
 import GlobalUmamiAnalytics from '~/utils/analytics/GlobalUmamiAnalytics'
 import { CookieBannerProvider } from '~/components/common/cookies/CookieBannerContext'
 import { getConsentValues, getUserActionTakenValue } from '~/components/common/cookies/cookieUtils'
-import { ConsentScripts } from '~/components/common/cookies/ConsentScripts'
+import { CookieConsentScripts } from '~/components/common/cookies/CookieConsentScripts'
 
 export default async function RootLayout({ children }: PropsWithChildren) {
     const { isEnabled } = await draftMode()
@@ -37,7 +37,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
                     <meta name="apple-mobile-web-app-title" content="Idébanken" />
                     <link rel="manifest" href="/favicon/site.webmanifest" />
                     {!isDraftOrLocalhost && (
-                        <ConsentScripts
+                        <CookieConsentScripts
                             analyticsConsent={analyticsConsent}
                             surveysConsent={surveysConsent}
                             nonce={nonce}

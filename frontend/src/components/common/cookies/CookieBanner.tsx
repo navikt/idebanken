@@ -2,7 +2,6 @@
 
 import React from 'react'
 import { Box, HGrid, Stack } from '@navikt/ds-react'
-import { getCreatedAtValue, setCookie } from './cookieUtils'
 import { useCookieBanner } from '~/components/common/cookies/CookieBannerContext'
 import classNames from 'classnames'
 import { ButtonView } from '~/components/parts/Button'
@@ -20,50 +19,20 @@ export function CookieBanner({ contentResult }: { contentResult: FetchContentRes
     }
 
     const handleNecessaryOnlyClick = () => {
-        try {
-            const createdAt = getCreatedAtValue()
-
-            const consentData = {
-                consent: { analytics: false, surveys: false },
-                userActionTaken: true,
-                meta: {
-                    createdAt: createdAt,
-                    updatedAt: new Date().toISOString(),
-                    version: 1,
-                },
-            }
-
-            setCookie(consentData)
-        } catch (error) {
-            console.error('Error setting cookie consent for necessary only:', error)
-        }
-
-        closeCookieBanner()
-        setShowCookieBanner(false)
-    }
-
-    const handleAcceptAllClick = () => {
-        try {
-            const createdAt = getCreatedAtValue()
-
-            const consentData = {
-                consent: { analytics: true, surveys: true },
-                userActionTaken: true,
-                meta: {
-                    createdAt: createdAt,
-                    updatedAt: new Date().toISOString(),
-                    version: 1,
-                },
-            }
-
-            setCookie(consentData)
-        } catch (error) {
-            console.error('Error setting cookie consent for accept all:', error)
-        }
         closeCookieBanner()
         setShowCookieBanner(false)
         window.dispatchEvent(
-            new CustomEvent('cookie-consent-given', {
+            new CustomEvent('cookie-consent-changed', {
+                detail: { analytics: false, surveys: false },
+            })
+        )
+    }
+
+    const handleAcceptAllClick = () => {
+        closeCookieBanner()
+        setShowCookieBanner(false)
+        window.dispatchEvent(
+            new CustomEvent('cookie-consent-changed', {
                 detail: { analytics: true, surveys: true },
             })
         )
