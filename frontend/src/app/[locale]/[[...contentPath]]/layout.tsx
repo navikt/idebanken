@@ -80,7 +80,7 @@ const EnonicWrapper = ({
     children,
 }: PropsWithChildren<{
     resolvedParams: LayoutParams
-    meta?: MetaData
+    meta: MetaData
 }>) => {
     const isEdit = meta?.renderMode === RENDER_MODE.EDIT
     return (
