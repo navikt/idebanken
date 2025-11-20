@@ -1541,7 +1541,6 @@ export type RichText = {
 /** Configuration for other parts of the site */
 export type SiteConfiguration = {
   __typename?: 'SiteConfiguration';
-  cookieInfoText: Scalars['String']['output'];
   searchPageHref: Scalars['String']['output'];
 };
 
