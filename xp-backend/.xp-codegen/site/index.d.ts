@@ -331,6 +331,11 @@ declare global {
           }>;
         }>;
       };
+
+      /**
+       * CookieText
+       */
+      cookieInfoText?: string;
     }
   }
 }
