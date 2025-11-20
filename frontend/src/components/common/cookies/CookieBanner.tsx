@@ -5,13 +5,13 @@ import { Box, HGrid, Stack } from '@navikt/ds-react'
 import { useCookieBanner } from '~/components/common/cookies/CookieBannerContext'
 import classNames from 'classnames'
 import { ButtonView } from '~/components/parts/Button'
-import { FetchContentResult, RENDER_MODE } from '@enonic/nextjs-adapter'
+import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { BubblesBackgroundSvgStyle } from '~/utils/BubblesBackgroundSvgStyle'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
+import { HeadlessCms } from '~/types/generated'
 
-export function CookieBanner({ contentResult }: { contentResult: FetchContentResult }) {
-    const { meta, common } = contentResult
+export function CookieBanner({ meta, common }: { meta: MetaData; common?: HeadlessCms }) {
     const { closeCookieBanner, showCookieBanner, setShowCookieBanner } = useCookieBanner()
 
     if (!showCookieBanner || meta.renderMode !== RENDER_MODE.NEXT) {
@@ -41,7 +41,6 @@ export function CookieBanner({ contentResult }: { contentResult: FetchContentRes
     return (
         <Box
             as="section"
-            aria-labelledby={'cookie-banner-title'}
             padding={{ xs: 'space-36', md: 'space-64' }}
             margin={{ xs: 'space-0', md: 'space-24', lg: 'space-44' }}
             data-color={'ib-brand-dark-blue'}
@@ -73,8 +72,10 @@ export function CookieBanner({ contentResult }: { contentResult: FetchContentRes
                     />
 
                     <Stack
+                        id={'cookie-banner-buttons'}
                         gap={{ xs: 'space-12', lg: 'space-32' }}
-                        direction={{ xs: 'column', sm: 'row' }}>
+                        direction={{ xs: 'column', sm: 'row' }}
+                        aria-label={'Godta eller avvis informasjonskapsler'}>
                         <ButtonView
                             type="submit"
                             className={'max-sm:w-full'}

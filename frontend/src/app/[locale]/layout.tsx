@@ -88,11 +88,6 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
             className={classNames(mundial.variable, 'scroll-smooth')}
             suppressHydrationWarning>
             <body {...bodyAttrs}>
-                <a
-                    className="z-[100] transition left-0 bg-dark-blue text-primary-content absolute p-3 m-3 -translate-y-16 focus:translate-y-0"
-                    href="#main-content">
-                    Hopp til hovedinnhold
-                </a>
                 <ThemeProvider nonce={nonce}>{children}</ThemeProvider>
             </body>
         </html>

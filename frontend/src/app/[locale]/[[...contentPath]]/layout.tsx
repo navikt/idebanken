@@ -1,13 +1,13 @@
 import '~/styles/globals.css'
 
-import { FetchContentResult, I18n, RENDER_MODE, XP_REQUEST_TYPE } from '@enonic/nextjs-adapter'
+import { I18n, MetaData, RENDER_MODE, XP_REQUEST_TYPE } from '@enonic/nextjs-adapter'
 import { LocaleContextProvider } from '@enonic/nextjs-adapter/client'
 import { fetchContent } from '@enonic/nextjs-adapter/server'
 import StaticContent from '@enonic/nextjs-adapter/views/StaticContent'
 import { PropsWithChildren, ReactNode } from 'react'
 import { Page } from '@navikt/ds-react'
 import Footer from '~/components/views/Footer'
-import Header from '~/components/views/Header'
+import { Header } from '~/components/views/Header'
 import { PageBlock } from '@navikt/ds-react/Page'
 import { HeadlessCms } from '~/types/generated'
 import BubblesOverlayTop from '~/components/parts/BubblesOverlayTop'
@@ -35,7 +35,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
             )
 
         return (
-            <EnonicWrapper resolvedParams={resolvedParams} contentResult={contentResult}>
+            <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
                 {content}
             </EnonicWrapper>
         )
@@ -44,8 +44,9 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     const isCrashCourse = common?.get?.type === 'idebanken:crash-course'
     if (isCrashCourse) {
         return (
-            <EnonicWrapper resolvedParams={resolvedParams} contentResult={contentResult}>
+            <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
                 <Page contentBlockPadding="none">
+                    <CookieBanner meta={meta} common={common as HeadlessCms} />
                     {children}
                     <GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />
                 </Page>
@@ -54,7 +55,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     }
 
     return (
-        <EnonicWrapper resolvedParams={resolvedParams} contentResult={contentResult}>
+        <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
             <Page
                 footer={<Footer footerProps={common?.footer ?? undefined} meta={meta} />}
                 contentBlockPadding="none">
@@ -75,20 +76,16 @@ export default async function PageLayout({ params, children }: LayoutProps) {
 
 const EnonicWrapper = ({
     resolvedParams,
-    contentResult,
+    meta,
     children,
 }: PropsWithChildren<{
     resolvedParams: LayoutParams
-    contentResult: FetchContentResult
+    meta?: MetaData
 }>) => {
-    const { meta } = contentResult
     const isEdit = meta?.renderMode === RENDER_MODE.EDIT
     return (
         <LocaleContextProvider locale={resolvedParams.locale}>
-            <StaticContent condition={isEdit}>
-                {children}
-                <CookieBanner contentResult={contentResult} />
-            </StaticContent>
+            <StaticContent condition={isEdit}>{children}</StaticContent>
         </LocaleContextProvider>
     )
 }

@@ -11,7 +11,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     const { isEnabled } = await draftMode()
     const nonce = (await headers()).get('x-nonce') ?? undefined
 
-    const isDraftOrLocalhost = isEnabled || process.env.ENV === 'local'
+    const isDraftOrLocalhost = isEnabled // || process.env.ENV === 'local'
 
     const cookiesString = (await cookies()).toString()
     const cookieUserActionTaken = getUserActionTakenValue(cookiesString)
