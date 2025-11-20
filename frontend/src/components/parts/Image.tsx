@@ -1,16 +1,14 @@
 'use client'
 
 import classNames from 'classnames'
-import { forceArray, joinArrayWithCommasAndAnd } from '~/utils/utils'
+import { joinArrayWithCommasAndAnd } from '~/utils/utils'
 import { getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
-import { Part_Idebanken_Image_Circles } from '~/types/generated'
 import { Circle } from '~/components/common/Circle'
 import { XP_Image } from '@xp-types/site/parts'
 import Image from 'next/image'
 import { BodyShort } from '@navikt/ds-react'
 
-// Image
 export type ImageData = {
     image?: {
         imageUrl?: string
@@ -34,7 +32,6 @@ interface BasicImageProps {
     paddingX: number
     paddingY: number
     hideOnMobile?: boolean | null
-    className?: string
 }
 
 interface StyledImageProps extends BasicImageProps {
@@ -47,12 +44,21 @@ interface StyledImageProps extends BasicImageProps {
         bottom: number
         left: number
     }>
+    bleed: boolean
+    standard: boolean
+    sizeVariant?: 'standard' | 'medium' | 'large'
 }
 
 const accentColors: Record<string, string> = {
     pink: 'bg-(--ib-pink-100A)',
     red: 'bg-(--ib-pink-400A)',
     blue: 'bg-(--ib-dark-blue-100A)',
+}
+
+const standardSizeMap: Record<'standard' | 'medium' | 'large', number> = {
+    standard: 672,
+    medium: 768,
+    large: 1024,
 }
 
 export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
@@ -72,60 +78,81 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
         showBorder,
         borderDistance,
         circles,
+        hideOnMobile,
+        bleed,
+        standard,
+        sizeVariant,
     } = parseImageProps(config, meta)
+
+    if (!src) return null
 
     const borderDist = showBorder && borderDistance ? borderDistance : 0
     const paddingFullX = paddingX + borderDist
     const paddingFullY = paddingY + borderDist
 
-    return (
+    const bleedClass =
+        sizeVariant === 'large' ? 'lg:mx-[-11rem]' : sizeVariant === 'medium' ? 'lg:mx-[-3rem]' : ''
+
+    const figure = (
         <figure
             className={classNames(
                 'relative flex flex-col',
-                centerVertically ? 'h-full items-center self-center' : '',
-                centerHorizontally ? 'justify-self-center' : '',
-                config.hideOnMobile ? 'max-md:hidden' : ''
+                centerVertically && 'h-full items-center self-center',
+                centerHorizontally && 'mx-auto',
+                hideOnMobile && 'max-md:hidden'
             )}
             style={{
                 padding: `${paddingFullY}px ${paddingFullX}px`,
-                width: width ? `min(${width}px, 90vw)` : 'auto',
+                width: width && !standard ? `min(${width}px, 90vw)` : 'auto',
             }}>
-            {showBorder && (
+            {showBorder && width && height && (
                 <div
-                    className={classNames('absolute border border-(--ib-border-dark-blue-subtleA)')}
+                    className="absolute border border-(--ib-border-dark-blue-subtleA)"
                     style={{
-                        width: width ? `min(${width + borderDist * 2}px, 92vw)` : 'auto',
-                        height: height ? `min(${height + borderDist * 2}px, 82vh)` : 'auto',
+                        width: `min(${width + borderDist * 2}px, 92vw)`,
+                        height: `min(${height + borderDist * 2}px, 82vh)`,
                         top: paddingY,
                         left: paddingX,
-                        borderRadius: `${borderRadius}px`,
+                        borderRadius,
                     }}
                 />
             )}
-
-            <div
-                className={classNames('relative overflow-hidden')}
-                style={{
-                    width: width ? `min(${width}px, 90vw)` : 'auto',
-                    height: height ? `min(${height}px, 80vh)` : 'auto',
-                    borderRadius: `${borderRadius}px`,
-                }}>
+            {standard ? (
                 <Image
                     unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                     src={src}
-                    alt={alt}
-                    aria-hidden={decorative}
-                    objectFit={'cover'}
-                    fill
+                    alt={caption ? '' : alt}
+                    aria-hidden={decorative || undefined}
+                    width={width}
+                    height={height}
+                    className="w-full h-auto object-cover rounded-lg"
+                    sizes="(min-width: 1024px) 1024px, 100vw"
                 />
-            </div>
+            ) : (
+                <div
+                    className={classNames('relative overflow-hidden')}
+                    style={{
+                        width: width ? `min(${width}px, 90vw)` : 'auto',
+                        ...(height ? { height: `min(${height}px, 80vh)` } : {}),
+                        borderRadius,
+                    }}>
+                    <Image
+                        unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                        src={src}
+                        alt={caption ? '' : alt}
+                        aria-hidden={decorative || undefined}
+                        fill
+                        className="object-cover"
+                        sizes="(min-width: 1024px) 1024px, 100vw"
+                    />
+                </div>
+            )}
             {caption && (
-                <figcaption className={'mt-(--ax-space-16)'}>
-                    <BodyShort size={'small'}>{caption}</BodyShort>
+                <figcaption className="mt-(--ax-space-16)">
+                    <BodyShort size="small">{caption}</BodyShort>
                 </figcaption>
             )}
-
-            {circles?.map(({ size, color, bottom, left }, id) => (
+            {circles.map(({ size, color, bottom, left }, id) => (
                 <Circle
                     key={id}
                     className={color}
@@ -136,91 +163,113 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
             ))}
         </figure>
     )
+
+    // Bleed only for standard-size 'medium'/'large'
+    return bleed ? <div className={bleedClass}>{figure}</div> : figure
 }
 
-function parseImageProps(
-    {
+function parseImageProps(config: ImageData & XP_Image, meta: MetaData): StyledImageProps {
+    const {
         image,
-        scale,
+        includeCaption,
+        overrideCaption,
+        decorative,
+        hideOnMobile,
+        'image-size': imageSize,
+    } = config
+    const cmsCaption = image?.data?.caption?.trim() || ''
+    const overrideCap = overrideCaption?.trim() || ''
+    const captionRaw = includeCaption ? overrideCap || cmsCaption : ''
+    const artists = image?.data?.artist?.filter(Boolean) || []
+    const fotoBy = artists.length ? `FOTO: ${joinArrayWithCommasAndAnd(artists)}.` : ''
+    const caption =
+        captionRaw || fotoBy ? [captionRaw, fotoBy].filter(Boolean).join(' / ') : undefined
+
+    let width: number | undefined
+    let height: number | undefined
+    let borderRadius = 0
+    let centerHorizontally = false
+    let centerVertically = false
+    let paddingX = 0
+    let paddingY = 0
+    let showBorder = false
+    let borderDistance = 0
+    let circles: StyledImageProps['circles'] = []
+    let bleed = false
+    let standard = false
+    let sizeVariant: 'standard' | 'medium' | 'large' | undefined
+
+    if (imageSize?._selected === 'standard-size') {
+        const sel = imageSize['standard-size'].standardWidth
+        width = standardSizeMap[sel]
+        height = Math.round((width * 9) / 16)
+        standard = true
+        centerHorizontally = true
+
+        // Bleed only for medium and large
+        bleed = sel === 'medium' || sel === 'large'
+        sizeVariant = sel
+    } else if (imageSize?._selected === 'custom-size') {
+        const c = imageSize['custom-size']
+        const scale = c.scale ? c.scale / 100 : 1
+        const baseW = c.width
+        const baseH = c.height
+        width = baseW ? Math.round(baseW * scale) : undefined
+        height = baseH ? Math.round(baseH * scale) : undefined
+        borderRadius = c.borderRadius || 0
+        centerHorizontally = c.centerHorizontally
+        centerVertically = c.centerVertically
+        paddingX = c.paddingX || 0
+        paddingY = c.paddingY || 0
+        showBorder = c.border
+        borderDistance = c.borderDistance || 0
+        circles = (c.circles || []).map((circle) => ({
+            size: circle.size || 200,
+            color: accentColors[circle.color],
+            bottom: circle.bottom || -50,
+            left: circle.left || -90,
+        }))
+    }
+
+    const src = formatImageUrl(meta, image?.imageUrl, width, height)
+
+    return {
+        src,
+        caption,
+        decorative: Boolean(decorative),
+        alt: image?.data?.altText?.trim() || '',
         width,
         height,
-        overrideCaption,
-        includeCaption,
-        decorative,
-        borderDistance,
-        borderRadius,
-        border,
         centerHorizontally,
         centerVertically,
         paddingX,
         paddingY,
+        hideOnMobile,
+        borderRadius,
+        showBorder,
+        borderDistance,
         circles,
-    }: ImageData & XP_Image,
-    meta: MetaData
-): StyledImageProps {
-    const pScale = scale ? Number(scale) / 100 : 1
-    const pWidth = width ? Number(width) : undefined
-    const pHeight = height ? Number(height) : undefined
-    const scaledWidth = pWidth ? Math.round(pWidth * pScale) : undefined
-    const scaledHeight = pHeight ? Math.round(pHeight * pScale) : undefined
-
-    const caption = includeCaption ? (overrideCaption ?? image?.data?.caption ?? '') : undefined
-    const fotoBy = image?.data?.artist
-        ? `FOTO: ${joinArrayWithCommasAndAnd(image.data.artist)}.`
-        : ''
-    return {
-        src: getFormattedImageUrl(meta, image?.imageUrl, scaledWidth, scaledHeight),
-        caption:
-            typeof caption === 'string'
-                ? caption.concat(caption.length ? ' / ' : '').concat(fotoBy)
-                : undefined,
-        decorative: Boolean(decorative),
-        alt: image?.data?.altText ?? '',
-        width: pWidth,
-        height: pHeight,
-        showBorder: border ?? false,
-        borderRadius: borderRadius ? Number(borderRadius) : 0,
-        borderDistance: borderDistance ? Number(borderDistance) : 0,
-        centerHorizontally: centerHorizontally ?? false,
-        centerVertically: centerVertically ?? false,
-        paddingX: paddingX ? Number(paddingX) : 0,
-        paddingY: paddingY ? Number(paddingY) : 0,
-        circles: forceArray(circles as Part_Idebanken_Image_Circles[]).map((circle) => ({
-            size: circle.size ? Number(circle.size) : 200,
-            color: circle.color ? accentColors[circle.color] : accentColors.pink,
-            bottom: circle.bottom ? Number(circle.bottom) : -50,
-            left: circle.left ? Number(circle.left) : -90,
-        })),
+        bleed,
+        standard,
+        sizeVariant, // 'standard' | 'medium' | 'large'
     }
 }
 
-const getFormattedImageUrl = (
-    meta: MetaData,
-    imageUrl?: string,
-    width?: number,
-    height?: number
-) => {
-    if (!imageUrl) return '/'
-    if (!width && !height) {
-        return imageUrl
-    }
-
-    let resizeType: string
-    let dimensionParam: string
-
+function formatImageUrl(meta: MetaData, url?: string, width?: number, height?: number): string {
+    if (!url) return ''
+    if (!width && !height) return url
+    let resizeType: 'block' | 'width' | 'height'
+    let dim: string
     if (width && height) {
         resizeType = 'block'
-        dimensionParam = `${width}-${height}`
+        dim = `${width}-${height}`
     } else if (width) {
         resizeType = 'width'
-        dimensionParam = `${width}`
+        dim = `${width}`
     } else {
         resizeType = 'height'
-        dimensionParam = `${height}`
+        dim = `${height}`
     }
-
-    return getUrl(imageUrl, meta)?.replace(
-        /(\/_\/image\/[^/]+)\/([^/]+)/,
-        `$1/${resizeType}-${dimensionParam}`
-    )
+    const resolved = getUrl(url, meta) || url
+    return resolved.replace(/(\/_\/image\/[^/]+)\/([^/]+)/, `$1/${resizeType}-${dim}`)
 }

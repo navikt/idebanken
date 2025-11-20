@@ -28,120 +28,158 @@
             <default>checked</default>
         </input>
 
-        <input name="width" type="Long">
-            <label>Bredde (px)</label>
-            <default>400</default>
-            <config>
-                <min>1</min>
-                <max>2000</max>
-            </config>
-        </input>
-
-        <input name="height" type="Long">
-            <label>Høyde (px)</label>
-            <default>250</default>
-            <config>
-                <min>1</min>
-                <max>2000</max>
-            </config>
-        </input>
-
-        <input name="borderRadius" type="Long">
-            <label>Avrundet hjørne (px)</label>
-            <default>12</default>
-            <config>
-                <min>0</min>
-                <max>9999</max>
-            </config>
-        </input>
-
-        <field-set>
-            <label>Avansert styling</label>
-            <items>
-
-                <input name="centerHorizontally" type="CheckBox">
-                    <label>Sentrer horisontalt</label>
-                    <default>checked</default>
-                </input>
-                <input name="centerVertically" type="CheckBox">
-                    <label>Sentrer vertikalt</label>
-                    <default>unchecked</default>
-                </input>
-
-
-                <input name="paddingX" type="Long">
-                    <label>X-Polstring rundt bildet (px)</label>
-                    <default>0</default>
-                    <config>
-                        <min>0</min>
-                        <max>100</max>
-                    </config>
-                </input>
-
-                <input name="paddingY" type="Long">
-                    <label>Y-Polstring rundt bildet (px)</label>
-                    <default>0</default>
-                    <config>
-                        <min>0</min>
-                        <max>100</max>
-                    </config>
-                </input>
-
-                <input name="border" type="CheckBox">
-                    <label>Vis kantlinje</label>
-                </input>
-
-                <input name="borderDistance" type="Long">
-                    <label>Kantlinje avstand (px)</label>
-                    <default>1</default>
-                    <config>
-                        <min>1</min>
-                        <max>100</max>
-                    </config>
-                </input>
-
-                <item-set name="circles">
-                    <label>Rundinger</label>
-                    <occurrences minimum="0" maximum="0"/>
+        <option-set name="image-size">
+            <label>Bilde størrelse</label>
+            <help-text>Velg standard eller egendefinert bildestørrelse og avansert styling. Du må resette dette valget for å endre type</help-text>
+            <occurrences minimum="1" maximum="1"/>
+            <options minimum="1" maximum="1">
+                <option name="standard-size">
+                    <default>true</default>
+                    <label>Standard størrelse</label>
+                    <help-text>Velg en standard bredde for bildet</help-text>
                     <items>
-                        <input name="color" type="ComboBox">
-                            <label>Farge</label>
+                        <input name="standardWidth" type="ComboBox">
+                            <label>Bredde</label>
                             <occurrences minimum="1" maximum="1"/>
                             <config>
-                                <option value="pink">Rosa</option>
-                                <option value="red">Rød</option>
-                                <option value="blue">Blå</option>
+                                <option value="standard">Standard</option>
+                                <option value="medium">Medium</option>
+                                <option value="large">Stor</option>
                             </config>
-                            <default>pink</default>
-                        </input>
-                        <input name="size" type="Long">
-                            <label>Størrelse (px)</label>
-                            <default>200</default>
-                            <config>
-                                <min>0</min>
-                                <max>400</max>
-                            </config>
-                        </input>
-                        <input name="bottom" type="Long">
-                            <label>Avstand fra bunn (y-akse i px)</label>
-                            <default>-10</default>
-                        </input>
-                        <input name="left" type="Long">
-                            <label>Avstand fra venstre (x-akse i px)</label>
-                            <default>-20</default>
+                            <default>standard</default>
                         </input>
                     </items>
-                </item-set>
+                </option>
 
-                <input name="scale" type="Long">
-                    <label>Komprimer bilde (1-100/mest-minst. 0=ingen)</label>
-                    <default>0</default>
-                    <config>
-                        <min>0</min>
-                        <max>100</max>
-                    </config>
-                </input>
-            </items>
-        </field-set>
+                <option name="custom-size">
+                    <label>Egendefinert størrelse og styling</label>
+                    <help-text>Velg en egendefinert bredde for bildet, samt avansert styling</help-text>
+
+                    <items>
+                        <input name="width" type="Long">
+                            <label>Egendefinert bredde (px)</label>
+                            <default>400</default>
+                            <config>
+                                <min>1</min>
+                                <max>2000</max>
+                            </config>
+                        </input>
+
+                        <input name="height" type="Long">
+                            <label>Egendefinert høyde (px)</label>
+                            <default>250</default>
+                            <config>
+                                <min>1</min>
+                                <max>2000</max>
+                            </config>
+                        </input>
+
+                        <input name="borderRadius" type="Long">
+                            <label>Avrundet hjørne (px)</label>
+                            <default>12</default>
+                            <config>
+                                <min>0</min>
+                                <max>9999</max>
+                            </config>
+                        </input>
+
+                        <field-set>
+                            <label>Avansert styling</label>
+                            <items>
+                                <input name="centerHorizontally" type="CheckBox">
+                                    <label>Sentrer horisontalt</label>
+                                    <default>checked</default>
+                                </input>
+
+                                <input name="centerVertically" type="CheckBox">
+                                    <label>Sentrer vertikalt</label>
+                                    <default>unchecked</default>
+                                </input>
+
+                                <input name="paddingX" type="Long">
+                                    <label>X-Polstring rundt bildet (px)</label>
+                                    <default>0</default>
+                                    <config>
+                                        <min>0</min>
+                                        <max>100</max>
+                                    </config>
+                                </input>
+
+                                <input name="paddingY" type="Long">
+                                    <label>Y-Polstring rundt bildet (px)</label>
+                                    <default>0</default>
+                                    <config>
+                                        <min>0</min>
+                                        <max>100</max>
+                                    </config>
+                                </input>
+
+                                <input name="border" type="CheckBox">
+                                    <label>Vis kantlinje</label>
+                                </input>
+
+                                <input name="borderDistance" type="Long">
+                                    <label>Kantlinje avstand (px)</label>
+                                    <default>1</default>
+                                    <config>
+                                        <min>1</min>
+                                        <max>100</max>
+                                    </config>
+                                </input>
+
+                                <item-set name="circles">
+                                    <label>Rundinger</label>
+                                    <occurrences minimum="0" maximum="0"/>
+                                    <items>
+                                        <input name="color" type="ComboBox">
+                                            <label>Farge</label>
+                                            <occurrences minimum="1" maximum="1"/>
+                                            <config>
+                                                <option value="pink">Rosa</option>
+                                                <option value="red">Rød</option>
+                                                <option value="blue">Blå</option>
+                                            </config>
+                                            <default>pink</default>
+                                        </input>
+
+                                        <input name="size" type="Long">
+                                            <label>Størrelse (px)</label>
+                                            <default>200</default>
+                                            <config>
+                                                <min>0</min>
+                                                <max>400</max>
+                                            </config>
+                                        </input>
+
+                                        <input name="bottom" type="Long">
+                                            <label>Avstand fra bunn (y-akse i px)</label>
+                                            <default>-10</default>
+                                        </input>
+                        
+                                        <input name="left" type="Long">
+                                            <label>Avstand fra venstre (x-akse i px)</label>
+                                            <default>-20</default>
+                                        </input>
+                                    </items>
+                                </item-set>
+
+                                <input name="scale" type="Long">
+                                    <label>Komprimer bilde (1-100/mest-minst. 0=ingen)</label>
+                                    <default>0</default>
+                                    <config>
+                                        <min>0</min>
+                                        <max>100</max>
+                                    </config>
+                                </input>
+                            </items>
+                        </field-set>
+                    </items>
+                </option>
+            </options>
+        </option-set>
+
+       
+
+        
     </form>
 </part>
