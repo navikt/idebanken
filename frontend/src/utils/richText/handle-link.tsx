@@ -27,8 +27,11 @@ export function handleLink(
         return <ErrorComponent reason={'Link element has no href attribute!'} />
     }
 
-    // Remove /site/idebanken/{branch}/idebanken if the RichText is rendered in a client component
-    const processedHref = getUrl(href.replace(/\/site\/idebanken\/[^/]+\/idebanken/, ''), meta)
+    // Remove /(site|headless)/idebanken/{branch}/idebanken if the RichText is rendered in a client component
+    const processedHref = getUrl(
+        href.replace(/\/(site|headless)\/idebanken\/[^/]+\/idebanken/, ''),
+        meta
+    )
 
     if (!linkRef) {
         // non-content links like mailto and external links
