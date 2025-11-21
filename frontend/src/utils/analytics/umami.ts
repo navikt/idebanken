@@ -9,6 +9,7 @@ declare global {
     interface Window {
         umami?: {
             track(eventName: string, eventData: EventData): Promise<void>
+            track(properties?: EventData): Promise<void>
             identify: {
                 (eventData: EventData): Promise<void>
                 (eventName: string, eventData: EventData): Promise<void>

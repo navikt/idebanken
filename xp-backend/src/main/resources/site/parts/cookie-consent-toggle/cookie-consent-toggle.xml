@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Cookie - toggle endring</display-name>
+    <description>Endre spesifikt samtykke</description>
+    <form>
+    </form>
+    <config>
+        <allow-on-content-type>idebanken:special-page</allow-on-content-type>
+    </config>
+</part>

@@ -26,6 +26,32 @@ const ConsentDataSchema = {
 
 const consentCookieName = 'idebanken-consent'
 
+export function dispatchCookieConsentEvent({
+    analytics,
+    surveys,
+}: {
+    analytics?: boolean
+    surveys?: boolean
+}): void {
+    if (typeof window === 'undefined') return
+    let newOrOldAnalytics = analytics
+    let newOrOldSurveys = surveys
+    if (analytics === undefined || surveys === undefined) {
+        const { analyticsConsent, surveysConsent } = getConsentValues()
+        if (analytics === undefined) {
+            newOrOldAnalytics = analyticsConsent
+        }
+        if (surveys === undefined) {
+            newOrOldSurveys = surveysConsent
+        }
+    }
+    window.dispatchEvent(
+        new CustomEvent('cookie-consent-changed', {
+            detail: { analytics: newOrOldAnalytics, surveys: newOrOldSurveys },
+        })
+    )
+}
+
 export function setCookie(value: ConsentCookie, days = 90) {
     if (typeof document === 'undefined') {
         return
