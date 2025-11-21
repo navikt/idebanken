@@ -56,8 +56,7 @@ export function CookieConsentScripts({
                 script.setAttribute('data-auto-track', 'false')
 
                 // Track initial page view once script loads
-                script.onload = (e) => {
-                    e.preventDefault()
+                script.onload = () => {
                     if (window.umami) void window.umami.track()
                 }
 
@@ -71,7 +70,7 @@ export function CookieConsentScripts({
 
     useEffect(() => {
         if (analyticsConsent && window.umami) {
-            // (hostname, url, referrer, title, screen, language, etc.)
+            // Track each page view with default properties (hostname, url, referrer, title, screen, language, etc.)
             void window.umami.track()
         }
     }, [pathname, searchParams, analyticsConsent])
