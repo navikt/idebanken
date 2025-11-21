@@ -29,6 +29,12 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
 
     const title = data?.title || '[Mangler tittel på innholdet]'
 
+    const contentType = meta?.type
+    const headingSizeMap: Record<string, 'xlarge' | '2xlarge'> = {
+        'idebanken:artikkel': '2xlarge',
+    }
+    const headingSize: 'xlarge' | '2xlarge' = headingSizeMap[contentType ?? ''] ?? 'xlarge'
+
     return (
         <>
             <HeroImage
@@ -38,7 +44,7 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
                 artist={artist}
                 unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
             />
-            <HeadingView level="1" size="xlarge" className="m-0">
+            <HeadingView level="1" size={headingSize} className="m-0">
                 {title}
             </HeadingView>
             <RichTextView
@@ -48,7 +54,11 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
                 meta={meta}
                 customReplacer={htmlRichTextReplacer}
             />
-            <AuthorsAndDate authors={data?.authors} published={commonGet?.publish?.first} />
+            <AuthorsAndDate
+                authors={data?.authors}
+                artist={artist}
+                published={commonGet?.publish?.first}
+            />
         </>
     )
 }
