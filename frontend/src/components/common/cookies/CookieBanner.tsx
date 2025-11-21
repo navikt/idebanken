@@ -10,6 +10,7 @@ import { BubblesBackgroundSvgStyle } from '~/utils/BubblesBackgroundSvgStyle'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { HeadlessCms } from '~/types/generated'
+import { dispatchCookieConsentEvent } from '~/components/common/cookies/cookieUtils'
 
 export function CookieBanner({ meta, common }: { meta: MetaData; common?: HeadlessCms }) {
     const { closeCookieBanner, showCookieBanner, setShowCookieBanner } = useCookieBanner()
@@ -21,21 +22,13 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
     const handleNecessaryOnlyClick = () => {
         closeCookieBanner()
         setShowCookieBanner(false)
-        window.dispatchEvent(
-            new CustomEvent('cookie-consent-changed', {
-                detail: { analytics: false, surveys: false },
-            })
-        )
+        dispatchCookieConsentEvent({ analytics: false, surveys: false })
     }
 
     const handleAcceptAllClick = () => {
         closeCookieBanner()
         setShowCookieBanner(false)
-        window.dispatchEvent(
-            new CustomEvent('cookie-consent-changed', {
-                detail: { analytics: true, surveys: true },
-            })
-        )
+        dispatchCookieConsentEvent({ analytics: true, surveys: true })
     }
 
     return (
