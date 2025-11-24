@@ -1,6 +1,5 @@
 import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { Extensions, DataFetchingEnvironment } from '@enonic-types/guillotine/extensions'
-import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { query, Content } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { resolveImage, resolveIcon, ResolvedMedia } from '/lib/utils/media'
@@ -38,12 +37,17 @@ export const articleCardListExtensions = ({
     reference,
     GraphQLString,
     GraphQLBoolean,
+    GraphQLInt,
 }: GraphQL): Extensions => ({
     resolvers: {
         Part_idebanken_article_card_list: {
             list: (_env: DataFetchingEnvironment) => {
+                const offset: number = _env.args?.offset ?? 0
+                const count: number = _env.args?.count ?? 10
                 const hits = query({
-                    count: -1,
+                    start: offset,
+                    count,
+                    sort: '_modifiedTime DESC',
                     filters: {
                         boolean: {
                             must: [
@@ -59,12 +63,34 @@ export const articleCardListExtensions = ({
                 }).hits
                 return map(hits)
             },
+            total: () => {
+                const res = query({
+                    count: 0,
+                    filters: {
+                        boolean: {
+                            must: [
+                                {
+                                    hasValue: { field: 'type', values: ['idebanken:artikkel'] },
+                                },
+                            ],
+                        },
+                    },
+                })
+                return res.total
+            },
         },
     },
     creationCallbacks: {
         Part_idebanken_article_card_list: (params) => {
             params.addFields({
-                list: { type: nonNull(list(nonNull(reference('Article_card')))) },
+                total: { type: nonNull(GraphQLInt) },
+                list: {
+                    type: nonNull(list(nonNull(reference('Article_card')))),
+                    args: {
+                        offset: GraphQLInt,
+                        count: GraphQLInt,
+                    },
+                },
             })
         },
     },
