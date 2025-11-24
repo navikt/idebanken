@@ -51,17 +51,17 @@ export const CookieBannerOpenButton = ({ meta }: PartData<XP_CookieConsentOpen>)
 
     return (
         <HStack
-            padding={{ xs: 'space-24', md: 'space-32' }}
+            padding={'space-24'}
             gap={{ xs: 'space-16', md: 'space-40' }}
             className={
-                'bg-(--ib-bg-dark-blue-moderateA) sm:flex-nowrap justify-between rounded-lg'
+                'bg-(--ib-bg-orange-softA) sm:flex-nowrap justify-between items-center rounded-lg'
             }>
-            <HeadingView autoId={false} level={'2'} size={'medium'} className={'mb-0'}>
+            <HeadingView autoId={false} level={'2'} size={'small'} className={'mb-0'}>
                 {consentText}
             </HeadingView>
             <ButtonView
                 type="submit"
-                className={'max-sm:w-full self-center!'}
+                className={'max-sm:w-full self-center! py-(--ax-space-16) px-(--ax-space-24)'}
                 config={{ variant: 'primary', size: 'medium' }}
                 onClick={(e) => openCookieBanner(e.target as HTMLButtonElement)}
                 meta={meta}>
