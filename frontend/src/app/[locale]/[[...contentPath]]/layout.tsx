@@ -107,7 +107,7 @@ function editorHasUsedTextComponentWarningMessage(
     ) {
         return (
             <ContentEditorMessage
-                title={'Feil bruk av teskt! Bruk alltid part'}
+                title={'Feil bruk av tekst! Bruk alltid part'}
                 status={'error'}
                 content={"Ikke bruk komponenten 'tekst' bruk heller parten 'tekst'"}
             />

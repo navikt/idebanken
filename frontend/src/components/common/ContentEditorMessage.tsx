@@ -17,9 +17,7 @@ export const ContentEditorMessage = ({
     status: GlobalAlertProps['status']
 }) => {
     return (
-        <GlobalAlert
-            status={status}
-            className={'fixed bottom-0 left-1/2 -translate-x-1/2 w-full z-[99999]'}>
+        <GlobalAlert status={status} className={'fixed bottom-0 w-full z-[99999]'}>
             <GlobalAlertHeader>
                 <GlobalAlertTitle>{title}</GlobalAlertTitle>
             </GlobalAlertHeader>
