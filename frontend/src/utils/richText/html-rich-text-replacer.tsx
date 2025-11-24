@@ -15,6 +15,7 @@ import React from 'react'
 import { handleLink } from '~/utils/richText/handle-link'
 import { handleMacro } from '~/utils/richText/handle-macro'
 import { handleImage } from '~/utils/richText/handle-image'
+import { handleTable } from '~/utils/richText/handle-table'
 
 function isOnlyMacroChild(el: Element): Element | null {
     if (el.children?.length === 1) {
@@ -119,6 +120,8 @@ export const htmlRichTextReplacer: Replacer = (
                     return handleMacro(el, data.macros, meta, renderMacroInEditMode, options)
                 case 'img':
                     return handleImage(el, data, meta)
+                case 'table':
+                    return handleTable(el, data, meta, options)
                 default:
                     return el.children?.length
                         ? React.createElement(
