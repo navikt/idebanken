@@ -5,7 +5,15 @@ import { ButtonView } from '~/components/parts/Button'
 import { PartData } from '~/types/graphql-types'
 import { XP_NewsletterSignup } from '@xp-types/site/parts'
 import Form from 'next/form'
-import { Alert, BodyLong, Box, Checkbox, CheckboxGroup, TextField, VStack } from '@navikt/ds-react'
+import {
+    BodyLong,
+    Box,
+    Checkbox,
+    CheckboxGroup,
+    InlineMessage,
+    TextField,
+    VStack,
+} from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
 import { newsletterSignup } from '~/utils/actions'
 import { useRouter } from 'next/navigation'
@@ -69,9 +77,7 @@ export default function NewsletterSignup({
                         </Checkbox>
                     </CheckboxGroup>
                     {state.fetchError && (
-                        <Alert inline variant="error">
-                            {state.fetchError as string}
-                        </Alert>
+                        <InlineMessage status="error">{state.fetchError as string}</InlineMessage>
                     )}
                     <ButtonView
                         type="submit"
