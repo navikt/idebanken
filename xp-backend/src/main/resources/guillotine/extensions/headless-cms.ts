@@ -94,6 +94,7 @@ export const headlessCmsExtensions = ({
 
                     return {
                         searchPageHref: searchPageId ? enonicSitePathToHref(searchPageId) : '/sok',
+                        cookieInfoText: processHtml({ value: siteConfig?.cookieInfoText ?? '' }),
                     }
                 })
             },
@@ -134,6 +135,9 @@ export const headlessCmsExtensions = ({
             description: 'Configuration for other parts of the site',
             fields: {
                 searchPageHref: {
+                    type: nonNull(GraphQLString),
+                },
+                cookieInfoText: {
                     type: nonNull(GraphQLString),
                 },
             },

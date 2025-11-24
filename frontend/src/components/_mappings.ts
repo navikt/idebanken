@@ -4,14 +4,13 @@ import {
     buttonQuery,
     downloadsQuery,
     highlightedBoxMacroQuery,
-    imageAndVectorFields,
     imageQuery,
     linkCardListQuery,
     linkCardQuery,
     newsletterQuery,
     tableOfContentsQuery,
     titleIngressQuery,
-    videoMacroQuery,
+    videoPartOrMacroQuery,
 } from './queries/parts'
 import MainPage from './pages/Main'
 import '@enonic/nextjs-adapter/baseMappings'
@@ -43,6 +42,9 @@ import { VideoPreview } from '~/components/contentType/VideoPreview'
 import { VideoPartOrMacro } from '~/components/parts/VideoPartOrMacro'
 import { videoContentTypeQuery } from '~/components/queries/content-types'
 import { ArticleCardList } from '~/components/parts/ArticleListCard'
+import { Quote } from '~/components/macros/Quote'
+import { CookieConsentToggle } from '~/components/common/cookies/CookieConsentToggle'
+import { CookieBannerOpenButton } from '~/components/common/cookies/CookieBannerOpenButton'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -95,7 +97,15 @@ ComponentRegistry.addMacro(`${APP_NAME}:highlighted-box`, {
 })
 ComponentRegistry.addMacro(`${APP_NAME}:video`, {
     view: VideoPartOrMacro,
-    configQuery: videoMacroQuery,
+    configQuery: videoPartOrMacroQuery,
+})
+
+ComponentRegistry.addMacro(`${APP_NAME}:quote`, {
+    view: Quote,
+    configQuery: `{
+        body
+        source
+    }`,
 })
 
 // Part mappings
@@ -171,7 +181,8 @@ ComponentRegistry.addPart(`${APP_NAME}:link-card-list`, {
 ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
     view: ArticleCardList,
     configQuery: `{
-        list {
+        total
+        list(offset: 0, count: 5) {
             url
             external
             title
@@ -207,5 +218,13 @@ ComponentRegistry.addPart(`${APP_NAME}:show-more`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:video`, {
     view: VideoPartOrMacro,
-    configQuery: videoMacroQuery,
+    configQuery: videoPartOrMacroQuery,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:cookie-consent-toggle`, {
+    view: CookieConsentToggle,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:cookie-consent-open`, {
+    view: CookieBannerOpenButton,
 })

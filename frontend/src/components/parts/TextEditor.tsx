@@ -28,7 +28,7 @@ export const TextEditorView = (props: PartData<Part_Idebanken_Text_Editor>) => {
     }
 
     return (
-        <BleedingBackgroundPageBlock marginInline="11" bleedClassName={box}>
+        <BleedingBackgroundPageBlock marginInline={{ md: 'space-48' }} bleedClassName={box}>
             {content}
         </BleedingBackgroundPageBlock>
     )

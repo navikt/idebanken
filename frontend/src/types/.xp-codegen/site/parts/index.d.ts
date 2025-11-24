@@ -2,6 +2,8 @@
 export type XP_Accordion = import('./accordion').XP_Accordion;
 export type XP_ArticleCardList = import('./article-card-list').XP_ArticleCardList;
 export type XP_Button = import('./button').XP_Button;
+export type XP_CookieConsentOpen = import('./cookie-consent-open').XP_CookieConsentOpen;
+export type XP_CookieConsentToggle = import('./cookie-consent-toggle').XP_CookieConsentToggle;
 export type XP_Downloads = import('./downloads').XP_Downloads;
 export type XP_ExpansionCard = import('./expansion-card').XP_ExpansionCard;
 export type XP_Heading = import('./heading').XP_Heading;
@@ -23,6 +25,8 @@ declare global {
     'idebanken:accordion': XP_Accordion;
     'idebanken:article-card-list': XP_ArticleCardList;
     'idebanken:button': XP_Button;
+    'idebanken:cookie-consent-open': XP_CookieConsentOpen;
+    'idebanken:cookie-consent-toggle': XP_CookieConsentToggle;
     'idebanken:downloads': XP_Downloads;
     'idebanken:expansion-card': XP_ExpansionCard;
     'idebanken:heading': XP_Heading;

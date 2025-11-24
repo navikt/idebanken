@@ -13,9 +13,6 @@
                 <allowPath>${site}/ressurser/*</allowPath>
             </config>
         </input>
-         <input name="overrideHeroImageText" type="TextLine">
-            <label>Overskriv artikkelbildetekst</label>
-        </input>
         <mixin name="title-ingress"/>
         <mixin name="byline"/>
     </form>

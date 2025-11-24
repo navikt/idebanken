@@ -122,6 +122,16 @@
                 <mixin name="link-groups"/>
             </items>
         </item-set>
+        <input type="HtmlArea" name="cookieInfoText">
+            <label>CookieText</label>
+            <config>
+                <exclude>*</exclude>
+                <include>
+                    Format | Bold Italic | Undo Redo RemoveFormat | Link
+                </include>
+                <allowHeadings>h2</allowHeadings>
+            </config>
+        </input>
     </form>
     <mappings>
     </mappings>

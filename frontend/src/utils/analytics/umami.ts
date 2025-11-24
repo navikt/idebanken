@@ -1,4 +1,5 @@
 import { SearchResult } from '~/utils/search'
+import { getConsentValues } from '~/components/common/cookies/cookieUtils'
 
 export interface EventData {
     [key: string]: number | string | EventData | number[] | string[] | EventData[]
@@ -8,6 +9,7 @@ declare global {
     interface Window {
         umami?: {
             track(eventName: string, eventData: EventData): Promise<void>
+            track(properties?: EventData): Promise<void>
             identify: {
                 (eventData: EventData): Promise<void>
                 (eventName: string, eventData: EventData): Promise<void>
@@ -47,7 +49,9 @@ export async function umami(eventName: AnalyticsEvents, eventData: EventData = {
         console.info(`📊 [Analytics] ${eventName}`, eventData)
         return
     }
-    if (typeof window !== 'undefined' && window.umami) {
+
+    const { analyticsConsent } = getConsentValues()
+    if (analyticsConsent && typeof window !== 'undefined' && window.umami) {
         void window.umami.track(eventName, eventData)
     }
 }
