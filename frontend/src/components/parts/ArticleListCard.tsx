@@ -1,17 +1,14 @@
 'use client'
 
+import { fetchContent, fetchGuillotine } from '@enonic/nextjs-adapter/server'
+import type { FetchContentResult } from '@enonic/nextjs-adapter'
+import { getContentApiUrl, getLocaleMapping, Result } from '@enonic/nextjs-adapter'
+import { enonicSitePathToHref, forceArray } from '~/utils/utils'
+import { Query } from '~/types/generated'
 import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Article_Card_List } from '~/types/generated'
-import { getAsset, getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
-import {
-    LinkCard,
-    LinkCardImage,
-    LinkCardTitle,
-    LinkCardAnchor,
-    LinkCardDescription,
-} from '@navikt/ds-react/LinkCard'
-import Image from 'next/image'
 import { useCallback, useState } from 'react'
+import getArticleCardsBatch from '~/components/queries/articles-list'
 
 type Card = Part_Idebanken_Article_Card_List['list'][number]
 
@@ -39,39 +36,41 @@ export function ArticleCardList({ part, meta }: PartData<Config>) {
         if (!canLoadMore || loading) return
         setLoading(true)
 
-        const query = `
-        query ($contentId: ID!, $offset: Int!, $count: Int!) {
-            guillotine {
-                get(key: $contentId) {
-                    components {
-                        ... on PartComponent {
-                            descriptor
-                            config {
-                                idebanken {
-                                    article_card_list {
-                                        list(offset: $offset, count: $count) {
-                                            url external title description
-                                            image { url caption }
-                                            icon { url caption }
-                                            categories { id name }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }`
+        // const query = `
+        // query ($contentId: ID!, $offset: Int!, $count: Int!) {
+        //     guillotine {
+        //         get(key: $contentId) {
+        //             components {
+        //                 ... on PartComponent {
+        //                     descriptor
+        //                     config {
+        //                         idebanken {
+        //                             article_card_list {
+        //                                 list(offset: $offset, count: $count) {
+        //                                     url external title description
+        //                                     image { url caption }
+        //                                     icon { url caption }
+        //                                     categories { id name }
+        //                                 }
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }`
 
-        const res = await fetch('/api/graphql', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                query,
-                variables: { contentId: meta.id, offset, count: PAGE_SIZE },
-            }),
-        }).then((r) => r.json())
+        // const res = await fetch(`${meta.apiUrl}`, {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({
+        //         query,
+        //         variables: { contentId: meta.id, offset, count: PAGE_SIZE },
+        //     }),
+        // }).then((r) => r.json())
+        const res = await getArticleCardsBatch(meta.id, { offset, count: PAGE_SIZE })
+        console.log('res', res)
 
         const parts = res?.data?.guillotine?.get?.components ?? []
         const node = parts.find((p: any) => p?.descriptor === 'idebanken:article-card-list')
@@ -80,7 +79,7 @@ export function ArticleCardList({ part, meta }: PartData<Config>) {
         setItems((prev) => [...prev, ...newItems])
         setOffset((prev) => prev + newItems.length)
         setLoading(false)
-    }, [canLoadMore, loading, meta.id, offset])
+    }, [canLoadMore, loading, meta.apiUrl, meta.id, offset])
 
     if (!items.length) return null
 

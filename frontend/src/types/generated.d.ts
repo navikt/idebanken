@@ -1095,6 +1095,13 @@ export type Part_Idebanken_Article_Card_List = {
   total: Scalars['Int']['output'];
 };
 
+
+/** Part component application config for application ['idebanken'] and descriptor ['article-card-list'] */
+export type Part_Idebanken_Article_Card_ListListArgs = {
+  count?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
 /** Part component application config for application ['idebanken'] and descriptor ['button'] */
 export type Part_Idebanken_Button = {
   __typename?: 'Part_idebanken_button';
