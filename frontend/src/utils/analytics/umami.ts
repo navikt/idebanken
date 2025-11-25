@@ -27,21 +27,20 @@ declare global {
 }
 
 export enum AnalyticsEvents {
-    NAVIGATION = 'navigere',
     FILTER = 'filtervalg',
     ACC_EXPAND = 'accordion åpnet',
     ACC_COLLAPSE = 'accordion lukket',
-    MODAL_OPEN = 'modal åpnet',
-    MODAL_CLOSE = 'modal lukket',
     VIDEO_START = 'video start',
     VIDEO_STOP = 'video stopp',
     SCROLL_PERCENT = 'scroll prosent',
     BUTTON_CLICKED = 'knapp klikket',
+    DOWNLOAD = 'dokument nedlastet',
     SEARCH_SUBMITTED = 'søk gjennomført',
     SEARCH_RESULT_CLICKED = 'søkeresultat klikket',
     LINK_CLICKED = 'lenke klikket',
     SHOW_MORE_EXPAND = 'vis mer åpnet',
     SHOW_MORE_COLLAPSE = 'vis mer lukket',
+    ANCHOR_LINK_CLICKED = 'ankerlenke klikket',
 }
 
 export async function umami(eventName: AnalyticsEvents, eventData: EventData = {}): Promise<void> {

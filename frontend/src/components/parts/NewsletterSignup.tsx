@@ -18,6 +18,7 @@ import { HeadingView } from '~/components/parts/Heading'
 import { newsletterSignup } from '~/utils/actions'
 import { useRouter } from 'next/navigation'
 import { enonicSitePathToHref } from '~/utils/utils'
+import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 
 export default function NewsletterSignup({
     meta,
@@ -83,6 +84,11 @@ export default function NewsletterSignup({
                         type="submit"
                         config={{ variant: 'primary', size: 'medium' }}
                         className={'mt-(--ax-space-8) px-20 self-center!'}
+                        onClick={() =>
+                            void umami(AnalyticsEvents.BUTTON_CLICKED, {
+                                knappId: 'newsletter-subscribe',
+                            })
+                        }
                         meta={meta}>
                         Meld meg på
                     </ButtonView>

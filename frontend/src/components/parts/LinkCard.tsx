@@ -37,6 +37,9 @@ export type LinkCardViewParams = Omit<Link_Card, 'description' | '__typename'> &
     Partial<Omit<XP_LinkCardList, 'list'>> & {
         description?: string | React.ReactNode
         meta: MetaData
+        linkProps?: React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+            'data-umami-ignore'?: boolean
+        }
     }
 
 export const LinkCardView = ({
@@ -52,6 +55,7 @@ export const LinkCardView = ({
     displayType,
     hideArrow,
     meta,
+    linkProps,
 }: LinkCardViewParams) => {
     const showIcon = displayType === 'withIcon' || displayType === 'withImageAndIcon'
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
@@ -99,6 +103,7 @@ export const LinkCardView = ({
             )}
             <LinkCardTitle>
                 <LinkCardAnchor
+                    {...linkProps}
                     href={getUrl(url, meta) || '#'}
                     {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
                     {title}

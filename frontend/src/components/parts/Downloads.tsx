@@ -2,8 +2,6 @@ import { BodyShort, VStack } from '@navikt/ds-react'
 import { FileIcon, FilePdfIcon, FileWordIcon } from '@navikt/aksel-icons'
 import type { PartProps } from '@enonic/nextjs-adapter'
 import { ButtonView } from './Button'
-import TrackFirstLink from '~/components/common/analytics/TrackFirstLink'
-import { AnalyticsEvents } from '~/utils/analytics/umami'
 
 type DownloadItem = {
     displayName: string
@@ -95,25 +93,17 @@ export const Downloads = ({ part, meta }: PartProps) => {
                                         </BodyShort>
                                     </div>
                                 </div>
-                                <TrackFirstLink
-                                    analyticsEventName={AnalyticsEvents.BUTTON_CLICKED}
-                                    eventData={{
-                                        knappType: 'download',
-                                        knappVariant: 'primary',
-                                        filnavn: fileName,
-                                    }}>
-                                    <ButtonView
-                                        config={{
-                                            url: item.mediaUrl,
-                                            external: true,
-                                            variant: 'primary',
-                                            size: 'medium',
-                                            linkText: 'Last ned',
-                                        }}
-                                        download
-                                        meta={meta}
-                                    />
-                                </TrackFirstLink>
+                                <ButtonView
+                                    config={{
+                                        url: item.mediaUrl,
+                                        external: true,
+                                        variant: 'primary',
+                                        size: 'medium',
+                                        linkText: 'Last ned',
+                                    }}
+                                    download
+                                    meta={meta}
+                                />
                             </li>
                         )
                     })}

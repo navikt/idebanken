@@ -1520,6 +1520,7 @@ export type RangeDslExpressionInput = {
 /** Overridable link */
 export type ResolvedLinkSelector = {
   __typename?: 'ResolvedLinkSelector';
+  download?: Maybe<Scalars['Boolean']['output']>;
   external: Scalars['Boolean']['output'];
   linkText: Scalars['String']['output'];
   url: Scalars['String']['output'];
@@ -2346,7 +2347,6 @@ export type Idebanken_Artikkel_Data = {
   description?: Maybe<Scalars['String']['output']>;
   heroImage?: Maybe<Content>;
   ingress?: Maybe<RichText>;
-  overrideHeroImageText?: Maybe<Scalars['String']['output']>;
   overrideImage?: Maybe<Content>;
   shortTitle?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;

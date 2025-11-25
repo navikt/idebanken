@@ -53,6 +53,7 @@ export const resolvedLinkSelector = `
 url
 linkText
 external
+download
 `
 const linkGroups = `
 title
