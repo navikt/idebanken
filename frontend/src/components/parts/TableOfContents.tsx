@@ -4,6 +4,8 @@ import { BodyShort, VStack } from '@navikt/ds-react'
 import NextLink from 'next/link'
 import { HeadingView } from '~/components/parts/Heading'
 import { headingIdOfString } from '~/utils/utils'
+import TrackFirstLink from '~/components/common/analytics/TrackFirstLink'
+import { AnalyticsEvents } from '~/utils/analytics/umami'
 
 export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Contents>) {
     const { sections, title } = part?.config ?? {}
@@ -21,11 +23,17 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
                 {sections?.length ? (
                     sections.map((section, index) => (
                         <li key={index} className="py-3">
-                            <NextLink
-                                href={`#${headingIdOfString(section ?? '')}`}
-                                className="text-(--ax-text-decoration) underline hover:no-underline text-xl font-[400]">
-                                {section}
-                            </NextLink>
+                            <TrackFirstLink
+                                key={index}
+                                analyticsEventName={AnalyticsEvents.ANCHOR_LINK_CLICKED}
+                                eventData={{ komponentId: 'innholdsfortegnelse' }}>
+                                <NextLink
+                                    href={`#${headingIdOfString(section ?? '')}`}
+                                    data-umami-ignore={true}
+                                    className="text-(--ax-text-decoration) underline hover:no-underline text-xl font-[400]">
+                                    {section}
+                                </NextLink>
+                            </TrackFirstLink>
                         </li>
                     ))
                 ) : (

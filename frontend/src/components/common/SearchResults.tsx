@@ -62,6 +62,7 @@ export default function SearchResults(
                             icon={{ url: result.iconUrl, iconColor: result.iconColor }}
                             key={index}
                             meta={meta}
+                            linkProps={{ 'data-umami-ignore': true }}
                         />
                     </TrackFirstLink>
                 ))

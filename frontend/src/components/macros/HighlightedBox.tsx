@@ -46,9 +46,11 @@ export function HighlightedBox({
                     <List aria-labelledby={title}>
                         {config.links
                             ?.filter((it) => it != null)
-                            ?.map(({ url, linkText }) => (
+                            ?.map(({ url, linkText, download }) => (
                                 <ListItem key={url}>
-                                    <Link href={getUrl(url, meta)}>{linkText}</Link>
+                                    <Link href={getUrl(url, meta)} download={download}>
+                                        {linkText}
+                                    </Link>
                                 </ListItem>
                             ))}
                         {config.linksAbsolute
