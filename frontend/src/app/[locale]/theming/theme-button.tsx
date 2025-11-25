@@ -17,7 +17,7 @@ function ThemeButton({
         setTheme(next)
         void umami(AnalyticsEvents.BUTTON_CLICKED, {
             knappId: 'tema-byttet',
-            tema: `${next}`,
+            status: `Byttet til ${next} tema`,
         })
     }, [resolvedTheme, setTheme])
 

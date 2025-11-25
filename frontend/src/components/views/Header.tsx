@@ -149,7 +149,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                 setIsSearchOpen(false)
                                 void umami(AnalyticsEvents.BUTTON_CLICKED, {
                                     knappId: 'meny-hamburger',
-                                    aapnet: `${openedMenu}`,
+                                    status: openedMenu ? 'Åpnet' : 'Lukket',
                                 })
                             }}
                             className={buttonLabelClass}
@@ -249,7 +249,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                 setIsMenuOpen(false)
                                 void umami(AnalyticsEvents.BUTTON_CLICKED, {
                                     knappId: 'meny-søk',
-                                    aapnet: `${openedSearch}`,
+                                    status: openedSearch ? 'Åpnet' : 'Lukket',
                                 })
                             }}
                             className={classNames(buttonLabelClass, 'max-sm:hidden')}
