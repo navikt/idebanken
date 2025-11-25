@@ -1,14 +1,10 @@
 'use client'
 
-import { fetchContent, fetchGuillotine } from '@enonic/nextjs-adapter/server'
-import type { FetchContentResult } from '@enonic/nextjs-adapter'
-import { getContentApiUrl, getLocaleMapping, Result } from '@enonic/nextjs-adapter'
-import { enonicSitePathToHref, forceArray } from '~/utils/utils'
-import { Query } from '~/types/generated'
 import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Article_Card_List } from '~/types/generated'
 import { useCallback, useState } from 'react'
-import getArticleCardsBatch from '~/components/queries/articles-list'
+import { LinkCardView } from './LinkCard'
+import { Button, Loader } from '@navikt/ds-react'
 
 type Card = Part_Idebanken_Article_Card_List['list'][number]
 
@@ -17,13 +13,12 @@ interface Config {
     total: number
 }
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 5
+const MIN_SPINNER_MS = 400 // ensure loader is visible
 
 export function ArticleCardList({ part, meta }: PartData<Config>) {
     const initial = part.config?.list ?? []
     const total = part.config?.total ?? 0
-
-    console.log('meta', meta)
 
     const [items, setItems] = useState<Card[]>(initial)
     const [offset, setOffset] = useState(initial.length)
@@ -32,70 +27,94 @@ export function ArticleCardList({ part, meta }: PartData<Config>) {
     const canLoadMore = offset < total
 
     const loadMore = useCallback(async () => {
-        console.log('entering loadMore')
         if (!canLoadMore || loading) return
+        if (!meta.id) return
         setLoading(true)
+        try {
+            const fetchPromise = fetch('/api/articlesList', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contentId: meta.id, offset, count: PAGE_SIZE }),
+            }).then((r) => r.json())
 
-        // const query = `
-        // query ($contentId: ID!, $offset: Int!, $count: Int!) {
-        //     guillotine {
-        //         get(key: $contentId) {
-        //             components {
-        //                 ... on PartComponent {
-        //                     descriptor
-        //                     config {
-        //                         idebanken {
-        //                             article_card_list {
-        //                                 list(offset: $offset, count: $count) {
-        //                                     url external title description
-        //                                     image { url caption }
-        //                                     icon { url caption }
-        //                                     categories { id name }
-        //                                 }
-        //                             }
-        //                         }
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }`
+            // Enforce minimum spinner time
+            const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
 
-        // const res = await fetch(`${meta.apiUrl}`, {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({
-        //         query,
-        //         variables: { contentId: meta.id, offset, count: PAGE_SIZE },
-        //     }),
-        // }).then((r) => r.json())
-        const res = await getArticleCardsBatch(meta.id, { offset, count: PAGE_SIZE })
-        console.log('res', res)
+            const [res] = await Promise.all([fetchPromise, delay])
 
-        const parts = res?.data?.guillotine?.get?.components ?? []
-        const node = parts.find((p: any) => p?.descriptor === 'idebanken:article-card-list')
-        const newItems: Card[] = node?.config?.idebanken?.article_card_list?.list ?? []
-
-        setItems((prev) => [...prev, ...newItems])
-        setOffset((prev) => prev + newItems.length)
-        setLoading(false)
-    }, [canLoadMore, loading, meta.apiUrl, meta.id, offset])
+            const newItems: Card[] = res.list ?? []
+            if (newItems.length) {
+                setItems((prev) => [...prev, ...newItems])
+                setOffset((prev) => prev + newItems.length)
+            }
+        } finally {
+            setLoading(false)
+        }
+    }, [canLoadMore, loading, meta.id, offset])
 
     if (!items.length) return null
 
     return (
-        <div className="grid gap-6 md:grid-cols-3">
-            {items.map((card) => (
-                <p key={card.url}>{card.title}</p>
-            ))}
-            <button
-                type="button"
-                onClick={loadMore}
-                disabled={loading}
-                className="px-4 py-2 rounded bg-(--ax-bg-action) text-(--ax-text-on-action) disabled:opacity-60">
-                {loading ? 'Laster…' : 'Last flere'}
-            </button>
-        </div>
+        <>
+            {/* First two items: 2 columns */}
+            <div className="grid gap-6 md:grid-cols-2">
+                {items.slice(0, 2).map((card, index) => (
+                    <LinkCardView
+                        key={card.url ?? card.title ?? index}
+                        title={card.title ?? '[Uten tittel]'}
+                        description={card.description ?? ''}
+                        url={card.url ?? '#'}
+                        external={false}
+                        image={card.image ?? undefined}
+                        brand="neutral"
+                        showDescription={true}
+                        displayType="withImage"
+                        hideArrow={true}
+                        categories={[]}
+                        meta={meta}
+                    />
+                ))}
+            </div>
+
+            {/* Remaining items: 3 columns */}
+            {items.length > 2 && (
+                <div className="mt-8 grid gap-6 md:grid-cols-3">
+                    {items.slice(2).map((card, index) => (
+                        <LinkCardView
+                            key={card.url ?? card.title ?? index}
+                            title={card.title ?? '[Uten tittel]'}
+                            description={card.description ?? ''}
+                            url={card.url ?? '#'}
+                            external={false}
+                            image={card.image ?? undefined}
+                            brand="neutral"
+                            showDescription={true}
+                            displayType="withImage"
+                            hideArrow={true}
+                            categories={[]}
+                            meta={meta}
+                        />
+                    ))}
+                </div>
+            )}
+
+            {canLoadMore && (
+                <div className="mt-8 flex justify-center">
+                    {loading ? (
+                        <Loader size="large" title="Laster" />
+                    ) : (
+                        <Button
+                            data-color="ib-brand-dark-blue"
+                            className="rounded-full font-light w-auto whitespace-nowrap"
+                            onClick={loadMore}
+                            variant="secondary"
+                            aria-live="polite">
+                            Last mer
+                        </Button>
+                    )}
+                </div>
+            )}
+        </>
     )
 }
 

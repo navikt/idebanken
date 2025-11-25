@@ -48,7 +48,6 @@ export type Article_Card = {
   categories?: Maybe<Array<Maybe<Category>>>;
   description?: Maybe<Scalars['String']['output']>;
   external?: Maybe<Scalars['Boolean']['output']>;
-  icon?: Maybe<ResolvedMedia>;
   image?: Maybe<ResolvedMedia>;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;

@@ -184,11 +184,9 @@ ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
         total
         list(offset: 0, count: 5) {
             url
-            external
             title
             description
             image { url caption }
-            icon { url caption }
             categories { id name }
         }
     }`,
