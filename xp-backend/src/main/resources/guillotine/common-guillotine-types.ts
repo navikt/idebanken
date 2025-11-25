@@ -14,7 +14,12 @@ export type Source<T> = {
 } & T
 export type EmptyRecord = Record<string, unknown>
 
-export type ResolvedLinkSelector = { url: string; linkText: string; external: boolean }
+export type ResolvedLinkSelector = {
+    url: string
+    linkText: string
+    external: boolean
+    download?: boolean
+}
 export type LinkGroups = Array<{
     title?: string
     links: Array<ResolvedLinkSelector>
@@ -40,6 +45,9 @@ export const commonGuillotineTypes = ({
             },
             external: {
                 type: nonNull(GraphQLBoolean),
+            },
+            download: {
+                type: GraphQLBoolean,
             },
         },
         interfaces: [],
@@ -121,8 +129,10 @@ export function resolveInternalLink(internalLink: InternalLink): ResolvedLinkSel
     const content = getOrNull<Content<TitleIngress> | MediaImageContent>(internalLink.contentId)
 
     let url = enonicSitePathToHref(content?._path)
+    let download = false
     if (content?.type === 'media:document') {
         url = attachmentUrl({ path: content._path, type: 'absolute' })
+        download = true
     }
 
     return {
@@ -136,6 +146,7 @@ export function resolveInternalLink(internalLink: InternalLink): ResolvedLinkSel
             content?.data?.title ||
             content?.displayName ||
             '[Mangler tittel]',
+        download,
     }
 }
 
