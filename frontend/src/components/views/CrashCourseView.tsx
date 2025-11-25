@@ -4,6 +4,7 @@ import React, { type JSX, useCallback, useEffect, useMemo, useState } from 'reac
 import { AnimatePresence, motion, Variants } from 'framer-motion'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { BodyShort, Button, HStack, ProgressBar, VStack } from '@navikt/ds-react'
+import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 
 type Direction = 'right' | 'left'
 
@@ -21,17 +22,29 @@ export default function CrashCourseView({
                 setDirection(index > currentIndex ? 'right' : 'left')
                 setCurrentIndex(index)
                 window.location.hash = `#${index}` // Update URL hash
+                return true
             }
+            return false
         },
         [slideDeckElements, currentIndex, setDirection, setCurrentIndex]
     )
 
     const goToNextSlide = useCallback(() => {
-        setCurrentSlide(currentIndex + 1)
+        const changedSlide = setCurrentSlide(currentIndex + 1)
+        if (!changedSlide) return
+        void umami(AnalyticsEvents.CRASH_COURSE_SLIDE_NEXT, {
+            slideNummer: currentIndex + 2,
+            lynkurs: decodeURIComponent(window.location.pathname.split('/').pop() ?? 'unknown'),
+        })
     }, [currentIndex, setCurrentSlide])
 
     const goToPrevSlide = useCallback(() => {
-        setCurrentSlide(currentIndex - 1)
+        const changedSlide = setCurrentSlide(currentIndex - 1)
+        if (!changedSlide) return
+        void umami(AnalyticsEvents.CRASH_COURSE_SLIDE_PREV, {
+            slideNummer: currentIndex,
+            lynkurs: decodeURIComponent(window.location.pathname.split('/').pop() ?? 'unknown'),
+        })
     }, [currentIndex, setCurrentSlide])
 
     const shortcuts: Record<string, () => void> = useMemo(
