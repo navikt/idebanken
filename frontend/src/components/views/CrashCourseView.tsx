@@ -29,28 +29,38 @@ export default function CrashCourseView({
         [slideDeckElements, currentIndex, setDirection, setCurrentIndex]
     )
 
-    const goToNextSlide = useCallback(() => {
-        const changedSlide = setCurrentSlide(currentIndex + 1)
-        if (!changedSlide) return
-        void umami(AnalyticsEvents.CRASH_COURSE_SLIDE_NEXT, {
-            slideNummer: currentIndex + 2,
-            lynkurs: decodeURIComponent(window.location.pathname.split('/').pop() ?? 'unknown'),
-        })
-    }, [currentIndex, setCurrentSlide])
+    const goToNextSlide = useCallback(
+        (navigation: 'knapp' | 'tastatur' = 'knapp') => {
+            const changedSlide = setCurrentSlide(currentIndex + 1)
+            if (!changedSlide) return
+            void umami(AnalyticsEvents.CRASH_COURSE, {
+                navigering: navigation,
+                fraSlideNummer: currentIndex + 1,
+                tilSlideNummer: currentIndex + 2,
+                lynkurs: decodeURIComponent(window.location.pathname.split('/').pop() ?? 'unknown'),
+            })
+        },
+        [currentIndex, setCurrentSlide]
+    )
 
-    const goToPrevSlide = useCallback(() => {
-        const changedSlide = setCurrentSlide(currentIndex - 1)
-        if (!changedSlide) return
-        void umami(AnalyticsEvents.CRASH_COURSE_SLIDE_PREV, {
-            slideNummer: currentIndex,
-            lynkurs: decodeURIComponent(window.location.pathname.split('/').pop() ?? 'unknown'),
-        })
-    }, [currentIndex, setCurrentSlide])
+    const goToPrevSlide = useCallback(
+        (navigation: 'knapp' | 'tastatur') => {
+            const changedSlide = setCurrentSlide(currentIndex - 1)
+            if (!changedSlide) return
+            void umami(AnalyticsEvents.CRASH_COURSE, {
+                navigering: navigation,
+                fraSlideNummer: currentIndex + 1,
+                tilSlideNummer: currentIndex,
+                lynkurs: decodeURIComponent(window.location.pathname.split('/').pop() ?? 'unknown'),
+            })
+        },
+        [currentIndex, setCurrentSlide]
+    )
 
     const shortcuts: Record<string, () => void> = useMemo(
         () => ({
-            arrowright: () => goToNextSlide(),
-            arrowleft: () => goToPrevSlide(),
+            arrowright: () => goToNextSlide('tastatur'),
+            arrowleft: () => goToPrevSlide('tastatur'),
         }),
         [goToNextSlide, goToPrevSlide]
     )
@@ -116,7 +126,7 @@ export default function CrashCourseView({
             <VStack gap={'4'} className={'p-4'}>
                 <HStack className={'self-center items-center'} gap={'8'}>
                     <Button
-                        onClick={goToPrevSlide}
+                        onClick={() => goToPrevSlide('knapp')}
                         disabled={currentIndex === 0}
                         aria-label="Forrige slide">
                         Forrige
@@ -127,7 +137,7 @@ export default function CrashCourseView({
                         {currentIndex + 1} / {slideDeckElements.length}
                     </BodyShort>
                     <Button
-                        onClick={goToNextSlide}
+                        onClick={() => goToNextSlide('knapp')}
                         disabled={currentIndex === slideDeckElements.length - 1}
                         aria-label="Neste slide">
                         Neste
