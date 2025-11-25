@@ -3,6 +3,7 @@
 import { Button, Tooltip } from '@navikt/ds-react'
 import { useTheme } from 'next-themes'
 import React, { useCallback } from 'react'
+import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 
 function ThemeButton({
     withTooltip,
@@ -14,6 +15,10 @@ function ThemeButton({
     const toggle = useCallback(() => {
         const next = resolvedTheme === 'dark' ? 'light' : 'dark'
         setTheme(next)
+        void umami(AnalyticsEvents.BUTTON_CLICKED, {
+            knappId: 'tema-byttet',
+            tema: `${next}`,
+        })
     }, [resolvedTheme, setTheme])
 
     const button = (
