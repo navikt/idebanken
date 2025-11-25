@@ -23,7 +23,7 @@ import SearchResults from '~/components/common/SearchResults'
 import { usePathname, useRouter } from 'next/navigation'
 import { SOK_SEARCH_PARAM } from '~/utils/constants'
 import { ThemeButton } from '~/app/[locale]/theming/theme-button'
-import { SearchFrom, trackSearchResult } from '~/utils/analytics/umami'
+import { AnalyticsEvents, SearchFrom, trackSearchResult, umami } from '~/utils/analytics/umami'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { CookieBanner } from '~/components/common/cookies/CookieBanner'
 
@@ -144,8 +144,13 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                             variant="tertiary-neutral"
                             aria-label={isMenuOpen ? 'Lukk meny' : 'Åpne meny'}
                             onClick={() => {
-                                setIsMenuOpen(!isMenuOpen)
+                                const openedMenu = !isMenuOpen
+                                setIsMenuOpen(openedMenu)
                                 setIsSearchOpen(false)
+                                void umami(AnalyticsEvents.BUTTON_CLICKED, {
+                                    knappId: 'meny-hamburger',
+                                    aapnet: `${openedMenu}`,
+                                })
                             }}
                             className={buttonLabelClass}
                             icon={
@@ -239,8 +244,13 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                             variant={'tertiary-neutral'}
                             aria-label={isSearchOpen ? 'Lukk søk' : 'Åpne søk'}
                             onClick={() => {
-                                setIsSearchOpen(!isSearchOpen)
+                                const openedSearch = !isSearchOpen
+                                setIsSearchOpen(openedSearch)
                                 setIsMenuOpen(false)
+                                void umami(AnalyticsEvents.BUTTON_CLICKED, {
+                                    knappId: 'meny-søk',
+                                    aapnet: `${openedSearch}`,
+                                })
                             }}
                             className={classNames(buttonLabelClass, 'max-sm:hidden')}
                             icon={
