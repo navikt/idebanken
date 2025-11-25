@@ -5,20 +5,38 @@ import { Part_Idebanken_Article_Card_List } from '~/types/generated'
 import { useCallback, useState } from 'react'
 import { LinkCardView } from './LinkCard'
 import { Button, Loader } from '@navikt/ds-react'
+import { XP_DisplayImageOrIcon, XP_BrandColor } from '@xp-types/site/mixins'
+import { fetchArticleCardList } from '../queries/articlesList'
 
 type Card = Part_Idebanken_Article_Card_List['list'][number]
 
 interface Config {
     list: Card[]
     total: number
+    pageSize?: number
 }
 
-const PAGE_SIZE = 5
-const MIN_SPINNER_MS = 400 // ensure loader is visible
+const MIN_SPINNER_MS = 400
+
+function normalizeCard(card: Card) {
+    return {
+        title: card.title ?? '[Uten tittel]',
+        description: card.description ?? '',
+        url: card.url ?? '#',
+        external: false,
+        image: card.image ?? undefined,
+        brand: 'neutral' as XP_BrandColor['brand'],
+        showDescription: true,
+        displayType: 'withImage' as XP_DisplayImageOrIcon['displayType'],
+        hideArrow: true,
+        categories: [],
+    }
+}
 
 export function ArticleCardList({ part, meta }: PartData<Config>) {
     const initial = part.config?.list ?? []
     const total = part.config?.total ?? 0
+    const pageSize = part.config?.pageSize ?? 6
 
     const [items, setItems] = useState<Card[]>(initial)
     const [offset, setOffset] = useState(initial.length)
@@ -30,16 +48,10 @@ export function ArticleCardList({ part, meta }: PartData<Config>) {
         if (!canLoadMore || loading) return
         if (!meta.id) return
         setLoading(true)
+
         try {
-            const fetchPromise = fetch('/api/articlesList', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contentId: meta.id, offset, count: PAGE_SIZE }),
-            }).then((r) => r.json())
-
-            // Enforce minimum spinner time
+            const fetchPromise = fetchArticleCardList(meta.id, offset, pageSize)
             const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
-
             const [res] = await Promise.all([fetchPromise, delay])
 
             const newItems: Card[] = res.list ?? []
@@ -50,51 +62,40 @@ export function ArticleCardList({ part, meta }: PartData<Config>) {
         } finally {
             setLoading(false)
         }
-    }, [canLoadMore, loading, meta.id, offset])
+    }, [canLoadMore, loading, meta.id, offset, pageSize])
 
     if (!items.length) return null
 
+    const firstTwo = items.slice(0, 2)
+    const rest = items.slice(2)
+
     return (
         <>
-            {/* First two items: 2 columns */}
             <div className="grid gap-6 md:grid-cols-2">
-                {items.slice(0, 2).map((card, index) => (
-                    <LinkCardView
-                        key={card.url ?? card.title ?? index}
-                        title={card.title ?? '[Uten tittel]'}
-                        description={card.description ?? ''}
-                        url={card.url ?? '#'}
-                        external={false}
-                        image={card.image ?? undefined}
-                        brand="neutral"
-                        showDescription={true}
-                        displayType="withImage"
-                        hideArrow={true}
-                        categories={[]}
-                        meta={meta}
-                    />
-                ))}
-            </div>
-
-            {/* Remaining items: 3 columns */}
-            {items.length > 2 && (
-                <div className="mt-8 grid gap-6 md:grid-cols-3">
-                    {items.slice(2).map((card, index) => (
+                {firstTwo.map((card, i) => {
+                    const nc = normalizeCard(card)
+                    return (
                         <LinkCardView
-                            key={card.url ?? card.title ?? index}
-                            title={card.title ?? '[Uten tittel]'}
-                            description={card.description ?? ''}
-                            url={card.url ?? '#'}
-                            external={false}
-                            image={card.image ?? undefined}
-                            brand="neutral"
-                            showDescription={true}
-                            displayType="withImage"
-                            hideArrow={true}
-                            categories={[]}
+                            key={card.url || card.title || String(i)}
+                            {...nc}
                             meta={meta}
                         />
-                    ))}
+                    )
+                })}
+            </div>
+
+            {items.length > 2 && (
+                <div className="mt-8 grid gap-6 md:grid-cols-3">
+                    {rest.map((card, i) => {
+                        const nc = normalizeCard(card)
+                        return (
+                            <LinkCardView
+                                key={card.url || card.title || String(i)}
+                                {...nc}
+                                meta={meta}
+                            />
+                        )
+                    })}
                 </div>
             )}
 

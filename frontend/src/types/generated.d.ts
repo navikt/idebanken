@@ -1089,8 +1089,8 @@ export type Part_Idebanken_Accordion_AccordionItemsSimpleTextEditorArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['article-card-list'] */
 export type Part_Idebanken_Article_Card_List = {
   __typename?: 'Part_idebanken_article_card_list';
-  enabled?: Maybe<Scalars['Boolean']['output']>;
   list: Array<Article_Card>;
+  pageSize?: Maybe<Scalars['String']['output']>;
   total: Scalars['Int']['output'];
 };
 
