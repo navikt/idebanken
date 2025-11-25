@@ -1,6 +1,6 @@
 'use client'
 
-import React, { type JSX, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { type JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { BodyShort, Button, HStack, ProgressBar, VStack } from '@navikt/ds-react'
@@ -15,6 +15,7 @@ export default function CrashCourseView({
 }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [direction, setDirection] = useState<Direction>('right')
+    const slideStartRef = useRef<number>(Date.now())
 
     const setCurrentSlide = useCallback(
         (index: number) => {
@@ -29,32 +30,41 @@ export default function CrashCourseView({
         [slideDeckElements, currentIndex, setDirection, setCurrentIndex]
     )
 
-    const goToNextSlide = useCallback(
-        (navigation: 'knapp' | 'tastatur' = 'knapp') => {
-            const changedSlide = setCurrentSlide(currentIndex + 1)
-            if (!changedSlide) return
-            void umami(AnalyticsEvents.CRASH_COURSE, {
+    const trackNavigation = useCallback(
+        (navigation: 'knapp' | 'tastatur' | 'nettleser', fromIndex: number, toIndex: number) => {
+            const secondsOnSlide = Math.max(
+                0,
+                Math.round((Date.now() - slideStartRef.current) / 1000)
+            )
+            void umami(AnalyticsEvents.CRASH_COURSE_NAVIGATION, {
                 navigering: navigation,
-                fraSlideNummer: currentIndex + 1,
-                tilSlideNummer: currentIndex + 2,
+                fraSlideNummer: fromIndex + 1,
+                tilSlideNummer: toIndex + 1,
                 lynkurs: decodeURIComponent(window.location.pathname.split('/').pop() ?? 'unknown'),
+                sekunderPaaSlide: secondsOnSlide,
             })
         },
-        [currentIndex, setCurrentSlide]
+        []
+    )
+
+    const goToNextSlide = useCallback(
+        (navigation: 'knapp' | 'tastatur' | 'nettleser') => {
+            const nextIndex = currentIndex + 1
+            const changedSlide = setCurrentSlide(nextIndex)
+            if (!changedSlide) return
+            trackNavigation(navigation, currentIndex, nextIndex)
+        },
+        [currentIndex, setCurrentSlide, trackNavigation]
     )
 
     const goToPrevSlide = useCallback(
-        (navigation: 'knapp' | 'tastatur') => {
-            const changedSlide = setCurrentSlide(currentIndex - 1)
+        (navigation: 'knapp' | 'tastatur' | 'nettleser') => {
+            const prevIndex = currentIndex - 1
+            const changedSlide = setCurrentSlide(prevIndex)
             if (!changedSlide) return
-            void umami(AnalyticsEvents.CRASH_COURSE, {
-                navigering: navigation,
-                fraSlideNummer: currentIndex + 1,
-                tilSlideNummer: currentIndex,
-                lynkurs: decodeURIComponent(window.location.pathname.split('/').pop() ?? 'unknown'),
-            })
+            trackNavigation(navigation, currentIndex, prevIndex)
         },
-        [currentIndex, setCurrentSlide]
+        [currentIndex, setCurrentSlide, trackNavigation]
     )
 
     const shortcuts: Record<string, () => void> = useMemo(
@@ -82,14 +92,42 @@ export default function CrashCourseView({
 
     useEffect(() => {
         const index = Number(window.location.hash?.replace('#', ''))
-        if (index && index !== currentIndex && !isNaN(index) && index < slideDeckElements.length) {
+        if (
+            !isNaN(index) &&
+            index >= 0 &&
+            index !== currentIndex &&
+            index < slideDeckElements.length
+        ) {
             setCurrentSlide(index)
         }
+
+        const handleHashChange = () => {
+            const newIndex = Number(window.location.hash?.replace('#', ''))
+            if (
+                newIndex !== undefined &&
+                !isNaN(newIndex) &&
+                newIndex >= 0 &&
+                newIndex < slideDeckElements.length &&
+                newIndex !== currentIndex
+            ) {
+                // Track time spent on current slide before navigating via browser buttons
+                trackNavigation('nettleser', currentIndex, newIndex)
+                setCurrentSlide(newIndex)
+            }
+        }
+
         window.addEventListener('keydown', handleKeyDown)
+        window.addEventListener('hashchange', handleHashChange)
         return () => {
             window.removeEventListener('keydown', handleKeyDown)
+            window.removeEventListener('hashchange', handleHashChange)
         }
-    }, [currentIndex, handleKeyDown, setCurrentSlide, slideDeckElements])
+    }, [currentIndex, handleKeyDown, setCurrentSlide, slideDeckElements, trackNavigation])
+
+    // Reset/start timer whenever the slide changes
+    useEffect(() => {
+        slideStartRef.current = Date.now()
+    }, [currentIndex])
 
     const variants: Variants = {
         enter: (direction: Direction) => ({

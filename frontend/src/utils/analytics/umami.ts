@@ -41,7 +41,8 @@ export enum AnalyticsEvents {
     SHOW_MORE_EXPAND = 'vis mer åpnet',
     SHOW_MORE_COLLAPSE = 'vis mer lukket',
     ANCHOR_LINK_CLICKED = 'ankerlenke klikket',
-    CRASH_COURSE = 'lynkurs',
+    CRASH_COURSE_NAVIGATION = 'lynkurs navigering',
+    CRASH_COURSE_COMPLETED = 'lynkurs fullført',
 }
 
 export async function umami(eventName: AnalyticsEvents, eventData: EventData = {}): Promise<void> {
