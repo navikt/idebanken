@@ -6,6 +6,7 @@ export type PartData<Part, ContentType = unknown> = {
         descriptor: string
         config: Part
     }
+    path: string
 } & BaseQueryResponse<ContentType>
 
 export type ContentTypeData<CommonContentTypeData, TypeName extends string> = {
