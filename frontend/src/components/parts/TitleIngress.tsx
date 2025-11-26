@@ -23,8 +23,6 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
     const src = hero?.url || null
     const altText = hero?.data?.altText
     const caption = hero?.data?.caption
-    const overrideCaption = data?.overrideHeroImageText
-    const captionToUse = overrideCaption || caption
     const artist = hero?.data?.artist
 
     const title = data?.title || '[Mangler tittel på innholdet]'
@@ -40,7 +38,7 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
             <HeroImage
                 src={src}
                 altText={altText}
-                caption={captionToUse}
+                caption={caption}
                 artist={artist}
                 unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
             />
