@@ -31,6 +31,7 @@ import { TableOfContents } from '~/components/parts/TableOfContents'
 import { Downloads } from '~/components/parts/Downloads'
 import { Separator } from '~/components/macros/Separator'
 import { FullWidth } from '~/components/pages/FullWidth'
+import { TextWidth } from '~/components/pages/TextWidth'
 import { LinkCardList } from '~/components/parts/LinkCardList'
 import CardLayout from './layouts/CardLayout'
 import { ExpansionCardView } from './parts/ExpansionCard'
@@ -71,6 +72,9 @@ ComponentRegistry.addPage(`${APP_NAME}:main`, {
 })
 ComponentRegistry.addPage(`${APP_NAME}:full-width`, {
     view: FullWidth,
+})
+ComponentRegistry.addPage(`${APP_NAME}:text-width`, {
+    view: TextWidth,
 })
 
 // Layout mappings

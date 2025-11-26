@@ -1,7 +1,7 @@
 import { Bleed, BleedProps, PageBlockProps } from '@navikt/ds-react'
 import { PageBlock } from '@navikt/ds-react/Page'
 import React, { type PropsWithChildren } from 'react'
-import { PAGE_FULL_WIDTH } from '~/utils/constants'
+import { PAGE_FULL_WIDTH, PAGE_TEXT_WIDTH } from '~/utils/constants'
 
 interface BleedingBackgroundPageBlockProps extends PageBlockProps, PropsWithChildren {
     bgColor?: string | null
@@ -23,17 +23,20 @@ export default function BleedingBackgroundPageBlock({
     marginInline = 'full',
     ...rest
 }: Readonly<BleedingBackgroundPageBlockProps>) {
+    const resolvedWidth: PageBlockProps['width'] =
+        rest.width ||
+        (layoutPath?.startsWith(`/${PAGE_FULL_WIDTH}/`)
+            ? '2xl'
+            : layoutPath?.startsWith(`/${PAGE_TEXT_WIDTH}/`)
+              ? 'text'
+              : 'md')
+
     return (
         <Bleed
             className={`${bgColor} overflow-y-auto ${bleedClassName}`}
             marginInline={marginInline}
             style={backgroundStyle}>
-            <PageBlock
-                {...rest}
-                gutters
-                width={
-                    rest.width || (layoutPath?.startsWith(`/${PAGE_FULL_WIDTH}/`) ? '2xl' : 'md')
-                }>
+            <PageBlock {...rest} gutters width={resolvedWidth}>
                 {children}
             </PageBlock>
         </Bleed>
