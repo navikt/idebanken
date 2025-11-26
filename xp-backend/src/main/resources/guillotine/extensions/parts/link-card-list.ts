@@ -154,6 +154,7 @@ const getManualList = (
     }
 
     const contents = query({
+        count: -1,
         filters: {
             hasValue: {
                 field: '_id',
