@@ -41,6 +41,7 @@ import ShowMorePart from '~/components/parts/ShowMorePart'
 import { VideoPreview } from '~/components/contentType/VideoPreview'
 import { VideoPartOrMacro } from '~/components/parts/VideoPartOrMacro'
 import { videoContentTypeQuery } from '~/components/queries/content-types'
+import { ArticleCardList } from '~/components/parts/ArticleListCard'
 import { Quote } from '~/components/macros/Quote'
 import { CookieConsentToggle } from '~/components/common/cookies/CookieConsentToggle'
 import { CookieBannerOpenButton } from '~/components/common/cookies/CookieBannerOpenButton'
@@ -175,6 +176,20 @@ ComponentRegistry.addPart(`${APP_NAME}:downloads`, {
 ComponentRegistry.addPart(`${APP_NAME}:link-card-list`, {
     view: LinkCardList,
     configQuery: linkCardListQuery,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
+    view: ArticleCardList,
+    configQuery: `{
+        total
+        list(offset: 0, count: 5) {
+            url
+            title
+            description
+            image { url caption }
+            categories { id name }
+        }
+    }`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:expansion-card`, {

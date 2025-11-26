@@ -35,11 +35,11 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
         <Box
             as="section"
             padding={{ xs: 'space-36', md: 'space-64' }}
-            margin={{ xs: 'space-0', md: 'space-24', lg: 'space-44' }}
+            margin={{ xs: 'space-0', lg: 'space-44' }}
             data-color={'ib-brand-dark-blue'}
             className={classNames(
-                'fixed bottom-0 right-0 max-w-[1024px] w-[min(95vw,full)] z-[1000]',
-                'bg-(--ib-bg-dark-blue-moderate) shadow-2xl md:rounded-lg max-lg:bg-none!',
+                'fixed bottom-0 inset-x-0 mx-auto w-[min(1024px,100%)] z-[1000]',
+                'bg-(--ib-bg-dark-blue-moderate) shadow-2xl lg:rounded-lg max-lg:bg-none!',
                 'max-h-screen overflow-y-auto'
             )}
             style={BubblesBackgroundSvgStyle(

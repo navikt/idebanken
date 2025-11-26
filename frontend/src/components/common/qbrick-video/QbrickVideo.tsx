@@ -4,7 +4,7 @@ import style from './QbrickVideo.module.css'
 
 import Image from 'next/image'
 import React, { useEffect, useId } from 'react'
-import { Alert, Button, Detail, Label, Loader } from '@navikt/ds-react'
+import { Button, Detail, InlineMessage, Label, Loader } from '@navikt/ds-react'
 import Script from 'next/script'
 import classNames from 'classnames'
 import { QbrickVideoProps } from '~/components/common/qbrick-video/videoProps'
@@ -86,7 +86,9 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                 )}
             </Button>
             {playerState === 'error' && (
-                <Alert variant={'error'}>Det oppsto en feil under lasting av video</Alert>
+                <InlineMessage status={'error'}>
+                    Det oppsto en feil under lasting av video
+                </InlineMessage>
             )}
             <div
                 className={classNames(style.macroVideo, playerState !== 'ready' && style.hidden)}
