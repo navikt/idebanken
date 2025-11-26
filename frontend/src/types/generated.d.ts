@@ -42,6 +42,17 @@ export type AggregationInput = {
   terms?: InputMaybe<TermsAggregationInput>;
 };
 
+/** Article card */
+export type Article_Card = {
+  __typename?: 'Article_card';
+  categories?: Maybe<Array<Maybe<Category>>>;
+  description?: Maybe<Scalars['String']['output']>;
+  external?: Maybe<Scalars['Boolean']['output']>;
+  image?: Maybe<ResolvedMedia>;
+  title?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
 /** Attachment. */
 export type Attachment = {
   __typename?: 'Attachment';
@@ -1037,6 +1048,7 @@ export type PartComponentDataConfig = {
 export type Part_Idebanken_ComponentDataApplicationConfig = {
   __typename?: 'Part_idebanken_ComponentDataApplicationConfig';
   accordion?: Maybe<Part_Idebanken_Accordion>;
+  article_card_list?: Maybe<Part_Idebanken_Article_Card_List>;
   button?: Maybe<Part_Idebanken_Button>;
   downloads?: Maybe<Part_Idebanken_Downloads>;
   expansion_card?: Maybe<Part_Idebanken_Expansion_Card>;
@@ -1079,6 +1091,21 @@ export type Part_Idebanken_Accordion_AccordionItems = {
 /** Accordion */
 export type Part_Idebanken_Accordion_AccordionItemsSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['article-card-list'] */
+export type Part_Idebanken_Article_Card_List = {
+  __typename?: 'Part_idebanken_article_card_list';
+  list: Array<Article_Card>;
+  pageSize?: Maybe<Scalars['String']['output']>;
+  total: Scalars['Int']['output'];
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['article-card-list'] */
+export type Part_Idebanken_Article_Card_ListListArgs = {
+  count?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['button'] */

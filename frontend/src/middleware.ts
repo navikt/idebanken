@@ -65,7 +65,7 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     base-uri 'self' ${qbrickHosts} ${enonicDomain};
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${qbrickHosts} ${isLocalhost ? "'unsafe-eval'" : ''};
-    connect-src 'self' *.nav.no *.skyra.no ${qbrickHosts};
+    connect-src 'self' *.nav.no *.skyra.no ${qbrickHosts} ${enonicDomain};
     style-src 'self' 'unsafe-inline';
     img-src 'self' data: *.skyra.no ${qbrickHosts} ${enonicDomain};
     font-src 'self' data: *.nav.no *.skyra.no ${qbrickHosts};

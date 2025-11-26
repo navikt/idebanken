@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+  <display-name>Artikkelkort liste</display-name>
+  <description>Viser en liste med artikler i kortformat.</description>
+  <form>
+   <input name="pageSize" type="Long">
+      <label>Antall artikler per last</label>
+      <default>6</default>
+    </input>
+  </form>
+</part>
