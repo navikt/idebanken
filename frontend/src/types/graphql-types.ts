@@ -29,6 +29,7 @@ export type CommonType<T = UnknownJSONContent> = {
     header: Header
     footer: Footer
     themeTags: Array<Tag>
+    typeTags: Array<Tag>
 }
 
 export type CommonContentType<T = UnknownJSONContent> = {

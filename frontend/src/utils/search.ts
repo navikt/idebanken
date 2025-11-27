@@ -58,22 +58,40 @@ const isCommonType = (obj: object): obj is CommonType<unknown> =>
 
 export function getResultThemeTags(
     result: SearchResult['hits'][0],
-    commonOrCategoryMap?: CommonType<unknown> | Record<string, Tag>
+    commonOrThemeTagMap?: CommonType<unknown> | Record<string, Tag>
 ) {
-    if (!commonOrCategoryMap) return []
-    const isCommon = isCommonType(commonOrCategoryMap)
+    if (!commonOrThemeTagMap) return []
+    const isCommon = isCommonType(commonOrThemeTagMap)
     return [
         ...forceArray(result.themeTags)?.reduce((acc: Array<Tag>, curr) => {
             const category = isCommon
-                ? commonOrCategoryMap?.themeTags?.find((cat) => cat.id === curr)?.name
-                : commonOrCategoryMap[curr]?.name
+                ? commonOrThemeTagMap?.themeTags?.find((cat) => cat.id === curr)?.name
+                : commonOrThemeTagMap[curr]?.name
             if (category) {
                 acc.push({ name: category, id: '' })
             }
             return acc
         }, []),
-        { name: result.type, id: '' },
         ...(IS_DEV_MODE ? [{ name: `Score: ${result.score}`, id: '' }] : []),
+    ]
+}
+
+export function getResultTypeTags(
+    result: SearchResult['hits'][0],
+    commonOrTypeTagMap?: CommonType<unknown> | Record<string, Tag>
+) {
+    if (!commonOrTypeTagMap) return []
+    const isCommon = isCommonType(commonOrTypeTagMap)
+    return [
+        ...forceArray(result.typeTags)?.reduce((acc: Array<Tag>, curr) => {
+            const category = isCommon
+                ? commonOrTypeTagMap?.themeTags?.find((cat) => cat.id === curr)?.name
+                : commonOrTypeTagMap[curr]?.name
+            if (category) {
+                acc.push({ name: category, id: '' })
+            }
+            return acc
+        }, []),
     ]
 }
 
@@ -105,6 +123,7 @@ export type SearchResult = {
         iconUrl?: string
         iconColor?: string
         themeTags?: Array<string>
+        typeTags?: Array<string>
         score: number
     }>
 }
