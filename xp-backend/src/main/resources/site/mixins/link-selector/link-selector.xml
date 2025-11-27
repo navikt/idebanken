@@ -14,7 +14,7 @@
                             <label>Innhold som skal lenkes til</label>
                             <occurrences minimum="1" maximum="1"/>
                             <config>
-                                <allowContentType>^(portal:site|idebanken:)(?!category)*</allowContentType>
+                                <allowContentType>^(portal:site|idebanken:)(?!theme-tag)*</allowContentType>
                             </config>
                         </input>
                         <input type="TextLine" name="linkText">

@@ -5,16 +5,11 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { Button, Chips, Fieldset, HStack, Radio, RadioGroup, VStack } from '@navikt/ds-react'
 import { PartData } from '~/types/graphql-types'
-import { Category, Idebanken_SpecialPage_Data, Part_Idebanken_Search_View } from '~/types/generated'
-import { getCategoriesMap, search, SearchResult } from '~/utils/search'
+import { Idebanken_SpecialPage_Data, Part_Idebanken_Search_View, ThemeTag } from '~/types/generated'
+import { getThemeTagsMap, search, SearchResult } from '~/utils/search'
 import SearchResults from '~/components/common/SearchResults'
 import { forceArray } from '~/utils/utils'
-import {
-    SOK_CATEGORIES_PARAM,
-    SOK_PAGE_PARAM,
-    SOK_SEARCH_PARAM,
-    SOK_SORT_PARAM,
-} from '~/utils/constants'
+import { SOK_PAGE_PARAM, SOK_SEARCH_PARAM, SOK_SORT_PARAM, SOK_TEMA_PARAM } from '~/utils/constants'
 import { SearchFrom, trackSearchResult } from '~/utils/analytics/umami'
 
 export default function SearchView({
@@ -26,16 +21,16 @@ export default function SearchView({
     const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
     const [loading, setLoading] = useState(false)
     const [loadingMore, setLoadingMore] = useState(false)
-    const [filter, setFilter] = useState<Array<Category>>()
+    const [filter, setFilter] = useState<Array<ThemeTag>>()
     const [selected, setSelected] = useState([allFilter])
 
     const searchParams = useSearchParams()
     const pathname = usePathname()
-    const categoriesMap = getCategoriesMap(common)
+    const themeTagsMap = getThemeTagsMap(common)
 
     const searchString = searchParams.get(SOK_SEARCH_PARAM)
     const sort = searchParams.get(SOK_SORT_PARAM)
-    const categoriesParamValue = searchParams.get(SOK_CATEGORIES_PARAM)
+    const themeTagsParamValue = searchParams.get(SOK_TEMA_PARAM)
 
     useEffect(() => {
         if (!searchString) return
@@ -48,20 +43,20 @@ export default function SearchView({
     }, [searchString, sort])
 
     useEffect(() => {
-        setSelected(categoriesParamValue?.split(',') ?? [allFilter])
-    }, [categoriesParamValue])
+        setSelected(themeTagsParamValue?.split(',') ?? [allFilter])
+    }, [themeTagsParamValue])
 
     useEffect(() => {
-        const categoriesInSearchResults = searchResult?.hits?.reduce((acc, curr) => {
-            curr.categories?.forEach((catId) => {
+        const themeTagsInSearchResults = searchResult?.hits?.reduce((acc, curr) => {
+            curr.themeTags?.forEach((catId) => {
                 if (catId && !acc.find((c) => c.id === catId)) {
-                    const category = categoriesMap[catId]
+                    const category = themeTagsMap[catId]
                     if (category) acc.push({ name: category.name, id: catId })
                 }
             })
             return acc
-        }, [] as Category[])
-        setFilter(categoriesInSearchResults)
+        }, [] as ThemeTag[])
+        setFilter(themeTagsInSearchResults)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchResult])
@@ -72,22 +67,22 @@ export default function SearchView({
         window.history.replaceState(null, '', `?${urlSearchParams.toString()}`)
     }
 
-    function setCategoriesParamNames(categoryNames: string[]) {
+    function setThemeTagsParamNames(categoryNames: string[]) {
         if (categoryNames.length === filter?.length) {
-            // all categories selected, reset to "all"
+            // all themeTags selected, reset to "all"
             categoryNames = [allFilter]
         }
         updateUrlParams((p) => {
             if (categoryNames.length === 0 || categoryNames.includes(allFilter)) {
-                p.delete(SOK_CATEGORIES_PARAM)
+                p.delete(SOK_TEMA_PARAM)
             } else {
-                const names = Object.values(categoriesMap)
+                const names = Object.values(themeTagsMap)
                     .filter((category) => categoryNames.includes(category.name))
                     .map((cat) => cat.name)
                 if (names.length > 0) {
-                    p.set(SOK_CATEGORIES_PARAM, names.join(','))
+                    p.set(SOK_TEMA_PARAM, names.join(','))
                 } else {
-                    p.delete(SOK_CATEGORIES_PARAM)
+                    p.delete(SOK_TEMA_PARAM)
                 }
             }
         })
@@ -127,14 +122,14 @@ export default function SearchView({
                                 aria-labelledby={'choose-category'}
                                 onClick={() => {
                                     if (name === allFilter) {
-                                        setCategoriesParamNames([allFilter])
+                                        setThemeTagsParamNames([allFilter])
                                     } else if (selected.includes(name)) {
                                         const newSelected = selected.filter((sel) => sel !== name)
-                                        setCategoriesParamNames(
+                                        setThemeTagsParamNames(
                                             newSelected.length === 0 ? [allFilter] : newSelected
                                         )
                                     } else {
-                                        setCategoriesParamNames([
+                                        setThemeTagsParamNames([
                                             ...selected.filter((it) => it !== allFilter),
                                             name,
                                         ])
@@ -171,8 +166,8 @@ export default function SearchView({
                           ...searchResult,
                           hits: searchResult?.hits?.filter((it) => {
                               if (selected.includes(allFilter)) return true
-                              return forceArray(it.categories).some((catId) =>
-                                  selected.some((sel) => sel === categoriesMap[catId].name)
+                              return forceArray(it.themeTags).some((catId) =>
+                                  selected.some((sel) => sel === themeTagsMap[catId].name)
                               )
                           }),
                       }

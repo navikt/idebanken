@@ -4,7 +4,7 @@
     <description>Side for innhold som søk og andre spesielle unntak</description>
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
-    <allow-child-content-type>(?!idebanken:crash-course-slide$)(?!idebanken:category$)(?!idebanken:video)*</allow-child-content-type>
+    <allow-child-content-type>(?!idebanken:crash-course-slide$)(?!idebanken:theme-tag$)(?!idebanken:video)*</allow-child-content-type>
     <form>
         <mixin name="title-ingress"/>
     </form>

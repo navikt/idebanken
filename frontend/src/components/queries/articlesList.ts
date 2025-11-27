@@ -1,4 +1,4 @@
-import { Part_Idebanken_Article_Card_List, Article_Card } from '~/types/generated'
+import { Article_Card, Part_Idebanken_Article_Card_List } from '~/types/generated'
 
 interface PartComponent {
     descriptor?: string
@@ -29,7 +29,7 @@ query($contentId:ID!,$offset:Int!,$count:Int!){
                   external
                   description
                   image { url caption }
-                  categories { id name }
+                  themeTags { id name }
                 }
                 total
               }

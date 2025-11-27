@@ -14,6 +14,7 @@ import no.nav.navnosearchadminapi.common.enums.ValidAudiences
 import no.nav.navnosearchadminapi.common.enums.ValidMetatags
 import org.opensearch.data.client.orhlc.OpenSearchAggregations
 import org.opensearch.search.aggregations.bucket.filter.Filter
+import org.springframework.boot.context.properties.bind.Bindable.setOf
 import org.springframework.data.elasticsearch.core.AggregationsContainer
 import org.springframework.data.elasticsearch.core.SearchPage
 
@@ -76,7 +77,8 @@ private fun IBContent.toHit(
         type = type,
         iconUrl = iconUrl,
         iconColor = iconColor,
-        categories = categories,
+        themeTags = themeTags,
+        typeTags = typeTags,
         score = score,
     )
 }

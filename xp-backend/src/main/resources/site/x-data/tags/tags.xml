@@ -1,0 +1,13 @@
+<x-data>
+    <display-name>Tags</display-name>
+    <form>
+        <input name="themes" type="ContentSelector">
+            <label>Tema</label>
+            <occurrences minimum="0" maximum="0"/>
+            <config>
+                <allowContentType>idebanken:theme-tag</allowContentType>
+                <allowPath>${site}*</allowPath>
+            </config>
+        </input>
+    </form>
+</x-data>

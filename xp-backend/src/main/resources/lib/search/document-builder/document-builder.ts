@@ -29,7 +29,7 @@ export type SearchDocument = {
         keywords?: string[]
         iconUrl?: string
         iconColor?: string
-        categories?: string[]
+        themeTags?: string[]
     }
 }
 
@@ -85,7 +85,7 @@ class ExternalSearchDocumentBuilder {
                 keywords: forceArray(content.data.keywords),
                 iconUrl: resolveIcon(content, false)?.url,
                 iconColor: ibX?.meta?.iconColor,
-                categories: forceArray(ibX?.category?.categories),
+                themeTags: forceArray(ibX?.tags?.themes),
             },
         }
     }

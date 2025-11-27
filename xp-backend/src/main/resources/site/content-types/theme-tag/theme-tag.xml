@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <content-type>
-    <display-name>Kategori</display-name>
-    <description>Kategori som kan settes på innhold</description>
+    <display-name>Tema</display-name>
+    <description>Tema-tag</description>
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
-    <allow-child-content>false</allow-child-content>
     <form>
         <input name="title" type="TextLine">
             <label>Tittel</label>

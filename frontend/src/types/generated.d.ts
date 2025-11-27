@@ -45,10 +45,10 @@ export type AggregationInput = {
 /** Article card */
 export type Article_Card = {
   __typename?: 'Article_card';
-  categories?: Maybe<Array<Maybe<Category>>>;
   description?: Maybe<Scalars['String']['output']>;
   external?: Maybe<Scalars['Boolean']['output']>;
   image?: Maybe<ResolvedMedia>;
+  themeTags?: Maybe<Array<Maybe<ThemeTag>>>;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
 };
@@ -85,16 +85,6 @@ export type BooleanFilterInput = {
   must?: InputMaybe<Array<InputMaybe<FilterInput>>>;
   mustNot?: InputMaybe<Array<InputMaybe<FilterInput>>>;
   should?: InputMaybe<Array<InputMaybe<FilterInput>>>;
-};
-
-/** Resolved category */
-export type Category = {
-  __typename?: 'Category';
-  caption?: Maybe<Scalars['String']['output']>;
-  iconColor?: Maybe<Scalars['String']['output']>;
-  iconUrl?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
 };
 
 /** Component. */
@@ -485,7 +475,6 @@ export type Header = {
 /** Headless CMS */
 export type HeadlessCms = {
   __typename?: 'HeadlessCms';
-  categories: Array<Category>;
   footer?: Maybe<Footer>;
   get?: Maybe<Content>;
   getChildren?: Maybe<Array<Maybe<Content>>>;
@@ -501,6 +490,7 @@ export type HeadlessCms = {
   queryDslConnection?: Maybe<QueryDslContentConnection>;
   siteConfiguration: SiteConfiguration;
   sitemap?: Maybe<Sitemap>;
+  themeTags: Array<ThemeTag>;
 };
 
 
@@ -806,11 +796,11 @@ export type LinkGroups = {
 /** Overridable content link */
 export type Link_Card = {
   __typename?: 'Link_card';
-  categories: Array<Category>;
   description?: Maybe<Scalars['String']['output']>;
   external: Scalars['Boolean']['output'];
   icon?: Maybe<ResolvedMedia>;
   image?: Maybe<ResolvedMedia>;
+  themeTags: Array<ThemeTag>;
   title: Scalars['String']['output'];
   url: Scalars['String']['output'];
 };
@@ -1651,6 +1641,16 @@ export type TextComponentDataValueArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
+/** Resolved theme tag */
+export type ThemeTag = {
+  __typename?: 'ThemeTag';
+  caption?: Maybe<Scalars['String']['output']>;
+  iconColor?: Maybe<Scalars['String']['output']>;
+  iconUrl?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 /** UntypedContent */
 export type UntypedContent = Content & {
   __typename?: 'UntypedContent';
@@ -1775,21 +1775,8 @@ export type XData_Com_Enonic_App_Metafields_Meta_Data_DataConfig = {
 /** XDataApplicationConfig for application ['idebanken'] */
 export type XData_Idebanken_ApplicationConfig = {
   __typename?: 'XData_idebanken_ApplicationConfig';
-  category?: Maybe<XData_Idebanken_Category_DataConfig>;
   meta?: Maybe<XData_Idebanken_Meta_DataConfig>;
-};
-
-/** Extra data config for application ['idebanken}'] and descriptor ['category'] */
-export type XData_Idebanken_Category_DataConfig = {
-  __typename?: 'XData_idebanken_category_DataConfig';
-  categories: Array<Category>;
-};
-
-
-/** Extra data config for application ['idebanken}'] and descriptor ['category'] */
-export type XData_Idebanken_Category_DataConfigCategoriesArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
+  tags?: Maybe<XData_Idebanken_Tags_DataConfig>;
 };
 
 /** Extra data config for application ['idebanken}'] and descriptor ['meta'] */
@@ -1797,6 +1784,19 @@ export type XData_Idebanken_Meta_DataConfig = {
   __typename?: 'XData_idebanken_meta_DataConfig';
   icon?: Maybe<Content>;
   iconColor?: Maybe<Scalars['String']['output']>;
+};
+
+/** Extra data config for application ['idebanken}'] and descriptor ['tags'] */
+export type XData_Idebanken_Tags_DataConfig = {
+  __typename?: 'XData_idebanken_tags_DataConfig';
+  themes?: Maybe<Array<Maybe<Content>>>;
+};
+
+
+/** Extra data config for application ['idebanken}'] and descriptor ['tags'] */
+export type XData_Idebanken_Tags_DataConfigThemesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** XDataApplicationConfig for application ['media'] */
@@ -2385,93 +2385,6 @@ export type Idebanken_Artikkel_DataIngressArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
-/** Kategori - idebanken:category */
-export type Idebanken_Category = Content & {
-  __typename?: 'idebanken_Category';
-  _id: Scalars['ID']['output'];
-  _name: Scalars['String']['output'];
-  _path: Scalars['String']['output'];
-  _references?: Maybe<Array<Maybe<Content>>>;
-  _score?: Maybe<Scalars['Float']['output']>;
-  attachments?: Maybe<Array<Maybe<Attachment>>>;
-  children?: Maybe<Array<Maybe<Content>>>;
-  childrenConnection?: Maybe<ContentConnection>;
-  components?: Maybe<Array<Maybe<Component>>>;
-  contentType?: Maybe<ContentType>;
-  createdTime?: Maybe<Scalars['DateTime']['output']>;
-  creator?: Maybe<PrincipalKey>;
-  data?: Maybe<Idebanken_Category_Data>;
-  dataAsJson?: Maybe<Scalars['JSON']['output']>;
-  displayName?: Maybe<Scalars['String']['output']>;
-  hasChildren?: Maybe<Scalars['Boolean']['output']>;
-  language?: Maybe<Scalars['String']['output']>;
-  metaFields?: Maybe<MetaFields>;
-  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
-  modifier?: Maybe<PrincipalKey>;
-  owner?: Maybe<PrincipalKey>;
-  pageAsJson?: Maybe<Scalars['JSON']['output']>;
-  pageTemplate?: Maybe<Content>;
-  pageUrl?: Maybe<Scalars['String']['output']>;
-  parent?: Maybe<Content>;
-  permissions?: Maybe<Permissions>;
-  publish?: Maybe<PublishInfo>;
-  site?: Maybe<Portal_Site>;
-  skyraSlugs: Array<Scalars['String']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  valid?: Maybe<Scalars['Boolean']['output']>;
-  x?: Maybe<ExtraData>;
-  xAsJson?: Maybe<Scalars['JSON']['output']>;
-};
-
-
-/** Kategori - idebanken:category */
-export type Idebanken_Category_PathArgs = {
-  type?: InputMaybe<ContentPathType>;
-};
-
-
-/** Kategori - idebanken:category */
-export type Idebanken_CategoryChildrenArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Kategori - idebanken:category */
-export type Idebanken_CategoryChildrenConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Kategori - idebanken:category */
-export type Idebanken_CategoryComponentsArgs = {
-  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
-  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Kategori - idebanken:category */
-export type Idebanken_CategoryPageAsJsonArgs = {
-  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
-  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Kategori - idebanken:category */
-export type Idebanken_CategoryPageUrlArgs = {
-  params?: InputMaybe<Scalars['JSON']['input']>;
-  type?: InputMaybe<UrlType>;
-};
-
-/** Kategori - idebanken:category data */
-export type Idebanken_Category_Data = {
-  __typename?: 'idebanken_Category_Data';
-  title?: Maybe<Scalars['String']['output']>;
-};
-
 /** Lynkurs - idebanken:crash-course */
 export type Idebanken_CrashCourse = Content & {
   __typename?: 'idebanken_CrashCourse';
@@ -2729,7 +2642,7 @@ export type Idebanken_Guide_DataIngressArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
-/** Temaside - idebanken:section-page */
+/** Kategoriside - idebanken:section-page */
 export type Idebanken_SectionPage = Content & {
   __typename?: 'idebanken_SectionPage';
   _id: Scalars['ID']['output'];
@@ -2768,13 +2681,13 @@ export type Idebanken_SectionPage = Content & {
 };
 
 
-/** Temaside - idebanken:section-page */
+/** Kategoriside - idebanken:section-page */
 export type Idebanken_SectionPage_PathArgs = {
   type?: InputMaybe<ContentPathType>;
 };
 
 
-/** Temaside - idebanken:section-page */
+/** Kategoriside - idebanken:section-page */
 export type Idebanken_SectionPageChildrenArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
@@ -2782,7 +2695,7 @@ export type Idebanken_SectionPageChildrenArgs = {
 };
 
 
-/** Temaside - idebanken:section-page */
+/** Kategoriside - idebanken:section-page */
 export type Idebanken_SectionPageChildrenConnectionArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2790,27 +2703,27 @@ export type Idebanken_SectionPageChildrenConnectionArgs = {
 };
 
 
-/** Temaside - idebanken:section-page */
+/** Kategoriside - idebanken:section-page */
 export type Idebanken_SectionPageComponentsArgs = {
   resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
   resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Temaside - idebanken:section-page */
+/** Kategoriside - idebanken:section-page */
 export type Idebanken_SectionPagePageAsJsonArgs = {
   resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
   resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 
-/** Temaside - idebanken:section-page */
+/** Kategoriside - idebanken:section-page */
 export type Idebanken_SectionPagePageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
 };
 
-/** Temaside - idebanken:section-page data */
+/** Kategoriside - idebanken:section-page data */
 export type Idebanken_SectionPage_Data = {
   __typename?: 'idebanken_SectionPage_Data';
   description?: Maybe<Scalars['String']['output']>;
@@ -2821,7 +2734,7 @@ export type Idebanken_SectionPage_Data = {
 };
 
 
-/** Temaside - idebanken:section-page data */
+/** Kategoriside - idebanken:section-page data */
 export type Idebanken_SectionPage_DataIngressArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
@@ -2921,6 +2834,93 @@ export type Idebanken_SpecialPage_Data = {
 /** Spesiell side - idebanken:special-page data */
 export type Idebanken_SpecialPage_DataIngressArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
+};
+
+/** Tema - idebanken:theme-tag */
+export type Idebanken_ThemeTag = Content & {
+  __typename?: 'idebanken_ThemeTag';
+  _id: Scalars['ID']['output'];
+  _name: Scalars['String']['output'];
+  _path: Scalars['String']['output'];
+  _references?: Maybe<Array<Maybe<Content>>>;
+  _score?: Maybe<Scalars['Float']['output']>;
+  attachments?: Maybe<Array<Maybe<Attachment>>>;
+  children?: Maybe<Array<Maybe<Content>>>;
+  childrenConnection?: Maybe<ContentConnection>;
+  components?: Maybe<Array<Maybe<Component>>>;
+  contentType?: Maybe<ContentType>;
+  createdTime?: Maybe<Scalars['DateTime']['output']>;
+  creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_ThemeTag_Data>;
+  dataAsJson?: Maybe<Scalars['JSON']['output']>;
+  displayName?: Maybe<Scalars['String']['output']>;
+  hasChildren?: Maybe<Scalars['Boolean']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  metaFields?: Maybe<MetaFields>;
+  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
+  modifier?: Maybe<PrincipalKey>;
+  owner?: Maybe<PrincipalKey>;
+  pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageTemplate?: Maybe<Content>;
+  pageUrl?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Content>;
+  permissions?: Maybe<Permissions>;
+  publish?: Maybe<PublishInfo>;
+  site?: Maybe<Portal_Site>;
+  skyraSlugs: Array<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+  x?: Maybe<ExtraData>;
+  xAsJson?: Maybe<Scalars['JSON']['output']>;
+};
+
+
+/** Tema - idebanken:theme-tag */
+export type Idebanken_ThemeTag_PathArgs = {
+  type?: InputMaybe<ContentPathType>;
+};
+
+
+/** Tema - idebanken:theme-tag */
+export type Idebanken_ThemeTagChildrenArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Tema - idebanken:theme-tag */
+export type Idebanken_ThemeTagChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Tema - idebanken:theme-tag */
+export type Idebanken_ThemeTagComponentsArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Tema - idebanken:theme-tag */
+export type Idebanken_ThemeTagPageAsJsonArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Tema - idebanken:theme-tag */
+export type Idebanken_ThemeTagPageUrlArgs = {
+  params?: InputMaybe<Scalars['JSON']['input']>;
+  type?: InputMaybe<UrlType>;
+};
+
+/** Tema - idebanken:theme-tag data */
+export type Idebanken_ThemeTag_Data = {
+  __typename?: 'idebanken_ThemeTag_Data';
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 /** Qbrick Video - idebanken:video */

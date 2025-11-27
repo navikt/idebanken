@@ -135,7 +135,7 @@ query($path:ID!){
         ${linkGroups}
       }
     }
-    categories {
+    themeTags {
         name
         id
         iconUrl

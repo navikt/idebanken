@@ -1,5 +1,5 @@
 import { MetaData } from '@enonic/nextjs-adapter'
-import { Category, Footer, Header } from '~/types/generated'
+import { Footer, Header, ThemeTag } from '~/types/generated'
 
 export type PartData<Part, ContentType = unknown> = {
     part: {
@@ -28,7 +28,7 @@ export type CommonType<T = UnknownJSONContent> = {
     getSite: CommonGetSite
     header: Header
     footer: Footer
-    categories: Array<Category>
+    themeTags: Array<ThemeTag>
 }
 
 export type CommonContentType<T = UnknownJSONContent> = {

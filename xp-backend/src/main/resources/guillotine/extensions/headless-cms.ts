@@ -12,8 +12,8 @@ import {
     resolveLinks,
 } from '../common-guillotine-types'
 import { Content, get, query } from '/lib/xp/content'
-import { Category } from '@xp-types/site/content-types'
-import { mapCategoryContentToResolved, ResolvedCategory } from './category'
+import { ThemeTag } from '@xp-types/site/content-types'
+import { mapThemeTagContentToResolved, ResolvedThemeTag } from './theme-tag'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { processHtml } from '/lib/xp/portal'
 
@@ -66,20 +66,20 @@ export const headlessCmsExtensions = ({
                     }
                 })
             },
-            categories: (
+            themeTags: (
                 _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
-            ): Array<ResolvedCategory> => {
+            ): Array<ResolvedThemeTag> => {
                 return runInContext({ asAdmin: true }, () => {
-                    const categories = query<Content<Category>>({
+                    const themeTags = query<Content<ThemeTag>>({
                         filters: {
                             hasValue: {
                                 field: 'type',
-                                values: ['idebanken:category'],
+                                values: ['idebanken:theme-tag'],
                             },
                         },
                     }).hits
 
-                    return mapCategoryContentToResolved(categories)
+                    return mapThemeTagContentToResolved(themeTags)
                 })
             },
             siteConfiguration: (
@@ -153,8 +153,8 @@ export const headlessCmsExtensions = ({
                 footer: {
                     type: reference('Footer'),
                 },
-                categories: {
-                    type: nonNull(list(nonNull(reference('Category')))),
+                themeTags: {
+                    type: nonNull(list(nonNull(reference('ThemeTag')))),
                 },
                 siteConfiguration: {
                     type: nonNull(reference('SiteConfiguration')),
