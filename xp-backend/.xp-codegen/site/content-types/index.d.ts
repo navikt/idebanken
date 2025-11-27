@@ -4,6 +4,7 @@ export type Artikkel = import('./artikkel').Artikkel;
 export type CrashCourseSlide = import('./crash-course-slide').CrashCourseSlide;
 export type CrashCourse = import('./crash-course').CrashCourse;
 export type Guide = import('./guide').Guide;
+export type Kjerneartikkel = import('./kjerneartikkel').Kjerneartikkel;
 export type SectionPage = import('./section-page').SectionPage;
 export type SingletonAktuelt = import('./singleton-aktuelt').SingletonAktuelt;
 export type SingletonTheme = import('./singleton-theme').SingletonTheme;
@@ -22,6 +23,7 @@ declare global {
       'idebanken:crash-course-slide': CrashCourseSlide;
       'idebanken:crash-course': CrashCourse;
       'idebanken:guide': Guide;
+      'idebanken:kjerneartikkel': Kjerneartikkel;
       'idebanken:section-page': SectionPage;
       'idebanken:singleton-aktuelt': SingletonAktuelt;
       'idebanken:singleton-theme': SingletonTheme;
