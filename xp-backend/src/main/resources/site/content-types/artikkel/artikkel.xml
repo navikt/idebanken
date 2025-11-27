@@ -4,7 +4,7 @@
     <description>Artikkel</description>
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
-    <allow-child-content>false</allow-child-content>
+    <allow-child-content-type>media:image</allow-child-content-type>
     <form>
         <input name="heroImage" type="ImageSelector">
             <label>Hoved artikkelbilde</label>
