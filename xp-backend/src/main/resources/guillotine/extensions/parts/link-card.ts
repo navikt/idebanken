@@ -9,7 +9,7 @@ import { enonicSitePathToHref, truncateUrl } from '/lib/utils/string-utils'
 import { TitleIngress } from '@xp-types/site/mixins'
 import { LinkCardItem } from './link-card-list'
 import { resolveIcon, resolveImage } from '/lib/utils/media'
-import { resolveThemeTags } from '../theme-tag'
+import { resolveThemeTags, resolveTypeTags } from '../tag'
 
 export const linkCardExtensions = ({
     list,
@@ -60,7 +60,9 @@ type LinkCardExternalLink = Extract<
 
 function resolveLinkCardInternalLink(internalLink: LinkCardInternalLink): LinkCardItem {
     const content = getOrNull<Content<TitleIngress>>(internalLink.contentId)
-    const themeTags = resolveThemeTags(content?.x?.idebanken?.tags)
+    const tags = content?.x?.idebanken?.tags || content?.x?.idebanken?.['aktuelt-tags']
+    const themeTags = resolveThemeTags(tags)
+    const typeTags = resolveTypeTags(tags)
 
     return {
         url: enonicSitePathToHref(content?._path),
@@ -72,7 +74,8 @@ function resolveLinkCardInternalLink(internalLink: LinkCardInternalLink): LinkCa
             content?.displayName ||
             '[Mangler tittel]',
         description: content?.data?.description,
-        themeTags: themeTags,
+        themeTags,
+        typeTags,
         icon: resolveIcon(content),
         image: resolveImage(content, 'height(800)'),
     }
@@ -85,6 +88,7 @@ function resolveLinkCardExternalLink(externalLink: LinkCardExternalLink): LinkCa
         title: externalLink.linkText || truncateUrl(externalLink.url) || '[Mangler tittel]',
         description: externalLink.description,
         themeTags: [],
+        typeTags: [],
         icon: resolveIcon(externalLink.icon, false, externalLink.iconColor),
         image: resolveImage(externalLink.image, 'height(800)'),
     }

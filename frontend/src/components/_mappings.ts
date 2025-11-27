@@ -192,6 +192,7 @@ ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
             description
             image { url caption }
             themeTags { id name }
+            typeTags { id name }
         }
     }`,
 })

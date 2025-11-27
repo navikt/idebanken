@@ -2,13 +2,13 @@ import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { EmptyRecord, Source } from '../common-guillotine-types'
-import { Tags } from '@xp-types/site/x-data'
+import { AktueltTags, Tags } from '@xp-types/site/x-data'
 import { Content, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
-import { ThemeTag } from '@xp-types/site/content-types'
+import { AktueltTypeTag, ThemeTag, TypeTag } from '@xp-types/site/content-types'
 import { resolveIcon } from '/lib/utils/media'
 
-export type ResolvedThemeTag = {
+export type ResolvedTag = {
     id: string
     name: string
     iconUrl?: string
@@ -51,15 +51,25 @@ export const themeTagExtensions = ({
         XData_idebanken_tags_DataConfig: {
             themeTags: (
                 env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<Tags>>
-            ): Array<ResolvedThemeTag> => {
+            ): Array<ResolvedTag> => {
                 return resolveThemeTags(env.source)
+            },
+            typeTags: (
+                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<Tags>>
+            ): Array<ResolvedTag> => {
+                return resolveTypeTags(env.source)
             },
         },
         XData_idebanken_aktuelt_tags_DataConfig: {
             themeTags: (
-                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<Tags>>
-            ): Array<ResolvedThemeTag> => {
+                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<AktueltTags>>
+            ): Array<ResolvedTag> => {
                 return resolveThemeTags(env.source)
+            },
+            typeTags: (
+                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<AktueltTags>>
+            ): Array<ResolvedTag> => {
+                return resolveTypeTags(env.source)
             },
         },
     },
@@ -69,6 +79,9 @@ export const themeTagExtensions = ({
                 themeTags: {
                     type: nonNull(list(nonNull(reference('Tag')))),
                 },
+                typeTags: {
+                    type: nonNull(list(nonNull(reference('Tag')))),
+                },
             })
         },
         XData_idebanken_aktuelt_tags_DataConfig: (params): void => {
@@ -76,12 +89,15 @@ export const themeTagExtensions = ({
                 themeTags: {
                     type: nonNull(list(nonNull(reference('Tag')))),
                 },
+                typeTags: {
+                    type: nonNull(list(nonNull(reference('Tag')))),
+                },
             })
         },
     },
 })
 
-export function resolveThemeTags(tags?: Tags): Array<ResolvedThemeTag> {
+export function resolveThemeTags(tags?: Tags | AktueltTags): Array<ResolvedTag> {
     if (!tags?.themeTags) {
         return []
     }
@@ -110,9 +126,38 @@ export function resolveThemeTags(tags?: Tags): Array<ResolvedThemeTag> {
     return mapThemeTagContentToResolved(themeContents)
 }
 
+export function resolveTypeTags(tags?: Tags | AktueltTags): Array<ResolvedTag> {
+    if (!tags?.typeTags) {
+        return []
+    }
+
+    const typeTagContents = query<Content<TypeTag | AktueltTypeTag>>({
+        filters: {
+            boolean: {
+                must: [
+                    {
+                        hasValue: {
+                            field: 'type',
+                            values: ['idebanken:type-tag', 'idebanken:aktuelt-type-tag'],
+                        },
+                    },
+                    {
+                        hasValue: {
+                            field: '_id',
+                            values: forceArray(tags.typeTags),
+                        },
+                    },
+                ],
+            },
+        },
+    })?.hits
+
+    return mapThemeTagContentToResolved(typeTagContents)
+}
+
 export function mapThemeTagContentToResolved(
-    themeTagContents?: Array<Content<ThemeTag>>
-): Array<ResolvedThemeTag> {
+    themeTagContents?: Array<Content<ThemeTag | TypeTag | AktueltTypeTag>>
+): Array<ResolvedTag> {
     return forceArray(themeTagContents)
         .filter((it) => it?.data?.title && it._id)
         .map((hit) => {

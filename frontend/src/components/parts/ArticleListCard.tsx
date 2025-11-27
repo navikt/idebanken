@@ -30,6 +30,7 @@ function normalizeCard(card: Card) {
         displayType: 'withImage' as XP_DisplayImageOrIcon['displayType'],
         hideArrow: true,
         themeTags: [],
+        typeTags: [],
     }
 }
 
