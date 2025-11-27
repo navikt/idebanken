@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { Button, Chips, Fieldset, HStack, Radio, RadioGroup, VStack } from '@navikt/ds-react'
 import { PartData } from '~/types/graphql-types'
-import { Idebanken_SpecialPage_Data, Part_Idebanken_Search_View, ThemeTag } from '~/types/generated'
+import { Idebanken_SpecialPage_Data, Part_Idebanken_Search_View, Tag } from '~/types/generated'
 import { getThemeTagsMap, search, SearchResult } from '~/utils/search'
 import SearchResults from '~/components/common/SearchResults'
 import { forceArray } from '~/utils/utils'
@@ -21,7 +21,7 @@ export default function SearchView({
     const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
     const [loading, setLoading] = useState(false)
     const [loadingMore, setLoadingMore] = useState(false)
-    const [filter, setFilter] = useState<Array<ThemeTag>>()
+    const [filter, setFilter] = useState<Array<Tag>>()
     const [selected, setSelected] = useState([allFilter])
 
     const searchParams = useSearchParams()
@@ -55,7 +55,7 @@ export default function SearchView({
                 }
             })
             return acc
-        }, [] as ThemeTag[])
+        }, [] as Tag[])
         setFilter(themeTagsInSearchResults)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

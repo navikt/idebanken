@@ -1,5 +1,5 @@
 import { forceArray } from '~/utils/utils'
-import { ThemeTag } from '~/types/generated'
+import { Tag } from '~/types/generated'
 import { IS_DEV_MODE } from '@enonic/nextjs-adapter'
 import { SOK_PAGE_PARAM, SOK_SEARCH_PARAM, SOK_SORT_PARAM } from '~/utils/constants'
 import { ReadonlyURLSearchParams } from 'next/navigation'
@@ -58,12 +58,12 @@ const isCommonType = (obj: object): obj is CommonType<unknown> =>
 
 export function getResultThemeTags(
     result: SearchResult['hits'][0],
-    commonOrCategoryMap?: CommonType<unknown> | Record<string, ThemeTag>
+    commonOrCategoryMap?: CommonType<unknown> | Record<string, Tag>
 ) {
     if (!commonOrCategoryMap) return []
     const isCommon = isCommonType(commonOrCategoryMap)
     return [
-        ...forceArray(result.themeTags)?.reduce((acc: Array<ThemeTag>, curr) => {
+        ...forceArray(result.themeTags)?.reduce((acc: Array<Tag>, curr) => {
             const category = isCommon
                 ? commonOrCategoryMap?.themeTags?.find((cat) => cat.id === curr)?.name
                 : commonOrCategoryMap[curr]?.name
@@ -77,14 +77,14 @@ export function getResultThemeTags(
     ]
 }
 
-export function getThemeTagsMap(common?: CommonType<unknown>): Record<string, ThemeTag> {
+export function getThemeTagsMap(common?: CommonType<unknown>): Record<string, Tag> {
     if (!common) return {}
     return common?.themeTags?.reduce(
         (acc, curr) => {
             acc[curr.id] = curr
             return acc
         },
-        {} as Record<string, ThemeTag>
+        {} as Record<string, Tag>
     )
 }
 

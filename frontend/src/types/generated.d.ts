@@ -48,7 +48,7 @@ export type Article_Card = {
   description?: Maybe<Scalars['String']['output']>;
   external?: Maybe<Scalars['Boolean']['output']>;
   image?: Maybe<ResolvedMedia>;
-  themeTags?: Maybe<Array<Maybe<ThemeTag>>>;
+  themeTags?: Maybe<Array<Maybe<Tag>>>;
   title?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
 };
@@ -490,7 +490,7 @@ export type HeadlessCms = {
   queryDslConnection?: Maybe<QueryDslContentConnection>;
   siteConfiguration: SiteConfiguration;
   sitemap?: Maybe<Sitemap>;
-  themeTags: Array<ThemeTag>;
+  themeTags: Array<Tag>;
 };
 
 
@@ -800,7 +800,7 @@ export type Link_Card = {
   external: Scalars['Boolean']['output'];
   icon?: Maybe<ResolvedMedia>;
   image?: Maybe<ResolvedMedia>;
-  themeTags: Array<ThemeTag>;
+  themeTags: Array<Tag>;
   title: Scalars['String']['output'];
   url: Scalars['String']['output'];
 };
@@ -817,19 +817,12 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
-  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   quote?: Maybe<Macro_Idebanken_Quote_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
-};
-
-/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
-export type Macro_Idebanken_Box_DataConfig = {
-  __typename?: 'Macro_idebanken_box_DataConfig';
-  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1621,6 +1614,16 @@ export type StemmedDslExpressionInput = {
   query: Scalars['String']['input'];
 };
 
+/** Resolved tag */
+export type Tag = {
+  __typename?: 'Tag';
+  caption?: Maybe<Scalars['String']['output']>;
+  iconColor?: Maybe<Scalars['String']['output']>;
+  iconUrl?: Maybe<Scalars['String']['output']>;
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+};
+
 /** TermDSLExpressionInput type */
 export type TermDslExpressionInput = {
   boost?: InputMaybe<Scalars['Float']['input']>;
@@ -1646,16 +1649,6 @@ export type TextComponentData = {
 /** Text component data. */
 export type TextComponentDataValueArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
-};
-
-/** Resolved theme tag */
-export type ThemeTag = {
-  __typename?: 'ThemeTag';
-  caption?: Maybe<Scalars['String']['output']>;
-  iconColor?: Maybe<Scalars['String']['output']>;
-  iconUrl?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
 };
 
 /** UntypedContent */
@@ -1790,7 +1783,7 @@ export type XData_Idebanken_ApplicationConfig = {
 /** Extra data config for application ['idebanken}'] and descriptor ['aktuelt-tags'] */
 export type XData_Idebanken_Aktuelt_Tags_DataConfig = {
   __typename?: 'XData_idebanken_aktuelt_tags_DataConfig';
-  themeTags: Array<ThemeTag>;
+  themeTags: Array<Tag>;
   typeTags?: Maybe<Array<Maybe<Content>>>;
 };
 
@@ -1818,7 +1811,7 @@ export type XData_Idebanken_Meta_DataConfig = {
 /** Extra data config for application ['idebanken}'] and descriptor ['tags'] */
 export type XData_Idebanken_Tags_DataConfig = {
   __typename?: 'XData_idebanken_tags_DataConfig';
-  themeTags: Array<ThemeTag>;
+  themeTags: Array<Tag>;
   typeTags?: Maybe<Array<Maybe<Content>>>;
 };
 
