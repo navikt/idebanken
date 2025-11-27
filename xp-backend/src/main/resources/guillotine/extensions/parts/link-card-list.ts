@@ -105,7 +105,7 @@ export const linkCardListExtensions = ({
                     type: reference('ResolvedMedia'),
                 },
                 themeTags: {
-                    type: nonNull(list(nonNull(reference('ThemeTag')))),
+                    type: nonNull(list(nonNull(reference('Tag')))),
                 },
             },
             interfaces: [],

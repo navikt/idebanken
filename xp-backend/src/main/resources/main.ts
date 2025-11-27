@@ -5,11 +5,13 @@ import { setupSchedulers } from '/lib/scheduler'
 
 import './lib/polyfills'
 import { activateContentUpdateListener } from '/lib/contentUpdate/content-update-listeners'
+import { activateContentCreationPrevention } from '/lib/content-creation-prevention'
 
 if (isMaster()) {
     initializeProject()
 }
 
 activateExternalSearchIndexEventHandlers()
+activateContentCreationPrevention()
 activateContentUpdateListener()
 setupSchedulers()

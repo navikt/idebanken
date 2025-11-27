@@ -4,7 +4,7 @@
     <description>Artikkel</description>
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
-    <allow-child-content-type>(?!idebanken:crash-course-slide$)(?!idebanken:theme-tag$)(?!idebanken:video)*</allow-child-content-type>
+    <allow-child-content>false</allow-child-content>
     <form>
         <input name="heroImage" type="ImageSelector">
             <label>Hoved artikkelbilde</label>

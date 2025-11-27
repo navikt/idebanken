@@ -3,5 +3,10 @@ export type XP_Tags = {
   /**
    * Tema
    */
-  themes?: Array<string> | string;
+  themeTags?: Array<string> | string;
+
+  /**
+   * Type
+   */
+  typeTags?: Array<string> | string;
 };

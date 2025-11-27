@@ -4,7 +4,7 @@
     <super-type>base:structured</super-type>
     <is-abstract>false</is-abstract>
     <is-final>true</is-final>
-    <allow-child-content>true</allow-child-content>
+    <allow-child-content-type>media:image</allow-child-content-type>
     <form>
         <field-set>
             <label>Videoinfo fra Qbrick</label>

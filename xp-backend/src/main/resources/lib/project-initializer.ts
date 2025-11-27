@@ -64,7 +64,7 @@ export const runAsAdmin = <T>(callback: () => T, options = { branch: 'draft' }) 
             callback
         )
     } catch (e) {
-        logger.info('Error: ' + e.message)
+        logger.info(`Error: ${JSON.stringify(e)}`)
     }
 
     return result
