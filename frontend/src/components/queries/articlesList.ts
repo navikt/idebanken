@@ -30,6 +30,7 @@ query($contentId:ID!,$offset:Int!,$count:Int!){
                   description
                   image { url caption }
                   themeTags { id name }
+                  typeTags { id name }
                 }
                 total
               }

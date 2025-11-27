@@ -46,7 +46,8 @@ export const LinkCardView = ({
     title,
     description,
     url,
-    /* themeTags,*/
+    // themeTags,
+    // typeTags,
     image,
     icon,
     external,

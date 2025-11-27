@@ -12,8 +12,8 @@ import {
     resolveLinks,
 } from '../common-guillotine-types'
 import { Content, get, query } from '/lib/xp/content'
-import { ThemeTag } from '@xp-types/site/content-types'
-import { mapThemeTagContentToResolved, ResolvedThemeTag } from './theme-tag'
+import { AktueltTypeTag, ThemeTag, TypeTag } from '@xp-types/site/content-types'
+import { mapThemeTagContentToResolved, ResolvedTag } from './tag'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { processHtml } from '/lib/xp/portal'
 
@@ -68,7 +68,7 @@ export const headlessCmsExtensions = ({
             },
             themeTags: (
                 _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
-            ): Array<ResolvedThemeTag> => {
+            ): Array<ResolvedTag> => {
                 return runInContext({ asAdmin: true }, () => {
                     const themeTags = query<Content<ThemeTag>>({
                         filters: {
@@ -80,6 +80,22 @@ export const headlessCmsExtensions = ({
                     }).hits
 
                     return mapThemeTagContentToResolved(themeTags)
+                })
+            },
+            typeTags: (
+                _env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, EmptyRecord>
+            ): Array<ResolvedTag> => {
+                return runInContext({ asAdmin: true }, () => {
+                    const typeTags = query<Content<TypeTag | AktueltTypeTag>>({
+                        filters: {
+                            hasValue: {
+                                field: 'type',
+                                values: ['idebanken:type-tag', 'idebanken:aktuelt-type-tag'],
+                            },
+                        },
+                    }).hits
+
+                    return mapThemeTagContentToResolved(typeTags)
                 })
             },
             siteConfiguration: (
@@ -154,6 +170,9 @@ export const headlessCmsExtensions = ({
                     type: reference('Footer'),
                 },
                 themeTags: {
+                    type: nonNull(list(nonNull(reference('Tag')))),
+                },
+                typeTags: {
                     type: nonNull(list(nonNull(reference('Tag')))),
                 },
                 siteConfiguration: {
