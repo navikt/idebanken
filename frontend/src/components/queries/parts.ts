@@ -77,7 +77,7 @@ export const linkCardQuery = `{
             caption
             iconColor
         }
-        categories {
+        themeTags {
             name
             id
             iconUrl
@@ -115,7 +115,7 @@ export const linkCardListQuery = `{
             caption
             iconColor
         }
-        categories {
+        themeTags {
             name
             id
             iconUrl

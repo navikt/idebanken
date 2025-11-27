@@ -46,7 +46,7 @@ export const LinkCardView = ({
     title,
     description,
     url,
-    /* categories,*/
+    /* themeTags,*/
     image,
     icon,
     external,
@@ -112,9 +112,9 @@ export const LinkCardView = ({
             {description && showDescription && (
                 <LinkCardDescription>{description}</LinkCardDescription>
             )}
-            {/* {categories && categories.length > 0 && (
+            {/* {themeTags && themeTags.length > 0 && (
                 <LinkCardFooter>
-                    {categories.map((tag, index) => (
+                    {themeTags.map((tag, index) => (
                         <Tag key={index} size="small" variant="neutral">
                             {tag.name}
                         </Tag>

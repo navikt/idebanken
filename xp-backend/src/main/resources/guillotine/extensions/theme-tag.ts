@@ -2,13 +2,13 @@ import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { EmptyRecord, Source } from '../common-guillotine-types'
-import { Category as XDataCategory } from '@xp-types/site/x-data'
+import { Tags } from '@xp-types/site/x-data'
 import { Content, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
-import { Category } from '@xp-types/site/content-types'
+import { ThemeTag } from '@xp-types/site/content-types'
 import { resolveIcon } from '/lib/utils/media'
 
-export type ResolvedCategory = {
+export type ResolvedThemeTag = {
     id: string
     name: string
     iconUrl?: string
@@ -16,7 +16,7 @@ export type ResolvedCategory = {
     caption?: string
 }
 
-export const categoryExtensions = ({
+export const themeTagExtensions = ({
     list,
     GraphQLString,
     GraphQLID,
@@ -25,8 +25,8 @@ export const categoryExtensions = ({
     nonNull,
 }: GraphQL): Extensions => ({
     types: {
-        Category: {
-            description: 'Resolved category',
+        ThemeTag: {
+            description: 'Resolved theme tag',
             fields: {
                 id: {
                     type: nonNull(GraphQLID),
@@ -48,44 +48,44 @@ export const categoryExtensions = ({
         },
     },
     resolvers: {
-        XData_idebanken_category_DataConfig: {
-            categories: (
-                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<XDataCategory>>
-            ): Array<ResolvedCategory> => {
-                return resolveCategories(env.source)
+        XData_idebanken_theme_tag_DataConfig: {
+            themeTags: (
+                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<Tags>>
+            ): Array<ResolvedThemeTag> => {
+                return resolveThemeTags(env.source)
             },
         },
     },
     creationCallbacks: {
-        XData_idebanken_category_DataConfig: (params): void => {
+        XData_idebanken_theme_tag_DataConfig: (params): void => {
             params.modifyFields({
-                categories: {
-                    type: nonNull(list(nonNull(reference('Category')))),
+                themeTags: {
+                    type: nonNull(list(nonNull(reference('ThemeTag')))),
                 },
             })
         },
     },
 })
 
-export function resolveCategories(category?: XDataCategory): Array<ResolvedCategory> {
-    if (!category?.categories) {
+export function resolveThemeTags(tags?: Tags): Array<ResolvedThemeTag> {
+    if (!tags?.themes) {
         return []
     }
 
-    const categoryContents = query<Content<Category>>({
+    const themeContents = query<Content<ThemeTag>>({
         filters: {
             boolean: {
                 must: [
                     {
                         hasValue: {
                             field: 'type',
-                            values: ['idebanken:category'],
+                            values: ['idebanken:theme-tag'],
                         },
                     },
                     {
                         hasValue: {
                             field: '_id',
-                            values: forceArray(category.categories),
+                            values: forceArray(tags.themes),
                         },
                     },
                 ],
@@ -93,13 +93,13 @@ export function resolveCategories(category?: XDataCategory): Array<ResolvedCateg
         },
     })?.hits
 
-    return mapCategoryContentToResolved(categoryContents)
+    return mapThemeTagContentToResolved(themeContents)
 }
 
-export function mapCategoryContentToResolved(
-    categoryContents?: Array<Content<Category>>
-): Array<ResolvedCategory> {
-    return forceArray(categoryContents)
+export function mapThemeTagContentToResolved(
+    themeTagContents?: Array<Content<ThemeTag>>
+): Array<ResolvedThemeTag> {
+    return forceArray(themeTagContents)
         .filter((it) => it?.data?.title && it._id)
         .map((hit) => {
             const icon = resolveIcon(hit)

@@ -1,6 +1,7 @@
 package no.nav.idebankensearchapi.common.model
 
 import java.time.ZonedDateTime
+import java.util.Collections.emptyList
 import no.nav.navnosearchadminapi.common.model.MultiLangFieldLong
 import no.nav.navnosearchadminapi.common.model.MultiLangFieldShort
 import org.springframework.data.annotation.Id
@@ -12,7 +13,7 @@ import org.springframework.data.elasticsearch.annotations.Setting
 import org.springframework.data.elasticsearch.annotations.WriteTypeHint
 
 @Document(
-    indexName = "search-content-v8",
+    indexName = "search-content-v9",
     dynamic = Dynamic.STRICT,
     /* Disabler type hints da det lager et _class-felt i mappingen som gir problemer for wildcard-søk.
        Bør skrives om dersom vi trenger polymorfisk data. */
@@ -37,7 +38,8 @@ data class IBContent(
     @Field(type = FieldType.Keyword) val languageRefs: List<String> = emptyList(),
     @Field(type = FieldType.Keyword) val iconUrl: String,
     @Field(type = FieldType.Keyword) val iconColor: String,
-    @Field(type = FieldType.Keyword) val categories: List<String> = emptyList(),
+    @Field(type = FieldType.Keyword) val themeTags: List<String> = emptyList(),
+    @Field(type = FieldType.Keyword) val typeTags: List<String> = emptyList(),
 ) {
     companion object {
         fun from(
@@ -53,7 +55,8 @@ data class IBContent(
             sortByDate: ZonedDateTime,
             audience: List<String>,
             language: String,
-            categories: List<String> = emptyList(),
+            themeTags: List<String> = emptyList(),
+            typeTags: List<String> = emptyList(),
             metatags: List<String>,
             languageRefs: List<String> = emptyList(),
             includeTypeInAllText: Boolean = false,
@@ -80,7 +83,8 @@ data class IBContent(
             languageRefs = languageRefs,
             iconUrl = iconUrl ?: "",
             iconColor = iconColor ?: "",
-            categories = categories,
+            themeTags = themeTags,
+            typeTags = typeTags,
         )
     }
 }

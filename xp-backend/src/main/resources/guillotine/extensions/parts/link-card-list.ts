@@ -5,7 +5,7 @@ import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalC
 import { LinkCardList } from '@xp-types/site/parts'
 import { Content, get, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
-import { resolveCategories, ResolvedCategory } from '../category'
+import { ResolvedThemeTag, resolveThemeTags } from '../theme-tag'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveIcon, resolveImage } from '/lib/utils/media'
 
@@ -16,7 +16,7 @@ export type LinkCardItem = {
     description?: string
     image?: ResolvedMedia
     icon?: ResolvedMedia
-    categories: Array<ResolvedCategory>
+    themeTags: Array<ResolvedThemeTag>
 }
 
 export const linkCardListExtensions = ({
@@ -104,8 +104,8 @@ export const linkCardListExtensions = ({
                 icon: {
                     type: reference('ResolvedMedia'),
                 },
-                categories: {
-                    type: nonNull(list(nonNull(reference('Category')))),
+                themeTags: {
+                    type: nonNull(list(nonNull(reference('ThemeTag')))),
                 },
             },
             interfaces: [],
@@ -131,7 +131,7 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
         const { shortTitle, title, description, displayName } =
             (item.data as Record<string, string>) ?? {}
 
-        const categories = resolveCategories(ibxData?.category)
+        const themeTags = resolveThemeTags(ibxData?.tags)
 
         return {
             url: enonicSitePathToHref(item._path),
@@ -140,7 +140,7 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
             description,
             image: resolveImage(item, 'width(500)'),
             icon: resolveIcon(item),
-            categories,
+            themeTags,
         }
     })
 }
@@ -186,7 +186,7 @@ const getAutomaticList = (
     }
     if (!contentTypes?.length) {
         return [
-            { url: '#', external: false, title: '[Ingen innholdstyper er valgt]', categories: [] },
+            { url: '#', external: false, title: '[Ingen innholdstyper er valgt]', themeTags: [] },
         ]
     }
 

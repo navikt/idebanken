@@ -25,7 +25,8 @@
         ],
         "iconUrl": "",
         "iconColor": "",
-        "categories": ["category1", "category2"]
+        "themeTags": ["themeTag1", "themeTag2"],
+        "typeTags": ["typeTag1", "typeTag2"]
       }
     },
     {
@@ -51,7 +52,8 @@
         ],
         "iconUrl": "",
         "iconColor": "",
-        "categories": ["category1", "category2"]
+        "themeTags": ["themeTag1", "themeTag2"],
+        "typeTags": ["typeTag1", "typeTag2"]
       }
     },
     {
@@ -77,7 +79,8 @@
         ],
         "iconUrl": "",
         "iconColor": "",
-        "categories": ["category1", "category2"]
+        "themeTags": ["themeTag1", "themeTag2"],
+        "typeTags": ["typeTag1", "typeTag2"]
       }
     },
     {
@@ -101,7 +104,8 @@
         ],
         "iconUrl": "",
         "iconColor": "",
-        "categories": ["category1", "category2"]
+        "themeTags": ["themeTag1", "themeTag2"],
+        "typeTags": ["typeTag1", "typeTag2"]
       }
     },
     {
@@ -125,7 +129,8 @@
         ],
         "iconUrl": "",
         "iconColor": "",
-        "categories": ["category1", "category2"]
+        "themeTags": ["themeTag1", "themeTag2"],
+        "typeTags": ["typeTag1", "typeTag2"]
       }
     },
     {
@@ -149,7 +154,8 @@
         ],
         "iconUrl": "",
         "iconColor": "",
-        "categories": ["category1", "category2"]
+        "themeTags": ["themeTag1", "themeTag2"],
+        "typeTags": ["typeTag1", "typeTag2"]
       }
     },
     {
@@ -173,7 +179,8 @@
         ],
         "iconUrl": "",
         "iconColor": "",
-        "categories": ["category1", "category2"]
+        "themeTags": ["themeTag1", "themeTag2"],
+        "typeTags": ["typeTag1", "typeTag2"]
       }
     },
     {
@@ -197,7 +204,8 @@
         ],
         "iconUrl": "",
         "iconColor": "",
-        "categories": ["category1", "category2"]
+        "themeTags": ["themeTag1", "themeTag2"],
+        "typeTags": ["typeTag1", "typeTag2"]
       }
     },
     {
@@ -221,7 +229,8 @@
         ],
         "iconUrl": "",
         "iconColor": "",
-        "categories": ["category1", "category2"]
+        "themeTags": ["themeTag1", "themeTag2"],
+        "typeTags": ["typeTag1", "typeTag2"]
       }
     },
     {
@@ -245,7 +254,8 @@
         ],
         "iconUrl": "",
         "iconColor": "",
-        "categories": ["category1", "category2"]
+        "themeTags": ["themeTag1", "themeTag2"],
+        "typeTags": ["typeTag1", "typeTag2"]
       }
     }
   ],

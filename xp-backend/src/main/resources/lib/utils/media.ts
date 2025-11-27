@@ -53,7 +53,7 @@ export function resolveImage(
 
 export function resolveIcon(
     idOrContent?: IdOrContent | null,
-    defaultToCategoryIcon = true,
+    defaultToThemeTagIcon = true,
     iconColor?: string
 ): ResolvedMedia {
     const content = idOrContentToContent(idOrContent)
@@ -61,7 +61,7 @@ export function resolveIcon(
 
     const ibX = content?.x?.idebanken
     const metaIcon = ibX?.meta?.icon
-    const fistCategoryIcon = forceArray(ibX?.category?.categories)[0]
+    const fistThemeTagIcon = forceArray(ibX?.tags?.themes)[0]
 
     if (isMedia(content)) {
         return {
@@ -72,8 +72,8 @@ export function resolveIcon(
         }
     } else if (metaIcon) {
         return resolveMedia(metaIcon, 'full', iconColor || ibX?.meta?.iconColor)
-    } else if (defaultToCategoryIcon && fistCategoryIcon) {
-        return resolveMedia(fistCategoryIcon, 'full', iconColor)
+    } else if (defaultToThemeTagIcon && fistThemeTagIcon) {
+        return resolveMedia(fistThemeTagIcon, 'full', iconColor)
     } else {
         return {}
     }
@@ -87,7 +87,7 @@ function resolveMedia(
     const content = idOrContentToContent(idOrContent)
     if (!content?._id) return {}
 
-    if (content.type === 'idebanken:category') {
+    if (content.type === 'idebanken:theme-tag') {
         const meta = content?.x?.idebanken?.meta
         return resolveMedia(meta?.icon, scale, iconColor || meta?.iconColor)
     }

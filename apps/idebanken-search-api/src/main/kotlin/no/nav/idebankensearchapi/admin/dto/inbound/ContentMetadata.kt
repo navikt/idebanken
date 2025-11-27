@@ -1,6 +1,7 @@
 package no.nav.idebankensearchapi.admin.dto.inbound
 
 import java.time.ZonedDateTime
+import java.util.Collections.emptyList
 import no.nav.navnosearchadminapi.common.enums.ValidTypes
 
 data class ContentMetadata(
@@ -13,5 +14,6 @@ data class ContentMetadata(
     val languageRefs: List<String> = emptyList(),
     val iconUrl: String? = null,
     val iconColor: String? = null,
-    val categories: List<String> = emptyList(),
+    val themeTags: List<String> = emptyList(),
+    val typeTags: List<String> = emptyList(),
 )

@@ -47,7 +47,8 @@ fun ContentDto.toInbound(teamName: String): IBContent {
         includeTypeInAllText = shouldBeIncludedInAllTextField(metadata.type),
         iconUrl = metadata.iconUrl,
         iconColor = metadata.iconColor,
-        categories = metadata.categories
+        themeTags = metadata.themeTags,
+        typeTags = metadata.typeTags
     )
 }
 private fun shouldBeIncludedInAllTextField(type: String) = type in listOf(ValidTypes.SKJEMA.descriptor)
