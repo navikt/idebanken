@@ -4,12 +4,12 @@ import { EmptyRecord, Source } from '../../common-guillotine-types'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { LinkCard } from '@xp-types/site/parts'
 import { getOrNull } from '/lib/utils/helpers'
-import { resolveCategories } from '../category'
 import { Content } from '/lib/xp/content'
 import { enonicSitePathToHref, truncateUrl } from '/lib/utils/string-utils'
 import { TitleIngress } from '@xp-types/site/mixins'
 import { LinkCardItem } from './link-card-list'
 import { resolveIcon, resolveImage } from '/lib/utils/media'
+import { resolveThemeTags } from '../theme-tag'
 
 export const linkCardExtensions = ({
     list,
@@ -60,7 +60,7 @@ type LinkCardExternalLink = Extract<
 
 function resolveLinkCardInternalLink(internalLink: LinkCardInternalLink): LinkCardItem {
     const content = getOrNull<Content<TitleIngress>>(internalLink.contentId)
-    const categories = resolveCategories(content?.x?.idebanken?.category)
+    const themeTags = resolveThemeTags(content?.x?.idebanken?.tags)
 
     return {
         url: enonicSitePathToHref(content?._path),
@@ -72,7 +72,7 @@ function resolveLinkCardInternalLink(internalLink: LinkCardInternalLink): LinkCa
             content?.displayName ||
             '[Mangler tittel]',
         description: content?.data?.description,
-        categories,
+        themeTags: themeTags,
         icon: resolveIcon(content),
         image: resolveImage(content, 'height(800)'),
     }
@@ -84,7 +84,7 @@ function resolveLinkCardExternalLink(externalLink: LinkCardExternalLink): LinkCa
         external: true,
         title: externalLink.linkText || truncateUrl(externalLink.url) || '[Mangler tittel]',
         description: externalLink.description,
-        categories: [],
+        themeTags: [],
         icon: resolveIcon(externalLink.icon, false, externalLink.iconColor),
         image: resolveImage(externalLink.image, 'height(800)'),
     }

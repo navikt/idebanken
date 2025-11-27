@@ -1,6 +1,6 @@
 import styles from '../../styles/loading.module.css'
 
-import { getResultCategories, SearchResult } from '~/utils/search'
+import { getResultThemeTags, SearchResult } from '~/utils/search'
 import { MetaData } from '@enonic/nextjs-adapter'
 import { BodyShort, VStack } from '@navikt/ds-react'
 import { LinkCardView } from '~/components/parts/LinkCard'
@@ -16,7 +16,7 @@ export default function SearchResults(
     searchFrom: 'hurtigsøk meny' | 'søkeside',
     searchResult?: SearchResult | undefined,
     loading: boolean = false,
-    common?: CommonType<unknown>, // for resolving categories
+    common?: CommonType<unknown>, // for resolving tags
     filter?: JSX.Element
 ) {
     return (
@@ -57,7 +57,7 @@ export default function SearchResults(
                                     customReplacer={htmlRichTextReplacer}
                                 />
                             }
-                            categories={getResultCategories(result, common)}
+                            themeTags={getResultThemeTags(result, common)}
                             brand={'neutral'}
                             icon={{ url: result.iconUrl, iconColor: result.iconColor }}
                             key={index}

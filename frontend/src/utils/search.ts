@@ -1,5 +1,5 @@
 import { forceArray } from '~/utils/utils'
-import { Category } from '~/types/generated'
+import { ThemeTag } from '~/types/generated'
 import { IS_DEV_MODE } from '@enonic/nextjs-adapter'
 import { SOK_PAGE_PARAM, SOK_SEARCH_PARAM, SOK_SORT_PARAM } from '~/utils/constants'
 import { ReadonlyURLSearchParams } from 'next/navigation'
@@ -54,18 +54,18 @@ export const search = async (
 }
 
 const isCommonType = (obj: object): obj is CommonType<unknown> =>
-    'categories' in obj && Array.isArray(obj.categories)
+    'themeTags' in obj && Array.isArray(obj.themeTags)
 
-export function getResultCategories(
+export function getResultThemeTags(
     result: SearchResult['hits'][0],
-    commonOrCategoryMap?: CommonType<unknown> | Record<string, Category>
+    commonOrCategoryMap?: CommonType<unknown> | Record<string, ThemeTag>
 ) {
     if (!commonOrCategoryMap) return []
     const isCommon = isCommonType(commonOrCategoryMap)
     return [
-        ...forceArray(result.categories)?.reduce((acc: Array<Category>, curr) => {
+        ...forceArray(result.themeTags)?.reduce((acc: Array<ThemeTag>, curr) => {
             const category = isCommon
-                ? commonOrCategoryMap?.categories?.find((cat) => cat.id === curr)?.name
+                ? commonOrCategoryMap?.themeTags?.find((cat) => cat.id === curr)?.name
                 : commonOrCategoryMap[curr]?.name
             if (category) {
                 acc.push({ name: category, id: '' })
@@ -77,14 +77,14 @@ export function getResultCategories(
     ]
 }
 
-export function getCategoriesMap(common?: CommonType<unknown>): Record<string, Category> {
+export function getThemeTagsMap(common?: CommonType<unknown>): Record<string, ThemeTag> {
     if (!common) return {}
-    return common?.categories?.reduce(
+    return common?.themeTags?.reduce(
         (acc, curr) => {
             acc[curr.id] = curr
             return acc
         },
-        {} as Record<string, Category>
+        {} as Record<string, ThemeTag>
     )
 }
 
@@ -104,7 +104,7 @@ export type SearchResult = {
         type: string
         iconUrl?: string
         iconColor?: string
-        categories?: Array<string>
+        themeTags?: Array<string>
         score: number
     }>
 }

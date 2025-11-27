@@ -5,7 +5,7 @@ import { Part_Idebanken_Article_Card_List } from '~/types/generated'
 import { useCallback, useState } from 'react'
 import { LinkCardView } from './LinkCard'
 import { Button, Loader } from '@navikt/ds-react'
-import { XP_DisplayImageOrIcon, XP_BrandColor } from '@xp-types/site/mixins'
+import { XP_BrandColor, XP_DisplayImageOrIcon } from '@xp-types/site/mixins'
 import { fetchArticleCardList } from '../queries/articlesList'
 
 type Card = Part_Idebanken_Article_Card_List['list'][number]
@@ -29,7 +29,7 @@ function normalizeCard(card: Card) {
         showDescription: true,
         displayType: 'withImage' as XP_DisplayImageOrIcon['displayType'],
         hideArrow: true,
-        categories: [],
+        themeTags: [],
     }
 }
 

@@ -3,6 +3,7 @@ package no.nav.idebankensearchapi.utils
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.util.Collections.emptyList
 import no.nav.idebankensearchapi.admin.dto.inbound.ContentDto
 import no.nav.idebankensearchapi.admin.dto.inbound.ContentMetadata
 import no.nav.idebankensearchapi.admin.utils.createInternalId
@@ -108,7 +109,8 @@ fun dummyContent(
     sortByDate = timestamp,
     audience = audience,
     language = language,
-    categories = listOf("category1", "category2"),
+    themeTags = listOf("themeTag1", "themeTag2"),
+    typeTags = listOf("typeTag1", "typeTag2"),
     iconUrl = "",
     iconColor = "",
     metatags = metatags,

@@ -1,9 +1,9 @@
 import { GraphQL } from '@enonic-types/guillotine/graphQL'
-import { Extensions, DataFetchingEnvironment } from '@enonic-types/guillotine/extensions'
-import { query, Content } from '/lib/xp/content'
+import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
+import { Content, query } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
-import { resolveImage, ResolvedMedia } from '/lib/utils/media'
-import { resolveCategories, ResolvedCategory } from '../category'
+import { ResolvedMedia, resolveImage } from '/lib/utils/media'
+import { ResolvedThemeTag, resolveThemeTags } from '../theme-tag'
 
 type ArticleCard = {
     url: string
@@ -11,7 +11,7 @@ type ArticleCard = {
     title: string
     description?: string
     image?: ResolvedMedia
-    categories: Array<ResolvedCategory>
+    themeTags: Array<ResolvedThemeTag>
 }
 
 function map(contents: Content[]): ArticleCard[] {
@@ -24,7 +24,7 @@ function map(contents: Content[]): ArticleCard[] {
             title: data?.shortTitle || data?.title || c.displayName || '[Mangler tittel]',
             description: data?.description,
             image: resolveImage(c, 'width(500)'),
-            categories: resolveCategories(ibxData?.category),
+            themeTags: resolveThemeTags(ibxData?.tags),
         }
     })
 }
@@ -101,7 +101,7 @@ export const articleCardListExtensions = ({
                 title: { type: GraphQLString },
                 description: { type: GraphQLString },
                 image: { type: reference('ResolvedMedia') },
-                categories: { type: list(reference('Category')) },
+                themeTags: { type: list(reference('Tag')) },
             },
             interfaces: [],
         },

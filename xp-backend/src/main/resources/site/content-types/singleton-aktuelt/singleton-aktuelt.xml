@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+    <display-name>Aktuelt</display-name>
+    <description>Inneholder type-tags (aktuelt) - En unik side som det kun eksisterer én av</description>
+    <super-type>base:structured</super-type>
+    <is-final>true</is-final>
+    <allow-child-content-type>${app}:aktuelt-type-tag</allow-child-content-type>
+    <form>
+        <mixin name="title-ingress"/>
+    </form>
+</content-type>

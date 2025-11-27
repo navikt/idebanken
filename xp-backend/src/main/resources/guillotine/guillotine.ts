@@ -3,7 +3,7 @@ import { Extensions } from '@enonic-types/guillotine/extensions'
 
 import { commonGuillotineTypes } from './common-guillotine-types'
 import { headlessCmsExtensions } from './extensions/headless-cms'
-import { categoryExtensions } from './extensions/category'
+import { themeTagExtensions } from './extensions/theme-tag'
 import { tableOfContentsExtensions } from './extensions/parts/table-of-contents'
 import { linkCardListExtensions } from './extensions/parts/link-card-list'
 import { linkCardExtensions } from './extensions/parts/link-card'
@@ -15,7 +15,7 @@ import { articleCardListExtensions } from './extensions/parts/articleCardListExt
 export function extensions(graphQL: GraphQL): Extensions {
     const extensions = [
         headlessCmsExtensions,
-        categoryExtensions,
+        themeTagExtensions,
         tableOfContentsExtensions,
         linkCardListExtensions,
         articleCardListExtensions,

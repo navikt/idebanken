@@ -16,6 +16,6 @@
         </input>
     </form>
     <config>
-        <allow-on-content-type>idebanken:special-page</allow-on-content-type>
+        <allow-on-content-type>${app}:special-page</allow-on-content-type>
     </config>
 </part>

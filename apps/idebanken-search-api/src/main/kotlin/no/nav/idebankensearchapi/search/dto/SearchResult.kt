@@ -1,6 +1,7 @@
 package no.nav.idebankensearchapi.search.dto
 
 import java.time.ZonedDateTime
+import java.util.Collections.emptyList
 
 data class SearchResult(
     val page: Int,
@@ -26,7 +27,8 @@ data class SearchHit(
     val score: Float,
     val iconUrl: String?,
     val iconColor: String?,
-    val categories: List<String>,
+    val themeTags: List<String>,
+    val typeTags: List<String>,
 )
 
 data class Aggregations(
