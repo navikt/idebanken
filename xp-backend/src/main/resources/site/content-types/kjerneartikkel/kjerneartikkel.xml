@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+    <display-name>Kjerneartikkel</display-name>
+    <description>Generell innholdstype som dekker det meste av innholdet</description>
+    <super-type>base:structured</super-type>
+    <is-final>true</is-final>
+    <allow-child-content-type>${app}:(?!(crash-course-slide|*-tag|singleton-*|video|artikkel)$)*</allow-child-content-type>
+    <form>
+        <mixin name="title-ingress" />
+    </form>
+</content-type>

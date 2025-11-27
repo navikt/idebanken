@@ -2769,6 +2769,103 @@ export type Idebanken_Guide_DataIngressArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
+/** Kjerneartikkel - idebanken:kjerneartikkel */
+export type Idebanken_Kjerneartikkel = Content & {
+  __typename?: 'idebanken_Kjerneartikkel';
+  _id: Scalars['ID']['output'];
+  _name: Scalars['String']['output'];
+  _path: Scalars['String']['output'];
+  _references?: Maybe<Array<Maybe<Content>>>;
+  _score?: Maybe<Scalars['Float']['output']>;
+  attachments?: Maybe<Array<Maybe<Attachment>>>;
+  children?: Maybe<Array<Maybe<Content>>>;
+  childrenConnection?: Maybe<ContentConnection>;
+  components?: Maybe<Array<Maybe<Component>>>;
+  contentType?: Maybe<ContentType>;
+  createdTime?: Maybe<Scalars['DateTime']['output']>;
+  creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_Kjerneartikkel_Data>;
+  dataAsJson?: Maybe<Scalars['JSON']['output']>;
+  displayName?: Maybe<Scalars['String']['output']>;
+  hasChildren?: Maybe<Scalars['Boolean']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  metaFields?: Maybe<MetaFields>;
+  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
+  modifier?: Maybe<PrincipalKey>;
+  owner?: Maybe<PrincipalKey>;
+  pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageTemplate?: Maybe<Content>;
+  pageUrl?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Content>;
+  permissions?: Maybe<Permissions>;
+  publish?: Maybe<PublishInfo>;
+  site?: Maybe<Portal_Site>;
+  skyraSlugs: Array<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+  x?: Maybe<ExtraData>;
+  xAsJson?: Maybe<Scalars['JSON']['output']>;
+};
+
+
+/** Kjerneartikkel - idebanken:kjerneartikkel */
+export type Idebanken_Kjerneartikkel_PathArgs = {
+  type?: InputMaybe<ContentPathType>;
+};
+
+
+/** Kjerneartikkel - idebanken:kjerneartikkel */
+export type Idebanken_KjerneartikkelChildrenArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Kjerneartikkel - idebanken:kjerneartikkel */
+export type Idebanken_KjerneartikkelChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Kjerneartikkel - idebanken:kjerneartikkel */
+export type Idebanken_KjerneartikkelComponentsArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Kjerneartikkel - idebanken:kjerneartikkel */
+export type Idebanken_KjerneartikkelPageAsJsonArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Kjerneartikkel - idebanken:kjerneartikkel */
+export type Idebanken_KjerneartikkelPageUrlArgs = {
+  params?: InputMaybe<Scalars['JSON']['input']>;
+  type?: InputMaybe<UrlType>;
+};
+
+/** Kjerneartikkel - idebanken:kjerneartikkel data */
+export type Idebanken_Kjerneartikkel_Data = {
+  __typename?: 'idebanken_Kjerneartikkel_Data';
+  description?: Maybe<Scalars['String']['output']>;
+  ingress?: Maybe<RichText>;
+  overrideImage?: Maybe<Content>;
+  shortTitle?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Kjerneartikkel - idebanken:kjerneartikkel data */
+export type Idebanken_Kjerneartikkel_DataIngressArgs = {
+  processHtml?: InputMaybe<ProcessHtmlInput>;
+};
+
 /** Kategoriside - idebanken:section-page */
 export type Idebanken_SectionPage = Content & {
   __typename?: 'idebanken_SectionPage';

@@ -4,6 +4,7 @@ export type XP_Artikkel = import('./artikkel').XP_Artikkel;
 export type XP_CrashCourseSlide = import('./crash-course-slide').XP_CrashCourseSlide;
 export type XP_CrashCourse = import('./crash-course').XP_CrashCourse;
 export type XP_Guide = import('./guide').XP_Guide;
+export type XP_Kjerneartikkel = import('./kjerneartikkel').XP_Kjerneartikkel;
 export type XP_SectionPage = import('./section-page').XP_SectionPage;
 export type XP_SingletonAktuelt = import('./singleton-aktuelt').XP_SingletonAktuelt;
 export type XP_SingletonTheme = import('./singleton-theme').XP_SingletonTheme;
@@ -22,6 +23,7 @@ declare global {
       'idebanken:crash-course-slide': XP_CrashCourseSlide;
       'idebanken:crash-course': XP_CrashCourse;
       'idebanken:guide': XP_Guide;
+      'idebanken:kjerneartikkel': XP_Kjerneartikkel;
       'idebanken:section-page': XP_SectionPage;
       'idebanken:singleton-aktuelt': XP_SingletonAktuelt;
       'idebanken:singleton-theme': XP_SingletonTheme;
