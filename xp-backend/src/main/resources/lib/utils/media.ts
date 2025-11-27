@@ -61,7 +61,7 @@ export function resolveIcon(
 
     const ibX = content?.x?.idebanken
     const metaIcon = ibX?.meta?.icon
-    const fistThemeTagIcon = forceArray(ibX?.tags?.themes)[0]
+    const fistThemeTagIcon = forceArray(ibX?.tags?.themeTags)[0]
 
     if (isMedia(content)) {
         return {
@@ -103,8 +103,7 @@ function resolveMedia(
         const context = getContext()
         url = `${URLS.XP_ORIGIN}/site/${context.repository?.split('.')?.pop()}/${context.branch}/_/image/${content._id}/full/${data.media.attachment}`
         logger.debug(
-            // @ts-expect-error exception is an unknown type
-            `Could not generate imageUrl from name: ${content.displayName}, with params: ${JSON.stringify({ id: content._id, scale, type: 'absolute' }, null, 2)}. Error: ${e.message}`
+            `Could not generate imageUrl from name: ${content.displayName}, with params: ${JSON.stringify({ id: content._id, scale, type: 'absolute' }, null, 2)}. Error: ${JSON.stringify(e)}`
         )
     }
     return {

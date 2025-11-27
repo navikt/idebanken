@@ -85,7 +85,7 @@ class ExternalSearchDocumentBuilder {
                 keywords: forceArray(content.data.keywords),
                 iconUrl: resolveIcon(content, false)?.url,
                 iconColor: ibX?.meta?.iconColor,
-                themeTags: forceArray(ibX?.tags?.themes),
+                themeTags: forceArray(ibX?.tags?.themeTags),
             },
         }
     }

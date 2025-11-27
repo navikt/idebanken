@@ -101,7 +101,7 @@ export const articleCardListExtensions = ({
                 title: { type: GraphQLString },
                 description: { type: GraphQLString },
                 image: { type: reference('ResolvedMedia') },
-                themeTags: { type: list(reference('ThemeTag')) },
+                themeTags: { type: list(reference('Tag')) },
             },
             interfaces: [],
         },

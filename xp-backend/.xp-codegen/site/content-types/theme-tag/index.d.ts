@@ -4,4 +4,24 @@ export type ThemeTag = {
    * Tittel
    */
   title: string;
+
+  /**
+   * Ingress
+   */
+  ingress: string;
+
+  /**
+   * Kort tittel (listevisning)
+   */
+  shortTitle?: string;
+
+  /**
+   * Kort beskrivelse (listevisning)
+   */
+  description?: string;
+
+  /**
+   * Overskriv lenkekort bilde
+   */
+  overrideImage?: string;
 };

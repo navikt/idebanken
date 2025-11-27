@@ -25,8 +25,8 @@ export const themeTagExtensions = ({
     nonNull,
 }: GraphQL): Extensions => ({
     types: {
-        ThemeTag: {
-            description: 'Resolved theme tag',
+        Tag: {
+            description: 'Resolved tag',
             fields: {
                 id: {
                     type: nonNull(GraphQLID),
@@ -48,7 +48,14 @@ export const themeTagExtensions = ({
         },
     },
     resolvers: {
-        XData_idebanken_theme_tag_DataConfig: {
+        XData_idebanken_tags_DataConfig: {
+            themeTags: (
+                env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<Tags>>
+            ): Array<ResolvedThemeTag> => {
+                return resolveThemeTags(env.source)
+            },
+        },
+        XData_idebanken_aktuelt_tags_DataConfig: {
             themeTags: (
                 env: DataFetchingEnvironment<EmptyRecord, LocalContextRecord, Source<Tags>>
             ): Array<ResolvedThemeTag> => {
@@ -57,10 +64,17 @@ export const themeTagExtensions = ({
         },
     },
     creationCallbacks: {
-        XData_idebanken_theme_tag_DataConfig: (params): void => {
+        XData_idebanken_tags_DataConfig: (params): void => {
             params.modifyFields({
                 themeTags: {
-                    type: nonNull(list(nonNull(reference('ThemeTag')))),
+                    type: nonNull(list(nonNull(reference('Tag')))),
+                },
+            })
+        },
+        XData_idebanken_aktuelt_tags_DataConfig: (params): void => {
+            params.modifyFields({
+                themeTags: {
+                    type: nonNull(list(nonNull(reference('Tag')))),
                 },
             })
         },
@@ -68,7 +82,7 @@ export const themeTagExtensions = ({
 })
 
 export function resolveThemeTags(tags?: Tags): Array<ResolvedThemeTag> {
-    if (!tags?.themes) {
+    if (!tags?.themeTags) {
         return []
     }
 
@@ -85,7 +99,7 @@ export function resolveThemeTags(tags?: Tags): Array<ResolvedThemeTag> {
                     {
                         hasValue: {
                             field: '_id',
-                            values: forceArray(tags.themes),
+                            values: forceArray(tags.themeTags),
                         },
                     },
                 ],

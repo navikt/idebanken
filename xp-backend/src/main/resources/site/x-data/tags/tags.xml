@@ -1,11 +1,19 @@
 <x-data>
     <display-name>Tags</display-name>
     <form>
-        <input name="themes" type="ContentSelector">
+        <input name="themeTags" type="ContentSelector">
             <label>Tema</label>
             <occurrences minimum="0" maximum="0"/>
             <config>
-                <allowContentType>idebanken:theme-tag</allowContentType>
+                <allowContentType>${app}:theme-tag</allowContentType>
+                <allowPath>${site}*</allowPath>
+            </config>
+        </input>
+        <input name="typeTags" type="ContentSelector">
+            <label>Type</label>
+            <occurrences minimum="0" maximum="0"/>
+            <config>
+                <allowContentType>${app}:type-tag</allowContentType>
                 <allowPath>${site}*</allowPath>
             </config>
         </input>

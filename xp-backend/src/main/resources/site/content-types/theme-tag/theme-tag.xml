@@ -4,10 +4,8 @@
     <description>Tema-tag</description>
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
+    <allow-child-content>false</allow-child-content>
     <form>
-        <input name="title" type="TextLine">
-            <label>Tittel</label>
-            <occurrences minimum="1" maximum="1"/>
-        </input>
+        <mixin name="title-ingress"/>
     </form>
 </content-type>

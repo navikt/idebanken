@@ -154,7 +154,7 @@ export const headlessCmsExtensions = ({
                     type: reference('Footer'),
                 },
                 themeTags: {
-                    type: nonNull(list(nonNull(reference('ThemeTag')))),
+                    type: nonNull(list(nonNull(reference('Tag')))),
                 },
                 siteConfiguration: {
                     type: nonNull(reference('SiteConfiguration')),
