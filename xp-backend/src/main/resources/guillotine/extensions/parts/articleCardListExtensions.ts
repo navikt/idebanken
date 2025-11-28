@@ -50,7 +50,7 @@ export const articleCardListExtensions = ({
                 const hits = query({
                     start: offset,
                     count,
-                    sort: '_modifiedTime DESC',
+                    sort: 'modifiedTime DESC',
                     filters: {
                         boolean: {
                             must: [
