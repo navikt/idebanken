@@ -15,5 +15,6 @@
         </input>
         <mixin name="title-ingress"/>
         <mixin name="byline"/>
+       <mixin name="publication-date"/>
     </form>
 </content-type>

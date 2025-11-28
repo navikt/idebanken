@@ -14,6 +14,7 @@ type ArticleCard = {
     image?: ResolvedMedia
     themeTags: Array<ResolvedTag>
     typeTags: Array<ResolvedTag>
+    publicationDate?: string
 }
 
 function map(contents: Content[]): ArticleCard[] {
@@ -30,6 +31,7 @@ function map(contents: Content[]): ArticleCard[] {
             image: resolveImage(c, 'width(500)'),
             themeTags: resolveThemeTags(tags),
             typeTags: resolveTypeTags(tags),
+            publicationDate: data?.publicationDate || undefined,
         }
     })
 }
@@ -50,17 +52,10 @@ export const articleCardListExtensions = ({
                 const hits = query({
                     start: offset,
                     count,
-                    sort: 'modifiedTime DESC',
+                    sort: 'data.publicationDate DESC, modifiedTime DESC',
                     filters: {
                         boolean: {
-                            must: [
-                                {
-                                    hasValue: {
-                                        field: 'type',
-                                        values: ['idebanken:artikkel'],
-                                    },
-                                },
-                            ],
+                            must: [{ hasValue: { field: 'type', values: ['idebanken:artikkel'] } }],
                         },
                     },
                 }).hits
@@ -71,11 +66,7 @@ export const articleCardListExtensions = ({
                     count: 0,
                     filters: {
                         boolean: {
-                            must: [
-                                {
-                                    hasValue: { field: 'type', values: ['idebanken:artikkel'] },
-                                },
-                            ],
+                            must: [{ hasValue: { field: 'type', values: ['idebanken:artikkel'] } }],
                         },
                     },
                 })
@@ -89,10 +80,7 @@ export const articleCardListExtensions = ({
                 total: { type: nonNull(GraphQLInt) },
                 list: {
                     type: nonNull(list(nonNull(reference('Article_card')))),
-                    args: {
-                        offset: GraphQLInt,
-                        count: GraphQLInt,
-                    },
+                    args: { offset: GraphQLInt, count: GraphQLInt },
                 },
             })
         },
@@ -108,6 +96,7 @@ export const articleCardListExtensions = ({
                 image: { type: reference('ResolvedMedia') },
                 themeTags: { type: list(reference('Tag')) },
                 typeTags: { type: list(reference('Tag')) },
+                publicationDate: { type: GraphQLString },
             },
             interfaces: [],
         },

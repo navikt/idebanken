@@ -13,5 +13,6 @@ export type XP_LinkGroups = import('./link-groups').XP_LinkGroups;
 export type XP_LinkSelector = import('./link-selector').XP_LinkSelector;
 export type XP_OverrideWidth = import('./override-width').XP_OverrideWidth;
 export type XP_PaddingY = import('./padding-y').XP_PaddingY;
+export type XP_PublicationDate = import('./publication-date').XP_PublicationDate;
 export type XP_SimpleTextEditor = import('./simple-text-editor').XP_SimpleTextEditor;
 export type XP_TitleIngress = import('./title-ingress').XP_TitleIngress;

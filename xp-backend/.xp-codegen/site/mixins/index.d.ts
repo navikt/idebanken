@@ -13,5 +13,6 @@ export type LinkGroups = import('./link-groups').LinkGroups;
 export type LinkSelector = import('./link-selector').LinkSelector;
 export type OverrideWidth = import('./override-width').OverrideWidth;
 export type PaddingY = import('./padding-y').PaddingY;
+export type PublicationDate = import('./publication-date').PublicationDate;
 export type SimpleTextEditor = import('./simple-text-editor').SimpleTextEditor;
 export type TitleIngress = import('./title-ingress').TitleIngress;
