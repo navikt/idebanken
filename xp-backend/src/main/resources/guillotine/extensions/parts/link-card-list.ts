@@ -8,6 +8,7 @@ import { forceArray } from '/lib/utils/array-utils'
 import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveIcon, resolveImage } from '/lib/utils/media'
+import { getTags } from '/lib/utils/helpers'
 
 export type LinkCardItem = {
     url: string
@@ -135,7 +136,7 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
         const { shortTitle, title, description, displayName } =
             (item.data as Record<string, string>) ?? {}
 
-        const tags = ibxData?.tags || ibxData?.['aktuelt-tags']
+        const tags = getTags(ibxData)
         const themeTags = resolveThemeTags(tags)
         const typeTags = resolveTypeTags(tags)
 

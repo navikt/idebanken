@@ -4,6 +4,7 @@ import { Content, query } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveImage } from '/lib/utils/media'
 import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
+import { getTags } from '/lib/utils/helpers'
 
 type ArticleCard = {
     url: string
@@ -19,7 +20,8 @@ function map(contents: Content[]): ArticleCard[] {
     return contents.map((c) => {
         const ibxData = c.x.idebanken
         const data = c.data as Record<string, string | undefined>
-        const tags = ibxData?.tags || ibxData?.['aktuelt-tags']
+        const tags = getTags(ibxData)
+
         return {
             url: enonicSitePathToHref(c._path),
             external: false,

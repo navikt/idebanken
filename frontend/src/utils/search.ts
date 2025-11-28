@@ -64,11 +64,11 @@ export function getResultThemeTags(
     const isCommon = isCommonType(commonOrThemeTagMap)
     return [
         ...forceArray(result.themeTags)?.reduce((acc: Array<Tag>, curr) => {
-            const category = isCommon
-                ? commonOrThemeTagMap?.themeTags?.find((cat) => cat.id === curr)?.name
+            const theme = isCommon
+                ? commonOrThemeTagMap?.themeTags?.find((theme) => theme.id === curr)?.name
                 : commonOrThemeTagMap[curr]?.name
-            if (category) {
-                acc.push({ name: category, id: '' })
+            if (theme) {
+                acc.push({ name: theme, id: '' })
             }
             return acc
         }, []),
@@ -84,11 +84,11 @@ export function getResultTypeTags(
     const isCommon = isCommonType(commonOrTypeTagMap)
     return [
         ...forceArray(result.typeTags)?.reduce((acc: Array<Tag>, curr) => {
-            const category = isCommon
-                ? commonOrTypeTagMap?.themeTags?.find((cat) => cat.id === curr)?.name
+            const theme = isCommon
+                ? commonOrTypeTagMap?.themeTags?.find((theme) => theme.id === curr)?.name
                 : commonOrTypeTagMap[curr]?.name
-            if (category) {
-                acc.push({ name: category, id: '' })
+            if (theme) {
+                acc.push({ name: theme, id: '' })
             }
             return acc
         }, []),

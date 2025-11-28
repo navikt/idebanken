@@ -48,10 +48,10 @@ export default function SearchView({
 
     useEffect(() => {
         const themeTagsInSearchResults = searchResult?.hits?.reduce((acc, curr) => {
-            curr.themeTags?.forEach((catId) => {
-                if (catId && !acc.find((c) => c.id === catId)) {
-                    const category = themeTagsMap[catId]
-                    if (category) acc.push({ name: category.name, id: catId })
+            curr.themeTags?.forEach((themeId) => {
+                if (themeId && !acc.find((c) => c.id === themeId)) {
+                    const theme = themeTagsMap[themeId]
+                    if (theme) acc.push({ name: theme.name, id: themeId })
                 }
             })
             return acc
@@ -67,18 +67,18 @@ export default function SearchView({
         window.history.replaceState(null, '', `?${urlSearchParams.toString()}`)
     }
 
-    function setThemeTagsParamNames(categoryNames: string[]) {
-        if (categoryNames.length === filter?.length) {
+    function setThemeTagsParamNames(themeTagNames: string[]) {
+        if (themeTagNames.length === filter?.length) {
             // all themeTags selected, reset to "all"
-            categoryNames = [allFilter]
+            themeTagNames = [allFilter]
         }
         updateUrlParams((p) => {
-            if (categoryNames.length === 0 || categoryNames.includes(allFilter)) {
+            if (themeTagNames.length === 0 || themeTagNames.includes(allFilter)) {
                 p.delete(SOK_TEMA_PARAM)
             } else {
                 const names = Object.values(themeTagsMap)
-                    .filter((category) => categoryNames.includes(category.name))
-                    .map((cat) => cat.name)
+                    .filter((theme) => themeTagNames.includes(theme.name))
+                    .map((theme) => theme.name)
                 if (names.length > 0) {
                     p.set(SOK_TEMA_PARAM, names.join(','))
                 } else {
@@ -86,7 +86,7 @@ export default function SearchView({
                 }
             }
         })
-        setSelected(categoryNames)
+        setSelected(themeTagNames)
     }
 
     function setSortParam(sortValue: string | undefined) {
@@ -102,7 +102,7 @@ export default function SearchView({
     const filterElement = (
         <VStack gap={'4'}>
             <RadioGroup
-                legend="Sorter etter:"
+                legend="Sorter etter"
                 onChange={setSortParam}
                 size="small"
                 defaultValue={'0'}>
@@ -111,7 +111,7 @@ export default function SearchView({
                     <Radio value="1">Dato</Radio>
                 </HStack>
             </RadioGroup>
-            <Fieldset legend={'Velg kategori'} id={'choose-category'} size={'small'}>
+            <Fieldset legend={'Filtrer på tema'} id={'choose-theme'} size={'small'}>
                 <HStack>
                     <Chips>
                         {[{ name: allFilter, id: '' }].concat(filter ?? []).map(({ name }) => (
@@ -119,7 +119,7 @@ export default function SearchView({
                                 key={name}
                                 checkmark={false}
                                 selected={selected.includes(name)}
-                                aria-labelledby={'choose-category'}
+                                aria-labelledby={'choose-theme'}
                                 onClick={() => {
                                     if (name === allFilter) {
                                         setThemeTagsParamNames([allFilter])

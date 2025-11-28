@@ -3,7 +3,7 @@ import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/ex
 import { EmptyRecord, Source } from '../../common-guillotine-types'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { LinkCard } from '@xp-types/site/parts'
-import { getOrNull } from '/lib/utils/helpers'
+import { getOrNull, getTags } from '/lib/utils/helpers'
 import { Content } from '/lib/xp/content'
 import { enonicSitePathToHref, truncateUrl } from '/lib/utils/string-utils'
 import { TitleIngress } from '@xp-types/site/mixins'
@@ -60,7 +60,7 @@ type LinkCardExternalLink = Extract<
 
 function resolveLinkCardInternalLink(internalLink: LinkCardInternalLink): LinkCardItem {
     const content = getOrNull<Content<TitleIngress>>(internalLink.contentId)
-    const tags = content?.x?.idebanken?.tags || content?.x?.idebanken?.['aktuelt-tags']
+    const tags = getTags(content?.x?.idebanken)
     const themeTags = resolveThemeTags(tags)
     const typeTags = resolveTypeTags(tags)
 
