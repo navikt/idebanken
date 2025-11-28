@@ -141,6 +141,12 @@ query($path:ID!){
         iconUrl
         iconColor
     }
+    typeTags {
+        name
+        id
+        iconUrl
+        iconColor
+    }
     siteConfiguration {
         searchPageHref
         cookieInfoText

@@ -3,7 +3,7 @@ import { Extensions } from '@enonic-types/guillotine/extensions'
 
 import { commonGuillotineTypes } from './common-guillotine-types'
 import { headlessCmsExtensions } from './extensions/headless-cms'
-import { themeTagExtensions } from './extensions/theme-tag'
+import { themeTagExtensions } from './extensions/tag'
 import { tableOfContentsExtensions } from './extensions/parts/table-of-contents'
 import { linkCardListExtensions } from './extensions/parts/link-card-list'
 import { linkCardExtensions } from './extensions/parts/link-card'

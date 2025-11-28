@@ -5,9 +5,10 @@ import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalC
 import { LinkCardList } from '@xp-types/site/parts'
 import { Content, get, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
-import { ResolvedThemeTag, resolveThemeTags } from '../theme-tag'
+import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveIcon, resolveImage } from '/lib/utils/media'
+import { getTags } from '/lib/utils/helpers'
 
 export type LinkCardItem = {
     url: string
@@ -16,7 +17,8 @@ export type LinkCardItem = {
     description?: string
     image?: ResolvedMedia
     icon?: ResolvedMedia
-    themeTags: Array<ResolvedThemeTag>
+    themeTags: Array<ResolvedTag>
+    typeTags: Array<ResolvedTag>
 }
 
 export const linkCardListExtensions = ({
@@ -107,6 +109,9 @@ export const linkCardListExtensions = ({
                 themeTags: {
                     type: nonNull(list(nonNull(reference('Tag')))),
                 },
+                typeTags: {
+                    type: nonNull(list(nonNull(reference('Tag')))),
+                },
             },
             interfaces: [],
         },
@@ -131,7 +136,9 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
         const { shortTitle, title, description, displayName } =
             (item.data as Record<string, string>) ?? {}
 
-        const themeTags = resolveThemeTags(ibxData?.tags)
+        const tags = getTags(ibxData)
+        const themeTags = resolveThemeTags(tags)
+        const typeTags = resolveTypeTags(tags)
 
         return {
             url: enonicSitePathToHref(item._path),
@@ -141,6 +148,7 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
             image: resolveImage(item, 'width(500)'),
             icon: resolveIcon(item),
             themeTags,
+            typeTags,
         }
     })
 }
@@ -186,7 +194,13 @@ const getAutomaticList = (
     }
     if (!contentTypes?.length) {
         return [
-            { url: '#', external: false, title: '[Ingen innholdstyper er valgt]', themeTags: [] },
+            {
+                url: '#',
+                external: false,
+                title: '[Ingen innholdstyper er valgt]',
+                themeTags: [],
+                typeTags: [],
+            },
         ]
     }
 

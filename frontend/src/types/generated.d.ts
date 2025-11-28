@@ -50,6 +50,7 @@ export type Article_Card = {
   image?: Maybe<ResolvedMedia>;
   themeTags?: Maybe<Array<Maybe<Tag>>>;
   title?: Maybe<Scalars['String']['output']>;
+  typeTags?: Maybe<Array<Maybe<Tag>>>;
   url?: Maybe<Scalars['String']['output']>;
 };
 
@@ -491,6 +492,7 @@ export type HeadlessCms = {
   siteConfiguration: SiteConfiguration;
   sitemap?: Maybe<Sitemap>;
   themeTags: Array<Tag>;
+  typeTags: Array<Tag>;
 };
 
 
@@ -802,6 +804,7 @@ export type Link_Card = {
   image?: Maybe<ResolvedMedia>;
   themeTags: Array<Tag>;
   title: Scalars['String']['output'];
+  typeTags: Array<Tag>;
   url: Scalars['String']['output'];
 };
 
@@ -817,12 +820,19 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   quote?: Maybe<Macro_Idebanken_Quote_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1784,7 +1794,7 @@ export type XData_Idebanken_ApplicationConfig = {
 export type XData_Idebanken_Aktuelt_Tags_DataConfig = {
   __typename?: 'XData_idebanken_aktuelt_tags_DataConfig';
   themeTags: Array<Tag>;
-  typeTags?: Maybe<Array<Maybe<Content>>>;
+  typeTags: Array<Tag>;
 };
 
 
@@ -1812,7 +1822,7 @@ export type XData_Idebanken_Meta_DataConfig = {
 export type XData_Idebanken_Tags_DataConfig = {
   __typename?: 'XData_idebanken_tags_DataConfig';
   themeTags: Array<Tag>;
-  typeTags?: Maybe<Array<Maybe<Content>>>;
+  typeTags: Array<Tag>;
 };
 
 

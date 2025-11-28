@@ -1,7 +1,7 @@
 import { imageUrl, ImageUrlParams } from '/lib/xp/portal'
 import { Content } from '/lib/xp/content'
 import { MediaImageContent } from '@enonic-types/guillotine'
-import { getOrNull } from '/lib/utils/helpers'
+import { getOrNull, getTags } from '/lib/utils/helpers'
 import { forceArray } from '/lib/utils/array-utils'
 import { logger } from '/lib/utils/logging'
 import { get as getContext } from '/lib/xp/context'
@@ -61,7 +61,8 @@ export function resolveIcon(
 
     const ibX = content?.x?.idebanken
     const metaIcon = ibX?.meta?.icon
-    const fistThemeTagIcon = forceArray(ibX?.tags?.themeTags)[0]
+    const tags = getTags(ibX)
+    const fistThemeTagIcon = forceArray(tags?.themeTags)[0]
 
     if (isMedia(content)) {
         return {

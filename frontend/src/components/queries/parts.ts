@@ -84,6 +84,13 @@ export const linkCardQuery = `{
             iconColor
             caption
         }
+        typeTags {
+            name
+            id
+            iconUrl
+            iconColor
+            caption
+        }
     }
 }`
 
@@ -116,6 +123,13 @@ export const linkCardListQuery = `{
             iconColor
         }
         themeTags {
+            name
+            id
+            iconUrl
+            iconColor
+            caption
+        }
+        typeTags {
             name
             id
             iconUrl
