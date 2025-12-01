@@ -6,6 +6,5 @@
     <is-final>true</is-final>
     <allow-child-content-type>${app}:aktuelt-type-tag</allow-child-content-type>
     <form>
-        <mixin name="title-ingress"/>
     </form>
 </content-type>

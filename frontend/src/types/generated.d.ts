@@ -48,6 +48,7 @@ export type Article_Card = {
   description?: Maybe<Scalars['String']['output']>;
   external?: Maybe<Scalars['Boolean']['output']>;
   image?: Maybe<ResolvedMedia>;
+  publicationDate?: Maybe<Scalars['String']['output']>;
   themeTags?: Maybe<Array<Maybe<Tag>>>;
   title?: Maybe<Scalars['String']['output']>;
   typeTags?: Maybe<Array<Maybe<Tag>>>;
@@ -820,12 +821,19 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   quote?: Maybe<Macro_Idebanken_Quote_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -2953,7 +2961,6 @@ export type Idebanken_SingletonAktuelt = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
-  data?: Maybe<Idebanken_SingletonAktuelt_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -3116,22 +3123,6 @@ export type Idebanken_SingletonAktueltPage_DataIngressArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
-/** Aktuelt - idebanken:singleton-aktuelt data */
-export type Idebanken_SingletonAktuelt_Data = {
-  __typename?: 'idebanken_SingletonAktuelt_Data';
-  description?: Maybe<Scalars['String']['output']>;
-  ingress?: Maybe<RichText>;
-  overrideImage?: Maybe<Content>;
-  shortTitle?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Aktuelt - idebanken:singleton-aktuelt data */
-export type Idebanken_SingletonAktuelt_DataIngressArgs = {
-  processHtml?: InputMaybe<ProcessHtmlInput>;
-};
-
 /** Tema - idebanken:singleton-theme */
 export type Idebanken_SingletonTheme = Content & {
   __typename?: 'idebanken_SingletonTheme';
@@ -3244,7 +3235,6 @@ export type Idebanken_SingletonType = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
-  data?: Maybe<Idebanken_SingletonType_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -3308,22 +3298,6 @@ export type Idebanken_SingletonTypePageAsJsonArgs = {
 export type Idebanken_SingletonTypePageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
-};
-
-/** Type - idebanken:singleton-type data */
-export type Idebanken_SingletonType_Data = {
-  __typename?: 'idebanken_SingletonType_Data';
-  description?: Maybe<Scalars['String']['output']>;
-  ingress?: Maybe<RichText>;
-  overrideImage?: Maybe<Content>;
-  shortTitle?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Type - idebanken:singleton-type data */
-export type Idebanken_SingletonType_DataIngressArgs = {
-  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Spesiell side - idebanken:special-page */
