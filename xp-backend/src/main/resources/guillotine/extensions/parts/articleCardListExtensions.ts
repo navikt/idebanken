@@ -78,11 +78,22 @@ export const articleCardListExtensions = ({
                 return map(hits)
             },
             total: () => {
+                const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
                 const res = query({
                     count: 0,
+                    query: {
+                        boolean: {
+                            mustNot: queryDslExclusion,
+                        },
+                    },
                     filters: {
                         boolean: {
-                            must: [{ hasValue: { field: 'type', values: ['idebanken:artikkel'] } }],
+                            must: [
+                                {
+                                    hasValue: { field: 'type', values: ['idebanken:artikkel'] },
+                                },
+                            ],
+                            mustNot: filterExclusion,
                         },
                     },
                 })
