@@ -6,6 +6,7 @@ import { runInContext } from '/lib/repos/run-in-context'
 
 let isActive = false
 
+const singletonAktueltPage = `${CONTENT_ROOT_PROJECT_ID}:singleton-aktuelt-page`
 const singletonAktuelt = `${CONTENT_ROOT_PROJECT_ID}:singleton-aktuelt`
 const singletonTheme = `${CONTENT_ROOT_PROJECT_ID}:singleton-theme`
 const singletonType = `${CONTENT_ROOT_PROJECT_ID}:singleton-type`
@@ -14,7 +15,7 @@ const typeTagAktuelt = `${CONTENT_ROOT_PROJECT_ID}:aktuelt-type-tag`
 const typeTag = `${CONTENT_ROOT_PROJECT_ID}:type-tag`
 const themeTag = `${CONTENT_ROOT_PROJECT_ID}:theme-tag`
 
-const singletons = [singletonAktuelt, singletonTheme, singletonType]
+const singletons = [singletonAktuelt, singletonTheme, singletonType, singletonAktueltPage]
 const tags = [typeTagAktuelt, typeTag, themeTag]
 
 export const activateContentCreationPrevention = () => {

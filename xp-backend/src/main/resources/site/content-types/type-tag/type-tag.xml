@@ -6,6 +6,5 @@
     <is-final>true</is-final>
     <allow-child-content>false</allow-child-content>
     <form>
-        <mixin name="title-ingress"/>
     </form>
 </content-type>

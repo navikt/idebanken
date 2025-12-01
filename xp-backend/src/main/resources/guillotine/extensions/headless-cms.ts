@@ -13,7 +13,7 @@ import {
 } from '../common-guillotine-types'
 import { Content, get, query } from '/lib/xp/content'
 import { AktueltTypeTag, ThemeTag, TypeTag } from '@xp-types/site/content-types'
-import { mapThemeTagContentToResolved, ResolvedTag } from './tag'
+import { mapTagContentToResolved, ResolvedTag } from './tag'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { processHtml } from '/lib/xp/portal'
 
@@ -79,7 +79,7 @@ export const headlessCmsExtensions = ({
                         },
                     }).hits
 
-                    return mapThemeTagContentToResolved(themeTags)
+                    return mapTagContentToResolved(themeTags)
                 })
             },
             typeTags: (
@@ -95,7 +95,7 @@ export const headlessCmsExtensions = ({
                         },
                     }).hits
 
-                    return mapThemeTagContentToResolved(typeTags)
+                    return mapTagContentToResolved(typeTags)
                 })
             },
             siteConfiguration: (
