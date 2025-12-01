@@ -99,6 +99,33 @@ export const articleCardListExtensions = ({
                 })
                 return res.total
             },
+            availableTypeTags: () => {
+                const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
+                const tags = query({
+                    count: 20,
+                    sort: 'displayName ASC',
+                    query: {
+                        boolean: {
+                            mustNot: queryDslExclusion,
+                        },
+                    },
+                    filters: {
+                        boolean: {
+                            must: [
+                                {
+                                    hasValue: {
+                                        field: 'type',
+                                        values: ['idebanken:aktuelt-type-tag'],
+                                    },
+                                },
+                            ],
+                            mustNot: filterExclusion,
+                        },
+                    },
+                }).hits
+
+                return tags.map((c) => ({ id: c._id, name: c.displayName }))
+            },
         },
     },
     creationCallbacks: {
@@ -109,6 +136,7 @@ export const articleCardListExtensions = ({
                     type: nonNull(list(nonNull(reference('Article_card')))),
                     args: { offset: GraphQLInt, count: GraphQLInt },
                 },
+                availableTypeTags: { type: nonNull(list(nonNull(reference('Tag')))) },
             })
         },
     },
