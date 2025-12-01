@@ -274,7 +274,6 @@
 }
 
 /* Semantic mappings */
-
 /*[data-color='info'] {
     --ax-border-strong: var(--ib-border-dark-blue-strong);
     --ax-border-subtleA: var(--ib-border-dark-blue-subtleA);
@@ -303,8 +302,8 @@
 
     --ax-bg-raised: var(--ib-bg-dark-blue-raised);
 }*/
-
 /* Brand mappings */
+
 [data-color='ib-brand-pink'] {
     --ax-border-strong: var(--ib-border-pink-strong);
     --ax-border-subtleA: var(--ib-border-pink-subtleA);
@@ -326,6 +325,8 @@
     --ax-bg-moderate-hover: var(--ib-bg-pink-moderate-hover);
     --ax-bg-moderateA: var(--ib-bg-pink-moderateA);
     --ax-bg-moderate: var(--ib-bg-pink-moderate);
+
+    --ax-bg-neutral-moderate-hoverA: var(--ib-bg-pink-moderate-hoverA);
 
     --ax-bg-softA: var(--ib-bg-pink-softA);
     --ax-bg-soft: var(--ib-bg-pink-soft);
@@ -355,6 +356,8 @@
     --ax-bg-moderateA: var(--ib-bg-dark-blue-moderateA);
     --ax-bg-moderate: var(--ib-bg-dark-blue-moderate);
 
+    --ax-bg-neutral-moderate-hoverA: var(--ib-bg-dark-blue-moderate-hoverA);
+
     --ax-bg-softA: var(--ib-bg-dark-blue-softA);
     --ax-bg-soft: var(--ib-bg-dark-blue-soft);
 
@@ -382,6 +385,8 @@
     --ax-bg-moderate-hover: var(--ib-bg-orange-moderate-hover);
     --ax-bg-moderateA: var(--ib-bg-orange-moderateA);
     --ax-bg-moderate: var(--ib-bg-orange-moderate);
+
+    --ax-bg-neutral-moderate-hoverA: var(--ib-bg-orange-moderate-hoverA);
 
     --ax-bg-softA: var(--ib-bg-orange-softA);
     --ax-bg-soft: var(--ib-bg-orange-soft);
@@ -411,8 +416,32 @@
     --ax-bg-moderateA: var(--ib-bg-pastel-yellow-moderateA);
     --ax-bg-moderate: var(--ib-bg-pastel-yellow-moderate);
 
+    --ax-bg-neutral-moderate-hoverA: var(--ib-bg-pastel-yellow-moderate-hoverA);
+
     --ax-bg-softA: var(--ib-bg-pastel-yellow-softA);
     --ax-bg-soft: var(--ib-bg-pastel-yellow-soft);
 
     --ax-bg-raised: var(--ib-bg-pastel-yellow-raised);
+}
+
+[data-color="accent"] {
+    --ax-bg-soft: var(--ib-bg-dark-blue-soft);
+    --ax-bg-softA: var(--ib-bg-dark-blue-softA);
+    --ax-bg-moderate: var(--ib-bg-dark-blue-moderate);
+    --ax-bg-moderateA: var(--ib-bg-dark-blue-moderateA);
+    --ax-bg-moderate-hover: var(--ib-bg-dark-blue-moderate-hover);
+    --ax-bg-moderate-hoverA: var(--ib-bg-dark-blue-moderate-hoverA);
+    --ax-bg-moderate-pressed: var(--ib-bg-dark-blue-moderate-pressed);
+    --ax-bg-moderate-pressedA: var(--ib-bg-dark-blue-moderate-pressedA);
+    --ax-bg-strong: var(--ib-bg-dark-blue-strong);
+    --ax-bg-strong-hover: var(--ib-bg-dark-blue-strong-hover);
+    --ax-bg-strong-pressed: var(--ib-bg-dark-blue-strong-pressed);
+    --ax-text-default: var(--ib-text-dark-blue);
+    --ax-text-subtle: var(--ib-text-dark-blue-subtle);
+    --ax-text-decoration: var(--ib-bg-dark-blue-strong);
+    --ax-text-contrast: var(--ib-text-dark-blue-contrast);
+    --ax-border-default: var(--ib-border-dark-blue);
+    --ax-border-subtle: var(--ib-border-dark-blue-subtle);
+    --ax-border-subtleA: var(--ib-border-dark-blue-subtleA);
+    --ax-border-strong: var(--ib-border-dark-blue-strong);
 }
