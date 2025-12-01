@@ -55,7 +55,7 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
             <AuthorsAndDate
                 authors={data?.authors}
                 artist={artist}
-                published={commonGet?.publish?.first}
+                published={commonGet?.data?.publicationDate || commonGet?.publish?.first}
             />
         </>
     )

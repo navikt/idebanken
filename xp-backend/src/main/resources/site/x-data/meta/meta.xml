@@ -3,5 +3,13 @@
     <form>
         <mixin name="icon" />
         <mixin name="icon-background-color" />
+        <input type="CheckBox" name="hideFromListViews">
+            <label>Skjul fra listevisning</label>
+            <description>Velg denne for å hindre at innholdet vises i lister</description>
+        </input>
+        <input type="CheckBox" name="hideFromInternalSearch">
+            <label>Skjul fra internsøk</label>
+            <description>Velg denne for å hindre at innholdet vises i det interne søket på nettstedet.</description>
+        </input>
     </form>
 </x-data>

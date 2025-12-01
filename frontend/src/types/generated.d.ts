@@ -1797,16 +1797,11 @@ export type XData_Idebanken_Aktuelt_Tags_DataConfigThemeTagsArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
-/** Extra data config for application ['idebanken}'] and descriptor ['aktuelt-tags'] */
-export type XData_Idebanken_Aktuelt_Tags_DataConfigTypeTagsArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
 /** Extra data config for application ['idebanken}'] and descriptor ['meta'] */
 export type XData_Idebanken_Meta_DataConfig = {
   __typename?: 'XData_idebanken_meta_DataConfig';
+  hideFromInternalSearch?: Maybe<Scalars['Boolean']['output']>;
+  hideFromListViews?: Maybe<Scalars['Boolean']['output']>;
   icon?: Maybe<Content>;
   iconColor?: Maybe<Scalars['String']['output']>;
 };
@@ -1821,13 +1816,6 @@ export type XData_Idebanken_Tags_DataConfig = {
 
 /** Extra data config for application ['idebanken}'] and descriptor ['tags'] */
 export type XData_Idebanken_Tags_DataConfigThemeTagsArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** Extra data config for application ['idebanken}'] and descriptor ['tags'] */
-export type XData_Idebanken_Tags_DataConfigTypeTagsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
@@ -2327,7 +2315,6 @@ export type Idebanken_AktueltTypeTag = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
-  data?: Maybe<Idebanken_AktueltTypeTag_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -2391,22 +2378,6 @@ export type Idebanken_AktueltTypeTagPageAsJsonArgs = {
 export type Idebanken_AktueltTypeTagPageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
-};
-
-/** Type - idebanken:aktuelt-type-tag data */
-export type Idebanken_AktueltTypeTag_Data = {
-  __typename?: 'idebanken_AktueltTypeTag_Data';
-  description?: Maybe<Scalars['String']['output']>;
-  ingress?: Maybe<RichText>;
-  overrideImage?: Maybe<Content>;
-  shortTitle?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Type - idebanken:aktuelt-type-tag data */
-export type Idebanken_AktueltTypeTag_DataIngressArgs = {
-  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Artikkel - idebanken:artikkel */
@@ -2498,6 +2469,7 @@ export type Idebanken_Artikkel_Data = {
   heroImage?: Maybe<Content>;
   ingress?: Maybe<RichText>;
   overrideImage?: Maybe<Content>;
+  publicationDate?: Maybe<Scalars['Date']['output']>;
   shortTitle?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
@@ -3047,6 +3019,103 @@ export type Idebanken_SingletonAktueltPageUrlArgs = {
   type?: InputMaybe<UrlType>;
 };
 
+/** Aktuelt side - idebanken:singleton-aktuelt-page */
+export type Idebanken_SingletonAktueltPage = Content & {
+  __typename?: 'idebanken_SingletonAktueltPage';
+  _id: Scalars['ID']['output'];
+  _name: Scalars['String']['output'];
+  _path: Scalars['String']['output'];
+  _references?: Maybe<Array<Maybe<Content>>>;
+  _score?: Maybe<Scalars['Float']['output']>;
+  attachments?: Maybe<Array<Maybe<Attachment>>>;
+  children?: Maybe<Array<Maybe<Content>>>;
+  childrenConnection?: Maybe<ContentConnection>;
+  components?: Maybe<Array<Maybe<Component>>>;
+  contentType?: Maybe<ContentType>;
+  createdTime?: Maybe<Scalars['DateTime']['output']>;
+  creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_SingletonAktueltPage_Data>;
+  dataAsJson?: Maybe<Scalars['JSON']['output']>;
+  displayName?: Maybe<Scalars['String']['output']>;
+  hasChildren?: Maybe<Scalars['Boolean']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  metaFields?: Maybe<MetaFields>;
+  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
+  modifier?: Maybe<PrincipalKey>;
+  owner?: Maybe<PrincipalKey>;
+  pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageTemplate?: Maybe<Content>;
+  pageUrl?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Content>;
+  permissions?: Maybe<Permissions>;
+  publish?: Maybe<PublishInfo>;
+  site?: Maybe<Portal_Site>;
+  skyraSlugs: Array<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+  x?: Maybe<ExtraData>;
+  xAsJson?: Maybe<Scalars['JSON']['output']>;
+};
+
+
+/** Aktuelt side - idebanken:singleton-aktuelt-page */
+export type Idebanken_SingletonAktueltPage_PathArgs = {
+  type?: InputMaybe<ContentPathType>;
+};
+
+
+/** Aktuelt side - idebanken:singleton-aktuelt-page */
+export type Idebanken_SingletonAktueltPageChildrenArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Aktuelt side - idebanken:singleton-aktuelt-page */
+export type Idebanken_SingletonAktueltPageChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Aktuelt side - idebanken:singleton-aktuelt-page */
+export type Idebanken_SingletonAktueltPageComponentsArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Aktuelt side - idebanken:singleton-aktuelt-page */
+export type Idebanken_SingletonAktueltPagePageAsJsonArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Aktuelt side - idebanken:singleton-aktuelt-page */
+export type Idebanken_SingletonAktueltPagePageUrlArgs = {
+  params?: InputMaybe<Scalars['JSON']['input']>;
+  type?: InputMaybe<UrlType>;
+};
+
+/** Aktuelt side - idebanken:singleton-aktuelt-page data */
+export type Idebanken_SingletonAktueltPage_Data = {
+  __typename?: 'idebanken_SingletonAktueltPage_Data';
+  description?: Maybe<Scalars['String']['output']>;
+  ingress?: Maybe<RichText>;
+  overrideImage?: Maybe<Content>;
+  shortTitle?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Aktuelt side - idebanken:singleton-aktuelt-page data */
+export type Idebanken_SingletonAktueltPage_DataIngressArgs = {
+  processHtml?: InputMaybe<ProcessHtmlInput>;
+};
+
 /** Aktuelt - idebanken:singleton-aktuelt data */
 export type Idebanken_SingletonAktuelt_Data = {
   __typename?: 'idebanken_SingletonAktuelt_Data';
@@ -3466,7 +3535,6 @@ export type Idebanken_TypeTag = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
-  data?: Maybe<Idebanken_TypeTag_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -3530,22 +3598,6 @@ export type Idebanken_TypeTagPageAsJsonArgs = {
 export type Idebanken_TypeTagPageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
-};
-
-/** Type - idebanken:type-tag data */
-export type Idebanken_TypeTag_Data = {
-  __typename?: 'idebanken_TypeTag_Data';
-  description?: Maybe<Scalars['String']['output']>;
-  ingress?: Maybe<RichText>;
-  overrideImage?: Maybe<Content>;
-  shortTitle?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Type - idebanken:type-tag data */
-export type Idebanken_TypeTag_DataIngressArgs = {
-  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Qbrick Video - idebanken:video */

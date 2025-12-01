@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site xmlns="urn:enonic:xp:model:1.0">
-    <x-data name="tags" allowContentTypes="^${app}:(?!(*-tag|singleton-*|artikkel)$).*"/>
+    <x-data name="tags" allowContentTypes="^${app}:kjerneartikkel$"/>
     <x-data name="aktuelt-tags" allowContentTypes="^${app}:artikkel$"/>
     <x-data name="meta" allowContentTypes="^${app}:.*" optional="true"/>
 
@@ -74,11 +74,11 @@
                     </items>
                 </item-set>
                 <input type="ContentSelector" name="excludeContentAndChildren">
-                    <label>Ekskluder innhold og alle barn</label>
+                    <label>Ekskluder innhold og alle barn fra internsøk og lister</label>
                     <occurrences minimum="0" maximum="0"/>
                 </input>
                 <input type="ContentSelector" name="excludeContent">
-                    <label>Ekskluder enkeltinnhold</label>
+                    <label>Ekskluder enkeltinnhold fra internsøk og lister</label>
                     <occurrences minimum="0" maximum="0"/>
                 </input>
                 <input type="ContentSelector" name="searchPage">

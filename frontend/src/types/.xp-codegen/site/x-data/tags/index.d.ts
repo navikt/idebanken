@@ -8,5 +8,5 @@ export type XP_Tags = {
   /**
    * Type
    */
-  typeTags?: Array<string> | string;
+  typeTags: string;
 };

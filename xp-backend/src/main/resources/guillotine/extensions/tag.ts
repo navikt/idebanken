@@ -123,7 +123,7 @@ export function resolveThemeTags(tags?: Tags | AktueltTags): Array<ResolvedTag> 
         },
     })?.hits
 
-    return mapThemeTagContentToResolved(themeContents)
+    return mapTagContentToResolved(themeContents)
 }
 
 export function resolveTypeTags(tags?: Tags | AktueltTags): Array<ResolvedTag> {
@@ -152,19 +152,19 @@ export function resolveTypeTags(tags?: Tags | AktueltTags): Array<ResolvedTag> {
         },
     })?.hits
 
-    return mapThemeTagContentToResolved(typeTagContents)
+    return mapTagContentToResolved(typeTagContents)
 }
 
-export function mapThemeTagContentToResolved(
+export function mapTagContentToResolved(
     themeTagContents?: Array<Content<ThemeTag | TypeTag | AktueltTypeTag>>
 ): Array<ResolvedTag> {
     return forceArray(themeTagContents)
-        .filter((it) => it?.data?.title && it._id)
+        .filter((it) => it?.displayName && it._id)
         .map((hit) => {
             const icon = resolveIcon(hit)
 
             return {
-                name: hit.data.title,
+                name: hit.displayName,
                 id: hit._id,
                 iconUrl: icon?.url,
                 caption: icon?.caption,
