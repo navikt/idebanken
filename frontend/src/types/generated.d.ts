@@ -1804,13 +1804,6 @@ export type XData_Idebanken_Aktuelt_Tags_DataConfigThemeTagsArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-
-/** Extra data config for application ['idebanken}'] and descriptor ['aktuelt-tags'] */
-export type XData_Idebanken_Aktuelt_Tags_DataConfigTypeTagsArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
 /** Extra data config for application ['idebanken}'] and descriptor ['meta'] */
 export type XData_Idebanken_Meta_DataConfig = {
   __typename?: 'XData_idebanken_meta_DataConfig';
@@ -1828,13 +1821,6 @@ export type XData_Idebanken_Tags_DataConfig = {
 
 /** Extra data config for application ['idebanken}'] and descriptor ['tags'] */
 export type XData_Idebanken_Tags_DataConfigThemeTagsArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-/** Extra data config for application ['idebanken}'] and descriptor ['tags'] */
-export type XData_Idebanken_Tags_DataConfigTypeTagsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
 };

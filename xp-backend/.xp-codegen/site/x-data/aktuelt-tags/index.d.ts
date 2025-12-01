@@ -8,5 +8,5 @@ export type AktueltTags = {
   /**
    * Type
    */
-  typeTags?: Array<string> | string;
+  typeTags: string;
 };

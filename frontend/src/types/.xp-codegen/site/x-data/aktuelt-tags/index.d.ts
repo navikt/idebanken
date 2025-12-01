@@ -8,5 +8,5 @@ export type XP_AktueltTags = {
   /**
    * Type
    */
-  typeTags?: Array<string> | string;
+  typeTags: string;
 };

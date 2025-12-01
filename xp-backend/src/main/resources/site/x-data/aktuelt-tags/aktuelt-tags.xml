@@ -11,7 +11,7 @@
         </input>
         <input name="typeTags" type="ContentSelector">
             <label>Type</label>
-            <occurrences minimum="0" maximum="0"/>
+            <occurrences minimum="1" maximum="1"/>
             <config>
                 <allowContentType>${app}:aktuelt-type-tag</allowContentType>
                 <allowPath>${site}*</allowPath>

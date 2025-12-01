@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site xmlns="urn:enonic:xp:model:1.0">
-    <x-data name="tags" allowContentTypes="^${app}:(?!(*-tag|singleton-*|artikkel)$).*"/>
+    <x-data name="tags" allowContentTypes="^${app}:kjerneartikkel$"/>
     <x-data name="aktuelt-tags" allowContentTypes="^${app}:artikkel$"/>
     <x-data name="meta" allowContentTypes="^${app}:.*" optional="true"/>
 

@@ -8,5 +8,5 @@ export type Tags = {
   /**
    * Type
    */
-  typeTags?: Array<string> | string;
+  typeTags: string;
 };
