@@ -170,7 +170,7 @@ const isExcludedContent = (content: Content, searchConfig: SiteConfig['searchCon
     const contentPathStrippedPrefix = content._path.replace(/^\/content/, '')
 
     return (
-        content.x?.['com-enonic-app-metafields']?.['meta-data']?.blockRobots ||
+        content.x?.idebanken?.meta?.hideFromInternalSearch ||
         excludePaths.some((excludePath) => contentPathStrippedPrefix.startsWith(excludePath)) ||
         forceArray(excludeContent).includes(content._id)
     )
