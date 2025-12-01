@@ -4,14 +4,17 @@ import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Article_Card_List } from '~/types/generated'
 import { useCallback, useState } from 'react'
 import { LinkCardView } from './LinkCard'
-import { Button, Loader } from '@navikt/ds-react'
+import { Button, Chips, Loader } from '@navikt/ds-react'
 import { XP_BrandColor, XP_DisplayImageOrIcon } from '@xp-types/site/mixins'
 import { fetchArticleCardList } from '../queries/articlesList'
+import { ChipsToggle } from '@navikt/ds-react/Chips'
 
 type Card = Part_Idebanken_Article_Card_List['list'][number]
+type Tag = Part_Idebanken_Article_Card_List['availableTypeTags'][number]
 
 interface Config {
     list: Card[]
+    availableTypeTags: Tag[]
     total: number
     pageSize?: number
 }
@@ -36,12 +39,15 @@ function normalizeCard(card: Card) {
 
 export function ArticleCardList({ part, meta }: PartData<Config>) {
     const initial = part.config?.list ?? []
+    const typeTags = part.config?.availableTypeTags || []
     const total = part.config?.total ?? 0
     const pageSize = part.config?.pageSize ?? 6
 
     const [items, setItems] = useState<Card[]>(initial)
     const [offset, setOffset] = useState(initial.length)
     const [loading, setLoading] = useState(false)
+    const [selectedTags, setSelectedTags] = useState<Tag[]>([])
+    const [showAll, setShowAll] = useState(true)
 
     const canLoadMore = offset < total
 
@@ -72,6 +78,35 @@ export function ArticleCardList({ part, meta }: PartData<Config>) {
 
     return (
         <>
+            <Chips>
+                <ChipsToggle
+                    key="__all__"
+                    selected={showAll}
+                    onClick={() => {
+                        setShowAll(true)
+                        setSelectedTags([])
+                    }}>
+                    Vis alle
+                </ChipsToggle>
+
+                {typeTags.map((tag) => (
+                    <ChipsToggle
+                        key={tag.id}
+                        selected={!showAll && selectedTags.some((t) => t.id === tag.id)}
+                        onClick={() =>
+                            setSelectedTags((prev) => {
+                                const exists = prev.some((t) => t.id === tag.id)
+                                const next = exists
+                                    ? prev.filter((t) => t.id !== tag.id)
+                                    : [...prev, tag]
+                                setShowAll(next.length === 0) // if none selected, fallback to "Show all"
+                                return next
+                            })
+                        }>
+                        {tag.name}
+                    </ChipsToggle>
+                ))}
+            </Chips>
             <div className="grid gap-6 md:grid-cols-2">
                 {firstTwo.map((card, i) => {
                     const nc = normalizeCard(card)
