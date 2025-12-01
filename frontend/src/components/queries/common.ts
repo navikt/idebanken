@@ -87,6 +87,7 @@ query($path:ID!){
       }
       ... on idebanken_Artikkel {
         data {
+            publicationDate
             heroImage {
                 ... on media_Image  {
                     url: imageUrl(type: absolute, scale: "block(1024,576)")

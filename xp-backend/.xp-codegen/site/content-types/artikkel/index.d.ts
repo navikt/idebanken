@@ -34,4 +34,9 @@ export type Artikkel = {
    * Forfatter(e)
    */
   authors: Array<string> | string;
+
+  /**
+   * Publiseringsdato
+   */
+  publicationDate: string;
 };

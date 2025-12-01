@@ -14,6 +14,14 @@
             </config>
         </input>
         <mixin name="title-ingress"/>
-        <mixin name="byline"/>
+        <input type="Tag" name="authors">
+            <label>Forfatter(e)</label>
+            <occurrences minimum="1" maximum="0"/>
+        </input>
+        <input type="Date" name="publicationDate">
+            <label>Publiseringsdato</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>now</default>
+        </input>
     </form>
 </content-type>

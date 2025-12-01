@@ -51,6 +51,7 @@ export type CommonContentType<T = UnknownJSONContent> = {
         }
     }
     data: {
+        publicationDate?: string
         heroImage?: {
             url?: string
             data?: {
