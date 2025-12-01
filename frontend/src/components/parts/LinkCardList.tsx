@@ -15,7 +15,7 @@ export function LinkCardList({
     const { list, displayType, hideArrow, nEachRow, heading, brand, showDescription } = part.config
 
     const spanClass = getSpanClass(nEachRow, list.length, displayType)
-    console.log('list', list)
+
     return (
         <section className="relative z-20">
             <LinkHeading

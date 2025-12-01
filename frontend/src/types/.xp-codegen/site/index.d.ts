@@ -74,12 +74,12 @@ declare global {
         }>;
 
         /**
-         * Ekskluder innhold og alle barn
+         * Ekskluder innhold og alle barn fra internsøk og lister
          */
         excludeContentAndChildren?: Array<string> | string;
 
         /**
-         * Ekskluder enkeltinnhold
+         * Ekskluder enkeltinnhold fra internsøk og lister
          */
         excludeContent?: Array<string> | string;
 

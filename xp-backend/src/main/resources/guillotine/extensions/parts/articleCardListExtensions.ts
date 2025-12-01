@@ -5,6 +5,7 @@ import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveImage } from '/lib/utils/media'
 import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
 import { getTags } from '/lib/utils/helpers'
+import { getExcludeFilterAndQuery } from '/lib/utils/site-config'
 
 type ArticleCard = {
     url: string
@@ -47,10 +48,17 @@ export const articleCardListExtensions = ({
             list: (_env: DataFetchingEnvironment) => {
                 const offset: number = _env.args?.offset ?? 0
                 const count: number = _env.args?.count ?? 10
+
+                const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
                 const hits = query({
                     start: offset,
                     count,
                     sort: 'modifiedTime DESC',
+                    query: {
+                        boolean: {
+                            mustNot: queryDslExclusion,
+                        },
+                    },
                     filters: {
                         boolean: {
                             must: [
@@ -61,14 +69,7 @@ export const articleCardListExtensions = ({
                                     },
                                 },
                             ],
-                            mustNot: [
-                                {
-                                    hasValue: {
-                                        field: 'x.idebanken.meta.hideFromListViews',
-                                        values: [true],
-                                    },
-                                },
-                            ],
+                            mustNot: filterExclusion,
                         },
                     },
                 }).hits

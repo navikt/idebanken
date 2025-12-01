@@ -9,6 +9,7 @@ import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveIcon, resolveImage } from '/lib/utils/media'
 import { getTags } from '/lib/utils/helpers'
+import { getExcludeFilterAndQuery } from '/lib/utils/site-config'
 
 export type LinkCardItem = {
     url: string
@@ -204,6 +205,7 @@ const getAutomaticList = (
         ]
     }
 
+    const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
     const contents = query({
         count: automatic.limit || -1,
         query: {
@@ -220,6 +222,7 @@ const getAutomaticList = (
                           ]
                         : []),
                 ],
+                mustNot: [...queryDslExclusion],
             },
         },
         filters: {
@@ -232,14 +235,7 @@ const getAutomaticList = (
                         },
                     },
                 ],
-                mustNot: [
-                    {
-                        hasValue: {
-                            field: 'x.idebanken.meta.hideFromListViews',
-                            values: [true],
-                        },
-                    },
-                ],
+                mustNot: [...filterExclusion],
             },
         },
     }).hits
