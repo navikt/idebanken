@@ -186,6 +186,7 @@ ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
     view: ArticleCardList,
     configQuery: `{
         total
+        availableTypeTags { id name }
         list(offset: 0, count: 5) {
             url
             title
