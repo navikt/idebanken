@@ -61,6 +61,14 @@ export const articleCardListExtensions = ({
                                     },
                                 },
                             ],
+                            mustNot: [
+                                {
+                                    hasValue: {
+                                        field: 'x.idebanken.meta.hideFromListViews',
+                                        values: [true],
+                                    },
+                                },
+                            ],
                         },
                     },
                 }).hits

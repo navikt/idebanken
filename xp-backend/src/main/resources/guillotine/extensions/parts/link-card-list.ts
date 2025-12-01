@@ -232,6 +232,14 @@ const getAutomaticList = (
                         },
                     },
                 ],
+                mustNot: [
+                    {
+                        hasValue: {
+                            field: 'x.idebanken.meta.hideFromListViews',
+                            values: [true],
+                        },
+                    },
+                ],
             },
         },
     }).hits

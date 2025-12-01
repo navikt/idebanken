@@ -11,6 +11,11 @@ export type XP_Meta = {
   iconColor?: 'ib-brand-white' | 'ib-pink-400A' | 'ib-dark-blue-400A' | 'ib-orange-400A' | 'ib-pastel-yellow-300A';
 
   /**
+   * Skjul fra listevisning
+   */
+  hideFromListViews: boolean;
+
+  /**
    * Skjul fra internsøk
    */
   hideFromInternalSearch: boolean;

@@ -1807,6 +1807,8 @@ export type XData_Idebanken_Aktuelt_Tags_DataConfigThemeTagsArgs = {
 /** Extra data config for application ['idebanken}'] and descriptor ['meta'] */
 export type XData_Idebanken_Meta_DataConfig = {
   __typename?: 'XData_idebanken_meta_DataConfig';
+  hideFromInternalSearch?: Maybe<Scalars['Boolean']['output']>;
+  hideFromListViews?: Maybe<Scalars['Boolean']['output']>;
   icon?: Maybe<Content>;
   iconColor?: Maybe<Scalars['String']['output']>;
 };
