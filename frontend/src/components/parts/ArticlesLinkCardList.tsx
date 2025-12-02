@@ -47,7 +47,7 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
         () => part.config?.availableTypeTags || [],
         [part.config?.availableTypeTags]
     )
-    const total = part.config?.total ?? 0
+    const initialTotal = part.config?.total ?? 0
     const pageSize = part.config?.pageSize ?? 6
 
     const [items, setItems] = useState<Card[]>(initial)
@@ -55,6 +55,7 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
     const [loading, setLoading] = useState(false)
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [showAll, setShowAll] = useState(true)
+    const [filteredTotal, setFilteredTotal] = useState<number>(initialTotal)
     const didMountRef = useRef(false)
 
     const selectedIds = useMemo(() => new Set(selectedTags.map((t) => t.id)), [selectedTags])
@@ -80,6 +81,7 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
                 const newItems: Card[] = res.list ?? []
                 setItems(newItems)
                 setOffset(newItems.length)
+                setFilteredTotal(res.total ?? 0)
             } finally {
                 if (!cancelled) setLoading(false)
             }
@@ -109,7 +111,7 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
         [typeTags]
     )
 
-    const canLoadMore = offset < total
+    const canLoadMore = offset < filteredTotal
 
     const loadMore = useCallback(async () => {
         if (!canLoadMore || loading) return
@@ -124,10 +126,12 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
                 setItems((prev) => [...prev, ...newItems])
                 setOffset((prev) => prev + newItems.length)
             }
+            // total may be unchanged, but keep it in sync
+            setFilteredTotal(res.total ?? filteredTotal)
         } finally {
             setLoading(false)
         }
-    }, [canLoadMore, loading, meta.id, offset, pageSize, filterCsv])
+    }, [canLoadMore, loading, meta.id, offset, pageSize, filterCsv, filteredTotal])
 
     const firstTwo = items.slice(0, 2)
     const rest = items.slice(2)

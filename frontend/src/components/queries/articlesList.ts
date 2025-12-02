@@ -32,7 +32,7 @@ query($contentId:ID!,$offset:Int!,$count:Int!,$typeTagIds:String){
                   themeTags { id name }
                   typeTags { id name }
                 }
-                total
+                total(typeTagIds:$typeTagIds)
               }
             }
           }
