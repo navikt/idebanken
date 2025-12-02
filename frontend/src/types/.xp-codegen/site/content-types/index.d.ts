@@ -3,7 +3,6 @@ export type XP_AktueltTypeTag = import('./aktuelt-type-tag').XP_AktueltTypeTag;
 export type XP_Artikkel = import('./artikkel').XP_Artikkel;
 export type XP_CrashCourseSlide = import('./crash-course-slide').XP_CrashCourseSlide;
 export type XP_CrashCourse = import('./crash-course').XP_CrashCourse;
-export type XP_Guide = import('./guide').XP_Guide;
 export type XP_Kjerneartikkel = import('./kjerneartikkel').XP_Kjerneartikkel;
 export type XP_SectionPage = import('./section-page').XP_SectionPage;
 export type XP_SingletonAktueltPage = import('./singleton-aktuelt-page').XP_SingletonAktueltPage;
@@ -14,7 +13,6 @@ export type XP_SpecialPage = import('./special-page').XP_SpecialPage;
 export type XP_ThemeTag = import('./theme-tag').XP_ThemeTag;
 export type XP_TypeTag = import('./type-tag').XP_TypeTag;
 export type XP_Video = import('./video').XP_Video;
-export type XP_Virkemiddel = import('./virkemiddel').XP_Virkemiddel;
 
 declare global {
   namespace XP {
@@ -23,7 +21,6 @@ declare global {
       'idebanken:artikkel': XP_Artikkel;
       'idebanken:crash-course-slide': XP_CrashCourseSlide;
       'idebanken:crash-course': XP_CrashCourse;
-      'idebanken:guide': XP_Guide;
       'idebanken:kjerneartikkel': XP_Kjerneartikkel;
       'idebanken:section-page': XP_SectionPage;
       'idebanken:singleton-aktuelt-page': XP_SingletonAktueltPage;
@@ -34,7 +31,6 @@ declare global {
       'idebanken:theme-tag': XP_ThemeTag;
       'idebanken:type-tag': XP_TypeTag;
       'idebanken:video': XP_Video;
-      'idebanken:virkemiddel': XP_Virkemiddel;
     }
   }
 }
