@@ -6,6 +6,7 @@ import { ResolvedMedia, resolveImage } from '/lib/utils/media'
 import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
 import { getTags } from '/lib/utils/helpers'
 import { getExcludeFilterAndQuery } from '/lib/utils/site-config'
+import { logger } from '/lib/utils/logging'
 
 type ArticleCard = {
     url: string
@@ -18,11 +19,22 @@ type ArticleCard = {
     publicationDate?: string
 }
 
+type HasValueFilter = {
+    hasValue: {
+        field: string
+        values: string[]
+    }
+}
+
 function map(contents: Content[]): ArticleCard[] {
-    return contents.map((c) => {
+    return contents.map((c, idx) => {
         const ibxData = c.x.idebanken
         const data = c.data as Record<string, string | undefined>
         const tags = getTags(ibxData)
+        if (idx === 0) {
+            // logger.info('x.idebanken: %s', JSON.stringify(ibxData, null, 2))
+            // logger.info(`x.idebanken:\n${JSON.stringify(ibxData, null, 2)}`)
+        }
 
         return {
             url: enonicSitePathToHref(c._path),
@@ -50,6 +62,29 @@ export const articleCardListExtensions = ({
             list: (_env: DataFetchingEnvironment) => {
                 const offset: number = _env.args?.offset ?? 0
                 const count: number = _env.args?.count ?? 10
+                const typeTagCsv: string | undefined = _env.args?.typeTagIds
+                const typeTagIds = typeTagCsv
+                    ? typeTagCsv
+                          .split(',')
+                          .map((s) => s.trim())
+                          .filter(Boolean)
+                    : []
+
+                const must: HasValueFilter[] = [
+                    { hasValue: { field: 'type', values: ['idebanken:artikkel'] } },
+                ]
+
+                if (typeTagIds.length) {
+                    must.push({
+                        hasValue: {
+                            field: 'x.idebanken.aktuelt-tags.typeTags._reference',
+                            values: typeTagIds,
+                        },
+                    })
+                }
+
+                logger.info(`articleCardList.list must filters: ${JSON.stringify(must)}`)
+                logger.info(`articleCardList.list typeTagIds: ${JSON.stringify(typeTagIds)}`)
 
                 const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
                 const hits = query({
@@ -61,20 +96,9 @@ export const articleCardListExtensions = ({
                             mustNot: queryDslExclusion,
                         },
                     },
-                    filters: {
-                        boolean: {
-                            must: [
-                                {
-                                    hasValue: {
-                                        field: 'type',
-                                        values: ['idebanken:artikkel'],
-                                    },
-                                },
-                            ],
-                            mustNot: filterExclusion,
-                        },
-                    },
+                    filters: { boolean: { must, mustNot: filterExclusion } },
                 }).hits
+
                 return map(hits)
             },
             total: () => {
@@ -134,7 +158,7 @@ export const articleCardListExtensions = ({
                 total: { type: nonNull(GraphQLInt) },
                 list: {
                     type: nonNull(list(nonNull(reference('Article_card')))),
-                    args: { offset: GraphQLInt, count: GraphQLInt },
+                    args: { offset: GraphQLInt, count: GraphQLInt, typeTagIds: GraphQLString },
                 },
                 availableTypeTags: { type: nonNull(list(nonNull(reference('Tag')))) },
             })

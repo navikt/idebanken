@@ -2,12 +2,12 @@
 
 import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Article_Card_List } from '~/types/generated'
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { LinkCardView } from './LinkCard'
-import { Button, Chips, Loader } from '@navikt/ds-react'
+import { Button, Loader } from '@navikt/ds-react'
 import { XP_BrandColor, XP_DisplayImageOrIcon } from '@xp-types/site/mixins'
 import { fetchArticleCardList } from '../queries/articlesList'
-import { ChipsToggle } from '@navikt/ds-react/Chips'
+import { FilterChips } from '../common/FilterChips'
 
 type Card = Part_Idebanken_Article_Card_List['list'][number]
 type Tag = Part_Idebanken_Article_Card_List['availableTypeTags'][number]
@@ -37,9 +37,16 @@ function normalizeCard(card: Card) {
     }
 }
 
-export function ArticleCardList({ part, meta }: PartData<Config>) {
+function idsToCsv(ids: Set<string>) {
+    return ids.size ? Array.from(ids).join(',') : undefined
+}
+
+export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
     const initial = part.config?.list ?? []
-    const typeTags = part.config?.availableTypeTags || []
+    const typeTags = useMemo(
+        () => part.config?.availableTypeTags || [],
+        [part.config?.availableTypeTags]
+    )
     const total = part.config?.total ?? 0
     const pageSize = part.config?.pageSize ?? 6
 
@@ -49,6 +56,32 @@ export function ArticleCardList({ part, meta }: PartData<Config>) {
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [showAll, setShowAll] = useState(true)
 
+    const selectedIds = useMemo(() => new Set(selectedTags.map((t) => t.id)), [selectedTags])
+
+    const filterCsv = useMemo(
+        () => (showAll ? undefined : idsToCsv(selectedIds)),
+        [showAll, selectedIds]
+    )
+
+    const onToggleAll = useCallback(() => {
+        setShowAll(true)
+        setSelectedTags([])
+    }, [])
+
+    const onToggleTag = useCallback(
+        (id: string) => {
+            setSelectedTags((prev) => {
+                const exists = prev.some((t) => t.id === id)
+                const next = exists
+                    ? prev.filter((t) => t.id !== id)
+                    : [...prev, typeTags.find((t) => t.id === id)!]
+                setShowAll(next.length === 0)
+                return next
+            })
+        },
+        [typeTags]
+    )
+
     const canLoadMore = offset < total
 
     const loadMore = useCallback(async () => {
@@ -57,7 +90,7 @@ export function ArticleCardList({ part, meta }: PartData<Config>) {
         setLoading(true)
 
         try {
-            const fetchPromise = fetchArticleCardList(meta.id, offset, pageSize)
+            const fetchPromise = fetchArticleCardList(meta.id, offset, pageSize, filterCsv)
             const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
             const [res] = await Promise.all([fetchPromise, delay])
 
@@ -78,35 +111,14 @@ export function ArticleCardList({ part, meta }: PartData<Config>) {
 
     return (
         <>
-            <Chips>
-                <ChipsToggle
-                    key="__all__"
-                    selected={showAll}
-                    onClick={() => {
-                        setShowAll(true)
-                        setSelectedTags([])
-                    }}>
-                    Vis alle
-                </ChipsToggle>
+            <FilterChips
+                tags={typeTags}
+                showAll={showAll}
+                selectedIds={selectedIds}
+                onToggleAll={onToggleAll}
+                onToggleTag={onToggleTag}
+            />
 
-                {typeTags.map((tag) => (
-                    <ChipsToggle
-                        key={tag.id}
-                        selected={!showAll && selectedTags.some((t) => t.id === tag.id)}
-                        onClick={() =>
-                            setSelectedTags((prev) => {
-                                const exists = prev.some((t) => t.id === tag.id)
-                                const next = exists
-                                    ? prev.filter((t) => t.id !== tag.id)
-                                    : [...prev, tag]
-                                setShowAll(next.length === 0) // if none selected, fallback to "Show all"
-                                return next
-                            })
-                        }>
-                        {tag.name}
-                    </ChipsToggle>
-                ))}
-            </Chips>
             <div className="grid gap-6 md:grid-cols-2">
                 {firstTwo.map((card, i) => {
                     const nc = normalizeCard(card)
@@ -154,5 +166,3 @@ export function ArticleCardList({ part, meta }: PartData<Config>) {
         </>
     )
 }
-
-export default ArticleCardList
