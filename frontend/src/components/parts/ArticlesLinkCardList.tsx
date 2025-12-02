@@ -2,7 +2,7 @@
 
 import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Article_Card_List } from '~/types/generated'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { LinkCardView } from './LinkCard'
 import { Button, Loader } from '@navikt/ds-react'
 import { XP_BrandColor, XP_DisplayImageOrIcon } from '@xp-types/site/mixins'
@@ -55,13 +55,40 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
     const [loading, setLoading] = useState(false)
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [showAll, setShowAll] = useState(true)
+    const didMountRef = useRef(false)
 
     const selectedIds = useMemo(() => new Set(selectedTags.map((t) => t.id)), [selectedTags])
-
     const filterCsv = useMemo(
         () => (showAll ? undefined : idsToCsv(selectedIds)),
         [showAll, selectedIds]
     )
+
+    useEffect(() => {
+        if (!didMountRef.current) {
+            didMountRef.current = true
+            return // skip first load
+        }
+        let cancelled = false
+        async function run() {
+            if (!meta.id) return
+            setLoading(true)
+            try {
+                const fetchPromise = fetchArticleCardList(meta.id, 0, pageSize, filterCsv)
+                const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
+                const [res] = await Promise.all([fetchPromise, delay])
+                if (cancelled) return
+                const newItems: Card[] = res.list ?? []
+                setItems(newItems)
+                setOffset(newItems.length)
+            } finally {
+                if (!cancelled) setLoading(false)
+            }
+        }
+        run()
+        return () => {
+            cancelled = true
+        }
+    }, [meta.id, pageSize, filterCsv])
 
     const onToggleAll = useCallback(() => {
         setShowAll(true)
@@ -88,12 +115,10 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
         if (!canLoadMore || loading) return
         if (!meta.id) return
         setLoading(true)
-
         try {
             const fetchPromise = fetchArticleCardList(meta.id, offset, pageSize, filterCsv)
             const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
             const [res] = await Promise.all([fetchPromise, delay])
-
             const newItems: Card[] = res.list ?? []
             if (newItems.length) {
                 setItems((prev) => [...prev, ...newItems])
@@ -102,9 +127,7 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
         } finally {
             setLoading(false)
         }
-    }, [canLoadMore, loading, meta.id, offset, pageSize])
-
-    if (!items.length) return null
+    }, [canLoadMore, loading, meta.id, offset, pageSize, filterCsv])
 
     const firstTwo = items.slice(0, 2)
     const rest = items.slice(2)
@@ -119,35 +142,41 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
                 onToggleTag={onToggleTag}
             />
 
-            <div className="grid gap-6 md:grid-cols-2">
-                {firstTwo.map((card, i) => {
-                    const nc = normalizeCard(card)
-                    return (
-                        <LinkCardView
-                            key={card.url || card.title || String(i)}
-                            {...nc}
-                            meta={meta}
-                        />
-                    )
-                })}
-            </div>
+            {items.length === 0 ? (
+                <div className="text-center text-[color:var(--a-text-subtle)]">Ingen treff</div>
+            ) : (
+                <>
+                    <div className="grid gap-6 md:grid-cols-2">
+                        {firstTwo.map((card, i) => {
+                            const nc = normalizeCard(card)
+                            return (
+                                <LinkCardView
+                                    key={card.url || card.title || String(i)}
+                                    {...nc}
+                                    meta={meta}
+                                />
+                            )
+                        })}
+                    </div>
 
-            {items.length > 2 && (
-                <div className="mt-8 grid gap-6 md:grid-cols-3">
-                    {rest.map((card, i) => {
-                        const nc = normalizeCard(card)
-                        return (
-                            <LinkCardView
-                                key={card.url || card.title || String(i)}
-                                {...nc}
-                                meta={meta}
-                            />
-                        )
-                    })}
-                </div>
+                    {items.length > 2 && (
+                        <div className="mt-8 grid gap-6 md:grid-cols-3">
+                            {rest.map((card, i) => {
+                                const nc = normalizeCard(card)
+                                return (
+                                    <LinkCardView
+                                        key={card.url || card.title || String(i)}
+                                        {...nc}
+                                        meta={meta}
+                                    />
+                                )
+                            })}
+                        </div>
+                    )}
+                </>
             )}
 
-            {canLoadMore && (
+            {items.length > 0 && canLoadMore && (
                 <div className="mt-8 flex justify-center">
                     {loading ? (
                         <Loader size="large" title="Laster" />

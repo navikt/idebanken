@@ -1094,6 +1094,7 @@ export type Part_Idebanken_Article_Card_List = {
 export type Part_Idebanken_Article_Card_ListListArgs = {
   count?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+  typeTagIds?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['button'] */
@@ -2649,103 +2650,6 @@ export type Idebanken_CrashCourseSlidePageUrlArgs = {
   type?: InputMaybe<UrlType>;
 };
 
-/** Guide - idebanken:guide */
-export type Idebanken_Guide = Content & {
-  __typename?: 'idebanken_Guide';
-  _id: Scalars['ID']['output'];
-  _name: Scalars['String']['output'];
-  _path: Scalars['String']['output'];
-  _references?: Maybe<Array<Maybe<Content>>>;
-  _score?: Maybe<Scalars['Float']['output']>;
-  attachments?: Maybe<Array<Maybe<Attachment>>>;
-  children?: Maybe<Array<Maybe<Content>>>;
-  childrenConnection?: Maybe<ContentConnection>;
-  components?: Maybe<Array<Maybe<Component>>>;
-  contentType?: Maybe<ContentType>;
-  createdTime?: Maybe<Scalars['DateTime']['output']>;
-  creator?: Maybe<PrincipalKey>;
-  data?: Maybe<Idebanken_Guide_Data>;
-  dataAsJson?: Maybe<Scalars['JSON']['output']>;
-  displayName?: Maybe<Scalars['String']['output']>;
-  hasChildren?: Maybe<Scalars['Boolean']['output']>;
-  language?: Maybe<Scalars['String']['output']>;
-  metaFields?: Maybe<MetaFields>;
-  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
-  modifier?: Maybe<PrincipalKey>;
-  owner?: Maybe<PrincipalKey>;
-  pageAsJson?: Maybe<Scalars['JSON']['output']>;
-  pageTemplate?: Maybe<Content>;
-  pageUrl?: Maybe<Scalars['String']['output']>;
-  parent?: Maybe<Content>;
-  permissions?: Maybe<Permissions>;
-  publish?: Maybe<PublishInfo>;
-  site?: Maybe<Portal_Site>;
-  skyraSlugs: Array<Scalars['String']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  valid?: Maybe<Scalars['Boolean']['output']>;
-  x?: Maybe<ExtraData>;
-  xAsJson?: Maybe<Scalars['JSON']['output']>;
-};
-
-
-/** Guide - idebanken:guide */
-export type Idebanken_Guide_PathArgs = {
-  type?: InputMaybe<ContentPathType>;
-};
-
-
-/** Guide - idebanken:guide */
-export type Idebanken_GuideChildrenArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Guide - idebanken:guide */
-export type Idebanken_GuideChildrenConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Guide - idebanken:guide */
-export type Idebanken_GuideComponentsArgs = {
-  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
-  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Guide - idebanken:guide */
-export type Idebanken_GuidePageAsJsonArgs = {
-  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
-  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Guide - idebanken:guide */
-export type Idebanken_GuidePageUrlArgs = {
-  params?: InputMaybe<Scalars['JSON']['input']>;
-  type?: InputMaybe<UrlType>;
-};
-
-/** Guide - idebanken:guide data */
-export type Idebanken_Guide_Data = {
-  __typename?: 'idebanken_Guide_Data';
-  description?: Maybe<Scalars['String']['output']>;
-  ingress?: Maybe<RichText>;
-  overrideImage?: Maybe<Content>;
-  shortTitle?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Guide - idebanken:guide data */
-export type Idebanken_Guide_DataIngressArgs = {
-  processHtml?: InputMaybe<ProcessHtmlInput>;
-};
-
 /** Kjerneartikkel - idebanken:kjerneartikkel */
 export type Idebanken_Kjerneartikkel = Content & {
   __typename?: 'idebanken_Kjerneartikkel';
@@ -3665,103 +3569,6 @@ export type Idebanken_Video_Data = {
 export type Idebanken_Video_DataSubtitlesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Virkemiddel - idebanken:virkemiddel */
-export type Idebanken_Virkemiddel = Content & {
-  __typename?: 'idebanken_Virkemiddel';
-  _id: Scalars['ID']['output'];
-  _name: Scalars['String']['output'];
-  _path: Scalars['String']['output'];
-  _references?: Maybe<Array<Maybe<Content>>>;
-  _score?: Maybe<Scalars['Float']['output']>;
-  attachments?: Maybe<Array<Maybe<Attachment>>>;
-  children?: Maybe<Array<Maybe<Content>>>;
-  childrenConnection?: Maybe<ContentConnection>;
-  components?: Maybe<Array<Maybe<Component>>>;
-  contentType?: Maybe<ContentType>;
-  createdTime?: Maybe<Scalars['DateTime']['output']>;
-  creator?: Maybe<PrincipalKey>;
-  data?: Maybe<Idebanken_Virkemiddel_Data>;
-  dataAsJson?: Maybe<Scalars['JSON']['output']>;
-  displayName?: Maybe<Scalars['String']['output']>;
-  hasChildren?: Maybe<Scalars['Boolean']['output']>;
-  language?: Maybe<Scalars['String']['output']>;
-  metaFields?: Maybe<MetaFields>;
-  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
-  modifier?: Maybe<PrincipalKey>;
-  owner?: Maybe<PrincipalKey>;
-  pageAsJson?: Maybe<Scalars['JSON']['output']>;
-  pageTemplate?: Maybe<Content>;
-  pageUrl?: Maybe<Scalars['String']['output']>;
-  parent?: Maybe<Content>;
-  permissions?: Maybe<Permissions>;
-  publish?: Maybe<PublishInfo>;
-  site?: Maybe<Portal_Site>;
-  skyraSlugs: Array<Scalars['String']['output']>;
-  type?: Maybe<Scalars['String']['output']>;
-  valid?: Maybe<Scalars['Boolean']['output']>;
-  x?: Maybe<ExtraData>;
-  xAsJson?: Maybe<Scalars['JSON']['output']>;
-};
-
-
-/** Virkemiddel - idebanken:virkemiddel */
-export type Idebanken_Virkemiddel_PathArgs = {
-  type?: InputMaybe<ContentPathType>;
-};
-
-
-/** Virkemiddel - idebanken:virkemiddel */
-export type Idebanken_VirkemiddelChildrenArgs = {
-  first?: InputMaybe<Scalars['Int']['input']>;
-  offset?: InputMaybe<Scalars['Int']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Virkemiddel - idebanken:virkemiddel */
-export type Idebanken_VirkemiddelChildrenConnectionArgs = {
-  after?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-/** Virkemiddel - idebanken:virkemiddel */
-export type Idebanken_VirkemiddelComponentsArgs = {
-  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
-  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Virkemiddel - idebanken:virkemiddel */
-export type Idebanken_VirkemiddelPageAsJsonArgs = {
-  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
-  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-/** Virkemiddel - idebanken:virkemiddel */
-export type Idebanken_VirkemiddelPageUrlArgs = {
-  params?: InputMaybe<Scalars['JSON']['input']>;
-  type?: InputMaybe<UrlType>;
-};
-
-/** Virkemiddel - idebanken:virkemiddel data */
-export type Idebanken_Virkemiddel_Data = {
-  __typename?: 'idebanken_Virkemiddel_Data';
-  description?: Maybe<Scalars['String']['output']>;
-  ingress?: Maybe<RichText>;
-  overrideImage?: Maybe<Content>;
-  shortTitle?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Virkemiddel - idebanken:virkemiddel data */
-export type Idebanken_Virkemiddel_DataIngressArgs = {
-  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Archive - media:archive */

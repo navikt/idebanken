@@ -27,14 +27,10 @@ type HasValueFilter = {
 }
 
 function map(contents: Content[]): ArticleCard[] {
-    return contents.map((c, idx) => {
+    return contents.map((c) => {
         const ibxData = c.x.idebanken
         const data = c.data as Record<string, string | undefined>
         const tags = getTags(ibxData)
-        if (idx === 0) {
-            // logger.info('x.idebanken: %s', JSON.stringify(ibxData, null, 2))
-            // logger.info(`x.idebanken:\n${JSON.stringify(ibxData, null, 2)}`)
-        }
 
         return {
             url: enonicSitePathToHref(c._path),
@@ -77,14 +73,11 @@ export const articleCardListExtensions = ({
                 if (typeTagIds.length) {
                     must.push({
                         hasValue: {
-                            field: 'x.idebanken.aktuelt-tags.typeTags._reference',
+                            field: 'x.idebanken.aktuelt-tags.typeTags',
                             values: typeTagIds,
                         },
                     })
                 }
-
-                logger.info(`articleCardList.list must filters: ${JSON.stringify(must)}`)
-                logger.info(`articleCardList.list typeTagIds: ${JSON.stringify(typeTagIds)}`)
 
                 const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
                 const hits = query({
