@@ -3,7 +3,6 @@ export type AktueltTypeTag = import('./aktuelt-type-tag').AktueltTypeTag;
 export type Artikkel = import('./artikkel').Artikkel;
 export type CrashCourseSlide = import('./crash-course-slide').CrashCourseSlide;
 export type CrashCourse = import('./crash-course').CrashCourse;
-export type Guide = import('./guide').Guide;
 export type Kjerneartikkel = import('./kjerneartikkel').Kjerneartikkel;
 export type SectionPage = import('./section-page').SectionPage;
 export type SingletonAktueltPage = import('./singleton-aktuelt-page').SingletonAktueltPage;
@@ -14,7 +13,6 @@ export type SpecialPage = import('./special-page').SpecialPage;
 export type ThemeTag = import('./theme-tag').ThemeTag;
 export type TypeTag = import('./type-tag').TypeTag;
 export type Video = import('./video').Video;
-export type Virkemiddel = import('./virkemiddel').Virkemiddel;
 
 declare global {
   namespace XP {
@@ -23,7 +21,6 @@ declare global {
       'idebanken:artikkel': Artikkel;
       'idebanken:crash-course-slide': CrashCourseSlide;
       'idebanken:crash-course': CrashCourse;
-      'idebanken:guide': Guide;
       'idebanken:kjerneartikkel': Kjerneartikkel;
       'idebanken:section-page': SectionPage;
       'idebanken:singleton-aktuelt-page': SingletonAktueltPage;
@@ -34,7 +31,6 @@ declare global {
       'idebanken:theme-tag': ThemeTag;
       'idebanken:type-tag': TypeTag;
       'idebanken:video': Video;
-      'idebanken:virkemiddel': Virkemiddel;
     }
   }
 }
