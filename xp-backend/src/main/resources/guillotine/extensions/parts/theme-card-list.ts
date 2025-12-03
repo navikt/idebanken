@@ -1,6 +1,6 @@
 import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
-import { Content, query } from '/lib/xp/content'
+import { Content, get as getContent, query } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveImage } from '/lib/utils/media'
 import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
@@ -9,6 +9,7 @@ import { getExcludeFilterAndQuery } from '/lib/utils/site-config'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { Source } from '../../common-guillotine-types'
 import { ThemeCardList } from '@xp-types/site/parts'
+import { logger } from '/lib/utils/logging'
 
 type ThemeContentCard = {
     url: string
@@ -47,18 +48,37 @@ export const themeCardListExtensions = ({
     GraphQLString,
     GraphQLBoolean,
     GraphQLInt,
+    GraphQLID,
 }: GraphQL): Extensions => ({
     resolvers: {
         Part_idebanken_theme_card_list: {
             data: (
                 env: DataFetchingEnvironment<
-                    { offset?: number; count?: number },
+                    { offset?: number; count?: number; path?: string },
                     LocalContextRecord,
                     Source<ThemeCardList>
                 >
             ) => {
                 const offset: number = env.args?.offset ?? 0
                 const count: number = env.args?.count ?? 10
+                const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
+                if (!path) {
+                    logger.warning(`Part_idebanken_theme_card_list is missing path arg`)
+                    return {
+                        total: 0,
+                        list: [],
+                    }
+                }
+                const contentId = getContent({ key: path })?._id
+                if (!contentId) {
+                    logger.warning(
+                        `Part_idebanken_theme_card_list could not find content at path: ${path}`
+                    )
+                    return {
+                        total: 0,
+                        list: [],
+                    }
+                }
 
                 const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
                 const contentsResult = query({
@@ -91,13 +111,15 @@ export const themeCardListExtensions = ({
                             ],
                             should: [
                                 {
-                                    exists: {
+                                    hasValue: {
                                         field: 'x.idebanken.tags.themeTags',
+                                        values: [contentId],
                                     },
                                 },
                                 {
-                                    exists: {
+                                    hasValue: {
                                         field: 'x.idebanken.aktuelt-tags.themeTags',
+                                        values: [contentId],
                                     },
                                 },
                             ],
@@ -118,7 +140,7 @@ export const themeCardListExtensions = ({
             params.addFields({
                 data: {
                     type: nonNull(reference('Theme_card_list_data')),
-                    args: { offset: GraphQLInt, count: GraphQLInt },
+                    args: { offset: GraphQLInt, count: GraphQLInt, path: nonNull(GraphQLID) },
                 },
             })
             params.modifyFields({

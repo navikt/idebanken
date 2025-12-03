@@ -1426,6 +1426,7 @@ export type Part_Idebanken_Theme_Card_List = {
 export type Part_Idebanken_Theme_Card_ListDataArgs = {
   count?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+  path: Scalars['ID']['input'];
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['title-ingress-icon'] */

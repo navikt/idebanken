@@ -2,16 +2,16 @@ import { Theme_Card } from '~/types/generated'
 import { QueryResponsePartData } from '~/types/graphql-types'
 
 const THEME_PART_QUERY = `
-query($contentId:ID!,$offset:Int!,$count:Int!){
+query($path:ID!,$offset:Int!,$count:Int!){
   guillotine {
-    get(key:$contentId){
+    get(key:$path){
       components {
         part {
           descriptor
           config {
             idebanken {
               theme_card_list {
-                data(offset:$offset, count:$count) {
+                data(offset:$offset, count:$count, path:$path) {
                     total
                     list {
                       title
@@ -33,7 +33,7 @@ query($contentId:ID!,$offset:Int!,$count:Int!){
 }`
 
 export async function fetchThemeCardList(
-    contentId: string,
+    path: string,
     offset: number,
     count: number
 ): Promise<{ total: number; list: Theme_Card[] }> {
@@ -42,7 +42,7 @@ export async function fetchThemeCardList(
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             query: THEME_PART_QUERY,
-            variables: { contentId, offset, count },
+            variables: { contentId: path, offset, count },
         }),
     }).then((r) => r.json())
 

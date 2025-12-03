@@ -202,7 +202,7 @@ ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
 ComponentRegistry.addPart(`${APP_NAME}:theme-card-list`, {
     view: ThemeCardList,
     configQuery: `{
-        data(offset: 0, count: 5) {
+        data(offset: 0, count: 5, path: $path) {
             total
             list {
                 url

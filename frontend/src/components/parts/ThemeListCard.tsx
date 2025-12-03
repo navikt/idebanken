@@ -39,12 +39,11 @@ export default function ThemeCardList({ part, meta }: PartData<Part_Idebanken_Th
     const canLoadMore = offset < total
 
     const loadMore = useCallback(async () => {
-        if (!canLoadMore || loading) return
-        if (!meta.id) return
+        if (!canLoadMore || loading || !meta.path) return
         setLoading(true)
 
         try {
-            const fetchPromise = fetchThemeCardList(meta.id, offset, pageSize)
+            const fetchPromise = fetchThemeCardList(meta.path, offset, pageSize)
             const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
             const [res] = await Promise.all([fetchPromise, delay])
 
@@ -56,7 +55,7 @@ export default function ThemeCardList({ part, meta }: PartData<Part_Idebanken_Th
         } finally {
             setLoading(false)
         }
-    }, [canLoadMore, loading, meta.id, offset, pageSize])
+    }, [canLoadMore, loading, meta.path, offset, pageSize])
 
     if (!items.length) return null
 
