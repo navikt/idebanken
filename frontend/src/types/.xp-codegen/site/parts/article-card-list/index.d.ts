@@ -3,5 +3,5 @@ export type XP_ArticleCardList = {
   /**
    * Antall artikler per last
    */
-  pageSize?: number;
+  pageSize: number;
 };

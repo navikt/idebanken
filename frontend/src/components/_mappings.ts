@@ -46,6 +46,7 @@ import { ArticlesLinkCardList } from '~/components/parts/ArticlesLinkCardList'
 import { Quote } from '~/components/macros/Quote'
 import { CookieConsentToggle } from '~/components/common/cookies/CookieConsentToggle'
 import { CookieBannerOpenButton } from '~/components/common/cookies/CookieBannerOpenButton'
+import ThemeCardList from '~/components/parts/ThemeListCard'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -194,6 +195,23 @@ ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
             image { url caption }
             themeTags { id name }
             typeTags { id name }
+        }
+    }`,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:theme-card-list`, {
+    view: ThemeCardList,
+    configQuery: `{
+        data(offset: 0, count: 5) {
+            total
+            list {
+                url
+                title
+                description
+                image { url caption }
+                themeTags { id name }
+                typeTags { id name }
+            }
         }
     }`,
 })

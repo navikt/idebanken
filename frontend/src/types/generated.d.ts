@@ -821,12 +821,19 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   quote?: Maybe<Macro_Idebanken_Quote_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1049,6 +1056,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   skyra?: Maybe<Part_Idebanken_Skyra>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
+  theme_card_list?: Maybe<Part_Idebanken_Theme_Card_List>;
   title_ingress_icon?: Maybe<Part_Idebanken_Title_Ingress_Icon>;
   video?: Maybe<Part_Idebanken_Video>;
 };
@@ -1085,7 +1093,7 @@ export type Part_Idebanken_Article_Card_List = {
   __typename?: 'Part_idebanken_article_card_list';
   availableTypeTags: Array<Tag>;
   list: Array<Article_Card>;
-  pageSize?: Maybe<Scalars['String']['output']>;
+  pageSize?: Maybe<Scalars['Int']['output']>;
   total: Scalars['Int']['output'];
 };
 
@@ -1406,6 +1414,20 @@ export type Part_Idebanken_Text_EditorSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
+/** Part component application config for application ['idebanken'] and descriptor ['theme-card-list'] */
+export type Part_Idebanken_Theme_Card_List = {
+  __typename?: 'Part_idebanken_theme_card_list';
+  data: Theme_Card_List_Data;
+  pageSize?: Maybe<Scalars['Int']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['theme-card-list'] */
+export type Part_Idebanken_Theme_Card_ListDataArgs = {
+  count?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
 /** Part component application config for application ['idebanken'] and descriptor ['title-ingress-icon'] */
 export type Part_Idebanken_Title_Ingress_Icon = {
   __typename?: 'Part_idebanken_title_ingress_icon';
@@ -1661,6 +1683,26 @@ export type TextComponentData = {
 /** Text component data. */
 export type TextComponentDataValueArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
+};
+
+/** Theme card */
+export type Theme_Card = {
+  __typename?: 'Theme_card';
+  description?: Maybe<Scalars['String']['output']>;
+  external?: Maybe<Scalars['Boolean']['output']>;
+  image?: Maybe<ResolvedMedia>;
+  publicationDate?: Maybe<Scalars['String']['output']>;
+  themeTags?: Maybe<Array<Maybe<Tag>>>;
+  title?: Maybe<Scalars['String']['output']>;
+  typeTags?: Maybe<Array<Maybe<Tag>>>;
+  url?: Maybe<Scalars['String']['output']>;
+};
+
+/** Theme card list data */
+export type Theme_Card_List_Data = {
+  __typename?: 'Theme_card_list_data';
+  list: Array<Theme_Card>;
+  total: Scalars['Int']['output'];
 };
 
 /** UntypedContent */

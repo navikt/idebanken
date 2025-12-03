@@ -16,6 +16,7 @@ export type XP_ShowMore = import('./show-more').XP_ShowMore;
 export type XP_Skyra = import('./skyra').XP_Skyra;
 export type XP_TableOfContents = import('./table-of-contents').XP_TableOfContents;
 export type XP_TextEditor = import('./text-editor').XP_TextEditor;
+export type XP_ThemeCardList = import('./theme-card-list').XP_ThemeCardList;
 export type XP_TitleIngress = import('./title-ingress').XP_TitleIngress;
 export type XP_TitleIngressIcon = import('./title-ingress-icon').XP_TitleIngressIcon;
 export type XP_Video = import('./video').XP_Video;
@@ -39,6 +40,7 @@ declare global {
     'idebanken:skyra': XP_Skyra;
     'idebanken:table-of-contents': XP_TableOfContents;
     'idebanken:text-editor': XP_TextEditor;
+    'idebanken:theme-card-list': XP_ThemeCardList;
     'idebanken:title-ingress': XP_TitleIngress;
     'idebanken:title-ingress-icon': XP_TitleIngressIcon;
     'idebanken:video': XP_Video;

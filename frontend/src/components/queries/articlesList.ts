@@ -1,17 +1,5 @@
-import { Article_Card, Part_Idebanken_Article_Card_List } from '~/types/generated'
-
-interface PartComponent {
-    descriptor?: string
-    config?: { idebanken?: { article_card_list?: Part_Idebanken_Article_Card_List } }
-}
-interface ComponentWrapper {
-    part?: PartComponent | null
-}
-interface QueryResponse {
-    guillotine?: {
-        get?: { components?: ComponentWrapper[] }
-    }
-}
+import { Article_Card } from '~/types/generated'
+import { QueryResponsePartData } from '~/types/graphql-types'
 
 const ARTICLE_PART_QUERY = `
 query($contentId:ID!,$offset:Int!,$count:Int!,$typeTagIds:String){
@@ -48,7 +36,7 @@ export async function fetchArticleCardList(
     count: number,
     typeTagIdsCsv?: string
 ): Promise<{ total: number; list: Article_Card[] }> {
-    const data: QueryResponse = await fetch('/api/graphql', {
+    const data: QueryResponsePartData<'article_card_list'> = await fetch('/api/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -57,7 +45,7 @@ export async function fetchArticleCardList(
         }),
     }).then((r) => r.json())
 
-    const components: ComponentWrapper[] = data.guillotine?.get?.components ?? []
+    const components = data.guillotine?.get?.components ?? []
     const wrapper = components.find((w) => w.part?.descriptor === 'idebanken:article-card-list')
     const cfg = wrapper?.part?.config?.idebanken?.article_card_list
 
