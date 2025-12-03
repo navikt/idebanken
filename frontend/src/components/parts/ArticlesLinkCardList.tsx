@@ -1,7 +1,7 @@
 'use client'
 
 import { PartData } from '~/types/graphql-types'
-import { Part_Idebanken_Article_Card_List } from '~/types/generated'
+import { Article_Card, Part_Idebanken_Article_Card_List, Tag } from '~/types/generated'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { LinkCardView } from './LinkCard'
 import { Button, Loader } from '@navikt/ds-react'
@@ -9,19 +9,9 @@ import { XP_BrandColor, XP_DisplayImageOrIcon } from '@xp-types/site/mixins'
 import { fetchArticleCardList } from '../queries/articlesList'
 import { FilterChips } from '../common/FilterChips'
 
-type Card = Part_Idebanken_Article_Card_List['list'][number]
-type Tag = Part_Idebanken_Article_Card_List['availableTypeTags'][number]
-
-interface Config {
-    list: Card[]
-    availableTypeTags: Tag[]
-    total: number
-    pageSize?: number
-}
-
 const MIN_SPINNER_MS = 400
 
-function normalizeCard(card: Card) {
+function normalizeCard(card: Article_Card) {
     return {
         title: card.title ?? '[Uten tittel]',
         description: card.description ?? '',
@@ -41,7 +31,7 @@ function idsToCsv(ids: Set<string>) {
     return ids.size ? Array.from(ids).join(',') : undefined
 }
 
-export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
+export function ArticlesLinkCardList({ part, meta }: PartData<Part_Idebanken_Article_Card_List>) {
     const initial = part.config?.list ?? []
     const typeTags = useMemo(
         () => part.config?.availableTypeTags || [],
@@ -50,7 +40,7 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
     const initialTotal = part.config?.total ?? 0
     const pageSize = part.config?.pageSize ?? 6
 
-    const [items, setItems] = useState<Card[]>(initial)
+    const [items, setItems] = useState<Article_Card[]>(initial)
     const [offset, setOffset] = useState(initial.length)
     const [loading, setLoading] = useState(false)
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
@@ -78,7 +68,7 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
                 const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
                 const [res] = await Promise.all([fetchPromise, delay])
                 if (cancelled) return
-                const newItems: Card[] = res.list ?? []
+                const newItems = res.list ?? []
                 setItems(newItems)
                 setOffset(newItems.length)
                 setFilteredTotal(res.total ?? 0)
@@ -121,7 +111,7 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
             const fetchPromise = fetchArticleCardList(meta.id, offset, pageSize, filterCsv)
             const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
             const [res] = await Promise.all([fetchPromise, delay])
-            const newItems: Card[] = res.list ?? []
+            const newItems = res.list ?? []
             if (newItems.length) {
                 setItems((prev) => [...prev, ...newItems])
                 setOffset((prev) => prev + newItems.length)

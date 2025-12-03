@@ -1,6 +1,7 @@
 import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
 import {
+    articleCardListQuery,
     buttonQuery,
     downloadsQuery,
     highlightedBoxMacroQuery,
@@ -9,6 +10,7 @@ import {
     linkCardQuery,
     newsletterQuery,
     tableOfContentsQuery,
+    themeCardListQuery,
     titleIngressQuery,
     videoPartOrMacroQuery,
 } from './queries/parts'
@@ -46,6 +48,7 @@ import { ArticlesLinkCardList } from '~/components/parts/ArticlesLinkCardList'
 import { Quote } from '~/components/macros/Quote'
 import { CookieConsentToggle } from '~/components/common/cookies/CookieConsentToggle'
 import { CookieBannerOpenButton } from '~/components/common/cookies/CookieBannerOpenButton'
+import ThemeCardList from '~/components/parts/ThemeListCard'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -184,18 +187,12 @@ ComponentRegistry.addPart(`${APP_NAME}:link-card-list`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
     view: ArticlesLinkCardList,
-    configQuery: `{
-        total
-        availableTypeTags { id name }
-        list(offset: 0, count: 5) {
-            url
-            title
-            description
-            image { url caption }
-            themeTags { id name }
-            typeTags { id name }
-        }
-    }`,
+    configQuery: articleCardListQuery,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:theme-card-list`, {
+    view: ThemeCardList,
+    configQuery: themeCardListQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:expansion-card`, {

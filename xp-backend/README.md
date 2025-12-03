@@ -39,32 +39,29 @@ npm run dev
 Gå til http://localhost:8080 (Enonic Content Studio). Velg "Log in as Guest"
 
 
-## Login i dev
+## Test / Prod
+For tilgang til test- og produksjonsmiljøene, logg inn med SSO på følgende lenker:
+* [TEST](https://idebanken-xp7test.enonic.cloud/admin)
+* [PROD](https://idebanken-xp7prod.enonic.cloud/admin)
 
-Du trenger en bruker for Idebanken sitt Enonic-dashboard i dev. Noen i teamet kan opprette for deg
+Etter du har logget inn må du få rettigheter av en administrator og logge inn på nytt eller slette cookies for å få tilgang til innholdet.
 
-Gå til:
+Ellers ligger frontend applikasjonen i [NAIS](https://console.nav.cloud.nais.io/team/idebanken)
 
-https://idebanken-xp7test.enonic.cloud/admin (Enonic dashboard)
-
-eller:
-
-https://idebanken.ekstern.dev.nav.no/ (frontendapplikajonen i NAIS)
-
-## Deploy i dev
-
+## Deploy
+### Automatisk
+Det er satt opp GitHub Actions for automatisk versjonering, bygg og deploy til testmiljøet ved hver endring på main branch. Man kan også [deploye spesifikke versjoner](https://github.com/navikt/idebanken/actions/workflows/xp-app-download-deploy.yml).
+### Manuell
 Det er for øyeblikket ikke satt opp automatisk deploy. For å oppdatere applikasjonen i dev, må du først bygge apllikasjonen:
 
 ```bash
 enonic project build
 ```
 
-Bygget lagres som en .jar-fil her: `/idebanken-enonic/build/libs/nxp.jar`
+Bygget lagres som en .jar-fil her: `/idebanken-enonic/build/libs/xp-backend.jar`
 
 Deretter gå til https://idebanken-xp7test.enonic.cloud/admin/tool/com.enonic.xp.app.applications/main, og velg "Install".
-Velg den nye .jar-filen. Applikasjonen blir da installert automatisk 
-
-
+Velg den nye .jar-filen. Applikasjonen blir da installert automatisk
 
 # Henvendelser
 

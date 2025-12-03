@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <part xmlns="urn:enonic:xp:model:1.0">
-    <display-name>Artikkelkort liste</display-name>
-    <description>Viser en liste med artikler i kortformat.</description>
+    <display-name>Temakort liste</display-name>
+    <description>Viser en sortert liste med innhold tagget med et gitt tema</description>
     <form>
         <input name="pageSize" type="Long">
             <label>Antall artikler per last</label>
@@ -10,6 +10,6 @@
         </input>
     </form>
     <config>
-        <allow-on-content-type>${app}:singleton-aktuelt-page</allow-on-content-type>
+        <allow-on-content-type>${app}:theme-tag</allow-on-content-type>
     </config>
 </part>

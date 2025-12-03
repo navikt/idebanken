@@ -1,5 +1,10 @@
 import { MetaData } from '@enonic/nextjs-adapter'
-import { Footer, Header, Tag } from '~/types/generated'
+import {
+    Footer,
+    Header,
+    Part_Idebanken_ComponentDataApplicationConfig,
+    Tag,
+} from '~/types/generated'
 
 export type PartData<Part, ContentType = unknown> = {
     part: {
@@ -75,4 +80,21 @@ export type Macro<T> = {
     children?: string
     config: T
     meta: MetaData
+}
+
+type AllowedPartKeys = Exclude<keyof Part_Idebanken_ComponentDataApplicationConfig, '__typename'>
+
+export type QueryResponsePartData<Part extends AllowedPartKeys> = {
+    guillotine?: {
+        get?: {
+            components?: Array<{
+                part?: {
+                    descriptor: string
+                    config?: {
+                        idebanken?: Pick<Part_Idebanken_ComponentDataApplicationConfig, Part>
+                    }
+                }
+            }>
+        }
+    }
 }
