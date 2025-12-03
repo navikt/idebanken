@@ -126,7 +126,6 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
                 setItems((prev) => [...prev, ...newItems])
                 setOffset((prev) => prev + newItems.length)
             }
-            // total may be unchanged, but keep it in sync
             setFilteredTotal(res.total ?? filteredTotal)
         } finally {
             setLoading(false)
