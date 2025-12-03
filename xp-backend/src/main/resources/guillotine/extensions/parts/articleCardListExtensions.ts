@@ -18,6 +18,13 @@ type ArticleCard = {
     publicationDate?: string
 }
 
+type HasValueFilter = {
+    hasValue: {
+        field: string
+        values: string[]
+    }
+}
+
 function map(contents: Content[]): ArticleCard[] {
     return contents.map((c) => {
         const ibxData = c.x.idebanken
@@ -37,6 +44,27 @@ function map(contents: Content[]): ArticleCard[] {
     })
 }
 
+function buildMustFilters(typeTagIds: string[]): HasValueFilter[] {
+    const must: HasValueFilter[] = [{ hasValue: { field: 'type', values: ['idebanken:artikkel'] } }]
+    if (typeTagIds.length) {
+        must.push({
+            hasValue: {
+                field: 'x.idebanken.aktuelt-tags.typeTags',
+                values: typeTagIds,
+            },
+        })
+    }
+    return must
+}
+
+function parseTypeTagIds(typeTagCsv?: string): string[] {
+    if (!typeTagCsv) return []
+    return typeTagCsv
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean)
+}
+
 export const articleCardListExtensions = ({
     list,
     nonNull,
@@ -50,53 +78,33 @@ export const articleCardListExtensions = ({
             list: (_env: DataFetchingEnvironment) => {
                 const offset: number = _env.args?.offset ?? 0
                 const count: number = _env.args?.count ?? 10
+                const typeTagIds = parseTypeTagIds(_env.args?.typeTagIds)
+
+                const must = buildMustFilters(typeTagIds)
 
                 const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
                 const hits = query({
                     start: offset,
                     count,
                     sort: 'data.publicationDate DESC, modifiedTime DESC',
-                    query: {
-                        boolean: {
-                            mustNot: queryDslExclusion,
-                        },
-                    },
-                    filters: {
-                        boolean: {
-                            must: [
-                                {
-                                    hasValue: {
-                                        field: 'type',
-                                        values: ['idebanken:artikkel'],
-                                    },
-                                },
-                            ],
-                            mustNot: filterExclusion,
-                        },
-                    },
+                    query: { boolean: { mustNot: queryDslExclusion } },
+                    filters: { boolean: { must, mustNot: filterExclusion } },
                 }).hits
+
                 return map(hits)
             },
-            total: () => {
+            total: (_env: DataFetchingEnvironment) => {
+                const typeTagIds = parseTypeTagIds(_env.args?.typeTagIds)
+
+                const must = buildMustFilters(typeTagIds)
+
                 const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
                 const res = query({
                     count: 0,
-                    query: {
-                        boolean: {
-                            mustNot: queryDslExclusion,
-                        },
-                    },
-                    filters: {
-                        boolean: {
-                            must: [
-                                {
-                                    hasValue: { field: 'type', values: ['idebanken:artikkel'] },
-                                },
-                            ],
-                            mustNot: filterExclusion,
-                        },
-                    },
+                    query: { boolean: { mustNot: queryDslExclusion } },
+                    filters: { boolean: { must, mustNot: filterExclusion } },
                 })
+
                 return res.total
             },
             availableTypeTags: () => {
@@ -104,11 +112,7 @@ export const articleCardListExtensions = ({
                 const tags = query({
                     count: 20,
                     sort: 'displayName ASC',
-                    query: {
-                        boolean: {
-                            mustNot: queryDslExclusion,
-                        },
-                    },
+                    query: { boolean: { mustNot: queryDslExclusion } },
                     filters: {
                         boolean: {
                             must: [
@@ -131,10 +135,10 @@ export const articleCardListExtensions = ({
     creationCallbacks: {
         Part_idebanken_article_card_list: (params) => {
             params.addFields({
-                total: { type: nonNull(GraphQLInt) },
+                total: { type: nonNull(GraphQLInt), args: { typeTagIds: GraphQLString } },
                 list: {
                     type: nonNull(list(nonNull(reference('Article_card')))),
-                    args: { offset: GraphQLInt, count: GraphQLInt },
+                    args: { offset: GraphQLInt, count: GraphQLInt, typeTagIds: GraphQLString },
                 },
                 availableTypeTags: { type: nonNull(list(nonNull(reference('Tag')))) },
             })

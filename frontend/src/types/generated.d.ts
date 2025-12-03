@@ -821,19 +821,12 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
-  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   quote?: Maybe<Macro_Idebanken_Quote_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
-};
-
-/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
-export type Macro_Idebanken_Box_DataConfig = {
-  __typename?: 'Macro_idebanken_box_DataConfig';
-  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1101,6 +1094,13 @@ export type Part_Idebanken_Article_Card_List = {
 export type Part_Idebanken_Article_Card_ListListArgs = {
   count?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+  typeTagIds?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['article-card-list'] */
+export type Part_Idebanken_Article_Card_ListTotalArgs = {
+  typeTagIds?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['button'] */

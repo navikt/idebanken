@@ -14,7 +14,7 @@ interface QueryResponse {
 }
 
 const ARTICLE_PART_QUERY = `
-query($contentId:ID!,$offset:Int!,$count:Int!){
+query($contentId:ID!,$offset:Int!,$count:Int!,$typeTagIds:String){
   guillotine {
     get(key:$contentId){
       components {
@@ -23,7 +23,7 @@ query($contentId:ID!,$offset:Int!,$count:Int!){
           config {
             idebanken {
               article_card_list {
-                list(offset:$offset,count:$count) {
+                list(offset:$offset,count:$count,typeTagIds:$typeTagIds) {
                   title
                   url
                   external
@@ -32,7 +32,7 @@ query($contentId:ID!,$offset:Int!,$count:Int!){
                   themeTags { id name }
                   typeTags { id name }
                 }
-                total
+                total(typeTagIds:$typeTagIds)
               }
             }
           }
@@ -45,14 +45,15 @@ query($contentId:ID!,$offset:Int!,$count:Int!){
 export async function fetchArticleCardList(
     contentId: string,
     offset: number,
-    count: number
+    count: number,
+    typeTagIdsCsv?: string
 ): Promise<{ total: number; list: Article_Card[] }> {
     const data: QueryResponse = await fetch('/api/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             query: ARTICLE_PART_QUERY,
-            variables: { contentId, offset, count },
+            variables: { contentId, offset, count, typeTagIds: typeTagIdsCsv },
         }),
     }).then((r) => r.json())
 

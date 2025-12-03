@@ -42,7 +42,7 @@ import ShowMorePart from '~/components/parts/ShowMorePart'
 import { VideoPreview } from '~/components/contentType/VideoPreview'
 import { VideoPartOrMacro } from '~/components/parts/VideoPartOrMacro'
 import { videoContentTypeQuery } from '~/components/queries/content-types'
-import { ArticleCardList } from '~/components/parts/ArticleListCard'
+import { ArticlesLinkCardList } from '~/components/parts/ArticlesLinkCardList'
 import { Quote } from '~/components/macros/Quote'
 import { CookieConsentToggle } from '~/components/common/cookies/CookieConsentToggle'
 import { CookieBannerOpenButton } from '~/components/common/cookies/CookieBannerOpenButton'
@@ -183,7 +183,7 @@ ComponentRegistry.addPart(`${APP_NAME}:link-card-list`, {
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
-    view: ArticleCardList,
+    view: ArticlesLinkCardList,
     configQuery: `{
         total
         availableTypeTags { id name }
