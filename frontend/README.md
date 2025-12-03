@@ -26,7 +26,7 @@ npm install
 
 ### Start applikasjonen i utviklingsmodus
 
-NB!: Enonic sandbox med idebanken-enonic må kjøre i tillegg. Sjekk repoet til [idebanken-enonic](https://github.com/navikt/idebanken-enonic/)
+NB!: Enonic sandbox med idebanken-enonic må kjøre i tillegg. Sjekk repoet til [xp-backend](../xp-backend)
 
 ```bash
 npm run dev
@@ -35,19 +35,14 @@ npm run dev
 Gå til http://localhost:3000, eller via Enonic Content Studio (http://localhost:8080)
 
 
-## Login i dev
+## Test / Prod
+For tilgang til test- og produksjonsmiljøene, logg inn med SSO på følgende lenker:
+* [TEST](https://idebanken-xp7test.enonic.cloud/admin)
+* [PROD](https://idebanken-xp7prod.enonic.cloud/admin)
 
-Du trenger en bruker for Idebanken sitt Enonic-dashboard i dev. Noen i teamet kan opprette for deg
+Etter du har logget inn må du få rettigheter av en administrator og logge inn på nytt eller slette cookies for å få tilgang til innholdet.
 
-Gå til:
-
-https://idebanken-xp7test.enonic.cloud/admin (Enonic dashboard)
-
-eller:
-
-https://idebanken.ekstern.dev.nav.no/ (frontendapplikajonen i NAIS)
-
-
+Ellers ligger frontend applikasjonen i [NAIS](https://console.nav.cloud.nais.io/team/idebanken)
 
 # Henvendelser
 

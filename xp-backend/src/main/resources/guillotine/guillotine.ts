@@ -11,6 +11,7 @@ import { highlightedBoxMacroExtensions } from './extensions/highlighted-box-macr
 import { buttonExtensions } from './extensions/parts/button'
 import { contentExtensions } from './extensions/content'
 import { articleCardListExtensions } from './extensions/parts/articleCardListExtensions'
+import { themeCardListExtensions } from './extensions/parts/theme-card-list'
 
 export function extensions(graphQL: GraphQL): Extensions {
     const extensions = [
@@ -19,6 +20,7 @@ export function extensions(graphQL: GraphQL): Extensions {
         tableOfContentsExtensions,
         linkCardListExtensions,
         articleCardListExtensions,
+        themeCardListExtensions,
         linkCardExtensions,
         highlightedBoxMacroExtensions,
         buttonExtensions,

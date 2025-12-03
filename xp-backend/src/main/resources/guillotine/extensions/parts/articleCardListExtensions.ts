@@ -86,7 +86,10 @@ export const articleCardListExtensions = ({
                 const hits = query({
                     start: offset,
                     count,
-                    sort: 'data.publicationDate DESC, modifiedTime DESC',
+                    sort: [
+                        { field: 'data.publicationDate', direction: 'DESC' },
+                        { field: 'modifiedTime', direction: 'DESC' },
+                    ],
                     query: { boolean: { mustNot: queryDslExclusion } },
                     filters: { boolean: { must, mustNot: filterExclusion } },
                 }).hits
@@ -100,7 +103,7 @@ export const articleCardListExtensions = ({
 
                 const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
                 const res = query({
-                    count: 0,
+                    count: -1,
                     query: { boolean: { mustNot: queryDslExclusion } },
                     filters: { boolean: { must, mustNot: filterExclusion } },
                 })
@@ -110,7 +113,7 @@ export const articleCardListExtensions = ({
             availableTypeTags: () => {
                 const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
                 const tags = query({
-                    count: 20,
+                    count: -1,
                     sort: 'displayName ASC',
                     query: { boolean: { mustNot: queryDslExclusion } },
                     filters: {
@@ -141,6 +144,11 @@ export const articleCardListExtensions = ({
                     args: { offset: GraphQLInt, count: GraphQLInt, typeTagIds: GraphQLString },
                 },
                 availableTypeTags: { type: nonNull(list(nonNull(reference('Tag')))) },
+            })
+            params.modifyFields({
+                pageSize: {
+                    type: GraphQLInt,
+                },
             })
         },
     },
