@@ -10,6 +10,6 @@
         </input>
     </form>
     <config>
-        <allow-on-content-type>${app}:singleton-aktuelt-page</allow-on-content-type>
+        <allow-on-content-type>(portal:page-template|${app}:singleton-aktuelt-page)</allow-on-content-type>
     </config>
 </part>
