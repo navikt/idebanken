@@ -4,4 +4,9 @@ export type ThemeCardList = {
    * Antall artikler per last
    */
   pageSize: number;
+
+  /**
+   * Innhold øverst i listen
+   */
+  highlightedContent?: Array<string> | string;
 };
