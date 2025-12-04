@@ -210,29 +210,17 @@ const getAutomaticList = (
         ...(parentContentPath
             ? {
                   query: {
-                      boolean: {
-                          must: [
-                              {
-                                  like: {
-                                      field: '_path',
-                                      value: `/content${parentContentPath}/*`,
-                                  },
-                              },
-                          ],
+                      like: {
+                          field: '_path',
+                          value: `/content${parentContentPath}/*`,
                       },
                   },
               }
             : {}),
         filters: {
-            boolean: {
-                must: [
-                    {
-                        hasValue: {
-                            field: 'type',
-                            values: contentTypes,
-                        },
-                    },
-                ],
+            hasValue: {
+                field: 'type',
+                values: contentTypes,
             },
         },
     }).hits

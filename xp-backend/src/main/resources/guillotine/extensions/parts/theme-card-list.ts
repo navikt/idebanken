@@ -50,13 +50,9 @@ function getHighlightedContent(ids: string[]): Content[] {
     return queryWithFilters({
         count: -1,
         filters: {
-            boolean: {
-                must: {
-                    hasValue: {
-                        field: '_id',
-                        values: ids,
-                    },
-                },
+            hasValue: {
+                field: '_id',
+                values: ids,
             },
         },
     }).hits.sort((a, b) => {

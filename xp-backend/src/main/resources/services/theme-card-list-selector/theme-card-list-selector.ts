@@ -17,13 +17,9 @@ export const get = (req: Request<{ params: CustomSelectorServiceParams }>): Resp
             ...(req.params.query
                 ? {
                       query: {
-                          boolean: {
-                              must: {
-                                  ngram: {
-                                      fields: ['displayName', 'data.title', 'data.ingress'],
-                                      query: req.params.query,
-                                  },
-                              },
+                          ngram: {
+                              fields: ['displayName', 'data.title', 'data.ingress'],
+                              query: req.params.query,
                           },
                       },
                   }
