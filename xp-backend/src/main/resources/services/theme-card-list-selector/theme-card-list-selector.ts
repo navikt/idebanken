@@ -17,15 +17,19 @@ export const get = (req: Request<{ params: CustomSelectorServiceParams }>): Resp
         return query({
             count: Number(req.params.count) || 10,
             query: {
-                boolean: { mustNot: queryDslExclusion },
-                ...(req.params.query
-                    ? {
-                          ngram: {
-                              fields: ['displayName'],
-                              query: req.params.query,
-                          },
-                      }
-                    : {}),
+                boolean: {
+                    mustNot: queryDslExclusion,
+                    ...(req.params.query
+                        ? {
+                              must: {
+                                  ngram: {
+                                      fields: ['displayName', 'data.title', 'data.ingress'],
+                                      query: req.params.query,
+                                  },
+                              },
+                          }
+                        : {}),
+                },
             },
             filters: {
                 boolean: {
@@ -49,6 +53,7 @@ export const get = (req: Request<{ params: CustomSelectorServiceParams }>): Resp
             sort: [{ field: 'type', direction: 'DESC' }],
         })
     })
+
     const contentWithTheme = contentWithThemeRes.hits.map(({ _id, displayName, type, _path }) => ({
         id: _id,
         displayName,

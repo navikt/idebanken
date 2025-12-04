@@ -10,6 +10,7 @@ import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalC
 import { Source } from '../../common-guillotine-types'
 import { ThemeCardList } from '@xp-types/site/parts'
 import { logger } from '/lib/utils/logging'
+import { forceArray } from '/lib/utils/array-utils'
 
 type ThemeContentCard = {
     url: string
@@ -61,6 +62,9 @@ export const themeCardListExtensions = ({
             ) => {
                 const offset: number = env.args?.offset ?? 0
                 const count: number = env.args?.count ?? 10
+                const highlightedContentIds = forceArray(env.source?.highlightedContent)
+                let highlightedContent: Content[] = []
+
                 const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
                 if (!path) {
                     logger.warning(`Part_idebanken_theme_card_list is missing path arg`)
@@ -81,6 +85,30 @@ export const themeCardListExtensions = ({
                 }
 
                 const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
+
+                if (highlightedContentIds.length) {
+                    const orderMap = new Map(highlightedContentIds.map((id, index) => [id, index]))
+                    highlightedContent = query({
+                        count: -1,
+                        query: { boolean: { mustNot: queryDslExclusion } },
+                        filters: {
+                            boolean: {
+                                must: {
+                                    hasValue: {
+                                        field: '_id',
+                                        values: highlightedContentIds,
+                                    },
+                                },
+                                mustNot: filterExclusion,
+                            },
+                        },
+                    }).hits.sort((a, b) => {
+                        const indexA = orderMap.get(a._id) ?? Number.MAX_SAFE_INTEGER
+                        const indexB = orderMap.get(b._id) ?? Number.MAX_SAFE_INTEGER
+                        return indexA - indexB
+                    })
+                }
+
                 const contentsResult = query({
                     start: offset,
                     count,
@@ -123,14 +151,22 @@ export const themeCardListExtensions = ({
                                     },
                                 },
                             ],
-                            mustNot: filterExclusion,
+                            mustNot: [
+                                ...filterExclusion,
+                                {
+                                    hasValue: {
+                                        field: '_id',
+                                        values: highlightedContent.map((c) => c._id),
+                                    },
+                                },
+                            ],
                         },
                     },
                 })
 
                 return {
                     total: contentsResult.total,
-                    list: mapThemeContent(contentsResult.hits),
+                    list: mapThemeContent(highlightedContent.concat(contentsResult.hits)),
                 }
             },
         },
