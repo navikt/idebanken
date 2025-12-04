@@ -42,6 +42,156 @@ function mapThemeContent(contents: Content[]): ThemeContentCard[] {
     })
 }
 
+function getHighlightedContent(
+    ids: string[],
+    queryDslExclusion: any,
+    filterExclusion: any[]
+): Content[] {
+    if (!ids.length) {
+        return []
+    }
+
+    const orderMap = new Map(ids.map((id, index) => [id, index]))
+
+    return query({
+        count: -1,
+        query: { boolean: { mustNot: queryDslExclusion } },
+        filters: {
+            boolean: {
+                must: {
+                    hasValue: {
+                        field: '_id',
+                        values: ids,
+                    },
+                },
+                mustNot: filterExclusion,
+            },
+        },
+    }).hits.sort((a, b) => {
+        const indexA = orderMap.get(a._id) ?? Number.MAX_SAFE_INTEGER
+        const indexB = orderMap.get(b._id) ?? Number.MAX_SAFE_INTEGER
+        return indexA - indexB
+    })
+}
+
+function queryThemeContent(params: {
+    offset: number
+    count: number
+    themeContentId: string
+    excludedIds: string[]
+    queryDslExclusion: any
+    filterExclusion: any[]
+}) {
+    const { offset, count, themeContentId, excludedIds, queryDslExclusion, filterExclusion } =
+        params
+
+    return query({
+        start: offset,
+        count,
+        sort: [
+            {
+                field: 'type',
+                direction: 'DESC',
+            },
+            {
+                field: 'data.publicationDate',
+                direction: 'DESC',
+            },
+        ],
+        query: {
+            boolean: {
+                mustNot: queryDslExclusion,
+            },
+        },
+        filters: {
+            boolean: {
+                must: [
+                    {
+                        hasValue: {
+                            field: 'type',
+                            values: ['idebanken:artikkel', 'idebanken:kjerneartikkel'],
+                        },
+                    },
+                ],
+                should: [
+                    {
+                        hasValue: {
+                            field: 'x.idebanken.tags.themeTags',
+                            values: [themeContentId],
+                        },
+                    },
+                    {
+                        hasValue: {
+                            field: 'x.idebanken.aktuelt-tags.themeTags',
+                            values: [themeContentId],
+                        },
+                    },
+                ],
+                mustNot: [
+                    ...filterExclusion,
+                    {
+                        hasValue: {
+                            field: '_id',
+                            values: excludedIds,
+                        },
+                    },
+                ],
+            },
+        },
+    })
+}
+
+function resolveThemeCardListData(
+    env: DataFetchingEnvironment<
+        { offset?: number; count?: number; path?: string },
+        LocalContextRecord,
+        Source<ThemeCardList>
+    >
+) {
+    const offset: number = env.args?.offset ?? 0
+    const count: number = env.args?.count ?? 10
+    const highlightedContentIds = forceArray(env.source?.highlightedContent)
+
+    const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
+    if (!path) {
+        logger.warning(`Part_idebanken_theme_card_list is missing path arg`)
+        return {
+            total: 0,
+            list: [],
+        }
+    }
+    const contentId = getContent({ key: path })?._id
+    if (!contentId) {
+        logger.warning(`Part_idebanken_theme_card_list could not find content at path: ${path}`)
+        return {
+            total: 0,
+            list: [],
+        }
+    }
+
+    const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
+
+    const highlightedContent = getHighlightedContent(
+        highlightedContentIds,
+        queryDslExclusion,
+        filterExclusion
+    )
+
+    const contentsResult = queryThemeContent({
+        offset,
+        count,
+        themeContentId: contentId,
+        excludedIds: highlightedContent.map((c) => c._id),
+        queryDslExclusion,
+        filterExclusion,
+    })
+
+    return {
+        total: contentsResult.total,
+        list: mapThemeContent(highlightedContent.concat(contentsResult.hits)),
+    }
+}
+
 export const themeCardListExtensions = ({
     list,
     nonNull,
@@ -53,122 +203,7 @@ export const themeCardListExtensions = ({
 }: GraphQL): Extensions => ({
     resolvers: {
         Part_idebanken_theme_card_list: {
-            data: (
-                env: DataFetchingEnvironment<
-                    { offset?: number; count?: number; path?: string },
-                    LocalContextRecord,
-                    Source<ThemeCardList>
-                >
-            ) => {
-                const offset: number = env.args?.offset ?? 0
-                const count: number = env.args?.count ?? 10
-                const highlightedContentIds = forceArray(env.source?.highlightedContent)
-                let highlightedContent: Content[] = []
-
-                const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
-                if (!path) {
-                    logger.warning(`Part_idebanken_theme_card_list is missing path arg`)
-                    return {
-                        total: 0,
-                        list: [],
-                    }
-                }
-                const contentId = getContent({ key: path })?._id
-                if (!contentId) {
-                    logger.warning(
-                        `Part_idebanken_theme_card_list could not find content at path: ${path}`
-                    )
-                    return {
-                        total: 0,
-                        list: [],
-                    }
-                }
-
-                const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
-
-                if (highlightedContentIds.length) {
-                    const orderMap = new Map(highlightedContentIds.map((id, index) => [id, index]))
-                    highlightedContent = query({
-                        count: -1,
-                        query: { boolean: { mustNot: queryDslExclusion } },
-                        filters: {
-                            boolean: {
-                                must: {
-                                    hasValue: {
-                                        field: '_id',
-                                        values: highlightedContentIds,
-                                    },
-                                },
-                                mustNot: filterExclusion,
-                            },
-                        },
-                    }).hits.sort((a, b) => {
-                        const indexA = orderMap.get(a._id) ?? Number.MAX_SAFE_INTEGER
-                        const indexB = orderMap.get(b._id) ?? Number.MAX_SAFE_INTEGER
-                        return indexA - indexB
-                    })
-                }
-
-                const contentsResult = query({
-                    start: offset,
-                    count,
-                    sort: [
-                        {
-                            field: 'type',
-                            direction: 'DESC',
-                        },
-                        {
-                            field: 'data.publicationDate',
-                            direction: 'DESC',
-                        },
-                    ],
-                    query: {
-                        boolean: {
-                            mustNot: queryDslExclusion,
-                        },
-                    },
-                    filters: {
-                        boolean: {
-                            must: [
-                                {
-                                    hasValue: {
-                                        field: 'type',
-                                        values: ['idebanken:artikkel', 'idebanken:kjerneartikkel'],
-                                    },
-                                },
-                            ],
-                            should: [
-                                {
-                                    hasValue: {
-                                        field: 'x.idebanken.tags.themeTags',
-                                        values: [contentId],
-                                    },
-                                },
-                                {
-                                    hasValue: {
-                                        field: 'x.idebanken.aktuelt-tags.themeTags',
-                                        values: [contentId],
-                                    },
-                                },
-                            ],
-                            mustNot: [
-                                ...filterExclusion,
-                                {
-                                    hasValue: {
-                                        field: '_id',
-                                        values: highlightedContent.map((c) => c._id),
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                })
-
-                return {
-                    total: contentsResult.total,
-                    list: mapThemeContent(highlightedContent.concat(contentsResult.hits)),
-                }
-            },
+            data: resolveThemeCardListData,
         },
     },
     creationCallbacks: {
