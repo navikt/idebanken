@@ -1,16 +1,16 @@
 import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
-import { Content, get as getContent, query } from '/lib/xp/content'
+import { Content, get as getContent } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveImage } from '/lib/utils/media'
 import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
 import { getTags } from '/lib/utils/helpers'
-import { getExcludeFilterAndQuery } from '/lib/utils/site-config'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { Source } from '../../common-guillotine-types'
 import { ThemeCardList } from '@xp-types/site/parts'
 import { logger } from '/lib/utils/logging'
 import { forceArray } from '/lib/utils/array-utils'
+import { queryWithFilters } from '/lib/repos/query'
 
 type ThemeContentCard = {
     url: string
@@ -20,7 +20,6 @@ type ThemeContentCard = {
     image?: ResolvedMedia
     themeTags: Array<ResolvedTag>
     typeTags: Array<ResolvedTag>
-    publicationDate?: string
 }
 
 function mapThemeContent(contents: Content[]): ThemeContentCard[] {
@@ -37,25 +36,19 @@ function mapThemeContent(contents: Content[]): ThemeContentCard[] {
             image: resolveImage(c, 'width(500)'),
             themeTags: resolveThemeTags(tags),
             typeTags: resolveTypeTags(tags),
-            publicationDate: data?.publicationDate || undefined,
         }
     })
 }
 
-function getHighlightedContent(
-    ids: string[],
-    queryDslExclusion: any,
-    filterExclusion: any[]
-): Content[] {
+function getHighlightedContent(ids: string[]): Content[] {
     if (!ids.length) {
         return []
     }
 
     const orderMap = new Map(ids.map((id, index) => [id, index]))
 
-    return query({
+    return queryWithFilters({
         count: -1,
-        query: { boolean: { mustNot: queryDslExclusion } },
         filters: {
             boolean: {
                 must: {
@@ -64,7 +57,6 @@ function getHighlightedContent(
                         values: ids,
                     },
                 },
-                mustNot: filterExclusion,
             },
         },
     }).hits.sort((a, b) => {
@@ -74,18 +66,18 @@ function getHighlightedContent(
     })
 }
 
-function queryThemeContent(params: {
+function queryThemeContent({
+    offset,
+    count,
+    themeContentId,
+    excludedIds,
+}: {
     offset: number
     count: number
     themeContentId: string
     excludedIds: string[]
-    queryDslExclusion: any
-    filterExclusion: any[]
 }) {
-    const { offset, count, themeContentId, excludedIds, queryDslExclusion, filterExclusion } =
-        params
-
-    return query({
+    return queryWithFilters({
         start: offset,
         count,
         sort: [
@@ -98,11 +90,6 @@ function queryThemeContent(params: {
                 direction: 'DESC',
             },
         ],
-        query: {
-            boolean: {
-                mustNot: queryDslExclusion,
-            },
-        },
         filters: {
             boolean: {
                 must: [
@@ -128,10 +115,8 @@ function queryThemeContent(params: {
                     },
                 ],
                 mustNot: [
-                    ...filterExclusion,
                     {
-                        hasValue: {
-                            field: '_id',
+                        ids: {
                             values: excludedIds,
                         },
                     },
@@ -169,21 +154,13 @@ function resolveThemeCardListData(
         }
     }
 
-    const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
-
-    const highlightedContent = getHighlightedContent(
-        highlightedContentIds,
-        queryDslExclusion,
-        filterExclusion
-    )
+    const highlightedContent = getHighlightedContent(highlightedContentIds)
 
     const contentsResult = queryThemeContent({
         offset,
         count,
         themeContentId: contentId,
         excludedIds: highlightedContent.map((c) => c._id),
-        queryDslExclusion,
-        filterExclusion,
     })
 
     return {
@@ -242,7 +219,6 @@ export const themeCardListExtensions = ({
                 image: { type: reference('ResolvedMedia') },
                 themeTags: { type: list(reference('Tag')) },
                 typeTags: { type: list(reference('Tag')) },
-                publicationDate: { type: GraphQLString },
             },
             interfaces: [],
         },

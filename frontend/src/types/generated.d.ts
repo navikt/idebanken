@@ -1700,7 +1700,6 @@ export type Theme_Card = {
   description?: Maybe<Scalars['String']['output']>;
   external?: Maybe<Scalars['Boolean']['output']>;
   image?: Maybe<ResolvedMedia>;
-  publicationDate?: Maybe<Scalars['String']['output']>;
   themeTags?: Maybe<Array<Maybe<Tag>>>;
   title?: Maybe<Scalars['String']['output']>;
   typeTags?: Maybe<Array<Maybe<Tag>>>;

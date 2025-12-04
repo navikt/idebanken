@@ -1,11 +1,11 @@
 import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
-import { Content, query } from '/lib/xp/content'
+import { Content } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveImage } from '/lib/utils/media'
 import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
 import { getTags } from '/lib/utils/helpers'
-import { getExcludeFilterAndQuery } from '/lib/utils/site-config'
+import { queryWithFilters } from '/lib/repos/query'
 
 type ArticleCard = {
     url: string
@@ -75,23 +75,21 @@ export const articleCardListExtensions = ({
 }: GraphQL): Extensions => ({
     resolvers: {
         Part_idebanken_article_card_list: {
-            list: (_env: DataFetchingEnvironment) => {
-                const offset: number = _env.args?.offset ?? 0
-                const count: number = _env.args?.count ?? 10
-                const typeTagIds = parseTypeTagIds(_env.args?.typeTagIds)
+            list: (env: DataFetchingEnvironment) => {
+                const offset: number = env.args?.offset ?? 0
+                const count: number = env.args?.count ?? 10
+                const typeTagIds = parseTypeTagIds(env.args?.typeTagIds)
 
                 const must = buildMustFilters(typeTagIds)
 
-                const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
-                const hits = query({
+                const hits = queryWithFilters({
                     start: offset,
                     count,
                     sort: [
                         { field: 'data.publicationDate', direction: 'DESC' },
                         { field: 'modifiedTime', direction: 'DESC' },
                     ],
-                    query: { boolean: { mustNot: queryDslExclusion } },
-                    filters: { boolean: { must, mustNot: filterExclusion } },
+                    filters: { boolean: { must } },
                 }).hits
 
                 return map(hits)
@@ -101,32 +99,21 @@ export const articleCardListExtensions = ({
 
                 const must = buildMustFilters(typeTagIds)
 
-                const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
-                const res = query({
+                const res = queryWithFilters({
                     count: -1,
-                    query: { boolean: { mustNot: queryDslExclusion } },
-                    filters: { boolean: { must, mustNot: filterExclusion } },
+                    filters: { boolean: { must } },
                 })
 
                 return res.total
             },
             availableTypeTags: () => {
-                const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
-                const tags = query({
+                const tags = queryWithFilters({
                     count: -1,
                     sort: 'displayName ASC',
-                    query: { boolean: { mustNot: queryDslExclusion } },
                     filters: {
-                        boolean: {
-                            must: [
-                                {
-                                    hasValue: {
-                                        field: 'type',
-                                        values: ['idebanken:aktuelt-type-tag'],
-                                    },
-                                },
-                            ],
-                            mustNot: filterExclusion,
+                        hasValue: {
+                            field: 'type',
+                            values: ['idebanken:aktuelt-type-tag'],
                         },
                     },
                 }).hits

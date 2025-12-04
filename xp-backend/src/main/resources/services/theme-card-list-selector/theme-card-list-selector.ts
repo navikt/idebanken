@@ -1,11 +1,10 @@
 import { Request, Response } from '@enonic-types/core'
-import { query } from '/lib/xp/content'
 import {
     CustomSelectorServiceParams,
     CustomSelectorServiceResponseBody,
 } from '@item-enonic-types/global/controller'
 import { runInContext } from '/lib/repos/run-in-context'
-import { getExcludeFilterAndQuery } from '/lib/utils/site-config'
+import { queryWithFilters } from '/lib/repos/query'
 
 export const get = (req: Request<{ params: CustomSelectorServiceParams }>): Response => {
     const themeContentId = req.path.replace(
@@ -13,24 +12,22 @@ export const get = (req: Request<{ params: CustomSelectorServiceParams }>): Resp
         '$1'
     )
     const contentWithThemeRes = runInContext({ asAdmin: true }, () => {
-        const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
-        return query({
+        return queryWithFilters({
             count: Number(req.params.count) || 10,
-            query: {
-                boolean: {
-                    mustNot: queryDslExclusion,
-                    ...(req.params.query
-                        ? {
+            ...(req.params.query
+                ? {
+                      query: {
+                          boolean: {
                               must: {
                                   ngram: {
                                       fields: ['displayName', 'data.title', 'data.ingress'],
                                       query: req.params.query,
                                   },
                               },
-                          }
-                        : {}),
-                },
-            },
+                          },
+                      },
+                  }
+                : {}),
             filters: {
                 boolean: {
                     should: [
@@ -47,7 +44,6 @@ export const get = (req: Request<{ params: CustomSelectorServiceParams }>): Resp
                             },
                         },
                     ],
-                    mustNot: filterExclusion,
                 },
             },
             sort: [{ field: 'type', direction: 'DESC' }],

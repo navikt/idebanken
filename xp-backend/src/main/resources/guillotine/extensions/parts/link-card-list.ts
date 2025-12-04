@@ -9,7 +9,7 @@ import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveIcon, resolveImage } from '/lib/utils/media'
 import { getTags } from '/lib/utils/helpers'
-import { getExcludeFilterAndQuery } from '/lib/utils/site-config'
+import { queryWithFilters } from '/lib/repos/query'
 
 export type LinkCardItem = {
     url: string
@@ -205,26 +205,24 @@ const getAutomaticList = (
         ]
     }
 
-    const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
-    const contents = query({
+    const contents = queryWithFilters({
         count: automatic.limit || -1,
-        query: {
-            boolean: {
-                must: [
-                    ...(parentContentPath
-                        ? [
+        ...(parentContentPath
+            ? {
+                  query: {
+                      boolean: {
+                          must: [
                               {
                                   like: {
                                       field: '_path',
                                       value: `/content${parentContentPath}/*`,
                                   },
                               },
-                          ]
-                        : []),
-                ],
-                mustNot: [...queryDslExclusion],
-            },
-        },
+                          ],
+                      },
+                  },
+              }
+            : {}),
         filters: {
             boolean: {
                 must: [
@@ -235,7 +233,6 @@ const getAutomaticList = (
                         },
                     },
                 ],
-                mustNot: [...filterExclusion],
             },
         },
     }).hits
