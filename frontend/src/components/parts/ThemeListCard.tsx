@@ -59,13 +59,10 @@ export default function ThemeCardList({ part, meta }: PartData<Part_Idebanken_Th
 
     if (!items.length) return null
 
-    const firstTwo = items.slice(0, 2)
-    const rest = items.slice(2)
-
     return (
         <>
-            <div className="grid gap-6 md:grid-cols-2">
-                {firstTwo.map((card, i) => {
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+                {items.map((card, i) => {
                     const nc = normalizeCard(card)
                     return (
                         <LinkCardView
@@ -76,21 +73,6 @@ export default function ThemeCardList({ part, meta }: PartData<Part_Idebanken_Th
                     )
                 })}
             </div>
-
-            {items.length > 2 && (
-                <div className="mt-8 grid gap-6 md:grid-cols-3">
-                    {rest.map((card, i) => {
-                        const nc = normalizeCard(card)
-                        return (
-                            <LinkCardView
-                                key={card.url || card.title || String(i)}
-                                {...nc}
-                                meta={meta}
-                            />
-                        )
-                    })}
-                </div>
-            )}
 
             {canLoadMore && (
                 <div className="mt-8 flex justify-center">
