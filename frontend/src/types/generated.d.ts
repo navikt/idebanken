@@ -1418,6 +1418,7 @@ export type Part_Idebanken_Text_EditorSimpleTextEditorArgs = {
 export type Part_Idebanken_Theme_Card_List = {
   __typename?: 'Part_idebanken_theme_card_list';
   data: Theme_Card_List_Data;
+  highlightedContent?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   pageSize?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -1427,6 +1428,13 @@ export type Part_Idebanken_Theme_Card_ListDataArgs = {
   count?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   path: Scalars['ID']['input'];
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['theme-card-list'] */
+export type Part_Idebanken_Theme_Card_ListHighlightedContentArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['title-ingress-icon'] */
@@ -1692,7 +1700,6 @@ export type Theme_Card = {
   description?: Maybe<Scalars['String']['output']>;
   external?: Maybe<Scalars['Boolean']['output']>;
   image?: Maybe<ResolvedMedia>;
-  publicationDate?: Maybe<Scalars['String']['output']>;
   themeTags?: Maybe<Array<Maybe<Tag>>>;
   title?: Maybe<Scalars['String']['output']>;
   typeTags?: Maybe<Array<Maybe<Tag>>>;
