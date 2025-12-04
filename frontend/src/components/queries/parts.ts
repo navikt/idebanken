@@ -201,7 +201,7 @@ export const downloadsQuery = `{
 export const articleCardListQuery = `{
     total
     availableTypeTags { id name }
-    list(offset: 0, count: 5) {
+    list(offset: 0, count: $count) {
         url
         title
         description

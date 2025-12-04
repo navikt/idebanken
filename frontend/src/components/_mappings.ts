@@ -1,4 +1,10 @@
-import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
+import {
+    APP_NAME,
+    ComponentRegistry,
+    richTextQuery,
+    VariablesGetterResult,
+    Context,
+} from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
 import {
     articleCardListQuery,
@@ -49,6 +55,7 @@ import { Quote } from '~/components/macros/Quote'
 import { CookieConsentToggle } from '~/components/common/cookies/CookieConsentToggle'
 import { CookieBannerOpenButton } from '~/components/common/cookies/CookieBannerOpenButton'
 import ThemeCardList from '~/components/parts/ThemeListCard'
+import { ARTICLE_PART_QUERY } from './queries/articlesList'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -185,9 +192,46 @@ ComponentRegistry.addPart(`${APP_NAME}:link-card-list`, {
     configQuery: linkCardListQuery,
 })
 
+type ArticleConfig = {
+    pageSize?: number
+}
+const getArticleData = {
+    query: ARTICLE_PART_QUERY,
+    variables: function (
+        path: string,
+        context?: Context,
+        config?: ArticleConfig
+    ): VariablesGetterResult {
+        return {
+            path,
+            count: config?.pageSize,
+            offset: 0,
+            typeTagIds: null,
+        }
+    },
+}
+
+async function articleListProcessor(
+    data: any,
+    _context?: Context,
+    config?: ArticleConfig
+): Promise<Record<string, any>> {
+    const components = data?.get?.components ?? []
+    const wrapper = components.find((w) => w.part?.descriptor === 'idebanken:article-card-list')
+    const cfg = wrapper?.part?.config?.idebanken?.article_card_list
+
+    return {
+        total: cfg?.total ?? 0,
+        list: cfg?.list ?? [],
+        availableTypeTags: cfg?.availableTypeTags ?? [],
+    }
+}
+
 ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
+    query: getArticleData,
+    processor: articleListProcessor,
     view: ArticlesLinkCardList,
-    configQuery: articleCardListQuery,
+    //configQuery: articleCardListQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:theme-card-list`, {

@@ -41,13 +41,21 @@ function idsToCsv(ids: Set<string>) {
     return ids.size ? Array.from(ids).join(',') : undefined
 }
 
-export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
-    const initial = part.config?.list ?? []
-    const typeTags = useMemo(
-        () => part.config?.availableTypeTags || [],
-        [part.config?.availableTypeTags]
-    )
-    const initialTotal = part.config?.total ?? 0
+export function ArticlesLinkCardList(props: PartData<Config>) {
+    const { part, meta, data } = props
+
+    const absolutePath = useMemo(() => {
+        const site = 'idebanken' // replace if you have meta.siteName
+        const p = meta.path || ''
+        const cleaned = p.startsWith('/') ? p.slice(1) : p
+        return `/${site}/${cleaned}`
+    }, [meta.path])
+
+    console.log('absolutePath', absolutePath)
+
+    const initial = data?.list ?? []
+    const typeTags = useMemo(() => data?.availableTypeTags || [], [data?.availableTypeTags])
+    const initialTotal = data.total ?? 0
     const pageSize = part.config?.pageSize ?? 6
 
     const [items, setItems] = useState<Card[]>(initial)
@@ -71,10 +79,10 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
         }
         let cancelled = false
         async function run() {
-            if (!meta.id) return
+            if (!absolutePath) return
             setLoading(true)
             try {
-                const fetchPromise = fetchArticleCardList(meta.id, 0, pageSize, filterCsv)
+                const fetchPromise = fetchArticleCardList(absolutePath, 0, pageSize, filterCsv)
                 const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
                 const [res] = await Promise.all([fetchPromise, delay])
                 if (cancelled) return
@@ -90,7 +98,7 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
         return () => {
             cancelled = true
         }
-    }, [meta.id, pageSize, filterCsv])
+    }, [absolutePath, pageSize, filterCsv])
 
     const onToggleAll = useCallback(() => {
         setShowAll(true)
@@ -115,10 +123,10 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
 
     const loadMore = useCallback(async () => {
         if (!canLoadMore || loading) return
-        if (!meta.id) return
+        if (!absolutePath) return
         setLoading(true)
         try {
-            const fetchPromise = fetchArticleCardList(meta.id, offset, pageSize, filterCsv)
+            const fetchPromise = fetchArticleCardList(absolutePath, offset, pageSize, filterCsv)
             const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
             const [res] = await Promise.all([fetchPromise, delay])
             const newItems: Card[] = res.list ?? []
@@ -130,7 +138,7 @@ export function ArticlesLinkCardList({ part, meta }: PartData<Config>) {
         } finally {
             setLoading(false)
         }
-    }, [canLoadMore, loading, meta.id, offset, pageSize, filterCsv, filteredTotal])
+    }, [canLoadMore, loading, absolutePath, offset, pageSize, filterCsv, filteredTotal])
 
     const firstTwo = items.slice(0, 2)
     const rest = items.slice(2)

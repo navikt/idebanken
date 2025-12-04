@@ -1,10 +1,10 @@
 import { Article_Card } from '~/types/generated'
 import { QueryResponsePartData } from '~/types/graphql-types'
 
-const ARTICLE_PART_QUERY = `
-query($contentId:ID!,$offset:Int!,$count:Int!,$typeTagIds:String){
+export const ARTICLE_PART_QUERY = `
+query($path:ID!,$offset:Int!,$count:Int!,$typeTagIds:String){
   guillotine {
-    get(key:$contentId){
+    get(key:$path){
       components {
         part {
           descriptor
@@ -21,6 +21,7 @@ query($contentId:ID!,$offset:Int!,$count:Int!,$typeTagIds:String){
                   typeTags { id name }
                 }
                 total(typeTagIds:$typeTagIds)
+                availableTypeTags { id name }
               }
             }
           }
@@ -31,7 +32,7 @@ query($contentId:ID!,$offset:Int!,$count:Int!,$typeTagIds:String){
 }`
 
 export async function fetchArticleCardList(
-    contentId: string,
+    path: string,
     offset: number,
     count: number,
     typeTagIdsCsv?: string
@@ -41,7 +42,7 @@ export async function fetchArticleCardList(
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             query: ARTICLE_PART_QUERY,
-            variables: { contentId, offset, count, typeTagIds: typeTagIdsCsv },
+            variables: { path, offset, count, typeTagIds: typeTagIdsCsv },
         }),
     }).then((r) => r.json())
 
