@@ -5,6 +5,7 @@ import { getUrl, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
 import { Macro } from '~/types/graphql-types'
+import NextLink from 'next/link'
 
 export function HighlightedBox({
     config,
@@ -48,7 +49,10 @@ export function HighlightedBox({
                             ?.filter((it) => it != null)
                             ?.map(({ url, linkText, download }) => (
                                 <ListItem key={url}>
-                                    <Link href={getUrl(url, meta)} download={download}>
+                                    <Link
+                                        as={NextLink}
+                                        href={getUrl(url, meta)}
+                                        download={download}>
                                         {linkText}
                                     </Link>
                                 </ListItem>
@@ -58,6 +62,7 @@ export function HighlightedBox({
                             ?.map((link) => (
                                 <ListItem key={link}>
                                     <Link
+                                        as={NextLink}
                                         href={getUrl(link, meta)}
                                         target="_blank"
                                         rel="noreferrer">

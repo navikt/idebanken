@@ -6,7 +6,7 @@ import Image from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { HeadlessCms, SiteConfiguration } from '~/types/generated'
-import { Bleed, Button, HStack, Stack, VStack } from '@navikt/ds-react'
+import { Bleed, Button, HStack, Link, Stack, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
 import {
     ArrowRightIcon,
@@ -118,7 +118,8 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                     justify="space-between"
                     wrap={false}
                     paddingBlock={{ xs: 'space-8', md: 'space-16' }}>
-                    <NextLink
+                    <Link
+                        as={NextLink}
                         aria-label={'Til forsiden'}
                         href={getUrl('/', meta)}
                         className={'content-center h-12 max-w-48'}>
@@ -138,7 +139,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                             height={100}
                             priority
                         />
-                    </NextLink>
+                    </Link>
                     <HStack gap="2">
                         <Button
                             variant="tertiary-neutral"
@@ -207,12 +208,13 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                                 </HeadingView>
                                             )}
                                             {links?.map(({ linkText, url }, id) => (
-                                                <NextLink
+                                                <Link
+                                                    as={NextLink}
                                                     key={id}
                                                     href={getUrl(url, meta)}
-                                                    className="text-(--ax-text-decoration) underline hover:no-underline w-fit">
+                                                    className="w-fit">
                                                     {linkText}
-                                                </NextLink>
+                                                </Link>
                                             ))}
                                         </VStack>
                                     ))}
@@ -223,15 +225,16 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                             key={i}
                                             arrow={false}
                                             className={
-                                                'p-6 text-(--ax-accent-600) hover:underline border-2 border-(--ib-bg-dark-blue-strong)'
+                                                'p-6 hover:underline border-2 border-(--ib-bg-dark-blue-strong)'
                                             }>
                                             <LinkCardTitle>
-                                                <LinkCardAnchor
-                                                    href={getUrl(url, meta)}
-                                                    className={
-                                                        'text-(--ax-accent-600) no-underline'
-                                                    }>
-                                                    {linkText}
+                                                <LinkCardAnchor asChild>
+                                                    <Link
+                                                        as={NextLink}
+                                                        href={getUrl(url, meta)}
+                                                        className={'no-underline hover:underline'}>
+                                                        {linkText}
+                                                    </Link>
                                                 </LinkCardAnchor>
                                             </LinkCardTitle>
                                         </LinkCard>
@@ -360,15 +363,16 @@ function quickSearch({
             />
             {SearchResults(meta, SearchFrom.HURTIGSOK_MENY, searchResult, loading)}
             {searchResult ? (
-                <NextLink
+                <Link
+                    as={NextLink}
                     href={getUrl(
                         `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`,
                         meta
                     )}
                     onClick={() => setIsSearchOpen(false)}
-                    className={'mt-6 flex flex-row gap-1 underline hover:no-underline w-fit'}>
+                    className={'mt-6 flex flex-row gap-1 w-fit'}>
                     Gå til avansert søk <ArrowRightIcon />
-                </NextLink>
+                </Link>
             ) : (
                 <></>
             )}
