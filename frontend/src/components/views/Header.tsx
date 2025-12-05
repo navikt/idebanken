@@ -225,14 +225,16 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                             key={i}
                                             arrow={false}
                                             className={
-                                                'p-6 hover:underline border-2 border-(--ib-bg-dark-blue-strong)'
+                                                'p-6 border-2 border-(--ib-bg-dark-blue-strong) group'
                                             }>
                                             <LinkCardTitle>
                                                 <LinkCardAnchor asChild>
                                                     <Link
                                                         as={NextLink}
                                                         href={getUrl(url, meta)}
-                                                        className={'no-underline hover:underline'}>
+                                                        className={
+                                                            'no-underline group-hover:underline'
+                                                        }>
                                                         {linkText}
                                                     </Link>
                                                 </LinkCardAnchor>

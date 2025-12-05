@@ -69,7 +69,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                     title={I18n.localize('idebanken')}
                 />
                 <PageBlock id="main-content" as="main" width="2xl">
-                    <Backlink common={common as HeadlessCms} />
+                    <Backlink contentResult={contentResult} />
                     {children}
                     <GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />
                     {editorMessage}
