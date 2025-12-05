@@ -11,6 +11,7 @@ import { LINK_ATTR } from '@enonic/react-components/constants'
 import { ElementType } from 'domelementtype'
 import { Link } from '@navikt/ds-react'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
+import NextLink from 'next/link'
 
 export function handleLink(
     el: Element,
@@ -47,7 +48,12 @@ export function handleLink(
         }
         const children = domToReact(el.children as DOMNode[], basicOptions)
         return (
-            <Link href={processedHref} target={target} rel={el.attribs?.rel} title={title}>
+            <Link
+                as={NextLink}
+                href={processedHref}
+                target={target}
+                rel={el.attribs?.rel}
+                title={title}>
                 {children}
             </Link>
         )
@@ -73,7 +79,7 @@ export function handleLink(
 
     return (
         <>
-            <Link href={processedHref} target={target} title={title}>
+            <Link as={NextLink} href={processedHref} target={target} title={title}>
                 {children}
             </Link>
             {validateAnchorsAndReturnJSXElement(linkData, processedHref, meta)}

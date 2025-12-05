@@ -1,16 +1,16 @@
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { Footer as FooterProps } from '~/types/generated'
-import { BodyLong, HGrid, VStack } from '@navikt/ds-react'
+import { BodyLong, HGrid, Link, VStack } from '@navikt/ds-react'
 import NextLink from 'next/link'
 import { HeadingView } from '~/components/parts/Heading'
 import { Separator } from '~/components/macros/Separator'
 import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
-import { ArrowUpIcon } from '@navikt/aksel-icons'
 import { ButtonView } from '~/components/parts/Button'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { BubblesBackgroundSvgStyle } from '~/utils/BubblesBackgroundSvgStyle'
+import ScrollToTop from '~/components/common/ScrollToTop'
 
 export default function Footer({
     footerProps,
@@ -32,15 +32,7 @@ export default function Footer({
                     { radius: 80, down: 220, right: 25, fill: 'hsl(335 100% 53% / 0.05)' },
                 ]),
             }}>
-            <NextLink
-                href={'#'}
-                shallow={true}
-                className={
-                    'w-fit gap-1 flex flex-row underline hover:no-underline mb-(--ax-space-24)'
-                }>
-                <ArrowUpIcon aria-hidden={true} />
-                Til toppen
-            </NextLink>
+            <ScrollToTop />
             <HGrid
                 align={'center'}
                 gap={{ xs: 'space-16', md: 'space-44', lg: 'space-72' }}
@@ -99,12 +91,9 @@ export default function Footer({
                             {title}
                         </HeadingView>
                         {links?.map(({ url, linkText }, j) => (
-                            <NextLink
-                                key={j}
-                                href={getUrl(url, meta)}
-                                className="underline hover:no-underline">
+                            <Link as={NextLink} key={j} href={getUrl(url, meta)}>
                                 {linkText ?? '[Default link text]'}
-                            </NextLink>
+                            </Link>
                         ))}
                     </VStack>
                 ))}

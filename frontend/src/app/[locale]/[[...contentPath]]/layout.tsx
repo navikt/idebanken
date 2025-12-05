@@ -15,6 +15,7 @@ import GlobalSkyraForms from '~/components/common/analytics/GlobalSkyraForms'
 import { draftMode } from 'next/headers'
 import { CookieBanner } from '~/components/common/cookies/CookieBanner'
 import { ContentEditorMessage } from '~/components/common/ContentEditorMessage'
+import Backlink from '~/components/common/Backlink'
 
 type LayoutParams = { locale: string; contentPath?: string[] }
 type LayoutProps = PropsWithChildren<{ params: Promise<LayoutParams> }>
@@ -68,6 +69,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                     title={I18n.localize('idebanken')}
                 />
                 <PageBlock id="main-content" as="main" width="2xl">
+                    <Backlink common={common as HeadlessCms} />
                     {children}
                     <GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />
                     {editorMessage}
