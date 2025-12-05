@@ -8,14 +8,12 @@ import { Button, Loader } from '@navikt/ds-react'
 import { XP_BrandColor, XP_DisplayImageOrIcon } from '@xp-types/site/mixins'
 import { fetchArticleCardList } from '../queries/articlesList'
 import { FilterChips } from '../common/FilterChips'
+import { usePathname, useRouter } from 'next/navigation'
 
 type Card = Part_Idebanken_Article_Card_List['list'][number]
 type Tag = Part_Idebanken_Article_Card_List['availableTypeTags'][number]
 
 interface Config {
-    list: Card[]
-    availableTypeTags: Tag[]
-    total: number
     pageSize?: number
 }
 
@@ -41,21 +39,21 @@ function idsToCsv(ids: Set<string>) {
     return ids.size ? Array.from(ids).join(',') : undefined
 }
 
-export function ArticlesLinkCardList(props: PartData<Config>) {
+type ArticlePartProps = PartData<Config> & { data?: Part_Idebanken_Article_Card_List }
+
+export function ArticlesLinkCardList(props: ArticlePartProps) {
     const { part, meta, data } = props
 
     const absolutePath = useMemo(() => {
-        const site = 'idebanken' // replace if you have meta.siteName
+        const site = 'idebanken'
         const p = meta.path || ''
         const cleaned = p.startsWith('/') ? p.slice(1) : p
         return `/${site}/${cleaned}`
     }, [meta.path])
 
-    console.log('absolutePath', absolutePath)
-
     const initial = data?.list ?? []
     const typeTags = useMemo(() => data?.availableTypeTags || [], [data?.availableTypeTags])
-    const initialTotal = data.total ?? 0
+    const initialTotal = data?.total ?? 0
     const pageSize = part.config?.pageSize ?? 6
 
     const [items, setItems] = useState<Card[]>(initial)
@@ -65,6 +63,45 @@ export function ArticlesLinkCardList(props: PartData<Config>) {
     const [showAll, setShowAll] = useState(true)
     const [filteredTotal, setFilteredTotal] = useState<number>(initialTotal)
     const didMountRef = useRef(false)
+    const router = useRouter()
+    const pathname = usePathname()
+    const prevCsvRef = useRef<string | null>(null)
+
+    // Names selected (for URL), keep ids for backend fetch
+    const selectedNames = useMemo(() => new Set(selectedTags.map((t) => t.name)), [selectedTags])
+    const namesCsv = useMemo(
+        () => (showAll ? undefined : idsToCsv(selectedNames)),
+        [showAll, selectedNames]
+    )
+
+    // Read initial filters from URL (?types=name1,name2) when tags are known
+    useEffect(() => {
+        if (!typeTags?.length) return
+        const params = new URLSearchParams(window.location.search)
+        const csv = params.get('filters') || undefined
+        const names = csv ? csv.split(',').filter(Boolean) : []
+        const currentCsv = idsToCsv(selectedNames)
+        if (csv === currentCsv) {
+            prevCsvRef.current = csv ?? null
+            return
+        }
+        const tags = names.map((n) => typeTags.find((t) => t.name === n)).filter(Boolean) as Tag[]
+        setSelectedTags(tags)
+        setShowAll(tags.length === 0)
+        prevCsvRef.current = csv ?? null
+    }, [typeTags, selectedNames])
+
+    // Write filters to URL when selection changes (no loop)
+    useEffect(() => {
+        const next = namesCsv ?? null
+        if (prevCsvRef.current === next) return
+        const params = new URLSearchParams(window.location.search)
+        if (next) params.set('filters', next)
+        else params.delete('filters')
+        const qs = params.toString()
+        router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+        prevCsvRef.current = next
+    }, [namesCsv, pathname, router])
 
     const selectedIds = useMemo(() => new Set(selectedTags.map((t) => t.id)), [selectedTags])
     const filterCsv = useMemo(
