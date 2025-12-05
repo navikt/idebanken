@@ -9,7 +9,7 @@ import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveIcon, resolveImage } from '/lib/utils/media'
 import { getTags } from '/lib/utils/helpers'
-import { getExcludeFilterAndQuery } from '/lib/utils/site-config'
+import { queryWithFilters } from '/lib/repos/query'
 
 export type LinkCardItem = {
     url: string
@@ -205,37 +205,22 @@ const getAutomaticList = (
         ]
     }
 
-    const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
-    const contents = query({
+    const contents = queryWithFilters({
         count: automatic.limit || -1,
-        query: {
-            boolean: {
-                must: [
-                    ...(parentContentPath
-                        ? [
-                              {
-                                  like: {
-                                      field: '_path',
-                                      value: `/content${parentContentPath}/*`,
-                                  },
-                              },
-                          ]
-                        : []),
-                ],
-                mustNot: [...queryDslExclusion],
-            },
-        },
+        ...(parentContentPath
+            ? {
+                  query: {
+                      like: {
+                          field: '_path',
+                          value: `/content${parentContentPath}/*`,
+                      },
+                  },
+              }
+            : {}),
         filters: {
-            boolean: {
-                must: [
-                    {
-                        hasValue: {
-                            field: 'type',
-                            values: contentTypes,
-                        },
-                    },
-                ],
-                mustNot: [...filterExclusion],
+            hasValue: {
+                field: 'type',
+                values: contentTypes,
             },
         },
     }).hits

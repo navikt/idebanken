@@ -8,8 +8,15 @@
             <occurrences minimum="1" maximum="1"/>
             <default>6</default>
         </input>
+        <input type="CustomSelector" name="highlightedContent">
+            <label>Innhold øverst i listen</label>
+            <occurrences minimum="0" maximum="0"/>
+            <config>
+                <service>theme-card-list-selector</service>
+            </config>
+        </input>
     </form>
     <config>
-        <allow-on-content-type>${app}:theme-tag</allow-on-content-type>
+        <allow-on-content-type>(portal:page-template|${app}:theme-tag)</allow-on-content-type>
     </config>
 </part>

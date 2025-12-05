@@ -65,6 +65,10 @@ export const commonQuery = `
 query($path:ID!){
   guillotine {
     get(key:$path) {
+      backlink {
+        text
+        href
+      }
       displayName
       _id
       _path

@@ -5,6 +5,13 @@ import { create as createRepo, type CreateRepositoryParams, get as getRepo } fro
 import { runAsAdmin } from '/lib/project-initializer'
 import { forceArray } from '/lib/utils/array-utils'
 
+export function getNodesFromQueryHits<T>(
+    hits: Array<{ id: string }>,
+    conn: RepoConnection
+): ReadonlyArray<Node<T>> {
+    return forceArray<Node<T>>(conn.get(hits.map((it) => it.id)))
+}
+
 const asAdminParams: Pick<ConnectParams, 'user' | 'principals'> = {
     user: {
         login: SUPER_USER,
@@ -44,11 +51,4 @@ export function createRepoIfNotExists(
             })
         }
     })
-}
-
-export function getNodesFromQueryHits<T>(
-    hits: Array<{ id: string }>,
-    conn: RepoConnection
-): ReadonlyArray<Node<T>> {
-    return forceArray<Node<T>>(conn.get(hits.map((it) => it.id)))
 }

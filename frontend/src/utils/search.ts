@@ -54,7 +54,8 @@ export const search = async (
 }
 
 const isCommonType = (obj: object): obj is CommonType<unknown> =>
-    'themeTags' in obj && Array.isArray(obj.themeTags)
+    ('themeTags' in obj && Array.isArray(obj.themeTags)) ||
+    ('typeTags' in obj && Array.isArray(obj.typeTags))
 
 export function getResultThemeTags(
     result: SearchResult['hits'][0],
@@ -84,20 +85,20 @@ export function getResultTypeTags(
     const isCommon = isCommonType(commonOrTypeTagMap)
     return [
         ...forceArray(result.typeTags)?.reduce((acc: Array<Tag>, curr) => {
-            const theme = isCommon
-                ? commonOrTypeTagMap?.themeTags?.find((theme) => theme.id === curr)?.name
+            const type = isCommon
+                ? commonOrTypeTagMap?.typeTags?.find((type) => type.id === curr)?.name
                 : commonOrTypeTagMap[curr]?.name
-            if (theme) {
-                acc.push({ name: theme, id: '' })
+            if (type) {
+                acc.push({ name: type, id: '' })
             }
             return acc
         }, []),
     ]
 }
 
-export function getThemeTagsMap(common?: CommonType<unknown>): Record<string, Tag> {
+export function getTypeTagsMap(common?: CommonType<unknown>): Record<string, Tag> {
     if (!common) return {}
-    return common?.themeTags?.reduce(
+    return common?.typeTags?.reduce(
         (acc, curr) => {
             acc[curr.id] = curr
             return acc

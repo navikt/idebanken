@@ -1,15 +1,16 @@
 import { GraphQL } from '@enonic-types/guillotine/graphQL'
 import { DataFetchingEnvironment, Extensions } from '@enonic-types/guillotine/extensions'
-import { Content, get as getContent, query } from '/lib/xp/content'
+import { Content, get as getContent } from '/lib/xp/content'
 import { enonicSitePathToHref } from '/lib/utils/string-utils'
 import { ResolvedMedia, resolveImage } from '/lib/utils/media'
 import { ResolvedTag, resolveThemeTags, resolveTypeTags } from '../tag'
 import { getTags } from '/lib/utils/helpers'
-import { getExcludeFilterAndQuery } from '/lib/utils/site-config'
 import type { LocalContextRecord } from '@enonic-types/guillotine/graphQL/LocalContext'
 import { Source } from '../../common-guillotine-types'
 import { ThemeCardList } from '@xp-types/site/parts'
 import { logger } from '/lib/utils/logging'
+import { forceArray } from '/lib/utils/array-utils'
+import { queryWithFilters } from '/lib/repos/query'
 
 type ThemeContentCard = {
     url: string
@@ -19,7 +20,6 @@ type ThemeContentCard = {
     image?: ResolvedMedia
     themeTags: Array<ResolvedTag>
     typeTags: Array<ResolvedTag>
-    publicationDate?: string
 }
 
 function mapThemeContent(contents: Content[]): ThemeContentCard[] {
@@ -36,9 +36,133 @@ function mapThemeContent(contents: Content[]): ThemeContentCard[] {
             image: resolveImage(c, 'width(500)'),
             themeTags: resolveThemeTags(tags),
             typeTags: resolveTypeTags(tags),
-            publicationDate: data?.publicationDate || undefined,
         }
     })
+}
+
+function getHighlightedContent(ids: string[]): Content[] {
+    if (!ids.length) {
+        return []
+    }
+
+    const orderMap = new Map(ids.map((id, index) => [id, index]))
+
+    return queryWithFilters({
+        count: -1,
+        filters: {
+            hasValue: {
+                field: '_id',
+                values: ids,
+            },
+        },
+    }).hits.sort((a, b) => {
+        const indexA = orderMap.get(a._id) ?? Number.MAX_SAFE_INTEGER
+        const indexB = orderMap.get(b._id) ?? Number.MAX_SAFE_INTEGER
+        return indexA - indexB
+    })
+}
+
+function queryThemeContent({
+    offset,
+    count,
+    themeContentId,
+    excludedIds,
+}: {
+    offset: number
+    count: number
+    themeContentId: string
+    excludedIds: string[]
+}) {
+    return queryWithFilters({
+        start: offset,
+        count,
+        sort: [
+            {
+                field: 'type',
+                direction: 'DESC',
+            },
+            {
+                field: 'data.publicationDate',
+                direction: 'DESC',
+            },
+        ],
+        filters: {
+            boolean: {
+                must: [
+                    {
+                        hasValue: {
+                            field: 'type',
+                            values: ['idebanken:artikkel', 'idebanken:kjerneartikkel'],
+                        },
+                    },
+                ],
+                should: [
+                    {
+                        hasValue: {
+                            field: 'x.idebanken.tags.themeTags',
+                            values: [themeContentId],
+                        },
+                    },
+                    {
+                        hasValue: {
+                            field: 'x.idebanken.aktuelt-tags.themeTags',
+                            values: [themeContentId],
+                        },
+                    },
+                ],
+                mustNot: [
+                    {
+                        ids: {
+                            values: excludedIds,
+                        },
+                    },
+                ],
+            },
+        },
+    })
+}
+
+function resolveThemeCardListData(
+    env: DataFetchingEnvironment<
+        { offset?: number; count?: number; path?: string },
+        LocalContextRecord,
+        Source<ThemeCardList>
+    >
+) {
+    const offset: number = env.args?.offset ?? 0
+    const count: number = env.args?.count ?? 10
+    const highlightedContentIds = forceArray(env.source?.highlightedContent)
+
+    const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
+    if (!path) {
+        logger.warning(`Part_idebanken_theme_card_list is missing path arg`)
+        return {
+            total: 0,
+            list: [],
+        }
+    }
+    const contentId = getContent({ key: path })?._id
+    if (!contentId) {
+        logger.warning(`Part_idebanken_theme_card_list could not find content at path: ${path}`)
+        return {
+            total: 0,
+            list: [],
+        }
+    }
+
+    const highlightedContent = getHighlightedContent(highlightedContentIds)
+
+    const contentsResult = queryThemeContent({
+        offset,
+        count,
+        themeContentId: contentId,
+        excludedIds: highlightedContent.map((c) => c._id),
+    })
+
+    return {
+        total: contentsResult.total,
+        list: mapThemeContent(highlightedContent.concat(contentsResult.hits)),
+    }
 }
 
 export const themeCardListExtensions = ({
@@ -52,87 +176,7 @@ export const themeCardListExtensions = ({
 }: GraphQL): Extensions => ({
     resolvers: {
         Part_idebanken_theme_card_list: {
-            data: (
-                env: DataFetchingEnvironment<
-                    { offset?: number; count?: number; path?: string },
-                    LocalContextRecord,
-                    Source<ThemeCardList>
-                >
-            ) => {
-                const offset: number = env.args?.offset ?? 0
-                const count: number = env.args?.count ?? 10
-                const path = env.args.path?.replace(/^\$\{site}/, '/idebanken')
-                if (!path) {
-                    logger.warning(`Part_idebanken_theme_card_list is missing path arg`)
-                    return {
-                        total: 0,
-                        list: [],
-                    }
-                }
-                const contentId = getContent({ key: path })?._id
-                if (!contentId) {
-                    logger.warning(
-                        `Part_idebanken_theme_card_list could not find content at path: ${path}`
-                    )
-                    return {
-                        total: 0,
-                        list: [],
-                    }
-                }
-
-                const { queryDslExclusion, filterExclusion } = getExcludeFilterAndQuery()
-                const contentsResult = query({
-                    start: offset,
-                    count,
-                    sort: [
-                        {
-                            field: 'type',
-                            direction: 'DESC',
-                        },
-                        {
-                            field: 'data.publicationDate',
-                            direction: 'DESC',
-                        },
-                    ],
-                    query: {
-                        boolean: {
-                            mustNot: queryDslExclusion,
-                        },
-                    },
-                    filters: {
-                        boolean: {
-                            must: [
-                                {
-                                    hasValue: {
-                                        field: 'type',
-                                        values: ['idebanken:artikkel', 'idebanken:kjerneartikkel'],
-                                    },
-                                },
-                            ],
-                            should: [
-                                {
-                                    hasValue: {
-                                        field: 'x.idebanken.tags.themeTags',
-                                        values: [contentId],
-                                    },
-                                },
-                                {
-                                    hasValue: {
-                                        field: 'x.idebanken.aktuelt-tags.themeTags',
-                                        values: [contentId],
-                                    },
-                                },
-                            ],
-                            mustNot: filterExclusion,
-                        },
-                    },
-                })
-
-                return {
-                    total: contentsResult.total,
-                    list: mapThemeContent(contentsResult.hits),
-                }
-            },
+            data: resolveThemeCardListData,
         },
     },
     creationCallbacks: {
@@ -171,7 +215,6 @@ export const themeCardListExtensions = ({
                 image: { type: reference('ResolvedMedia') },
                 themeTags: { type: list(reference('Tag')) },
                 typeTags: { type: list(reference('Tag')) },
-                publicationDate: { type: GraphQLString },
             },
             interfaces: [],
         },

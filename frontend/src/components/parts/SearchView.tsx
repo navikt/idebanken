@@ -6,10 +6,15 @@ import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { Button, Chips, Fieldset, HStack, Radio, RadioGroup, VStack } from '@navikt/ds-react'
 import { PartData } from '~/types/graphql-types'
 import { Idebanken_SpecialPage_Data, Part_Idebanken_Search_View, Tag } from '~/types/generated'
-import { getThemeTagsMap, search, SearchResult } from '~/utils/search'
+import { getTypeTagsMap, search, SearchResult } from '~/utils/search'
 import SearchResults from '~/components/common/SearchResults'
 import { forceArray } from '~/utils/utils'
-import { SOK_PAGE_PARAM, SOK_SEARCH_PARAM, SOK_SORT_PARAM, SOK_TEMA_PARAM } from '~/utils/constants'
+import {
+    SOK_PAGE_PARAM,
+    SOK_SEARCH_PARAM,
+    SOK_SORT_PARAM,
+    SOK_TYPE_TAG_PARAM,
+} from '~/utils/constants'
 import { SearchFrom, trackSearchResult } from '~/utils/analytics/umami'
 
 export default function SearchView({
@@ -21,16 +26,16 @@ export default function SearchView({
     const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
     const [loading, setLoading] = useState(false)
     const [loadingMore, setLoadingMore] = useState(false)
-    const [filter, setFilter] = useState<Array<Tag>>()
+    const [filter, setFilter] = useState<Array<Tag>>([])
     const [selected, setSelected] = useState([allFilter])
 
     const searchParams = useSearchParams()
     const pathname = usePathname()
-    const themeTagsMap = getThemeTagsMap(common)
+    const typeTagsMap = getTypeTagsMap(common)
 
     const searchString = searchParams.get(SOK_SEARCH_PARAM)
     const sort = searchParams.get(SOK_SORT_PARAM)
-    const themeTagsParamValue = searchParams.get(SOK_TEMA_PARAM)
+    const typeTagsParamValue = searchParams.get(SOK_TYPE_TAG_PARAM)
 
     useEffect(() => {
         if (!searchString) return
@@ -43,20 +48,23 @@ export default function SearchView({
     }, [searchString, sort])
 
     useEffect(() => {
-        setSelected(themeTagsParamValue?.split(',') ?? [allFilter])
-    }, [themeTagsParamValue])
+        setSelected(typeTagsParamValue?.split(',') ?? [allFilter])
+    }, [typeTagsParamValue])
 
     useEffect(() => {
-        const themeTagsInSearchResults = searchResult?.hits?.reduce((acc, curr) => {
-            curr.themeTags?.forEach((themeId) => {
-                if (themeId && !acc.find((c) => c.id === themeId)) {
-                    const theme = themeTagsMap[themeId]
-                    if (theme) acc.push({ name: theme.name, id: themeId })
+        const typeTagsInSearchResults = forceArray(searchResult?.hits)?.reduce((acc, curr) => {
+            curr.typeTags?.forEach((typeId) => {
+                if (typeId && !acc.find((c) => c.id === typeId)) {
+                    const type = typeTagsMap[typeId]
+                    if (type) acc.push({ name: type.name, id: typeId })
                 }
             })
             return acc
         }, [] as Tag[])
-        setFilter(themeTagsInSearchResults)
+
+        if (typeTagsInSearchResults?.length > 1) {
+            setFilter(typeTagsInSearchResults)
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchResult])
@@ -67,26 +75,22 @@ export default function SearchView({
         window.history.replaceState(null, '', `?${urlSearchParams.toString()}`)
     }
 
-    function setThemeTagsParamNames(themeTagNames: string[]) {
-        if (themeTagNames.length === filter?.length) {
-            // all themeTags selected, reset to "all"
-            themeTagNames = [allFilter]
-        }
+    function setTypeTagsParamNames(typeTagNames: string[]) {
         updateUrlParams((p) => {
-            if (themeTagNames.length === 0 || themeTagNames.includes(allFilter)) {
-                p.delete(SOK_TEMA_PARAM)
+            if (typeTagNames.length === 0 || typeTagNames.includes(allFilter)) {
+                p.delete(SOK_TYPE_TAG_PARAM)
             } else {
-                const names = Object.values(themeTagsMap)
-                    .filter((theme) => themeTagNames.includes(theme.name))
-                    .map((theme) => theme.name)
+                const names = Object.values(typeTagsMap)
+                    .filter((typeTag) => typeTagNames.includes(typeTag.name))
+                    .map((typeTag) => typeTag.name)
                 if (names.length > 0) {
-                    p.set(SOK_TEMA_PARAM, names.join(','))
+                    p.set(SOK_TYPE_TAG_PARAM, names.join(','))
                 } else {
-                    p.delete(SOK_TEMA_PARAM)
+                    p.delete(SOK_TYPE_TAG_PARAM)
                 }
             }
         })
-        setSelected(themeTagNames)
+        setSelected(typeTagNames)
     }
 
     function setSortParam(sortValue: string | undefined) {
@@ -111,25 +115,26 @@ export default function SearchView({
                     <Radio value="1">Dato</Radio>
                 </HStack>
             </RadioGroup>
-            <Fieldset legend={'Filtrer på tema'} id={'choose-theme'} size={'small'}>
+            <Fieldset legend={'Filtrer på type'} id={'choose-type'} size={'small'}>
                 <HStack>
                     <Chips>
-                        {[{ name: allFilter, id: '' }].concat(filter ?? []).map(({ name }) => (
+                        {[{ name: allFilter, id: '' }].concat(filter).map(({ name }) => (
                             <Chips.Toggle
                                 key={name}
                                 checkmark={false}
                                 selected={selected.includes(name)}
-                                aria-labelledby={'choose-theme'}
+                                aria-labelledby={'choose-type'}
+                                className={'py-(--ax-space-8) px-(--ax-space-16)'}
                                 onClick={() => {
                                     if (name === allFilter) {
-                                        setThemeTagsParamNames([allFilter])
+                                        setTypeTagsParamNames([allFilter])
                                     } else if (selected.includes(name)) {
                                         const newSelected = selected.filter((sel) => sel !== name)
-                                        setThemeTagsParamNames(
+                                        setTypeTagsParamNames(
                                             newSelected.length === 0 ? [allFilter] : newSelected
                                         )
                                     } else {
-                                        setThemeTagsParamNames([
+                                        setTypeTagsParamNames([
                                             ...selected.filter((it) => it !== allFilter),
                                             name,
                                         ])
@@ -166,14 +171,13 @@ export default function SearchView({
                           ...searchResult,
                           hits: searchResult?.hits?.filter((it) => {
                               if (selected.includes(allFilter)) return true
-                              return forceArray(it.themeTags).some((catId) =>
-                                  selected.some((sel) => sel === themeTagsMap[catId].name)
+                              return forceArray(it.typeTags).some((catId) =>
+                                  selected.some((sel) => sel === typeTagsMap[catId].name)
                               )
                           }),
                       }
                     : undefined,
                 loading,
-
                 common,
                 filterElement
             )}

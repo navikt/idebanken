@@ -199,7 +199,7 @@ export const downloadsQuery = `{
 }`
 
 export const themeCardListQuery = `{
-    data(offset: 0, count: 5, path: $path) {
+    data(offset: 0, count: 6, path: $path) {
         total
         list {
             url

@@ -1,5 +1,5 @@
 import type { Link_Card, Part_Idebanken_Link_Card, Tag } from '~/types/generated.d'
-import { Box } from '@navikt/ds-react'
+import { Box, Link } from '@navikt/ds-react'
 import {
     LinkCard,
     LinkCardAnchor,
@@ -13,6 +13,7 @@ import Image from 'next/image'
 import { getAsset, getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { XP_LinkCard, XP_LinkCardList } from '@xp-types/site/parts'
+import NextLink from 'next/link'
 
 export const LinkCardPartView = ({
     part,
@@ -108,11 +109,14 @@ export const LinkCardView = ({
                 </Box>
             )}
             <LinkCardTitle>
-                <LinkCardAnchor
-                    {...linkProps}
-                    href={getUrl(url, meta) || '#'}
-                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
-                    {title}
+                <LinkCardAnchor asChild>
+                    <Link
+                        as={NextLink}
+                        {...linkProps}
+                        href={getUrl(url, meta) || '#'}
+                        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                        {title}
+                    </Link>
                 </LinkCardAnchor>
             </LinkCardTitle>
             {description && showDescription && (

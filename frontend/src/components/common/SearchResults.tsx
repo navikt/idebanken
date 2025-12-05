@@ -8,25 +8,27 @@ import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import type { JSX } from 'react'
 import TrackFirstLink from '~/components/common/analytics/TrackFirstLink'
-import { AnalyticsEvents } from '~/utils/analytics/umami'
+import { AnalyticsEvents, SearchFrom } from '~/utils/analytics/umami'
 import { CommonType } from '~/types/graphql-types'
+import classNames from 'classnames'
 
 export default function SearchResults(
     meta: MetaData,
-    searchFrom: 'hurtigsøk meny' | 'søkeside',
+    searchFrom: SearchFrom,
     searchResult?: SearchResult | undefined,
     loading: boolean = false,
     common?: CommonType<unknown>, // for resolving tags
     filter?: JSX.Element
 ) {
+    const isMainSearch = searchFrom === SearchFrom.SOKESIDE
     return (
-        <VStack gap={'2'}>
+        <VStack gap={isMainSearch ? { xs: 'space-16', lg: 'space-32' } : 'space-12'}>
             {filter}
             <BodyShort
                 id={'search-status'}
                 role={'status'}
                 aria-live={'polite'}
-                className={'pt-4 font-bold'}>
+                className={classNames(!isMainSearch ? 'pt-4' : '', 'font-bold')}>
                 {searchResult?.word
                     ? `Viser ${searchResult?.hits?.length} av ${searchResult?.total ?? 0} treff på «${searchResult?.word ?? ''}»`
                     : ''}
@@ -49,6 +51,7 @@ export default function SearchResults(
                             url={result.href}
                             external={false}
                             title={result.displayName}
+                            showDescription
                             description={
                                 <RichTextView
                                     className="font-extralight"

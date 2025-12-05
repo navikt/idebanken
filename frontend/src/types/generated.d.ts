@@ -120,6 +120,7 @@ export type Content = {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -1411,6 +1412,7 @@ export type Part_Idebanken_Text_EditorSimpleTextEditorArgs = {
 export type Part_Idebanken_Theme_Card_List = {
   __typename?: 'Part_idebanken_theme_card_list';
   data: Theme_Card_List_Data;
+  highlightedContent?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   pageSize?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -1420,6 +1422,13 @@ export type Part_Idebanken_Theme_Card_ListDataArgs = {
   count?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
   path: Scalars['ID']['input'];
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['theme-card-list'] */
+export type Part_Idebanken_Theme_Card_ListHighlightedContentArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['title-ingress-icon'] */
@@ -1584,6 +1593,13 @@ export type RichText = {
   raw?: Maybe<Scalars['String']['output']>;
 };
 
+/** A simple link with text and href */
+export type SimpleLink = {
+  __typename?: 'SimpleLink';
+  href: Scalars['String']['output'];
+  text?: Maybe<Scalars['String']['output']>;
+};
+
 /** Configuration for other parts of the site */
 export type SiteConfiguration = {
   __typename?: 'SiteConfiguration';
@@ -1685,7 +1701,6 @@ export type Theme_Card = {
   description?: Maybe<Scalars['String']['output']>;
   external?: Maybe<Scalars['Boolean']['output']>;
   image?: Maybe<ResolvedMedia>;
-  publicationDate?: Maybe<Scalars['String']['output']>;
   themeTags?: Maybe<Array<Maybe<Tag>>>;
   title?: Maybe<Scalars['String']['output']>;
   typeTags?: Maybe<Array<Maybe<Tag>>>;
@@ -1708,6 +1723,7 @@ export type UntypedContent = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -1932,6 +1948,7 @@ export type Base_Folder = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2012,6 +2029,7 @@ export type Base_Media = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2092,6 +2110,7 @@ export type Base_Shortcut = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2194,6 +2213,7 @@ export type Base_Structured = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2274,6 +2294,7 @@ export type Base_Unstructured = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2354,6 +2375,7 @@ export type Idebanken_AktueltTypeTag = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2434,6 +2456,7 @@ export type Idebanken_Artikkel = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2541,6 +2564,7 @@ export type Idebanken_CrashCourse = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2621,6 +2645,7 @@ export type Idebanken_CrashCourseSlide = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2701,6 +2726,7 @@ export type Idebanken_Kjerneartikkel = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2798,6 +2824,7 @@ export type Idebanken_SectionPage = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2895,6 +2922,7 @@ export type Idebanken_SingletonAktuelt = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -2975,6 +3003,7 @@ export type Idebanken_SingletonAktueltPage = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -3072,6 +3101,7 @@ export type Idebanken_SingletonTheme = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -3169,6 +3199,7 @@ export type Idebanken_SingletonType = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -3249,6 +3280,7 @@ export type Idebanken_SpecialPage = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -3346,6 +3378,7 @@ export type Idebanken_ThemeTag = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -3443,6 +3476,7 @@ export type Idebanken_TypeTag = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -3523,6 +3557,7 @@ export type Idebanken_Video = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -3622,6 +3657,7 @@ export type Media_Archive = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -3726,6 +3762,7 @@ export type Media_Audio = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -3830,6 +3867,7 @@ export type Media_Code = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -3934,6 +3972,7 @@ export type Media_Data = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -4038,6 +4077,7 @@ export type Media_Document = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -4143,6 +4183,7 @@ export type Media_Executable = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -4247,6 +4288,7 @@ export type Media_Image = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -4375,6 +4417,7 @@ export type Media_Presentation = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -4479,6 +4522,7 @@ export type Media_Spreadsheet = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -4583,6 +4627,7 @@ export type Media_Text = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -4687,6 +4732,7 @@ export type Media_Unknown = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -4791,6 +4837,7 @@ export type Media_Vector = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -4905,6 +4952,7 @@ export type Media_Video = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -5009,6 +5057,7 @@ export type Portal_Fragment = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -5089,6 +5138,7 @@ export type Portal_PageTemplate = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -5183,6 +5233,7 @@ export type Portal_Site = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;
@@ -5270,6 +5321,7 @@ export type Portal_TemplateFolder = Content & {
   _references?: Maybe<Array<Maybe<Content>>>;
   _score?: Maybe<Scalars['Float']['output']>;
   attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
   children?: Maybe<Array<Maybe<Content>>>;
   childrenConnection?: Maybe<ContentConnection>;
   components?: Maybe<Array<Maybe<Component>>>;

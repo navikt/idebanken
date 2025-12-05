@@ -1,6 +1,6 @@
 import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Table_Of_Contents } from '~/types/generated'
-import { BodyShort, VStack } from '@navikt/ds-react'
+import { BodyShort, Link, VStack } from '@navikt/ds-react'
 import NextLink from 'next/link'
 import { HeadingView } from '~/components/parts/Heading'
 import { headingIdOfString } from '~/utils/utils'
@@ -27,12 +27,13 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
                                 key={index}
                                 analyticsEventName={AnalyticsEvents.ANCHOR_LINK_CLICKED}
                                 eventData={{ komponentId: 'innholdsfortegnelse' }}>
-                                <NextLink
+                                <Link
+                                    as={NextLink}
                                     href={`#${headingIdOfString(section ?? '')}`}
                                     data-umami-ignore={true}
-                                    className="text-(--ax-text-decoration) underline hover:no-underline text-xl font-[400]">
+                                    className="text-xl font-[400]">
                                     {section}
-                                </NextLink>
+                                </Link>
                             </TrackFirstLink>
                         </li>
                     ))
