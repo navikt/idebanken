@@ -198,19 +198,6 @@ export const downloadsQuery = `{
     }
 }`
 
-export const articleCardListQuery = `{
-    total
-    availableTypeTags { id name }
-    list(offset: 0, count: $count) {
-        url
-        title
-        description
-        image { url caption }
-        themeTags { id name }
-        typeTags { id name }
-    }
-}`
-
 export const themeCardListQuery = `{
     data(offset: 0, count: 5, path: $path) {
         total

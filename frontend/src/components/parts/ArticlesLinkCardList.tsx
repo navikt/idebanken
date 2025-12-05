@@ -20,23 +20,26 @@ interface Config {
 const MIN_SPINNER_MS = 400
 
 function normalizeCard(card: Card) {
+    const themeTags = (card.themeTags ?? []).filter((t): t is Tag => !!t)
+    const typeTags = (card.typeTags ?? []).filter((t): t is Tag => !!t)
+
     return {
         title: card.title ?? '[Uten tittel]',
         description: card.description ?? '',
         url: card.url ?? '#',
-        external: false,
+        external: card.external ?? false,
         image: card.image ?? undefined,
         brand: 'neutral' as XP_BrandColor['brand'],
         showDescription: true,
         displayType: 'withImage' as XP_DisplayImageOrIcon['displayType'],
         hideArrow: true,
-        themeTags: [],
-        typeTags: [],
+        themeTags: themeTags,
+        typeTags: typeTags,
     }
 }
 
-function idsToCsv(ids: Set<string>) {
-    return ids.size ? Array.from(ids).join(',') : undefined
+function toCsv(values: string[]) {
+    return values.length ? values.join(',') : undefined
 }
 
 type ArticlePartProps = PartData<Config> & { data?: Part_Idebanken_Article_Card_List }
@@ -62,64 +65,43 @@ export function ArticlesLinkCardList(props: ArticlePartProps) {
     const [selectedTags, setSelectedTags] = useState<Tag[]>([])
     const [showAll, setShowAll] = useState(true)
     const [filteredTotal, setFilteredTotal] = useState<number>(initialTotal)
-    const didMountRef = useRef(false)
+
     const router = useRouter()
     const pathname = usePathname()
-    const prevCsvRef = useRef<string | null>(null)
+    const prevNamesCsvRef = useRef<string | null>(null)
+    const didInitFromUrlRef = useRef(false)
 
-    // Names selected (for URL), keep ids for backend fetch
-    const selectedNames = useMemo(() => new Set(selectedTags.map((t) => t.name)), [selectedTags])
-    const namesCsv = useMemo(
-        () => (showAll ? undefined : idsToCsv(selectedNames)),
-        [showAll, selectedNames]
-    )
+    const selectedIdsCsv = useMemo(() => {
+        if (showAll) return undefined
+        const ids = Array.from(new Set(selectedTags.map((t) => t.id)))
+        return toCsv(ids)
+    }, [showAll, selectedTags])
 
-    // Read initial filters from URL (?types=name1,name2) when tags are known
     useEffect(() => {
-        if (!typeTags?.length) return
+        if (didInitFromUrlRef.current) return
+        if (!typeTags.length) return
+
         const params = new URLSearchParams(window.location.search)
-        const csv = params.get('filters') || undefined
+        const csv = params.get('filters') || ''
         const names = csv ? csv.split(',').filter(Boolean) : []
-        const currentCsv = idsToCsv(selectedNames)
-        if (csv === currentCsv) {
-            prevCsvRef.current = csv ?? null
-            return
-        }
-        const tags = names.map((n) => typeTags.find((t) => t.name === n)).filter(Boolean) as Tag[]
-        setSelectedTags(tags)
-        setShowAll(tags.length === 0)
-        prevCsvRef.current = csv ?? null
-    }, [typeTags, selectedNames])
+        const fromUrl = names
+            .map((n) => typeTags.find((t) => t.name === n))
+            .filter(Boolean) as Tag[]
 
-    // Write filters to URL when selection changes (no loop)
-    useEffect(() => {
-        const next = namesCsv ?? null
-        if (prevCsvRef.current === next) return
-        const params = new URLSearchParams(window.location.search)
-        if (next) params.set('filters', next)
-        else params.delete('filters')
-        const qs = params.toString()
-        router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
-        prevCsvRef.current = next
-    }, [namesCsv, pathname, router])
-
-    const selectedIds = useMemo(() => new Set(selectedTags.map((t) => t.id)), [selectedTags])
-    const filterCsv = useMemo(
-        () => (showAll ? undefined : idsToCsv(selectedIds)),
-        [showAll, selectedIds]
-    )
+        setSelectedTags(fromUrl)
+        setShowAll(fromUrl.length === 0)
+        prevNamesCsvRef.current = csv || null
+        didInitFromUrlRef.current = true
+    }, [typeTags])
 
     useEffect(() => {
-        if (!didMountRef.current) {
-            didMountRef.current = true
-            return // skip first load
-        }
+        if (!didInitFromUrlRef.current) return
         let cancelled = false
         async function run() {
             if (!absolutePath) return
             setLoading(true)
             try {
-                const fetchPromise = fetchArticleCardList(absolutePath, 0, pageSize, filterCsv)
+                const fetchPromise = fetchArticleCardList(absolutePath, 0, pageSize, selectedIdsCsv)
                 const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
                 const [res] = await Promise.all([fetchPromise, delay])
                 if (cancelled) return
@@ -135,25 +117,47 @@ export function ArticlesLinkCardList(props: ArticlePartProps) {
         return () => {
             cancelled = true
         }
-    }, [absolutePath, pageSize, filterCsv])
+    }, [absolutePath, pageSize, selectedIdsCsv])
+
+    const setFiltersInUrl = useCallback(
+        (namesCsvNext: string | null) => {
+            if (!didInitFromUrlRef.current) return
+            if (prevNamesCsvRef.current === namesCsvNext) return
+            const params = new URLSearchParams(window.location.search)
+            if (namesCsvNext) params.set('filters', namesCsvNext)
+            else params.delete('filters')
+            const qs = params.toString()
+            router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false })
+            prevNamesCsvRef.current = namesCsvNext
+        },
+        [pathname, router]
+    )
 
     const onToggleAll = useCallback(() => {
         setShowAll(true)
         setSelectedTags([])
-    }, [])
+        setFiltersInUrl(null)
+    }, [setFiltersInUrl])
 
     const onToggleTag = useCallback(
         (id: string) => {
-            setSelectedTags((prev) => {
-                const exists = prev.some((t) => t.id === id)
-                const next = exists
-                    ? prev.filter((t) => t.id !== id)
-                    : [...prev, typeTags.find((t) => t.id === id)!]
-                setShowAll(next.length === 0)
-                return next
-            })
+            const exists = selectedTags.some((t) => t.id === id)
+            const next = exists
+                ? selectedTags.filter((t) => t.id !== id)
+                : (() => {
+                      const tag = typeTags.find((t) => t.id === id)
+                      return tag ? [...selectedTags, tag] : selectedTags
+                  })()
+
+            setSelectedTags(next)
+            setShowAll(next.length === 0)
+
+            const namesCsvNext = next.length
+                ? Array.from(new Set(next.map((t) => t.name))).join(',')
+                : null
+            setFiltersInUrl(namesCsvNext)
         },
-        [typeTags]
+        [selectedTags, typeTags, setFiltersInUrl]
     )
 
     const canLoadMore = offset < filteredTotal
@@ -163,7 +167,12 @@ export function ArticlesLinkCardList(props: ArticlePartProps) {
         if (!absolutePath) return
         setLoading(true)
         try {
-            const fetchPromise = fetchArticleCardList(absolutePath, offset, pageSize, filterCsv)
+            const fetchPromise = fetchArticleCardList(
+                absolutePath,
+                offset,
+                pageSize,
+                selectedIdsCsv
+            )
             const delay = new Promise((res) => setTimeout(res, MIN_SPINNER_MS))
             const [res] = await Promise.all([fetchPromise, delay])
             const newItems: Card[] = res.list ?? []
@@ -175,7 +184,7 @@ export function ArticlesLinkCardList(props: ArticlePartProps) {
         } finally {
             setLoading(false)
         }
-    }, [canLoadMore, loading, absolutePath, offset, pageSize, filterCsv, filteredTotal])
+    }, [canLoadMore, loading, absolutePath, offset, pageSize, selectedIdsCsv, filteredTotal])
 
     const firstTwo = items.slice(0, 2)
     const rest = items.slice(2)
@@ -185,7 +194,7 @@ export function ArticlesLinkCardList(props: ArticlePartProps) {
             <FilterChips
                 tags={typeTags}
                 showAll={showAll}
-                selectedIds={selectedIds}
+                selectedIds={new Set(selectedTags.map((t) => t.id))}
                 onToggleAll={onToggleAll}
                 onToggleTag={onToggleTag}
             />
