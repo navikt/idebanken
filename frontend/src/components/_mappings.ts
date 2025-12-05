@@ -1,7 +1,6 @@
 import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapter'
 import { commonQuery, commonVariables } from './queries/common'
 import {
-    articleCardListQuery,
     buttonQuery,
     downloadsQuery,
     highlightedBoxMacroQuery,
@@ -49,6 +48,7 @@ import { Quote } from '~/components/macros/Quote'
 import { CookieConsentToggle } from '~/components/common/cookies/CookieConsentToggle'
 import { CookieBannerOpenButton } from '~/components/common/cookies/CookieBannerOpenButton'
 import ThemeCardList from '~/components/parts/ThemeListCard'
+import { getArticleData, articleListProcessor } from './queries/articlesList'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -186,8 +186,9 @@ ComponentRegistry.addPart(`${APP_NAME}:link-card-list`, {
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:article-card-list`, {
+    query: getArticleData,
+    processor: articleListProcessor,
     view: ArticlesLinkCardList,
-    configQuery: articleCardListQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:theme-card-list`, {
