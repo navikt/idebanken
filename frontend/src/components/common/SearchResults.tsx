@@ -29,8 +29,12 @@ export default function SearchResults(
                 role={'status'}
                 aria-live={'polite'}
                 className={classNames(!isMainSearch ? 'pt-4' : '', 'font-bold')}>
-                {searchResult?.word
-                    ? `Viser ${searchResult?.hits?.length} av ${searchResult?.total ?? 0} treff på «${searchResult?.word ?? ''}»`
+                {searchResult
+                    ? `Viser ${searchResult?.hits?.length} av ${searchResult?.total ?? 0} treff`
+                          .concat(searchResult.word ? ` på «${searchResult?.word}»` : '')
+                          .concat(
+                              searchFrom === SearchFrom.SOKESIDE ? ' med valgte søkefilter' : ''
+                          )
                     : ''}
             </BodyShort>
             {loading ? (

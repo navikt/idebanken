@@ -1,5 +1,23 @@
 [
   {
+    "Type-tag": {
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "exists": {
+                "field": "typeTags",
+                "boost": 1.0
+              }
+            }
+          ],
+          "adjust_pure_negative": true,
+          "boost": 1.0
+        }
+      }
+    }
+  },
+  {
     "Privatperson": {
       "filter": {
         "bool": {

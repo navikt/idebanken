@@ -28,16 +28,6 @@ class SearchQueryFactoryTest {
     }
 
     @Test
-    fun `søk med skjemanummer skal bruke forventet query`() {
-        val query = SearchQueryFactory.createBuilder(Params(ord = "her er et skjemanummer: NAV 09-35.01")).build()
-
-        query.query.toString() shouldEqualJson readJsonFile("/search-queries/skjemanummer-query.json")
-        query.filter.toString() shouldEqualJson readJsonFile("/search-queries/standard-filter.json")
-        query.aggregations.shouldBeNull()
-        query.highlightBuilder.toString() shouldEqualJson readJsonFile("/search-queries/skjemanummer-highlight-builder.json")
-    }
-
-    @Test
     fun `standard søk uten aggregeringer skal bruke forventet query`() {
         val query =
             SearchQueryFactory

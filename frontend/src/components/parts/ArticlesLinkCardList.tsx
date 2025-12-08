@@ -4,7 +4,7 @@ import { PartData } from '~/types/graphql-types'
 import { Part_Idebanken_Article_Card_List } from '~/types/generated'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { LinkCardView } from './LinkCard'
-import { Button, Loader } from '@navikt/ds-react'
+import { Button } from '@navikt/ds-react'
 import { XP_BrandColor, XP_DisplayImageOrIcon } from '@xp-types/site/mixins'
 import { fetchArticleCardList } from '../queries/articlesList'
 import { FilterChips } from '../common/FilterChips'
@@ -235,18 +235,14 @@ export function ArticlesLinkCardList(props: ArticlePartProps) {
 
             {items.length > 0 && canLoadMore && (
                 <div className="mt-8 flex justify-center">
-                    {loading ? (
-                        <Loader size="large" title="Laster" />
-                    ) : (
-                        <Button
-                            data-color="ib-brand-dark-blue"
-                            className="rounded-full font-light w-auto whitespace-nowrap"
-                            onClick={loadMore}
-                            variant="secondary"
-                            aria-live="polite">
-                            Last mer
-                        </Button>
-                    )}
+                    <Button
+                        data-color="ib-brand-dark-blue"
+                        className="rounded-full font-light w-auto whitespace-nowrap"
+                        loading={loading}
+                        onClick={loadMore}
+                        variant="secondary">
+                        Last mer
+                    </Button>
                 </div>
             )}
         </>

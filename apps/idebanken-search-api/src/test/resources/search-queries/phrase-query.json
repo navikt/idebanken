@@ -90,7 +90,7 @@
             "filter": {
               "term": {
                 "type": {
-                  "value": "oversikt",
+                  "value": "kjerneartikkel",
                   "boost": 1.0
                 }
               }
@@ -101,67 +101,23 @@
             "filter": {
               "term": {
                 "type": {
-                  "value": "produktside",
+                  "value": "section-page",
                   "boost": 1.0
                 }
               }
             },
-            "weight": 2.0
+            "weight": 1.5
           },
           {
             "filter": {
               "term": {
                 "type": {
-                  "value": "guide",
+                  "value": "artikkel",
                   "boost": 1.0
                 }
               }
             },
-            "weight": 2.0
-          },
-          {
-            "filter": {
-              "term": {
-                "type": {
-                  "value": "temaside",
-                  "boost": 1.0
-                }
-              }
-            },
-            "weight": 1.75
-          },
-          {
-            "filter": {
-              "term": {
-                "type": {
-                  "value": "situasjonsside",
-                  "boost": 1.0
-                }
-              }
-            },
-            "weight": 1.75
-          },
-          {
-            "filter": {
-              "term": {
-                "type": {
-                  "value": "kontor",
-                  "boost": 1.0
-                }
-              }
-            },
-            "weight": 0.5
-          },
-          {
-            "filter": {
-              "term": {
-                "type": {
-                  "value": "kontor-legacy",
-                  "boost": 1.0
-                }
-              }
-            },
-            "weight": 0.5
+            "weight": 1.0
           }
         ],
         "score_mode": "max",

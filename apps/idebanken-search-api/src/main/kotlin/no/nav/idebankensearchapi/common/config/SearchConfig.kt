@@ -8,7 +8,14 @@ import no.nav.navnosearchadminapi.common.constants.TEXT
 import no.nav.navnosearchadminapi.common.constants.TITLE
 import no.nav.navnosearchadminapi.common.constants.languageSubfields
 import no.nav.navnosearchadminapi.common.enums.ValidMetatags
-import no.nav.navnosearchadminapi.common.enums.ValidTypes
+
+enum class ValidTypes {
+    KJERNEARTIKKEL,
+    SECTION_PAGE,
+    ARTIKKEL;
+
+    open val descriptor: String = name.lowercase().replace("_", "-")
+}
 
 object SearchConfig {
     const val EXACT_PHRASE_MATCH_BOOST = 1.5f
@@ -46,13 +53,9 @@ object SearchConfig {
 
     val typeToWeight =
         mapOf(
-            ValidTypes.OVERSIKT.descriptor to 2.0f,
-            ValidTypes.PRODUKTSIDE.descriptor to 2.0f,
-            ValidTypes.GUIDE.descriptor to 2.0f,
-            ValidTypes.TEMASIDE.descriptor to 1.75f,
-            ValidTypes.SITUASJONSSIDE.descriptor to 1.75f,
-            ValidTypes.KONTOR.descriptor to 0.50f,
-            ValidTypes.KONTOR_LEGACY.descriptor to 0.50f,
+            ValidTypes.KJERNEARTIKKEL.descriptor to 2.0f,
+            ValidTypes.SECTION_PAGE.descriptor to 1.5f,
+            ValidTypes.ARTIKKEL.descriptor to 1.0f,
         )
 
     val metatagToWeight =

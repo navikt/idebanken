@@ -2,7 +2,7 @@ opensearch:
   uris: ${OPEN_SEARCH_URI}
   username: ${OPEN_SEARCH_USERNAME}
   password: ${OPEN_SEARCH_PASSWORD}
-  page-size: ${FULL_SEARCH_PAGE_SIZE:20}
+  page-size: ${FULL_SEARCH_PAGE_SIZE:10}
   decorator-page-size: ${DECORATOR_SEARCH_PAGE_SIZE:5}
 
 api-key: ${API_KEY}

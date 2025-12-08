@@ -1,7 +1,7 @@
 import { forceArray } from '~/utils/utils'
 import { Tag } from '~/types/generated'
 import { IS_DEV_MODE } from '@enonic/nextjs-adapter'
-import { SOK_PAGE_PARAM, SOK_SEARCH_PARAM, SOK_SORT_PARAM } from '~/utils/constants'
+import { SOK_FACET_PARAM, SOK_FACET_TYPE_TAG, SOK_UNDER_FACET_PARAM } from '~/utils/constants'
 import { ReadonlyURLSearchParams } from 'next/navigation'
 import { CommonType } from '~/types/graphql-types'
 
@@ -29,24 +29,27 @@ export const isSearchResult = (data: any): data is SearchResult => {
     )
 }
 
+function appendToSearchParams(searchParams: ReadonlyURLSearchParams, key: string, value: string) {
+    const urlSearchParams = new URLSearchParams(searchParams.toString())
+    urlSearchParams.set(key, value)
+    return urlSearchParams as ReadonlyURLSearchParams
+}
+
 export const search = async (
     paramsOrString: ReadonlyURLSearchParams | string
 ): Promise<SearchResult> => {
-    let params = ''
-    if (typeof paramsOrString === 'string') {
-        params = `${SOK_SEARCH_PARAM}=${paramsOrString}`
-    } else {
-        const searchTerm = paramsOrString.get(SOK_SEARCH_PARAM)
-        const page = Number(paramsOrString.get(SOK_PAGE_PARAM) ?? 0)
-        const sort = paramsOrString.get(SOK_SORT_PARAM)
-        params = `${SOK_SEARCH_PARAM}=${searchTerm}${page ? `&${SOK_PAGE_PARAM}=${page}` : ''}${sort ? `&${SOK_SORT_PARAM}=${sort}` : ''}`
+    if (typeof paramsOrString !== 'string' && paramsOrString.getAll(SOK_UNDER_FACET_PARAM).length) {
+        paramsOrString = appendToSearchParams(paramsOrString, SOK_FACET_PARAM, SOK_FACET_TYPE_TAG)
     }
 
-    const response = await fetch(`/api/search?${params}`)
-    if (!response.ok) {
+    const searchFetch = fetch(`/api/search?${paramsOrString?.toString()}`)
+    const delay = new Promise((res) => setTimeout(res, 400))
+    const [result] = await Promise.all([searchFetch, delay])
+
+    if (!result.ok) {
         throw new Error('Network response was not ok')
     }
-    const data = await response.json()
+    const data = await result.json()
     if (!isSearchResult(data)) {
         throw new Error('Invalid search response:', data)
     }
@@ -100,7 +103,7 @@ export function getTypeTagsMap(common?: CommonType<unknown>): Record<string, Tag
     if (!common) return {}
     return common?.typeTags?.reduce(
         (acc, curr) => {
-            acc[curr.id] = curr
+            acc[curr.name] = curr
             return acc
         },
         {} as Record<string, Tag>

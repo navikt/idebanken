@@ -1,6 +1,11 @@
 package no.nav.idebankensearchapi.search.filters
 
+object FieldNames {
+    const val TYPE_TAGS = "typeTags"
+}
+
 object FacetKeys {
+    const val TYPE_TAGS = "type-tag"
     const val PRIVATPERSON = "privatperson"
     const val ARBEIDSGIVER = "arbeidsgiver"
     const val SAMARBEIDSPARTNER = "samarbeidspartner"
@@ -10,6 +15,7 @@ object FacetKeys {
 }
 
 object FacetNames {
+    const val TYPE_TAGS = "Type-tag"
     const val PRIVATPERSON = "Privatperson"
     const val ARBEIDSGIVER = "Arbeidsgiver"
     const val SAMARBEIDSPARTNER = "Samarbeidspartner"
@@ -26,18 +32,6 @@ object UnderFacetKeys {
     const val ARTIKLER = "artikler"
     const val NYHETER = "nyheter"
     const val TABELLER = "tabeller"
-    const val AGDER = "agder"
-    const val INNLANDET = "innlandet"
-    const val MORE_OG_ROMSDAL = "more-og-romsdal"
-    const val NORDLAND = "nordland"
-    const val OSLO = "oslo"
-    const val ROGALAND = "rogaland"
-    const val TROMS_OG_FINNMARK = "troms-og-finnmark"
-    const val TRONDELAG = "trondelag"
-    const val VESTFOLD_OG_TELEMARK = "vestfold-og-telemark"
-    const val VESTLAND = "vestland"
-    const val VEST_VIKEN = "vest-viken"
-    const val OST_VIKEN = "ost-viken"
 }
 
 object UnderFacetNames {
@@ -48,18 +42,6 @@ object UnderFacetNames {
     const val ARTIKLER = "Artikler"
     const val NYHETER = "Nyheter"
     const val TABELLER = "Tabeller"
-    const val AGDER = "Agder"
-    const val INNLANDET = "Innlandet"
-    const val MORE_OG_ROMSDAL = "Møre og Romsdal"
-    const val NORDLAND = "Nordland"
-    const val OSLO = "Oslo"
-    const val ROGALAND = "Rogaland"
-    const val TROMS_OG_FINNMARK = "Troms og Finnmark"
-    const val TRONDELAG = "Trøndelag"
-    const val VESTFOLD_OG_TELEMARK = "Vestfold og Telemark"
-    const val VESTLAND = "Vestland"
-    const val VEST_VIKEN = "Vest-Viken"
-    const val OST_VIKEN = "Øst-Viken"
 }
 
 object AggregationNames {
