@@ -2,8 +2,10 @@ package no.nav.idebankensearchapi.search.filters.facets
 
 import no.nav.idebankensearchapi.search.filters.FacetKeys
 import no.nav.idebankensearchapi.search.filters.FacetNames
+import no.nav.idebankensearchapi.search.filters.FieldNames
 import no.nav.idebankensearchapi.search.filters.Filter
 import no.nav.idebankensearchapi.search.filters.joinToSingleQuery
+import no.nav.idebankensearchapi.search.filters.mustHaveField
 import no.nav.idebankensearchapi.search.filters.mustHaveMetatags
 import no.nav.idebankensearchapi.search.filters.mustHaveOneOfMetatags
 import no.nav.idebankensearchapi.search.filters.underfacets.analyseFilters
@@ -16,6 +18,11 @@ import org.opensearch.index.query.BoolQueryBuilder
 
 val facetFilters =
     listOf(
+        Filter(
+            key = FacetKeys.TYPE_TAGS,
+            name = FacetNames.TYPE_TAGS,
+            filterQuery = BoolQueryBuilder().mustHaveField(FieldNames.TYPE_TAGS),
+        ),
         Filter(
             key = FacetKeys.PRIVATPERSON,
             name = FacetNames.PRIVATPERSON,

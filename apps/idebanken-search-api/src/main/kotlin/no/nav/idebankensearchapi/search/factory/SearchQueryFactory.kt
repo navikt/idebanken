@@ -3,10 +3,13 @@ package no.nav.idebankensearchapi.search.factory
 import no.nav.idebankensearchapi.common.config.SearchConfig
 import no.nav.idebankensearchapi.common.utils.applyFilters
 import no.nav.idebankensearchapi.common.utils.applyWeighting
+import no.nav.idebankensearchapi.common.utils.applyWeightingSum
 import no.nav.idebankensearchapi.search.controller.Params
 import no.nav.idebankensearchapi.search.factory.queries.highlightBuilder
 import no.nav.idebankensearchapi.search.factory.queries.searchAllTextForPhraseQuery
 import no.nav.idebankensearchapi.search.factory.queries.searchAllTextQuery
+import no.nav.idebankensearchapi.search.filters.FacetKeys
+import no.nav.idebankensearchapi.search.filters.FieldNames
 import no.nav.idebankensearchapi.search.filters.Filter
 import no.nav.idebankensearchapi.search.filters.facets.facetFilters
 import no.nav.idebankensearchapi.search.filters.joinToSingleQuery
@@ -19,6 +22,7 @@ import org.opensearch.data.client.orhlc.NativeSearchQueryBuilder
 import org.opensearch.index.query.BoolQueryBuilder
 import org.opensearch.index.query.MatchAllQueryBuilder
 import org.opensearch.index.query.QueryBuilder
+import org.opensearch.index.query.TermQueryBuilder
 import org.opensearch.index.query.functionscore.FunctionScoreQueryBuilder
 import org.opensearch.search.aggregations.AggregationBuilders
 import org.opensearch.search.aggregations.bucket.filter.FilterAggregationBuilder
@@ -63,6 +67,12 @@ object SearchQueryFactory {
             .applyFilters(preAggregationFilters(params.preferredLanguage))
             .applyWeighting(TYPE, SearchConfig.typeToWeight)
             .applyWeighting(METATAGS, SearchConfig.metatagToWeight)
+            .let { qb ->
+                if (params.f == FacetKeys.TYPE_TAGS && params.uf.isNotEmpty()) {
+                    // Give a small additive score for each matched typeTag so more matches score higher
+                    qb.applyWeightingSum(FieldNames.TYPE_TAGS, params.uf.associateWith { 1.0f })
+                } else qb
+            }
 
     private fun preAggregationFilters(preferredLanguage: String?) =
         BoolQueryBuilder().apply {
@@ -83,6 +93,10 @@ object SearchQueryFactory {
         val facet: Filter = requireNotNull(facetFilters.find { it.key == f }) { "Fant ikke fasett med key $f" }
         return when {
             uf.isEmpty() -> facet.filterQuery
+            facet.key == FacetKeys.TYPE_TAGS ->
+                BoolQueryBuilder().apply {
+                    uf.forEach { should(TermQueryBuilder(FieldNames.TYPE_TAGS, it)) }
+                }
             else ->
                 facet.underFacets
                     .filter { it.key in uf }

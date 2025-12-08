@@ -84,7 +84,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
         () =>
             debounce((term: string) => {
                 setLoading(true)
-                search(term)
+                search(`${SOK_SEARCH_PARAM}=${term}`)
                     .then(setSearchResult)
                     .finally(() => setLoading(false))
             }, 500),
@@ -359,7 +359,10 @@ function quickSearch({
                 onSubmit={(e) => {
                     e.preventDefault()
                     router.push(
-                        `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`
+                        getUrl(
+                            `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`,
+                            meta
+                        )
                     )
                 }}
             />
