@@ -16,6 +16,27 @@ import org.opensearch.index.query.ExistsQueryBuilder
 import org.opensearch.index.query.QueryBuilder
 import org.opensearch.index.query.TermQueryBuilder
 
+
+fun BoolQueryBuilder.mustHaveTypeTags(vararg types: ValidTypes) =
+    apply {
+        types.forEach { must(TermQueryBuilder(FieldNames.TYPE_TAGS, it.descriptor)) }
+    }
+
+fun BoolQueryBuilder.mustNotHaveTypeTags(vararg types: ValidTypes) =
+    apply {
+        types.forEach { mustNot(TermQueryBuilder(FieldNames.TYPE_TAGS, it.descriptor)) }
+    }
+
+fun BoolQueryBuilder.mustHaveOneOfTypeTags(vararg types: ValidTypes) =
+    apply {
+        must(BoolQueryBuilder().shouldHaveTypeTags(*types))
+    }
+
+fun BoolQueryBuilder.shouldHaveTypeTags(vararg types: ValidTypes) =
+    apply {
+        types.forEach { should(TermQueryBuilder(FieldNames.TYPE_TAGS, it.descriptor)) }
+    }
+
 fun BoolQueryBuilder.mustHaveMetatags(vararg metatags: ValidMetatags) =
     apply {
         metatags.forEach { must(TermQueryBuilder(METATAGS, it.descriptor)) }

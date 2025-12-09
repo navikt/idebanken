@@ -69,6 +69,15 @@ val analyserOgForskningDummyData =
         }
     }
 
+val typeTagsDummyData =
+    buildList {
+        generatedText.forEach {
+            add(it.toTypeTagDummyContent(underfacet = "tag1"))
+            add(it.toTypeTagDummyContent(underfacet = "tag2"))
+            add(it.toTypeTagDummyContent(underfacet = "tag3"))
+        }
+    }
+
 
 val initialTestData =
     buildList {
@@ -78,6 +87,7 @@ val initialTestData =
         addAll(presseDummyData)
         addAll(statistikkDummyData)
         addAll(analyserOgForskningDummyData)
+        addAll(typeTagsDummyData)
     }
 
 fun additionalTestData(
@@ -99,6 +109,7 @@ fun additionalTestData(
             FacetKeys.PRESSE -> it.toPresseDummyContent()
             FacetKeys.STATISTIKK -> it.toStatistikkDummyContent(underFacet)
             FacetKeys.ANALYSER_OG_FORSKNING -> it.toAnalyserOgForskningDummyContent(underFacet)
+            FacetKeys.TYPE_TAGS -> it.toTypeTagDummyContent(underFacet)
             else -> error("Unsupported facet: $facet")
         }
     }
@@ -153,6 +164,12 @@ private fun TextData.toAnalyserOgForskningDummyContent(underfacet: String): IBCo
         else -> error("unsupported underfacet")
     }
 
+private fun TextData.toTypeTagDummyContent(underfacet: String): IBContent =
+    this.toDummyContent(
+        typeTags = listOf(underfacet),
+    )
+
+
 private fun TextData.toDummyContentForAudience(
     audience: String,
     underfacet: String,
@@ -192,6 +209,8 @@ private fun TextData.toDummyContent(
     audience: List<String> = emptyList(),
     language: String = NORWEGIAN_BOKMAAL,
     metatags: List<String> = emptyList(),
+    typeTags: List<String> = emptyList(),
+    themeTags: List<String> = emptyList(),
 ) = IBContent.from(
     id = "$teamName-${UUID.randomUUID()}",
     teamOwnedBy = teamName,
@@ -206,4 +225,6 @@ private fun TextData.toDummyContent(
     audience = audience,
     language = language,
     metatags = metatags,
+    typeTags = typeTags,
+    themeTags = themeTags,
 )

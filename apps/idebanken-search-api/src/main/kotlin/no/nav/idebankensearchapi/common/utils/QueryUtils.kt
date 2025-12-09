@@ -26,3 +26,18 @@ fun QueryBuilder.applyWeighting(
                 )
             }.toTypedArray(),
     ).scoreMode(FunctionScoreQuery.ScoreMode.MAX)
+
+fun QueryBuilder.applyWeightingSum(
+    field: String,
+    fieldToWeightMap: Map<String, Float>,
+): FunctionScoreQueryBuilder =
+    FunctionScoreQueryBuilder(
+        this,
+        fieldToWeightMap
+            .map {
+                FunctionScoreQueryBuilder.FilterFunctionBuilder(
+                    TermQueryBuilder(field, it.key),
+                    ScoreFunctionBuilders.weightFactorFunction(it.value),
+                )
+            }.toTypedArray(),
+    ).scoreMode(FunctionScoreQuery.ScoreMode.SUM)

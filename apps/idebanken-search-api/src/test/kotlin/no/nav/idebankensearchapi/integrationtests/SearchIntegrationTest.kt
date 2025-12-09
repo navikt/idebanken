@@ -16,6 +16,7 @@ import no.nav.idebankensearchapi.utils.presseDummyData
 import no.nav.idebankensearchapi.utils.privatpersonDummyData
 import no.nav.idebankensearchapi.utils.samarbeidspartnerDummyData
 import no.nav.idebankensearchapi.utils.statistikkDummyData
+import no.nav.idebankensearchapi.utils.typeTagsDummyData
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.http.HttpStatus
@@ -114,6 +115,35 @@ class SearchIntegrationTest : AbstractIntegrationTest() {
         response.statusCode shouldBe HttpStatus.OK
         assertSoftly(response.body!!) {
             total shouldBe generatedText.size
+        }
+    }
+
+    @Test
+    fun `søk med type-tag skal returnere riktig søkeresultat`() {
+        val response =
+            get<SearchResult>(
+                searchUri(ord = "", f = FacetKeys.TYPE_TAGS, uf = listOf("tag1")),
+            )
+
+        response.statusCode shouldBe HttpStatus.OK
+        assertSoftly(response.body!!) {
+            total shouldBe generatedText.size
+
+            aggregationCount(FacetKeys.TYPE_TAGS) shouldBe typeTagsDummyData.size
+            allUnderaggregationCounts(FacetKeys.TYPE_TAGS).forEach { it shouldBe generatedText.size }
+        }
+
+        val response2 =
+            get<SearchResult>(
+                searchUri(ord = "", f = FacetKeys.TYPE_TAGS, uf = listOf("tag1", "tag2")),
+            )
+
+        response2.statusCode shouldBe HttpStatus.OK
+        assertSoftly(response2.body!!) {
+            total shouldBe generatedText.size * 2
+
+            aggregationCount(FacetKeys.TYPE_TAGS) shouldBe typeTagsDummyData.size
+            allUnderaggregationCounts(FacetKeys.TYPE_TAGS).forEach { it shouldBe generatedText.size * 2 }
         }
     }
 }

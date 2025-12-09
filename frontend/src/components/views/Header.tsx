@@ -84,7 +84,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
         () =>
             debounce((term: string) => {
                 setLoading(true)
-                search(term)
+                search(`${SOK_SEARCH_PARAM}=${term}`)
                     .then(setSearchResult)
                     .finally(() => setLoading(false))
             }, 500),
@@ -108,11 +108,11 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                 className="relative items-center"
                 bleedClassName="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-[99] overflow-y-visible bg-(--ax-bg-default)">
                 <CookieBanner meta={meta} common={common} />
-                <a
-                    className="z-[100] transition left-0 bg-dark-blue text-primary-content absolute p-3 m-3 -translate-y-16 focus:translate-y-0"
+                <Link
+                    className="bg-dark-blue text-primary-content z-[100] transition left-0 absolute p-3 m-3 -translate-y-16 focus:translate-y-0"
                     href="#main-content">
                     Hopp til hovedinnhold
-                </a>
+                </Link>
                 <HStack
                     align="center"
                     justify="space-between"
@@ -359,7 +359,10 @@ function quickSearch({
                 onSubmit={(e) => {
                     e.preventDefault()
                     router.push(
-                        `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`
+                        getUrl(
+                            `${siteConfiguration?.searchPageHref}?${SOK_SEARCH_PARAM}=${encodeURIComponent(searchValue)}`,
+                            meta
+                        )
                     )
                 }}
             />
