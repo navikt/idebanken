@@ -17,7 +17,6 @@ import {
 import { useEffect, useMemo, useState } from 'react'
 import { PageBlock } from '@navikt/ds-react/Page'
 import classNames from 'classnames'
-import { LinkCard, LinkCardAnchor, LinkCardTitle } from '@navikt/ds-react/LinkCard'
 import { debounce, search, SearchResult } from '~/utils/search'
 import SearchResults from '~/components/common/SearchResults'
 import { usePathname, useRouter } from 'next/navigation'
@@ -26,6 +25,7 @@ import { ThemeButton } from '~/app/[locale]/theming/theme-button'
 import { AnalyticsEvents, SearchFrom, trackSearchResult, umami } from '~/utils/analytics/umami'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 import { CookieBanner } from '~/components/common/cookies/CookieBanner'
+import { LinkCardView } from '~/components/parts/LinkCard'
 
 export interface HeaderProps {
     title: string
@@ -220,26 +220,15 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                     ))}
                                 </Stack>
                                 <VStack gap={{ xs: '4', lg: '6' }}>
-                                    {header?.linksBottom?.map(({ linkText, url }, i) => (
-                                        <LinkCard
+                                    {header?.linksBottom?.map(({ linkText, url, external }, i) => (
+                                        <LinkCardView
                                             key={i}
-                                            arrow={false}
-                                            className={
-                                                'p-6 border-2 border-(--ib-bg-dark-blue-strong) group'
-                                            }>
-                                            <LinkCardTitle>
-                                                <LinkCardAnchor asChild>
-                                                    <Link
-                                                        as={NextLink}
-                                                        href={getUrl(url, meta)}
-                                                        className={
-                                                            'no-underline group-hover:underline'
-                                                        }>
-                                                        {linkText}
-                                                    </Link>
-                                                </LinkCardAnchor>
-                                            </LinkCardTitle>
-                                        </LinkCard>
+                                            external={external}
+                                            title={linkText}
+                                            url={url}
+                                            meta={meta}
+                                            hideArrow={true}
+                                        />
                                     ))}
                                 </VStack>
                                 <ThemeButton className={'sm:hidden'} />

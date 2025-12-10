@@ -445,3 +445,8 @@
     --ax-border-subtleA: var(--ib-border-dark-blue-subtleA);
     --ax-border-strong: var(--ib-border-dark-blue-strong);
 }
+
+[data-color="neutral"] {
+    --ax-bg-raised: var(--ib-bg-dark-blue-softA);
+    --ax-border-subtleA: var(--ib-bg-dark-blue-softA);
+}
