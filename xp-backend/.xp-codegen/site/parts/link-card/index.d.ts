@@ -79,11 +79,6 @@ export type LinkCard = {
            * Ikon
            */
           icon?: string;
-
-          /**
-           * Ikonets bakgrunnsfarge
-           */
-          iconColor?: 'ib-brand-white' | 'ib-pink-400A' | 'ib-dark-blue-400A' | 'ib-orange-400A' | 'ib-pastel-yellow-300A';
         };
       };
 };

@@ -57,28 +57,7 @@ export const search = async (
 }
 
 const isCommonType = (obj: object): obj is CommonType<unknown> =>
-    ('themeTags' in obj && Array.isArray(obj.themeTags)) ||
-    ('typeTags' in obj && Array.isArray(obj.typeTags))
-
-export function getResultThemeTags(
-    result: SearchResult['hits'][0],
-    commonOrThemeTagMap?: CommonType<unknown> | Record<string, Tag>
-) {
-    if (!commonOrThemeTagMap) return []
-    const isCommon = isCommonType(commonOrThemeTagMap)
-    return [
-        ...forceArray(result.themeTags)?.reduce((acc: Array<Tag>, curr) => {
-            const theme = isCommon
-                ? commonOrThemeTagMap?.themeTags?.find((theme) => theme.id === curr)?.name
-                : commonOrThemeTagMap[curr]?.name
-            if (theme) {
-                acc.push({ name: theme, id: '' })
-            }
-            return acc
-        }, []),
-        ...(IS_DEV_MODE ? [{ name: `Score: ${result.score}`, id: '' }] : []),
-    ]
-}
+    'typeTags' in obj && Array.isArray(obj.typeTags)
 
 export function getResultTypeTags(
     result: SearchResult['hits'][0],
@@ -96,6 +75,7 @@ export function getResultTypeTags(
             }
             return acc
         }, []),
+        ...(IS_DEV_MODE ? [{ name: `Score: ${result.score}`, id: '' }] : []),
     ]
 }
 

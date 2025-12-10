@@ -3,6 +3,7 @@ export type Alignment = import('./alignment').Alignment;
 export type BackgroundColor = import('./background-color').BackgroundColor;
 export type BoxColor = import('./box-color').BoxColor;
 export type BrandColor = import('./brand-color').BrandColor;
+export type Color = import('./color').Color;
 export type DisplayImageOrIcon = import('./display-image-or-icon').DisplayImageOrIcon;
 export type HeadingColor = import('./heading-color').HeadingColor;
 export type Icon = import('./icon').Icon;

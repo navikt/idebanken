@@ -37,6 +37,9 @@ export const themeTagExtensions = ({
                 iconUrl: {
                     type: GraphQLString,
                 },
+                color: {
+                    type: GraphQLString,
+                },
                 iconColor: {
                     type: GraphQLString,
                 },
@@ -166,6 +169,8 @@ export function mapTagContentToResolved(
             return {
                 name: hit.displayName,
                 id: hit._id,
+                // @ts-expect-error theme doesn't have color
+                color: hit.data?.color,
                 iconUrl: icon?.url,
                 caption: icon?.caption,
                 iconColor: hit.x?.idebanken?.meta?.iconColor,

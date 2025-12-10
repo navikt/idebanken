@@ -20,7 +20,6 @@ interface Config {
 const MIN_SPINNER_MS = 400
 
 function normalizeCard(card: Card) {
-    const themeTags = (card.themeTags ?? []).filter((t): t is Tag => !!t)
     const typeTags = (card.typeTags ?? []).filter((t): t is Tag => !!t)
 
     return {
@@ -33,7 +32,6 @@ function normalizeCard(card: Card) {
         showDescription: true,
         displayType: 'withImage' as XP_DisplayImageOrIcon['displayType'],
         hideArrow: true,
-        themeTags: themeTags,
         typeTags: typeTags,
     }
 }

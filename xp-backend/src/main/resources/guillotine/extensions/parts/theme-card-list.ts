@@ -208,13 +208,13 @@ export const themeCardListExtensions = ({
         Theme_card: {
             description: 'Theme card',
             fields: {
-                url: { type: GraphQLString },
-                external: { type: GraphQLBoolean },
-                title: { type: GraphQLString },
+                url: { type: nonNull(GraphQLString) },
+                external: { type: nonNull(GraphQLBoolean) },
+                title: { type: nonNull(GraphQLString) },
                 description: { type: GraphQLString },
                 image: { type: reference('ResolvedMedia') },
-                themeTags: { type: list(reference('Tag')) },
-                typeTags: { type: list(reference('Tag')) },
+                themeTags: { type: nonNull(list(nonNull(reference('Tag')))) },
+                typeTags: { type: nonNull(list(nonNull(reference('Tag')))) },
             },
             interfaces: [],
         },
