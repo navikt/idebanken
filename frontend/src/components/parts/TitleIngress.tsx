@@ -6,6 +6,11 @@ import { AuthorsAndDate } from '~/components/common/AuthorsAndDate'
 import { XP_TitleIngress } from '@xp-types/site/parts'
 import { RENDER_MODE } from '@enonic/nextjs-adapter'
 import { HeroImage } from '~/components/common/HeroImage'
+import type { Tag as TagType } from '~/types/generated.d'
+import { BodyShort } from '@navikt/ds-react/Typography'
+import { CircleFillIcon } from '@navikt/aksel-icons'
+
+type IdebankenX = { articleTypeTags?: { typeTags?: (TagType | null)[] | null } | null }
 
 type PageData = {
     ingress: string
@@ -17,6 +22,9 @@ type PageData = {
 const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>) => {
     const commonGet = common?.get
     const data = commonGet?.dataAsJson
+
+    const idebankenX = (commonGet?.x as { idebanken?: IdebankenX | null })?.idebanken
+    const typeTags = idebankenX?.articleTypeTags?.typeTags?.filter((t): t is TagType => !!t) ?? []
 
     const hero = commonGet?.data?.heroImage
 
@@ -42,6 +50,23 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
                 artist={artist}
                 unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
             />
+            {typeTags.map(({ name, color }, index) => (
+                <BodyShort
+                    as={'span'}
+                    key={index}
+                    size="small"
+                    className={
+                        'text-sm flex items-center flex-nowrap gap-(--ax-space-8) text-(--ib-text-dark-blue-icon)'
+                    }>
+                    <CircleFillIcon
+                        width={9}
+                        height={9}
+                        aria-hidden
+                        color={`var(--${color ?? 'ib-brand-black'})`}
+                    />
+                    {name}
+                </BodyShort>
+            ))}
             <HeadingView level="1" size={headingSize} className="m-0">
                 {title}
             </HeadingView>

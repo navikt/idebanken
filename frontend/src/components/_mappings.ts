@@ -159,6 +159,15 @@ ComponentRegistry.addPart(`${APP_NAME}:link-card`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:title-ingress`, {
     view: TitleIngressView,
+    // configQuery: `{
+    //     x {
+    //         idebanken {
+    //             aktuelt_tags {
+    //                 typeTags { id name color }
+    //             }
+    //         }
+    //     }
+    // }`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:title-ingress-icon`, {

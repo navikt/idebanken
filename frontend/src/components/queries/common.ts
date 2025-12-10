@@ -89,7 +89,23 @@ query($path:ID!){
           }
         }
       }
+      ... on idebanken_Kjerneartikkel {
+        x {
+          idebanken {
+            articleTypeTags: tags {
+              typeTags { id name color }
+            }
+          }
+        }
+      }
       ... on idebanken_Artikkel {
+       x {
+          idebanken {
+            articleTypeTags:aktuelt_tags {
+                typeTags { id name color }
+            }
+          }
+        }
         data {
             publicationDate
             heroImage {
