@@ -34,7 +34,7 @@ query($path:ID!,$offset:Int!,$count:Int!,$typeTagIds:String){
                                     description
                                     image { url caption }
                                     themeTags { id name }
-                                    typeTags { id name }
+                                    typeTags { id name color }
                                 }
                                 total(typeTagIds:$typeTagIds)
                                 availableTypeTags { id name }
