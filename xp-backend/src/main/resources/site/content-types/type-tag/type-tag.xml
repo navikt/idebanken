@@ -6,5 +6,6 @@
     <is-final>true</is-final>
     <allow-child-content>false</allow-child-content>
     <form>
+        <mixin name="color"/>
     </form>
 </content-type>

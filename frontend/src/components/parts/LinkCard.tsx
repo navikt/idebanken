@@ -1,9 +1,10 @@
-import type { Link_Card, Part_Idebanken_Link_Card, Tag } from '~/types/generated.d'
-import { Box, Link } from '@navikt/ds-react'
+import type { Link_Card, Part_Idebanken_Link_Card, Tag as TagType } from '~/types/generated.d'
+import { BodyShort, Box, Link } from '@navikt/ds-react'
 import {
     LinkCard,
     LinkCardAnchor,
     LinkCardDescription,
+    LinkCardFooter,
     LinkCardIcon,
     LinkCardImage,
     LinkCardTitle,
@@ -14,6 +15,7 @@ import { getAsset, getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { XP_LinkCard, XP_LinkCardList } from '@xp-types/site/parts'
 import NextLink from 'next/link'
+import { CircleFillIcon } from '@navikt/aksel-icons'
 
 export const LinkCardPartView = ({
     part,
@@ -41,8 +43,7 @@ export type LinkCardViewParams = Omit<
     Partial<Omit<XP_LinkCardList, 'list'>> & {
         description?: string | React.ReactNode
         meta: MetaData
-        themeTags?: Array<Tag>
-        typeTags?: Array<Tag>
+        typeTags?: Array<TagType>
         linkProps?: React.AnchorHTMLAttributes<HTMLAnchorElement> & {
             'data-umami-ignore'?: boolean
         }
@@ -52,8 +53,7 @@ export const LinkCardView = ({
     title,
     description,
     url,
-    // themeTags,
-    // typeTags,
+    typeTags,
     image,
     icon,
     external,
@@ -68,9 +68,9 @@ export const LinkCardView = ({
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
 
     return (
-        <LinkCard data-color={brand ?? 'neutral'} arrow={!hideArrow}>
+        <LinkCard data-color={brand ?? 'neutral'} arrow={!hideArrow} className={'group'}>
             {showImage && (
-                <LinkCardImage aspectRatio="16/8">
+                <LinkCardImage aspectRatio="16/9">
                     <Image
                         unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                         src={getAsset(image?.url ?? '/favicon/favicon.svg', meta)}
@@ -112,9 +112,12 @@ export const LinkCardView = ({
                 <LinkCardAnchor asChild>
                     <Link
                         as={NextLink}
-                        {...linkProps}
                         href={getUrl(url, meta) || '#'}
-                        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
+                        className={
+                            'underline decoration-transparent transition-colors ease-[cubic-bezier(0, 0, 0, 1)] duration-300 group-hover:decoration-current'
+                        }
+                        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        {...linkProps}>
                         {title}
                     </Link>
                 </LinkCardAnchor>
@@ -122,15 +125,27 @@ export const LinkCardView = ({
             {description && showDescription && (
                 <LinkCardDescription>{description}</LinkCardDescription>
             )}
-            {/* {themeTags && themeTags.length > 0 && (
+            {typeTags && typeTags?.length > 0 && (
                 <LinkCardFooter>
-                    {themeTags.map((tag, index) => (
-                        <Tag key={index} size="small" variant="neutral">
-                            {tag.name}
-                        </Tag>
+                    {typeTags.map(({ name, color }, index) => (
+                        <BodyShort
+                            as={'span'}
+                            key={index}
+                            size="small"
+                            className={
+                                'text-sm flex items-center flex-nowrap gap-(--ax-space-8) text-(--ib-text-dark-blue-icon)'
+                            }>
+                            <CircleFillIcon
+                                width={9}
+                                height={9}
+                                aria-hidden
+                                color={`var(--${color ?? 'ib-brand-black'})`}
+                            />
+                            {name}
+                        </BodyShort>
                     ))}
                 </LinkCardFooter>
-            )} */}
+            )}
         </LinkCard>
     )
 }

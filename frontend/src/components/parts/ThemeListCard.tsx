@@ -21,8 +21,7 @@ function normalizeCard(card: Theme_Card) {
         showDescription: true,
         displayType: 'withImage' as XP_DisplayImageOrIcon['displayType'],
         hideArrow: true,
-        themeTags: [],
-        typeTags: [],
+        typeTags: card.typeTags,
     }
 }
 

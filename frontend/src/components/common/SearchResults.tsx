@@ -1,6 +1,6 @@
 import styles from '../../styles/loading.module.css'
 
-import { getResultThemeTags, getResultTypeTags, SearchResult } from '~/utils/search'
+import { getResultTypeTags, SearchResult } from '~/utils/search'
 import { MetaData } from '@enonic/nextjs-adapter'
 import { BodyShort, VStack } from '@navikt/ds-react'
 import { LinkCardView } from '~/components/parts/LinkCard'
@@ -64,7 +64,6 @@ export default function SearchResults(
                                     customReplacer={htmlRichTextReplacer}
                                 />
                             }
-                            themeTags={getResultThemeTags(result, common)}
                             typeTags={getResultTypeTags(result, common)}
                             brand={'neutral'}
                             icon={{ url: result.iconUrl, iconColor: result.iconColor }}

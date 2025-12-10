@@ -822,12 +822,19 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   quote?: Maybe<Macro_Idebanken_Quote_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1259,7 +1266,6 @@ export type Part_Idebanken_Link_Card_ExternalLink = {
   __typename?: 'Part_idebanken_link_card_ExternalLink';
   description?: Maybe<Scalars['String']['output']>;
   icon?: Maybe<Content>;
-  iconColor?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Content>;
   linkText?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
@@ -1662,6 +1668,7 @@ export type StemmedDslExpressionInput = {
 export type Tag = {
   __typename?: 'Tag';
   caption?: Maybe<Scalars['String']['output']>;
+  color?: Maybe<Scalars['String']['output']>;
   iconColor?: Maybe<Scalars['String']['output']>;
   iconUrl?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -1699,12 +1706,12 @@ export type TextComponentDataValueArgs = {
 export type Theme_Card = {
   __typename?: 'Theme_card';
   description?: Maybe<Scalars['String']['output']>;
-  external?: Maybe<Scalars['Boolean']['output']>;
+  external: Scalars['Boolean']['output'];
   image?: Maybe<ResolvedMedia>;
-  themeTags?: Maybe<Array<Maybe<Tag>>>;
-  title?: Maybe<Scalars['String']['output']>;
-  typeTags?: Maybe<Array<Maybe<Tag>>>;
-  url?: Maybe<Scalars['String']['output']>;
+  themeTags: Array<Tag>;
+  title: Scalars['String']['output'];
+  typeTags: Array<Tag>;
+  url: Scalars['String']['output'];
 };
 
 /** Theme card list data */
@@ -2382,6 +2389,7 @@ export type Idebanken_AktueltTypeTag = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_AktueltTypeTag_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -2445,6 +2453,12 @@ export type Idebanken_AktueltTypeTagPageAsJsonArgs = {
 export type Idebanken_AktueltTypeTagPageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
+};
+
+/** Type - idebanken:aktuelt-type-tag data */
+export type Idebanken_AktueltTypeTag_Data = {
+  __typename?: 'idebanken_AktueltTypeTag_Data';
+  color?: Maybe<Scalars['String']['output']>;
 };
 
 /** Artikkel - idebanken:artikkel */
@@ -3483,6 +3497,7 @@ export type Idebanken_TypeTag = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_TypeTag_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -3546,6 +3561,12 @@ export type Idebanken_TypeTagPageAsJsonArgs = {
 export type Idebanken_TypeTagPageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
+};
+
+/** Type - idebanken:type-tag data */
+export type Idebanken_TypeTag_Data = {
+  __typename?: 'idebanken_TypeTag_Data';
+  color?: Maybe<Scalars['String']['output']>;
 };
 
 /** Qbrick Video - idebanken:video */
