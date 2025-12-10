@@ -60,7 +60,6 @@
                         </input>
                         <mixin name="image"/>
                         <mixin name="icon"/>
-                        <mixin name="icon-background-color"/>
                     </items>
                 </option>
             </options>

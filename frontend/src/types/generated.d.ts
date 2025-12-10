@@ -1266,7 +1266,6 @@ export type Part_Idebanken_Link_Card_ExternalLink = {
   __typename?: 'Part_idebanken_link_card_ExternalLink';
   description?: Maybe<Scalars['String']['output']>;
   icon?: Maybe<Content>;
-  iconColor?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Content>;
   linkText?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
@@ -1669,6 +1668,7 @@ export type StemmedDslExpressionInput = {
 export type Tag = {
   __typename?: 'Tag';
   caption?: Maybe<Scalars['String']['output']>;
+  color?: Maybe<Scalars['String']['output']>;
   iconColor?: Maybe<Scalars['String']['output']>;
   iconUrl?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
@@ -2389,6 +2389,7 @@ export type Idebanken_AktueltTypeTag = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_AktueltTypeTag_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -2452,6 +2453,12 @@ export type Idebanken_AktueltTypeTagPageAsJsonArgs = {
 export type Idebanken_AktueltTypeTagPageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
+};
+
+/** Type - idebanken:aktuelt-type-tag data */
+export type Idebanken_AktueltTypeTag_Data = {
+  __typename?: 'idebanken_AktueltTypeTag_Data';
+  color?: Maybe<Scalars['String']['output']>;
 };
 
 /** Artikkel - idebanken:artikkel */
@@ -3490,6 +3497,7 @@ export type Idebanken_TypeTag = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_TypeTag_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -3553,6 +3561,12 @@ export type Idebanken_TypeTagPageAsJsonArgs = {
 export type Idebanken_TypeTagPageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
+};
+
+/** Type - idebanken:type-tag data */
+export type Idebanken_TypeTag_Data = {
+  __typename?: 'idebanken_TypeTag_Data';
+  color?: Maybe<Scalars['String']['output']>;
 };
 
 /** Qbrick Video - idebanken:video */

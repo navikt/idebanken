@@ -261,16 +261,16 @@
     --ib-bg-pastel-yellow-strong-pressed: var(--ib-pastel-yellow-800);
     --ib-bg-pastel-yellow-strong-hover: var(--ib-pastel-yellow-700);
     --ib-bg-pastel-yellow-strong: var(--ib-pastel-yellow-600);
-    --ib-bg-pastel-yellow-moderate-pressedA: var(--ib-bg-pastel-yellow-400A);
-    --ib-bg-pastel-yellow-moderate-pressed: var(--ib-bg-pastel-yellow-400);
-    --ib-bg-pastel-yellow-moderate-hoverA: var(--ib-bg-pastel-yellow-300A);
-    --ib-bg-pastel-yellow-moderate-hover: var(--ib-bg-pastel-yellow-300);
-    --ib-bg-pastel-yellow-moderateA: var(--ib-bg-pastel-yellow-200A);
-    --ib-bg-pastel-yellow-moderate: var(--ib-bg-pastel-yellow-200);
-    --ib-bg-pastel-yellow-softA: var(--ib-bg-pastel-yellow-100A);
-    --ib-bg-pastel-yellow-soft: var(--ib-bg-pastel-yellow-100);
-    --ib-bg-pastel-yellow-raised: var(--ib-bg-pastel-yellow-300);
-    --ib-bg-pastel-yellow-default: var(--ib-bg-pastel-yellow-100);
+    --ib-bg-pastel-yellow-moderate-pressedA: var(--ib-pastel-yellow-400A);
+    --ib-bg-pastel-yellow-moderate-pressed: var(--ib-pastel-yellow-400);
+    --ib-bg-pastel-yellow-moderate-hoverA: var(--ib-pastel-yellow-300A);
+    --ib-bg-pastel-yellow-moderate-hover: var(--ib-pastel-yellow-300);
+    --ib-bg-pastel-yellow-moderateA: var(--ib-pastel-yellow-200A);
+    --ib-bg-pastel-yellow-moderate: var(--ib-pastel-yellow-200);
+    --ib-bg-pastel-yellow-softA: var(--ib-pastel-yellow-100A);
+    --ib-bg-pastel-yellow-soft: var(--ib-pastel-yellow-100);
+    --ib-bg-pastel-yellow-raised: var(--ib-pastel-yellow-300);
+    --ib-bg-pastel-yellow-default: var(--ib-pastel-yellow-100);
 }
 
 /* Semantic mappings */

@@ -149,6 +149,7 @@ query($path:ID!){
     typeTags {
         name
         id
+        color
         iconUrl
         iconColor
     }

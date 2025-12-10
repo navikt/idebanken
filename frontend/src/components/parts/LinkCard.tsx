@@ -114,9 +114,7 @@ export const LinkCardView = ({
                         as={NextLink}
                         href={getUrl(url, meta) || '#'}
                         className={
-                            hideArrow
-                                ? 'underline decoration-transparent transition-colors ease-[cubic-bezier(0, 0, 0, 1)] duration-300 group-hover:decoration-current'
-                                : 'no-underline group-hover:no-underline'
+                            'underline decoration-transparent transition-colors ease-[cubic-bezier(0, 0, 0, 1)] duration-300 group-hover:decoration-current'
                         }
                         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                         {...linkProps}>
@@ -129,7 +127,7 @@ export const LinkCardView = ({
             )}
             {typeTags && typeTags?.length > 0 && (
                 <LinkCardFooter>
-                    {typeTags.map(({ name, iconColor }, index) => (
+                    {typeTags.map(({ name, color }, index) => (
                         <BodyShort
                             as={'span'}
                             key={index}
@@ -141,7 +139,7 @@ export const LinkCardView = ({
                                 width={9}
                                 height={9}
                                 aria-hidden
-                                color={iconColor ? `var(--${iconColor})` : 'lightgray'}
+                                color={`var(--${color ?? 'ib-brand-black'})`}
                             />
                             {name}
                         </BodyShort>

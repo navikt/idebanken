@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>
+        <input name="color" type="ComboBox">
+            <label>Farge</label>
+            <occurrences minimum="0" maximum="1"/>
+            <config>
+                <option value="ib-brand-white">Hvit</option>
+                <option value="ib-pink-400A">Rosa</option>
+                <option value="ib-dark-blue-400A">Blå</option>
+                <option value="ib-orange-400A">Orange</option>
+                <option value="ib-pastel-yellow-300A">Gul</option>
+            </config>
+        </input>
+    </form>
+</mixin>
