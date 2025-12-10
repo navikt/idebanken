@@ -1,5 +1,5 @@
-import type { Link_Card, Part_Idebanken_Link_Card, Tag } from '~/types/generated.d'
-import { Box, Link } from '@navikt/ds-react'
+import type { Link_Card, Part_Idebanken_Link_Card, Tag as TagType } from '~/types/generated.d'
+import { BodyShort, Box, Link } from '@navikt/ds-react'
 import {
     LinkCard,
     LinkCardAnchor,
@@ -41,8 +41,7 @@ export type LinkCardViewParams = Omit<
     Partial<Omit<XP_LinkCardList, 'list'>> & {
         description?: string | React.ReactNode
         meta: MetaData
-        themeTags?: Array<Tag>
-        typeTags?: Array<Tag>
+        typeTags?: Array<TagType>
         linkProps?: React.AnchorHTMLAttributes<HTMLAnchorElement> & {
             'data-umami-ignore'?: boolean
         }
@@ -52,8 +51,7 @@ export const LinkCardView = ({
     title,
     description,
     url,
-    // themeTags,
-    // typeTags,
+    typeTags,
     image,
     icon,
     external,
