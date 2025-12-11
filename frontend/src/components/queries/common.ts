@@ -160,14 +160,11 @@ query($path:ID!){
         name
         id
         iconUrl
-        iconColor
     }
     typeTags {
         name
         id
         color
-        iconUrl
-        iconColor
     }
     siteConfiguration {
         searchPageHref

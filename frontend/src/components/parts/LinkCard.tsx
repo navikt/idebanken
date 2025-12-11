@@ -81,15 +81,7 @@ export const LinkCardView = ({
                 </LinkCardImage>
             )}
             {showIcon && icon?.url && (
-                <Box
-                    asChild
-                    padding="space-12"
-                    className="rounded-full"
-                    style={
-                        icon?.iconColor
-                            ? { backgroundColor: `var(--${icon?.iconColor})` }
-                            : undefined
-                    }>
+                <Box asChild padding="space-12" className="rounded-full">
                     <LinkCardIcon>
                         <Image
                             unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
@@ -126,7 +118,7 @@ export const LinkCardView = ({
                 <LinkCardDescription>{description}</LinkCardDescription>
             )}
             {typeTags && typeTags?.length > 0 && (
-                <LinkCardFooter>
+                <LinkCardFooter className={'gap-(--ax-space-20)'}>
                     {typeTags.map(({ name, color }, index) => (
                         <BodyShort
                             as={'span'}

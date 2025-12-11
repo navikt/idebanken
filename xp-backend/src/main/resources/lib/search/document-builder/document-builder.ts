@@ -29,7 +29,6 @@ export type SearchDocument = {
         metatags?: string[]
         keywords?: string[]
         iconUrl?: string
-        iconColor?: string
         themeTags?: string[]
         typeTags?: string[]
     }
@@ -87,7 +86,6 @@ class ExternalSearchDocumentBuilder {
                 metatags: forceArray(content.data.metatags),
                 keywords: forceArray(content.data.keywords),
                 iconUrl: resolveIcon(content, false)?.url,
-                iconColor: ibxData?.meta?.iconColor,
                 themeTags: forceArray(tags?.themeTags),
                 typeTags: forceArray(tags?.typeTags),
             },

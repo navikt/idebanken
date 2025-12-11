@@ -64,9 +64,9 @@ export default function SearchResults(
                                     customReplacer={htmlRichTextReplacer}
                                 />
                             }
-                            typeTags={getResultTypeTags(result, common)}
+                            typeTags={getResultTypeTags(result, meta, common)}
                             brand={'neutral'}
-                            icon={{ url: result.iconUrl, iconColor: result.iconColor }}
+                            icon={{ url: result.iconUrl }}
                             key={index}
                             meta={meta}
                             linkProps={{ 'data-umami-ignore': true }}

@@ -1660,9 +1660,7 @@ export type StemmedDslExpressionInput = {
 /** Resolved tag */
 export type Tag = {
   __typename?: 'Tag';
-  caption?: Maybe<Scalars['String']['output']>;
   color?: Maybe<Scalars['String']['output']>;
-  iconColor?: Maybe<Scalars['String']['output']>;
   iconUrl?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];

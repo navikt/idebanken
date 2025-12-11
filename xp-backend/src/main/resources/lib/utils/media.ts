@@ -11,7 +11,6 @@ export type ResolvedMedia = {
     url?: string
     caption?: string
     altText?: string
-    iconColor?: string
 }
 type IdOrContent = Content | string | undefined
 
@@ -53,8 +52,7 @@ export function resolveImage(
 
 export function resolveIcon(
     idOrContent?: IdOrContent | null,
-    defaultToThemeTagIcon = true,
-    iconColor?: string
+    defaultToThemeTagIcon = true
 ): ResolvedMedia {
     const content = idOrContentToContent(idOrContent)
     if (!content?._id) return {}
@@ -69,12 +67,11 @@ export function resolveIcon(
             url: imageUrl({ id: content._id, scale: 'full', type: 'absolute' }),
             caption: content?.data?.caption,
             altText: content?.data?.altText ?? content?.data?.caption,
-            iconColor,
         }
     } else if (metaIcon) {
-        return resolveMedia(metaIcon, 'full', iconColor || ibX?.meta?.iconColor)
+        return resolveMedia(metaIcon, 'full')
     } else if (defaultToThemeTagIcon && fistThemeTagIcon) {
-        return resolveMedia(fistThemeTagIcon, 'full', iconColor)
+        return resolveMedia(fistThemeTagIcon, 'full')
     } else {
         return {}
     }
@@ -82,15 +79,14 @@ export function resolveIcon(
 
 function resolveMedia(
     idOrContent?: IdOrContent | null,
-    scale: ImageUrlParams['scale'] = 'full',
-    iconColor?: string
+    scale: ImageUrlParams['scale'] = 'full'
 ): ResolvedMedia {
     const content = idOrContentToContent(idOrContent)
     if (!content?._id) return {}
 
     if (content.type === 'idebanken:theme-tag') {
         const meta = content?.x?.idebanken?.meta
-        return resolveMedia(meta?.icon, scale, iconColor || meta?.iconColor)
+        return resolveMedia(meta?.icon, scale)
     }
 
     const data = content?.data as MediaImageContent['data']
@@ -111,7 +107,6 @@ function resolveMedia(
         url: url,
         caption: data.caption,
         altText: data?.altText || data?.caption,
-        iconColor,
     }
 }
 
