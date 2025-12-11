@@ -1,5 +1,5 @@
 import type { Link_Card, Part_Idebanken_Link_Card, Tag as TagType } from '~/types/generated.d'
-import { BodyShort, Box, Link } from '@navikt/ds-react'
+import { Box, Link } from '@navikt/ds-react'
 import {
     LinkCard,
     LinkCardAnchor,
@@ -15,7 +15,7 @@ import { getAsset, getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { XP_LinkCard, XP_LinkCardList } from '@xp-types/site/parts'
 import NextLink from 'next/link'
-import { CircleFillIcon } from '@navikt/aksel-icons'
+import TagView from '~/components/common/TagView'
 
 export const LinkCardPartView = ({
     part,
@@ -128,21 +128,7 @@ export const LinkCardView = ({
             {typeTags && typeTags?.length > 0 && (
                 <LinkCardFooter>
                     {typeTags.map(({ name, color }, index) => (
-                        <BodyShort
-                            as={'span'}
-                            key={index}
-                            size="small"
-                            className={
-                                'text-sm flex items-center flex-nowrap gap-(--ax-space-8) text-(--ib-text-dark-blue-icon)'
-                            }>
-                            <CircleFillIcon
-                                width={9}
-                                height={9}
-                                aria-hidden
-                                color={`var(--${color ?? 'ib-brand-black'})`}
-                            />
-                            {name}
-                        </BodyShort>
+                        <TagView key={index} name={name} color={color} size="small" />
                     ))}
                 </LinkCardFooter>
             )}

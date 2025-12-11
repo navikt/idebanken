@@ -7,8 +7,7 @@ import { XP_TitleIngress } from '@xp-types/site/parts'
 import { RENDER_MODE } from '@enonic/nextjs-adapter'
 import { HeroImage } from '~/components/common/HeroImage'
 import type { Tag as TagType } from '~/types/generated.d'
-import { BodyShort } from '@navikt/ds-react/Typography'
-import { CircleFillIcon } from '@navikt/aksel-icons'
+import TagView from '~/components/common/TagView'
 
 type IdebankenX = { articleTypeTags?: { typeTags?: (TagType | null)[] | null } | null }
 
@@ -51,23 +50,9 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
                 unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
             />
             {typeTags.map(({ name, color }, index) => (
-                <BodyShort
-                    as={'span'}
-                    key={index}
-                    size="small"
-                    className={
-                        'text-sm flex items-center flex-nowrap gap-(--ax-space-8) text-(--ib-text-dark-blue-icon)'
-                    }>
-                    <CircleFillIcon
-                        width={9}
-                        height={9}
-                        aria-hidden
-                        color={`var(--${color ?? 'ib-brand-black'})`}
-                    />
-                    {name}
-                </BodyShort>
+                <TagView key={index} name={name} color={color} size="small" />
             ))}
-            <HeadingView level="1" size={headingSize} className="m-0">
+            <HeadingView level="1" size={headingSize} className="!m-0">
                 {title}
             </HeadingView>
             <RichTextView
