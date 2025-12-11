@@ -118,7 +118,7 @@ export const articleCardListExtensions = ({
                     },
                 }).hits
 
-                return tags.map((c) => ({ id: c._id, name: c.displayName }))
+                return tags.map((c) => ({ id: c._id, name: c.displayName, color: c.data?.color }))
             },
         },
     },

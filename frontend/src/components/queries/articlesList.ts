@@ -37,7 +37,7 @@ query($path:ID!,$offset:Int!,$count:Int!,$typeTagIds:String){
                                     typeTags { id name color }
                                 }
                                 total(typeTagIds:$typeTagIds)
-                                availableTypeTags { id name }
+                                availableTypeTags { id name color }
                             }
                         }
                     }
