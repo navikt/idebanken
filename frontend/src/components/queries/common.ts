@@ -75,20 +75,6 @@ query($path:ID!){
       type
       dataAsJson
       xAsJson
-      x {
-        idebanken {
-          meta {
-            icon {
-              ... on media_Vector {
-                mediaUrl(type: absolute)
-                data {
-                  caption
-                }
-              }
-            }
-          }
-        }
-      }
       ... on idebanken_Kjerneartikkel {
         x {
           idebanken {

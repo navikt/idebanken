@@ -6,6 +6,7 @@ import { forceArray } from '/lib/utils/array-utils'
 import { logger } from '/lib/utils/logging'
 import { get as getContext } from '/lib/xp/context'
 import { URLS } from '/lib/constants'
+import { ThemeTag } from '@xp-types/site/content-types'
 
 export type ResolvedMedia = {
     url?: string
@@ -57,10 +58,9 @@ export function resolveIcon(
     const content = idOrContentToContent(idOrContent)
     if (!content?._id) return {}
 
-    const ibX = content?.x?.idebanken
-    const metaIcon = ibX?.meta?.icon
-    const tags = getTags(ibX)
+    const tags = getTags(content?.x?.idebanken)
     const fistThemeTagIcon = forceArray(tags?.themeTags)[0]
+    const contentIcon = content?.data?.icon as string | null | undefined
 
     if (isMedia(content)) {
         return {
@@ -68,8 +68,8 @@ export function resolveIcon(
             caption: content?.data?.caption,
             altText: content?.data?.altText ?? content?.data?.caption,
         }
-    } else if (metaIcon) {
-        return resolveMedia(metaIcon, 'full')
+    } else if (contentIcon) {
+        return resolveMedia(contentIcon, 'full')
     } else if (defaultToThemeTagIcon && fistThemeTagIcon) {
         return resolveMedia(fistThemeTagIcon, 'full')
     } else {
@@ -85,8 +85,8 @@ function resolveMedia(
     if (!content?._id) return {}
 
     if (content.type === 'idebanken:theme-tag') {
-        const meta = content?.x?.idebanken?.meta
-        return resolveMedia(meta?.icon, scale)
+        const themeIcon = (content as Content<ThemeTag>)?.data?.icon
+        return resolveMedia(themeIcon, scale)
     }
 
     const data = content?.data as MediaImageContent['data']

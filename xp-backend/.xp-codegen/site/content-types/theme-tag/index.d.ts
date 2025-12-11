@@ -24,4 +24,9 @@ export type ThemeTag = {
    * Overskriv lenkekort bilde
    */
   overrideImage?: string;
+
+  /**
+   * Ikon
+   */
+  icon?: string;
 };

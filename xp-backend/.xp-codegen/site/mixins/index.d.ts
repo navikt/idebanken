@@ -7,7 +7,6 @@ export type Color = import('./color').Color;
 export type DisplayImageOrIcon = import('./display-image-or-icon').DisplayImageOrIcon;
 export type HeadingColor = import('./heading-color').HeadingColor;
 export type Icon = import('./icon').Icon;
-export type IconBackgroundColor = import('./icon-background-color').IconBackgroundColor;
 export type Image = import('./image').Image;
 export type LinkGroups = import('./link-groups').LinkGroups;
 export type LinkSelector = import('./link-selector').LinkSelector;

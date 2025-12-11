@@ -1,8 +1,6 @@
 <x-data>
-    <display-name>Meta</display-name>
+    <display-name>Skjul innhold fra...</display-name>
     <form>
-        <mixin name="icon" />
-        <mixin name="icon-background-color" />
         <input type="CheckBox" name="hideFromListViews">
             <label>Skjul fra listevisning</label>
             <description>Velg denne for å hindre at innholdet vises i lister</description>

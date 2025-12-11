@@ -1577,7 +1577,6 @@ export type ResolvedMedia = {
   __typename?: 'ResolvedMedia';
   altText?: Maybe<Scalars['String']['output']>;
   caption?: Maybe<Scalars['String']['output']>;
-  iconColor?: Maybe<Scalars['String']['output']>;
   url?: Maybe<Scalars['String']['output']>;
 };
 
@@ -1861,8 +1860,6 @@ export type XData_Idebanken_Meta_DataConfig = {
   __typename?: 'XData_idebanken_meta_DataConfig';
   hideFromInternalSearch?: Maybe<Scalars['Boolean']['output']>;
   hideFromListViews?: Maybe<Scalars['Boolean']['output']>;
-  icon?: Maybe<Content>;
-  iconColor?: Maybe<Scalars['String']['output']>;
 };
 
 /** Extra data config for application ['idebanken}'] and descriptor ['tags'] */
@@ -3460,6 +3457,7 @@ export type Idebanken_ThemeTagPageUrlArgs = {
 export type Idebanken_ThemeTag_Data = {
   __typename?: 'idebanken_ThemeTag_Data';
   description?: Maybe<Scalars['String']['output']>;
+  icon?: Maybe<Content>;
   ingress?: Maybe<RichText>;
   overrideImage?: Maybe<Content>;
   shortTitle?: Maybe<Scalars['String']['output']>;
