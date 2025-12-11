@@ -1,6 +1,6 @@
 import { forceArray } from '~/utils/utils'
 import { Tag } from '~/types/generated'
-import { IS_DEV_MODE } from '@enonic/nextjs-adapter'
+import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { SOK_FACET_PARAM, SOK_FACET_TYPE_TAG, SOK_UNDER_FACET_PARAM } from '~/utils/constants'
 import { ReadonlyURLSearchParams } from 'next/navigation'
 import { CommonType } from '~/types/graphql-types'
@@ -61,21 +61,24 @@ const isCommonType = (obj: object): obj is CommonType<unknown> =>
 
 export function getResultTypeTags(
     result: SearchResult['hits'][0],
+    meta: MetaData,
     commonOrTypeTagMap?: CommonType<unknown> | Record<string, Tag>
 ) {
     if (!commonOrTypeTagMap) return []
     const isCommon = isCommonType(commonOrTypeTagMap)
     return [
         ...forceArray(result.typeTags)?.reduce((acc: Array<Tag>, curr) => {
-            const type = isCommon
-                ? commonOrTypeTagMap?.typeTags?.find((type) => type.id === curr)?.name
-                : commonOrTypeTagMap[curr]?.name
-            if (type) {
-                acc.push({ name: type, id: '' })
+            const tag = isCommon
+                ? commonOrTypeTagMap?.typeTags?.find((type) => type.id === curr)
+                : commonOrTypeTagMap[curr]
+            if (tag) {
+                acc.push({ name: tag.name, color: tag.color, id: '' })
             }
             return acc
         }, []),
-        ...(IS_DEV_MODE ? [{ name: `Score: ${result.score}`, id: '' }] : []),
+        ...(meta?.renderMode !== RENDER_MODE.NEXT
+            ? [{ name: `Score: ${result.score}`, id: '' }]
+            : []),
     ]
 }
 
@@ -105,7 +108,6 @@ export type SearchResult = {
         language: string
         type: string
         iconUrl?: string
-        iconColor?: string
         themeTags?: Array<string>
         typeTags?: Array<string>
         score: number

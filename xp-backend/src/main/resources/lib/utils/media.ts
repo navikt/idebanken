@@ -6,12 +6,12 @@ import { forceArray } from '/lib/utils/array-utils'
 import { logger } from '/lib/utils/logging'
 import { get as getContext } from '/lib/xp/context'
 import { URLS } from '/lib/constants'
+import { ThemeTag } from '@xp-types/site/content-types'
 
 export type ResolvedMedia = {
     url?: string
     caption?: string
     altText?: string
-    iconColor?: string
 }
 type IdOrContent = Content | string | undefined
 
@@ -53,28 +53,25 @@ export function resolveImage(
 
 export function resolveIcon(
     idOrContent?: IdOrContent | null,
-    defaultToThemeTagIcon = true,
-    iconColor?: string
+    defaultToThemeTagIcon = true
 ): ResolvedMedia {
     const content = idOrContentToContent(idOrContent)
     if (!content?._id) return {}
 
-    const ibX = content?.x?.idebanken
-    const metaIcon = ibX?.meta?.icon
-    const tags = getTags(ibX)
+    const tags = getTags(content?.x?.idebanken)
     const fistThemeTagIcon = forceArray(tags?.themeTags)[0]
+    const contentIcon = content?.data?.icon as string | null | undefined
 
     if (isMedia(content)) {
         return {
             url: imageUrl({ id: content._id, scale: 'full', type: 'absolute' }),
             caption: content?.data?.caption,
             altText: content?.data?.altText ?? content?.data?.caption,
-            iconColor,
         }
-    } else if (metaIcon) {
-        return resolveMedia(metaIcon, 'full', iconColor || ibX?.meta?.iconColor)
+    } else if (contentIcon) {
+        return resolveMedia(contentIcon, 'full')
     } else if (defaultToThemeTagIcon && fistThemeTagIcon) {
-        return resolveMedia(fistThemeTagIcon, 'full', iconColor)
+        return resolveMedia(fistThemeTagIcon, 'full')
     } else {
         return {}
     }
@@ -82,15 +79,14 @@ export function resolveIcon(
 
 function resolveMedia(
     idOrContent?: IdOrContent | null,
-    scale: ImageUrlParams['scale'] = 'full',
-    iconColor?: string
+    scale: ImageUrlParams['scale'] = 'full'
 ): ResolvedMedia {
     const content = idOrContentToContent(idOrContent)
     if (!content?._id) return {}
 
     if (content.type === 'idebanken:theme-tag') {
-        const meta = content?.x?.idebanken?.meta
-        return resolveMedia(meta?.icon, scale, iconColor || meta?.iconColor)
+        const themeIcon = (content as Content<ThemeTag>)?.data?.icon
+        return resolveMedia(themeIcon, scale)
     }
 
     const data = content?.data as MediaImageContent['data']
@@ -111,7 +107,6 @@ function resolveMedia(
         url: url,
         caption: data.caption,
         altText: data?.altText || data?.caption,
-        iconColor,
     }
 }
 

@@ -7,5 +7,6 @@
     <allow-child-content>false</allow-child-content>
     <form>
         <mixin name="title-ingress"/>
+        <mixin name="icon"/>
     </form>
 </content-type>
