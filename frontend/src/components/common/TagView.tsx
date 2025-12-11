@@ -13,7 +13,7 @@ export default function TagView({
     return (
         <Tag
             variant="neutral"
-            className="shadow-none bg-transparent !m-0 gap-1"
+            className="shadow-none bg-transparent !m-0 p-0 gap-1.5"
             size={size}
             icon={
                 <CircleFillIcon
