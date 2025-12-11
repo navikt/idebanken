@@ -89,7 +89,7 @@ function resolveLinkCardExternalLink(externalLink: LinkCardExternalLink): LinkCa
         description: externalLink.description,
         themeTags: [],
         typeTags: [],
-        icon: resolveIcon(externalLink.icon, false, externalLink.iconColor),
+        icon: resolveIcon(externalLink.icon, false),
         image: resolveImage(externalLink.image, 'height(800)'),
     }
 }

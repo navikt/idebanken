@@ -24,4 +24,9 @@ export type XP_ThemeTag = {
    * Overskriv lenkekort bilde
    */
   overrideImage?: string;
+
+  /**
+   * Ikon
+   */
+  icon?: string;
 };

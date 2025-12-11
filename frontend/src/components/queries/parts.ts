@@ -75,22 +75,16 @@ export const linkCardQuery = `{
         icon {
             url
             caption
-            iconColor
         }
         themeTags {
             name
             id
             iconUrl
-            iconColor
-            caption
         }
         typeTags {
             name
             id
             color
-            iconUrl
-            iconColor
-            caption
         }
     }
 }`
@@ -121,22 +115,16 @@ export const linkCardListQuery = `{
         icon {
             url
             caption
-            iconColor
         }
         themeTags {
             name
             id
             iconUrl
-            iconColor
-            caption
         }
         typeTags {
             name
             id
             color
-            iconUrl
-            iconColor
-            caption
         }
     }
 }`
@@ -209,7 +197,7 @@ export const themeCardListQuery = `{
             description
             image { url caption }
             themeTags { id name }
-            typeTags { id name }
+            typeTags { id name color }
         }
     }
 }`

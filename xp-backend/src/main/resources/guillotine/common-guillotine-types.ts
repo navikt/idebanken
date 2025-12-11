@@ -76,9 +76,6 @@ export const commonGuillotineTypes = ({
             altText: {
                 type: GraphQLString,
             },
-            iconColor: {
-                type: GraphQLString,
-            },
         },
         interfaces: [],
     },
