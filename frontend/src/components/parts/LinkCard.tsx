@@ -1,5 +1,5 @@
 import type { Link_Card, Part_Idebanken_Link_Card, Tag as TagType } from '~/types/generated.d'
-import { BodyShort, Box, Link } from '@navikt/ds-react'
+import { BodyShort, Link } from '@navikt/ds-react'
 import {
     LinkCard,
     LinkCardAnchor,
@@ -81,24 +81,22 @@ export const LinkCardView = ({
                 </LinkCardImage>
             )}
             {showIcon && icon?.url && (
-                <Box asChild padding="space-12" className="rounded-full">
-                    <LinkCardIcon>
-                        <Image
-                            unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
-                            src={icon.url}
-                            alt=""
-                            aria-hidden
-                            role="presentation"
-                            width={24}
-                            height={24}
-                            className={
-                                /\.svg(\?.*)?$/i.test(icon.url)
-                                    ? 'dark:invert dark:brightness-0 dark:contrast-50'
-                                    : undefined
-                            }
-                        />
-                    </LinkCardIcon>
-                </Box>
+                <LinkCardIcon>
+                    <Image
+                        unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                        src={icon.url}
+                        alt=""
+                        aria-hidden
+                        role="presentation"
+                        width={56}
+                        height={56}
+                        className={
+                            /\.svg(\?.*)?$/i.test(icon.url)
+                                ? 'dark:invert dark:brightness-0 dark:contrast-50'
+                                : undefined
+                        }
+                    />
+                </LinkCardIcon>
             )}
             <LinkCardTitle>
                 <LinkCardAnchor asChild>
