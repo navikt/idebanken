@@ -11,6 +11,7 @@ export type XP_Image = import('./image').XP_Image;
 export type XP_LinkCard = import('./link-card').XP_LinkCard;
 export type XP_LinkCardList = import('./link-card-list').XP_LinkCardList;
 export type XP_NewsletterSignup = import('./newsletter-signup').XP_NewsletterSignup;
+export type XP_Quote = import('./quote').XP_Quote;
 export type XP_SearchView = import('./search-view').XP_SearchView;
 export type XP_ShowMore = import('./show-more').XP_ShowMore;
 export type XP_Skyra = import('./skyra').XP_Skyra;
@@ -35,6 +36,7 @@ declare global {
     'idebanken:link-card': XP_LinkCard;
     'idebanken:link-card-list': XP_LinkCardList;
     'idebanken:newsletter-signup': XP_NewsletterSignup;
+    'idebanken:quote': XP_Quote;
     'idebanken:search-view': XP_SearchView;
     'idebanken:show-more': XP_ShowMore;
     'idebanken:skyra': XP_Skyra;
