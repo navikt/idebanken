@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+     <display-name>Sitat</display-name>
+    <description>En boks for å fremheve sitater</description>
+    <form>
+        <input type="TextArea" name="body">
+            <label>Innhold</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input type="TextLine" name="source">
+            <label>Kilde</label>
+            <occurrences minimum="0" maximum="1"/>
+        </input>
+    </form>
+</part>

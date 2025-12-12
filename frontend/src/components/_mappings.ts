@@ -44,11 +44,11 @@ import { VideoPreview } from '~/components/contentType/VideoPreview'
 import { VideoPartOrMacro } from '~/components/parts/VideoPartOrMacro'
 import { videoContentTypeQuery } from '~/components/queries/content-types'
 import { ArticlesLinkCardList } from '~/components/parts/ArticlesLinkCardList'
-import { Quote } from '~/components/macros/Quote'
 import { CookieConsentToggle } from '~/components/common/cookies/CookieConsentToggle'
 import { CookieBannerOpenButton } from '~/components/common/cookies/CookieBannerOpenButton'
 import ThemeCardList from '~/components/parts/ThemeListCard'
 import { getArticleData, articleListProcessor } from './queries/articlesList'
+import { QuotePartOrMacro } from './parts/QuotePartOrMacro'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -108,7 +108,7 @@ ComponentRegistry.addMacro(`${APP_NAME}:video`, {
 })
 
 ComponentRegistry.addMacro(`${APP_NAME}:quote`, {
-    view: Quote,
+    view: QuotePartOrMacro,
     configQuery: `{
         body
         source
@@ -221,6 +221,14 @@ ComponentRegistry.addPart(`${APP_NAME}:show-more`, {
 ComponentRegistry.addPart(`${APP_NAME}:video`, {
     view: VideoPartOrMacro,
     configQuery: videoPartOrMacroQuery,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:quote`, {
+    view: QuotePartOrMacro,
+    configQuery: `{
+        body
+        source
+    }`,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:cookie-consent-toggle`, {
