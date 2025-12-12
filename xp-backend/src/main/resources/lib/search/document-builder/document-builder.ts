@@ -79,7 +79,7 @@ class ExternalSearchDocumentBuilder {
             ingress: this.getIngress(),
             text: this.getText(),
             metadata: {
-                createdAt: publishedTime,
+                createdAt: content.data?.publicationDate || publishedTime,
                 lastUpdated: content.modifiedTime || publishedTime,
                 language: 'nb',
                 type: content.type?.split(':').pop() ?? content.type,
