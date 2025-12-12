@@ -6,12 +6,13 @@ import { Part_Idebanken_Article_Card_List } from '~/types/generated'
 
 type Tag = Part_Idebanken_Article_Card_List['availableTypeTags'][number]
 
-// Build a ::before dot class using a specific CSS var (e.g. ib-orange-400A)
-function dotClass(colorVar: string): string {
-    console.log(colorVar)
-    // colorVar is like "ib-orange-400A" -> before:bg-[var(--ib-orange-400A)]
-    return `before:content-[""] before:inline-block before:mr-2 before:w-3 before:h-3 before:rounded-full before:bg-[var(--${colorVar})]`
-}
+const DOT_BASE = `before:content-[""] 
+    before:inline-block 
+    before:mr-2 
+    before:w-4 
+    before:h-4 
+    before:rounded-full 
+    before:bg-current`
 
 export function FilterChips({
     tags,
@@ -28,7 +29,12 @@ export function FilterChips({
     onToggleTag: (id: string) => void
     allLabel?: string
 }) {
-    const baseChip = 'shadow-none rounded-[74px] py-[var(--ax-space-12)] px-[var(--ax-space-24)]'
+    const baseChip = `shadow-none 
+        rounded-[74px] 
+        py-[var(--ax-space-12)] 
+        px-[var(--ax-space-24)] 
+        data-[pressed=true]:bg-[var(--ib-bg-dark-blue-strong)]`
+
     const commonChipProps = { checkmark: false }
 
     return (
@@ -42,14 +48,18 @@ export function FilterChips({
             </ChipsToggle>
 
             {tags.map((tag) => {
-                const colorVar = tag.color || 'ib-brand-black'
-                const withDot = dotClass(colorVar)
-
+                const token = tag.color || 'ib-brand-black'
                 return (
                     <ChipsToggle
                         {...commonChipProps}
                         key={tag.id}
-                        className={`${baseChip} ${withDot}`}
+                        className={[
+                            baseChip,
+                            DOT_BASE,
+                            '[&>span]:text-[color:var(--ax-text-default)]',
+                            'data-[pressed=true]:[&>span]:text-[color:var(--ax-text-contrast)]',
+                        ].join(' ')}
+                        style={{ color: `var(--${token})` }}
                         selected={!showAll && selectedIds.has(tag.id)}
                         onClick={() => onToggleTag(tag.id)}>
                         {tag.name}
