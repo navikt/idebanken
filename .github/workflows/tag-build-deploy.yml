@@ -98,8 +98,10 @@ jobs:
 
   frontend-build-and-deploy:
     name: Build and upload frontend artifact
-    needs: bump
-    if: needs.bump.result == 'success' && needs.bump.outputs.changed-frontend == 'true'
+    needs: [xp-app-download-and-deploy, bump]
+    if: |
+      needs.bump.outputs.changed-frontend == 'true' && 
+      (needs.xp-app-download-and-deploy.result == 'success' || needs.xp-app-download-and-deploy.result == 'skipped')
     secrets: inherit
     uses: ./.github/workflows/frontend-build-deploy.yml
     permissions:
