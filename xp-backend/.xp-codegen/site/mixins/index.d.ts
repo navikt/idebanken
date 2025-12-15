@@ -14,3 +14,4 @@ export type OverrideWidth = import('./override-width').OverrideWidth;
 export type PaddingY = import('./padding-y').PaddingY;
 export type SimpleTextEditor = import('./simple-text-editor').SimpleTextEditor;
 export type TitleIngress = import('./title-ingress').TitleIngress;
+export type Video = import('./video').Video;

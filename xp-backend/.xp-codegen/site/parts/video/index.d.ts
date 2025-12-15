@@ -6,6 +6,11 @@ export type Video = {
   targetContent: string;
 
   /**
+   * Visning før avspilling
+   */
+  displayType: 'small' | 'large';
+
+  /**
    * Overstyr språk for undertekster
    */
   language?: string;
