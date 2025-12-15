@@ -43,7 +43,10 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
             {displayType === 'large' ? (
                 <Button
                     aria-label={`Se video: ${title}${duration > 0 ? `, varighet er ${durationAsString} min` : ''}`}
-                    className={'pb-[56.25%] relative w-full group'}
+                    className={classNames(
+                        'pb-[56.25%] relative w-full group',
+                        playerState === 'ready' && style.hidden
+                    )}
                     onClick={() => {
                         if (meta.renderMode === RENDER_MODE.NEXT) {
                             createAndStartPlayer()
@@ -134,7 +137,7 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                 className={classNames(
                     style.macroVideo,
                     playerState !== 'ready' && style.hidden,
-                    '*:rounded-[var(--ax-border-radius-medium)]!'
+                    '[&_*]:rounded-[var(--ax-border-radius-medium)]!'
                 )}
                 id={videoContainerId}
                 title={title}
