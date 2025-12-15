@@ -4,7 +4,7 @@ import style from './QbrickVideo.module.css'
 
 import Image from 'next/image'
 import React, { useEffect, useId } from 'react'
-import { Button, Detail, InlineMessage, Label, Loader } from '@navikt/ds-react'
+import { Box, Button, Detail, InlineMessage, Label, Loader } from '@navikt/ds-react'
 import Script from 'next/script'
 import classNames from 'classnames'
 import { useQbrickPlayerState } from '~/components/common/qbrick-video/useQbrickPlayerState'
@@ -31,7 +31,7 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
     const durationAsString = getTimestampFromDuration(duration)
 
     return (
-        <div className={style.wrapper}>
+        <Box className={'mb-(--ax-space-32)'}>
             <Script
                 src={'https://play2.qbrick.com/qbrick-player/framework/GoBrain.min.js'}
                 async={true}
@@ -42,9 +42,9 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
             />
             {displayType === 'large' ? (
                 <Button
-                    aria-label={`Se video: ${title}${duration > 0 ? `, varighet er ${durationAsString} min` : ''}`}
+                    aria-label={`Se video: ${title}${duration > 0 ? `. Varighet er ${durationAsString} min` : ''}`}
                     className={classNames(
-                        'pb-[56.25%] relative w-full group',
+                        'aspect-video relative w-full h-full group',
                         playerState === 'ready' && style.hidden
                     )}
                     onClick={() => {
@@ -143,6 +143,6 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                 title={title}
                 data-qplayer-analytics="off"
             />
-        </div>
+        </Box>
     )
 }
