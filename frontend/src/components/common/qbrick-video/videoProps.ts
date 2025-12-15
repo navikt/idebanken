@@ -9,12 +9,14 @@ export type QbrickVideoProps = {
     duration: number
     poster?: string
     language?: string
+    displayType?: 'small' | 'large' | string | null
 }
 
 export const buildQbrickVideoProps = (
     videoData: VideoData,
     meta: MetaData,
-    overrideLanguage?: string | null
+    overrideLanguage?: string | null,
+    displayType?: 'small' | 'large' | string | null
 ): QbrickVideoProps => {
     const { accountId, mediaId, poster, duration, title, subtitles } = videoData
 
@@ -23,6 +25,7 @@ export const buildQbrickVideoProps = (
         mediaId,
         title,
         duration,
+        displayType,
         poster: poster?.imageUrl ? getUrl(poster?.imageUrl, meta) : undefined,
         language: getSubtitlesLanguage(overrideLanguage || meta.locale, subtitles),
     }

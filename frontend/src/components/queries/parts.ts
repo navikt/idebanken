@@ -153,13 +153,14 @@ export const videoPartOrMacroQuery = `{
                 duration
                 poster {
                     ... on media_Image {
-                        imageUrl(type: absolute, scale: "block(200, 100)")
+                        imageUrl(type: absolute, scale: "block(672, 378)")
                     }
                 }
                 subtitles
             }
         }
     }
+    displayType
     language
 }`
 
