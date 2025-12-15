@@ -19,7 +19,6 @@ export type TableOfContents = import('./table-of-contents').TableOfContents;
 export type TextEditor = import('./text-editor').TextEditor;
 export type ThemeCardList = import('./theme-card-list').ThemeCardList;
 export type TitleIngress = import('./title-ingress').TitleIngress;
-export type TitleIngressIcon = import('./title-ingress-icon').TitleIngressIcon;
 export type Video = import('./video').Video;
 
 declare global {
@@ -44,7 +43,6 @@ declare global {
     'idebanken:text-editor': TextEditor;
     'idebanken:theme-card-list': ThemeCardList;
     'idebanken:title-ingress': TitleIngress;
-    'idebanken:title-ingress-icon': TitleIngressIcon;
     'idebanken:video': Video;
   }
 }

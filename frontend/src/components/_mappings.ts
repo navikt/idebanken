@@ -10,7 +10,6 @@ import {
     newsletterQuery,
     tableOfContentsQuery,
     themeCardListQuery,
-    titleIngressQuery,
     videoPartOrMacroQuery,
 } from './queries/parts'
 import MainPage from './pages/Main'
@@ -22,7 +21,6 @@ import SingleColumnLayout from './layouts/SingleColumnLayout'
 import { AccordionView } from './parts/Accordion'
 import { ImageView } from './parts/Image'
 import { LinkCardPartView } from './parts/LinkCard'
-import TitleIngressWithIconView from '~/components/parts/TitleIngressWithIcon'
 import TitleIngressView from '~/components/parts/TitleIngress'
 import { HeadingViewPart } from '~/components/parts/Heading'
 import CrashCourse from '~/components/contentType/CrashCourse'
@@ -159,11 +157,6 @@ ComponentRegistry.addPart(`${APP_NAME}:link-card`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:title-ingress`, {
     view: TitleIngressView,
-})
-
-ComponentRegistry.addPart(`${APP_NAME}:title-ingress-icon`, {
-    view: TitleIngressWithIconView,
-    configQuery: titleIngressQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:search-view`, {
