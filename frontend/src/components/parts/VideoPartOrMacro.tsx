@@ -17,7 +17,7 @@ const buildVideoProps = (
     macroConfig: Macro_Idebanken_Video_DataConfig | Part_Idebanken_Video | undefined,
     meta: MetaData
 ) => {
-    const { targetContent, language } = macroConfig ?? {}
+    const { targetContent, language, displayType } = macroConfig ?? {}
 
     if (!(targetContent as Idebanken_Video)?.data) {
         return null
@@ -26,7 +26,8 @@ const buildVideoProps = (
     return buildQbrickVideoProps(
         (targetContent as Idebanken_Video).data as unknown as VideoData,
         meta,
-        language
+        language,
+        displayType
     )
 }
 

@@ -822,12 +822,19 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   quote?: Maybe<Macro_Idebanken_Quote_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -872,6 +879,7 @@ export type Macro_Idebanken_Separator_DataConfig = {
 export type Macro_Idebanken_Video_DataConfig = {
   __typename?: 'Macro_idebanken_video_DataConfig';
   body?: Maybe<Scalars['String']['output']>;
+  displayType?: Maybe<Scalars['String']['output']>;
   language?: Maybe<Scalars['String']['output']>;
   targetContent?: Maybe<Content>;
 };
@@ -1448,6 +1456,7 @@ export type Part_Idebanken_Title_Ingress_Icon = {
 /** Part component application config for application ['idebanken'] and descriptor ['video'] */
 export type Part_Idebanken_Video = {
   __typename?: 'Part_idebanken_video';
+  displayType?: Maybe<Scalars['String']['output']>;
   language?: Maybe<Scalars['String']['output']>;
   targetContent?: Maybe<Content>;
 };

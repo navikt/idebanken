@@ -14,3 +14,4 @@ export type XP_OverrideWidth = import('./override-width').XP_OverrideWidth;
 export type XP_PaddingY = import('./padding-y').XP_PaddingY;
 export type XP_SimpleTextEditor = import('./simple-text-editor').XP_SimpleTextEditor;
 export type XP_TitleIngress = import('./title-ingress').XP_TitleIngress;
+export type XP_Video = import('./video').XP_Video;
