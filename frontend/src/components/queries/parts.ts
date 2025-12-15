@@ -164,10 +164,6 @@ export const videoPartOrMacroQuery = `{
     language
 }`
 
-export const titleIngressQuery = `{
-    bgColor
-}`
-
 export const newsletterQuery = `{
     title
     description

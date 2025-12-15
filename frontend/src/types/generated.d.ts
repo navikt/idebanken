@@ -822,19 +822,12 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
-  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   quote?: Maybe<Macro_Idebanken_Quote_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
-};
-
-/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
-export type Macro_Idebanken_Box_DataConfig = {
-  __typename?: 'Macro_idebanken_box_DataConfig';
-  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1060,7 +1053,6 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
   theme_card_list?: Maybe<Part_Idebanken_Theme_Card_List>;
-  title_ingress_icon?: Maybe<Part_Idebanken_Title_Ingress_Icon>;
   video?: Maybe<Part_Idebanken_Video>;
 };
 
@@ -1444,13 +1436,6 @@ export type Part_Idebanken_Theme_Card_ListDataArgs = {
 export type Part_Idebanken_Theme_Card_ListHighlightedContentArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
-};
-
-/** Part component application config for application ['idebanken'] and descriptor ['title-ingress-icon'] */
-export type Part_Idebanken_Title_Ingress_Icon = {
-  __typename?: 'Part_idebanken_title_ingress_icon';
-  bgColor?: Maybe<Scalars['String']['output']>;
-  showType?: Maybe<Scalars['Boolean']['output']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['video'] */
