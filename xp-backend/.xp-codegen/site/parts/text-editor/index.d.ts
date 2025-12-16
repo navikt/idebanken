@@ -8,7 +8,7 @@ export type TextEditor = {
   /**
    * Farge på boks
    */
-  boxColor?: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
+  boxColor?: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink';
 
   /**
    * Vis på 1/2 sjermbredde

@@ -27,7 +27,7 @@ export type Card = {
           /**
            * Heading farge
            */
-          headingColor?: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
+          headingColor?: 'bg-white' | 'bg-extra-light-pink';
         };
       }
     | {
@@ -45,7 +45,7 @@ export type Card = {
   /**
    * Bakgrunnsfarge
    */
-  bgColor: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
+  bgColor: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink';
 
   /**
    * Avstand over
