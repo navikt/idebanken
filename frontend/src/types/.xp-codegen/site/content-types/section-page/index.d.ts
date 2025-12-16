@@ -24,4 +24,9 @@ export type XP_SectionPage = {
    * Overskriv lenkekort bilde
    */
   overrideImage?: string;
+
+  /**
+   * Ikon
+   */
+  icon?: string;
 };

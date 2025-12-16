@@ -78,9 +78,11 @@ const HeadingViewPart = ({ part, common }: PartData<Part_Idebanken_Heading>) => 
 
     return (
         <>
-            <HeadingView level={config.level} size={config.size}>
-                {config.text ?? common?.get?.displayName}
-            </HeadingView>
+            <HeadingView
+                level={config.level}
+                size={config.size}
+                dangerouslySetInnerHTML={{ __html: config.text ?? common?.get?.displayName }}
+            />
             {config?.headingLede && renderWithBodyShort(config.headingLede, halfWidth)}
         </>
     )

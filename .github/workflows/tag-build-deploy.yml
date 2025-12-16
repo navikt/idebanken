@@ -100,6 +100,7 @@ jobs:
     name: Build and upload frontend artifact
     needs: [xp-app-download-and-deploy, bump]
     if: |
+      always() &&
       needs.bump.outputs.changed-frontend == 'true' && 
       (needs.xp-app-download-and-deploy.result == 'success' || needs.xp-app-download-and-deploy.result == 'skipped')
     secrets: inherit
