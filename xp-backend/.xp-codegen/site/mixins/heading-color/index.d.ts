@@ -3,5 +3,5 @@ export type HeadingColor = {
   /**
    * Heading farge
    */
-  headingColor?: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
+  headingColor?: 'bg-white' | 'bg-extra-light-pink';
 };

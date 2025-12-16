@@ -3,12 +3,12 @@ export type XP_SingleColumn = {
   /**
    * Bakgrunnsfarge
    */
-  bgColor: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
+  bgColor: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink';
 
   /**
    * Farge på boks
    */
-  boxColor?: 'bg-white' | 'bg-extra-light-pink' | 'bg-light-pink' | 'bg-pink' | 'bg-dark-blue';
+  boxColor?: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink';
 
   /**
    * Avstand over
