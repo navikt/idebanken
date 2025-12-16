@@ -38,7 +38,7 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
             width={overrideWidth}>
             <Box
                 className={classNames(
-                    boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : '',
+                    boxColor ? `${boxColor} rounded-4xl p-6 md:py-8` : '',
                     alignmentClassNames(xAlignment, yAlignment)
                 )}>
                 <RegionView
