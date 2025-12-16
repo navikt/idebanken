@@ -7,5 +7,6 @@
     <allow-child-content-type>${app}:(?!(crash-course-slide|*-tag|singleton-*|video|artikkel)$)*</allow-child-content-type>
     <form>
         <mixin name="title-ingress"/>
+        <mixin name="icon"/>
     </form>
 </content-type>

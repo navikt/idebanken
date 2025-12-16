@@ -24,4 +24,9 @@ export type SectionPage = {
    * Overskriv lenkekort bilde
    */
   overrideImage?: string;
+
+  /**
+   * Ikon
+   */
+  icon?: string;
 };
