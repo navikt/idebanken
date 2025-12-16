@@ -51,7 +51,11 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
             layoutPath={path}
             width={overrideWidth}>
             <HGrid
-                className={boxColor ? `${boxColor} rounded-4xl p-6 md:py-8` : ''}
+                className={
+                    boxColor
+                        ? `${boxColor} rounded-4xl p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]`
+                        : ''
+                }
                 gap={
                     hasContentInBothRegions
                         ? {
