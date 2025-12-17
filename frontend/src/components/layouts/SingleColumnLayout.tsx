@@ -39,7 +39,7 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
             <Box
                 className={classNames(
                     boxColor
-                        ? `${boxColor} rounded-4xl p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]`
+                        ? `${boxColor} rounded-ib p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]`
                         : '',
                     alignmentClassNames(xAlignment, yAlignment)
                 )}>

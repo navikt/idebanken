@@ -68,9 +68,12 @@ export const LinkCardView = ({
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
 
     return (
-        <LinkCard data-color={brand ?? 'neutral'} arrow={!hideArrow} className="group rounded-4xl">
+        <LinkCard
+            data-color={brand ?? 'neutral'}
+            arrow={!hideArrow}
+            className={`group rounded-ib${showImage ? '' : ' px-7 py-6'}`}>
             {showImage && (
-                <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(2rem-1px)]">
+                <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(1.5rem-1px)]">
                     <Image
                         unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                         src={getAsset(image?.url ?? '/favicon/favicon.svg', meta)}

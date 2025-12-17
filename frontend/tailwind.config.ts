@@ -95,6 +95,9 @@ export default {
             boxShadow: {
                 'ib-shadow': 'var(--ib-shadow)',
             },
+            borderRadius: {
+                ib: '24px',
+            },
         },
     },
 } satisfies Config
