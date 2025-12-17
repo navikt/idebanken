@@ -66,7 +66,7 @@ export const LinkCardView = ({
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
 
     return (
-        <LinkCard data-color={brand ?? 'neutral'} arrow={!hideArrow} className="group rounded-4xl">
+        <LinkCard arrow={!hideArrow} className={'rounded-4xl'}>
             {showImage && (
                 <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(2rem-1px)]">
                     <Image
@@ -101,9 +101,6 @@ export const LinkCardView = ({
                     <Link
                         as={NextLink}
                         href={getUrl(url, meta) || '#'}
-                        className={
-                            'underline decoration-transparent transition-colors ease-[cubic-bezier(0, 0, 0, 1)] duration-300 group-hover:decoration-current'
-                        }
                         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                         {...linkProps}>
                         {title}
