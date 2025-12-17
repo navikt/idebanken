@@ -11,6 +11,11 @@ export type XP_LinkCard = {
   hideArrow: boolean;
 
   /**
+   * Skjul type-tag
+   */
+  hideTag: boolean;
+
+  /**
    * Vis beskrivelse
    */
   showDescription: boolean;

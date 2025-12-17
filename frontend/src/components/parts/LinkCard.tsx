@@ -24,13 +24,14 @@ export const LinkCardPartView = ({
     Pick<Part_Idebanken_Link_Card, 'resolvedLinkCard'> & Omit<XP_LinkCard, 'internalOrExternalLink'>
 >) => {
     const { config } = part
-    const { resolvedLinkCard, displayType, showDescription, hideArrow } = config
+    const { resolvedLinkCard, displayType, showDescription, hideArrow, hideTag } = config
 
     return LinkCardView({
         ...resolvedLinkCard,
         showDescription,
         displayType,
         hideArrow,
+        hideTag,
         meta,
     })
 }
@@ -59,6 +60,7 @@ export const LinkCardView = ({
     showDescription,
     displayType,
     hideArrow,
+    hideTag,
     meta,
     linkProps,
 }: LinkCardViewParams) => {
@@ -110,7 +112,7 @@ export const LinkCardView = ({
             {description && showDescription && (
                 <LinkCardDescription>{description}</LinkCardDescription>
             )}
-            {typeTags && typeTags?.length > 0 && (
+            {!hideTag && typeTags && typeTags?.length > 0 && (
                 <LinkCardFooter className={'gap-(--ax-space-20)'}>
                     {typeTags.map(({ name, color }, index) => (
                         <TagView

@@ -8,6 +8,10 @@
             <label>Skjul pil</label>
         </input>
 
+        <input type="CheckBox" name="hideTag">
+            <label>Skjul type-tag</label>
+        </input>
+
         <input name="showDescription" type="CheckBox">
             <label>Vis beskrivelse</label>
             <default>checked</default>

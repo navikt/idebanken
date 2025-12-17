@@ -27,16 +27,21 @@ const resolveWidth = (
           ? 'text'
           : 'md')
 
-const resolveGutterOverride = (resolvedWidth: PageBlockProps['width'], noGutters?: boolean) =>
-    !noGutters
-        ? ''
-        : resolvedWidth === 'md'
-          ? 'lg:px-0!'
-          : resolvedWidth === 'lg'
-            ? 'xl:px-0!'
-            : resolvedWidth === 'xl'
-              ? '2xl:px-0!'
-              : ''
+function resolveGutterOverride(resolvedWidth: PageBlockProps['width'], noGutters?: boolean) {
+    if (!noGutters) return ''
+    switch (resolvedWidth) {
+        case 'text':
+            return 'md:px-0!'
+        case 'md':
+            return 'lg:px-0!'
+        case 'lg':
+            return 'xl:px-0!'
+        case 'xl':
+            return '2xl:px-0!'
+        default:
+            return ''
+    }
+}
 
 export default function BleedingBackgroundPageBlock({
     bgColor,

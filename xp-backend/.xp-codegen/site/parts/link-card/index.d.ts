@@ -11,6 +11,11 @@ export type LinkCard = {
   hideArrow: boolean;
 
   /**
+   * Skjul type-tag
+   */
+  hideTag: boolean;
+
+  /**
    * Vis beskrivelse
    */
   showDescription: boolean;

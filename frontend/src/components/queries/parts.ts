@@ -62,6 +62,7 @@ image {
 export const linkCardQuery = `{
     displayType
     hideArrow
+    hideTag
     resolvedLinkCard {
         url
         external
@@ -97,6 +98,7 @@ export const linkCardListQuery = `{
     displayType
     nEachRow
     hideArrow
+    hideTag
     heading {
         title
         href

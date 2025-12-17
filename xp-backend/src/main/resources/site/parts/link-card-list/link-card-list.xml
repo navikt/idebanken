@@ -72,7 +72,11 @@
         <input type="CheckBox" name="hideArrow">
             <label>Skjul pil</label>
         </input>
-        
+
+        <input type="CheckBox" name="hideTag">
+            <label>Skjul type-tag</label>
+        </input>
+
         <input name="showDescription" type="CheckBox">
             <label>Vis beskrivelse på kortene</label>
             <default>checked</default>
