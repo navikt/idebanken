@@ -11,9 +11,9 @@
         </input>
         <option-set name="highlightedLayout">
             <label>Fremhevet / normal</label>
-            <occurrences minimum="1" maximum="1"/>  
-            <options minimum="1" maximum="1">   
-                <option name="shadow">  
+            <occurrences minimum="1" maximum="1"/>
+            <options minimum="1" maximum="1">
+                <option name="shadow">
                     <label>Fremhevet (skygge)</label>
                     <help-text>Legger til skygge</help-text>
                     <items>

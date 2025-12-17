@@ -44,6 +44,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
         overrideWidth,
         xAlignment,
         yAlignment,
+        noGutters,
     } = layout.config ?? {}
     const hasContentInOnlyOneRegion =
         [regions['left'], regions['center'], regions['right']].filter(
@@ -78,7 +79,8 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
             bgColor={bgColor}
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
             layoutPath={path}
-            width={overrideWidth}>
+            width={overrideWidth}
+            noGutters={noGutters}>
             <HGrid
                 data-color={legacyBgToBrandColorMap(boxColor)}
                 className={classNames(boxColor ? 'bg-(--ax-bg-softA) rounded-3xl p-6 md:py-8' : '')}

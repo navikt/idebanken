@@ -41,6 +41,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
         overrideWidth,
         xAlignment,
         yAlignment,
+        noGutters,
     } = layout.config ?? {}
     const rightSpan = 12 - Number(leftSpan ?? 6)
     const hasContentInBothRegions =
@@ -51,7 +52,8 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
             bgColor={bgColor}
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']} pb-0.5`}
             layoutPath={path}
-            width={overrideWidth}>
+            width={overrideWidth}
+            noGutters={noGutters}>
             <HGrid
                 data-color={legacyBgToBrandColorMap(boxColor)}
                 className={

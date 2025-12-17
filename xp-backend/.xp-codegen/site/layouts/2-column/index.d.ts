@@ -26,6 +26,11 @@ export type _2Column = {
   overrideWidth?: 'text' | 'md' | 'lg' | 'xl' | '2xl';
 
   /**
+   * Fjern gutters (ekstra padding)
+   */
+  noGutters: boolean;
+
+  /**
    * Venstre Kolonne - Bredde
    */
   leftSpan: '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '10' | '11';

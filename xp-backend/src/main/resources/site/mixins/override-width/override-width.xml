@@ -12,5 +12,8 @@
                 <option value="2xl">2xl</option>
             </config>
         </input>
+        <input type="CheckBox" name="noGutters">
+            <label>Fjern gutters (ekstra padding)</label>
+        </input>
     </form>
 </mixin>

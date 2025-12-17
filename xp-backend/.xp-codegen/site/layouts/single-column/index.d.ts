@@ -26,6 +26,11 @@ export type SingleColumn = {
   overrideWidth?: 'text' | 'md' | 'lg' | 'xl' | '2xl';
 
   /**
+   * Fjern gutters (ekstra padding)
+   */
+  noGutters: boolean;
+
+  /**
    * Juster innhold x-akse
    */
   xAlignment?: 'center' | 'right';
