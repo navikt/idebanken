@@ -13,24 +13,45 @@ interface BleedingBackgroundPageBlockProps extends PageBlockProps, PropsWithChil
     backgroundStyle?: React.CSSProperties
     marginInline?: BleedProps['marginInline']
     overrideWidth?: PageBlockProps['width']
+    noGutters?: boolean
 }
+
+const resolveWidth = (
+    width: PageBlockProps['width'],
+    layoutPath: string
+): PageBlockProps['width'] =>
+    width ||
+    (layoutPath?.startsWith(`/${PAGE_FULL_WIDTH}/`)
+        ? '2xl'
+        : layoutPath?.startsWith(`/${PAGE_TEXT_WIDTH}/`)
+          ? 'text'
+          : 'md')
+
+const resolveGutterOverride = (resolvedWidth: PageBlockProps['width'], noGutters?: boolean) =>
+    !noGutters
+        ? ''
+        : resolvedWidth === 'md'
+          ? 'lg:px-0!'
+          : resolvedWidth === 'lg'
+            ? 'xl:px-0!'
+            : resolvedWidth === 'xl'
+              ? '2xl:px-0!'
+              : ''
 
 export default function BleedingBackgroundPageBlock({
     bgColor,
     children,
+    className,
     bleedClassName,
     backgroundStyle,
     layoutPath,
+    width,
     marginInline = 'full',
+    noGutters,
     ...rest
 }: Readonly<BleedingBackgroundPageBlockProps>) {
-    const resolvedWidth: PageBlockProps['width'] =
-        rest.width ||
-        (layoutPath?.startsWith(`/${PAGE_FULL_WIDTH}/`)
-            ? '2xl'
-            : layoutPath?.startsWith(`/${PAGE_TEXT_WIDTH}/`)
-              ? 'text'
-              : 'md')
+    const resolvedWidth = resolveWidth(width, layoutPath || '')
+    const resolvedGutters = resolveGutterOverride(resolvedWidth, noGutters)
 
     return (
         <Bleed
@@ -38,7 +59,11 @@ export default function BleedingBackgroundPageBlock({
             data-color={legacyBgToBrandColorMap(bgColor)}
             marginInline={marginInline}
             style={backgroundStyle}>
-            <PageBlock {...rest} gutters width={resolvedWidth}>
+            <PageBlock
+                {...rest}
+                gutters
+                width={resolvedWidth}
+                className={`${className} ${resolvedGutters}`}>
                 {children}
             </PageBlock>
         </Bleed>

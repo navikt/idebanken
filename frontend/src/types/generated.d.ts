@@ -707,6 +707,7 @@ export type Layout_Idebanken__2_Column = {
   boxColor?: Maybe<Scalars['String']['output']>;
   breakLeftFirst?: Maybe<Scalars['Boolean']['output']>;
   leftSpan?: Maybe<Scalars['String']['output']>;
+  noGutters?: Maybe<Scalars['Boolean']['output']>;
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
@@ -719,6 +720,7 @@ export type Layout_Idebanken__3_Column = {
   __typename?: 'Layout_idebanken__3_column';
   bgColor?: Maybe<Scalars['String']['output']>;
   boxColor?: Maybe<Scalars['String']['output']>;
+  noGutters?: Maybe<Scalars['Boolean']['output']>;
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
@@ -734,6 +736,7 @@ export type Layout_Idebanken_Card = {
   centerHalfWidth?: Maybe<Scalars['Boolean']['output']>;
   heading?: Maybe<Scalars['String']['output']>;
   highlightedLayout?: Maybe<Layout_Idebanken_Card_HighlightedLayout>;
+  noGutters?: Maybe<Scalars['Boolean']['output']>;
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
@@ -767,6 +770,7 @@ export type Layout_Idebanken_Single_Column = {
   __typename?: 'Layout_idebanken_single_column';
   bgColor?: Maybe<Scalars['String']['output']>;
   boxColor?: Maybe<Scalars['String']['output']>;
+  noGutters?: Maybe<Scalars['Boolean']['output']>;
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;

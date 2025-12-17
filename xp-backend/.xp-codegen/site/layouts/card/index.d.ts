@@ -63,6 +63,11 @@ export type Card = {
   overrideWidth?: 'text' | 'md' | 'lg' | 'xl' | '2xl';
 
   /**
+   * Fjern gutters (ekstra padding)
+   */
+  noGutters: boolean;
+
+  /**
    * Vis på 1/2 sjermbredde og sentrert
    */
   centerHalfWidth: boolean;
