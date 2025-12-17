@@ -11,10 +11,10 @@ export const AccordionView = ({ part, meta }: PartData<Part_Idebanken_Accordion>
 
     if (!config) return null
 
-    const { accordionItems, brand } = config
+    const { accordionItems } = config
 
     return (
-        <Accordion data-color={brand ?? 'neutral'} className="flex flex-col">
+        <Accordion className="flex flex-col">
             {accordionItems.map((item, idx) => (
                 <AccordionItemTracked key={idx}>
                     <AccordionHeader>{item.header}</AccordionHeader>

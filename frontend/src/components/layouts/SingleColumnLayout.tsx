@@ -1,7 +1,9 @@
 import type { MetaData, PageComponent } from '@enonic/nextjs-adapter'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { Box } from '@navikt/ds-react'
-import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
+import BleedingBackgroundPageBlock, {
+    legacyBgToBrandColorMap,
+} from '~/components/layouts/BleedingBackgroundPageBlock'
 import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
 import { XP_SingleColumn } from '@xp-types/site/layouts'
@@ -27,19 +29,29 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
     const { common, meta, layout, path } = props
     const regions = layout.regions
     const config = layout.config ?? {}
-    const { bgColor, boxColor, paddingTop, paddingBottom, overrideWidth, xAlignment, yAlignment } =
-        config
+    const {
+        bgColor,
+        boxColor,
+        paddingTop,
+        paddingBottom,
+        overrideWidth,
+        xAlignment,
+        yAlignment,
+        noGutters,
+    } = config
 
     return (
         <BleedingBackgroundPageBlock
             bgColor={bgColor}
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
             layoutPath={path}
-            width={overrideWidth}>
+            width={overrideWidth}
+            noGutters={noGutters}>
             <Box
+                data-color={legacyBgToBrandColorMap(boxColor)}
                 className={classNames(
                     boxColor
-                        ? `${boxColor} rounded-ib p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]`
+                        ? 'bg-(--ax-bg-softA) rounded-ib p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]'
                         : '',
                     alignmentClassNames(xAlignment, yAlignment)
                 )}>

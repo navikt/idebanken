@@ -20,10 +20,10 @@ export default function Footer({
         footerProps || {}
     return (
         <BleedingBackgroundPageBlock
-            bgColor={'bg-brand-white'}
             width={'2xl'}
             as="footer"
             className={'py-11'}
+            bleedClassName={'bg-(--ib-brand-white)'}
             backgroundStyle={{
                 ...BubblesBackgroundSvgStyle([
                     { radius: 150, down: 50, left: 50, fill: 'hsl(335 100% 53% / 0.05)' },

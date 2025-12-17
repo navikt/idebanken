@@ -36,6 +36,7 @@ const CardLayout = (props: CardLayoutProps) => {
         xAlignment,
         yAlignment,
         highlightedLayout,
+        noGutters,
     } = layout.config ?? {}
 
     const shadow = highlightedLayout?._selected === 'shadow'
@@ -56,8 +57,9 @@ const CardLayout = (props: CardLayoutProps) => {
             bgColor={bgColor}
             className={backgroundClasses}
             layoutPath={path}
-            width={overrideWidth}>
-            <Box className={containerClasses} as={asTag}>
+            width={overrideWidth}
+            noGutters={noGutters}>
+            <Box className={containerClasses} as={asTag} data-color={'neutral'}>
                 <CardHeader
                     prefix={prefix}
                     heading={heading}

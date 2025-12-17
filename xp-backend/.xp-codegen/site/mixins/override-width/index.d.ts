@@ -4,4 +4,9 @@ export type OverrideWidth = {
    * Overstyr bredde
    */
   overrideWidth?: 'text' | 'md' | 'lg' | 'xl' | '2xl';
+
+  /**
+   * Fjern gutters (ekstra padding)
+   */
+  noGutters: boolean;
 };

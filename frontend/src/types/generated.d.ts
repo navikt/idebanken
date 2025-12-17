@@ -707,6 +707,7 @@ export type Layout_Idebanken__2_Column = {
   boxColor?: Maybe<Scalars['String']['output']>;
   breakLeftFirst?: Maybe<Scalars['Boolean']['output']>;
   leftSpan?: Maybe<Scalars['String']['output']>;
+  noGutters?: Maybe<Scalars['Boolean']['output']>;
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
@@ -719,6 +720,7 @@ export type Layout_Idebanken__3_Column = {
   __typename?: 'Layout_idebanken__3_column';
   bgColor?: Maybe<Scalars['String']['output']>;
   boxColor?: Maybe<Scalars['String']['output']>;
+  noGutters?: Maybe<Scalars['Boolean']['output']>;
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
@@ -734,6 +736,7 @@ export type Layout_Idebanken_Card = {
   centerHalfWidth?: Maybe<Scalars['Boolean']['output']>;
   heading?: Maybe<Scalars['String']['output']>;
   highlightedLayout?: Maybe<Layout_Idebanken_Card_HighlightedLayout>;
+  noGutters?: Maybe<Scalars['Boolean']['output']>;
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
@@ -767,6 +770,7 @@ export type Layout_Idebanken_Single_Column = {
   __typename?: 'Layout_idebanken_single_column';
   bgColor?: Maybe<Scalars['String']['output']>;
   boxColor?: Maybe<Scalars['String']['output']>;
+  noGutters?: Maybe<Scalars['Boolean']['output']>;
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
@@ -822,12 +826,19 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   quote?: Maybe<Macro_Idebanken_Quote_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1060,7 +1071,6 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
 export type Part_Idebanken_Accordion = {
   __typename?: 'Part_idebanken_accordion';
   accordionItems?: Maybe<Array<Maybe<Part_Idebanken_Accordion_AccordionItems>>>;
-  brand?: Maybe<Scalars['String']['output']>;
 };
 
 
@@ -1248,7 +1258,6 @@ export type Part_Idebanken_Image_StandardSize = {
 /** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
 export type Part_Idebanken_Link_Card = {
   __typename?: 'Part_idebanken_link_card';
-  brand?: Maybe<Scalars['String']['output']>;
   displayType?: Maybe<Scalars['String']['output']>;
   hideArrow?: Maybe<Scalars['Boolean']['output']>;
   resolvedLinkCard: Link_Card;
@@ -1289,7 +1298,6 @@ export enum Part_Idebanken_Link_Card_InternalOrExternalLink_OptionEnum {
 /** Part component application config for application ['idebanken'] and descriptor ['link-card-list'] */
 export type Part_Idebanken_Link_Card_List = {
   __typename?: 'Part_idebanken_link_card_list';
-  brand?: Maybe<Scalars['String']['output']>;
   displayType?: Maybe<Scalars['String']['output']>;
   heading?: Maybe<Part_Idebanken_Link_Card_List_Heading>;
   hideArrow?: Maybe<Scalars['Boolean']['output']>;

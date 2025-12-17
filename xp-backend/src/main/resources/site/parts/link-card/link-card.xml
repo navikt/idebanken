@@ -2,8 +2,6 @@
 <part xmlns="urn:enonic:xp:model:1.0">
     <display-name>Lenkekort</display-name>
     <form>
-        <mixin name="brand-color"/>
-
         <mixin name="display-image-or-icon"/>
 
         <input type="CheckBox" name="hideArrow">

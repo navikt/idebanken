@@ -26,6 +26,11 @@ export type XP_3Column = {
   overrideWidth?: 'text' | 'md' | 'lg' | 'xl' | '2xl';
 
   /**
+   * Fjern gutters (ekstra padding)
+   */
+  noGutters: boolean;
+
+  /**
    * Mobilvisning - Rekkefølge
    */
   stackOrder: 'left-center-right' | 'center-left-right' | 'right-center-left';

@@ -43,7 +43,6 @@ export const accordionItemSchema = object({
 })
 
 export const accordionConfigSchema = object({
-    brand: optional(string()),
     accordionItems: pipe(
         union([array(accordionItemSchema), accordionItemSchema]),
         transform((value) => (Array.isArray(value) ? value : value ? [value] : []))

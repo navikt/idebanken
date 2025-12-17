@@ -5,7 +5,7 @@ import { Part_Idebanken_Theme_Card_List, Theme_Card } from '~/types/generated'
 import { useCallback, useState } from 'react'
 import { LinkCardView } from './LinkCard'
 import { Button, Loader } from '@navikt/ds-react'
-import { XP_BrandColor, XP_DisplayImageOrIcon } from '@xp-types/site/mixins'
+import { XP_DisplayImageOrIcon } from '@xp-types/site/mixins'
 import { fetchThemeCardList } from '~/components/queries/themeList'
 
 const MIN_SPINNER_MS = 400
@@ -17,7 +17,6 @@ function normalizeCard(card: Theme_Card) {
         url: card.url ?? '#',
         external: false,
         image: card.image ?? undefined,
-        brand: 'neutral' as XP_BrandColor['brand'],
         showDescription: true,
         displayType: 'withImage' as XP_DisplayImageOrIcon['displayType'],
         hideArrow: true,
@@ -79,7 +78,6 @@ export default function ThemeCardList({ part, meta }: PartData<Part_Idebanken_Th
                         <Loader size="large" title="Laster" />
                     ) : (
                         <Button
-                            data-color="ib-brand-dark-blue"
                             className="rounded-full font-light w-auto whitespace-nowrap"
                             onClick={loadMore}
                             variant="secondary"

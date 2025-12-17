@@ -1,7 +1,9 @@
 import type { MetaData, PageComponent } from '@enonic/nextjs-adapter'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { HGrid } from '@navikt/ds-react'
-import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
+import BleedingBackgroundPageBlock, {
+    legacyBgToBrandColorMap,
+} from '~/components/layouts/BleedingBackgroundPageBlock'
 import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
 import { XP_2Column } from '@xp-types/site/layouts'
@@ -39,6 +41,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
         overrideWidth,
         xAlignment,
         yAlignment,
+        noGutters,
     } = layout.config ?? {}
     const rightSpan = 12 - Number(leftSpan ?? 6)
     const hasContentInBothRegions =
@@ -49,11 +52,13 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
             bgColor={bgColor}
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']} pb-0.5`}
             layoutPath={path}
-            width={overrideWidth}>
+            width={overrideWidth}
+            noGutters={noGutters}>
             <HGrid
+                data-color={legacyBgToBrandColorMap(boxColor)}
                 className={
                     boxColor
-                        ? `${boxColor} rounded-ib p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]`
+                        ? 'bg-(--ax-bg-softA) rounded-ib p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]'
                         : ''
                 }
                 gap={

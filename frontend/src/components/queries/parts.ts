@@ -60,7 +60,6 @@ image {
 `
 
 export const linkCardQuery = `{
-    brand
     displayType
     hideArrow
     resolvedLinkCard {
@@ -98,7 +97,6 @@ export const linkCardListQuery = `{
     displayType
     nEachRow
     hideArrow
-    brand
     heading {
         title
         href
