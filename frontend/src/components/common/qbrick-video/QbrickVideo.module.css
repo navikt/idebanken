@@ -19,7 +19,7 @@
 
 .playBadge {
     /* Set up the circle background */
-    background-color: var(--ib-bg-dark-blue-strong);
+    background-color: var(--ax-bg-strong);
     border-radius: 50%;
     height: 40px;
     width: 40px;
@@ -91,7 +91,7 @@
 }
 
 .text {
-    color: var(--ib-text-dark-blue);
+    color: var(--ax-text-accent);
     margin-bottom: 0 !important;
     text-align: left;
     line-height: 1.5;
@@ -100,7 +100,7 @@
 .videoLength {
     padding-top: var(--ax-space-4);
     font-weight: 400;
-    color: var(--ib-text-dark-blue-subtle);
+    color: var(--ax-text-accent-subtle);
     width: fit-content;
 }
 

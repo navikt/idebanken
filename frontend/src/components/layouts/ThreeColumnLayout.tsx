@@ -1,7 +1,9 @@
 import type { MetaData, PageComponent } from '@enonic/nextjs-adapter'
 import { RegionView } from '@enonic/nextjs-adapter/views/Region'
 import { HGrid } from '@navikt/ds-react'
-import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
+import BleedingBackgroundPageBlock, {
+    legacyBgToBrandColorMap,
+} from '~/components/layouts/BleedingBackgroundPageBlock'
 import classNames from 'classnames'
 import { paddingsY } from '~/utils/tailwind-lookup-table'
 import { XP_3Column } from '@xp-types/site/layouts'
@@ -78,7 +80,8 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
             layoutPath={path}
             width={overrideWidth}>
             <HGrid
-                className={classNames(boxColor ? `${boxColor} rounded-3xl p-6 md:py-8` : '')}
+                data-color={legacyBgToBrandColorMap(boxColor)}
+                className={classNames(boxColor ? 'bg-(--ax-bg-softA) rounded-3xl p-6 md:py-8' : '')}
                 gap={
                     hasContentInOnlyOneRegion
                         ? {}

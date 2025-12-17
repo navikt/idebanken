@@ -59,7 +59,6 @@ const ButtonView = ({
 
     return (
         <Button
-            data-color="ib-brand-dark-blue"
             {...rest}
             className={classNames(
                 'rounded-full font-light inline-flex w-auto whitespace-nowrap justify-self-center self-center md:justify-self-start md:self-start',

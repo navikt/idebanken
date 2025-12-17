@@ -123,7 +123,7 @@ export function handleTable(
                     )
                 })}
             </Accordion>
-            <Table className={'hidden md:table'} data-color={'ib-brand-dark-blue'}>
+            <Table className={'hidden md:table'}>
                 <TableHeader>
                     {headerRows.map((row, i) => (
                         <TableRow key={i}>

@@ -72,9 +72,7 @@
         <input type="CheckBox" name="hideArrow">
             <label>Skjul pil</label>
         </input>
-
-        <mixin name="brand-color"/>
-
+        
         <input name="showDescription" type="CheckBox">
             <label>Vis beskrivelse på kortene</label>
             <default>checked</default>

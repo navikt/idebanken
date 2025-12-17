@@ -24,11 +24,10 @@ export const LinkCardPartView = ({
     Pick<Part_Idebanken_Link_Card, 'resolvedLinkCard'> & Omit<XP_LinkCard, 'internalOrExternalLink'>
 >) => {
     const { config } = part
-    const { resolvedLinkCard, displayType, brand, showDescription, hideArrow } = config
+    const { resolvedLinkCard, displayType, showDescription, hideArrow } = config
 
     return LinkCardView({
         ...resolvedLinkCard,
-        brand,
         showDescription,
         displayType,
         hideArrow,
@@ -57,7 +56,6 @@ export const LinkCardView = ({
     image,
     icon,
     external,
-    brand,
     showDescription,
     displayType,
     hideArrow,
@@ -68,7 +66,7 @@ export const LinkCardView = ({
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
 
     return (
-        <LinkCard data-color={brand ?? 'neutral'} arrow={!hideArrow} className="group rounded-4xl">
+        <LinkCard arrow={!hideArrow} className={'rounded-4xl'}>
             {showImage && (
                 <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(2rem-1px)]">
                     <Image
@@ -103,9 +101,6 @@ export const LinkCardView = ({
                     <Link
                         as={NextLink}
                         href={getUrl(url, meta) || '#'}
-                        className={
-                            'underline decoration-transparent transition-colors ease-[cubic-bezier(0, 0, 0, 1)] duration-300 group-hover:decoration-current'
-                        }
                         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                         {...linkProps}>
                         {title}
@@ -118,7 +113,13 @@ export const LinkCardView = ({
             {typeTags && typeTags?.length > 0 && (
                 <LinkCardFooter className={'gap-(--ax-space-20)'}>
                     {typeTags.map(({ name, color }, index) => (
-                        <TagView key={index} name={name} color={color} size="small" />
+                        <TagView
+                            key={index}
+                            name={name}
+                            color={color}
+                            size="small"
+                            className={'text-(--ax-text-neutral-subtle)'}
+                        />
                     ))}
                 </LinkCardFooter>
             )}

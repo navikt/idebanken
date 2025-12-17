@@ -65,7 +65,6 @@ export default function SearchResults(
                                 />
                             }
                             typeTags={getResultTypeTags(result, meta, common)}
-                            brand={'neutral'}
                             icon={{ url: result.iconUrl }}
                             key={index}
                             meta={meta}

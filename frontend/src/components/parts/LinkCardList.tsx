@@ -12,7 +12,7 @@ export function LinkCardList({
 }: PartData<
     Pick<Part_Idebanken_Link_Card_List, 'list' | 'heading'> & Omit<XP_LinkCardList, 'list'>
 >) {
-    const { list, displayType, hideArrow, nEachRow, heading, brand, showDescription } = part.config
+    const { list, displayType, hideArrow, nEachRow, heading, showDescription } = part.config
 
     const spanClass = getSpanClass(nEachRow, list.length, displayType)
 
@@ -32,7 +32,6 @@ export function LinkCardList({
                     <div key={linkCard.url} className={`col-span-12 ${spanClass} [&>*]:h-full`}>
                         {LinkCardView({
                             ...linkCard,
-                            brand,
                             showDescription,
                             displayType,
                             hideArrow,
