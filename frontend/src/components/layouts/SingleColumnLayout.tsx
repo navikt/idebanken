@@ -51,7 +51,7 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
                 data-color={legacyBgToBrandColorMap(boxColor)}
                 className={classNames(
                     boxColor
-                        ? 'bg-(--ax-bg-softA) rounded-4xl p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]'
+                        ? 'bg-(--ax-bg-softA) rounded-ib p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]'
                         : '',
                     alignmentClassNames(xAlignment, yAlignment)
                 )}>

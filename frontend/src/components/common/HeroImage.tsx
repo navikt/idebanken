@@ -20,7 +20,7 @@ export function HeroImage({
     width = 1024,
     height = 576,
     sizes = '(min-width: 1024px) 1024px, 100vw',
-    className = 'w-full h-auto object-cover rounded-4xl',
+    className = 'w-full h-auto object-cover rounded-ib',
     wrapperClassName = 'lg:mx-[-11rem]',
     unoptimized,
 }: HeroImageProps) {

@@ -45,7 +45,7 @@ const CardLayout = (props: CardLayoutProps) => {
     const asTag: 'article' | 'section' = heading ? 'article' : 'section'
 
     const containerClasses = classNames(
-        shadow && 'shadow-ib-shadow rounded-4xl p-6 md:py-8 bg-white',
+        shadow && 'shadow-ib-shadow rounded-ib p-6 md:py-8 bg-white',
         centerHalfWidth && 'w-full md:w-1/2 md:mx-auto',
         alignmentClassNames(xAlignment, yAlignment)
     )

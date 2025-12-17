@@ -125,7 +125,7 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                     aria-hidden={decorative || undefined}
                     width={width}
                     height={height}
-                    className="w-full h-auto object-cover rounded-4xl"
+                    className="w-full h-auto object-cover rounded-ib"
                     sizes="(min-width: 1024px) 1024px, 100vw"
                 />
             ) : (
