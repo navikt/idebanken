@@ -24,11 +24,10 @@ export const LinkCardPartView = ({
     Pick<Part_Idebanken_Link_Card, 'resolvedLinkCard'> & Omit<XP_LinkCard, 'internalOrExternalLink'>
 >) => {
     const { config } = part
-    const { resolvedLinkCard, displayType, brand, showDescription, hideArrow } = config
+    const { resolvedLinkCard, displayType, showDescription, hideArrow } = config
 
     return LinkCardView({
         ...resolvedLinkCard,
-        brand,
         showDescription,
         displayType,
         hideArrow,
@@ -57,7 +56,6 @@ export const LinkCardView = ({
     image,
     icon,
     external,
-    brand,
     showDescription,
     displayType,
     hideArrow,

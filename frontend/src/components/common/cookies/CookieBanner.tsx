@@ -36,7 +36,6 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
             as="section"
             padding={{ xs: 'space-36', md: 'space-64' }}
             margin={{ xs: 'space-0', lg: 'space-44' }}
-            data-color={'ib-brand-dark-blue'}
             className={classNames(
                 'fixed bottom-0 inset-x-0 mx-auto w-[min(1024px,100%)] z-[1000]',
                 'bg-(--ib-bg-dark-blue-moderate) shadow-2xl lg:rounded-lg max-lg:bg-none!',

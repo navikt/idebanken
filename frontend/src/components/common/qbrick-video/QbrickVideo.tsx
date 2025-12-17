@@ -64,7 +64,7 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                     <div
                         className={classNames(
                             style.playBadge,
-                            'group-hover:bg-(--ib-bg-dark-blue-strong-hover)!'
+                            'group-hover:bg-(--ax-bg-strong-hover)!'
                         )}>
                         {playerState === 'loading' ? (
                             <Loader className={style.playLoader} />
@@ -82,7 +82,11 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                 </Button>
             ) : (
                 <Button
-                    className={classNames(style.button, playerState === 'ready' && style.hidden)}
+                    className={classNames(
+                        style.button,
+                        'group',
+                        playerState === 'ready' && style.hidden
+                    )}
                     variant={'tertiary'}
                     onClick={() => {
                         if (meta.renderMode === RENDER_MODE.NEXT) {
@@ -101,7 +105,11 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                                     height={74}
                                 />
                             )}
-                            <div className={style.playBadge}>
+                            <div
+                                className={classNames(
+                                    style.playBadge,
+                                    'group-hover:bg-(--ax-bg-strong-hover)!'
+                                )}>
                                 {playerState === 'loading' ? (
                                     <Loader className={style.playLoader} />
                                 ) : (

@@ -5,7 +5,7 @@ import { Part_Idebanken_Article_Card_List } from '~/types/generated'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { LinkCardView } from './LinkCard'
 import { Button } from '@navikt/ds-react'
-import { XP_BrandColor, XP_DisplayImageOrIcon } from '@xp-types/site/mixins'
+import { XP_DisplayImageOrIcon } from '@xp-types/site/mixins'
 import { fetchArticleCardList } from '../queries/articlesList'
 import { FilterChips } from '../common/FilterChips'
 import { usePathname, useRouter } from 'next/navigation'
@@ -28,7 +28,6 @@ function normalizeCard(card: Card) {
         url: card.url ?? '#',
         external: card.external ?? false,
         image: card.image ?? undefined,
-        brand: 'neutral' as XP_BrandColor['brand'],
         showDescription: true,
         displayType: 'withImage' as XP_DisplayImageOrIcon['displayType'],
         hideArrow: true,
@@ -234,7 +233,6 @@ export function ArticlesLinkCardList(props: ArticlePartProps) {
             {items.length > 0 && canLoadMore && (
                 <div className="mt-8 flex justify-center">
                     <Button
-                        data-color="ib-brand-dark-blue"
                         className="rounded-full font-light w-auto whitespace-nowrap"
                         loading={loading}
                         onClick={loadMore}

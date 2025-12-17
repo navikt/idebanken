@@ -57,7 +57,7 @@ const CardLayout = (props: CardLayoutProps) => {
             className={backgroundClasses}
             layoutPath={path}
             width={overrideWidth}>
-            <Box className={containerClasses} as={asTag}>
+            <Box className={containerClasses} as={asTag} data-color={'neutral'}>
                 <CardHeader
                     prefix={prefix}
                     heading={heading}
