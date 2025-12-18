@@ -5,10 +5,10 @@
             <label>Bakgrunn</label>
             <occurrences minimum="1" maximum="1"/>
             <config>
-                <option value="brand">Brand fra layout</option>
                 <option value="white">Hvit</option>
+                <option value="brand">Brand fra layout</option>
             </config>
-            <default>brand</default>
+            <default>white</default>
         </input>
     </form>
 </mixin>

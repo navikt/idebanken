@@ -72,11 +72,12 @@ export const LinkCardView = ({
 
     return (
         <LinkCard
+            data-color={'inherit'}
             arrow={!hideArrow}
             className={classNames(
                 `group rounded-ib`,
-                showImage ? '' : 'px-7 py-6',
-                color === 'white' ? 'bg-(--ax-bg-default)!' : ''
+                showImage ? '' : ' px-7 py-6',
+                color === 'white' || !color ? 'bg-(--ax-bg-default)!' : ''
             )}>
             {showImage && (
                 <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(1.5rem-1px)]">
