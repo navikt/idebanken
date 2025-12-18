@@ -17,6 +17,8 @@
             <default>checked</default>
         </input>
 
+        <mixin name="link-card-color"/>
+
         <option-set name="internalOrExternalLink">
             <label>Lenke-type</label>
             <occurrences minimum="1" maximum="1"/>

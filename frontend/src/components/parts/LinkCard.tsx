@@ -16,6 +16,7 @@ import { PartData } from '~/types/graphql-types'
 import { XP_LinkCard, XP_LinkCardList } from '@xp-types/site/parts'
 import NextLink from 'next/link'
 import TagView from '~/components/common/TagView'
+import classNames from 'classnames'
 
 export const LinkCardPartView = ({
     part,
@@ -24,7 +25,7 @@ export const LinkCardPartView = ({
     Pick<Part_Idebanken_Link_Card, 'resolvedLinkCard'> & Omit<XP_LinkCard, 'internalOrExternalLink'>
 >) => {
     const { config } = part
-    const { resolvedLinkCard, displayType, showDescription, hideArrow, hideTag } = config
+    const { resolvedLinkCard, displayType, showDescription, hideArrow, hideTag, color } = config
 
     return LinkCardView({
         ...resolvedLinkCard,
@@ -33,6 +34,7 @@ export const LinkCardPartView = ({
         hideArrow,
         hideTag,
         meta,
+        color,
     })
 }
 
@@ -63,12 +65,19 @@ export const LinkCardView = ({
     hideTag,
     meta,
     linkProps,
+    color,
 }: LinkCardViewParams) => {
     const showIcon = displayType === 'withIcon' || displayType === 'withImageAndIcon'
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
 
     return (
-        <LinkCard arrow={!hideArrow} className={`group rounded-ib${showImage ? '' : ' px-7 py-6'}`}>
+        <LinkCard
+            arrow={!hideArrow}
+            className={classNames(
+                `group rounded-ib`,
+                showImage ? '' : ' px-7 py-6',
+                color === 'white' ? 'bg-(--ax-bg-default)!' : ''
+            )}>
             {showImage && (
                 <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(1.5rem-1px)]">
                     <Image

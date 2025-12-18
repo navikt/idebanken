@@ -321,6 +321,30 @@
 
 [data-color='ib-brand-gray'] {
     --ax-bg-softA: var(--ib-brand-white);
+    --ax-bg-raised: var(--ib-brand-white);
+
+    --ax-bg-strong: var(--ib-bg-dark-blue-strong);
+    --ax-bg-strong-hover: var(--ib-bg-dark-blue-strong-hover);
+    --ax-bg-strong-pressed: var(--ib-bg-dark-blue-strong-pressed);
+
+
+    {/* unchanged neutral variables */}
+    --ax-bg-soft: var(--ax-bg-neutral-soft);
+    --ax-bg-moderate: var(--ax-bg-neutral-moderate);
+    --ax-bg-moderateA: var(--ax-bg-neutral-moderateA);
+    --ax-bg-moderate-hover: var(--ax-bg-neutral-moderate-hover);
+    --ax-bg-moderate-hoverA: var(--ax-bg-neutral-moderate-hoverA);
+    --ax-bg-moderate-pressed: var(--ax-bg-neutral-moderate-pressed);
+    --ax-bg-moderate-pressedA: var(--ax-bg-neutral-moderate-pressedA);
+
+    --ax-text-default: var(--ax-text-neutral);
+    --ax-text-subtle: var(--ax-text-neutral-subtle);
+    --ax-text-decoration: var(--ax-text-neutral-decoration);
+    --ax-text-contrast: var(--ax-text-neutral-contrast);
+
+    --ax-border-default: var(--ax-border-neutral);
+    --ax-border-subtle: var(--ax-border-neutral-subtle);
+    --ax-border-strong: var(--ax-border-neutral-strong);
     --ax-border-subtleA: var(--ax-border-neutral-subtleA);
 }
 

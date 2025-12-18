@@ -8,7 +8,7 @@ export type XP_TextEditor = {
   /**
    * Farge på boks
    */
-  boxColor?: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink';
+  boxColor?: 'neutral' | 'ib-brand-gray' | 'ib-brand-pink';
 
   /**
    * Vis på 1/2 sjermbredde

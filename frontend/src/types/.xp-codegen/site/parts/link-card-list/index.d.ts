@@ -76,4 +76,9 @@ export type XP_LinkCardList = {
    * Vis beskrivelse på kortene
    */
   showDescription: boolean;
+
+  /**
+   * Bakgrunn
+   */
+  color: 'brand' | 'white';
 };

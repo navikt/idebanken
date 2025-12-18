@@ -21,6 +21,11 @@ export type LinkCard = {
   showDescription: boolean;
 
   /**
+   * Bakgrunn
+   */
+  color: 'brand' | 'white';
+
+  /**
    * Lenke-type
    */
   internalOrExternalLink:

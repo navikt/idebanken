@@ -76,4 +76,9 @@ export type LinkCardList = {
    * Vis beskrivelse på kortene
    */
   showDescription: boolean;
+
+  /**
+   * Bakgrunn
+   */
+  color: 'brand' | 'white';
 };

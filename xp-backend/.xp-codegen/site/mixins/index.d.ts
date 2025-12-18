@@ -8,6 +8,7 @@ export type DisplayImageOrIcon = import('./display-image-or-icon').DisplayImageO
 export type HeadingColor = import('./heading-color').HeadingColor;
 export type Icon = import('./icon').Icon;
 export type Image = import('./image').Image;
+export type LinkCardColor = import('./link-card-color').LinkCardColor;
 export type LinkGroups = import('./link-groups').LinkGroups;
 export type LinkSelector = import('./link-selector').LinkSelector;
 export type OverrideWidth = import('./override-width').OverrideWidth;

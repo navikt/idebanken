@@ -8,6 +8,7 @@ export type XP_DisplayImageOrIcon = import('./display-image-or-icon').XP_Display
 export type XP_HeadingColor = import('./heading-color').XP_HeadingColor;
 export type XP_Icon = import('./icon').XP_Icon;
 export type XP_Image = import('./image').XP_Image;
+export type XP_LinkCardColor = import('./link-card-color').XP_LinkCardColor;
 export type XP_LinkGroups = import('./link-groups').XP_LinkGroups;
 export type XP_LinkSelector = import('./link-selector').XP_LinkSelector;
 export type XP_OverrideWidth = import('./override-width').XP_OverrideWidth;

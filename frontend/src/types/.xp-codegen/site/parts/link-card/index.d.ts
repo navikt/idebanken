@@ -21,6 +21,11 @@ export type XP_LinkCard = {
   showDescription: boolean;
 
   /**
+   * Bakgrunn
+   */
+  color: 'brand' | 'white';
+
+  /**
    * Lenke-type
    */
   internalOrExternalLink:
