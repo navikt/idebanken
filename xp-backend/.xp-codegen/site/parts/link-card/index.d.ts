@@ -3,7 +3,7 @@ export type LinkCard = {
   /**
    * Visning
    */
-  displayType: 'none' | 'withIcon' | 'withImageAndIcon' | 'withImage';
+  displayType: 'withImage' | 'withIcon' | 'withIconBg' | 'none' | 'withImageAndIcon';
 
   /**
    * Skjul pil
@@ -23,7 +23,7 @@ export type LinkCard = {
   /**
    * Bakgrunn
    */
-  color: 'brand' | 'white';
+  color: 'white' | 'brand';
 
   /**
    * Lenke-type

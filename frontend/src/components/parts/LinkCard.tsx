@@ -1,5 +1,5 @@
 import type { Link_Card, Part_Idebanken_Link_Card, Tag as TagType } from '~/types/generated.d'
-import { Link } from '@navikt/ds-react'
+import { Box, Link } from '@navikt/ds-react'
 import {
     LinkCard,
     LinkCardAnchor,
@@ -67,7 +67,10 @@ export const LinkCardView = ({
     linkProps,
     color,
 }: LinkCardViewParams) => {
-    const showIcon = displayType === 'withIcon' || displayType === 'withImageAndIcon'
+    const showIcon =
+        displayType === 'withIcon' ||
+        displayType === 'withImageAndIcon' ||
+        displayType === 'withIconBg'
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
 
     return (
@@ -92,20 +95,27 @@ export const LinkCardView = ({
             )}
             {showIcon && icon?.url && (
                 <LinkCardIcon>
-                    <Image
-                        unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
-                        src={icon.url}
-                        alt=""
-                        aria-hidden
-                        role="presentation"
-                        width={56}
-                        height={56}
+                    <Box
                         className={
-                            /\.svg(\?.*)?$/i.test(icon.url)
-                                ? 'dark:invert dark:brightness-0 dark:contrast-50'
-                                : undefined
-                        }
-                    />
+                            displayType === 'withIconBg'
+                                ? 'w-[56px] h-[56px] rounded-full bg-(--ib-bg-pink-moderate-pressed) flex justify-center align-middle'
+                                : ''
+                        }>
+                        <Image
+                            unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                            src={icon.url}
+                            alt=""
+                            aria-hidden
+                            role="presentation"
+                            width={displayType === 'withIconBg' ? 35 : 56}
+                            height={displayType === 'withIconBg' ? 35 : 56}
+                            className={
+                                /\.svg(\?.*)?$/i.test(icon.url)
+                                    ? 'dark:invert dark:brightness-0 dark:contrast-50'
+                                    : undefined
+                            }
+                        />
+                    </Box>
                 </LinkCardIcon>
             )}
             <LinkCardTitle>
