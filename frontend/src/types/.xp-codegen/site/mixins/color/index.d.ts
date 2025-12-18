@@ -3,5 +3,5 @@ export type XP_Color = {
   /**
    * Farge
    */
-  color?: 'ib-brand-white' | 'ib-pink-400A' | 'ib-dark-blue-400A' | 'ib-orange-400A' | 'ib-pastel-yellow-300A';
+  color?: 'ax-danger-400' | 'ax-meta-purple-600' | 'ax-success-800' | 'ax-accent-600' | 'ax-warning-400' | 'ax-warning-500';
 };

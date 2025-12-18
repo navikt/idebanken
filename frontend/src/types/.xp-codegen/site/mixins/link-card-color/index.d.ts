@@ -3,5 +3,5 @@ export type XP_LinkCardColor = {
   /**
    * Bakgrunn
    */
-  color: 'brand' | 'white';
+  color: 'white' | 'brand';
 };

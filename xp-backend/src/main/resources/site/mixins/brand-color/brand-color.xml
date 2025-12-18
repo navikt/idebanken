@@ -5,7 +5,7 @@
             <label>Brand farger</label>
             <occurrences minimum="1" maximum="1"/>
             <config>
-                <option value="neutral">Neutral</option>
+                <option value="neutral">Nøytral</option>
                 <option value="ib-brand-gray">Grå</option>
                 <option value="ib-brand-pink">Rosa</option>
             </config>

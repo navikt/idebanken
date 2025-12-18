@@ -3,5 +3,5 @@ export type LinkCardColor = {
   /**
    * Bakgrunn
    */
-  color: 'brand' | 'white';
+  color: 'white' | 'brand';
 };
