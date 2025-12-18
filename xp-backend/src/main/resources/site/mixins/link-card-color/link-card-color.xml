@@ -8,7 +8,7 @@
                 <option value="brand">Brand fra layout</option>
                 <option value="white">Hvit</option>
             </config>
-            <default>brand</default>
+            <default>white</default>
         </input>
     </form>
 </mixin>
