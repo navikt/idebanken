@@ -47,3 +47,6 @@ out/
 
 # ES lint
 /.eslintcache
+
+# Copilot instructions
+/.github/copilot-instructions.md
