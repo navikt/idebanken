@@ -15,9 +15,9 @@ export const AuthorsAndDate = ({ authors, artist, published }: AuthorsProps) => 
         <VStack className="mt-0">
             <Separator className="mb-(--ax-space-16) border-t-2" />
             <HStack gap="2" className="mb-(--ax-space-2)">
-                <BodyShort size="small">TEKST: {joinArrayWithCommasAndAnd(authors)}</BodyShort>
+                <BodyShort size="small">Tekst: {joinArrayWithCommasAndAnd(authors)}</BodyShort>
                 {artist && (
-                    <BodyShort size="small">FOTO: {joinArrayWithCommasAndAnd(artist)}</BodyShort>
+                    <BodyShort size="small">Foto: {joinArrayWithCommasAndAnd(artist)}</BodyShort>
                 )}
             </HStack>
             {published && (
