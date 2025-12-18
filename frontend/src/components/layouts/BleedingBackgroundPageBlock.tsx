@@ -75,7 +75,7 @@ export default function BleedingBackgroundPageBlock({
     )
 }
 
-export const legacyBgToBrandColorMap = (bgColorOrBrand?: string | null): AkselColor => {
+export const legacyBgToBrandColorMap = (bgColorOrBrand?: string | null): AkselColor | undefined => {
     const bgToBrand = {
         'bg-white': 'neutral',
         'bg-brand-white': 'neutral',
@@ -87,8 +87,8 @@ export const legacyBgToBrandColorMap = (bgColorOrBrand?: string | null): AkselCo
 
     if (bgColorOrBrand && bgToBrand[bgColorOrBrand]) {
         return bgToBrand[bgColorOrBrand]
-    } else if (bgColorOrBrand) {
-        return bgColorOrBrand as AkselColor
+    } else if (!bgColorOrBrand) {
+        return
     }
-    return 'neutral'
+    return bgColorOrBrand as AkselColor
 }

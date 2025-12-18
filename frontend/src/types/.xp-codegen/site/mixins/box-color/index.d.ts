@@ -3,5 +3,5 @@ export type XP_BoxColor = {
   /**
    * Farge på boks
    */
-  boxColor?: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink';
+  boxColor?: 'neutral' | 'ib-brand-gray' | 'ib-brand-pink';
 };

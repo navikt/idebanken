@@ -74,6 +74,8 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
               : 'max-md:order-3'
     }
 
+    const dataColor = legacyBgToBrandColorMap(boxColor)
+
     return (
         <BleedingBackgroundPageBlock
             bgColor={bgColor}
@@ -82,8 +84,11 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
             width={overrideWidth}
             noGutters={noGutters}>
             <HGrid
-                data-color={legacyBgToBrandColorMap(boxColor)}
-                className={classNames(boxColor ? 'bg-(--ax-bg-softA) rounded-3xl p-6 md:py-8' : '')}
+                data-color={dataColor}
+                className={classNames(
+                    boxColor ? 'bg-(--ax-bg-softA) rounded-3xl p-6 md:py-8' : '',
+                    dataColor === 'ib-brand-gray' ? 'border border-(--ax-border-subtleA)' : ''
+                )}
                 gap={
                     hasContentInOnlyOneRegion
                         ? {}

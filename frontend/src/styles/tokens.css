@@ -319,6 +319,11 @@
     --ax-border-strong: var(--ib-border-dark-blue-strong);
 }
 
+[data-color='ib-brand-gray'] {
+    --ax-bg-softA: var(--ib-brand-white);
+    --ax-border-subtleA: var(--ax-border-neutral-subtleA);
+}
+
 [data-color='ib-brand-pink'] {
     --ax-border-strong: var(--ib-border-pink-strong);
     --ax-border-subtleA: var(--ib-border-pink-subtleA);

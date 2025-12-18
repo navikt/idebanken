@@ -3,5 +3,5 @@ export type XP_BrandColor = {
   /**
    * Brand farger
    */
-  brand: 'neutral' | 'accent' | 'ib-brand-pink' | 'ib-brand-dark-blue' | 'ib-brand-orange' | 'ib-brand-pastel-yellow';
+  brand: 'neutral' | 'ib-brand-gray' | 'ib-brand-pink';
 };

@@ -40,6 +40,8 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
         noGutters,
     } = config
 
+    const dataColor = legacyBgToBrandColorMap(boxColor)
+
     return (
         <BleedingBackgroundPageBlock
             bgColor={bgColor}
@@ -48,11 +50,12 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
             width={overrideWidth}
             noGutters={noGutters}>
             <Box
-                data-color={legacyBgToBrandColorMap(boxColor)}
+                data-color={dataColor}
                 className={classNames(
                     boxColor
                         ? 'bg-(--ax-bg-softA) rounded-ib p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]'
                         : '',
+                    dataColor === 'ib-brand-gray' ? 'border border-(--ax-border-subtleA)' : '',
                     alignmentClassNames(xAlignment, yAlignment)
                 )}>
                 <RegionView
