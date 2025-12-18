@@ -50,7 +50,13 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
                 unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
             />
             {typeTags.map(({ name, color }, index) => (
-                <TagView key={index} name={name} color={color} size="small" />
+                <TagView
+                    key={index}
+                    name={name}
+                    color={color}
+                    size="small"
+                    className="!mb-(--ax-space-4)"
+                />
             ))}
             <HeadingView level="1" size={headingSize} className="!m-0">
                 {title}
