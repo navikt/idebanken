@@ -123,7 +123,11 @@ export const LinkCardView = ({
                 <LinkCardDescription>{description}</LinkCardDescription>
             )}
             {!hideTag && typeTags && typeTags?.length > 0 && (
-                <LinkCardFooter className={'gap-(--ax-space-20)'}>
+                <LinkCardFooter
+                    className={classNames(
+                        `gap-(--ax-space-20)`,
+                        showImage ? 'mt-(--ax-space-20) mb-(--ax-space-8)' : ' mt-(--ax-space-8)'
+                    )}>
                     {typeTags.map(({ name, color }, index) => (
                         <TagView
                             key={index}
