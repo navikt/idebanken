@@ -5,11 +5,12 @@
             <label>Farge</label>
             <occurrences minimum="0" maximum="1"/>
             <config>
-                <option value="ib-brand-white">Hvit</option>
-                <option value="ib-pink-400A">Rosa</option>
-                <option value="ib-dark-blue-400A">Blå</option>
-                <option value="ib-orange-400A">Orange</option>
-                <option value="ib-pastel-yellow-300A">Gul</option>
+                <option value="ax-danger-400">Rosa</option>
+                <option value="ax-meta-purple-600">Lilla</option>
+                <option value="ax-success-800">Grønn</option>
+                <option value="ax-accent-600">Blå</option>
+                <option value="ax-warning-400">Gul</option>
+                <option value="ax-warning-500">Oransje</option>
             </config>
         </input>
     </form>
