@@ -72,6 +72,7 @@ export const LinkCardView = ({
 
     return (
         <LinkCard
+            data-color={'inherit'}
             arrow={!hideArrow}
             className={classNames(
                 `group rounded-ib`,

@@ -293,6 +293,7 @@
 
     --ax-text-accent: var(--ib-text-dark-blue);
     --ax-text-accent-subtle: var(--ib-text-dark-blue-subtle);
+    --ax-text-subtle: var(--ax-text-default)
 }
 
 [data-color="accent"] {
@@ -319,43 +320,17 @@
     --ax-border-strong: var(--ib-border-dark-blue-strong);
 }
 
-[data-color='ib-brand-gray'] {
-    --ax-bg-softA: var(--ib-brand-white);
-    --ax-bg-raised: var(--ib-brand-white);
-
-    --ax-bg-strong: var(--ib-bg-dark-blue-strong);
-    --ax-bg-strong-hover: var(--ib-bg-dark-blue-strong-hover);
-    --ax-bg-strong-pressed: var(--ib-bg-dark-blue-strong-pressed);
-
-
-    {/* unchanged neutral variables */}
-    --ax-bg-soft: var(--ax-bg-neutral-soft);
-    --ax-bg-moderate: var(--ax-bg-neutral-moderate);
-    --ax-bg-moderateA: var(--ax-bg-neutral-moderateA);
-    --ax-bg-moderate-hover: var(--ax-bg-neutral-moderate-hover);
-    --ax-bg-moderate-hoverA: var(--ax-bg-neutral-moderate-hoverA);
-    --ax-bg-moderate-pressed: var(--ax-bg-neutral-moderate-pressed);
-    --ax-bg-moderate-pressedA: var(--ax-bg-neutral-moderate-pressedA);
-
-    --ax-text-default: var(--ax-text-neutral);
-    --ax-text-subtle: var(--ax-text-neutral-subtle);
-    --ax-text-decoration: var(--ax-text-neutral-decoration);
-    --ax-text-contrast: var(--ax-text-neutral-contrast);
-
-    --ax-border-default: var(--ax-border-neutral);
-    --ax-border-subtle: var(--ax-border-neutral-subtle);
-    --ax-border-strong: var(--ax-border-neutral-strong);
-    --ax-border-subtleA: var(--ax-border-neutral-subtleA);
-}
-
 [data-color='ib-brand-pink'] {
+    --ax-bg-raised: var(--ax-bg-default);
+
     --ax-border-strong: var(--ib-border-pink-strong);
-    --ax-border-subtleA: var(--ib-border-pink-subtleA);
     --ax-border-subtle: var(--ib-border-pink-subtle);
+    --ax-border-subtleA: var(--ax-border-neutral-subtleA);
     --ax-border-default: var(--ib-border-pink);
 
     --ax-text-accent: var(--ib-text-pink);
     --ax-text-accent-subtle: var(--ib-text-pink-subtle);
+    --ax-text-subtle: var(--ax-text-neutral);
 
     --ax-bg-strong-pressed: var(--ib-bg-pink-strong-pressed);
     --ax-bg-strong-hover: var(--ib-bg-pink-strong-hover);
@@ -372,14 +347,39 @@
 
     --ax-bg-softA: var(--ib-bg-pink-softA);
     --ax-bg-soft: var(--ib-bg-pink-soft);
-
-    --ax-bg-raised: var(--ib-bg-pink-raised);
-
-    [data-color="neutral"] {
-        --ax-bg-raised: var(--ax-bg-default);
-        --ax-border-subtleA: var(--ax-border-neutral-subtleA);
-    }
 }
+
+
+[data-color='ib-brand-gray'] {
+    --ax-bg-softA: var(--ib-brand-white);
+    --ax-bg-raised: var(--ax-bg-default);
+
+    --ax-bg-strong: var(--ib-bg-dark-blue-strong);
+    --ax-bg-strong-hover: var(--ib-bg-dark-blue-strong-hover);
+    --ax-bg-strong-pressed: var(--ib-bg-dark-blue-strong-pressed);
+
+    --ax-text-subtle: var(--ax-text-neutral);
+
+
+    {/* unchanged neutral variables */}
+    --ax-bg-soft: var(--ax-bg-neutral-soft);
+    --ax-bg-moderate: var(--ax-bg-neutral-moderate);
+    --ax-bg-moderateA: var(--ax-bg-neutral-moderateA);
+    --ax-bg-moderate-hover: var(--ax-bg-neutral-moderate-hover);
+    --ax-bg-moderate-hoverA: var(--ax-bg-neutral-moderate-hoverA);
+    --ax-bg-moderate-pressed: var(--ax-bg-neutral-moderate-pressed);
+    --ax-bg-moderate-pressedA: var(--ax-bg-neutral-moderate-pressedA);
+
+    --ax-text-default: var(--ax-text-neutral);
+    --ax-text-decoration: var(--ax-text-neutral-decoration);
+    --ax-text-contrast: var(--ax-text-neutral-contrast);
+
+    --ax-border-default: var(--ax-border-neutral);
+    --ax-border-subtle: var(--ax-border-neutral-subtle);
+    --ax-border-strong: var(--ax-border-neutral-strong);
+    --ax-border-subtleA: var(--ax-border-neutral-subtleA);
+}
+
 
 [data-color='ib-brand-dark-blue'] {
     --ax-border-strong: var(--ib-border-dark-blue-strong);
