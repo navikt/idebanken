@@ -1251,8 +1251,10 @@ export type Part_Idebanken_Image_StandardSize = {
 /** Part component application config for application ['idebanken'] and descriptor ['link-card'] */
 export type Part_Idebanken_Link_Card = {
   __typename?: 'Part_idebanken_link_card';
+  color?: Maybe<Scalars['String']['output']>;
   displayType?: Maybe<Scalars['String']['output']>;
   hideArrow?: Maybe<Scalars['Boolean']['output']>;
+  hideTag?: Maybe<Scalars['Boolean']['output']>;
   resolvedLinkCard: Link_Card;
   showDescription?: Maybe<Scalars['Boolean']['output']>;
 };
@@ -1291,9 +1293,11 @@ export enum Part_Idebanken_Link_Card_InternalOrExternalLink_OptionEnum {
 /** Part component application config for application ['idebanken'] and descriptor ['link-card-list'] */
 export type Part_Idebanken_Link_Card_List = {
   __typename?: 'Part_idebanken_link_card_list';
+  color?: Maybe<Scalars['String']['output']>;
   displayType?: Maybe<Scalars['String']['output']>;
   heading?: Maybe<Part_Idebanken_Link_Card_List_Heading>;
   hideArrow?: Maybe<Scalars['Boolean']['output']>;
+  hideTag?: Maybe<Scalars['Boolean']['output']>;
   list: Array<Link_Card>;
   nEachRow?: Maybe<Scalars['String']['output']>;
   showDescription?: Maybe<Scalars['Boolean']['output']>;

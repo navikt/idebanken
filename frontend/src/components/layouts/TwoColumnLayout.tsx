@@ -47,6 +47,8 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
     const hasContentInBothRegions =
         regions['left']?.components?.length && regions['left']?.components?.length
 
+    const dataColor = legacyBgToBrandColorMap(boxColor)
+
     return (
         <BleedingBackgroundPageBlock
             bgColor={bgColor}
@@ -55,12 +57,13 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
             width={overrideWidth}
             noGutters={noGutters}>
             <HGrid
-                data-color={legacyBgToBrandColorMap(boxColor)}
-                className={
+                data-color={dataColor}
+                className={classNames(
                     boxColor
                         ? 'bg-(--ax-bg-softA) rounded-ib p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]'
-                        : ''
-                }
+                        : '',
+                    dataColor === 'ib-brand-gray' ? 'border border-(--ax-border-subtleA)' : ''
+                )}
                 gap={
                     hasContentInBothRegions
                         ? {

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <mixin xmlns="urn:enonic:xp:model:1.0">
-    <form>    
+    <form>
         <input name="bgColor" type="ComboBox">
             <label>Bakgrunnsfarge</label>
             <occurrences minimum="1" maximum="1"/>
             <config>
-                <option value="bg-white">Hvit</option>
-                <option value="bg-brand-white">Lys grå</option>
-                <option value="bg-extra-light-pink">Ekstra lys rosa</option>
+                <option value="neutral">Neutral</option>
+                <option value="ib-brand-gray">Grå</option>
+                <option value="ib-brand-pink">Rosa</option>
             </config>
-            <default>bg-white</default>
+            <default>neutral</default>
         </input>
     </form>
 </mixin>

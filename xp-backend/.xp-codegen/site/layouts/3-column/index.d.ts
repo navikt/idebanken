@@ -3,12 +3,12 @@ export type _3Column = {
   /**
    * Bakgrunnsfarge
    */
-  bgColor: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink';
+  bgColor: 'neutral' | 'ib-brand-gray' | 'ib-brand-pink';
 
   /**
    * Farge på boks
    */
-  boxColor?: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink';
+  boxColor?: 'neutral' | 'ib-brand-gray' | 'ib-brand-pink';
 
   /**
    * Avstand over

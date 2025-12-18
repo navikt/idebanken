@@ -27,16 +27,21 @@ const resolveWidth = (
           ? 'text'
           : 'md')
 
-const resolveGutterOverride = (resolvedWidth: PageBlockProps['width'], noGutters?: boolean) =>
-    !noGutters
-        ? ''
-        : resolvedWidth === 'md'
-          ? 'lg:px-0!'
-          : resolvedWidth === 'lg'
-            ? 'xl:px-0!'
-            : resolvedWidth === 'xl'
-              ? '2xl:px-0!'
-              : ''
+function resolveGutterOverride(resolvedWidth: PageBlockProps['width'], noGutters?: boolean) {
+    if (!noGutters) return ''
+    switch (resolvedWidth) {
+        case 'text':
+            return 'md:px-0!'
+        case 'md':
+            return 'lg:px-0!'
+        case 'lg':
+            return 'xl:px-0!'
+        case 'xl':
+            return '2xl:px-0!'
+        default:
+            return ''
+    }
+}
 
 export default function BleedingBackgroundPageBlock({
     bgColor,
@@ -70,7 +75,7 @@ export default function BleedingBackgroundPageBlock({
     )
 }
 
-export const legacyBgToBrandColorMap = (bgColorOrBrand?: string | null): AkselColor => {
+export const legacyBgToBrandColorMap = (bgColorOrBrand?: string | null): AkselColor | undefined => {
     const bgToBrand = {
         'bg-white': 'neutral',
         'bg-brand-white': 'neutral',
@@ -82,8 +87,8 @@ export const legacyBgToBrandColorMap = (bgColorOrBrand?: string | null): AkselCo
 
     if (bgColorOrBrand && bgToBrand[bgColorOrBrand]) {
         return bgToBrand[bgColorOrBrand]
-    } else if (bgColorOrBrand) {
-        return bgColorOrBrand as AkselColor
+    } else if (!bgColorOrBrand) {
+        return
     }
-    return 'neutral'
+    return bgColorOrBrand as AkselColor
 }

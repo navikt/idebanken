@@ -68,7 +68,17 @@ export type LinkCardList = {
   hideArrow: boolean;
 
   /**
+   * Skjul type-tag
+   */
+  hideTag: boolean;
+
+  /**
    * Vis beskrivelse på kortene
    */
   showDescription: boolean;
+
+  /**
+   * Bakgrunn
+   */
+  color: 'brand' | 'white';
 };

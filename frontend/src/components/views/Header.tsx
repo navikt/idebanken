@@ -106,7 +106,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                 as="header"
                 width={'2xl'}
                 className="relative items-center"
-                bleedClassName="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-[99] overflow-y-visible bg-(--ax-bg-default)">
+                bleedClassName="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-[99] overflow-y-visible bg-(--ax-bg-default)!">
                 <CookieBanner meta={meta} common={common} />
                 <Link
                     className="bg-dark-blue text-primary-content z-[100] transition left-0 absolute p-3 m-3 -translate-y-16 focus:translate-y-0"

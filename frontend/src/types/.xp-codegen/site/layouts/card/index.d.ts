@@ -45,7 +45,7 @@ export type XP_Card = {
   /**
    * Bakgrunnsfarge
    */
-  bgColor: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink';
+  bgColor: 'neutral' | 'ib-brand-gray' | 'ib-brand-pink';
 
   /**
    * Avstand over

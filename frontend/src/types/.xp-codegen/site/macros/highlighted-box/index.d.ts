@@ -13,7 +13,7 @@ export type XP_HighlightedBox = {
   /**
    * Brand farger
    */
-  brand: 'neutral' | 'accent' | 'ib-brand-pink' | 'ib-brand-dark-blue' | 'ib-brand-orange' | 'ib-brand-pastel-yellow';
+  brand: 'neutral' | 'ib-brand-gray' | 'ib-brand-pink';
 
   /**
    * Innhold

@@ -3,5 +3,5 @@ export type XP_BackgroundColor = {
   /**
    * Bakgrunnsfarge
    */
-  bgColor: 'bg-white' | 'bg-brand-white' | 'bg-extra-light-pink';
+  bgColor: 'neutral' | 'ib-brand-gray' | 'ib-brand-pink';
 };

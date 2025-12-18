@@ -11,9 +11,19 @@ export type LinkCard = {
   hideArrow: boolean;
 
   /**
+   * Skjul type-tag
+   */
+  hideTag: boolean;
+
+  /**
    * Vis beskrivelse
    */
   showDescription: boolean;
+
+  /**
+   * Bakgrunn
+   */
+  color: 'brand' | 'white';
 
   /**
    * Lenke-type

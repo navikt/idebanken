@@ -8,10 +8,16 @@
             <label>Skjul pil</label>
         </input>
 
+        <input type="CheckBox" name="hideTag">
+            <label>Skjul type-tag</label>
+        </input>
+
         <input name="showDescription" type="CheckBox">
             <label>Vis beskrivelse</label>
             <default>checked</default>
         </input>
+
+        <mixin name="link-card-color"/>
 
         <option-set name="internalOrExternalLink">
             <label>Lenke-type</label>

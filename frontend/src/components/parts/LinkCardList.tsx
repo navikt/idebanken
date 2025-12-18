@@ -12,7 +12,8 @@ export function LinkCardList({
 }: PartData<
     Pick<Part_Idebanken_Link_Card_List, 'list' | 'heading'> & Omit<XP_LinkCardList, 'list'>
 >) {
-    const { list, displayType, hideArrow, nEachRow, heading, showDescription } = part.config
+    const { list, displayType, hideArrow, nEachRow, heading, showDescription, hideTag, color } =
+        part.config
 
     const spanClass = getSpanClass(nEachRow, list.length, displayType)
 
@@ -35,7 +36,9 @@ export function LinkCardList({
                             showDescription,
                             displayType,
                             hideArrow,
+                            hideTag,
                             meta,
+                            color,
                         })}
                     </div>
                 ))}
