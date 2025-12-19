@@ -111,6 +111,7 @@ export const headlessCmsExtensions = ({
                     return {
                         searchPageHref: searchPageId ? enonicSitePathToHref(searchPageId) : '/sok',
                         cookieInfoText: processHtml({ value: siteConfig?.cookieInfoText ?? '' }),
+                        alertBanner: siteConfig?.alertBanner,
                     }
                 })
             },
@@ -147,6 +148,18 @@ export const headlessCmsExtensions = ({
             },
             interfaces: [],
         },
+        AlertBanner: {
+            description: 'Alert banner configuration',
+            fields: {
+                text: {
+                    type: nonNull(GraphQLString),
+                },
+                status: {
+                    type: nonNull(GraphQLString),
+                },
+            },
+            interfaces: [],
+        },
         SiteConfiguration: {
             description: 'Configuration for other parts of the site',
             fields: {
@@ -155,6 +168,9 @@ export const headlessCmsExtensions = ({
                 },
                 cookieInfoText: {
                     type: nonNull(GraphQLString),
+                },
+                alertBanner: {
+                    type: reference('AlertBanner'),
                 },
             },
             interfaces: [],

@@ -16,6 +16,7 @@ import { draftMode } from 'next/headers'
 import { CookieBanner } from '~/components/common/cookies/CookieBanner'
 import { ContentEditorMessage } from '~/components/common/ContentEditorMessage'
 import Backlink from '~/components/common/Backlink'
+import { AlertBanner } from '~/components/common/AlertBanner'
 
 type LayoutParams = { locale: string; contentPath?: string[] }
 type LayoutProps = PropsWithChildren<{ params: Promise<LayoutParams> }>
@@ -50,6 +51,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
             <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
                 <Page contentBlockPadding="none">
                     <CookieBanner meta={meta} common={common as HeadlessCms} />
+                    <AlertBanner common={common as HeadlessCms} />
                     {children}
                     <GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />
                     {editorMessage}
@@ -68,6 +70,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                     common={common as HeadlessCms}
                     title={I18n.localize('idebanken')}
                 />
+                <AlertBanner common={common as HeadlessCms} />
                 <Backlink contentResult={contentResult} />
                 <PageBlock id="main-content" as="main" width="2xl">
                     {children}
