@@ -19,7 +19,9 @@ export default function Backlink({ contentResult }: { contentResult: FetchConten
     )
 
     const shouldBleedPink =
-        meta?.type === 'idebanken:section-page' || meta?.type === 'idebanken:singleton-aktuelt-page'
+        meta?.type === 'idebanken:singleton-theme' ||
+        meta?.type === 'idebanken:section-page' ||
+        meta?.type === 'idebanken:singleton-aktuelt-page'
 
     if (shouldBleedPink) {
         return (
