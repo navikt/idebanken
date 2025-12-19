@@ -3,5 +3,5 @@ export type XP_DisplayImageOrIcon = {
   /**
    * Visning
    */
-  displayType: 'none' | 'withIcon' | 'withImageAndIcon' | 'withImage';
+  displayType: 'withImage' | 'withIcon' | 'withIconBg' | 'none' | 'withImageAndIcon';
 };

@@ -1,5 +1,5 @@
 import type { Link_Card, Part_Idebanken_Link_Card, Tag as TagType } from '~/types/generated.d'
-import { Link } from '@navikt/ds-react'
+import { Box, Link } from '@navikt/ds-react'
 import {
     LinkCard,
     LinkCardAnchor,
@@ -67,16 +67,23 @@ export const LinkCardView = ({
     linkProps,
     color,
 }: LinkCardViewParams) => {
-    const showIcon = displayType === 'withIcon' || displayType === 'withImageAndIcon'
+    const showIcon =
+        displayType === 'withIcon' ||
+        displayType === 'withImageAndIcon' ||
+        displayType === 'withIconBg'
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
+
+    const mxExtraWithImage = showImage ? `md:mx-(--ax-space-12)` : ''
+    const mbExtraWithImage = showImage ? 'md:mb-(--ax-space-12)' : ''
+    const mtExtraWithImage = showImage ? 'md:mt-(--ax-space-12)' : ''
 
     return (
         <LinkCard
             data-color={'inherit'}
             arrow={!hideArrow}
             className={classNames(
-                `group rounded-ib`,
-                showImage ? '' : ' px-7 py-6',
+                'group rounded-ib',
+                showImage ? '[&>svg:last-child]:mt-(--ax-space-12)' : ' px-7 py-6',
                 color === 'white' || !color ? 'bg-(--ax-bg-default)!' : ''
             )}>
             {showImage && (
@@ -92,23 +99,30 @@ export const LinkCardView = ({
             )}
             {showIcon && icon?.url && (
                 <LinkCardIcon>
-                    <Image
-                        unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
-                        src={icon.url}
-                        alt=""
-                        aria-hidden
-                        role="presentation"
-                        width={56}
-                        height={56}
+                    <Box
                         className={
-                            /\.svg(\?.*)?$/i.test(icon.url)
-                                ? 'dark:invert dark:brightness-0 dark:contrast-50'
-                                : undefined
-                        }
-                    />
+                            displayType === 'withIconBg'
+                                ? 'w-[56px] h-[56px] rounded-full bg-(--ib-bg-pink-moderate) flex justify-center align-middle'
+                                : ''
+                        }>
+                        <Image
+                            unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                            src={icon.url}
+                            alt=""
+                            aria-hidden
+                            role="presentation"
+                            width={displayType === 'withIconBg' ? 30 : 56}
+                            height={displayType === 'withIconBg' ? 30 : 56}
+                            className={
+                                /\.svg(\?.*)?$/i.test(icon.url)
+                                    ? 'dark:invert dark:brightness-0 dark:contrast-50'
+                                    : undefined
+                            }
+                        />
+                    </Box>
                 </LinkCardIcon>
             )}
-            <LinkCardTitle>
+            <LinkCardTitle className={classNames(mxExtraWithImage, mtExtraWithImage)}>
                 <LinkCardAnchor asChild>
                     <Link
                         as={NextLink}
@@ -120,13 +134,18 @@ export const LinkCardView = ({
                 </LinkCardAnchor>
             </LinkCardTitle>
             {description && showDescription && (
-                <LinkCardDescription>{description}</LinkCardDescription>
+                <LinkCardDescription
+                    className={classNames(mxExtraWithImage, showImage ? 'mt-(--ax-space-16)' : '')}>
+                    {description}
+                </LinkCardDescription>
             )}
             {!hideTag && typeTags && typeTags?.length > 0 && (
                 <LinkCardFooter
                     className={classNames(
                         `gap-(--ax-space-20)`,
-                        showImage ? 'mt-(--ax-space-20) mb-(--ax-space-8)' : ' mt-(--ax-space-8)'
+                        showImage ? `mt-(--ax-space-32)` : ' mt-(--ax-space-8)',
+                        mbExtraWithImage,
+                        mxExtraWithImage
                     )}>
                     {typeTags.map(({ name, color }, index) => (
                         <TagView

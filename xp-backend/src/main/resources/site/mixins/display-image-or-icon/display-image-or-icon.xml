@@ -5,10 +5,11 @@
             <label>Visning</label>
             <occurrences minimum="1" maximum="1"/>
             <config>
-                <option value="none">Uten ikon og bilde</option>
-                <option value="withIcon">Med ikon</option>
-                <option value="withImageAndIcon">Med ikon og bilde</option>
                 <option value="withImage">Med bilde</option>
+                <option value="withIcon">Med ikon</option>
+                <option value="withIconBg">Med fremhevet ikon</option>
+                <option value="none">Uten ikon og bilde</option>
+                <option value="withImageAndIcon">Med ikon og bilde</option>
             </config>
             <default>withIcon</default>
         </input>

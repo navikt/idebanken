@@ -293,7 +293,7 @@
 
     --ax-text-accent: var(--ib-text-dark-blue);
     --ax-text-accent-subtle: var(--ib-text-dark-blue-subtle);
-    --ax-text-subtle: var(--ax-text-default)
+    --ax-text-subtle: var(--ax-text-default);
 }
 
 [data-color="accent"] {

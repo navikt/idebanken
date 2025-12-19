@@ -55,7 +55,7 @@ export type LinkCardList = {
   /**
    * Visning
    */
-  displayType: 'none' | 'withIcon' | 'withImageAndIcon' | 'withImage';
+  displayType: 'withImage' | 'withIcon' | 'withIconBg' | 'none' | 'withImageAndIcon';
 
   /**
    * Antall lenkekort pr. rad
@@ -80,5 +80,5 @@ export type LinkCardList = {
   /**
    * Bakgrunn
    */
-  color: 'brand' | 'white';
+  color: 'white' | 'brand';
 };
