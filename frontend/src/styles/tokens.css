@@ -320,6 +320,28 @@
     --ax-border-strong: var(--ib-border-dark-blue-strong);
 }
 
+[data-color="accent-aksel"] {
+    --ax-bg-soft: var(--ax-bg-accent-soft);
+    --ax-bg-softA: var(--ax-bg-accent-softA);
+    --ax-bg-moderate: var(--ax-bg-accent-moderate);
+    --ax-bg-moderateA: var(--ax-bg-accent-moderateA);
+    --ax-bg-moderate-hover: var(--ax-bg-accent-moderate-hover);
+    --ax-bg-moderate-hoverA: var(--ax-bg-accent-moderate-hoverA);
+    --ax-bg-moderate-pressed: var(--ax-bg-accent-moderate-pressed);
+    --ax-bg-moderate-pressedA: var(--ax-bg-accent-moderate-pressedA);
+    --ax-bg-strong: var(--ax-bg-accent-strong);
+    --ax-bg-strong-hover: var(--ax-bg-accent-strong-hover);
+    --ax-bg-strong-pressed: var(--ax-bg-accent-strong-pressed);
+    --ax-text-default: var(--ax-text-accent);
+    --ax-text-subtle: var(--ax-text-accent-subtle);
+    --ax-text-decoration: var(--ax-text-accent-decoration);
+    --ax-text-contrast: var(--ax-text-accent-contrast);
+    --ax-border-default: var(--ax-border-accent);
+    --ax-border-subtle: var(--ax-border-accent-subtle);
+    --ax-border-subtleA: var(--ax-border-accent-subtleA);
+    --ax-border-strong: var(--ax-border-accent-strong);
+}
+
 [data-color='ib-brand-pink'] {
     --ax-bg-raised: var(--ax-bg-default);
 

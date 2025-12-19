@@ -14,20 +14,22 @@ export const AccordionView = ({ part, meta }: PartData<Part_Idebanken_Accordion>
     const { accordionItems } = config
 
     return (
-        <Accordion className="flex flex-col">
-            {accordionItems.map((item, idx) => (
-                <AccordionItemTracked key={idx}>
-                    <AccordionHeader>{item.header}</AccordionHeader>
-                    <AccordionContent>
-                        <RichTextView
-                            // @ts-expect-error data.processedHtml is not required
-                            data={item.simpleTextEditor ?? {}}
-                            meta={meta}
-                            customReplacer={htmlRichTextReplacer}
-                        />
-                    </AccordionContent>
-                </AccordionItemTracked>
-            ))}
-        </Accordion>
+        <div data-color="accent-aksel">
+            <Accordion className="flex flex-col">
+                {accordionItems.map((item, idx) => (
+                    <AccordionItemTracked key={idx}>
+                        <AccordionHeader>{item.header}</AccordionHeader>
+                        <AccordionContent>
+                            <RichTextView
+                                // @ts-expect-error data.processedHtml is not required
+                                data={item.simpleTextEditor ?? {}}
+                                meta={meta}
+                                customReplacer={htmlRichTextReplacer}
+                            />
+                        </AccordionContent>
+                    </AccordionItemTracked>
+                ))}
+            </Accordion>
+        </div>
     )
 }
