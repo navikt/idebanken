@@ -73,17 +73,17 @@ export const LinkCardView = ({
         displayType === 'withIconBg'
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
 
-    const pxExtraWithImage = showImage ? `md:px-(--ax-space-12)` : ''
-    const pbExtraWithImage = showImage ? 'md:pb-(--ax-space-12)' : ''
-    const ptExtraWithImage = showImage ? 'md:pt-(--ax-space-12)' : ''
+    const mxExtraWithImage = showImage ? `md:mx-(--ax-space-12)` : ''
+    const mbExtraWithImage = showImage ? 'md:mb-(--ax-space-12)' : ''
+    const mtExtraWithImage = showImage ? 'md:mt-(--ax-space-12)' : ''
 
     return (
         <LinkCard
             data-color={'inherit'}
             arrow={!hideArrow}
             className={classNames(
-                `group rounded-ib`,
-                showImage ? '' : ' px-7 py-6',
+                'group rounded-ib',
+                showImage ? '[&>svg:last-child]:mt-(--ax-space-12)' : ' px-7 py-6',
                 color === 'white' || !color ? 'bg-(--ax-bg-default)!' : ''
             )}>
             {showImage && (
@@ -122,7 +122,7 @@ export const LinkCardView = ({
                     </Box>
                 </LinkCardIcon>
             )}
-            <LinkCardTitle className={classNames(pxExtraWithImage, ptExtraWithImage)}>
+            <LinkCardTitle className={classNames(mxExtraWithImage, mtExtraWithImage)}>
                 <LinkCardAnchor asChild>
                     <Link
                         as={NextLink}
@@ -135,7 +135,7 @@ export const LinkCardView = ({
             </LinkCardTitle>
             {description && showDescription && (
                 <LinkCardDescription
-                    className={classNames(pxExtraWithImage, showImage ? 'mt-(--ax-space-16)' : '')}>
+                    className={classNames(mxExtraWithImage, showImage ? 'mt-(--ax-space-16)' : '')}>
                     {description}
                 </LinkCardDescription>
             )}
@@ -144,8 +144,8 @@ export const LinkCardView = ({
                     className={classNames(
                         `gap-(--ax-space-20)`,
                         showImage ? `mt-(--ax-space-32)` : ' mt-(--ax-space-8)',
-                        pbExtraWithImage,
-                        pxExtraWithImage
+                        mbExtraWithImage,
+                        mxExtraWithImage
                     )}>
                     {typeTags.map(({ name, color }, index) => (
                         <TagView
