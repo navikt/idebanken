@@ -72,6 +72,8 @@ export const LinkCardView = ({
         displayType === 'withImageAndIcon' ||
         displayType === 'withIconBg'
     const showImage = displayType === 'withImage' || displayType === 'withImageAndIcon'
+    const extraSpaceWhenImage = '--ax-space-12'
+    const xPaddingWithImage = showImage ? `md:px-(${extraSpaceWhenImage})` : ''
 
     return (
         <LinkCard
@@ -118,7 +120,11 @@ export const LinkCardView = ({
                     </Box>
                 </LinkCardIcon>
             )}
-            <LinkCardTitle>
+            <LinkCardTitle
+                className={classNames(
+                    xPaddingWithImage,
+                    showImage ? `md:mt-(${extraSpaceWhenImage})` : ''
+                )}>
                 <LinkCardAnchor asChild>
                     <Link
                         as={NextLink}
@@ -130,13 +136,22 @@ export const LinkCardView = ({
                 </LinkCardAnchor>
             </LinkCardTitle>
             {description && showDescription && (
-                <LinkCardDescription>{description}</LinkCardDescription>
+                <LinkCardDescription
+                    className={classNames(
+                        xPaddingWithImage,
+                        showImage ? 'mt-(--ax-space-16)' : ''
+                    )}>
+                    {description}
+                </LinkCardDescription>
             )}
             {!hideTag && typeTags && typeTags?.length > 0 && (
                 <LinkCardFooter
                     className={classNames(
                         `gap-(--ax-space-20)`,
-                        showImage ? 'mt-(--ax-space-20) mb-(--ax-space-8)' : ' mt-(--ax-space-8)'
+                        showImage
+                            ? `mt-(--ax-space-32) md:mb-(${extraSpaceWhenImage})`
+                            : ' mt-(--ax-space-8)',
+                        xPaddingWithImage
                     )}>
                     {typeTags.map(({ name, color }, index) => (
                         <TagView
