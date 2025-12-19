@@ -98,7 +98,7 @@ export const LinkCardView = ({
                     <Box
                         className={
                             displayType === 'withIconBg'
-                                ? 'w-[56px] h-[56px] rounded-full bg-(--ib-bg-pink-moderate-pressed) flex justify-center align-middle'
+                                ? 'w-[56px] h-[56px] rounded-full bg-(--ib-bg-pink-moderate) flex justify-center align-middle'
                                 : ''
                         }>
                         <Image
@@ -107,8 +107,8 @@ export const LinkCardView = ({
                             alt=""
                             aria-hidden
                             role="presentation"
-                            width={displayType === 'withIconBg' ? 35 : 56}
-                            height={displayType === 'withIconBg' ? 35 : 56}
+                            width={displayType === 'withIconBg' ? 30 : 56}
+                            height={displayType === 'withIconBg' ? 30 : 56}
                             className={
                                 /\.svg(\?.*)?$/i.test(icon.url)
                                     ? 'dark:invert dark:brightness-0 dark:contrast-50'
