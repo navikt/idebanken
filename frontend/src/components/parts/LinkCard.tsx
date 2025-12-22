@@ -111,8 +111,8 @@ export const LinkCardView = ({
                             alt=""
                             aria-hidden
                             role="presentation"
-                            width={displayType === 'withIconBg' ? 30 : 56}
-                            height={displayType === 'withIconBg' ? 30 : 56}
+                            width={displayType === 'withIconBg' ? 30 : 36}
+                            height={displayType === 'withIconBg' ? 30 : 36}
                             className={
                                 /\.svg(\?.*)?$/i.test(icon.url)
                                     ? 'dark:invert dark:brightness-0 dark:contrast-50'
