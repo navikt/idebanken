@@ -15,6 +15,21 @@ declare global {
       };
 
       /**
+       * Info banner
+       */
+      alertBanner?: {
+        /**
+         * Tekst
+         */
+        text: string;
+
+        /**
+         * Status
+         */
+        status: 'announcement' | 'warning' | 'error' | 'success';
+      };
+
+      /**
        * Søkekonfigurasjon
        */
       searchConfig: {

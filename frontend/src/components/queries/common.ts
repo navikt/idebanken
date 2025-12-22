@@ -155,6 +155,10 @@ query($path:ID!){
     siteConfiguration {
         searchPageHref
         cookieInfoText
+        alertBanner {
+            text
+            status
+        }
     }
   }
 }`

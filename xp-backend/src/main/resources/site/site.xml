@@ -18,6 +18,27 @@
                 </input>
             </items>
         </item-set>
+        <item-set name="alertBanner">
+            <label>Info banner</label>
+            <occurrences minimum="0" maximum="1"/>
+            <items>
+                <input type="TextLine" name="text">
+                    <label>Tekst</label>
+                    <occurrences minimum="1" maximum="1"/>
+                </input>
+                <input type="ComboBox" name="status">
+                    <label>Status</label>
+                    <occurrences minimum="1" maximum="1"/>
+                    <config>
+                        <option value="announcement">Info</option>
+                        <option value="warning">Advarsel</option>
+                        <option value="error">Feil</option>
+                        <option value="success">Suksess</option>
+                    </config>
+                    <default>announcement</default>
+                </input>
+            </items>
+        </item-set>
         <item-set name="searchConfig">
             <label>Søkekonfigurasjon</label>
             <occurrences minimum="1" maximum="1"/>
