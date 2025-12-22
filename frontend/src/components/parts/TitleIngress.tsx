@@ -36,9 +36,15 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
 
     const contentType = meta?.type
     const headingSizeMap: Record<string, 'xlarge' | '2xlarge'> = {
-        'idebanken:artikkel': '2xlarge',
+        'idebanken:artikkel': 'xlarge',
+        'idebanken:kjerneartikkel': 'xlarge',
     }
-    const headingSize: 'xlarge' | '2xlarge' = headingSizeMap[contentType ?? ''] ?? 'xlarge'
+    const headingSize: 'xlarge' | '2xlarge' = headingSizeMap[contentType ?? ''] ?? '2xlarge'
+    const richTextParagraphClass = ['idebanken:artikkel', 'idebanken:kjerneartikkel'].includes(
+        contentType ?? ''
+    )
+        ? '[&_p]:text-xl/[140%] md:[&_p]:text-2xl/[133%]'
+        : '[&_p]:text-2xl/[133%] md:[&_p]:text-[32px]/[125%]'
 
     return (
         <>
@@ -63,7 +69,7 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
             </HeadingView>
             <RichTextView
                 tag="div"
-                className="[&_p]:text-[32px]/[150%]"
+                className={richTextParagraphClass}
                 data={{ processedHtml: data?.ingress }}
                 meta={meta}
                 customReplacer={htmlRichTextReplacer}

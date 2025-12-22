@@ -23,7 +23,7 @@ const CardHeader = ({ prefix, heading, headingColor, shadow }: CardHeaderProps) 
                 <HeadingView
                     autoId={false}
                     level="2"
-                    size="large"
+                    size="medium"
                     className="m-0 inline-flex items-center gap-4">
                     {prefix && (
                         <span
