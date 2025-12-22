@@ -81,7 +81,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                         alignmentClassNames(xAlignment, yAlignment)
                     )}>
                     <RegionView
-                        className="flex flex-col space-y-(--ax-space-24) w-full"
+                        className="flex flex-col gap-(--ax-space-24) space-y-(--ax-space-24) w-full"
                         name="left"
                         components={regions['left']?.components}
                         common={common}
