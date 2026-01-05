@@ -27,6 +27,11 @@ declare global {
          * Status
          */
         status: 'announcement' | 'warning' | 'error' | 'success';
+
+        /**
+         * Lukkbar
+         */
+        closeable: boolean;
       };
 
       /**

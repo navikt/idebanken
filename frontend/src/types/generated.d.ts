@@ -45,6 +45,8 @@ export type AggregationInput = {
 /** Alert banner configuration */
 export type AlertBanner = {
   __typename?: 'AlertBanner';
+  closeable?: Maybe<Scalars['Boolean']['output']>;
+  hash?: Maybe<Scalars['Int']['output']>;
   status: Scalars['String']['output'];
   text: Scalars['String']['output'];
 };

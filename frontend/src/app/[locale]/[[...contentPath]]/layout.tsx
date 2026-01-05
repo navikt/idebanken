@@ -51,7 +51,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
             <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
                 <Page contentBlockPadding="none">
                     <CookieBanner meta={meta} common={common as HeadlessCms} />
-                    <AlertBanner common={common as HeadlessCms} />
+                    <AlertBanner common={common as HeadlessCms} meta={meta} />
                     {children}
                     <GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />
                     {editorMessage}
@@ -70,7 +70,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                     common={common as HeadlessCms}
                     title={I18n.localize('idebanken')}
                 />
-                <AlertBanner common={common as HeadlessCms} />
+                <AlertBanner common={common as HeadlessCms} meta={meta} />
                 <Backlink contentResult={contentResult} />
                 <PageBlock id="main-content" as="main" width="2xl">
                     {children}
