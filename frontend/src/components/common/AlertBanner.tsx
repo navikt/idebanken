@@ -59,7 +59,14 @@ export function AlertBanner({ common, meta }: { common: HeadlessCms; meta: MetaD
                         customReplacer={htmlRichTextReplacer}
                     />
                 </GlobalAlertTitle>
-                {alertBanner.closeable ? <GlobalAlertCloseButton onClick={handleClose} /> : <></>}
+                {alertBanner.closeable ? (
+                    <GlobalAlertCloseButton
+                        className={'m-0 text-(--ax-text-info)'}
+                        onClick={handleClose}
+                    />
+                ) : (
+                    <></>
+                )}
             </GlobalAlertHeader>
         </GlobalAlert>
     )
