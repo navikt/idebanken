@@ -14,6 +14,13 @@ export type ConsentCookie = {
     }
 }
 
+type PartialConsentCookie = {
+    consent?: Partial<ConsentCookie['consent']>
+    functional?: Partial<ConsentCookie['functional']>
+    userActionTaken?: boolean
+    meta?: Partial<ConsentCookie['meta']>
+}
+
 const ConsentDataSchema = {
     consent: {
         analytics: 'boolean',
@@ -33,39 +40,12 @@ const ConsentDataSchema = {
 const consentCookieName = 'idebanken-consent'
 
 export function setAlertBannerClosed(hash: number) {
-    if (typeof document === 'undefined') {
-        return
-    }
     try {
-        const existingCookie = getCookie()
-        const newValue: ConsentCookie = existingCookie
-            ? {
-                  ...existingCookie,
-                  functional: {
-                      ...existingCookie.functional,
-                      alertBannerClosed: hash,
-                  },
-                  meta: {
-                      ...existingCookie.meta,
-                      updatedAt: new Date().toISOString(),
-                  },
-              }
-            : {
-                  consent: {
-                      analytics: false,
-                      surveys: false,
-                  },
-                  functional: {
-                      alertBannerClosed: hash,
-                  },
-                  userActionTaken: false,
-                  meta: {
-                      createdAt: new Date().toISOString(),
-                      updatedAt: new Date().toISOString(),
-                      version: 1,
-                  },
-              }
-        setCookie(newValue)
+        setCookie({
+            functional: {
+                alertBannerClosed: hash,
+            },
+        })
     } catch (e) {
         console.error(`Failed to set alert banner closed state in "${consentCookieName}":`, e)
     }
@@ -110,20 +90,58 @@ export function dispatchCookieConsentEvent({
     )
 }
 
-export function setCookie(value: ConsentCookie, days = 90) {
+export function setCookie(value: PartialConsentCookie, days = 90) {
     if (typeof document === 'undefined') {
         return
     }
     try {
-        const jsonString = encodeURIComponent(JSON.stringify(value))
+        const existingCookie = getCookie()
+        const newValue: ConsentCookie = existingCookie
+            ? {
+                  ...existingCookie,
+                  ...value,
+                  consent: {
+                      ...existingCookie.consent,
+                      ...value.consent,
+                  },
+                  functional: {
+                      ...existingCookie.functional,
+                      ...value.functional,
+                  },
+                  meta: {
+                      ...existingCookie.meta,
+                      ...value.meta,
+                      updatedAt: new Date().toISOString(),
+                  },
+              }
+            : {
+                  consent: {
+                      analytics: false,
+                      surveys: false,
+                      ...value.consent,
+                  },
+                  functional: {
+                      alertBannerClosed: null,
+                      ...value.functional,
+                  },
+                  userActionTaken: value.userActionTaken ?? false,
+                  meta: {
+                      createdAt: new Date().toISOString(),
+                      updatedAt: new Date().toISOString(),
+                      version: 1,
+                      ...value.meta,
+                  },
+              }
+
+        const jsonString = encodeURIComponent(JSON.stringify(newValue))
         const expires = new Date()
         expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000)
         const secureFlag = process.env.ENV === 'production' ? '; Secure' : ''
         document.cookie = `${consentCookieName}=${jsonString}; expires=${expires.toUTCString()}; path=/; SameSite=Lax${secureFlag}`
     } catch (e) {
         console.error(`Failed to set cookie "${consentCookieName}":`, e)
-        // @ts-expect-error e is unknown
-        throw new Error(`Failed to set cookie "${consentCookieName}": ${e.message}`)
+        const errorMessage = e instanceof Error ? e.message : 'Unknown error'
+        throw new Error(`Failed to set cookie "${consentCookieName}": ${errorMessage}`)
     }
 }
 
@@ -253,16 +271,6 @@ function parseConsentCookie(cookieString: string): ConsentCookie {
     }
 
     return consentData
-}
-
-export function getCreatedAtValue(cookies?: string) {
-    try {
-        const existingCookie = getCookie(cookies)
-        return existingCookie?.meta?.createdAt || new Date().toISOString()
-    } catch (error) {
-        console.warn(`Error getting createdAt value from cookie "${consentCookieName}":`, error)
-        return new Date().toISOString()
-    }
 }
 
 export function getUserActionTakenValue(cookies?: string) {

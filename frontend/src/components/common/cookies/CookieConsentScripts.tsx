@@ -3,11 +3,7 @@
 import Script from 'next/script'
 import { useCallback, useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
-import {
-    ConsentCookie,
-    getCreatedAtValue,
-    setCookie,
-} from '~/components/common/cookies/cookieUtils'
+import { setCookie } from '~/components/common/cookies/cookieUtils'
 import {
     SkyraConfig,
     skyraOrg,
@@ -80,24 +76,12 @@ export function CookieConsentScripts({
         loadUmamiScript(analyticsConsent)
 
         const handleConsent = (e: CustomEvent) => {
-            const createdAt = getCreatedAtValue()
-
             const { analytics, surveys } = e.detail
 
-            const consentData: ConsentCookie = {
+            setCookie({
                 consent: { analytics, surveys },
                 userActionTaken: true,
-                functional: {
-                    alertBannerClosed: null,
-                },
-                meta: {
-                    createdAt: createdAt,
-                    updatedAt: new Date().toISOString(),
-                    version: 1,
-                },
-            }
-
-            setCookie(consentData)
+            })
             updateSkyraConsent(surveys)
             loadUmamiScript(analytics)
         }
