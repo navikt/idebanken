@@ -1,4 +1,4 @@
-import { BodyShort, VStack } from '@navikt/ds-react'
+import { BodyShort, HStack, VStack } from '@navikt/ds-react'
 import { FileIcon, FilePdfIcon, FileWordIcon } from '@navikt/aksel-icons'
 import type { PartProps } from '@enonic/nextjs-adapter'
 import { ButtonView } from './Button'
@@ -70,29 +70,32 @@ export const Downloads = ({ part, meta }: PartProps) => {
                         const icon = pickIcon(ext)
                         const fileName = `${item.displayName}${ext ? `.${ext}` : ''}`
                         return (
-                            <li
+                            <HStack
+                                as="li"
                                 key={item._path}
-                                className="flex flex-wrap items-center justify-between gap-6
-                                rounded-xl px-3 pt-6 pb-6
-                                bg-dark-blue-100 border-1 border-dark-blue-400">
-                                <div className="flex min-w-0 items-center gap-3">
-                                    <span
+                                justify="space-between"
+                                align="center"
+                                gap="space-6"
+                                paddingInline="space-12"
+                                paddingBlock="space-16"
+                                className="rounded-xl bg-dark-blue-100 border-1 border-dark-blue-400">
+                                <HStack align="center" gap="space-12">
+                                    <HStack
                                         aria-hidden="true"
-                                        className="flex h-12 w-12 items-center justify-center rounded-full bg-pink-400 text-brand-black shadow-sm">
+                                        justify="center"
+                                        align="center"
+                                        className="flex h-12 w-12 rounded-full bg-pink-400 text-brand-black shadow-sm">
                                         {icon}
-                                    </span>
+                                    </HStack>
                                     <div className="max-w-50 md:max-w-80">
-                                        <BodyShort
-                                            truncate
-                                            title={fileName}
-                                            className="font-medium">
+                                        <BodyShort title={fileName} className="font-medium">
                                             {fileName}
                                         </BodyShort>
                                         <BodyShort className="font-light">
                                             {toKb(item.attachments[0]?.size)}kb
                                         </BodyShort>
                                     </div>
-                                </div>
+                                </HStack>
                                 <ButtonView
                                     config={{
                                         url: item.mediaUrl,
@@ -104,7 +107,7 @@ export const Downloads = ({ part, meta }: PartProps) => {
                                     download
                                     meta={meta}
                                 />
-                            </li>
+                            </HStack>
                         )
                     })}
                 </VStack>
