@@ -14,13 +14,14 @@ import {
 import { Content, get, query } from '/lib/xp/content'
 import { AktueltTypeTag, ThemeTag, TypeTag } from '@xp-types/site/content-types'
 import { mapTagContentToResolved, ResolvedTag } from './tag'
-import { enonicSitePathToHref } from '/lib/utils/string-utils'
+import { enonicSitePathToHref, hashCode } from '/lib/utils/string-utils'
 import { processHtml } from '/lib/xp/portal'
 
 export const headlessCmsExtensions = ({
     list,
     GraphQLString,
     GraphQLID,
+    GraphQLBoolean,
     GraphQLInt,
     reference,
     nonNull,
@@ -108,12 +109,15 @@ export const headlessCmsExtensions = ({
                     const searchPage = siteConfig?.searchConfig?.searchPage
                     const searchPageId = searchPage ? get({ key: searchPage })?._path : undefined
 
+                    const { status, text, closeable } = siteConfig?.alertBanner ?? {}
                     return {
                         searchPageHref: searchPageId ? enonicSitePathToHref(searchPageId) : '/sok',
                         cookieInfoText: processHtml({ value: siteConfig?.cookieInfoText ?? '' }),
                         alertBanner: {
-                            text: processHtml({ value: siteConfig?.alertBanner?.text ?? '' }),
-                            status: siteConfig?.alertBanner?.status ?? 'info',
+                            text: processHtml({ value: text ?? '' }),
+                            status: status ?? 'info',
+                            hash: text ? hashCode(text) : undefined,
+                            closeable,
                         },
                     }
                 })
@@ -159,6 +163,12 @@ export const headlessCmsExtensions = ({
                 },
                 status: {
                     type: nonNull(GraphQLString),
+                },
+                hash: {
+                    type: GraphQLInt,
+                },
+                closeable: {
+                    type: GraphQLBoolean,
                 },
             },
             interfaces: [],

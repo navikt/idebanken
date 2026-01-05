@@ -43,6 +43,9 @@
                     </config>
                     <default>announcement</default>
                 </input>
+                <input type="CheckBox" name="closeable">
+                    <label>Lukkbar</label>
+                </input>
             </items>
         </item-set>
         <item-set name="searchConfig">
