@@ -61,7 +61,7 @@ export function AlertBanner({ common, meta }: { common: HeadlessCms; meta: MetaD
                 </GlobalAlertTitle>
                 {alertBanner.closeable ? (
                     <GlobalAlertCloseButton
-                        className={'m-0 text-(--ax-text-info)'}
+                        className={'m-0 text-(--ax-text-info) focus-visible:outline-(--ax-border)'}
                         onClick={handleClose}
                     />
                 ) : (
