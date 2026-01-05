@@ -6,8 +6,11 @@ import {
     GlobalAlertTitle,
 } from '@navikt/ds-react/GlobalAlert'
 import classNames from 'classnames'
+import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
+import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
+import { MetaData } from '@enonic/nextjs-adapter'
 
-export function AlertBanner({ common }: { common: HeadlessCms }) {
+export function AlertBanner({ common, meta }: { common: HeadlessCms; meta: MetaData }) {
     const alertBanner = common?.siteConfiguration?.alertBanner
     if (!alertBanner) return null
 
@@ -18,11 +21,15 @@ export function AlertBanner({ common }: { common: HeadlessCms }) {
                 className={classNames(
                     'justify-center md:px-[10%]',
                     status === 'announcement'
-                        ? 'bg-(--ax-bg-info-moderate) text-(--ax-text-info) [&>div:first-child]:mt-(--ax-space-2)'
+                        ? 'bg-(--ax-bg-info-moderate) text-(--ax-text-info)'
                         : ''
                 )}>
                 <GlobalAlertTitle as={'div'} className={'text-[18px] font-light'}>
-                    {alertBanner.text}
+                    <RichTextView
+                        data={{ processedHtml: alertBanner.text ?? '[Tomt innhold]' }}
+                        meta={meta}
+                        customReplacer={htmlRichTextReplacer}
+                    />
                 </GlobalAlertTitle>
             </GlobalAlertHeader>
         </GlobalAlert>

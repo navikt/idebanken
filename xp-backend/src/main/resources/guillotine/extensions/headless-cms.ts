@@ -111,7 +111,10 @@ export const headlessCmsExtensions = ({
                     return {
                         searchPageHref: searchPageId ? enonicSitePathToHref(searchPageId) : '/sok',
                         cookieInfoText: processHtml({ value: siteConfig?.cookieInfoText ?? '' }),
-                        alertBanner: siteConfig?.alertBanner,
+                        alertBanner: {
+                            text: processHtml({ value: siteConfig?.alertBanner?.text ?? '' }),
+                            status: siteConfig?.alertBanner?.status ?? 'info',
+                        },
                     }
                 })
             },
