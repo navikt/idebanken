@@ -87,6 +87,9 @@ export function CookieConsentScripts({
             const consentData: ConsentCookie = {
                 consent: { analytics, surveys },
                 userActionTaken: true,
+                functional: {
+                    alertBannerClosed: null,
+                },
                 meta: {
                     createdAt: createdAt,
                     updatedAt: new Date().toISOString(),

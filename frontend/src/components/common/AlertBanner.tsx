@@ -1,6 +1,9 @@
+'use client'
+
 import { HeadlessCms } from '~/types/generated'
 import {
     GlobalAlert,
+    GlobalAlertCloseButton,
     GlobalAlertHeader,
     GlobalAlertProps,
     GlobalAlertTitle,
@@ -9,12 +12,36 @@ import classNames from 'classnames'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { MetaData } from '@enonic/nextjs-adapter'
+import { useEffect, useState } from 'react'
+import {
+    getAlertBannerClosedHash,
+    setAlertBannerClosed,
+} from '~/components/common/cookies/cookieUtils'
 
 export function AlertBanner({ common, meta }: { common: HeadlessCms; meta: MetaData }) {
     const alertBanner = common?.siteConfiguration?.alertBanner
-    if (!alertBanner) return null
+    const [isClosed, setIsClosed] = useState(true)
+
+    useEffect(() => {
+        if (alertBanner && alertBanner.hash !== undefined) {
+            const closedHash = getAlertBannerClosedHash()
+            if (closedHash !== alertBanner.hash) {
+                setIsClosed(false)
+            }
+        }
+    }, [alertBanner])
+
+    if (!alertBanner || isClosed) return null
 
     const status = alertBanner.status as GlobalAlertProps['status']
+
+    const handleClose = () => {
+        if (alertBanner.closeable && alertBanner.hash) {
+            setAlertBannerClosed(alertBanner.hash)
+        }
+        setIsClosed(true)
+    }
+
     return (
         <GlobalAlert status={status} size={'small'} className={'outline-0 relative z-10'}>
             <GlobalAlertHeader
@@ -22,7 +49,8 @@ export function AlertBanner({ common, meta }: { common: HeadlessCms; meta: MetaD
                     'justify-center md:px-[10%]',
                     status === 'announcement'
                         ? 'bg-(--ax-bg-info-moderate) text-(--ax-text-info)'
-                        : ''
+                        : '',
+                    alertBanner.closeable ? 'pr-12' : ''
                 )}>
                 <GlobalAlertTitle as={'div'} className={'text-[18px] font-light'}>
                     <RichTextView
@@ -31,6 +59,7 @@ export function AlertBanner({ common, meta }: { common: HeadlessCms; meta: MetaD
                         customReplacer={htmlRichTextReplacer}
                     />
                 </GlobalAlertTitle>
+                {alertBanner.closeable ? <GlobalAlertCloseButton onClick={handleClose} /> : <></>}
             </GlobalAlertHeader>
         </GlobalAlert>
     )

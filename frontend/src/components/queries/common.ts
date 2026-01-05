@@ -158,6 +158,8 @@ query($path:ID!){
         alertBanner {
             text
             status
+            hash
+            closeable
         }
     }
   }

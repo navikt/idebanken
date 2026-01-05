@@ -3,6 +3,9 @@ export type ConsentCookie = {
         analytics: boolean
         surveys: boolean
     }
+    functional: {
+        alertBannerClosed: number | null
+    }
     userActionTaken: boolean
     meta: {
         createdAt: string
@@ -16,6 +19,9 @@ const ConsentDataSchema = {
         analytics: 'boolean',
         surveys: 'boolean',
     },
+    functional: {
+        alertBannerClosed: 'number',
+    },
     userActionTaken: 'boolean',
     meta: {
         createdAt: 'string',
@@ -25,6 +31,58 @@ const ConsentDataSchema = {
 }
 
 const consentCookieName = 'idebanken-consent'
+
+export function setAlertBannerClosed(hash: number) {
+    if (typeof document === 'undefined') {
+        return
+    }
+    try {
+        const existingCookie = getCookie()
+        const newValue: ConsentCookie = existingCookie
+            ? {
+                  ...existingCookie,
+                  functional: {
+                      ...existingCookie.functional,
+                      alertBannerClosed: hash,
+                  },
+                  meta: {
+                      ...existingCookie.meta,
+                      updatedAt: new Date().toISOString(),
+                  },
+              }
+            : {
+                  consent: {
+                      analytics: false,
+                      surveys: false,
+                  },
+                  functional: {
+                      alertBannerClosed: hash,
+                  },
+                  userActionTaken: false,
+                  meta: {
+                      createdAt: new Date().toISOString(),
+                      updatedAt: new Date().toISOString(),
+                      version: 1,
+                  },
+              }
+        setCookie(newValue)
+    } catch (e) {
+        console.error(`Failed to set alert banner closed state in "${consentCookieName}":`, e)
+    }
+}
+
+export function getAlertBannerClosedHash(): number | null {
+    try {
+        const existingCookie = getCookie()
+        return existingCookie?.functional?.alertBannerClosed || null
+    } catch (error) {
+        console.warn(
+            `Error getting alertBannerClosed value from cookie "${consentCookieName}":`,
+            error
+        )
+        return null
+    }
+}
 
 export function dispatchCookieConsentEvent({
     analytics,
@@ -69,7 +127,7 @@ export function setCookie(value: ConsentCookie, days = 90) {
     }
 }
 
-function getCookie(cookies?: string) {
+function getCookie(cookies?: string): ConsentCookie | null {
     if (cookies) {
         const match = cookies.match(
             new RegExp(
@@ -120,11 +178,14 @@ function isValidISOString(dateString: string) {
     return date.toISOString() === dateString
 }
 
-function parseConsentCookie(cookieString: string) {
-    const consentData = {
+function parseConsentCookie(cookieString: string): ConsentCookie {
+    const consentData: ConsentCookie = {
         consent: {
             analytics: false,
             surveys: false,
+        },
+        functional: {
+            alertBannerClosed: null,
         },
         userActionTaken: false,
         meta: {
@@ -161,6 +222,11 @@ function parseConsentCookie(cookieString: string) {
                     break
                 case 'surveys':
                     consentData.consent.surveys = value as boolean
+                    break
+                case 'alertBannerClosed':
+                    if (consentData.functional) {
+                        consentData.functional.alertBannerClosed = value as number
+                    }
                     break
                 case 'userActionTaken':
                     consentData.userActionTaken = value as boolean
@@ -234,8 +300,13 @@ function validateAgainstSchema(obj: any, schema: any = ConsentDataSchema): boole
 
     return Object.entries(schema).every(([key, type]) => {
         if (typeof type === 'object') {
-            return obj[key] && validateAgainstSchema(obj[key], type)
+            return (
+                obj.hasOwnProperty(key) &&
+                typeof obj[key] === 'object' &&
+                obj[key] !== null &&
+                validateAgainstSchema(obj[key], type)
+            )
         }
-        return obj.hasOwnProperty(key) && typeof obj[key] === type
+        return obj.hasOwnProperty(key) && (typeof obj[key] === type || obj[key] === null)
     })
 }
