@@ -49,36 +49,37 @@ export function HighlightedBox({
                 ) : (
                     <></>
                 )}
-                {(links && links.length) ||
-                    (linksAbsolute && linksAbsolute.length && (
-                        <List aria-labelledby={title} className={''}>
-                            {links
-                                ?.filter((it) => it !== null)
-                                ?.map(({ url, linkText, download }) => (
-                                    <ListItem key={url}>
-                                        <Link
-                                            as={NextLink}
-                                            href={getUrl(url, meta)}
-                                            download={download}>
-                                            {linkText}
-                                        </Link>
-                                    </ListItem>
-                                ))}
-                            {linksAbsolute
-                                ?.filter((it) => it !== null)
-                                ?.map((link) => (
-                                    <ListItem key={link}>
-                                        <Link
-                                            as={NextLink}
-                                            href={getUrl(link, meta)}
-                                            target="_blank"
-                                            rel="noreferrer">
-                                            {truncateUrl(link)}
-                                        </Link>
-                                    </ListItem>
-                                ))}
-                        </List>
-                    ))}
+                {(links && links.length) || (linksAbsolute && linksAbsolute.length) ? (
+                    <List aria-labelledby={title} className={''}>
+                        {links
+                            ?.filter((it) => it !== null)
+                            ?.map(({ url, linkText, download }) => (
+                                <ListItem key={url}>
+                                    <Link
+                                        as={NextLink}
+                                        href={getUrl(url, meta)}
+                                        download={download}>
+                                        {linkText}
+                                    </Link>
+                                </ListItem>
+                            ))}
+                        {linksAbsolute
+                            ?.filter((it) => it !== null)
+                            ?.map((link) => (
+                                <ListItem key={link}>
+                                    <Link
+                                        as={NextLink}
+                                        href={getUrl(link, meta)}
+                                        target="_blank"
+                                        rel="noreferrer">
+                                        {truncateUrl(link)}
+                                    </Link>
+                                </ListItem>
+                            ))}
+                    </List>
+                ) : (
+                    <></>
+                )}
             </VStack>
         </VStack>
     )
