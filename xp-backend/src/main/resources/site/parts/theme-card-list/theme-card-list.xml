@@ -8,6 +8,15 @@
             <occurrences minimum="1" maximum="1"/>
             <default>6</default>
         </input>
+        <input name="displayType" type="ComboBox">
+            <label>Visning</label>
+            <occurrences minimum="1" maximum="1"/>
+            <config>
+                <option value="withImage">Med bilde</option>
+                <option value="none">Uten bilde</option>
+            </config>
+            <default>none</default>
+        </input>
         <input type="CustomSelector" name="highlightedContent">
             <label>Innhold øverst i listen</label>
             <occurrences minimum="0" maximum="0"/>
