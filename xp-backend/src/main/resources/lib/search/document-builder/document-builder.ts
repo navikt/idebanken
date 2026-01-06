@@ -69,6 +69,7 @@ class ExternalSearchDocumentBuilder {
         }
 
         const publishedTime = content.publish?.from || content.createdTime
+        const overriddenPublishedDate = content.data?.publicationDate
         const ibxData = content.x.idebanken
         const tags = getTags(ibxData)
 
@@ -79,7 +80,9 @@ class ExternalSearchDocumentBuilder {
             ingress: this.getIngress(),
             text: this.getText(),
             metadata: {
-                createdAt: content.data?.publicationDate || publishedTime,
+                createdAt: overriddenPublishedDate
+                    ? `${overriddenPublishedDate}T12:00:00.000Z`
+                    : publishedTime,
                 lastUpdated: content.modifiedTime || publishedTime,
                 language: 'nb',
                 type: content.type?.split(':').pop() ?? content.type,
