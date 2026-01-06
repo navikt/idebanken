@@ -6,6 +6,11 @@ export type XP_ThemeCardList = {
   pageSize: number;
 
   /**
+   * Visning
+   */
+  displayType: 'withImage' | 'none';
+
+  /**
    * Innhold øverst i listen
    */
   highlightedContent?: Array<string> | string;
