@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Relaterte temaer</display-name>
+    <description>En boks som viser relaterte temaer</description>
+    <form>
+        <input type="TextLine" name="title">
+            <label>Boks tittel</label>
+            <occurrences minimum="0" maximum="1"/>
+            <default>Tema du kan være interessert i</default>
+        </input>
+    </form>
+    <config>
+        <allow-on-content-type>${app}:artikkel</allow-on-content-type>
+    </config>
+</part>

@@ -7,11 +7,14 @@ import { Content, query } from '/lib/xp/content'
 import { forceArray } from '/lib/utils/array-utils'
 import { AktueltTypeTag, ThemeTag, TypeTag } from '@xp-types/site/content-types'
 import { resolveIcon } from '/lib/utils/media'
+import { enonicSitePathToHref } from '/lib/utils/string-utils'
 
 export type ResolvedTag = {
     id: string
     name: string
     iconUrl?: string
+    color?: string
+    url?: string
 }
 
 export const themeTagExtensions = ({
@@ -36,6 +39,9 @@ export const themeTagExtensions = ({
                     type: GraphQLString,
                 },
                 color: {
+                    type: GraphQLString,
+                },
+                url: {
                     type: GraphQLString,
                 },
             },
@@ -164,6 +170,7 @@ export function mapTagContentToResolved(
                 // @ts-expect-error theme doesn't have color
                 color: hit.data?.color,
                 iconUrl: icon?.url,
+                url: enonicSitePathToHref(hit._path),
             }
         })
 }

@@ -47,6 +47,7 @@ import { CookieBannerOpenButton } from '~/components/common/cookies/CookieBanner
 import ThemeCardList from '~/components/parts/ThemeListCard'
 import { getArticleData, articleListProcessor } from './queries/articlesList'
 import { QuotePartOrMacro } from './parts/QuotePartOrMacro'
+import RelatedTopics from './parts/RelatedTopics'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -230,4 +231,8 @@ ComponentRegistry.addPart(`${APP_NAME}:cookie-consent-toggle`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:cookie-consent-open`, {
     view: CookieBannerOpenButton,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:related-topics`, {
+    view: RelatedTopics,
 })

@@ -145,6 +145,7 @@ query($path:ID!){
     themeTags {
         name
         id
+        url
         iconUrl
     }
     typeTags {
