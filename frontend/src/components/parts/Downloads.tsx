@@ -2,6 +2,7 @@ import { BodyShort, HStack, VStack } from '@navikt/ds-react'
 import { FileIcon, FilePdfIcon, FileWordIcon } from '@navikt/aksel-icons'
 import type { PartProps } from '@enonic/nextjs-adapter'
 import { ButtonView } from './Button'
+import { HeadingView } from './Heading'
 
 type DownloadItem = {
     displayName: string
@@ -51,10 +52,14 @@ export const Downloads = ({ part, meta }: PartProps) => {
 
     return (
         <>
-            <VStack gap="space-28" className="list-none m-0 p-6 rounded-[20px]">
+            <VStack gap="space-28" className="list-none m-0 md:px-6 rounded-[20px]">
                 {(config.title || config.ingress) && (
                     <VStack gap="space-16">
-                        {config.title && <h2 className="text-2xl font-bold">{config?.title}</h2>}
+                        {config.title && (
+                            <HeadingView level="3" size="medium">
+                                {config?.title}
+                            </HeadingView>
+                        )}
                         {config.ingress && (
                             <BodyShort size="small" textColor="subtle">
                                 {config?.ingress}
@@ -78,17 +83,19 @@ export const Downloads = ({ part, meta }: PartProps) => {
                                 gap="space-6"
                                 paddingInline="space-12"
                                 paddingBlock="space-16"
-                                className="rounded-xl bg-dark-blue-100 border-1 border-dark-blue-400">
-                                <HStack align="center" gap="space-12">
+                                className="md:flex-nowrap rounded-xl bg-dark-blue-100 border-1 border-dark-blue-400">
+                                <HStack align="center" gap="space-16">
                                     <HStack
                                         aria-hidden="true"
                                         justify="center"
                                         align="center"
-                                        className="flex h-12 w-12 rounded-full bg-pink-400 text-brand-black shadow-sm">
+                                        className="flex h-12 w-12 rounded-full bg-pink-200 text-brand-black shadow-sm">
                                         {icon}
                                     </HStack>
-                                    <div className="max-w-50 md:max-w-80">
-                                        <BodyShort title={fileName} className="font-medium">
+                                    <div className="flex-1 min-w-0">
+                                        <BodyShort
+                                            title={fileName}
+                                            className="font-light break-words">
                                             {fileName}
                                         </BodyShort>
                                         <BodyShort className="font-light">
@@ -97,6 +104,7 @@ export const Downloads = ({ part, meta }: PartProps) => {
                                     </div>
                                 </HStack>
                                 <ButtonView
+                                    className="md:justify-self-center"
                                     config={{
                                         url: item.mediaUrl,
                                         external: true,
