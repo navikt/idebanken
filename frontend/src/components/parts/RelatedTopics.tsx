@@ -1,11 +1,39 @@
+import { VStack } from '@navikt/ds-react'
 import { PartData } from '~/types/graphql-types'
-import { Part_Idebanken_Related_Topics } from '~/types/generated'
+import type { Part_Idebanken_Related_Topics, Tag } from '~/types/generated'
+import { ButtonView } from './Button'
+import { HeadingView } from './Heading'
 
-export default function RelatedTopics({ part, common }: PartData<Part_Idebanken_Related_Topics>) {
-    const config = part.config
-    console.log('RelatedTopics config:', common)
+export default function RelatedTopics({
+    part,
+    common,
+    meta,
+}: PartData<Part_Idebanken_Related_Topics>) {
+    const title = part.config?.title
+    const tags = (common.themeTags as Tag[]).filter((tag) => tag?.url)
 
-    if (!config) return null
+    if (!tags.length) return null
 
-    return <div>test</div>
+    return (
+        <VStack gap="space-16" className="rounded-xl bg-dark-blue-100 p-4">
+            <HeadingView level="2" size="medium">
+                {title || 'Tema du kan være interessert i'}
+            </HeadingView>
+            <div className="flex flex-wrap gap-6">
+                {tags.map((tag) => (
+                    <ButtonView
+                        key={tag.id}
+                        config={{
+                            variant: 'secondary',
+                            size: 'small',
+                            url: tag.url || '#',
+                            linkText: tag.name,
+                            external: false,
+                        }}
+                        meta={meta}
+                    />
+                ))}
+            </div>
+        </VStack>
+    )
 }

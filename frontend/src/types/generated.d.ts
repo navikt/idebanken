@@ -1440,7 +1440,6 @@ export type Part_Idebanken_Text_EditorSimpleTextEditorArgs = {
 export type Part_Idebanken_Theme_Card_List = {
   __typename?: 'Part_idebanken_theme_card_list';
   data: Theme_Card_List_Data;
-  displayType?: Maybe<Scalars['String']['output']>;
   highlightedContent?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   pageSize?: Maybe<Scalars['Int']['output']>;
 };
@@ -1688,6 +1687,7 @@ export type Tag = {
   iconUrl?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 /** TermDSLExpressionInput type */
