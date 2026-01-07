@@ -17,8 +17,7 @@ export default function RelatedTopics({
 }: PartData<Part_Idebanken_Related_Topics>) {
     const title = part.config?.title
     const idebankenX = (common.get?.x as { idebanken?: IdebankenXData | null })?.idebanken
-    const tags =
-        idebankenX?.articleTags?.themeTags?.filter((tag): tag is Tag => !!tag?.url) ?? []
+    const tags = idebankenX?.articleTags?.themeTags?.filter((tag): tag is Tag => !!tag?.url) ?? []
 
     if (!tags.length) return null
 
