@@ -18,14 +18,13 @@ function normalizeCard(card: Theme_Card) {
         external: false,
         image: card.image ?? undefined,
         showDescription: true,
-        displayType: 'withImage' as XP_DisplayImageOrIcon['displayType'],
         hideArrow: true,
         typeTags: card.typeTags,
     }
 }
 
 export default function ThemeCardList({ part, meta }: PartData<Part_Idebanken_Theme_Card_List>) {
-    const { data } = part.config || {}
+    const { data, displayType } = part.config || {}
     const initial = data?.list ?? []
     const total = data?.total ?? 0
     const pageSize = part.config?.pageSize ?? 6
@@ -66,6 +65,7 @@ export default function ThemeCardList({ part, meta }: PartData<Part_Idebanken_Th
                         <LinkCardView
                             key={card.url || card.title || String(i)}
                             {...nc}
+                            displayType={displayType as XP_DisplayImageOrIcon['displayType']}
                             meta={meta}
                         />
                     )
