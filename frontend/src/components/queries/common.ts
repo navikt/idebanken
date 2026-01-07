@@ -78,7 +78,8 @@ query($path:ID!){
       ... on idebanken_Kjerneartikkel {
         x {
           idebanken {
-            articleTypeTags: tags {
+            articleTags: tags {
+              themeTags { id name iconUrl url }
               typeTags { id name color }
             }
           }
@@ -87,7 +88,8 @@ query($path:ID!){
       ... on idebanken_Artikkel {
        x {
           idebanken {
-            articleTypeTags:aktuelt_tags {
+            articleTags:aktuelt_tags {
+                themeTags { id name iconUrl url }
                 typeTags { id name color }
             }
           }

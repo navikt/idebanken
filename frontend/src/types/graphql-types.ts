@@ -53,6 +53,10 @@ export type CommonContentType<T = UnknownJSONContent> = {
                     mediaUrl: string
                 }
             }
+            articleTags?: {
+                typeTags?: Array<Tag | null> | null
+                themeTags?: Array<(Tag & { url?: string }) | null> | null
+            } | null
         }
     }
     data: {

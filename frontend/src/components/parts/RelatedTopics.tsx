@@ -4,13 +4,20 @@ import type { Part_Idebanken_Related_Topics, Tag } from '~/types/generated'
 import { ButtonView } from './Button'
 import { HeadingView } from './Heading'
 
+type IdebankenXData = {
+    articleTags?: {
+        themeTags?: Array<Tag | null> | null
+    } | null
+}
+
 export default function RelatedTopics({
     part,
     common,
     meta,
 }: PartData<Part_Idebanken_Related_Topics>) {
     const title = part.config?.title
-    const tags = (common.themeTags as Tag[]).filter((tag) => tag?.url)
+    const idebankenX = (common.get?.x as { idebanken?: IdebankenXData | null })?.idebanken
+    const tags = idebankenX?.articleTags?.themeTags?.filter((tag): tag is Tag => !!tag?.url) ?? []
 
     if (!tags.length) return null
 
