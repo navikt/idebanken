@@ -10,6 +10,6 @@
         </input>
     </form>
     <config>
-        <allow-on-content-type>${app}:artikkel</allow-on-content-type>
+        <allow-on-content-type>(portal:page-template|${app}:artikkel)</allow-on-content-type>
     </config>
 </part>
