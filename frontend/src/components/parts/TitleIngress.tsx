@@ -9,7 +9,7 @@ import { HeroImage } from '~/components/common/HeroImage'
 import type { Tag as TagType } from '~/types/generated.d'
 import TagView from '~/components/common/TagView'
 
-type IdebankenX = { articleTypeTags?: { typeTags?: (TagType | null)[] | null } | null }
+type IdebankenX = { articleTags?: { typeTags?: (TagType | null)[] | null } | null }
 
 type PageData = {
     ingress: string
@@ -23,7 +23,7 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
     const data = commonGet?.dataAsJson
 
     const idebankenX = (commonGet?.x as { idebanken?: IdebankenX | null })?.idebanken
-    const typeTags = idebankenX?.articleTypeTags?.typeTags?.filter((t): t is TagType => !!t) ?? []
+    const typeTags = idebankenX?.articleTags?.typeTags?.filter((t): t is TagType => !!t) ?? []
 
     const hero = commonGet?.data?.heroImage
 
