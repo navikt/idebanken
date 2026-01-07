@@ -75,10 +75,13 @@ const HeadingViewPart = ({ part, common }: PartData<Part_Idebanken_Heading>) => 
     }
 
     const halfWidth = config?.halfWidth ? 'md:w-1/2' : ''
+    const partFontClass = ['small', 'xsmall'].includes(config.size ?? '')
+        ? 'font-ib-bold'
+        : undefined
 
     return (
         <>
-            <HeadingView level={config.level} size={config.size}>
+            <HeadingView level={config.level} size={config.size} fontClass={partFontClass}>
                 {config.text ?? common?.get?.displayName}
             </HeadingView>
             {config?.headingLede && renderWithBodyShort(config.headingLede, halfWidth)}
