@@ -13,24 +13,24 @@
         "@enonic-types/lib-scheduler": "7.15.1",
         "@enonic-types/lib-task": "7.15.1",
         "@enonic-types/lib-repo": "^7.15.1",
-        "@eslint/js": "^9.28.0",
+        "@eslint/js": "^9.39.2",
         "@item-enonic-types/global": "7.15.0",
         "@item-enonic-types/lib-http-client": "3.2.2",
-        "@item-enonic-types/lib-time": "^1.2.1",
+        "@item-enonic-types/lib-time": "^1.4.0",
         "@item-enonic-types/lib-thymeleaf": "^2.1.0",
-        "@swc/core": "1.11.29",
+        "@swc/core": "1.15.8",
         "browser-sync": "3.0.4",
-        "concurrently": "8.2.2",
+        "concurrently": "9.2.1",
         "esbuild-plugin-globals": "^0.2.0",
         "esbuild-sass-plugin": "^3.3.1",
-        "eslint": "^9.28.0",
+        "eslint": "^9.39.2",
         "eslint-plugin-jsx-a11y": "6.10.2",
-        "glob": "10.4.5",
-        "prettier": "^3.5.3",
-        "rimraf": "5.0.10",
-        "sass": "^1.89.1",
-        "tsup": "8.3.5",
-        "typescript-eslint": "^8.33.1"
+        "glob": "11.1.0",
+        "prettier": "^3.7.4",
+        "rimraf": "6.1.2",
+        "sass": "^1.97.2",
+        "tsup": "8.5.1",
+        "typescript-eslint": "^8.52.0"
     },
     "directories": {
         "doc": "docs"
@@ -76,10 +76,10 @@
         "npm": ">= 10.2.3"
     },
     "dependencies": {
-        "@babel/generator": "^7.27.5",
-        "@babel/parser": "^7.27.5",
-        "@babel/traverse": "^7.27.4",
-        "@babel/types": "^7.27.6",
-        "@enonic-types/guillotine": "^7.2.0"
+        "@babel/generator": "^7.28.5",
+        "@babel/parser": "^7.28.5",
+        "@babel/traverse": "^7.28.5",
+        "@babel/types": "^7.28.5",
+        "@enonic-types/guillotine": "^7.3.1"
     }
 }
