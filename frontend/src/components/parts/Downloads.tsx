@@ -1,5 +1,5 @@
 import { BodyShort, HStack, VStack } from '@navikt/ds-react'
-import { FileIcon, FilePdfIcon, FileWordIcon } from '@navikt/aksel-icons'
+import { FileIcon, FilePdfIcon, FileWordIcon, DownloadIcon } from '@navikt/aksel-icons'
 import type { PartProps } from '@enonic/nextjs-adapter'
 import { ButtonView } from './Button'
 import { HeadingView } from './Heading'
@@ -115,6 +115,7 @@ export const Downloads = ({ part, meta }: PartProps) => {
                                         }}
                                         download
                                         meta={meta}
+                                        icon={<DownloadIcon aria-hidden />}
                                     />
                                 </div>
                             </HStack>
