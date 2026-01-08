@@ -11,7 +11,7 @@ export function QuotePartOrMacro(props: QuoteMacro | QuotePart) {
     const source = config?.source?.trim()
 
     return (
-        <figure className="my-4 border-l-4 border-(--ib-orange-400) pl-4">
+        <figure className="my-4 border-l-4 border-[var(--ib-bg-pink-raised)] pl-4">
             <blockquote className="italic text-2xl font-ib-bold">— {body}</blockquote>
             {source && <figcaption className="mt-2 text-xl text-right">{source}</figcaption>}
         </figure>
