@@ -7,8 +7,8 @@ export default function BubblesOverlayTop({ meta }: { meta: MetaData }) {
         return null
     }
 
-    const orange = 'hsla(14, 100%, 50%, 0.3)'
-    const pink = 'hsla(337, 100%, 81%, 0.3)'
+    const orange = 'hsla(14, 100%, 50%, 0.25)'
+    const pink = 'hsla(337, 100%, 81%, 0.25)'
 
     return (
         <div
