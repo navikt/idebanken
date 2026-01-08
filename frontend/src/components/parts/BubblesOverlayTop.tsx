@@ -13,7 +13,7 @@ export default function BubblesOverlayTop({ meta }: { meta: MetaData }) {
     return (
         <div
             inert={true}
-            className={'absolute left-0 top-0 w-full h-full pointer-events-none max-xl:hidden'}
+            className={'absolute left-0 top-20 sm:top-0 w-full h-full pointer-events-none'}
             style={BubblesBackgroundSvgStyle(
                 [
                     { radius: 180, down: -140, left: 120, fill: pink },
