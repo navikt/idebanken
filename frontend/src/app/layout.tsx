@@ -6,6 +6,7 @@ import GlobalUmamiAnalytics from '~/utils/analytics/GlobalUmamiAnalytics'
 import { CookieBannerProvider } from '~/components/common/cookies/CookieBannerContext'
 import { getConsentValues, getUserActionTakenValue } from '~/components/common/cookies/cookieUtils'
 import { CookieConsentScripts } from '~/components/common/cookies/CookieConsentScripts'
+import SkyraHandler from '~/components/common/analytics/SkyraHandler'
 
 export default async function RootLayout({ children }: PropsWithChildren) {
     const { isEnabled } = await draftMode()
@@ -19,6 +20,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
     return (
         <GlobalUmamiAnalytics>
+            <SkyraHandler />
             <CookieBannerProvider initialState={!cookieUserActionTaken && !isEnabled}>
                 <head>
                     <link
