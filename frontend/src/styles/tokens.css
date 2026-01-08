@@ -23,6 +23,7 @@
     --ib-brand-white: #fafaf9;
 
     /* Background helpers */
+    /* NB: these lack dark mode variants */
     --bg-white: #fafaf9;
     --bg-extra-light-pink: #fff2f7;
     --bg-light-pink: #ffe4ef;

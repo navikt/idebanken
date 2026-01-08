@@ -2,10 +2,7 @@
     /* stylelint-disable-next-line property-no-unknown  */
     interpolate-size: allow-keywords;
 
-    --ac-show-more-mask: linear-gradient(
-        rgb(0 0 0 / 100%),
-        rgb(0 0 0 / 0%) calc(100% - 0.5rem)
-    );
+    --ac-show-more-mask: linear-gradient(rgb(0 0 0 / 100%), rgb(0 0 0 / 0%) calc(100% - 0.5rem));
 
     position: relative;
     padding: var(--ax-space-16);
@@ -22,7 +19,7 @@
 
 .navds-show-more--default,
 .navds-show-more--default {
-    background: var(--ib-bg-pink-moderateA);
+    background: var(--ib-bg-pink-softA);
 }
 
 .navds-show-more__content {
