@@ -103,18 +103,20 @@ export const Downloads = ({ part, meta }: PartProps) => {
                                         </BodyShort>
                                     </div>
                                 </HStack>
-                                <ButtonView
-                                    className="md:justify-self-center"
-                                    config={{
-                                        url: item.mediaUrl,
-                                        external: true,
-                                        variant: 'primary',
-                                        size: 'medium',
-                                        linkText: 'Last ned',
-                                    }}
-                                    download
-                                    meta={meta}
-                                />
+                                <div className="flex w-full justify-center md:w-auto md:justify-end">
+                                    <ButtonView
+                                        className="md:justify-self-center"
+                                        config={{
+                                            url: item.mediaUrl,
+                                            external: true,
+                                            variant: 'primary',
+                                            size: 'medium',
+                                            linkText: 'Last ned',
+                                        }}
+                                        download
+                                        meta={meta}
+                                    />
+                                </div>
                             </HStack>
                         )
                     })}
