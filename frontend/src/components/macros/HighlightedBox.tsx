@@ -1,5 +1,4 @@
 import { BodyLong, BodyShort, HStack, Link, List, VStack } from '@navikt/ds-react'
-import { truncateUrl } from '~/utils/utils'
 import { ListItem } from '@navikt/ds-react/List'
 import { getUrl, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
@@ -14,6 +13,7 @@ export function HighlightedBox({
 }: Macro<Macro_Idebanken_Highlighted_Box_DataConfig>) {
     const { brand, title: maybeTitle, icon, linksAbsolute, links } = config
     const title = maybeTitle ?? ''
+    const allLinks = links.concat(linksAbsolute)
 
     return (
         <VStack
@@ -49,30 +49,17 @@ export function HighlightedBox({
                 ) : (
                     <></>
                 )}
-                {(links && links.length) || (linksAbsolute && linksAbsolute.length) ? (
+                {allLinks && allLinks.length ? (
                     <List aria-labelledby={title} className={''}>
-                        {links
+                        {allLinks
                             ?.filter((it) => it !== null)
                             ?.map(({ url, linkText, download }) => (
-                                <ListItem key={url}>
+                                <ListItem key={linkText}>
                                     <Link
                                         as={NextLink}
                                         href={getUrl(url, meta)}
                                         download={download}>
                                         {linkText}
-                                    </Link>
-                                </ListItem>
-                            ))}
-                        {linksAbsolute
-                            ?.filter((it) => it !== null)
-                            ?.map((link) => (
-                                <ListItem key={link}>
-                                    <Link
-                                        as={NextLink}
-                                        href={getUrl(link, meta)}
-                                        target="_blank"
-                                        rel="noreferrer">
-                                        {truncateUrl(link)}
                                     </Link>
                                 </ListItem>
                             ))}

@@ -19,10 +19,10 @@
         </input>
         <input type="TextLine" name="linksAbsolute">
             <label>Eksterne lenker</label>
-            <help-text>Full lenke med https://</help-text>
+            <help-text>Full lenke med https:// - kan overskrive lenketekst med (En lenke)(https://lenke.no)</help-text>
             <occurrences minimum="0" maximum="0"/>
             <config>
-                <regexp>^https:\/\/.*</regexp>
+                <regexp>^(https:\/\/.*|\([^)]+\)\(https:\/\/.*\))$</regexp>
             </config>
         </input>
     </form>
