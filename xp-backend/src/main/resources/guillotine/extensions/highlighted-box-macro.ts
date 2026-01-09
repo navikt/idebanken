@@ -42,6 +42,32 @@ export const highlightedBoxMacroExtensions = ({
                     .map<InternalLink>((link) => ({ contentId: link }))
                     .map(resolveInternalLink)
             },
+            linksAbsolute: (
+                env: DataFetchingEnvironment<
+                    EmptyRecord,
+                    LocalContextRecord,
+                    Source<HighlightedBox>
+                >
+            ): Array<ResolvedLinkSelector> => {
+                return forceArray(env.source.linksAbsolute).map((link) => {
+                    let url
+                    let linkText
+
+                    const markdownLink = link?.match(/^\(([^)]+)\)\((https:\/\/.*)\)$/)
+                    if (markdownLink) {
+                        linkText = markdownLink[1]
+                        url = markdownLink[2]
+                    } else {
+                        linkText = truncateUrl(link) ?? '#'
+                        url = link
+                    }
+                    return {
+                        url,
+                        linkText,
+                        external: true,
+                    }
+                })
+            },
         },
     },
     creationCallbacks: {
@@ -53,8 +79,28 @@ export const highlightedBoxMacroExtensions = ({
                 links: {
                     type: nonNull(list(nonNull(reference('ResolvedLinkSelector')))),
                 },
+                linksAbsolute: {
+                    type: nonNull(list(nonNull(reference('ResolvedLinkSelector')))),
+                },
             })
         },
     },
     types: {},
 })
+
+function truncateUrl(link?: string, maxLength = 50): string | undefined {
+    if (!link) return link
+
+    const linkWithoutProtocolAndParams = link.replace(/(https?:\/\/)?([^?]*?)\/?(\?[^/]*)?$/, '$2')
+    if (linkWithoutProtocolAndParams.length <= maxLength) return linkWithoutProtocolAndParams
+
+    const truncatedUrl = linkWithoutProtocolAndParams.replace(
+        /^([^/]+\/)(.+)?(\/[^/]+)$/,
+        `$1...$3`
+    )
+    if (truncatedUrl.length > maxLength) {
+        return truncatedUrl.substring(0, maxLength).concat('...')
+    } else {
+        return truncatedUrl
+    }
+}
