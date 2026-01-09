@@ -499,7 +499,8 @@
   --skyra-bg-color: var(--ib-bg-pink-softA);
   --skyra-text-color: var(--ax-text-neutral);
   --skyra-interface-color: var(--ax-text-neutral);
-  --skyra-action-color: var(--ax-text-contrast);
+  --skyra-action-color: var(--ib-bg-dark-blue-strong);
+  --skyra-action-text-color: var(--ax-text-contrast);
   --skyra-secondary-color: var(--ib-text-dark-blue-subtle);
   --skyra-link-color: var(--ib-text-dark-blue-subtle);
   --skyra-error-color: var(--ib-text-orange-contrast);
