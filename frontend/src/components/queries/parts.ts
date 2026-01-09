@@ -142,7 +142,9 @@ export const highlightedBoxMacroQuery = `{
     links {
         ${resolvedLinkSelector}
     }
-    linksAbsolute
+    linksAbsolute {
+        ${resolvedLinkSelector}
+    }
 }`
 
 export const videoPartOrMacroQuery = `{
