@@ -5,7 +5,6 @@ import { Content } from '/lib/xp/content'
 import { getNestedValues } from '/lib/utils/object-utils'
 import { Node } from '@enonic-types/lib-node'
 import { Component } from '@enonic-types/lib-portal'
-import { logger } from '/lib/utils/logging'
 
 type FieldKeyBuckets = {
     componentsFieldKeys: string[]
@@ -166,8 +165,5 @@ export const getSearchDocumentTextSegments = (content: Content<Node>, fieldKeys:
         .map((component) => getComponentFieldValues(component, content, componentsFieldKeys))
         .flat()
 
-    logger.info(
-        `text segments: ${JSON.stringify(otherFieldValues.concat(componentsFieldValues), null, 2)}`
-    )
     return otherFieldValues.concat(componentsFieldValues)
 }
