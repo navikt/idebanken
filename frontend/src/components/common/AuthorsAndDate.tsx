@@ -13,7 +13,7 @@ export const AuthorsAndDate = ({ authors, artist, published }: AuthorsProps) => 
     if (!authors) return null
     return (
         <VStack className="mt-0">
-            <Separator className="mb-(--ax-space-16) border-t-2" />
+            <Separator className="mb-(--ax-space-16) border-t-1" />
             <HStack gap="2" className="mb-(--ax-space-2)">
                 <BodyShort size="small">Tekst: {joinArrayWithCommasAndAnd(authors)}</BodyShort>
                 {artist && (
@@ -23,7 +23,7 @@ export const AuthorsAndDate = ({ authors, artist, published }: AuthorsProps) => 
             {published && (
                 <BodyShort size="small">Publisert {localizedDateTime(published)}</BodyShort>
             )}
-            <Separator className="mt-(--ax-space-16) border-t-2" />
+            <Separator className="mt-(--ax-space-16) border-t-1" />
         </VStack>
     )
 }
