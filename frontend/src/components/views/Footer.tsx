@@ -36,22 +36,28 @@ export default function Footer({
             <HGrid
                 align={'center'}
                 gap={{ xs: 'space-16', md: 'space-44', lg: 'space-72' }}
-                columns={{ xs: 1, sm: 2, md: 4 }}>
-                <BodyLong id={'subscribe-to-newsletter'} size={'large'} className={'md:col-span-3'}>
+                columns={{ xs: 1, sm: 2, md: 5 }}>
+                <BodyLong
+                    id={'subscribe-to-newsletter'}
+                    size={'large'}
+                    className={'min-w-0 md:col-span-3'}>
                     {newsletterSubscribeText}
                 </BodyLong>
-                <ButtonView
-                    config={{
-                        variant: 'primary',
-                        size: 'medium',
-                        url: newsletterSubscribeLink?.url || '#',
-                        linkText: '',
-                        external: newsletterSubscribeLink?.external ?? false,
-                    }}
-                    meta={meta}
-                    aria-describedby={'subscribe-to-newsletter'}>
-                    {newsletterSubscribeLink?.linkText}
-                </ButtonView>
+                <div className={'flex justify-center md:col-span-2 md:justify-end'}>
+                    <ButtonView
+                        config={{
+                            variant: 'primary',
+                            size: 'medium',
+                            url: newsletterSubscribeLink?.url || '#',
+                            linkText: '',
+                            external: newsletterSubscribeLink?.external ?? false,
+                        }}
+                        meta={meta}
+                        aria-describedby={'subscribe-to-newsletter'}
+                        className={'md:!justify-self-auto md:!self-auto'}>
+                        {newsletterSubscribeLink?.linkText}
+                    </ButtonView>
+                </div>
             </HGrid>
             <Separator className={'my-(--ax-space-44)'} />
             <HGrid gap={{ xs: 'space-24', md: 'space-56' }} columns={{ xs: 1, md: 3, lg: 5 }}>
