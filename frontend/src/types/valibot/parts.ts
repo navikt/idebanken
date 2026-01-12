@@ -21,6 +21,7 @@ export const headingConfigSchema = object({
         'display',
         '3xlarge',
         '2xlarge',
+        '1xlarge',
         'xlarge',
         'large',
         'medium',
