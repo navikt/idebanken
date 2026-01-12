@@ -34,6 +34,31 @@ const getFieldKeyBuckets = (fieldKeys: string[]) => {
     )
 }
 
+const replaceMacroDataInHtml = (fieldKeys: string[], html: string): string => {
+    // Match macros like [highlighted-box title="..." brand="..."]...[/highlighted-box]
+    return html.replace(
+        /\[([a-zA-Z0-9-]+)((?:\s+[a-zA-Z0-9-]+="[^"]*")*)]([\s\S]*?)\[\/\1]/g,
+        (match, macroName, attrs, body) => {
+            // Extract attributes
+            const attrRegex = /([a-zA-Z0-9-]+)="([^"]*)"/g
+            let attrMatch
+            const spans: string[] = []
+            while ((attrMatch = attrRegex.exec(attrs ?? ''))) {
+                const key = `macro.${macroName}.${attrMatch[1]}`
+                if (fieldKeys.includes(key)) {
+                    spans.push(`<span>${attrMatch[2]}</span>`)
+                }
+            }
+            // Special case for body "attribute"
+            const bodyKey = `macro.${macroName}.body`
+            if (fieldKeys.includes(bodyKey) && body && body.trim()) {
+                spans.push(`<span>${body.trim()}</span>`)
+            }
+            return spans.join('\n')
+        }
+    )
+}
+
 const getFieldValues = (
     contentOrComponent: Content<Node> | Node<Component>,
     fieldKeys: string[]
@@ -41,9 +66,13 @@ const getFieldValues = (
     return fieldKeys.reduce<string[]>((acc, key) => {
         const value = getNestedValues(contentOrComponent, key)
         if (typeof value === 'string') {
-            acc.push(value)
+            acc.push(replaceMacroDataInHtml(fieldKeys, value))
         } else if (Array.isArray(value)) {
-            acc.push(...value.filter((item) => typeof item === 'string'))
+            acc.push(
+                ...forceArray(value)
+                    .filter((item) => typeof item === 'string')
+                    .map((item) => replaceMacroDataInHtml(fieldKeys, item))
+            )
         }
 
         return acc
