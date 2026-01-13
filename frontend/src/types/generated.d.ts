@@ -500,6 +500,7 @@ export type HeadlessCms = {
   queryConnection?: Maybe<QueryContentConnection>;
   queryDsl?: Maybe<Array<Maybe<Content>>>;
   queryDslConnection?: Maybe<QueryDslContentConnection>;
+  robotstxt?: Maybe<RobotsTxt>;
   siteConfiguration: SiteConfiguration;
   sitemap?: Maybe<Sitemap>;
   themeTags: Array<Tag>;
@@ -835,12 +836,19 @@ export type Macro = {
 /** Macro config type. */
 export type MacroConfig = {
   __typename?: 'MacroConfig';
+  box?: Maybe<Macro_Idebanken_Box_DataConfig>;
   disable?: Maybe<Macro_System_Disable_DataConfig>;
   embed?: Maybe<Macro_System_Embed_DataConfig>;
   highlighted_box?: Maybe<Macro_Idebanken_Highlighted_Box_DataConfig>;
   quote?: Maybe<Macro_Idebanken_Quote_DataConfig>;
   separator?: Maybe<Macro_Idebanken_Separator_DataConfig>;
   video?: Maybe<Macro_Idebanken_Video_DataConfig>;
+};
+
+/** Macro descriptor data config for application ['idebanken'] and descriptor ['box'] */
+export type Macro_Idebanken_Box_DataConfig = {
+  __typename?: 'Macro_idebanken_box_DataConfig';
+  body?: Maybe<Scalars['String']['output']>;
 };
 
 /** Macro descriptor data config for application ['idebanken'] and descriptor ['highlighted_box'] */
@@ -1613,6 +1621,23 @@ export type RichText = {
   macrosAsJson?: Maybe<Scalars['JSON']['output']>;
   processedHtml?: Maybe<Scalars['String']['output']>;
   raw?: Maybe<Scalars['String']['output']>;
+};
+
+/** RobotsTxt rule type */
+export type RobotsRule = {
+  __typename?: 'RobotsRule';
+  allow?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  disallow?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  userAgent?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
+/** RobotsTxt type */
+export type RobotsTxt = {
+  __typename?: 'RobotsTxt';
+  cachecontrol?: Maybe<Scalars['String']['output']>;
+  rules?: Maybe<Array<Maybe<RobotsRule>>>;
+  sitemap?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  text?: Maybe<Scalars['String']['output']>;
 };
 
 /** A simple link with text and href */
