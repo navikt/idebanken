@@ -13,7 +13,7 @@ export type Heading = {
   /**
    * Heading size
    */
-  size: 'display' | '3xlarge' | '2xlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
+  size: 'display' | '4xlarge' | '3xlarge' | '2xlarge' | 'xlarge' | 'large' | 'medium' | 'small' | 'xsmall';
 
   /**
    * Ingress

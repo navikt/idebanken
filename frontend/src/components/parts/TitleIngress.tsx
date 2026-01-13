@@ -35,11 +35,11 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
     const title = data?.title || '[Mangler tittel på innholdet]'
 
     const contentType = meta?.type
-    const headingSizeMap: Record<string, '1xlarge' | '2xlarge'> = {
-        'idebanken:artikkel': '1xlarge',
-        'idebanken:kjerneartikkel': '1xlarge',
+    const headingSizeMap: Record<string, '2xlarge' | '3xlarge'> = {
+        'idebanken:artikkel': '2xlarge',
+        'idebanken:kjerneartikkel': '2xlarge',
     }
-    const headingSize: '1xlarge' | '2xlarge' = headingSizeMap[contentType ?? ''] ?? '2xlarge'
+    const headingSize: '2xlarge' | '3xlarge' = headingSizeMap[contentType ?? ''] ?? '3xlarge'
     const richTextParagraphClass = ['idebanken:artikkel', 'idebanken:kjerneartikkel'].includes(
         contentType ?? ''
     )

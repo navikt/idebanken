@@ -19,13 +19,13 @@ function renderWithBodyShort(value: string, halfWidth: string) {
 }
 
 type AkselSize = 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'
-type ExtendedSize = AkselSize | '1xlarge' | '2xlarge' | '3xlarge' | 'display'
+type ExtendedSize = AkselSize | '2xlarge' | '3xlarge' | '4xlarge' | 'display'
 
 function normalizeSize(size?: string): { aksel: AkselSize; overrideClass: string } {
     const overrideByExtra: Record<string, string> = {
-        '1xlarge': 'text-[2.25rem] leading-10 md:text-[3rem] md:leading-15',
-        '2xlarge': 'text-[2.75rem] leading-13 md:text-[3.25rem] md:leading-16',
-        '3xlarge': 'text-[2.75rem] leading-13 md:text-[3.75rem] md:leading-[120%]',
+        '2xlarge': 'text-[2.25rem] leading-10 md:text-[3rem] md:leading-15',
+        '3xlarge': 'text-[2.75rem] leading-13 md:text-[3.25rem] md:leading-16',
+        '4xlarge': 'text-[2.75rem] leading-13 md:text-[3.75rem] md:leading-[120%]',
         display: 'text-[2.75rem] leading-13 md:text-[4.5rem] md:leading-[120%]',
     }
 
