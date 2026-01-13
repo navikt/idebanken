@@ -18,6 +18,7 @@ export default function Footer({
 }: Readonly<{ footerProps?: FooterProps; meta: MetaData }>) {
     const { newsletterSubscribeLink, newsletterSubscribeText, footerText, linkGroups } =
         footerProps || {}
+
     return (
         <BleedingBackgroundPageBlock
             width={'2xl'}

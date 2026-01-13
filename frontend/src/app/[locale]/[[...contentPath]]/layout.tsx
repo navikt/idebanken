@@ -17,6 +17,7 @@ import { CookieBanner } from '~/components/common/cookies/CookieBanner'
 import { ContentEditorMessage } from '~/components/common/ContentEditorMessage'
 import Backlink from '~/components/common/Backlink'
 import { AlertBanner } from '~/components/common/AlertBanner'
+import { AuthorsAndDate } from '~/components/common/AuthorsAndDate'
 
 type LayoutParams = { locale: string; contentPath?: string[] }
 type LayoutProps = PropsWithChildren<{ params: Promise<LayoutParams> }>
@@ -29,6 +30,10 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     const contentResult = await fetchContent(ctx)
     const { meta, common, page } = contentResult
     const editorMessage = editorHasUsedTextComponentWarningMessage(meta, isEnabled, page)
+
+    const commonGet = common?.get
+    const data = commonGet?.dataAsJson
+    const isCoreArticle = commonGet?.type === 'idebanken:kjerneartikkel'
 
     if (meta.requestType === XP_REQUEST_TYPE.COMPONENT) {
         const content: ReactNode =
@@ -76,6 +81,17 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                     {children}
                     <GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />
                     {editorMessage}
+                    {isCoreArticle && (
+                        <div className="aksel-pageblock aksel-pageblock--md pt-6 pb-6  aksel-pageblock--gutters">
+                            <AuthorsAndDate
+                                authors={data?.authors}
+                                published={
+                                    commonGet?.data?.publicationDate || commonGet?.publish?.first
+                                }
+                                coreArticle={true}
+                            />
+                        </div>
+                    )}
                 </PageBlock>
             </Page>
             <BubblesOverlayTop meta={meta} />
