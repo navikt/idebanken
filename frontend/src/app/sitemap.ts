@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
     )
 
-    const sitemap = res.guillotine.sitemap
+    const sitemap = res.guillotine?.sitemap
     if (!sitemap) {
         console.warn('Sitemap not found or empty')
         return []

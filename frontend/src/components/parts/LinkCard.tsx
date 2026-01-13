@@ -66,6 +66,7 @@ export const LinkCardView = ({
     meta,
     linkProps,
     color,
+    lang,
 }: LinkCardViewParams) => {
     const showIcon =
         displayType === 'withIcon' ||
@@ -80,6 +81,7 @@ export const LinkCardView = ({
     return (
         <LinkCard
             data-color={'inherit'}
+            lang={lang ?? undefined}
             arrow={!hideArrow}
             className={classNames(
                 'group rounded-ib',

@@ -500,6 +500,7 @@ export type HeadlessCms = {
   queryConnection?: Maybe<QueryContentConnection>;
   queryDsl?: Maybe<Array<Maybe<Content>>>;
   queryDslConnection?: Maybe<QueryDslContentConnection>;
+  robotstxt?: Maybe<RobotsTxt>;
   siteConfiguration: SiteConfiguration;
   sitemap?: Maybe<Sitemap>;
   themeTags: Array<Tag>;
@@ -817,6 +818,7 @@ export type Link_Card = {
   external: Scalars['Boolean']['output'];
   icon?: Maybe<ResolvedMedia>;
   image?: Maybe<ResolvedMedia>;
+  lang?: Maybe<Scalars['String']['output']>;
   themeTags: Array<Tag>;
   title: Scalars['String']['output'];
   typeTags: Array<Tag>;
@@ -1613,6 +1615,23 @@ export type RichText = {
   macrosAsJson?: Maybe<Scalars['JSON']['output']>;
   processedHtml?: Maybe<Scalars['String']['output']>;
   raw?: Maybe<Scalars['String']['output']>;
+};
+
+/** RobotsTxt rule type */
+export type RobotsRule = {
+  __typename?: 'RobotsRule';
+  allow?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  disallow?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  userAgent?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
+/** RobotsTxt type */
+export type RobotsTxt = {
+  __typename?: 'RobotsTxt';
+  cachecontrol?: Maybe<Scalars['String']['output']>;
+  rules?: Maybe<Array<Maybe<RobotsRule>>>;
+  sitemap?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  text?: Maybe<Scalars['String']['output']>;
 };
 
 /** A simple link with text and href */
