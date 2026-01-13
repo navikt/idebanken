@@ -34,7 +34,7 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
         fetchOptions
     )
 
-    const { rules, sitemap } = res.guillotine.robotstxt ?? { rules: [] }
+    const { rules, sitemap } = res.guillotine?.robotstxt ?? { rules: [] }
     return {
         rules,
         sitemap,

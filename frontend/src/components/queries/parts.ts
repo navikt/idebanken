@@ -59,34 +59,38 @@ image {
 }
 `
 
+const linkCard = `
+    url
+    external
+    title
+    description
+    lang
+    image {
+        url
+        caption
+    }
+    icon {
+        url
+        caption
+    }
+    themeTags {
+        name
+        id
+        iconUrl
+    }
+    typeTags {
+        name
+        id
+        color
+}`
+
 export const linkCardQuery = `{
     displayType
     hideArrow
     hideTag
     color
     resolvedLinkCard {
-        url
-        external
-        title
-        description
-        image {
-            url
-            caption
-        }
-        icon {
-            url
-            caption
-        }
-        themeTags {
-            name
-            id
-            iconUrl
-        }
-        typeTags {
-            name
-            id
-            color
-        }
+        ${linkCard}
     }
 }`
 
@@ -106,28 +110,7 @@ export const linkCardListQuery = `{
         href
     }
     list {
-        url
-        external
-        title
-        description
-        image {
-            url
-            caption
-        }
-        icon {
-            url
-            caption
-        }
-        themeTags {
-            name
-            id
-            iconUrl
-        }
-        typeTags {
-            name
-            id
-            color
-        }
+        ${linkCard}
     }
 }`
 

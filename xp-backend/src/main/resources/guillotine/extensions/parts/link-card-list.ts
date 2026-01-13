@@ -20,6 +20,7 @@ export type LinkCardItem = {
     icon?: ResolvedMedia
     themeTags: Array<ResolvedTag>
     typeTags: Array<ResolvedTag>
+    lang?: string
 }
 
 export const linkCardListExtensions = ({
@@ -113,6 +114,9 @@ export const linkCardListExtensions = ({
                 typeTags: {
                     type: nonNull(list(nonNull(reference('Tag')))),
                 },
+                lang: {
+                    type: GraphQLString,
+                },
             },
             interfaces: [],
         },
@@ -150,6 +154,7 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
             icon: resolveIcon(item),
             themeTags,
             typeTags,
+            lang: item.language !== 'no' ? item.language : undefined,
         }
     })
 }
