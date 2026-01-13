@@ -19,9 +19,9 @@ export const headingConfigSchema = object({
     level: picklist(['1', '2', '3', '4', '5', '6']),
     size: picklist([
         'display',
+        '4xlarge',
         '3xlarge',
         '2xlarge',
-        '1xlarge',
         'xlarge',
         'large',
         'medium',
