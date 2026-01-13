@@ -49,7 +49,7 @@ export function AlertBanner({ common, meta }: { common: HeadlessCms; meta: MetaD
                     'justify-center md:px-[10%]',
                     status === 'announcement'
                         ? 'bg-(--ax-bg-info-moderate) text-(--ax-text-info)'
-                        : '',
+                        : '[&>div>section>p>a]:text-(--ax-text-contrast)',
                     alertBanner.closeable ? 'pr-12' : ''
                 )}>
                 <GlobalAlertTitle as={'div'} className={'text-[18px] font-light'}>
