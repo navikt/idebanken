@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Box, Stack } from '@navikt/ds-react'
 import { useCookieBanner } from '~/components/common/cookies/CookieBannerContext'
 import classNames from 'classnames'
@@ -14,7 +14,14 @@ import { dispatchCookieConsentEvent } from '~/components/common/cookies/cookieUt
 export function CookieBanner({ meta, common }: { meta: MetaData; common?: HeadlessCms }) {
     const { closeCookieBanner, showCookieBanner, setShowCookieBanner } = useCookieBanner()
 
-    if (!showCookieBanner || meta.renderMode !== RENDER_MODE.NEXT) {
+    // Detect bots on the client
+    const isBot = useMemo(() => {
+        if (typeof navigator === 'undefined') return false
+        const ua = navigator.userAgent || ''
+        return [/crawler|spider|bot/i].some((p) => p.test(ua))
+    }, [])
+
+    if (!showCookieBanner || meta.renderMode !== RENDER_MODE.NEXT || isBot) {
         return null
     }
 
