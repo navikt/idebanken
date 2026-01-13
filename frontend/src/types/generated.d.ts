@@ -818,6 +818,7 @@ export type Link_Card = {
   external: Scalars['Boolean']['output'];
   icon?: Maybe<ResolvedMedia>;
   image?: Maybe<ResolvedMedia>;
+  lang?: Maybe<Scalars['String']['output']>;
   themeTags: Array<Tag>;
   title: Scalars['String']['output'];
   typeTags: Array<Tag>;

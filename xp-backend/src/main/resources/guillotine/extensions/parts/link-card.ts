@@ -78,6 +78,7 @@ function resolveLinkCardInternalLink(internalLink: LinkCardInternalLink): LinkCa
         typeTags,
         icon: resolveIcon(content),
         image: resolveImage(content, 'height(800)'),
+        lang: content?.language !== 'no' ? content?.language : undefined,
     }
 }
 
