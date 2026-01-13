@@ -7,15 +7,39 @@ interface AuthorsProps {
     authors?: string | string[]
     artist?: string | string[]
     published?: string
+    coreArticle?: boolean
 }
 
-export const AuthorsAndDate = ({ authors, artist, published }: AuthorsProps) => {
-    if (!authors) return null
+export const AuthorsAndDate = ({
+    authors,
+    artist,
+    published,
+    coreArticle = false,
+}: AuthorsProps) => {
+    if (!authors && !published) return null
+
+    if (coreArticle) {
+        return (
+            <VStack className="mt-0" gap="2">
+                {authors && (
+                    <BodyShort size="medium" className="mb-(--ax-space-2)">
+                        Innholdet er laget av: {joinArrayWithCommasAndAnd(authors)}
+                    </BodyShort>
+                )}
+                {published && (
+                    <BodyShort size="medium">Oppdatert: {localizedDateTime(published)}</BodyShort>
+                )}
+            </VStack>
+        )
+    }
+
     return (
         <VStack className="mt-0">
             <Separator className="mb-(--ax-space-16) border-t-1" />
             <HStack gap="2" className="mb-(--ax-space-2)">
-                <BodyShort size="small">Tekst: {joinArrayWithCommasAndAnd(authors)}</BodyShort>
+                {authors && (
+                    <BodyShort size="small">Tekst: {joinArrayWithCommasAndAnd(authors)}</BodyShort>
+                )}
                 {artist && (
                     <BodyShort size="small">Foto: {joinArrayWithCommasAndAnd(artist)}</BodyShort>
                 )}

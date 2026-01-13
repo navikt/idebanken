@@ -35,20 +35,17 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
     const title = data?.title || '[Mangler tittel på innholdet]'
 
     const contentType = meta?.type
-    const headingSizeMap: Record<string, '2xlarge' | '3xlarge'> = {
-        'idebanken:artikkel': '2xlarge',
-        'idebanken:kjerneartikkel': '2xlarge',
-    }
-    const headingSize: '2xlarge' | '3xlarge' = headingSizeMap[contentType ?? ''] ?? '3xlarge'
-    const richTextParagraphClass = ['idebanken:artikkel', 'idebanken:kjerneartikkel'].includes(
-        contentType ?? ''
-    )
+    const isArticle = contentType === 'idebanken:artikkel'
+    const isCoreArticle = contentType === 'idebanken:kjerneartikkel'
+    const isArticleLike = isArticle || isCoreArticle
+
+    const headingSize: '2xlarge' | '3xlarge' = isArticleLike ? '2xlarge' : '3xlarge'
+    const richTextParagraphClass = isArticleLike
         ? '[&_p]:text-xl/[140%] md:[&_p]:text-2xl/[133%]'
         : '[&_p]:text-2xl/[133%] md:[&_p]:text-[32px]/[125%]'
-    const richTextWrapperClass =
-        contentType === 'idebanken:artikkel'
-            ? `${richTextParagraphClass} !mt-6`
-            : richTextParagraphClass
+    const richTextWrapperClass = isArticle
+        ? `${richTextParagraphClass} !mt-6`
+        : richTextParagraphClass
 
     return (
         <>
@@ -78,11 +75,13 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
                 meta={meta}
                 customReplacer={htmlRichTextReplacer}
             />
-            <AuthorsAndDate
-                authors={data?.authors}
-                artist={artist}
-                published={commonGet?.data?.publicationDate || commonGet?.publish?.first}
-            />
+            {isArticle && (
+                <AuthorsAndDate
+                    authors={data?.authors}
+                    artist={artist}
+                    published={commonGet?.data?.publicationDate || commonGet?.publish?.first}
+                />
+            )}
         </>
     )
 }

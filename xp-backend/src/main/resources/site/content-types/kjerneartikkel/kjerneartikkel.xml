@@ -7,5 +7,14 @@
     <allow-child-content-type>(portal:fragment|${app}:(?!(crash-course-slide|*-tag|singleton-*|video|artikkel)$)*)</allow-child-content-type>
     <form>
         <mixin name="title-ingress" />
+        <input type="Tag" name="authors">
+            <label>Forfatter(e) / Kilder</label>
+            <occurrences minimum="0" maximum="0"/>
+        </input>
+        <input type="Date" name="publicationDate">
+            <label>Publiseringsdato</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>now</default>
+        </input>
     </form>
 </content-type>
