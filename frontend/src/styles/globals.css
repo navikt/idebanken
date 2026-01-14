@@ -86,3 +86,9 @@ a .aksel-label {
     min-inline-size: var(--interactive-min-size);
     min-block-size: var(--interactive-min-size);
 }
+
+.aksel-link-card,
+.aksel-link-card :is(a, [role='link'], .interactive-hit-target) {
+    min-inline-size: auto;
+    min-block-size: auto;
+}
