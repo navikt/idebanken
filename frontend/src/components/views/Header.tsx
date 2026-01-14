@@ -196,14 +196,14 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                     gap={{ xs: '8', lg: '16' }}
                                     direction={{ xs: 'column', lg: 'row' }}>
                                     {header?.linkGroups?.map(({ title, links }, id) => (
-                                        <VStack key={id} gap={'4'}>
+                                        <VStack key={id}>
                                             {title && (
                                                 <HeadingView
                                                     key={id}
                                                     level={'2'}
                                                     size={'xsmall'}
                                                     fontClass={'ib-bold'}
-                                                    className={'mb-0'}>
+                                                    className={'mb-2'}>
                                                     {title}
                                                 </HeadingView>
                                             )}
