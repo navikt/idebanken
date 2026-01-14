@@ -1,2 +1,5 @@
 external-host: idebanken-xp7test.enonic.cloud
 ingress: ["https://idebanken.ekstern.dev.nav.no"]
+replicas:
+  min: 1
+  max: 2
