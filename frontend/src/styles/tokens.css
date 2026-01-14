@@ -13,6 +13,9 @@
 
     --ax-font-weight-regular: var(--ib-font-weight-regular, 300);
     --ax-font-weight-bold: var(--ib-font-weight-bold, 400);
+
+    /* Interactive */
+    --interactive-min-size: 44px;
 }
 
 /* Light/base tokens */
@@ -506,3 +509,4 @@ skyra-survey,
     --skyra-error-color: var(--ib-text-orange-contrast);
     --skyra-warning-color: var(--ib-text-orange);
 }
+
