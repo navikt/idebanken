@@ -41,8 +41,8 @@ const TitleIngressView = ({ common, meta }: PartData<XP_TitleIngress, PageData>)
 
     const headingSize: '2xlarge' | '3xlarge' = isArticleLike ? '2xlarge' : '3xlarge'
     const richTextParagraphClass = isArticleLike
-        ? '[&_p]:text-xl/[140%] md:[&_p]:text-2xl/[133%]'
-        : '[&_p]:text-2xl/[133%] md:[&_p]:text-[32px]/[125%]'
+        ? '[&_p]:text-xl/[150%] md:[&_p]:text-2xl/[150%]'
+        : '[&_p]:text-2xl/[150%] md:[&_p]:text-[32px]/[150%]'
     const richTextWrapperClass = isArticle
         ? `${richTextParagraphClass} !mt-6`
         : richTextParagraphClass
