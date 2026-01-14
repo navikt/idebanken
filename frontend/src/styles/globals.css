@@ -72,3 +72,17 @@ a .aksel-label {
 .aksel-expansioncard {
     --__axc-expansioncard-border-radius: calc((var(--ax-radius-12) * 2) - 1px);
 }
+
+/* Global utility for interactive elements */
+:where(
+    button,
+    [role='button'],
+    input[type='button'],
+    input[type='submit'],
+    a,
+    [role='link'],
+    .interactive-hit-target
+) {
+    min-inline-size: var(--interactive-min-size);
+    min-block-size: var(--interactive-min-size);
+}
