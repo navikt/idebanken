@@ -92,7 +92,7 @@ export const LinkCardView = ({
                 <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(1.5rem-1px)]">
                     <Image
                         unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
-                        src={getAsset(image?.url ?? '/favicon/favicon.svg', meta)}
+                        src={getAsset(image?.url ?? '/images/link-card-fallback.svg', meta)}
                         alt={''}
                         aria-hidden
                         fill
