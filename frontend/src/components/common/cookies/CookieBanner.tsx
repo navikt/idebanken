@@ -58,6 +58,7 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
                 id={'cookie-banner-buttons'}
                 gap={{ xs: 'space-12', lg: 'space-32' }}
                 direction={{ xs: 'column', sm: 'row' }}
+                role="group"
                 aria-label={'Godta eller avvis informasjonskapsler'}>
                 <ButtonView
                     type="submit"
