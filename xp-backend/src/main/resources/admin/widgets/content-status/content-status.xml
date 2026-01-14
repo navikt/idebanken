@@ -1,0 +1,15 @@
+<widget xmlns="urn:enonic:xp:model:1.0">
+  <display-name>Innhold</display-name>
+  <description>En oversikt for redaktører</description>
+  <interfaces>
+    <interface>admin.dashboard</interface>
+  </interfaces>
+  <allow>
+    <principal>role:system.authenticated</principal>
+  </allow>
+  <config>
+    <property name="width" value="small"/>
+    <property name="height" value="large"/>
+    <property name="order" value="1"/>
+  </config>
+</widget>

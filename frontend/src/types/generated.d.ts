@@ -2849,11 +2849,20 @@ export type Idebanken_KjerneartikkelPageUrlArgs = {
 /** Kjerneartikkel - idebanken:kjerneartikkel data */
 export type Idebanken_Kjerneartikkel_Data = {
   __typename?: 'idebanken_Kjerneartikkel_Data';
+  authors?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   description?: Maybe<Scalars['String']['output']>;
   ingress?: Maybe<RichText>;
   overrideImage?: Maybe<Content>;
+  publicationDate?: Maybe<Scalars['Date']['output']>;
   shortTitle?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Kjerneartikkel - idebanken:kjerneartikkel data */
+export type Idebanken_Kjerneartikkel_DataAuthorsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
