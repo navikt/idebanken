@@ -85,9 +85,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                         <div className="aksel-pageblock aksel-pageblock--md pt-6 pb-6  aksel-pageblock--gutters">
                             <AuthorsAndDate
                                 authors={data?.authors}
-                                published={
-                                    commonGet?.data?.publicationDate || commonGet?.publish?.first
-                                }
+                                published={data?.publicationDate || commonGet?.publish?.first}
                                 coreArticle={true}
                             />
                         </div>
