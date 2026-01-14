@@ -21,7 +21,7 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
             <ul className="pl-6 md:pl-8" aria-labelledby={'table-of-contents-heading'}>
                 {sections?.length ? (
                     sections.map((section, index) => (
-                        <li key={index} className="py-3">
+                        <li key={index}>
                             <TrackFirstLink
                                 key={index}
                                 analyticsEventName={AnalyticsEvents.ANCHOR_LINK_CLICKED}
