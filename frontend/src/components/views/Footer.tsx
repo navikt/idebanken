@@ -88,12 +88,12 @@ export default function Footer({
                     />
                 </VStack>
                 {linkGroups?.map(({ title, links }, i) => (
-                    <VStack key={i} gap={'space-16'}>
+                    <VStack key={i}>
                         <HeadingView
                             key={i}
                             level="2"
                             size="xsmall"
-                            className="text-(--ib-text-dark-blue) mb-0"
+                            className="text-(--ib-text-dark-blue) mb-2"
                             autoId={false}>
                             {title}
                         </HeadingView>
