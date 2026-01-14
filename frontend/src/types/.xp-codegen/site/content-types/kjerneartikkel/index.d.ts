@@ -24,4 +24,14 @@ export type XP_Kjerneartikkel = {
    * Overskriv lenkekort bilde
    */
   overrideImage?: string;
+
+  /**
+   * Forfatter(e) / Kilder
+   */
+  authors?: Array<string> | string;
+
+  /**
+   * Publiseringsdato
+   */
+  publicationDate: string;
 };

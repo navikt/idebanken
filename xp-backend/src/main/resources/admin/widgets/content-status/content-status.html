@@ -1,0 +1,14 @@
+<widget>
+    <p data-th-text="${percentNynorsk}"></p>
+    <p data-th-if="${#lists.isEmpty(outdatedContent)}">Ingen utdaterte innhold 🙌</p>
+    <p data-th-if="${!#lists.isEmpty(outdatedContent)}">Innhold som ikke er endret på 3 måneder:</p>
+    <ul style="padding-left: 1rem">
+        <li data-th-each="content: ${outdatedContent}">
+            <div style="display: flex; flex-direction: row; align-items: center;">
+                <p data-th-text="${content.name}"></p>
+                &nbsp;-&nbsp;
+                <a data-th-href="${content.href}" target="_blank" data-th-text="${content.path}"></a>
+            </div>
+        </li>
+    </ul>
+</widget>
