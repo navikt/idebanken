@@ -2,7 +2,7 @@ import { Content, ContentsResult, get, query, QueryContentParams, QueryDsl } fro
 import { AggregationsToAggregationResults, BooleanDslExpression, Filter } from '@enonic-types/core'
 import { getSiteConfig } from '/lib/utils/site-config'
 import { forceArray } from '/lib/utils/array-utils'
-import { Aggregations } from '/lib/xp/node'
+import { Aggregations, RepoConnection } from '/lib/xp/node'
 
 const isBooleanQuery = (query: QueryDsl | undefined): query is { boolean: BooleanDslExpression } =>
     'boolean' in (query || {})
@@ -43,13 +43,13 @@ export function queryWithFilters<
     })
 }
 
-function getExcludeFilterAndQuery(): {
+export function getExcludeFilterAndQuery(connection?: RepoConnection): {
     queryDslExclusion: Array<QueryDsl>
     filterExclusion: Array<Filter>
 } {
-    const searchConfig = getSiteConfig()?.searchConfig
+    const searchConfig = getSiteConfig(connection)?.searchConfig
     const queryDslExclusion = forceArray(searchConfig?.excludeContentAndChildren).map((id) => {
-        const path = get({ key: id })?._path
+        const path = connection ? connection.get({ key: id })?._path : get({ key: id })?._path
         return {
             like: {
                 field: '_path',
