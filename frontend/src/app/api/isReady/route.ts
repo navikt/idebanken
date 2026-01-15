@@ -16,7 +16,7 @@ export async function GET() {
                 query: `
                     query {
                         guillotine {
-                            get(path: "\${site}") {
+                            get(key: "\${site}") {
                                 _id
                             }
                         }
