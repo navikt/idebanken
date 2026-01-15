@@ -39,12 +39,13 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
 
     return (
         <Box
+            data-color="ib-brand-dark-blue"
             as="section"
             padding={{ xs: 'space-36', md: 'space-64' }}
             margin={{ xs: 'space-0', lg: 'space-44' }}
             className={classNames(
                 'fixed bottom-0 inset-x-0 mx-auto w-[min(704px,100%)] z-[1000]',
-                'bg-(--ib-bg-dark-blue-moderate) shadow-2xl lg:rounded-lg max-lg:bg-none!',
+                'bg-(--ib-bg-dark-blue-soft) shadow-2xl lg:rounded-lg max-lg:bg-none!',
                 'max-h-screen overflow-y-auto'
             )}>
             <RichTextView
