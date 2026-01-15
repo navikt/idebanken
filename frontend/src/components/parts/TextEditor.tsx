@@ -10,8 +10,7 @@ import classNames from 'classnames'
 
 export const TextEditorView = (props: PartData<Part_Idebanken_Text_Editor>) => {
     const { part, meta } = props
-    const { simpleTextEditor, boxColor, halfWidth } = part.config ?? {}
-
+    const { simpleTextEditor, boxColor, halfWidth, bleed } = part.config ?? {}
     const dataColor = legacyBgToBrandColorMap(boxColor)
 
     const content = (
@@ -32,7 +31,7 @@ export const TextEditorView = (props: PartData<Part_Idebanken_Text_Editor>) => {
     return (
         <BleedingBackgroundPageBlock
             bgColor={dataColor}
-            marginInline={{ md: 'space-48' }}
+            marginInline={{ md: bleed ? 'space-48' : 'space-0' }}
             bleedClassName={classNames(
                 boxColor ? 'rounded-xl py-11' : '',
                 dataColor === 'ib-brand-gray' ? 'border border-(--ax-border-subtleA)' : ''

@@ -1427,6 +1427,7 @@ export type Part_Idebanken_Table_Of_ContentsSectionsArgs = {
 /** Part component application config for application ['idebanken'] and descriptor ['text-editor'] */
 export type Part_Idebanken_Text_Editor = {
   __typename?: 'Part_idebanken_text_editor';
+  bleed?: Maybe<Scalars['Boolean']['output']>;
   boxColor?: Maybe<Scalars['String']['output']>;
   halfWidth?: Maybe<Scalars['Boolean']['output']>;
   simpleTextEditor?: Maybe<RichText>;
@@ -2849,11 +2850,20 @@ export type Idebanken_KjerneartikkelPageUrlArgs = {
 /** Kjerneartikkel - idebanken:kjerneartikkel data */
 export type Idebanken_Kjerneartikkel_Data = {
   __typename?: 'idebanken_Kjerneartikkel_Data';
+  authors?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   description?: Maybe<Scalars['String']['output']>;
   ingress?: Maybe<RichText>;
   overrideImage?: Maybe<Content>;
+  publicationDate?: Maybe<Scalars['Date']['output']>;
   shortTitle?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Kjerneartikkel - idebanken:kjerneartikkel data */
+export type Idebanken_Kjerneartikkel_DataAuthorsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 

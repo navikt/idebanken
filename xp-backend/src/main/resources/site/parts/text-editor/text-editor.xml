@@ -5,6 +5,9 @@
     <form>
         <mixin name="simple-text-editor" />
         <mixin name="box-color"/>
+         <input name="bleed" type="CheckBox">
+            <label>Bleed farge på box</label>
+        </input>
         <input name="halfWidth" type="CheckBox">
             <label>Vis på 1/2 sjermbredde</label>
         </input>
