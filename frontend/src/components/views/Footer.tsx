@@ -88,7 +88,7 @@ export default function Footer({
                     />
                 </VStack>
                 {linkGroups?.map(({ title, links }, i) => (
-                    <VStack key={i}>
+                    <VStack key={i} data-color="ib-brand-dark-blue">
                         <HeadingView
                             key={i}
                             level="2"

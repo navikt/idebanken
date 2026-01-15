@@ -415,7 +415,7 @@
 
     --ax-text-contrast: var(--ib-text-dark-blue-contrast);
     --ax-text-icon: var(--ib-text-dark-blue-icon);
-    --ax-text-subtle: var(--ib-text-dark-blue-subtle);
+    --ax-text-subtle: var(--ib-text-dark-blue);
     --ax-text-neutral: var(--ib-text-dark-blue);
 
     --ax-bg-strong-pressed: var(--ib-bg-dark-blue-strong-pressed);
