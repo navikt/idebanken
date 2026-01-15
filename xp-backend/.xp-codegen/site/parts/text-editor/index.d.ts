@@ -11,6 +11,11 @@ export type TextEditor = {
   boxColor?: 'neutral' | 'ib-brand-gray' | 'ib-brand-pink';
 
   /**
+   * Bleed farge på box
+   */
+  bleed: boolean;
+
+  /**
    * Vis på 1/2 sjermbredde
    */
   halfWidth: boolean;
