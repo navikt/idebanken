@@ -1,5 +1,6 @@
 import { fetchGuillotine } from '@enonic/nextjs-adapter/server'
 import { getContentApiUrl } from '@enonic/nextjs-adapter'
+import { commonQuery } from '~/components/queries/common'
 
 export async function GET() {
     const res = await fetchGuillotine(
@@ -13,15 +14,10 @@ export async function GET() {
         {
             method: 'POST',
             body: {
-                query: `
-                    query {
-                        guillotine {
-                            get(key: "\${site}") {
-                                _id
-                            }
-                        }
-                    }
-                `,
+                variables: {
+                    path: '\${site}',
+                },
+                query: commonQuery,
             },
         }
     )
