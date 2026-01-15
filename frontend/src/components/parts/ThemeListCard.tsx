@@ -20,6 +20,7 @@ function normalizeCard(card: Theme_Card) {
         showDescription: true,
         hideArrow: true,
         typeTags: card.typeTags,
+        color: 'brand' as const,
     }
 }
 
@@ -58,7 +59,7 @@ export default function ThemeCardList({ part, meta }: PartData<Part_Idebanken_Th
 
     return (
         <>
-            <div className="mt-8 grid gap-6 md:grid-cols-3">
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
                 {items.map((card, i) => {
                     const nc = normalizeCard(card)
                     return (
