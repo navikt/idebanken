@@ -176,6 +176,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                             gutters>
                             <Stack
                                 as={'nav'}
+                                aria-label="Hovedmeny"
                                 gap={'8'}
                                 className={'py-(--ax-space-24) lg:py-(--ax-space-32)'}
                                 justify={'space-between'}
