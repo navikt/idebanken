@@ -23,20 +23,18 @@ export default function Backlink({ contentResult }: { contentResult: FetchConten
         meta?.type === 'idebanken:section-page' ||
         meta?.type === 'idebanken:singleton-aktuelt-page'
 
-    if (shouldBleedPink) {
-        return (
-            <BleedingBackgroundPageBlock
-                width={'lg'}
-                bgColor={'ib-brand-pink'}
-                bleedClassName={'pt-[24px]'}>
-                {linkElement}
-            </BleedingBackgroundPageBlock>
-        )
-    }
-
-    return (
+    const linkContainer = shouldBleedPink ? (
+        <BleedingBackgroundPageBlock
+            width={'lg'}
+            bgColor={'ib-brand-pink'}
+            bleedClassName={'pt-[24px]'}>
+            {linkElement}
+        </BleedingBackgroundPageBlock>
+    ) : (
         <PageBlock width={'lg'} className={'pt-[24px]'} gutters>
             {linkElement}
         </PageBlock>
     )
+
+    return <nav aria-label="Tilbake lenke">{linkContainer}</nav>
 }

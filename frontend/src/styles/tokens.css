@@ -40,18 +40,6 @@
     /* Shadows */
     --ib-shadow: 0 16px 24px -12px rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 
-    /* Accent ramp */
-    --ib-accent-100: #F1F7FF;
-    --ib-accent-200: #E4EEFF;
-    --ib-accent-300: #D4E5FD;
-    --ib-accent-400: #BAD5FB;
-    --ib-accent-500: #428AE3;
-    --ib-accent-600: #2176D4;
-    --ib-accent-700: #0063C1;
-    --ib-accent-800: #005BB6;
-    --ib-accent-900: #004EA3;
-    --ib-accent-1000: #002459;
-
     /* Pink ramp */
     --ib-pink-100: #fff3f8;
     --ib-pink-200: #ffe7f1;
