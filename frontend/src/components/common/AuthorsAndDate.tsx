@@ -22,12 +22,16 @@ export const AuthorsAndDate = ({
         return (
             <VStack className="mt-0" gap="2">
                 {authors && (
-                    <BodyShort size="medium" className="mb-(--ax-space-2)">
+                    <BodyShort
+                        size="medium"
+                        className="mb-(--ax-space-2) leading-[var(--ax-font-line-height-large)]">
                         Innholdet er laget av: {joinArrayWithCommasAndAnd(authors)}
                     </BodyShort>
                 )}
                 {published && (
-                    <BodyShort size="medium">Oppdatert: {localizedDateTime(published)}</BodyShort>
+                    <BodyShort size="medium" className="leading-[var(--ax-font-line-height-large)]">
+                        Oppdatert: {localizedDateTime(published)}
+                    </BodyShort>
                 )}
             </VStack>
         )
@@ -35,19 +39,25 @@ export const AuthorsAndDate = ({
 
     return (
         <VStack className="mt-0">
-            <Separator className="mb-(--ax-space-16) border-t-1" />
+            <Separator className="mb-(--ax-space-12) border-t-1" />
             <HStack gap="2" className="mb-(--ax-space-2)">
                 {authors && (
-                    <BodyShort size="small">Tekst: {joinArrayWithCommasAndAnd(authors)}</BodyShort>
+                    <BodyShort size="small" className="leading-[var(--ax-font-line-height-large)]">
+                        Tekst: {joinArrayWithCommasAndAnd(authors)}
+                    </BodyShort>
                 )}
                 {artist && (
-                    <BodyShort size="small">Foto: {joinArrayWithCommasAndAnd(artist)}</BodyShort>
+                    <BodyShort size="small" className="leading-[var(--ax-font-line-height-large)]">
+                        Foto: {joinArrayWithCommasAndAnd(artist)}
+                    </BodyShort>
                 )}
             </HStack>
             {published && (
-                <BodyShort size="small">Publisert {localizedDateTime(published)}</BodyShort>
+                <BodyShort size="small" className="leading-[var(--ax-font-line-height-large)]">
+                    Publisert {localizedDateTime(published)}
+                </BodyShort>
             )}
-            <Separator className="mt-(--ax-space-16) border-t-1" />
+            <Separator className="mt-(--ax-space-12) border-t-1" />
         </VStack>
     )
 }
