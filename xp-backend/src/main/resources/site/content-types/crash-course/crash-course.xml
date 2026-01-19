@@ -4,5 +4,5 @@
     <description>Powerpoint-aktig lynkurs</description>
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
-    <allow-child-content-type>(portal:fragment|${app}:crash-course-slide)</allow-child-content-type>
+    <allow-child-content-type>(portal:fragment|media:image|${app}:crash-course-part)</allow-child-content-type>
 </content-type>

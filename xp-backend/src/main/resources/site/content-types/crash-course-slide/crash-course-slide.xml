@@ -4,5 +4,5 @@
     <description>Slide for lynkurs</description>
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
-    <allow-child-content>portal:fragment</allow-child-content>
+    <allow-child-content>(portal:fragment|media:image)</allow-child-content>
 </content-type>

@@ -2,7 +2,7 @@ import { fetchContent, fetchGuillotine } from '@enonic/nextjs-adapter/server'
 import type { FetchContentResult } from '@enonic/nextjs-adapter'
 import { getContentApiUrl, getLocaleMapping, Result } from '@enonic/nextjs-adapter'
 import { enonicSitePathToHref, forceArray } from '~/utils/utils'
-import { Query } from '~/types/generated'
+import { Content, Query } from '~/types/generated'
 
 const getChildrenPathsQuery = `
 query($path:ID!){
@@ -13,10 +13,8 @@ query($path:ID!){
     }
 }`
 
-export async function getCrashCourseSlideContents(
-    props: FetchContentResult
-): Promise<FetchContentResult[]> {
-    const crashCourseChildren = (await fetchGuillotine(
+async function getChildren(path: string): Promise<Array<Content>> {
+    const res = (await fetchGuillotine(
         getContentApiUrl({ contentPath: process.env.ENONIC_API ?? '' }),
         getLocaleMapping({ contentPath: process.env.ENONIC_API ?? '' }),
         {
@@ -24,7 +22,7 @@ export async function getCrashCourseSlideContents(
             body: {
                 query: getChildrenPathsQuery,
                 variables: {
-                    path: props.common?.get?._path,
+                    path: path,
                 },
             },
             next: {
@@ -33,8 +31,19 @@ export async function getCrashCourseSlideContents(
             },
         }
     )) as Result & Query
+    return forceArray(res?.guillotine?.getChildren).filter<Content>(
+        (it) => it !== null && it !== undefined
+    )
+}
 
-    const slidePaths = forceArray(crashCourseChildren.guillotine?.getChildren).map((child) =>
+export async function getCrashCourseSlideContents(
+    props: FetchContentResult
+): Promise<FetchContentResult[]> {
+    const path: string = props.common?.get?._path
+
+    const crashCourseParts = await getChildren(path)
+
+    const slidePaths = forceArray(crashCourseParts).map((child) =>
         enonicSitePathToHref(child?._path)
     )
 
