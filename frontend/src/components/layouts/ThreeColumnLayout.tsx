@@ -82,7 +82,8 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
             layoutPath={path}
             width={overrideWidth}
-            noGutters={noGutters}>
+            noGutters={noGutters}
+            meta={meta}>
             <HGrid
                 data-color={dataColor}
                 className={classNames(

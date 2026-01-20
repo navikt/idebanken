@@ -2,15 +2,15 @@
 
 import React, { type JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
-import { Button, HStack, ProgressBar, VStack } from '@navikt/ds-react'
+import { Box, Button, HStack, ProgressBar, VStack } from '@navikt/ds-react'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 import { CrashCourseStructure } from '~/components/queries/crash-course'
 
 type Direction = 'right' | 'left'
 
 // Target aspect ratio (e.g., 16:9)
-const targetWidth = 1920
-const targetHeight = 1200 // Increased to accommodate navigation at the bottom
+const targetWidth = 1440
+const targetHeight = 907
 
 export default function CrashCourseView({
     slideDeckElements,
@@ -170,18 +170,19 @@ export default function CrashCourseView({
     }
 
     return (
-        <div
+        <Box
             ref={containerRef}
-            className="h-screen w-full flex items-center justify-center overflow-hidden bg-(--ax-bg-softA)">
-            <div
+            data-color={'ib-brand-pink'}
+            className="h-screen w-screen flex items-center justify-center overflow-hidden bg-(--ax-bg-softA)">
+            <VStack
+                className={'justify-between'}
                 style={{
                     width: targetWidth,
                     height: targetHeight,
                     scale,
                     transformOrigin: 'center center',
                     flexShrink: 0,
-                }}
-                className={'flex flex-col justify-between'}>
+                }}>
                 <AnimatePresence initial={false} custom={direction} mode="popLayout">
                     <motion.div
                         key={currentIndex}
@@ -191,7 +192,7 @@ export default function CrashCourseView({
                         animate="center"
                         exit="exit"
                         id={'main-content'}
-                        className={'flex flex-col'}
+                        className={'flex flex-col w-full'}
                         transition={{ type: 'tween', duration: 0.5 }}>
                         {slideDeckElements[currentIndex]}
                         <h1 className={'text-9xl'}>H11111</h1>
@@ -214,7 +215,7 @@ export default function CrashCourseView({
                         <ProgressBar
                             value={currentIndex}
                             valueMax={slideDeckElements.length - 1}
-                            className={'w-[500px]'}
+                            className={'w-100'}
                             aria-labelledby={'slide-index-label'}
                         />
                         <Button
@@ -225,7 +226,7 @@ export default function CrashCourseView({
                         </Button>
                     </HStack>
                 </VStack>
-            </div>
-        </div>
+            </VStack>
+        </Box>
     )
 }
