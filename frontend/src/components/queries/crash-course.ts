@@ -31,31 +31,44 @@ async function getChildren(path: string): Promise<Array<Content>> {
             },
         }
     )) as Result & Query
-    return forceArray(res?.guillotine?.getChildren).filter<Content>(
-        (it) => it !== null && it !== undefined
-    )
+    return forceArray(res?.guillotine?.getChildren)
+        .filter<Content>((it) => it !== null && it !== undefined)
+        .filter((it) => it.type?.startsWith('idebanken:crash-course-'))
 }
 
+// typescript
 export async function getCrashCourseSlideContents(
     props: FetchContentResult
 ): Promise<FetchContentResult[]> {
     const path: string = props.common?.get?._path
 
+    // Fetch top-level parts
     const crashCourseParts = await getChildren(path)
 
-    const slidePaths = forceArray(crashCourseParts).map((child) =>
-        enonicSitePathToHref(child?._path)
+    // Interleave each part with its children: [part, ...children]
+    const allItems: Content[] = []
+    const childrenArrays = await Promise.all(
+        crashCourseParts.map((part) => getChildren(part._path))
+    )
+    crashCourseParts.forEach((part, idx) => {
+        allItems.push(part)
+        const children = forceArray(childrenArrays[idx])
+        allItems.push(...children)
+    })
+
+    // Map to hrefs and fetch contents
+    const slidePaths = allItems
+        .map((item) => enonicSitePathToHref(item?._path))
+        .filter(Boolean) as string[]
+
+    const results = await Promise.all(
+        slidePaths.map((contentPath) =>
+            fetchContent({
+                locale: props.meta.locale,
+                contentPath,
+            })
+        )
     )
 
-    return Promise.all(
-        slidePaths?.map(async (path) => {
-            if (!path) {
-                return undefined
-            }
-            return fetchContent({
-                locale: props.meta.locale,
-                contentPath: path,
-            })
-        })
-    )?.then((res) => res.filter(Boolean) as FetchContentResult[])
+    return results.filter(Boolean) as FetchContentResult[]
 }
