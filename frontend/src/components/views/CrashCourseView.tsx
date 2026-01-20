@@ -8,7 +8,6 @@ import { CrashCourseStructure } from '~/components/queries/crash-course'
 
 type Direction = 'right' | 'left'
 
-// Target aspect ratio (e.g., 16:9)
 const targetWidth = 1440
 const targetHeight = 907
 
@@ -37,7 +36,7 @@ export default function CrashCourseView({
             const scaleX = (availableWidth - padding) / targetWidth
             const scaleY = (availableHeight - padding) / targetHeight
 
-            setScale(Math.min(scaleX, scaleY, 1)) // Scale down but not up
+            setScale(Math.min(scaleX, scaleY))
         }
 
         handleResize()
