@@ -4,11 +4,11 @@ import CrashCourseView from '~/components/views/CrashCourseView'
 import MainView from '@enonic/nextjs-adapter/views/MainView'
 
 export default async function CrashCourse(props: FetchContentResult) {
-    const slideContents = await getCrashCourseSlideContents(props)
+    const { slides, structure } = await getCrashCourseSlideContents(props)
 
     return (
         <CrashCourseView
-            slideDeckElements={slideContents.map((slide, i) => (
+            slideDeckElements={slides.map((slide, i) => (
                 <MainView key={i} {...slide} />
             ))}
         />

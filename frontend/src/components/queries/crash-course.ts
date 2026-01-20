@@ -9,6 +9,8 @@ query($path:ID!){
     guillotine {
         getChildren(key:$path) {
             _path
+            type
+            displayName
         }
     }
 }`
@@ -31,20 +33,25 @@ async function getChildren(path: string): Promise<Array<Content>> {
             },
         }
     )) as Result & Query
+
     return forceArray(res?.guillotine?.getChildren)
         .filter<Content>((it) => it !== null && it !== undefined)
         .filter((it) => it.type?.startsWith('idebanken:crash-course-'))
 }
 
+export type CrashCourseData = {
+    slides: FetchContentResult[]
+    structure: CrashCourseStructure
+}
+
 // typescript
 export async function getCrashCourseSlideContents(
     props: FetchContentResult
-): Promise<FetchContentResult[]> {
+): Promise<CrashCourseData> {
     const path: string = props.common?.get?._path
 
     // Fetch top-level parts
     const crashCourseParts = await getChildren(path)
-
     // Interleave each part with its children: [part, ...children]
     const allItems: Content[] = []
     const childrenArrays = await Promise.all(
@@ -61,14 +68,46 @@ export async function getCrashCourseSlideContents(
         .map((item) => enonicSitePathToHref(item?._path))
         .filter(Boolean) as string[]
 
-    const results = await Promise.all(
-        slidePaths.map((contentPath) =>
-            fetchContent({
-                locale: props.meta.locale,
-                contentPath,
-            })
+    const slides = (
+        await Promise.all(
+            slidePaths.map((contentPath) =>
+                fetchContent({
+                    locale: props.meta.locale,
+                    contentPath,
+                })
+            )
         )
-    )
+    ).filter(Boolean) as FetchContentResult[]
 
-    return results.filter(Boolean) as FetchContentResult[]
+    // Build structured hierarchy with indices, names, and paths
+    const structure: CrashCourseStructure = {
+        parts: crashCourseParts.map((part, partIdx) => {
+            const partChildren = forceArray(childrenArrays[partIdx])
+            return {
+                index: partIdx,
+                name: part.displayName ?? '',
+                path: part._path,
+                pages: partChildren.map((page, pageIdx) => ({
+                    index: pageIdx,
+                    name: page.displayName ?? '',
+                    path: page._path,
+                })),
+            }
+        }),
+    }
+
+    return { slides, structure }
+}
+
+export type CrashCourseStructure = {
+    parts: Array<{
+        index: number
+        name: string
+        path: string
+        pages: Array<{
+            index: number
+            name: string
+            path: string
+        }>
+    }>
 }
