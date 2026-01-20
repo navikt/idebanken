@@ -36,7 +36,10 @@ export function HighlightedBox({
                     />
                 )}
                 {title && (
-                    <BodyShort id={title} size="large">
+                    <BodyShort
+                        id={title}
+                        size="large"
+                        className="leading-[var(--ax-font-line-height-large)]">
                         {title}
                     </BodyShort>
                 )}

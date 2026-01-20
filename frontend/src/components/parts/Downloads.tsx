@@ -95,10 +95,10 @@ export const Downloads = ({ part, meta }: PartProps) => {
                                     <div className="flex-1 min-w-0">
                                         <BodyShort
                                             title={fileName}
-                                            className="font-light break-words">
+                                            className="font-light break-words leading-[var(--ax-font-line-height-large)]">
                                             {fileName}
                                         </BodyShort>
-                                        <BodyShort className="font-light">
+                                        <BodyShort className="font-light leading-[var(--ax-font-line-height-large)]">
                                             {toKb(item.attachments[0]?.size)}kb
                                         </BodyShort>
                                     </div>

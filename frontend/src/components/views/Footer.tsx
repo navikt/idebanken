@@ -84,7 +84,9 @@ export default function Footer({
                         data={{ processedHtml: footerText }}
                         meta={meta}
                         customReplacer={htmlRichTextReplacer}
-                        className={'font-extralight text-(--ib-text-dark-blue)'}
+                        className={
+                            'font-extralight text-(--ib-text-dark-blue) leading-[var(--ax-font-line-height-large)]'
+                        }
                     />
                 </VStack>
                 {linkGroups?.map(({ title, links }, i) => (
