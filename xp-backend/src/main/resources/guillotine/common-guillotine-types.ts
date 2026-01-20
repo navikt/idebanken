@@ -10,7 +10,9 @@ import { MediaImageContent } from '@enonic-types/guillotine'
 import { attachmentUrl } from '/lib/xp/portal'
 
 export type Source<T> = {
-    __contentId: string
+    data: {
+        __contentId: string
+    }
 } & T
 export type EmptyRecord = Record<string, unknown>
 
