@@ -56,9 +56,9 @@ export default async function PageLayout({ params, children }: LayoutProps) {
             <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
                 <Page contentBlockPadding="none">
                     <CookieBanner meta={meta} common={common as HeadlessCms} />
-                    <AlertBanner common={common as HeadlessCms} meta={meta} />
+                    {/*<AlertBanner common={common as HeadlessCms} meta={meta} />*/}
                     {children}
-                    <GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />
+                    {/*<GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />*/}
                     {editorMessage}
                 </Page>
             </EnonicWrapper>

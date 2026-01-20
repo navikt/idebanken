@@ -2,20 +2,48 @@
 
 import React, { type JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
-import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
-import { BodyShort, Button, HStack, ProgressBar, VStack } from '@navikt/ds-react'
+import { Button, HStack, ProgressBar, VStack } from '@navikt/ds-react'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
+import { CrashCourseStructure } from '~/components/queries/crash-course'
 
 type Direction = 'right' | 'left'
 
+// Target aspect ratio (e.g., 16:9)
+const targetWidth = 1920
+const targetHeight = 1200 // Increased to accommodate navigation at the bottom
+
 export default function CrashCourseView({
     slideDeckElements,
+    structure,
 }: {
     slideDeckElements: JSX.Element[]
+    structure?: CrashCourseStructure
 }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [direction, setDirection] = useState<Direction>('right')
     const slideStartRef = useRef<number>(Date.now())
+    const containerRef = useRef<HTMLDivElement>(null)
+    const [scale, setScale] = useState(1)
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (!containerRef.current) return
+
+            const container = containerRef.current
+            const availableWidth = container.clientWidth
+            const availableHeight = container.clientHeight
+
+            const padding = 0 // Add some padding around the slide
+            const scaleX = (availableWidth - padding) / targetWidth
+            const scaleY = (availableHeight - padding) / targetHeight
+
+            setScale(Math.min(scaleX, scaleY, 1)) // Scale down but not up
+        }
+
+        handleResize()
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     const setCurrentSlide = useCallback(
         (index: number) => {
@@ -142,52 +170,62 @@ export default function CrashCourseView({
     }
 
     return (
-        <BleedingBackgroundPageBlock
-            as={'div'}
-            className={'h-screen flex flex-col justify-between px-0 pt-8'}
-            width={'2xl'}>
-            <AnimatePresence initial={false} custom={direction} mode="popLayout">
-                <motion.div
-                    key={currentIndex}
-                    custom={direction}
-                    variants={variants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    id={'main-content'}
-                    className={'overflow-y-auto overflow-x-clip'}
-                    transition={{ type: 'tween', duration: 0.5 }}>
-                    {slideDeckElements[currentIndex]}
-                </motion.div>
-            </AnimatePresence>
+        <div
+            ref={containerRef}
+            className="h-screen w-full flex items-center justify-center overflow-hidden bg-(--ax-bg-softA)">
+            <div
+                style={{
+                    width: targetWidth,
+                    height: targetHeight,
+                    scale,
+                    transformOrigin: 'center center',
+                    flexShrink: 0,
+                }}
+                className={'flex flex-col justify-between'}>
+                <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                    <motion.div
+                        key={currentIndex}
+                        custom={direction}
+                        variants={variants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        id={'main-content'}
+                        className={'flex flex-col'}
+                        transition={{ type: 'tween', duration: 0.5 }}>
+                        {slideDeckElements[currentIndex]}
+                        <h1 className={'text-9xl'}>H11111</h1>
+                    </motion.div>
+                </AnimatePresence>
 
-            <VStack gap={'4'} className={'p-4'}>
-                <HStack className={'self-center items-center'} gap={'8'}>
-                    <Button
-                        onClick={() => goToPrevSlide('knapp')}
-                        disabled={currentIndex === 0}
-                        aria-label="Forrige slide">
-                        Forrige
-                    </Button>
-                    <BodyShort
-                        id={'slide-index-label'}
-                        aria-label={`Slide ${currentIndex + 1} av ${slideDeckElements.length}`}>
-                        {currentIndex + 1} / {slideDeckElements.length}
-                    </BodyShort>
-                    <Button
-                        onClick={() => goToNextSlide('knapp')}
-                        disabled={currentIndex === slideDeckElements.length - 1}
-                        aria-label="Neste slide">
-                        Neste
-                    </Button>
-                </HStack>
-                <ProgressBar
-                    value={currentIndex}
-                    valueMax={slideDeckElements.length - 1}
-                    className={'w-full'}
-                    aria-labelledby={'slide-index-label'}
-                />
-            </VStack>
-        </BleedingBackgroundPageBlock>
+                <VStack gap={'4'} className={'p-4'}>
+                    <HStack className={'self-center items-center'} gap={'8'}>
+                        <Button
+                            onClick={() => goToPrevSlide('knapp')}
+                            disabled={currentIndex === 0}
+                            aria-label="Forrige slide">
+                            Forrige
+                        </Button>
+                        {/*<BodyShort*/}
+                        {/*    id={'slide-index-label'}*/}
+                        {/*    aria-label={`Slide ${currentIndex + 1} av ${slideDeckElements.length}`}>*/}
+                        {/*    {currentIndex + 1} / {slideDeckElements.length}*/}
+                        {/*</BodyShort>*/}
+                        <ProgressBar
+                            value={currentIndex}
+                            valueMax={slideDeckElements.length - 1}
+                            className={'w-[500px]'}
+                            aria-labelledby={'slide-index-label'}
+                        />
+                        <Button
+                            onClick={() => goToNextSlide('knapp')}
+                            disabled={currentIndex === slideDeckElements.length - 1}
+                            aria-label="Neste slide">
+                            Neste
+                        </Button>
+                    </HStack>
+                </VStack>
+            </div>
+        </div>
     )
 }
