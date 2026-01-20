@@ -79,16 +79,23 @@ export async function getCrashCourseSlideContents(
         )
     ).filter(Boolean) as FetchContentResult[]
 
+    const pathToSlideDeckIndex = new Map<string, number>()
+    allItems.forEach((item, idx) => {
+        if (item?._path) pathToSlideDeckIndex.set(item._path, idx)
+    })
+
     // Build structured hierarchy with indices, names, and paths
     const structure: CrashCourseStructure = {
         parts: crashCourseParts.map((part, partIdx) => {
             const partChildren = forceArray(childrenArrays[partIdx])
             return {
-                index: partIdx,
+                index: pathToSlideDeckIndex.get(part._path) ?? -1,
+                localIndex: partIdx,
                 name: part.displayName ?? '',
                 path: part._path,
                 pages: partChildren.map((page, pageIdx) => ({
-                    index: pageIdx,
+                    index: pathToSlideDeckIndex.get(page._path) ?? -1,
+                    localIndex: pageIdx,
                     name: page.displayName ?? '',
                     path: page._path,
                 })),
@@ -102,10 +109,12 @@ export async function getCrashCourseSlideContents(
 export type CrashCourseStructure = {
     parts: Array<{
         index: number
+        localIndex: number
         name: string
         path: string
         pages: Array<{
             index: number
+            localIndex: number
             name: string
             path: string
         }>
