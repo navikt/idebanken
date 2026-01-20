@@ -12,7 +12,11 @@ function renderWithBodyShort(value: string, halfWidth: string) {
         .split(/\r?\n\s*\r?\n/)
         .filter(Boolean)
         .map((p, i) => (
-            <BodyLong key={i} spacing size="large" className={`w-full ${halfWidth} text-2xl`}>
+            <BodyLong
+                key={i}
+                spacing
+                size="large"
+                className={`w-full ${halfWidth} text-2xl/[150%]`}>
                 {p}
             </BodyLong>
         ))
