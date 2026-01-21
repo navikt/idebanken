@@ -4,4 +4,9 @@ export type TableOfContents = {
    * Tittel på innholdsfortegnelse
    */
   title?: string;
+
+  /**
+   * Sticky
+   */
+  sticky: boolean;
 };

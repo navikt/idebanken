@@ -2,20 +2,52 @@
 
 import React, { type JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
-import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
-import { BodyShort, Button, HStack, ProgressBar, VStack } from '@navikt/ds-react'
+import { Box, Button, HStack, Link, ProgressBar, VStack } from '@navikt/ds-react'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
+import { CrashCourseStructure } from '~/components/queries/crash-course'
+import NextLink from 'next/link'
+import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
+import Image from 'next/image'
 
 type Direction = 'right' | 'left'
 
+const targetWidth = 1440 / 1.5
+const targetHeight = 907 / 1.5
+
 export default function CrashCourseView({
     slideDeckElements,
+    structure,
+    meta,
 }: {
     slideDeckElements: JSX.Element[]
+    structure?: CrashCourseStructure
+    meta: MetaData
 }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [direction, setDirection] = useState<Direction>('right')
     const slideStartRef = useRef<number>(Date.now())
+    const containerRef = useRef<HTMLDivElement>(null)
+    const [scale, setScale] = useState(1)
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (!containerRef.current) return
+
+            const container = containerRef.current
+            const availableWidth = container.clientWidth
+            const availableHeight = container.clientHeight
+
+            const padding = 48 // Add some padding around the slide
+            const scaleX = (availableWidth - padding) / targetWidth
+            const scaleY = (availableHeight - padding) / targetHeight
+
+            setScale(Math.min(scaleX, scaleY))
+        }
+
+        handleResize()
+        window.addEventListener('resize', handleResize)
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
 
     const setCurrentSlide = useCallback(
         (index: number) => {
@@ -142,52 +174,106 @@ export default function CrashCourseView({
     }
 
     return (
-        <BleedingBackgroundPageBlock
-            as={'div'}
-            className={'h-screen flex flex-col justify-between px-0 pt-8'}
-            width={'2xl'}>
-            <AnimatePresence initial={false} custom={direction} mode="popLayout">
-                <motion.div
-                    key={currentIndex}
-                    custom={direction}
-                    variants={variants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    id={'main-content'}
-                    className={'overflow-y-auto overflow-x-clip'}
-                    transition={{ type: 'tween', duration: 0.5 }}>
-                    {slideDeckElements[currentIndex]}
-                </motion.div>
-            </AnimatePresence>
+        <Box
+            ref={containerRef}
+            data-color={'ib-brand-pink'}
+            className="h-screen w-screen flex items-center justify-center overflow-hidden bg-(--ax-bg-softA)">
+            <VStack
+                className={'justify-between'}
+                style={{
+                    width: targetWidth,
+                    height: targetHeight,
+                    scale,
+                    transformOrigin: 'center center',
+                    flexShrink: 0,
+                }}>
+                <VStack gap={'space-48'}>
+                    <HStack className={'justify-between'} gap={'space-2'}>
+                        <Link
+                            as={NextLink}
+                            aria-label={'Til forsiden'}
+                            href={getUrl('/', meta)}
+                            className={'content-center h-12 max-w-48'}>
+                            <Image
+                                className={'block dark:hidden'}
+                                src={getAsset('/images/logo-light.svg', meta)}
+                                alt={'title'}
+                                width={200}
+                                height={100}
+                                priority
+                            />
+                            <Image
+                                className={'hidden dark:block'}
+                                src={getAsset('/images/logo-dark.svg', meta)}
+                                alt={'title'}
+                                width={200}
+                                height={100}
+                                priority
+                            />
+                        </Link>
+                        <HStack gap={'space-6'}>
+                            {structure?.parts?.map((part) => (
+                                <Button
+                                    key={part.name + part.index}
+                                    variant={
+                                        part.index === currentIndex ||
+                                        part.pages.find((page) => page.index === currentIndex)
+                                            ? 'primary'
+                                            : 'tertiary'
+                                    }
+                                    size="small"
+                                    onClick={() => {
+                                        const changedSlide = setCurrentSlide(part.index)
+                                        if (!changedSlide) return
+                                        trackNavigation('knapp', currentIndex, part.index)
+                                    }}
+                                    aria-label={`Gå til slide ${part.index + 1}: ${part.name}`}>
+                                    {part.name}
+                                </Button>
+                            ))}
+                        </HStack>
+                    </HStack>
+                    <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                        <motion.div
+                            key={currentIndex}
+                            custom={direction}
+                            variants={variants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            id={'main-content'}
+                            className={'flex flex-col w-full'}
+                            transition={{ type: 'tween', duration: 0.5 }}>
+                            {slideDeckElements[currentIndex]}
+                        </motion.div>
+                    </AnimatePresence>
+                </VStack>
 
-            <VStack gap={'4'} className={'p-4'}>
-                <HStack className={'self-center items-center'} gap={'8'}>
-                    <Button
-                        onClick={() => goToPrevSlide('knapp')}
-                        disabled={currentIndex === 0}
-                        aria-label="Forrige slide">
-                        Forrige
-                    </Button>
-                    <BodyShort
-                        id={'slide-index-label'}
-                        aria-label={`Slide ${currentIndex + 1} av ${slideDeckElements.length}`}>
-                        {currentIndex + 1} / {slideDeckElements.length}
-                    </BodyShort>
-                    <Button
-                        onClick={() => goToNextSlide('knapp')}
-                        disabled={currentIndex === slideDeckElements.length - 1}
-                        aria-label="Neste slide">
-                        Neste
-                    </Button>
-                </HStack>
-                <ProgressBar
-                    value={currentIndex}
-                    valueMax={slideDeckElements.length - 1}
-                    className={'w-full'}
-                    aria-labelledby={'slide-index-label'}
-                />
+                <VStack gap={'4'} className={'p-4'}>
+                    <HStack className={'self-center items-center'} gap={'8'}>
+                        <Button
+                            className="rounded-full"
+                            onClick={() => goToPrevSlide('knapp')}
+                            disabled={currentIndex === 0}
+                            aria-label="Forrige slide">
+                            Forrige
+                        </Button>
+                        <ProgressBar
+                            value={currentIndex}
+                            aria-label={`Slide ${currentIndex + 1} av ${slideDeckElements.length}`}
+                            valueMax={slideDeckElements.length - 1}
+                            className={'w-80'}
+                        />
+                        <Button
+                            className="rounded-full"
+                            onClick={() => goToNextSlide('knapp')}
+                            disabled={currentIndex === slideDeckElements.length - 1}
+                            aria-label="Neste slide">
+                            Neste
+                        </Button>
+                    </HStack>
+                </VStack>
             </VStack>
-        </BleedingBackgroundPageBlock>
+        </Box>
     )
 }

@@ -4,4 +4,9 @@ export type XP_TableOfContents = {
    * Tittel på innholdsfortegnelse
    */
   title?: string;
+
+  /**
+   * Sticky
+   */
+  sticky: boolean;
 };

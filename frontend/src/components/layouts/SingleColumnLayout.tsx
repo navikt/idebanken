@@ -48,7 +48,8 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']}`}
             layoutPath={path}
             width={overrideWidth}
-            noGutters={noGutters}>
+            noGutters={noGutters}
+            meta={meta}>
             <Box
                 data-color={dataColor}
                 className={classNames(

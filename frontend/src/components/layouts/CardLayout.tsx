@@ -59,7 +59,8 @@ const CardLayout = (props: CardLayoutProps) => {
             layoutPath={path}
             width={overrideWidth}
             noGutters={noGutters}
-            bleedClassName={!shadow ? 'overflow-x-hidden' : undefined}>
+            bleedClassName={!shadow ? 'overflow-x-hidden' : undefined}
+            meta={meta}>
             <Box className={containerClasses} as={asTag} data-color={'neutral'}>
                 <CardHeader
                     prefix={prefix}
