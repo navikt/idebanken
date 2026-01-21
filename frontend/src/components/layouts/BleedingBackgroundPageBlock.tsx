@@ -3,6 +3,7 @@ import { PageBlock } from '@navikt/ds-react/Page'
 import React, { type PropsWithChildren } from 'react'
 import { PAGE_FULL_WIDTH, PAGE_TEXT_WIDTH } from '~/utils/constants'
 import { AkselColor } from '@navikt/ds-react/types/theme'
+import { MetaData } from '@enonic/nextjs-adapter'
 
 interface BleedingBackgroundPageBlockProps extends PageBlockProps, PropsWithChildren {
     bgColor?: string | null
@@ -14,6 +15,7 @@ interface BleedingBackgroundPageBlockProps extends PageBlockProps, PropsWithChil
     marginInline?: BleedProps['marginInline']
     overrideWidth?: PageBlockProps['width']
     noGutters?: boolean
+    meta?: MetaData
 }
 
 const resolveWidth = (
@@ -53,10 +55,15 @@ export default function BleedingBackgroundPageBlock({
     width,
     marginInline = 'full',
     noGutters,
+    meta,
     ...rest
 }: Readonly<BleedingBackgroundPageBlockProps>) {
     const resolvedWidth = resolveWidth(width, layoutPath || '')
     const resolvedGutters = resolveGutterOverride(resolvedWidth, noGutters)
+
+    if (meta?.type?.startsWith('idebanken:crash-course')) {
+        return children
+    }
 
     return (
         <Bleed

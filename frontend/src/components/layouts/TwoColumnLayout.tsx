@@ -55,7 +55,8 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
             className={`${paddingsY[paddingTop ?? 'pt-6']} ${paddingsY[paddingBottom ?? 'pb-6']} pb-0.5`}
             layoutPath={path}
             width={overrideWidth}
-            noGutters={noGutters}>
+            noGutters={noGutters}
+            meta={meta}>
             <HGrid
                 data-color={dataColor}
                 className={classNames(

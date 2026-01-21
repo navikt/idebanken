@@ -16,7 +16,7 @@ query($path:ID!){
     }
 }`
 
-type CrashCourseStructure = {
+export type CrashCourseStructure = {
     parts: Array<{
         index: number
         localIndex: number
