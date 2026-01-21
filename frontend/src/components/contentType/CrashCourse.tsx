@@ -12,6 +12,7 @@ export default async function CrashCourse(props: FetchContentResult) {
             slideDeckElements={slides.map((slide, i) => (
                 <MainView key={i} {...slide} />
             ))}
+            meta={props.meta}
         />
     )
 }
