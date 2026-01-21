@@ -32,7 +32,7 @@ const TableOfContentsList = ({
         <ul className="pl-6 md:pl-8" aria-labelledby={headingId}>
             {sections?.length ? (
                 sections.map((section, index) => (
-                    <li key={index}>
+                    <li key={index} className="my-[var(--ax-space-8)]">
                         <TrackFirstLink
                             key={index}
                             analyticsEventName={AnalyticsEvents.ANCHOR_LINK_CLICKED}
