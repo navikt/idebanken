@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<content-type>
+    <display-name>Lynkurs intro / kursstart</display-name>
+    <description>Intro til kurset</description>
+    <super-type>base:structured</super-type>
+    <is-final>true</is-final>
+    <allow-child-content-type>(portal:fragment|media:image|${app}:crash-course-slide)</allow-child-content-type>
+</content-type>
