@@ -36,9 +36,9 @@ export type CrashCourseData = {
     structure: CrashCourseStructure
 }
 
-function isCrashCoursePart(item: Content | undefined): boolean {
+function isCrashCoursePartOrIntro(item: Content | undefined): boolean {
     const t = item?.type ?? ''
-    return t.endsWith('crash-course-part') || t.includes(':crash-course-part')
+    return t.endsWith('crash-course-part') || t.endsWith('crash-course-intro')
 }
 
 export async function getCrashCourseSlideContents(
@@ -50,12 +50,14 @@ export async function getCrashCourseSlideContents(
     const topLevelItems = await getChildren(path)
 
     // Fetch children for all parts in parallel and keep a lookup
-    const crashCourseParts = topLevelItems.filter(isCrashCoursePart)
-    const partChildrenEntries = await Promise.all(
-        crashCourseParts.map(async (part) => [part._path, await getChildren(part._path)] as const)
+    const crashCoursePartsAndIntro = topLevelItems.filter(isCrashCoursePartOrIntro)
+    const partAndIntroChildrenEntries = await Promise.all(
+        crashCoursePartsAndIntro.map(
+            async (part) => [part._path, await getChildren(part._path)] as const
+        )
     )
-    const partChildrenMap = new Map<string, Content[]>(
-        partChildrenEntries.map(([p, kids]) => [p, forceArray(kids)])
+    const partAndIntroChildrenMap = new Map<string, Content[]>(
+        partAndIntroChildrenEntries.map(([p, kids]) => [p, forceArray(kids)])
     )
 
     // Build the slide deck in order:
@@ -64,9 +66,9 @@ export async function getCrashCourseSlideContents(
     const allItems: Content[] = []
     topLevelItems.forEach((item) => {
         if (!item) return
-        if (isCrashCoursePart(item)) {
+        if (isCrashCoursePartOrIntro(item)) {
             allItems.push(item)
-            allItems.push(...forceArray(partChildrenMap.get(item._path)))
+            allItems.push(...forceArray(partAndIntroChildrenMap.get(item._path)))
         } else {
             allItems.push(item)
         }
@@ -96,8 +98,8 @@ export async function getCrashCourseSlideContents(
 
     // Parts-only structure for navigation, with global and local indices
     const structure: CrashCourseStructure = {
-        parts: crashCourseParts.map((part, partIdx) => {
-            const partChildren = forceArray(partChildrenMap.get(part._path))
+        parts: crashCoursePartsAndIntro.map((part, partIdx) => {
+            const partChildren = forceArray(partAndIntroChildrenMap.get(part._path))
             return {
                 index: pathToSlideDeckIndex.get(part._path) ?? -1,
                 localIndex: partIdx,
