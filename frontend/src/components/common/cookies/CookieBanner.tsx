@@ -41,6 +41,9 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
         <Box
             data-color="ib-brand-dark-blue"
             as="section"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Informasjonskapsler"
             padding={{ xs: 'space-36', md: 'space-64' }}
             margin={{ xs: 'space-0', lg: 'space-44' }}
             className={classNames(
