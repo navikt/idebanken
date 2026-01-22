@@ -13,7 +13,7 @@ COPY ./public ./public
 COPY --chown=nextjs:nodejs ./.next/standalone ./
 COPY --chown=nextjs:nodejs ./.next/static ./.next/static
 
-RUN mkdir -p .next/cache && chown nextjs:nodejs .next/cache
+RUN mkdir -p .next/cache/images && chown -R nextjs:nodejs .next
 
 USER nextjs
 
