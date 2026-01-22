@@ -12,7 +12,11 @@ export default function Backlink({ contentResult }: { contentResult: FetchConten
     const { text, href } = backlink
 
     const linkElement = (
-        <Link as={NextLink} href={getUrl(href, meta)} className={'min-h-[44px] min-w-[44px]'}>
+        <Link
+            data-color="ib-brand-dark-blue"
+            as={NextLink}
+            href={getUrl(href, meta)}
+            className={'min-h-[44px] min-w-[44px]'}>
             <ArrowLeftIcon width={24} height={24} aria-hidden={true} />
             {text}
         </Link>
