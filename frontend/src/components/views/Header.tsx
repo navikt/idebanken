@@ -163,76 +163,75 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                             }>
                             Meny
                         </Button>
-                        <PageBlock
-                            className={classNames(
-                                dropdownBaseClass,
-                                dropdownStateClass(isMenuOpen)
-                            )}
-                            aria-hidden={!isMenuOpen}
-                            inert={!isMenuOpen}
-                            width={'2xl'}
-                            gutters>
-                            <Stack
-                                as={'nav'}
-                                aria-label="Hovedmeny"
-                                gap={'8'}
-                                className={'py-(--ax-space-24) lg:py-(--ax-space-32)'}
-                                justify={'space-between'}
-                                direction={{ xs: 'column', lg: 'row' }}>
-                                {quickSearch({
-                                    isSearchOpen,
-                                    handleFormChange,
-                                    router,
-                                    siteConfiguration,
-                                    searchValue,
-                                    searchResult,
-                                    loading,
-                                    meta,
-                                    setIsSearchOpen,
-                                    className: 'sm:hidden',
-                                })}
+                        {isMenuOpen ? (
+                            <PageBlock
+                                className={classNames(dropdownBaseClass, dropdownStateClass(true))}
+                                width={'2xl'}
+                                gutters>
                                 <Stack
-                                    gap={{ xs: '8', lg: '16' }}
+                                    as={'nav'}
+                                    aria-label="Hovedmeny"
+                                    gap={'8'}
+                                    className={'py-(--ax-space-24) lg:py-(--ax-space-32)'}
+                                    justify={'space-between'}
                                     direction={{ xs: 'column', lg: 'row' }}>
-                                    {header?.linkGroups?.map(({ title, links }, id) => (
-                                        <VStack key={id}>
-                                            {title && (
-                                                <HeadingView
-                                                    key={id}
-                                                    level={'2'}
-                                                    size={'xsmall'}
-                                                    fontClass={'ib-bold'}
-                                                    className={'mb-2'}>
-                                                    {title}
-                                                </HeadingView>
-                                            )}
-                                            {links?.map(({ linkText, url }, id) => (
-                                                <Link
-                                                    as={NextLink}
-                                                    key={id}
-                                                    href={getUrl(url, meta)}
-                                                    className="w-fit">
-                                                    {linkText}
-                                                </Link>
-                                            ))}
-                                        </VStack>
-                                    ))}
+                                    {quickSearch({
+                                        isSearchOpen,
+                                        handleFormChange,
+                                        router,
+                                        siteConfiguration,
+                                        searchValue,
+                                        searchResult,
+                                        loading,
+                                        meta,
+                                        setIsSearchOpen,
+                                        className: 'sm:hidden',
+                                    })}
+                                    <Stack
+                                        gap={{ xs: '8', lg: '16' }}
+                                        direction={{ xs: 'column', lg: 'row' }}>
+                                        {header?.linkGroups?.map(({ title, links }, id) => (
+                                            <VStack key={id}>
+                                                {title && (
+                                                    <HeadingView
+                                                        key={id}
+                                                        level={'2'}
+                                                        size={'xsmall'}
+                                                        fontClass={'ib-bold'}
+                                                        className={'mb-2'}>
+                                                        {title}
+                                                    </HeadingView>
+                                                )}
+                                                {links?.map(({ linkText, url }, id) => (
+                                                    <Link
+                                                        as={NextLink}
+                                                        key={id}
+                                                        href={getUrl(url, meta)}
+                                                        className="w-fit">
+                                                        {linkText}
+                                                    </Link>
+                                                ))}
+                                            </VStack>
+                                        ))}
+                                    </Stack>
+                                    <VStack gap={{ xs: '4', lg: '6' }}>
+                                        {header?.linksBottom?.map(
+                                            ({ linkText, url, external }, i) => (
+                                                <LinkCardView
+                                                    key={i}
+                                                    external={external}
+                                                    title={linkText}
+                                                    url={url}
+                                                    meta={meta}
+                                                    hideArrow={true}
+                                                />
+                                            )
+                                        )}
+                                    </VStack>
+                                    <ThemeButton className={'sm:hidden'} />
                                 </Stack>
-                                <VStack gap={{ xs: '4', lg: '6' }}>
-                                    {header?.linksBottom?.map(({ linkText, url, external }, i) => (
-                                        <LinkCardView
-                                            key={i}
-                                            external={external}
-                                            title={linkText}
-                                            url={url}
-                                            meta={meta}
-                                            hideArrow={true}
-                                        />
-                                    ))}
-                                </VStack>
-                                <ThemeButton className={'sm:hidden'} />
-                            </Stack>
-                        </PageBlock>
+                            </PageBlock>
+                        ) : null}
                         <Button
                             variant={'tertiary-neutral'}
                             aria-label={isSearchOpen ? 'Lukk søk' : 'Åpne søk'}
@@ -257,29 +256,29 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                             }>
                             Søk
                         </Button>
-                        <PageBlock
-                            className={classNames(
-                                dropdownBaseClass,
-                                dropdownStateClass(isSearchOpen),
-                                'max-sm:hidden',
-                                'py-8'
-                            )}
-                            aria-hidden={!isSearchOpen}
-                            inert={!isSearchOpen}
-                            width={'md'}
-                            gutters>
-                            {quickSearch({
-                                isSearchOpen,
-                                handleFormChange,
-                                router,
-                                siteConfiguration,
-                                searchValue,
-                                searchResult,
-                                loading,
-                                meta,
-                                setIsSearchOpen,
-                            })}
-                        </PageBlock>
+                        {isSearchOpen ? (
+                            <PageBlock
+                                className={classNames(
+                                    dropdownBaseClass,
+                                    dropdownStateClass(true),
+                                    'max-sm:hidden',
+                                    'py-8'
+                                )}
+                                width={'md'}
+                                gutters>
+                                {quickSearch({
+                                    isSearchOpen,
+                                    handleFormChange,
+                                    router,
+                                    siteConfiguration,
+                                    searchValue,
+                                    searchResult,
+                                    loading,
+                                    meta,
+                                    setIsSearchOpen,
+                                })}
+                            </PageBlock>
+                        ) : null}
                         <ThemeButton
                             className={'max-sm:hidden'}
                             withTooltip
