@@ -45,9 +45,10 @@ import { ArticlesLinkCardList } from '~/components/parts/ArticlesLinkCardList'
 import { CookieConsentToggle } from '~/components/common/cookies/CookieConsentToggle'
 import { CookieBannerOpenButton } from '~/components/common/cookies/CookieBannerOpenButton'
 import ThemeCardList from '~/components/parts/ThemeListCard'
-import { getArticleData, articleListProcessor } from './queries/articlesList'
+import { articleListProcessor, getArticleData } from './queries/articlesList'
 import { QuotePartOrMacro } from './parts/QuotePartOrMacro'
 import RelatedTopics from './parts/RelatedTopics'
+import { CrashCoursePlan } from '~/components/common/crash-course/CrashCoursePlan'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -235,4 +236,12 @@ ComponentRegistry.addPart(`${APP_NAME}:cookie-consent-open`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:related-topics`, {
     view: RelatedTopics,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:crash-course-plan`, {
+    view: CrashCoursePlan,
+    configQuery: `{
+        title
+        parts(path: $path)
+    }`,
 })
