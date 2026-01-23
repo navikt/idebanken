@@ -8,6 +8,7 @@ import { CrashCourseStructure } from '~/components/queries/crash-course'
 import NextLink from 'next/link'
 import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
+import { ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
 
 type Direction = 'right' | 'left'
 
@@ -28,6 +29,7 @@ export default function CrashCourseView({
     const slideStartRef = useRef<number>(Date.now())
     const containerRef = useRef<HTMLDivElement>(null)
     const [scale, setScale] = useState(1)
+    const [isFullscreen, setIsFullscreen] = useState<boolean>(false)
 
     useEffect(() => {
         const handleResize = () => {
@@ -47,6 +49,26 @@ export default function CrashCourseView({
         handleResize()
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    useEffect(() => {
+        const onFullscreenChange = () => {
+            setIsFullscreen(Boolean(document.fullscreenElement))
+        }
+        document.addEventListener('fullscreenchange', onFullscreenChange)
+        return () => document.removeEventListener('fullscreenchange', onFullscreenChange)
+    }, [])
+
+    const toggleFullscreen = useCallback(() => {
+        if (!document.fullscreenElement) {
+            void document.documentElement.requestFullscreen().catch(() => {
+                // noop if denied
+            })
+        } else {
+            void document.exitFullscreen().catch(() => {
+                // noop if failed
+            })
+        }
     }, [])
 
     const setCurrentSlide = useCallback(
@@ -249,30 +271,42 @@ export default function CrashCourseView({
                     </AnimatePresence>
                 </VStack>
 
-                <VStack gap={'4'} className={'p-4'}>
-                    <HStack className={'self-center items-center'} gap={'8'}>
+                <HStack className={'items-center justify-center w-full relative'} gap={'space-48'}>
+                    <Button
+                        className="rounded-full"
+                        onClick={() => goToPrevSlide('knapp')}
+                        disabled={currentIndex === 0}
+                        aria-label="Forrige slide">
+                        Forrige
+                    </Button>
+                    <ProgressBar
+                        value={currentIndex}
+                        aria-label={`Slide ${currentIndex + 1} av ${slideDeckElements.length}`}
+                        valueMax={slideDeckElements.length - 1}
+                        className={'w-80'}
+                    />
+                    <Button
+                        className="rounded-full"
+                        onClick={() => goToNextSlide('knapp')}
+                        disabled={currentIndex === slideDeckElements.length - 1}
+                        aria-label="Neste slide">
+                        Neste
+                    </Button>
+
+                    <Box
+                        className="absolute h-full"
+                        style={{
+                            right: 0,
+                        }}>
                         <Button
+                            variant="secondary"
                             className="rounded-full"
-                            onClick={() => goToPrevSlide('knapp')}
-                            disabled={currentIndex === 0}
-                            aria-label="Forrige slide">
-                            Forrige
+                            onClick={toggleFullscreen}
+                            aria-label={isFullscreen ? 'Avslutt fullskjerm' : 'Vis i fullskjerm'}>
+                            {isFullscreen ? <ShrinkIcon aria-hidden /> : <ExpandIcon aria-hidden />}
                         </Button>
-                        <ProgressBar
-                            value={currentIndex}
-                            aria-label={`Slide ${currentIndex + 1} av ${slideDeckElements.length}`}
-                            valueMax={slideDeckElements.length - 1}
-                            className={'w-80'}
-                        />
-                        <Button
-                            className="rounded-full"
-                            onClick={() => goToNextSlide('knapp')}
-                            disabled={currentIndex === slideDeckElements.length - 1}
-                            aria-label="Neste slide">
-                            Neste
-                        </Button>
-                    </HStack>
-                </VStack>
+                    </Box>
+                </HStack>
             </VStack>
         </Box>
     )
