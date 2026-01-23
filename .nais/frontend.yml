@@ -31,6 +31,10 @@ spec:
     cpuThresholdPercentage: 60
   envFrom:
     - secret: idebanken-frontend
+  filesFrom:
+    - emptyDir:
+        medium: Memory
+      mountPath: /app/.next/cache
   accessPolicy:
     outbound:
       rules:

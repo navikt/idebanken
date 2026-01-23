@@ -13,8 +13,6 @@ COPY ./public ./public
 COPY --chown=nextjs:nodejs ./.next/standalone ./
 COPY --chown=nextjs:nodejs ./.next/static ./.next/static
 
-RUN mkdir -p .next/cache && chown nextjs:nodejs .next/cache
-
 USER nextjs
 
 EXPOSE 4242

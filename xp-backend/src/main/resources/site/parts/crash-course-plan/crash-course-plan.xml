@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Plan for kurset</display-name>
+    <description>Viser en oversikt over hva som kommer videre i kurset</description>
+    <form>
+        <input type="TextLine" name="title">
+            <label>Tittel</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>Plan for møtet</default>
+        </input>
+    </form>
+    <config>
+        <allow-on-content-type>${app}:crash-course*</allow-on-content-type>
+    </config>
+</part>

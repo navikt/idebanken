@@ -5,6 +5,7 @@ import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
 import { Macro } from '~/types/graphql-types'
 import NextLink from 'next/link'
+import { headingIdOfString } from '~/utils/utils'
 
 export function HighlightedBox({
     config,
@@ -13,6 +14,7 @@ export function HighlightedBox({
 }: Macro<Macro_Idebanken_Highlighted_Box_DataConfig>) {
     const { brand, title: maybeTitle, icon, linksAbsolute, links } = config
     const title = maybeTitle ?? ''
+    const titleId = title ? headingIdOfString(title) : undefined
     const allLinks = links.concat(linksAbsolute)
 
     return (

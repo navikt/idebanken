@@ -1054,6 +1054,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   accordion?: Maybe<Part_Idebanken_Accordion>;
   article_card_list?: Maybe<Part_Idebanken_Article_Card_List>;
   button?: Maybe<Part_Idebanken_Button>;
+  crash_course_plan?: Maybe<Part_Idebanken_Crash_Course_Plan>;
   downloads?: Maybe<Part_Idebanken_Downloads>;
   expansion_card?: Maybe<Part_Idebanken_Expansion_Card>;
   heading?: Maybe<Part_Idebanken_Heading>;
@@ -1156,6 +1157,19 @@ export enum Part_Idebanken_Button_InternalOrExternalLink_OptionEnum {
   ExternalLink = 'externalLink',
   InternalLink = 'internalLink'
 }
+
+/** Part component application config for application ['idebanken'] and descriptor ['crash-course-plan'] */
+export type Part_Idebanken_Crash_Course_Plan = {
+  __typename?: 'Part_idebanken_crash_course_plan';
+  parts?: Maybe<Scalars['JSON']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Part component application config for application ['idebanken'] and descriptor ['crash-course-plan'] */
+export type Part_Idebanken_Crash_Course_PlanPartsArgs = {
+  path: Scalars['ID']['input'];
+};
 
 /** Part component application config for application ['idebanken'] and descriptor ['downloads'] */
 export type Part_Idebanken_Downloads = {
