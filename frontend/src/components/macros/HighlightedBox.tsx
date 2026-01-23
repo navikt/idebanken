@@ -38,24 +38,15 @@ export function HighlightedBox({
                     />
                 )}
                 {title && (
-                    <BodyShort
-                        id={titleId}
-                        size="large"
-                        className="leading-[var(--ax-font-line-height-large)]">
+                    <BodyShort size="large" className="leading-[var(--ax-font-line-height-large)]">
                         {title}
                     </BodyShort>
                 )}
             </HStack>
             <VStack className="rounded-b-3xl p-5 bg-(--ax-bg-soft)">
-                {children?.length ? (
-                    <BodyLong aria-labelledby={titleId} className="mb-3">
-                        {children}
-                    </BodyLong>
-                ) : (
-                    <></>
-                )}
+                {children?.length ? <BodyLong className="mb-3">{children}</BodyLong> : <></>}
                 {allLinks && allLinks.length ? (
-                    <List aria-labelledby={titleId} className={''}>
+                    <List className={''}>
                         {allLinks
                             ?.filter((it) => it !== null)
                             ?.map(({ url, linkText, download }) => (

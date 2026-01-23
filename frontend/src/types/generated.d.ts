@@ -2699,6 +2699,87 @@ export type Idebanken_CrashCoursePageUrlArgs = {
   type?: InputMaybe<UrlType>;
 };
 
+/** Lynkurs intro / kursstart - idebanken:crash-course-intro */
+export type Idebanken_CrashCourseIntro = Content & {
+  __typename?: 'idebanken_CrashCourseIntro';
+  _id: Scalars['ID']['output'];
+  _name: Scalars['String']['output'];
+  _path: Scalars['String']['output'];
+  _references?: Maybe<Array<Maybe<Content>>>;
+  _score?: Maybe<Scalars['Float']['output']>;
+  attachments?: Maybe<Array<Maybe<Attachment>>>;
+  backlink?: Maybe<SimpleLink>;
+  children?: Maybe<Array<Maybe<Content>>>;
+  childrenConnection?: Maybe<ContentConnection>;
+  components?: Maybe<Array<Maybe<Component>>>;
+  contentType?: Maybe<ContentType>;
+  createdTime?: Maybe<Scalars['DateTime']['output']>;
+  creator?: Maybe<PrincipalKey>;
+  dataAsJson?: Maybe<Scalars['JSON']['output']>;
+  displayName?: Maybe<Scalars['String']['output']>;
+  hasChildren?: Maybe<Scalars['Boolean']['output']>;
+  language?: Maybe<Scalars['String']['output']>;
+  metaFields?: Maybe<MetaFields>;
+  modifiedTime?: Maybe<Scalars['DateTime']['output']>;
+  modifier?: Maybe<PrincipalKey>;
+  owner?: Maybe<PrincipalKey>;
+  pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageTemplate?: Maybe<Content>;
+  pageUrl?: Maybe<Scalars['String']['output']>;
+  parent?: Maybe<Content>;
+  permissions?: Maybe<Permissions>;
+  publish?: Maybe<PublishInfo>;
+  site?: Maybe<Portal_Site>;
+  skyraSlugs: Array<Scalars['String']['output']>;
+  type?: Maybe<Scalars['String']['output']>;
+  valid?: Maybe<Scalars['Boolean']['output']>;
+  x?: Maybe<ExtraData>;
+  xAsJson?: Maybe<Scalars['JSON']['output']>;
+};
+
+
+/** Lynkurs intro / kursstart - idebanken:crash-course-intro */
+export type Idebanken_CrashCourseIntro_PathArgs = {
+  type?: InputMaybe<ContentPathType>;
+};
+
+
+/** Lynkurs intro / kursstart - idebanken:crash-course-intro */
+export type Idebanken_CrashCourseIntroChildrenArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Lynkurs intro / kursstart - idebanken:crash-course-intro */
+export type Idebanken_CrashCourseIntroChildrenConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** Lynkurs intro / kursstart - idebanken:crash-course-intro */
+export type Idebanken_CrashCourseIntroComponentsArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Lynkurs intro / kursstart - idebanken:crash-course-intro */
+export type Idebanken_CrashCourseIntroPageAsJsonArgs = {
+  resolveFragment?: InputMaybe<Scalars['Boolean']['input']>;
+  resolveTemplate?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+/** Lynkurs intro / kursstart - idebanken:crash-course-intro */
+export type Idebanken_CrashCourseIntroPageUrlArgs = {
+  params?: InputMaybe<Scalars['JSON']['input']>;
+  type?: InputMaybe<UrlType>;
+};
+
 /** Lynkurs del - idebanken:crash-course-part */
 export type Idebanken_CrashCoursePart = Content & {
   __typename?: 'idebanken_CrashCoursePart';
