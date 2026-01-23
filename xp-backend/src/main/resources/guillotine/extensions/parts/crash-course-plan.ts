@@ -63,8 +63,10 @@ export const crashCoursePlanExtensions = ({
                         key: part._path,
                     }).hits.filter((child) => child.type === 'idebanken:crash-course-slide')
                     return {
+                        ...part.data,
                         partName: part.displayName,
                         partSlides: partSlides.map((partSlide) => ({
+                            ...partSlide.data,
                             slideName: partSlide.displayName,
                         })),
                     }
