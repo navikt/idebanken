@@ -12,6 +12,7 @@ import { buttonExtensions } from './extensions/parts/button'
 import { contentExtensions } from './extensions/content'
 import { articleCardListExtensions } from './extensions/parts/articleCardListExtensions'
 import { themeCardListExtensions } from './extensions/parts/theme-card-list'
+import { crashCoursePlanExtensions } from './extensions/parts/crash-course-plan'
 
 export function extensions(graphQL: GraphQL): Extensions {
     const extensions = [
@@ -25,6 +26,7 @@ export function extensions(graphQL: GraphQL): Extensions {
         highlightedBoxMacroExtensions,
         buttonExtensions,
         contentExtensions,
+        crashCoursePlanExtensions,
     ].map((ext) => ext(graphQL))
 
     return {
