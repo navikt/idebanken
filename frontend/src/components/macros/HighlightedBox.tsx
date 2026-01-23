@@ -5,7 +5,6 @@ import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
 import { Macro } from '~/types/graphql-types'
 import NextLink from 'next/link'
-import { headingIdOfString } from '~/utils/utils'
 
 export function HighlightedBox({
     config,
@@ -14,7 +13,6 @@ export function HighlightedBox({
 }: Macro<Macro_Idebanken_Highlighted_Box_DataConfig>) {
     const { brand, title: maybeTitle, icon, linksAbsolute, links } = config
     const title = maybeTitle ?? ''
-    const titleId = title ? headingIdOfString(title) : undefined
     const allLinks = links.concat(linksAbsolute)
 
     return (
@@ -38,24 +36,15 @@ export function HighlightedBox({
                     />
                 )}
                 {title && (
-                    <BodyShort
-                        id={titleId}
-                        size="large"
-                        className="leading-[var(--ax-font-line-height-large)]">
+                    <BodyShort size="large" className="leading-[var(--ax-font-line-height-large)]">
                         {title}
                     </BodyShort>
                 )}
             </HStack>
             <VStack className="rounded-b-3xl p-5 bg-(--ax-bg-soft)">
-                {children?.length ? (
-                    <BodyLong aria-labelledby={titleId} className="mb-3">
-                        {children}
-                    </BodyLong>
-                ) : (
-                    <></>
-                )}
+                {children?.length ? <BodyLong className="mb-3">{children}</BodyLong> : <></>}
                 {allLinks && allLinks.length ? (
-                    <List aria-labelledby={titleId} className={''}>
+                    <List className={''}>
                         {allLinks
                             ?.filter((it) => it !== null)
                             ?.map(({ url, linkText, download }) => (
