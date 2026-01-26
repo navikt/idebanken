@@ -43,9 +43,11 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
         yAlignment,
         noGutters,
     } = layout.config ?? {}
-    const rightSpan = 12 - Number(leftSpan ?? 6)
+    const leftSpanValue = Number(leftSpan ?? 6)
+    const rightSpan = 12 - leftSpanValue
     const hasContentInBothRegions =
         regions['left']?.components?.length && regions['left']?.components?.length
+    const isCrashCourse = meta?.type?.startsWith('idebanken:crash-course')
 
     const dataColor = legacyBgToBrandColorMap(boxColor)
 
@@ -74,13 +76,20 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                           }
                         : {}
                 }
-                columns={{ xs: 1, md: 12 }}>
+                columns={isCrashCourse ? 12 : { xs: 1, md: 12 }}>
                 <div
                     className={classNames(
-                        `col-span-1 md:col-span-${leftSpan}`,
-                        breakLeftFirst ? 'max-md:order-1' : 'max-md:order-2',
+                        isCrashCourse ? '' : `col-span-1 md:col-span-${leftSpan}`,
+                        isCrashCourse ? '' : breakLeftFirst ? 'max-md:order-1' : 'max-md:order-2',
                         alignmentClassNames(xAlignment, yAlignment)
-                    )}>
+                    )}
+                    style={
+                        isCrashCourse
+                            ? {
+                                  gridColumn: `span ${leftSpanValue} / span ${leftSpanValue}`,
+                              }
+                            : undefined
+                    }>
                     <RegionView
                         className="flex flex-col gap-(--ax-space-24) space-y-(--ax-space-24) w-full"
                         name="left"
@@ -91,10 +100,17 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                 </div>
                 <div
                     className={classNames(
-                        `col-span-1 md:col-span-${rightSpan}`,
-                        breakLeftFirst ? 'max-md:order-2' : 'max-md:order-1',
+                        isCrashCourse ? '' : `col-span-1 md:col-span-${rightSpan}`,
+                        isCrashCourse ? '' : breakLeftFirst ? 'max-md:order-2' : 'max-md:order-1',
                         alignmentClassNames(xAlignment, yAlignment)
-                    )}>
+                    )}
+                    style={
+                        isCrashCourse
+                            ? {
+                                  gridColumn: `span ${rightSpan} / span ${rightSpan}`,
+                              }
+                            : undefined
+                    }>
                     <RegionView
                         className="flex flex-col space-y-(--ax-space-24) w-full"
                         name="right"
