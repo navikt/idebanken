@@ -50,6 +50,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
         [regions['left'], regions['center'], regions['right']].filter(
             (region) => region?.components?.length
         ).length === 1
+    const isCrashCourse = meta?.type?.startsWith('idebanken:crash-course')
 
     const getOrderClass = (column: 'left' | 'center' | 'right') => {
         if (stackOrder === 'center-left-right') {
@@ -99,13 +100,20 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                               xl: 'space-24',
                           }
                 }
-                columns={{ xs: 1, md: 12 }}>
+                columns={isCrashCourse ? 12 : { xs: 1, md: 12 }}>
                 <div
                     className={classNames(
-                        `col-span-1 md:col-span-${columnSpan}`,
-                        getOrderClass('left'),
+                        isCrashCourse ? '' : `col-span-1 md:col-span-${columnSpan}`,
+                        isCrashCourse ? '' : getOrderClass('left'),
                         alignmentClassNames(xAlignment, yAlignment)
-                    )}>
+                    )}
+                    style={
+                        isCrashCourse
+                            ? {
+                                  gridColumn: `span ${columnSpan} / span ${columnSpan}`,
+                              }
+                            : undefined
+                    }>
                     <RegionView
                         className="flex flex-col space-y-(--ax-space-24) w-full"
                         name="left"
@@ -116,10 +124,17 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                 </div>
                 <div
                     className={classNames(
-                        `col-span-1 md:col-span-${columnSpan}`,
-                        getOrderClass('center'),
+                        isCrashCourse ? '' : `col-span-1 md:col-span-${columnSpan}`,
+                        isCrashCourse ? '' : getOrderClass('center'),
                         alignmentClassNames(xAlignment, yAlignment)
-                    )}>
+                    )}
+                    style={
+                        isCrashCourse
+                            ? {
+                                  gridColumn: `span ${columnSpan} / span ${columnSpan}`,
+                              }
+                            : undefined
+                    }>
                     <RegionView
                         className="flex flex-col space-y-(--ax-space-24) w-full"
                         name="center"
@@ -130,10 +145,17 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                 </div>
                 <div
                     className={classNames(
-                        `col-span-1 md:col-span-${columnSpan}`,
-                        getOrderClass('right'),
+                        isCrashCourse ? '' : `col-span-1 md:col-span-${columnSpan}`,
+                        isCrashCourse ? '' : getOrderClass('right'),
                         alignmentClassNames(xAlignment, yAlignment)
-                    )}>
+                    )}
+                    style={
+                        isCrashCourse
+                            ? {
+                                  gridColumn: `span ${columnSpan} / span ${columnSpan}`,
+                              }
+                            : undefined
+                    }>
                     <RegionView
                         className="flex flex-col space-y-(--ax-space-24) w-full"
                         name="right"
