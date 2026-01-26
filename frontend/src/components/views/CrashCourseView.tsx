@@ -9,6 +9,7 @@ import NextLink from 'next/link'
 import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
 import { ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
+import { usePathname, useRouter } from 'next/navigation'
 
 type Direction = 'right' | 'left'
 
@@ -26,6 +27,8 @@ export default function CrashCourseView({
 }) {
     const [currentIndex, setCurrentIndex] = useState(0)
     const [direction, setDirection] = useState<Direction>('right')
+    const router = useRouter()
+    const pathname = usePathname()
     const slideStartRef = useRef<number>(Date.now())
     const containerRef = useRef<HTMLDivElement>(null)
     const [scale, setScale] = useState(1)
@@ -76,12 +79,12 @@ export default function CrashCourseView({
             if (index >= 0 && index < slideDeckElements.length) {
                 setDirection(index > currentIndex ? 'right' : 'left')
                 setCurrentIndex(index)
-                window.location.hash = `#${index}` // Update URL hash
+                router.push(`${pathname}#${index}`)
                 return true
             }
             return false
         },
-        [slideDeckElements, currentIndex, setDirection, setCurrentIndex]
+        [slideDeckElements, currentIndex, setDirection, setCurrentIndex, router, pathname]
     )
 
     const trackNavigation = useCallback(
@@ -144,39 +147,44 @@ export default function CrashCourseView({
         [shortcuts]
     )
 
-    useEffect(() => {
-        const index = Number(window.location.hash?.replace('#', ''))
-        if (
-            !isNaN(index) &&
-            index >= 0 &&
-            index !== currentIndex &&
-            index < slideDeckElements.length
-        ) {
-            setCurrentSlide(index)
-        }
-
-        const handleHashChange = () => {
-            const newIndex = Number(window.location.hash?.replace('#', ''))
+    const handleHashChange = useCallback(
+        (callback: (indexFromHash: number) => void) => {
+            const indexFromHash = Number(window.location.hash?.replace('#', ''))
             if (
-                newIndex !== undefined &&
-                !isNaN(newIndex) &&
-                newIndex >= 0 &&
-                newIndex < slideDeckElements.length &&
-                newIndex !== currentIndex
+                !isNaN(indexFromHash) &&
+                indexFromHash >= 0 &&
+                indexFromHash < slideDeckElements.length &&
+                indexFromHash !== currentIndex
             ) {
-                // Track time spent on current slide before navigating via browser buttons
-                trackNavigation('nettleser', currentIndex, newIndex)
-                setCurrentSlide(newIndex)
+                callback(indexFromHash)
             }
-        }
+        },
+        [currentIndex, slideDeckElements.length]
+    )
+
+    useEffect(() => {
+        const hashChangeListener = () =>
+            handleHashChange((indexFromHash) => {
+                // Track time spent on current slide before navigating via browser buttons
+                trackNavigation('nettleser', currentIndex, indexFromHash)
+                setDirection(indexFromHash > currentIndex ? 'right' : 'left')
+                setCurrentIndex(indexFromHash)
+            })
 
         window.addEventListener('keydown', handleKeyDown)
-        window.addEventListener('hashchange', handleHashChange)
+        window.addEventListener('hashchange', hashChangeListener)
+
         return () => {
             window.removeEventListener('keydown', handleKeyDown)
-            window.removeEventListener('hashchange', handleHashChange)
+            window.removeEventListener('hashchange', hashChangeListener)
         }
-    }, [currentIndex, handleKeyDown, setCurrentSlide, slideDeckElements, trackNavigation])
+    }, [currentIndex, handleHashChange, handleKeyDown, trackNavigation])
+
+    // Initial sync
+    useEffect(() => {
+        handleHashChange((indexFromHash) => setCurrentIndex(indexFromHash))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     // Reset/start timer whenever the slide changes
     useEffect(() => {
