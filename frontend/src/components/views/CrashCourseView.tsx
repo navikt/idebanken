@@ -147,8 +147,8 @@ export default function CrashCourseView({
         [shortcuts]
     )
 
-    useEffect(() => {
-        const handleHashChange = () => {
+    const handleHashChange = useCallback(
+        (callback: (indexFromHash: number) => void) => {
             const indexFromHash = Number(window.location.hash?.replace('#', ''))
             if (
                 !isNaN(indexFromHash) &&
@@ -156,33 +156,33 @@ export default function CrashCourseView({
                 indexFromHash < slideDeckElements.length &&
                 indexFromHash !== currentIndex
             ) {
+                callback(indexFromHash)
+            }
+        },
+        [currentIndex, slideDeckElements.length]
+    )
+
+    useEffect(() => {
+        const hashChangeListener = () =>
+            handleHashChange((indexFromHash) => {
                 // Track time spent on current slide before navigating via browser buttons
                 trackNavigation('nettleser', currentIndex, indexFromHash)
                 setDirection(indexFromHash > currentIndex ? 'right' : 'left')
                 setCurrentIndex(indexFromHash)
-            }
-        }
+            })
 
         window.addEventListener('keydown', handleKeyDown)
-        window.addEventListener('hashchange', handleHashChange)
+        window.addEventListener('hashchange', hashChangeListener)
 
         return () => {
             window.removeEventListener('keydown', handleKeyDown)
-            window.removeEventListener('hashchange', handleHashChange)
+            window.removeEventListener('hashchange', hashChangeListener)
         }
-    }, [currentIndex, handleKeyDown, slideDeckElements.length, trackNavigation])
+    }, [currentIndex, handleHashChange, handleKeyDown, trackNavigation])
 
     // Initial sync
     useEffect(() => {
-        const initialIndex = Number(window.location.hash?.replace('#', ''))
-        if (
-            !isNaN(initialIndex) &&
-            initialIndex >= 0 &&
-            initialIndex < slideDeckElements.length &&
-            initialIndex !== currentIndex
-        ) {
-            setCurrentIndex(initialIndex)
-        }
+        handleHashChange((indexFromHash) => setCurrentIndex(indexFromHash))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
