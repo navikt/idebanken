@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Lynkurs tittel</display-name>
+    <description>Visning av tittel fra innholdstype</description>
+    <form>
+        <input type="TextLine" name="prefix">
+            <label>Tittel prefix</label>
+        </input>
+    </form>
+    <config>
+        <allow-on-content-type>${app}:crash-course*</allow-on-content-type>
+    </config>
+</part>

@@ -5,4 +5,7 @@
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
     <allow-child-content>(portal:fragment|media:image)</allow-child-content>
+    <form>
+        <mixin name="crash-course-slide-content"/>
+    </form>
 </content-type>
