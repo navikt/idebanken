@@ -107,7 +107,7 @@ export async function getCrashCourseSlideContents(
                 name:
                     part.type === 'idebanken:crash-course-part'
                         ? `Del ${partIdx}`
-                        : (part.dataAsJson.title ?? part.displayName ?? 'Mangler tittel'),
+                        : (part.displayName ?? '[Mangler tittel]'),
                 path: part._path,
                 pages: partChildren.map((page, pageIdx) => ({
                     index: pathToSlideDeckIndex.get(page._path) ?? -1,
