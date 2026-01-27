@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mixin xmlns="urn:enonic:xp:model:1.0">
+    <form>
+        <input type="TextLine" name="title">
+            <label>Tittel</label>
+            <help-text>Tittel som vises av tittel part</help-text>
+            <occurrences minimum="1" maximum="1"/>
+            <config>
+                <property name="max-length" value="25"/>
+            </config>
+        </input>
+    </form>
+</mixin>

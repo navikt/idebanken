@@ -6,6 +6,73 @@ import { logger } from '/lib/utils/logging'
 import { Source } from '../../common-guillotine-types'
 import { getChildren, query } from '/lib/xp/content'
 
+type CrashCourseStructure = Array<{
+    path: string
+    partName: string
+    partIndex: number
+    partSlides: Array<{
+        path: string
+        slideName: string
+        [key: string]: unknown
+    }>
+    [key: string]: unknown
+}>
+
+function getCrashCourseStructure(
+    env: DataFetchingEnvironment<{ path?: string }, LocalContextRecord, Source<CrashCourse>>
+): CrashCourseStructure {
+    const path = env.args.path?.replace(/^\$\{site}\/+/, '/idebanken/')
+    if (!path) {
+        logger.warning(`Part_idebanken_crash_course_plan is missing path arg`)
+        return []
+    }
+
+    const rootCrashCourseContent = query({
+        count: 1,
+        query: {
+            pathMatch: {
+                field: '_path',
+                minimumMatch: 3,
+                path: `/content${path}`,
+            },
+        },
+        filters: {
+            hasValue: {
+                field: 'type',
+                values: ['idebanken:crash-course'],
+            },
+        },
+    }).hits.pop()
+
+    if (!rootCrashCourseContent) {
+        logger.warning(
+            `Part_idebanken_crash_course_plan could not find crash course content at path: ${path}`
+        )
+        return []
+    }
+
+    const crashCourseParts = getChildren({
+        key: rootCrashCourseContent._path,
+    }).hits.filter((child) => child.type === 'idebanken:crash-course-part')
+
+    return crashCourseParts.map((part, partIndex) => {
+        const partSlides = getChildren({
+            key: part._path,
+        }).hits.filter((child) => child.type === 'idebanken:crash-course-slide')
+        return {
+            path: part._path,
+            partIndex,
+            ...part.data,
+            partName: part.displayName,
+            partSlides: partSlides.map((partSlide) => ({
+                path: partSlide._path,
+                ...partSlide.data,
+                slideName: partSlide.displayName,
+            })),
+        }
+    })
+}
+
 export const crashCoursePlanExtensions = ({
     list,
     GraphQLString,
@@ -24,53 +91,7 @@ export const crashCoursePlanExtensions = ({
                     Source<CrashCourse>
                 >
             ): object => {
-                const path = env.args.path?.replace(/^\$\{site}\/+/, '/idebanken/')
-                if (!path) {
-                    logger.warning(`Part_idebanken_crash_course_plan is missing path arg`)
-                    return []
-                }
-
-                const rootCrashCourseContent = query({
-                    count: 1,
-                    query: {
-                        pathMatch: {
-                            field: '_path',
-                            minimumMatch: 3,
-                            path: `/content${path}`,
-                        },
-                    },
-                    filters: {
-                        hasValue: {
-                            field: 'type',
-                            values: ['idebanken:crash-course'],
-                        },
-                    },
-                }).hits.pop()
-
-                if (!rootCrashCourseContent) {
-                    logger.warning(
-                        `Part_idebanken_crash_course_plan could not find crash course content at path: ${path}`
-                    )
-                    return {}
-                }
-
-                const crashCourseParts = getChildren({
-                    key: rootCrashCourseContent._path,
-                }).hits.filter((child) => child.type === 'idebanken:crash-course-part')
-
-                return crashCourseParts.map((part) => {
-                    const partSlides = getChildren({
-                        key: part._path,
-                    }).hits.filter((child) => child.type === 'idebanken:crash-course-slide')
-                    return {
-                        ...part.data,
-                        partName: part.displayName,
-                        partSlides: partSlides.map((partSlide) => ({
-                            ...partSlide.data,
-                            slideName: partSlide.displayName,
-                        })),
-                    }
-                })
+                return getCrashCourseStructure(env)
             },
         },
     },
