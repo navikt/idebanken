@@ -9,6 +9,7 @@
         </input>
         <input name="sticky" type="CheckBox">
             <label>Sticky</label>
+            <default>checked</default>
         </input>
     </form>
 </part>
