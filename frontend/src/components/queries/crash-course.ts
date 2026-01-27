@@ -12,6 +12,7 @@ query($path:ID!){
             _path
             type
             displayName
+            dataAsJson
         }
     }
 }`
@@ -103,12 +104,15 @@ export async function getCrashCourseSlideContents(
             return {
                 index: pathToSlideDeckIndex.get(part._path) ?? -1,
                 localIndex: partIdx,
-                name: part.displayName ?? '',
+                name:
+                    part.type === 'idebanken:crash-course-part'
+                        ? `Del ${partIdx}`
+                        : (part.dataAsJson.title ?? part.displayName ?? 'Mangler tittel'),
                 path: part._path,
                 pages: partChildren.map((page, pageIdx) => ({
                     index: pathToSlideDeckIndex.get(page._path) ?? -1,
                     localIndex: pageIdx,
-                    name: page.displayName ?? '',
+                    name: page.dataAsJson.title ?? page.displayName ?? '',
                     path: page._path,
                 })),
             }
