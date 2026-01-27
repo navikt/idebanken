@@ -106,11 +106,11 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
     const stickyRef = useRef<HTMLDivElement | null>(null)
     const [isSticky, setIsSticky] = useState(false)
     const [fixedStyle, setFixedStyle] = useState<{ left: number; width: number } | null>(null)
-    const [stickyHeight, setStickyHeight] = useState(0)
     const [inlineOpen, setInlineOpen] = useState(true)
     const [stickyOpen, setStickyOpen] = useState(false)
 
     const handleLinkClick = (event: MouseEvent<HTMLAnchorElement>, section: string | null) => {
+        event.currentTarget.blur()
         setInlineOpen(false)
         setStickyOpen(false)
         const id = headingIdOfString(section ?? '')
@@ -118,9 +118,26 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
         if (!target) return
 
         event.preventDefault()
-        const offset = isStickyEnabled && isSticky ? stickyHeight + 16 : 16
-        const top = target.getBoundingClientRect().top + window.scrollY - offset
-        window.scrollTo({ top, behavior: 'smooth' })
+        const getDesiredOffset = () => {
+            const headerHeight =
+                document.querySelector('header')?.getBoundingClientRect().height ?? 0
+            const currentStickyHeight = stickyRef.current?.getBoundingClientRect().height ?? 0
+            return (
+                (isStickyEnabled && (isSticky || stickyRef.current)
+                    ? currentStickyHeight
+                    : headerHeight) + 16
+            )
+        }
+
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
+        window.setTimeout(() => {
+            const desiredOffset = getDesiredOffset()
+            const delta = target.getBoundingClientRect().top - desiredOffset
+            if (Math.abs(delta) > 1) {
+                window.scrollBy({ top: delta, behavior: 'smooth' })
+            }
+        }, 250)
     }
 
     useEffect(() => {
@@ -135,10 +152,6 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
         const updateRect = () => {
             const rect = container.getBoundingClientRect()
             setFixedStyle({ left: rect.left, width: rect.width })
-            const stickyEl = stickyRef.current ?? containerRef.current
-            if (stickyEl) {
-                setStickyHeight(stickyEl.getBoundingClientRect().height)
-            }
         }
 
         updateRect()
@@ -162,13 +175,6 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
             observer.disconnect()
         }
     }, [isStickyEnabled])
-
-    useEffect(() => {
-        const stickyEl = stickyRef.current ?? containerRef.current
-        if (stickyEl) {
-            setStickyHeight(stickyEl.getBoundingClientRect().height)
-        }
-    }, [isSticky])
 
     useEffect(() => {
         if (!isStickyEnabled) return
