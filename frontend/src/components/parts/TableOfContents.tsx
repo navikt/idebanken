@@ -111,6 +111,7 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
     const [stickyOpen, setStickyOpen] = useState(false)
 
     const handleLinkClick = (event: MouseEvent<HTMLAnchorElement>, section: string | null) => {
+        event.currentTarget.blur()
         setInlineOpen(false)
         setStickyOpen(false)
         const id = headingIdOfString(section ?? '')
@@ -118,7 +119,10 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
         if (!target) return
 
         event.preventDefault()
-        const offset = isStickyEnabled && isSticky ? stickyHeight + 16 : 16
+        const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0
+        const nonStickyExtraOffset = 110
+        const offset =
+            isStickyEnabled && isSticky ? stickyHeight + 16 : headerHeight + nonStickyExtraOffset
         const top = target.getBoundingClientRect().top + window.scrollY - offset
         window.scrollTo({ top, behavior: 'smooth' })
     }
