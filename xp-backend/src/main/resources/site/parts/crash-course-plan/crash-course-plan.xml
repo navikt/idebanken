@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <part xmlns="urn:enonic:xp:model:1.0">
-    <display-name>Plan for kurset</display-name>
+    <display-name>Lynkurs plan/oversikt</display-name>
     <description>Viser en oversikt over hva som kommer videre i kurset</description>
     <form>
         <input type="TextLine" name="title">
@@ -10,6 +10,6 @@
         </input>
     </form>
     <config>
-        <allow-on-content-type>${app}:crash-course*</allow-on-content-type>
+        <allow-on-content-type>(portal:page-template|portal:fragment|${app}:crash-course*)</allow-on-content-type>
     </config>
 </part>
