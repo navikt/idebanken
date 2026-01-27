@@ -1176,13 +1176,6 @@ export type Part_Idebanken_Crash_Course_PlanPartsArgs = {
 export type Part_Idebanken_Crash_Course_Title = {
   __typename?: 'Part_idebanken_crash_course_title';
   prefix?: Maybe<Scalars['String']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
-};
-
-
-/** Part component application config for application ['idebanken'] and descriptor ['crash-course-title'] */
-export type Part_Idebanken_Crash_Course_TitleTitleArgs = {
-  path: Scalars['ID']['input'];
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['downloads'] */

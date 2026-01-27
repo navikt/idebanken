@@ -101,7 +101,7 @@ const TableOfContentsCard = ({
 
 export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Contents>) {
     const { sections, title, sticky } = part?.config ?? {}
-    const isStickyEnabled = !!sticky
+    const isStickyEnabled = sticky !== false
     const containerRef = useRef<HTMLDivElement | null>(null)
     const stickyRef = useRef<HTMLDivElement | null>(null)
     const [isSticky, setIsSticky] = useState(false)
