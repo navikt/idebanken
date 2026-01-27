@@ -1055,6 +1055,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   article_card_list?: Maybe<Part_Idebanken_Article_Card_List>;
   button?: Maybe<Part_Idebanken_Button>;
   crash_course_plan?: Maybe<Part_Idebanken_Crash_Course_Plan>;
+  crash_course_title?: Maybe<Part_Idebanken_Crash_Course_Title>;
   downloads?: Maybe<Part_Idebanken_Downloads>;
   expansion_card?: Maybe<Part_Idebanken_Expansion_Card>;
   heading?: Maybe<Part_Idebanken_Heading>;
@@ -1169,6 +1170,12 @@ export type Part_Idebanken_Crash_Course_Plan = {
 /** Part component application config for application ['idebanken'] and descriptor ['crash-course-plan'] */
 export type Part_Idebanken_Crash_Course_PlanPartsArgs = {
   path: Scalars['ID']['input'];
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['crash-course-title'] */
+export type Part_Idebanken_Crash_Course_Title = {
+  __typename?: 'Part_idebanken_crash_course_title';
+  prefix?: Maybe<Scalars['String']['output']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['downloads'] */
@@ -2715,6 +2722,7 @@ export type Idebanken_CrashCourseIntro = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_CrashCourseIntro_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -2780,6 +2788,12 @@ export type Idebanken_CrashCourseIntroPageUrlArgs = {
   type?: InputMaybe<UrlType>;
 };
 
+/** Lynkurs intro / kursstart - idebanken:crash-course-intro data */
+export type Idebanken_CrashCourseIntro_Data = {
+  __typename?: 'idebanken_CrashCourseIntro_Data';
+  title?: Maybe<Scalars['String']['output']>;
+};
+
 /** Lynkurs del - idebanken:crash-course-part */
 export type Idebanken_CrashCoursePart = Content & {
   __typename?: 'idebanken_CrashCoursePart';
@@ -2796,6 +2810,7 @@ export type Idebanken_CrashCoursePart = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_CrashCoursePart_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -2861,6 +2876,12 @@ export type Idebanken_CrashCoursePartPageUrlArgs = {
   type?: InputMaybe<UrlType>;
 };
 
+/** Lynkurs del - idebanken:crash-course-part data */
+export type Idebanken_CrashCoursePart_Data = {
+  __typename?: 'idebanken_CrashCoursePart_Data';
+  title?: Maybe<Scalars['String']['output']>;
+};
+
 /** Lynkurs slide - idebanken:crash-course-slide */
 export type Idebanken_CrashCourseSlide = Content & {
   __typename?: 'idebanken_CrashCourseSlide';
@@ -2877,6 +2898,7 @@ export type Idebanken_CrashCourseSlide = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_CrashCourseSlide_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -2940,6 +2962,12 @@ export type Idebanken_CrashCourseSlidePageAsJsonArgs = {
 export type Idebanken_CrashCourseSlidePageUrlArgs = {
   params?: InputMaybe<Scalars['JSON']['input']>;
   type?: InputMaybe<UrlType>;
+};
+
+/** Lynkurs slide - idebanken:crash-course-slide data */
+export type Idebanken_CrashCourseSlide_Data = {
+  __typename?: 'idebanken_CrashCourseSlide_Data';
+  title?: Maybe<Scalars['String']['output']>;
 };
 
 /** Kjerneartikkel - idebanken:kjerneartikkel */
