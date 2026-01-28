@@ -14,7 +14,8 @@ const val KEYWORDS = "keywords"
 enum class ValidTypes {
     KJERNEARTIKKEL,
     SECTION_PAGE,
-    ARTIKKEL;
+    ARTIKKEL,
+    ;
 
     open val descriptor: String = name.lowercase().replace("_", "-")
 }

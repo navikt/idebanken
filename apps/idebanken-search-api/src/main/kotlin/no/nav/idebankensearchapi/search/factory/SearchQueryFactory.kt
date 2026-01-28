@@ -71,7 +71,9 @@ object SearchQueryFactory {
                 if (params.f == FacetKeys.TYPE_TAGS && params.uf.isNotEmpty()) {
                     // Give a small additive score for each matched typeTag so more matches score higher
                     qb.applyWeightingSum(FieldNames.TYPE_TAGS, params.uf.associateWith { 1.0f })
-                } else qb
+                } else {
+                    qb
+                }
             }
 
     private fun preAggregationFilters(preferredLanguage: String?) =
@@ -92,16 +94,22 @@ object SearchQueryFactory {
     ): BoolQueryBuilder {
         val facet: Filter = requireNotNull(facetFilters.find { it.key == f }) { "Fant ikke fasett med key $f" }
         return when {
-            uf.isEmpty() -> facet.filterQuery
-            facet.key == FacetKeys.TYPE_TAGS ->
+            uf.isEmpty() -> {
+                facet.filterQuery
+            }
+
+            facet.key == FacetKeys.TYPE_TAGS -> {
                 BoolQueryBuilder().apply {
                     uf.forEach { should(TermQueryBuilder(FieldNames.TYPE_TAGS, it)) }
                 }
-            else ->
+            }
+
+            else -> {
                 facet.underFacets
                     .filter { it.key in uf }
                     .map(Filter::filterQuery)
                     .joinToSingleQuery(BoolQueryBuilder::should)
+            }
         }
     }
 

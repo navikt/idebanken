@@ -22,16 +22,20 @@ class AdminService(
 ) {
     val logger: Logger = LoggerFactory.getLogger(AdminService::class.java)
 
-    fun saveAllContent(content: List<ContentDto>, teamName: String): SaveContentResponse {
+    fun saveAllContent(
+        content: List<ContentDto>,
+        teamName: String,
+    ): SaveContentResponse {
         val validationErrors = validator.validate(content)
 
         if (validationErrors.isNotEmpty()) {
             logger.warn("Fikk valideringsfeil ved indeksering av innhold: $validationErrors")
         }
 
-        val mappedContent = content
-            .filter { !validationErrors.containsKey(it.id) }
-            .map { it.toInbound(teamName) }
+        val mappedContent =
+            content
+                .filter { !validationErrors.containsKey(it.id) }
+                .map { it.toInbound(teamName) }
         repository.saveAll(mappedContent)
 
         val numberOfIndexedDocuments = mappedContent.size
@@ -41,7 +45,10 @@ class AdminService(
         return SaveContentResponse(numberOfIndexedDocuments, numberOfFailedDocuments, validationErrors)
     }
 
-    fun deleteContentByTeamNameAndId(teamName: String, externalId: String) {
+    fun deleteContentByTeamNameAndId(
+        teamName: String,
+        externalId: String,
+    ) {
         val id = createInternalId(teamName, externalId)
         if (repository.existsById(id)) {
             repository.deleteById(id)
@@ -50,7 +57,10 @@ class AdminService(
         }
     }
 
-    fun getContentForTeamName(teamName: String, page: Int): Page<ContentDto> {
+    fun getContentForTeamName(
+        teamName: String,
+        page: Int,
+    ): Page<ContentDto> {
         val pageable = PageRequest.of(page, pageSize)
         return repository.findAllByTeamOwnedBy(teamName, pageable).map { it.toOutbound() }
     }

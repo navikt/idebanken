@@ -1,7 +1,5 @@
 package no.nav.idebankensearchapi.common.model
 
-import java.time.ZonedDateTime
-import java.util.Collections.emptyList
 import no.nav.navnosearchadminapi.common.model.MultiLangFieldLong
 import no.nav.navnosearchadminapi.common.model.MultiLangFieldShort
 import org.springframework.data.annotation.Id
@@ -11,6 +9,8 @@ import org.springframework.data.elasticsearch.annotations.Field
 import org.springframework.data.elasticsearch.annotations.FieldType
 import org.springframework.data.elasticsearch.annotations.Setting
 import org.springframework.data.elasticsearch.annotations.WriteTypeHint
+import java.time.ZonedDateTime
+import java.util.Collections.emptyList
 
 @Document(
     indexName = "search-content-v10",
@@ -73,15 +73,18 @@ data class IBContent(
             ingress = MultiLangFieldShort.from(ingress, language),
             keywords = MultiLangFieldShort.from(keywords.joinToString(), language),
             text = MultiLangFieldLong.from(text, language),
-            allText = MultiLangFieldLong.from(
-                value = listOfNotNull(
-                    title,
-                    ingress,
-                    text,
-                    keywords.takeIf { it.isNotEmpty() }?.joinToString(),
-                    type.takeIf { includeTypeInAllText }).joinToString(),
-                language = language
-            ),
+            allText =
+                MultiLangFieldLong.from(
+                    value =
+                        listOfNotNull(
+                            title,
+                            ingress,
+                            text,
+                            keywords.takeIf { it.isNotEmpty() }?.joinToString(),
+                            type.takeIf { includeTypeInAllText },
+                        ).joinToString(),
+                    language = language,
+                ),
             type = type,
             createdAt = createdAt,
             lastUpdated = lastUpdated,

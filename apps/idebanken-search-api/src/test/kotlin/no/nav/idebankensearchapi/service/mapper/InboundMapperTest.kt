@@ -17,7 +17,6 @@ import no.nav.navnosearchadminapi.common.enums.ValidTypes
 import org.junit.jupiter.api.Test
 
 class InboundMapperTest {
-
     @Test
     fun `skal mappe alle felter riktig`() {
         val contentDto = dummyContentDto()
@@ -51,11 +50,12 @@ class InboundMapperTest {
 
     @Test
     fun `skal bruke createdAt som sortByDate for nyheter`() {
-        val contentDto = dummyContentDto(
-            metatags = listOf(ValidMetatags.NYHET.descriptor),
-            createdAt = fixedNow,
-            lastUpdated = fixedNow.plusDays(1)
-        )
+        val contentDto =
+            dummyContentDto(
+                metatags = listOf(ValidMetatags.NYHET.descriptor),
+                createdAt = fixedNow,
+                lastUpdated = fixedNow.plusDays(1),
+            )
         val mappedContent = contentDto.toInbound(TEAM_NAME)
 
         mappedContent.sortByDate shouldBe contentDto.metadata!!.createdAt
@@ -63,10 +63,11 @@ class InboundMapperTest {
 
     @Test
     fun `skal filtrere ut innholdets språk fra languageRefs`() {
-        val contentDto = dummyContentDto(
-            language = NORWEGIAN_BOKMAAL,
-            languageRefs = listOf(NORWEGIAN_BOKMAAL, NORWEGIAN_NYNORSK, ENGLISH)
-        )
+        val contentDto =
+            dummyContentDto(
+                language = NORWEGIAN_BOKMAAL,
+                languageRefs = listOf(NORWEGIAN_BOKMAAL, NORWEGIAN_NYNORSK, ENGLISH),
+            )
         val mappedContent = contentDto.toInbound(TEAM_NAME)
 
         mappedContent.languageRefs shouldBe listOf(NORWEGIAN_NYNORSK, ENGLISH)

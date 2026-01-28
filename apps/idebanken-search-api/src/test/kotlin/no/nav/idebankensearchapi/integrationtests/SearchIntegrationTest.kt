@@ -52,7 +52,6 @@ class SearchIntegrationTest : AbstractIntegrationTest() {
 
             aggregationCount(FacetKeys.ANALYSER_OG_FORSKNING) shouldBe analyserOgForskningDummyData.size
             allUnderaggregationCounts(FacetKeys.ANALYSER_OG_FORSKNING).forEach { it shouldBe generatedText.size }
-
         }
     }
 
