@@ -149,6 +149,7 @@ class SearchIntegrationTest : AbstractIntegrationTest() {
 
     @Test
     fun `søk med treff i keywords skal ha riktig ranking`() {
+        repository.deleteAll()
         repository.saveAll(keywordsDummyData)
 
         val response = get<SearchResult>(searchUri(ord = "keywordmatch"))

@@ -74,7 +74,12 @@ data class IBContent(
             keywords = MultiLangFieldShort.from(keywords.joinToString(), language),
             text = MultiLangFieldLong.from(text, language),
             allText = MultiLangFieldLong.from(
-                value = listOfNotNull(title, ingress, keywords.joinToString(), text, type.takeIf { includeTypeInAllText }).joinToString(),
+                value = listOfNotNull(
+                    title,
+                    ingress,
+                    text,
+                    keywords.takeIf { it.isNotEmpty() }?.joinToString(),
+                    type.takeIf { includeTypeInAllText }).joinToString(),
                 language = language
             ),
             type = type,
