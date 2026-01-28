@@ -79,6 +79,13 @@ val typeTagsDummyData =
     }
 
 
+val keywordsDummyData = listOf(
+    TextData(title = "keywordmatch").toDummyContent(),
+    TextData(title = "Document 2", ingress = "keywordmatch").toDummyContent(),
+    TextData(title = "Document 3").toDummyContent(keywords = listOf("keywordmatch")),
+    TextData(title = "Document 4", text = "keywordmatch").toDummyContent(),
+)
+
 val initialTestData =
     buildList {
         addAll(privatpersonDummyData)

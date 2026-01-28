@@ -12,6 +12,7 @@ import no.nav.idebankensearchapi.utils.allUnderaggregationCounts
 import no.nav.idebankensearchapi.utils.analyserOgForskningDummyData
 import no.nav.idebankensearchapi.utils.arbeidsgiverDummyData
 import no.nav.idebankensearchapi.utils.generatedText
+import no.nav.idebankensearchapi.utils.keywordsDummyData
 import no.nav.idebankensearchapi.utils.presseDummyData
 import no.nav.idebankensearchapi.utils.privatpersonDummyData
 import no.nav.idebankensearchapi.utils.samarbeidspartnerDummyData
@@ -148,16 +149,9 @@ class SearchIntegrationTest : AbstractIntegrationTest() {
 
     @Test
     fun `søk med treff i keywords skal ha riktig ranking`() {
-        val term = "keywordmatch"
-        
-        val hitOnText = TextData(text = term).toDummyContent(title = "Document 4")
-        val hitOnKeywords = TextData().toDummyContent(title = "Document 3", keywords = listOf(term))
-        val hitOnIngress = TextData(ingress = term).toDummyContent(title = "Document 2")
-        val hitOnTitle = TextData(title = term).toDummyContent(title = term)
+        repository.saveAll(keywordsDummyData)
 
-        repository.saveAll(listOf(hitOnText, hitOnKeywords, hitOnIngress, hitOnTitle))
-
-        val response = get<SearchResult>(searchUri(ord = term))
+        val response = get<SearchResult>(searchUri(ord = "keywordmatch"))
 
         response.statusCode shouldBe HttpStatus.OK
         assertSoftly(response.body!!) {
