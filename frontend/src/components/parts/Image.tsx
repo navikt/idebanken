@@ -149,7 +149,7 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
             )}
             {caption && (
                 <figcaption className="mt-(--ax-space-16)">
-                    <BodyShort size="small" className="leading-[var(--ax-font-line-height-large)]">
+                    <BodyShort size="small" className="leading-[1.5]">
                         {caption}
                     </BodyShort>
                 </figcaption>

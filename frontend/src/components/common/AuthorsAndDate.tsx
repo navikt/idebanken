@@ -22,14 +22,12 @@ export const AuthorsAndDate = ({
         return (
             <VStack className="mt-0" gap="2">
                 {authors && (
-                    <BodyShort
-                        size="medium"
-                        className="mb-(--ax-space-2) leading-[var(--ax-font-line-height-large)]">
+                    <BodyShort size="medium" className="mb-(--ax-space-2) leading-[1.5]">
                         Innholdet er laget av: {joinArrayWithCommasAndAnd(authors)}
                     </BodyShort>
                 )}
                 {published && (
-                    <BodyShort size="medium" className="leading-[var(--ax-font-line-height-large)]">
+                    <BodyShort size="medium" className="leading-[1.5]">
                         Oppdatert: {localizedDateTime(published)}
                     </BodyShort>
                 )}
@@ -42,18 +40,18 @@ export const AuthorsAndDate = ({
             <Separator className="mb-(--ax-space-12) border-t-1" />
             <HStack gap="2" className="mb-(--ax-space-2)">
                 {authors && (
-                    <BodyShort size="small" className="leading-[var(--ax-font-line-height-large)]">
+                    <BodyShort size="small" className="leading-[1.5]">
                         Tekst: {joinArrayWithCommasAndAnd(authors)}
                     </BodyShort>
                 )}
                 {artist && (
-                    <BodyShort size="small" className="leading-[var(--ax-font-line-height-large)]">
+                    <BodyShort size="small" className="leading-[1.5]">
                         Foto: {joinArrayWithCommasAndAnd(artist)}
                     </BodyShort>
                 )}
             </HStack>
             {published && (
-                <BodyShort size="small" className="leading-[var(--ax-font-line-height-large)]">
+                <BodyShort size="small" className="leading-[1.5]">
                     Publisert {localizedDateTime(published)}
                 </BodyShort>
             )}
