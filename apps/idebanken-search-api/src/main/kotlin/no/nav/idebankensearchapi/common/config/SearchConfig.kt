@@ -6,8 +6,10 @@ import no.nav.navnosearchadminapi.common.constants.INGRESS
 import no.nav.navnosearchadminapi.common.constants.NGRAMS_INNER_FIELD
 import no.nav.navnosearchadminapi.common.constants.TEXT
 import no.nav.navnosearchadminapi.common.constants.TITLE
+import no.nav.navnosearchadminapi.common.constants.ValidMetatags
 import no.nav.navnosearchadminapi.common.constants.languageSubfields
-import no.nav.navnosearchadminapi.common.enums.ValidMetatags
+
+const val KEYWORDS = "keywords"
 
 enum class ValidTypes {
     KJERNEARTIKKEL,
@@ -30,6 +32,7 @@ object SearchConfig {
             languageSubfields.forEach {
                 put("$TITLE.$it", 12.0f)
                 put("$INGRESS.$it", 3.0f)
+                put("$KEYWORDS.$it", 2.0f)
                 put("$TEXT.$it", 0.01f)
             }
         }
@@ -39,6 +42,7 @@ object SearchConfig {
             languageSubfields.forEach {
                 put("$TITLE.$it.$NGRAMS_INNER_FIELD", 11.5f)
                 put("$INGRESS.$it.$NGRAMS_INNER_FIELD", 3.0f)
+                put("$KEYWORDS.$it.$NGRAMS_INNER_FIELD", 2.0f)
             }
         }
 
@@ -47,6 +51,7 @@ object SearchConfig {
             languageSubfields.forEach {
                 put("$TITLE.$it.$EXACT_INNER_FIELD", 12.0f)
                 put("$INGRESS.$it.$EXACT_INNER_FIELD", 6.0f)
+                put("$KEYWORDS.$it.$EXACT_INNER_FIELD", 4.0f)
                 put("$TEXT.$it.$EXACT_INNER_FIELD", 1.0f)
             }
         }
@@ -69,6 +74,7 @@ object SearchConfig {
                 add("$ALL_TEXT.$it")
                 add("$TITLE.$it.$NGRAMS_INNER_FIELD")
                 add("$INGRESS.$it.$NGRAMS_INNER_FIELD")
+                add("$KEYWORDS.$it.$NGRAMS_INNER_FIELD")
             }
         }
 }

@@ -16,4 +16,5 @@ data class ContentMetadata(
     val iconColor: String? = null,
     val themeTags: List<String> = emptyList(),
     val typeTags: List<String> = emptyList(),
+    val keywords: List<String> = emptyList(),
 )

@@ -211,6 +211,7 @@ private fun TextData.toDummyContent(
     metatags: List<String> = emptyList(),
     typeTags: List<String> = emptyList(),
     themeTags: List<String> = emptyList(),
+    keywords: List<String> = emptyList(),
 ) = IBContent.from(
     id = "$teamName-${UUID.randomUUID()}",
     teamOwnedBy = teamName,
@@ -227,4 +228,5 @@ private fun TextData.toDummyContent(
     metatags = metatags,
     typeTags = typeTags,
     themeTags = themeTags,
+    keywords = keywords,
 )

@@ -141,9 +141,31 @@ class SearchIntegrationTest : AbstractIntegrationTest() {
         response2.statusCode shouldBe HttpStatus.OK
         assertSoftly(response2.body!!) {
             total shouldBe generatedText.size * 2
-
             aggregationCount(FacetKeys.TYPE_TAGS) shouldBe typeTagsDummyData.size
             allUnderaggregationCounts(FacetKeys.TYPE_TAGS).forEach { it shouldBe generatedText.size * 2 }
+        }
+    }
+
+    @Test
+    fun `søk med treff i keywords skal ha riktig ranking`() {
+        val term = "keywordmatch"
+        
+        val hitOnText = TextData(text = term).toDummyContent(title = "Document 4")
+        val hitOnKeywords = TextData().toDummyContent(title = "Document 3", keywords = listOf(term))
+        val hitOnIngress = TextData(ingress = term).toDummyContent(title = "Document 2")
+        val hitOnTitle = TextData(title = term).toDummyContent(title = term)
+
+        repository.saveAll(listOf(hitOnText, hitOnKeywords, hitOnIngress, hitOnTitle))
+
+        val response = get<SearchResult>(searchUri(ord = term))
+
+        response.statusCode shouldBe HttpStatus.OK
+        assertSoftly(response.body!!) {
+            total shouldBe 4L
+            hits[0].displayName shouldBe "keywordmatch" // Title
+            hits[1].displayName shouldBe "Document 2" // Ingress
+            hits[2].displayName shouldBe "Document 3" // Keywords
+            hits[3].displayName shouldBe "Document 4" // Text
         }
     }
 }

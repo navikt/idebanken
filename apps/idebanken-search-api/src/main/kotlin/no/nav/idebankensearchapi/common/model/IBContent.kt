@@ -13,7 +13,7 @@ import org.springframework.data.elasticsearch.annotations.Setting
 import org.springframework.data.elasticsearch.annotations.WriteTypeHint
 
 @Document(
-    indexName = "search-content-v9",
+    indexName = "search-content-v10",
     dynamic = Dynamic.STRICT,
     /* Disabler type hints da det lager et _class-felt i mappingen som gir problemer for wildcard-søk.
        Bør skrives om dersom vi trenger polymorfisk data. */
@@ -26,6 +26,7 @@ data class IBContent(
     @Field(type = FieldType.Keyword) val href: String,
     @Field(type = FieldType.Object) val title: MultiLangFieldShort,
     @Field(type = FieldType.Object) val ingress: MultiLangFieldShort,
+    @Field(type = FieldType.Object) val keywords: MultiLangFieldShort,
     @Field(type = FieldType.Object) val text: MultiLangFieldLong,
     @Field(type = FieldType.Object) val allText: MultiLangFieldLong,
     @Field(type = FieldType.Keyword) val type: String,
@@ -40,6 +41,7 @@ data class IBContent(
     @Field(type = FieldType.Keyword) val iconColor: String,
     @Field(type = FieldType.Keyword) val themeTags: List<String> = emptyList(),
     @Field(type = FieldType.Keyword) val typeTags: List<String> = emptyList(),
+    @Field(type = FieldType.Keyword) val keywordsRaw: List<String> = emptyList(),
 ) {
     companion object {
         fun from(
@@ -57,6 +59,7 @@ data class IBContent(
             language: String,
             themeTags: List<String> = emptyList(),
             typeTags: List<String> = emptyList(),
+            keywords: List<String> = emptyList(),
             metatags: List<String>,
             languageRefs: List<String> = emptyList(),
             includeTypeInAllText: Boolean = false,
@@ -68,9 +71,10 @@ data class IBContent(
             href = href,
             title = MultiLangFieldShort.from(title, language),
             ingress = MultiLangFieldShort.from(ingress, language),
+            keywords = MultiLangFieldShort.from(keywords.joinToString(), language),
             text = MultiLangFieldLong.from(text, language),
             allText = MultiLangFieldLong.from(
-                value = listOfNotNull(title, ingress, text, type.takeIf { includeTypeInAllText }).joinToString(),
+                value = listOfNotNull(title, ingress, keywords.joinToString(), text, type.takeIf { includeTypeInAllText }).joinToString(),
                 language = language
             ),
             type = type,
@@ -85,6 +89,7 @@ data class IBContent(
             iconColor = iconColor ?: "",
             themeTags = themeTags,
             typeTags = typeTags,
+            keywordsRaw = keywords,
         )
     }
 }
