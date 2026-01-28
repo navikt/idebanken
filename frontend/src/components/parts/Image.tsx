@@ -149,7 +149,9 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
             )}
             {caption && (
                 <figcaption className="mt-(--ax-space-16)">
-                    <BodyShort size="small">{caption}</BodyShort>
+                    <BodyShort size="small" className="leading-[var(--ax-font-line-height-large)]">
+                        {caption}
+                    </BodyShort>
                 </figcaption>
             )}
             {circles.map(({ size, color, bottom, left }, id) => (
