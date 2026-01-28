@@ -1,5 +1,6 @@
 package no.nav.idebankensearchapi.search.factory.queries
 
+import no.nav.idebankensearchapi.common.config.KEYWORDS
 import no.nav.idebankensearchapi.search.enums.FieldType
 import no.nav.idebankensearchapi.search.utils.languageSubfieldKey
 import no.nav.navnosearchadminapi.common.constants.INGRESS
@@ -31,6 +32,7 @@ fun highlightBuilder(
         .postTags(BOLD_POSTTAG)
         .highlightFields(TITLE, defaultFieldType)
         .highlightFields(INGRESS, defaultFieldType, includeNgrams)
+        .highlightFields(KEYWORDS, defaultFieldType, includeNgrams)
         .highlightFields(TEXT, defaultFieldType, includeNgrams)
 }
 
@@ -54,7 +56,7 @@ private fun HighlightBuilder.field(
     val fieldName = languageSubfieldKey(baseField, language, fieldType)
 
     when (baseField) {
-        TITLE, INGRESS -> this.field(fieldName, DEFAULT_FRAGMENT_CHAR_SIZE, UNFRAGMENTED)
+        TITLE, INGRESS, KEYWORDS -> this.field(fieldName, DEFAULT_FRAGMENT_CHAR_SIZE, UNFRAGMENTED)
         TEXT -> this.field(fieldName, MAX_FRAGMENT_SIZE, SINGLE_FRAGMENT)
         else -> throw IllegalArgumentException("Ugyldig verdi for baseField: $baseField")
     }

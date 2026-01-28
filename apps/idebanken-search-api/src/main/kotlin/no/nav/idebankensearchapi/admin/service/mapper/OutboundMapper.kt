@@ -22,6 +22,7 @@ fun IBContent.toOutbound() = ContentDto(
         iconUrl = iconUrl,
         iconColor = iconColor,
         themeTags = themeTags,
-        typeTags = typeTags
+        typeTags = typeTags,
+        keywords = keywordsRaw
     )
 )

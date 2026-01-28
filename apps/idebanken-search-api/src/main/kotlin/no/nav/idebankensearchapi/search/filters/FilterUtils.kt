@@ -16,7 +16,6 @@ import org.opensearch.index.query.ExistsQueryBuilder
 import org.opensearch.index.query.QueryBuilder
 import org.opensearch.index.query.TermQueryBuilder
 
-
 fun BoolQueryBuilder.mustHaveTypeTags(vararg types: ValidTypes) =
     apply {
         types.forEach { must(TermQueryBuilder(FieldNames.TYPE_TAGS, it.descriptor)) }
@@ -107,29 +106,32 @@ fun preferredLanguageFilterQuery(preferredLanguage: String) =
         this.mustNot(TermQueryBuilder(LANGUAGE_REFS, preferredLanguage))
 
         when (preferredLanguage) {
-            NORWEGIAN_BOKMAAL ->
+            NORWEGIAN_BOKMAAL -> {
                 // Ikke vis engelsk versjon dersom det finnes en nynorsk-versjon
                 this.mustNot(
                     BoolQueryBuilder()
                         .must(TermQueryBuilder(LANGUAGE, ENGLISH))
                         .must(TermQueryBuilder(LANGUAGE_REFS, NORWEGIAN_NYNORSK)),
                 )
+            }
 
-            NORWEGIAN_NYNORSK ->
+            NORWEGIAN_NYNORSK -> {
                 // Ikke vis engelsk versjon dersom det finnes en bokmål-versjon
                 this.mustNot(
                     BoolQueryBuilder()
                         .must(TermQueryBuilder(LANGUAGE, ENGLISH))
                         .must(TermQueryBuilder(LANGUAGE_REFS, NORWEGIAN_BOKMAAL)),
                 )
+            }
 
-            ENGLISH ->
+            ENGLISH -> {
                 // Ikke vis nynorsk-versjon dersom det finnes en bokmål-versjon
                 this.mustNot(
                     BoolQueryBuilder()
                         .must(TermQueryBuilder(LANGUAGE, NORWEGIAN_NYNORSK))
                         .must(TermQueryBuilder(LANGUAGE_REFS, NORWEGIAN_BOKMAAL)),
                 )
+            }
         }
     }
 
