@@ -6,8 +6,8 @@ import no.nav.navnosearchadminapi.common.constants.INGRESS
 import no.nav.navnosearchadminapi.common.constants.NGRAMS_INNER_FIELD
 import no.nav.navnosearchadminapi.common.constants.TEXT
 import no.nav.navnosearchadminapi.common.constants.TITLE
-import no.nav.navnosearchadminapi.common.constants.ValidMetatags
 import no.nav.navnosearchadminapi.common.constants.languageSubfields
+import no.nav.navnosearchadminapi.common.enums.ValidMetatags
 
 const val KEYWORDS = "keywords"
 
