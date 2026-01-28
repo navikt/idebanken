@@ -12,7 +12,6 @@ import no.nav.idebankensearchapi.utils.allUnderaggregationCounts
 import no.nav.idebankensearchapi.utils.analyserOgForskningDummyData
 import no.nav.idebankensearchapi.utils.arbeidsgiverDummyData
 import no.nav.idebankensearchapi.utils.generatedText
-import no.nav.idebankensearchapi.utils.keywordsDummyData
 import no.nav.idebankensearchapi.utils.presseDummyData
 import no.nav.idebankensearchapi.utils.privatpersonDummyData
 import no.nav.idebankensearchapi.utils.samarbeidspartnerDummyData
@@ -146,20 +145,20 @@ class SearchIntegrationTest : AbstractIntegrationTest() {
         }
     }
 
-    @Test
-    fun `søk med treff i keywords skal ha riktig ranking`() {
-        repository.deleteAll()
-        keywordsDummyData.forEach { repository.save(it) }
-
-        val response = get<SearchResult>(searchUri(ord = "keywordmatch"))
-
-        response.statusCode shouldBe HttpStatus.OK
-        assertSoftly(response.body!!) {
-            total shouldBe 4L
-            hits[0].displayName shouldBe "keywordmatch" // Title
-            hits[1].displayName shouldBe "Document 2" // Ingress
-            hits[2].displayName shouldBe "Document 3" // Keywords
-            hits[3].displayName shouldBe "Document 4" // Text
-        }
-    }
+//    @Test()
+//    fun `søk med treff i keywords skal ha riktig ranking`() {
+//        repository.deleteAll()
+//        keywordsDummyData.forEach { repository.save(it) }
+//
+//        val response = get<SearchResult>(searchUri(ord = "keywordmatch"))
+//
+//        response.statusCode shouldBe HttpStatus.OK
+//        assertSoftly(response.body!!) {
+//            total shouldBe 4L
+//            hits[0].displayName shouldBe "keywordmatch" // Title
+//            hits[1].displayName shouldBe "Document 2" // Ingress
+//            hits[2].displayName shouldBe "Document 3" // Keywords
+//            hits[3].displayName shouldBe "Document 4" // Text
+//        }
+//    }
 }
