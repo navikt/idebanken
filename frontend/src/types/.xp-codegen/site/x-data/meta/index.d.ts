@@ -9,4 +9,9 @@ export type XP_Meta = {
    * Skjul fra internsøk
    */
   hideFromInternalSearch: boolean;
+
+  /**
+   * Søkbare nøkkelord
+   */
+  keywords?: Array<string> | string;
 };

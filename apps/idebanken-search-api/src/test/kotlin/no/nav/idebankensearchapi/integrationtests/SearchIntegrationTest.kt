@@ -51,7 +51,6 @@ class SearchIntegrationTest : AbstractIntegrationTest() {
 
             aggregationCount(FacetKeys.ANALYSER_OG_FORSKNING) shouldBe analyserOgForskningDummyData.size
             allUnderaggregationCounts(FacetKeys.ANALYSER_OG_FORSKNING).forEach { it shouldBe generatedText.size }
-
         }
     }
 
@@ -141,9 +140,25 @@ class SearchIntegrationTest : AbstractIntegrationTest() {
         response2.statusCode shouldBe HttpStatus.OK
         assertSoftly(response2.body!!) {
             total shouldBe generatedText.size * 2
-
             aggregationCount(FacetKeys.TYPE_TAGS) shouldBe typeTagsDummyData.size
             allUnderaggregationCounts(FacetKeys.TYPE_TAGS).forEach { it shouldBe generatedText.size * 2 }
         }
     }
+
+//    @Test()
+//    fun `søk med treff i keywords skal ha riktig ranking`() {
+//        repository.deleteAll()
+//        keywordsDummyData.forEach { repository.save(it) }
+//
+//        val response = get<SearchResult>(searchUri(ord = "keywordmatch"))
+//
+//        response.statusCode shouldBe HttpStatus.OK
+//        assertSoftly(response.body!!) {
+//            total shouldBe 4L
+//            hits[0].displayName shouldBe "keywordmatch" // Title
+//            hits[1].displayName shouldBe "Document 2" // Ingress
+//            hits[2].displayName shouldBe "Document 3" // Keywords
+//            hits[3].displayName shouldBe "Document 4" // Text
+//        }
+//    }
 }

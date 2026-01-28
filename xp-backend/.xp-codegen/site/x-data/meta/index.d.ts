@@ -9,4 +9,9 @@ export type Meta = {
    * Skjul fra internsøk
    */
   hideFromInternalSearch: boolean;
+
+  /**
+   * Søkbare nøkkelord
+   */
+  keywords?: Array<string> | string;
 };

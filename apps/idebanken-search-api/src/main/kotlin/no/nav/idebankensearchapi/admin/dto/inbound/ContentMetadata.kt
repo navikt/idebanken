@@ -1,8 +1,8 @@
 package no.nav.idebankensearchapi.admin.dto.inbound
 
+import no.nav.navnosearchadminapi.common.enums.ValidTypes
 import java.time.ZonedDateTime
 import java.util.Collections.emptyList
-import no.nav.navnosearchadminapi.common.enums.ValidTypes
 
 data class ContentMetadata(
     val type: String = ValidTypes.ANDRE.descriptor,
@@ -16,4 +16,5 @@ data class ContentMetadata(
     val iconColor: String? = null,
     val themeTags: List<String> = emptyList(),
     val typeTags: List<String> = emptyList(),
+    val keywords: List<String> = emptyList(),
 )

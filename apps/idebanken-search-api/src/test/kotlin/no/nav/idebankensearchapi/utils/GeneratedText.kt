@@ -1,9 +1,9 @@
 package no.nav.idebankensearchapi.utils
 
 class TextData(
-    val title: String,
-    val ingress: String,
-    val text: String,
+    val title: String = "title",
+    val ingress: String = "ingress",
+    val text: String = "text",
 )
 
 val generatedText =

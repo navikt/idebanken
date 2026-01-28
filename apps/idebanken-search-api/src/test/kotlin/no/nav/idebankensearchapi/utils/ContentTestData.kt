@@ -1,7 +1,5 @@
 package no.nav.idebankensearchapi.utils
 
-import java.time.ZonedDateTime
-import java.util.UUID
 import no.nav.idebankensearchapi.common.model.IBContent
 import no.nav.idebankensearchapi.search.filters.FacetKeys
 import no.nav.idebankensearchapi.search.filters.UnderFacetKeys
@@ -9,6 +7,8 @@ import no.nav.navnosearchadminapi.common.constants.NORWEGIAN_BOKMAAL
 import no.nav.navnosearchadminapi.common.enums.ValidAudiences
 import no.nav.navnosearchadminapi.common.enums.ValidMetatags
 import no.nav.navnosearchadminapi.common.enums.ValidTypes
+import java.time.ZonedDateTime
+import java.util.UUID
 
 val now: ZonedDateTime = ZonedDateTime.now()
 val nowMinusTwoYears: ZonedDateTime = ZonedDateTime.now().minusYears(2)
@@ -78,6 +78,13 @@ val typeTagsDummyData =
         }
     }
 
+val keywordsDummyData =
+    listOf(
+        TextData(title = "keywordmatch").toDummyContent(),
+        TextData(title = "Document 2", ingress = "keywordmatch").toDummyContent(),
+        TextData(title = "Document 3").toDummyContent(keywords = listOf("keywordmatch")),
+        TextData(title = "Document 4", text = "keywordmatch").toDummyContent(),
+    )
 
 val initialTestData =
     buildList {
@@ -130,38 +137,47 @@ private fun TextData.toPresseDummyContent(): IBContent =
 
 private fun TextData.toStatistikkDummyContent(underfacet: String): IBContent =
     when (underfacet) {
-        UnderFacetKeys.ARTIKLER ->
+        UnderFacetKeys.ARTIKLER -> {
             this.toDummyContent(
                 metatags = listOf(ValidMetatags.STATISTIKK.descriptor),
             )
+        }
 
-        UnderFacetKeys.NYHETER ->
+        UnderFacetKeys.NYHETER -> {
             this.toDummyContent(
                 metatags = listOf(ValidMetatags.STATISTIKK.descriptor, ValidMetatags.NYHET.descriptor),
             )
+        }
 
-        UnderFacetKeys.TABELLER ->
+        UnderFacetKeys.TABELLER -> {
             this.toDummyContent(
                 metatags = listOf(ValidMetatags.STATISTIKK.descriptor),
                 type = ValidTypes.TABELL.descriptor,
             )
+        }
 
-        else -> error("unsupported underfacet")
+        else -> {
+            error("unsupported underfacet")
+        }
     }
 
 private fun TextData.toAnalyserOgForskningDummyContent(underfacet: String): IBContent =
     when (underfacet) {
-        UnderFacetKeys.ARTIKLER ->
+        UnderFacetKeys.ARTIKLER -> {
             this.toDummyContent(
                 metatags = listOf(ValidMetatags.ANALYSE.descriptor),
             )
+        }
 
-        UnderFacetKeys.NYHETER ->
+        UnderFacetKeys.NYHETER -> {
             this.toDummyContent(
                 metatags = listOf(ValidMetatags.ANALYSE.descriptor, ValidMetatags.NYHET.descriptor),
             )
+        }
 
-        else -> error("unsupported underfacet")
+        else -> {
+            error("unsupported underfacet")
+        }
     }
 
 private fun TextData.toTypeTagDummyContent(underfacet: String): IBContent =
@@ -169,36 +185,41 @@ private fun TextData.toTypeTagDummyContent(underfacet: String): IBContent =
         typeTags = listOf(underfacet),
     )
 
-
 private fun TextData.toDummyContentForAudience(
     audience: String,
     underfacet: String,
 ) = when (underfacet) {
-    UnderFacetKeys.INFORMASJON ->
+    UnderFacetKeys.INFORMASJON -> {
         this.toDummyContent(
             audience = listOf(audience),
             metatags = listOf(ValidMetatags.INFORMASJON.descriptor),
         )
+    }
 
-    UnderFacetKeys.KONTOR ->
+    UnderFacetKeys.KONTOR -> {
         this.toDummyContent(
             audience = listOf(audience),
             type = ValidTypes.KONTOR.descriptor,
         )
+    }
 
-    UnderFacetKeys.SOKNAD_OG_SKJEMA ->
+    UnderFacetKeys.SOKNAD_OG_SKJEMA -> {
         this.toDummyContent(
             audience = listOf(audience),
             type = ValidTypes.SKJEMA.descriptor,
         )
+    }
 
-    UnderFacetKeys.AKTUELT ->
+    UnderFacetKeys.AKTUELT -> {
         this.toDummyContent(
             audience = listOf(audience),
             metatags = listOf(ValidMetatags.NYHET.descriptor),
         )
+    }
 
-    else -> error("unsupported underfacet")
+    else -> {
+        error("unsupported underfacet")
+    }
 }
 
 private fun TextData.toDummyContent(
@@ -211,6 +232,7 @@ private fun TextData.toDummyContent(
     metatags: List<String> = emptyList(),
     typeTags: List<String> = emptyList(),
     themeTags: List<String> = emptyList(),
+    keywords: List<String> = emptyList(),
 ) = IBContent.from(
     id = "$teamName-${UUID.randomUUID()}",
     teamOwnedBy = teamName,
@@ -227,4 +249,5 @@ private fun TextData.toDummyContent(
     metatags = metatags,
     typeTags = typeTags,
     themeTags = themeTags,
+    keywords = keywords,
 )

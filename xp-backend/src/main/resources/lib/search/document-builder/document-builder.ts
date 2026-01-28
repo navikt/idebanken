@@ -87,7 +87,7 @@ class ExternalSearchDocumentBuilder {
                 language: 'nb',
                 type: content.type?.split(':').pop() ?? content.type,
                 metatags: forceArray(content.data.metatags),
-                keywords: forceArray(content.data.keywords),
+                keywords: forceArray(ibxData?.meta?.keywords),
                 iconUrl: resolveIcon(content, false)?.url,
                 themeTags: forceArray(tags?.themeTags),
                 typeTags: forceArray(tags?.typeTags),
