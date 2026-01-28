@@ -7,7 +7,7 @@
             <config>
                 <exclude>*</exclude>
                 <include>
-                    Format | JustifyLeft JustifyRight | Bold Italic | Macro | BulletedList NumberedList Table | Undo Redo RemoveFormat | Link
+                    Format | JustifyLeft JustifyRight | Bold Italic | Macro | BulletedList NumberedList Table | Undo Redo RemoveFormat | Link Unlink
                 </include>
                 <allowHeadings>h2 h3 h4</allowHeadings>
             </config>
