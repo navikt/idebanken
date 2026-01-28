@@ -88,7 +88,11 @@ export default function CrashCourseView({
     )
 
     const trackNavigation = useCallback(
-        (navigation: 'knapp' | 'tastatur' | 'nettleser', fromIndex: number, toIndex: number) => {
+        (
+            navigation: 'knapp' | 'tastatur' | 'nettleser' | 'meny',
+            fromIndex: number,
+            toIndex: number
+        ) => {
             const secondsOnSlide = Math.max(
                 0,
                 Math.round((Date.now() - slideStartRef.current) / 1000)
@@ -255,7 +259,7 @@ export default function CrashCourseView({
                                     onClick={() => {
                                         const changedSlide = setCurrentSlide(part.index)
                                         if (!changedSlide) return
-                                        trackNavigation('knapp', currentIndex, part.index)
+                                        trackNavigation('meny', currentIndex, part.index)
                                     }}
                                     aria-label={`Gå til slide ${part.index + 1}: ${part.name}`}>
                                     {part.name}
