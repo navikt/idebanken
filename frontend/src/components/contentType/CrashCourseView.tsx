@@ -276,7 +276,7 @@ export default function CrashCourseView({
                     </HStack>
                 </HStack>
 
-                <Box className={'grow overflow-y-auto w-full'}>
+                <Box className={'grow overflow-y-auto overflow-x-clip w-full'}>
                     {loading ? (
                         <VStack className={'h-full justify-center items-center'}>
                             <LoadingCircles ariaLabel={'Laster lynkurs'} />

@@ -3,11 +3,38 @@
     <display-name>Lynkurs plan/oversikt</display-name>
     <description>Viser en oversikt over hva som kommer videre i kurset</description>
     <form>
-        <input type="TextLine" name="title">
-            <label>Tittel</label>
-            <occurrences minimum="1" maximum="1"/>
-            <default>Plan for møtet</default>
-        </input>
+        <item-set name="parts">
+            <label>Deler</label>
+            <occurrences minimum="1" maximum="0"/>
+            <items>
+                <input type="TextLine" name="label">
+                    <label>Etikett</label>
+                    <occurrences minimum="1" maximum="1"/>
+                </input>
+                <input type="TextLine" name="title">
+                    <label>Tittel</label>
+                    <occurrences minimum="1" maximum="1"/>
+                </input>
+                <item-set name="slides">
+                    <label>Underdeler</label>
+                    <occurrences minimum="1" maximum="0"/>
+                    <items>
+                        <input type="MediaSelector" name="icon">
+                            <label>Ikon</label>
+                            <occurrences minimum="0" maximum="1"/>
+                            <config>
+                                <allowContentType>media:(vector|image)</allowContentType>
+                                <allowPath>${site}/ressurser/ikoner/*</allowPath>
+                            </config>
+                        </input>
+                        <input type="TextLine" name="text">
+                            <label>Tekst</label>
+                            <occurrences minimum="1" maximum="1"/>
+                        </input>
+                    </items>
+                </item-set>
+            </items>
+        </item-set>
     </form>
     <config>
         <allow-on-content-type>(portal:page-template|portal:fragment|${app}:crash-course*)</allow-on-content-type>
