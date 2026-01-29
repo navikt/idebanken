@@ -41,7 +41,7 @@ export default function Footer({
                 <BodyLong
                     id={'subscribe-to-newsletter'}
                     size={'large'}
-                    className={'min-w-0 md:col-span-3'}>
+                    className={'min-w-0 md:col-span-3 leading-[1.5]'}>
                     {newsletterSubscribeText}
                 </BodyLong>
                 <div className={'flex justify-center md:col-span-2 md:justify-end'}>
