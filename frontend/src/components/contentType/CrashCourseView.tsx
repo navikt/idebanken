@@ -10,6 +10,8 @@ import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
 import { ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
 import { usePathname, useRouter } from 'next/navigation'
+import classNames from 'classnames'
+import LoadingCircles from '~/components/common/LoadingCircles'
 
 type Direction = 'right' | 'left'
 
@@ -25,6 +27,7 @@ export default function CrashCourseView({
     structure?: CrashCourseStructure
     meta: MetaData
 }) {
+    const [loading, setLoading] = useState(true)
     const [currentIndex, setCurrentIndex] = useState(0)
     const [direction, setDirection] = useState<Direction>('right')
     const router = useRouter()
@@ -187,6 +190,7 @@ export default function CrashCourseView({
     // Initial sync
     useEffect(() => {
         handleHashChange((indexFromHash) => setCurrentIndex(indexFromHash))
+        setLoading(false)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -221,69 +225,86 @@ export default function CrashCourseView({
                     transformOrigin: 'center center',
                     flexShrink: 0,
                 }}>
-                <VStack gap={'space-48'}>
-                    <HStack className={'justify-between'} gap={'space-2'}>
-                        <Link
-                            as={NextLink}
-                            aria-label={'Til forsiden'}
-                            href={getUrl('/', meta)}
-                            className={'content-center h-12 max-w-48'}>
-                            <Image
-                                className={'block dark:hidden'}
-                                src={getAsset('/images/logo-light.svg', meta)}
-                                alt={'title'}
-                                width={200}
-                                height={100}
-                                priority
-                            />
-                            <Image
-                                className={'hidden dark:block'}
-                                src={getAsset('/images/logo-dark.svg', meta)}
-                                alt={'title'}
-                                width={200}
-                                height={100}
-                                priority
-                            />
-                        </Link>
-                        <HStack gap={'space-6'}>
-                            {structure?.parts?.map((part) => (
-                                <Button
-                                    key={part.name + part.index}
-                                    variant={
-                                        part.index === currentIndex ||
-                                        part.pages.find((page) => page.index === currentIndex)
-                                            ? 'primary'
-                                            : 'tertiary'
-                                    }
-                                    size="small"
-                                    onClick={() => {
-                                        const changedSlide = setCurrentSlide(part.index)
-                                        if (!changedSlide) return
-                                        trackNavigation('meny', currentIndex, part.index)
-                                    }}
-                                    aria-label={`Gå til slide ${part.index + 1}: ${part.name}`}>
-                                    {part.name}
-                                </Button>
-                            ))}
-                        </HStack>
+                <HStack
+                    className={classNames(
+                        'justify-between shrink-0 pb-(--ax-space-48)',
+                        loading ? 'hidden' : ''
+                    )}
+                    gap={'space-2'}>
+                    <Link
+                        as={NextLink}
+                        aria-label={'Til forsiden'}
+                        href={getUrl('/', meta)}
+                        className={'content-center h-12 max-w-48'}>
+                        <Image
+                            className={'block dark:hidden'}
+                            src={getAsset('/images/logo-light.svg', meta)}
+                            alt={'title'}
+                            width={200}
+                            height={100}
+                            priority
+                        />
+                        <Image
+                            className={'hidden dark:block'}
+                            src={getAsset('/images/logo-dark.svg', meta)}
+                            alt={'title'}
+                            width={200}
+                            height={100}
+                            priority
+                        />
+                    </Link>
+                    <HStack gap={'space-6'}>
+                        {structure?.parts?.map((part) => (
+                            <Button
+                                key={part.name + part.index}
+                                variant={
+                                    part.index === currentIndex ||
+                                    part.pages.find((page) => page.index === currentIndex)
+                                        ? 'primary'
+                                        : 'tertiary'
+                                }
+                                size="small"
+                                onClick={() => {
+                                    const changedSlide = setCurrentSlide(part.index)
+                                    if (!changedSlide) return
+                                    trackNavigation('meny', currentIndex, part.index)
+                                }}
+                                aria-label={`Gå til slide ${part.index + 1}: ${part.name}`}>
+                                {part.name}
+                            </Button>
+                        ))}
                     </HStack>
-                    <AnimatePresence initial={false} custom={direction} mode="popLayout">
-                        <motion.div
-                            key={currentIndex}
-                            custom={direction}
-                            variants={variants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            id={'main-content'}
-                            className={'flex flex-col w-full'}
-                            transition={{ type: 'tween', duration: 0.5 }}>
-                            {slideDeckElements[currentIndex]}
-                        </motion.div>
-                    </AnimatePresence>
-                </VStack>
+                </HStack>
 
-                <HStack className={'items-center justify-center w-full relative'} gap={'space-48'}>
+                <Box className={'grow overflow-y-auto w-full'}>
+                    {loading ? (
+                        <VStack className={'h-full justify-center items-center'}>
+                            <LoadingCircles ariaLabel={'Laster lynkurs'} />
+                        </VStack>
+                    ) : (
+                        <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                            <motion.div
+                                key={currentIndex}
+                                custom={direction}
+                                variants={variants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                id={'main-content'}
+                                className={'flex flex-col w-full'}
+                                transition={{ type: 'tween', duration: 0.5 }}>
+                                {slideDeckElements[currentIndex]}
+                            </motion.div>
+                        </AnimatePresence>
+                    )}
+                </Box>
+
+                <HStack
+                    className={classNames(
+                        'items-center justify-center w-full relative shrink-0 pt-(--ax-space-28)',
+                        loading ? 'hidden' : ''
+                    )}
+                    gap={'space-48'}>
                     <Button
                         className="rounded-full"
                         onClick={() => goToPrevSlide('knapp')}
@@ -305,19 +326,13 @@ export default function CrashCourseView({
                         Neste
                     </Button>
 
-                    <Box
-                        className="absolute h-full"
-                        style={{
-                            right: 0,
-                        }}>
-                        <Button
-                            variant="secondary"
-                            className="rounded-full"
-                            onClick={toggleFullscreen}
-                            aria-label={isFullscreen ? 'Avslutt fullskjerm' : 'Vis i fullskjerm'}>
-                            {isFullscreen ? <ShrinkIcon aria-hidden /> : <ExpandIcon aria-hidden />}
-                        </Button>
-                    </Box>
+                    <Button
+                        variant="secondary"
+                        className="rounded-full absolute flex self-center right-0"
+                        onClick={toggleFullscreen}
+                        aria-label={isFullscreen ? 'Avslutt fullskjerm' : 'Vis i fullskjerm'}>
+                        {isFullscreen ? <ShrinkIcon aria-hidden /> : <ExpandIcon aria-hidden />}
+                    </Button>
                 </HStack>
             </VStack>
         </Box>

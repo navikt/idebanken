@@ -8,10 +8,10 @@
         radial-gradient(circle closest-side at left 6.7px top 50%, hsla(335, 100%, 87%, 100%) 90%, #0000);
     background-size: 100% 100%;
     background-repeat: no-repeat;
-    animation: loading-xm0185md .5s infinite alternate;
+    animation: loading-anim .5s infinite alternate;
 }
 
-@keyframes loading-xm0185md {
+@keyframes loading-anim {
     to {
         width: 22.4px;
         height: 26.9px;
