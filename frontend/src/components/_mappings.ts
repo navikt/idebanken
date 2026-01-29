@@ -2,6 +2,7 @@ import { APP_NAME, ComponentRegistry, richTextQuery } from '@enonic/nextjs-adapt
 import { commonQuery, commonVariables } from './queries/common'
 import {
     buttonQuery,
+    crashCoursePlanQuery,
     downloadsQuery,
     highlightedBoxMacroQuery,
     imageQuery,
@@ -241,10 +242,7 @@ ComponentRegistry.addPart(`${APP_NAME}:related-topics`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:crash-course-plan`, {
     view: CrashCoursePlan,
-    configQuery: `{
-        title
-        parts(path: $path)
-    }`,
+    configQuery: crashCoursePlanQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:crash-course-title`, {

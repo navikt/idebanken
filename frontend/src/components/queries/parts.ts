@@ -185,3 +185,23 @@ export const themeCardListQuery = `{
         }
     }
 }`
+
+export const crashCoursePlanQuery = `{
+    parts {
+        label
+        title
+        slides {
+            icon {
+                ... on media_Image {
+                    url: imageUrl(type:absolute scale:"height(44)")
+                    data { altText }
+                }
+                ... on media_Vector {
+                    url: mediaUrl(type:absolute)
+                    data { caption }
+                }
+            }
+            text
+        }
+    }
+}`

@@ -1162,14 +1162,36 @@ export enum Part_Idebanken_Button_InternalOrExternalLink_OptionEnum {
 /** Part component application config for application ['idebanken'] and descriptor ['crash-course-plan'] */
 export type Part_Idebanken_Crash_Course_Plan = {
   __typename?: 'Part_idebanken_crash_course_plan';
-  parts?: Maybe<Scalars['JSON']['output']>;
-  title?: Maybe<Scalars['String']['output']>;
+  parts?: Maybe<Array<Maybe<Part_Idebanken_Crash_Course_Plan_Parts>>>;
 };
 
 
 /** Part component application config for application ['idebanken'] and descriptor ['crash-course-plan'] */
 export type Part_Idebanken_Crash_Course_PlanPartsArgs = {
-  path: Scalars['ID']['input'];
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Deler */
+export type Part_Idebanken_Crash_Course_Plan_Parts = {
+  __typename?: 'Part_idebanken_crash_course_plan_Parts';
+  label?: Maybe<Scalars['String']['output']>;
+  slides?: Maybe<Array<Maybe<Part_Idebanken_Crash_Course_Plan_Slides>>>;
+  title?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Deler */
+export type Part_Idebanken_Crash_Course_Plan_PartsSlidesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Underdeler */
+export type Part_Idebanken_Crash_Course_Plan_Slides = {
+  __typename?: 'Part_idebanken_crash_course_plan_Slides';
+  icon?: Maybe<Content>;
+  text?: Maybe<Scalars['String']['output']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['crash-course-title'] */
@@ -1928,6 +1950,14 @@ export type XData_Idebanken_Meta_DataConfig = {
   __typename?: 'XData_idebanken_meta_DataConfig';
   hideFromInternalSearch?: Maybe<Scalars['Boolean']['output']>;
   hideFromListViews?: Maybe<Scalars['Boolean']['output']>;
+  keywords?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+};
+
+
+/** Extra data config for application ['idebanken}'] and descriptor ['meta'] */
+export type XData_Idebanken_Meta_DataConfigKeywordsArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Extra data config for application ['idebanken}'] and descriptor ['tags'] */
