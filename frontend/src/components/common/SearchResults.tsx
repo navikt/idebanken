@@ -1,5 +1,3 @@
-import styles from '../../styles/loading.module.css'
-
 import { getResultTypeTags, SearchResult } from '~/utils/search'
 import { MetaData } from '@enonic/nextjs-adapter'
 import { BodyShort, VStack } from '@navikt/ds-react'
@@ -11,6 +9,7 @@ import TrackFirstLink from '~/components/common/analytics/TrackFirstLink'
 import { AnalyticsEvents, SearchFrom } from '~/utils/analytics/umami'
 import { CommonType } from '~/types/graphql-types'
 import classNames from 'classnames'
+import LoadingCircles from '~/components/common/LoadingCircles'
 
 export default function SearchResults(
     meta: MetaData,
@@ -38,9 +37,7 @@ export default function SearchResults(
                     : ''}
             </BodyShort>
             {loading ? (
-                <div className={'h-6 flex justify-center align-middle content-center items-center'}>
-                    <div className={styles.loading} aria-label={'laster innhold'} />
-                </div>
+                <LoadingCircles ariaLabel={'laster innhold'} />
             ) : (
                 searchResult?.hits?.map((result, index) => (
                     <TrackFirstLink

@@ -10,6 +10,8 @@ import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
 import { ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
 import { usePathname, useRouter } from 'next/navigation'
+import classNames from 'classnames'
+import LoadingCircles from '~/components/common/LoadingCircles'
 
 type Direction = 'right' | 'left'
 
@@ -25,6 +27,7 @@ export default function CrashCourseView({
     structure?: CrashCourseStructure
     meta: MetaData
 }) {
+    const [loading, setLoading] = useState(true)
     const [currentIndex, setCurrentIndex] = useState(0)
     const [direction, setDirection] = useState<Direction>('right')
     const router = useRouter()
@@ -187,6 +190,7 @@ export default function CrashCourseView({
     // Initial sync
     useEffect(() => {
         handleHashChange((indexFromHash) => setCurrentIndex(indexFromHash))
+        setLoading(false)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -221,7 +225,12 @@ export default function CrashCourseView({
                     transformOrigin: 'center center',
                     flexShrink: 0,
                 }}>
-                <HStack className={'justify-between shrink-0 pb-(--ax-space-48)'} gap={'space-2'}>
+                <HStack
+                    className={classNames(
+                        'justify-between shrink-0 pb-(--ax-space-48)',
+                        loading ? 'hidden' : ''
+                    )}
+                    gap={'space-2'}>
                     <Link
                         as={NextLink}
                         aria-label={'Til forsiden'}
@@ -268,26 +277,33 @@ export default function CrashCourseView({
                 </HStack>
 
                 <Box className={'grow overflow-y-auto w-full'}>
-                    <AnimatePresence initial={false} custom={direction} mode="popLayout">
-                        <motion.div
-                            key={currentIndex}
-                            custom={direction}
-                            variants={variants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
-                            id={'main-content'}
-                            className={'flex flex-col w-full'}
-                            transition={{ type: 'tween', duration: 0.5 }}>
-                            {slideDeckElements[currentIndex]}
-                        </motion.div>
-                    </AnimatePresence>
+                    {loading ? (
+                        <VStack className={'h-full justify-center items-center'}>
+                            <LoadingCircles ariaLabel={'Laster lynkurs'} />
+                        </VStack>
+                    ) : (
+                        <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                            <motion.div
+                                key={currentIndex}
+                                custom={direction}
+                                variants={variants}
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+                                id={'main-content'}
+                                className={'flex flex-col w-full'}
+                                transition={{ type: 'tween', duration: 0.5 }}>
+                                {slideDeckElements[currentIndex]}
+                            </motion.div>
+                        </AnimatePresence>
+                    )}
                 </Box>
 
                 <HStack
-                    className={
-                        'items-center justify-center w-full relative shrink-0 pt-(--ax-space-28)'
-                    }
+                    className={classNames(
+                        'items-center justify-center w-full relative shrink-0 pt-(--ax-space-28)',
+                        loading ? 'hidden' : ''
+                    )}
                     gap={'space-48'}>
                     <Button
                         className="rounded-full"
