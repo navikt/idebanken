@@ -221,52 +221,53 @@ export default function CrashCourseView({
                     transformOrigin: 'center center',
                     flexShrink: 0,
                 }}>
-                <VStack gap={'space-48'}>
-                    <HStack className={'justify-between'} gap={'space-2'}>
-                        <Link
-                            as={NextLink}
-                            aria-label={'Til forsiden'}
-                            href={getUrl('/', meta)}
-                            className={'content-center h-12 max-w-48'}>
-                            <Image
-                                className={'block dark:hidden'}
-                                src={getAsset('/images/logo-light.svg', meta)}
-                                alt={'title'}
-                                width={200}
-                                height={100}
-                                priority
-                            />
-                            <Image
-                                className={'hidden dark:block'}
-                                src={getAsset('/images/logo-dark.svg', meta)}
-                                alt={'title'}
-                                width={200}
-                                height={100}
-                                priority
-                            />
-                        </Link>
-                        <HStack gap={'space-6'}>
-                            {structure?.parts?.map((part) => (
-                                <Button
-                                    key={part.name + part.index}
-                                    variant={
-                                        part.index === currentIndex ||
-                                        part.pages.find((page) => page.index === currentIndex)
-                                            ? 'primary'
-                                            : 'tertiary'
-                                    }
-                                    size="small"
-                                    onClick={() => {
-                                        const changedSlide = setCurrentSlide(part.index)
-                                        if (!changedSlide) return
-                                        trackNavigation('meny', currentIndex, part.index)
-                                    }}
-                                    aria-label={`Gå til slide ${part.index + 1}: ${part.name}`}>
-                                    {part.name}
-                                </Button>
-                            ))}
-                        </HStack>
+                <HStack className={'justify-between shrink-0 pb-(--ax-space-48)'} gap={'space-2'}>
+                    <Link
+                        as={NextLink}
+                        aria-label={'Til forsiden'}
+                        href={getUrl('/', meta)}
+                        className={'content-center h-12 max-w-48'}>
+                        <Image
+                            className={'block dark:hidden'}
+                            src={getAsset('/images/logo-light.svg', meta)}
+                            alt={'title'}
+                            width={200}
+                            height={100}
+                            priority
+                        />
+                        <Image
+                            className={'hidden dark:block'}
+                            src={getAsset('/images/logo-dark.svg', meta)}
+                            alt={'title'}
+                            width={200}
+                            height={100}
+                            priority
+                        />
+                    </Link>
+                    <HStack gap={'space-6'}>
+                        {structure?.parts?.map((part) => (
+                            <Button
+                                key={part.name + part.index}
+                                variant={
+                                    part.index === currentIndex ||
+                                    part.pages.find((page) => page.index === currentIndex)
+                                        ? 'primary'
+                                        : 'tertiary'
+                                }
+                                size="small"
+                                onClick={() => {
+                                    const changedSlide = setCurrentSlide(part.index)
+                                    if (!changedSlide) return
+                                    trackNavigation('meny', currentIndex, part.index)
+                                }}
+                                aria-label={`Gå til slide ${part.index + 1}: ${part.name}`}>
+                                {part.name}
+                            </Button>
+                        ))}
                     </HStack>
+                </HStack>
+
+                <Box className={'grow overflow-y-auto w-full'}>
                     <AnimatePresence initial={false} custom={direction} mode="popLayout">
                         <motion.div
                             key={currentIndex}
@@ -281,9 +282,13 @@ export default function CrashCourseView({
                             {slideDeckElements[currentIndex]}
                         </motion.div>
                     </AnimatePresence>
-                </VStack>
+                </Box>
 
-                <HStack className={'items-center justify-center w-full relative'} gap={'space-48'}>
+                <HStack
+                    className={
+                        'items-center justify-center w-full relative shrink-0 pt-(--ax-space-28)'
+                    }
+                    gap={'space-48'}>
                     <Button
                         className="rounded-full"
                         onClick={() => goToPrevSlide('knapp')}
@@ -305,19 +310,13 @@ export default function CrashCourseView({
                         Neste
                     </Button>
 
-                    <Box
-                        className="absolute h-full"
-                        style={{
-                            right: 0,
-                        }}>
-                        <Button
-                            variant="secondary"
-                            className="rounded-full"
-                            onClick={toggleFullscreen}
-                            aria-label={isFullscreen ? 'Avslutt fullskjerm' : 'Vis i fullskjerm'}>
-                            {isFullscreen ? <ShrinkIcon aria-hidden /> : <ExpandIcon aria-hidden />}
-                        </Button>
-                    </Box>
+                    <Button
+                        variant="secondary"
+                        className="rounded-full absolute flex self-center right-0"
+                        onClick={toggleFullscreen}
+                        aria-label={isFullscreen ? 'Avslutt fullskjerm' : 'Vis i fullskjerm'}>
+                        {isFullscreen ? <ShrinkIcon aria-hidden /> : <ExpandIcon aria-hidden />}
+                    </Button>
                 </HStack>
             </VStack>
         </Box>
