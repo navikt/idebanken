@@ -15,7 +15,7 @@ export function CrashCoursePlan({ meta, part }: PartData<Part_Idebanken_Crash_Co
             wrap={false}
             gap={'0'}
             className={
-                'divide-x divide-(--ax-border-subtle) *:px-(--ax-space-32) *:first:pl-0 *:last:pr-0'
+                'divide-x divide-(--ax-border-default) *:px-(--ax-space-32) *:first:pl-0 *:last:pr-0'
             }>
             {crashCourseParts.map((crashCoursePart, index) => (
                 <VStack key={index}>
