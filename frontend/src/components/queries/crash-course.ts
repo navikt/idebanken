@@ -104,10 +104,7 @@ export async function getCrashCourseSlideContents(
             return {
                 index: pathToSlideDeckIndex.get(part._path) ?? -1,
                 localIndex: partIdx,
-                name:
-                    part.type === 'idebanken:crash-course-part'
-                        ? `Del ${partIdx}`
-                        : (part.displayName ?? '[Mangler tittel]'),
+                name: part.displayName ?? '[Mangler tittel]',
                 path: part._path,
                 pages: partChildren.map((page, pageIdx) => ({
                     index: pathToSlideDeckIndex.get(page._path) ?? -1,

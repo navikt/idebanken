@@ -1,9 +1,10 @@
-import { Bleed, BleedProps, PageBlockProps } from '@navikt/ds-react'
+import { Bleed, BleedProps, Box, PageBlockProps } from '@navikt/ds-react'
 import { PageBlock } from '@navikt/ds-react/Page'
 import React, { type PropsWithChildren } from 'react'
 import { PAGE_FULL_WIDTH, PAGE_TEXT_WIDTH } from '~/utils/constants'
 import { AkselColor } from '@navikt/ds-react/types/theme'
 import { MetaData } from '@enonic/nextjs-adapter'
+import classNames from 'classnames'
 
 interface BleedingBackgroundPageBlockProps extends PageBlockProps, PropsWithChildren {
     bgColor?: string | null
@@ -62,7 +63,11 @@ export default function BleedingBackgroundPageBlock({
     const resolvedGutters = resolveGutterOverride(resolvedWidth, noGutters)
 
     if (meta?.type?.startsWith('idebanken:crash-course')) {
-        return children
+        return (
+            <Box className={classNames(className, crashCourseWidthToPadding(width))}>
+                {children}
+            </Box>
+        )
     }
 
     return (
@@ -98,4 +103,21 @@ export const legacyBgToBrandColorMap = (bgColorOrBrand?: string | null): AkselCo
         return
     }
     return bgColorOrBrand as AkselColor
+}
+
+const crashCourseWidthToPadding = (width?: string) => {
+    switch (width) {
+        case 'text':
+            return 'px-[25%]'
+        case 'md':
+            return 'px-[20%]'
+        case 'lg':
+            return 'px-[15%]'
+        case 'xl':
+            return 'px-[10%]'
+        case '2xl':
+            return 'px-[5%]'
+        default:
+            return ''
+    }
 }
