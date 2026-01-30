@@ -2,7 +2,7 @@
 
 import React, { type JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
-import { Box, Button, HStack, Link, ProgressBar, VStack } from '@navikt/ds-react'
+import { Box, Button, HStack, Link, ProgressBar, ToggleGroup, VStack } from '@navikt/ds-react'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 import { CrashCourseStructure } from '~/components/queries/crash-course'
 import NextLink from 'next/link'
@@ -12,6 +12,7 @@ import { ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
 import { usePathname, useRouter } from 'next/navigation'
 import classNames from 'classnames'
 import LoadingCircles from '~/components/common/LoadingCircles'
+import { ToggleGroupItem } from '@navikt/ds-react/ToggleGroup'
 
 type Direction = 'right' | 'left'
 
@@ -253,27 +254,29 @@ export default function CrashCourseView({
                             priority
                         />
                     </Link>
-                    <HStack gap={'space-6'}>
-                        {structure?.parts?.map((part) => (
-                            <Button
-                                key={part.name + part.index}
-                                variant={
+                    <ToggleGroup
+                        className={'rounded-full'}
+                        size={'small'}
+                        onChange={(value) => {
+                            const changedSlide = setCurrentSlide(Number(value))
+                            if (!changedSlide) return
+                            trackNavigation('meny', currentIndex, Number(value))
+                        }}
+                        value={structure?.parts
+                            ?.find(
+                                (part) =>
                                     part.index === currentIndex ||
                                     part.pages.find((page) => page.index === currentIndex)
-                                        ? 'primary'
-                                        : 'tertiary'
-                                }
-                                size="small"
-                                onClick={() => {
-                                    const changedSlide = setCurrentSlide(part.index)
-                                    if (!changedSlide) return
-                                    trackNavigation('meny', currentIndex, part.index)
-                                }}
-                                aria-label={`Gå til slide ${part.index + 1}: ${part.name}`}>
-                                {part.name}
-                            </Button>
+                            )
+                            ?.index?.toString()}>
+                        {structure?.parts?.map((part) => (
+                            <ToggleGroupItem
+                                key={part.name}
+                                value={part.index.toString()}
+                                label={part.name}
+                            />
                         ))}
-                    </HStack>
+                    </ToggleGroup>
                 </HStack>
 
                 <Box className={'grow overflow-y-auto overflow-x-clip w-full'}>
