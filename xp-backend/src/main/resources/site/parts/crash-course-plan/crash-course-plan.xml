@@ -5,19 +5,19 @@
     <form>
         <item-set name="parts">
             <label>Deler</label>
-            <occurrences minimum="1" maximum="0"/>
+            <occurrences minimum="0" maximum="0"/>
             <items>
                 <input type="TextLine" name="label">
                     <label>Etikett</label>
-                    <occurrences minimum="1" maximum="1"/>
+                    <occurrences minimum="0" maximum="1"/>
                 </input>
                 <input type="TextLine" name="title">
                     <label>Tittel</label>
-                    <occurrences minimum="1" maximum="1"/>
+                    <occurrences minimum="0" maximum="1"/>
                 </input>
                 <item-set name="slides">
                     <label>Underdeler</label>
-                    <occurrences minimum="1" maximum="0"/>
+                    <occurrences minimum="0" maximum="0"/>
                     <items>
                         <input type="MediaSelector" name="icon">
                             <label>Ikon</label>
@@ -29,7 +29,7 @@
                         </input>
                         <input type="TextLine" name="text">
                             <label>Tekst</label>
-                            <occurrences minimum="1" maximum="1"/>
+                            <occurrences minimum="0" maximum="1"/>
                         </input>
                     </items>
                 </item-set>

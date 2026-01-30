@@ -3,21 +3,21 @@ export type CrashCoursePlan = {
   /**
    * Deler
    */
-  parts: Array<{
+  parts?: Array<{
     /**
      * Etikett
      */
-    label: string;
+    label?: string;
 
     /**
      * Tittel
      */
-    title: string;
+    title?: string;
 
     /**
      * Underdeler
      */
-    slides: Array<{
+    slides?: Array<{
       /**
        * Ikon
        */
@@ -26,7 +26,7 @@ export type CrashCoursePlan = {
       /**
        * Tekst
        */
-      text: string;
+      text?: string;
     }>;
   }>;
 };
