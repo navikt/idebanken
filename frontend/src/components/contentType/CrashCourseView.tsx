@@ -16,8 +16,9 @@ import { ToggleGroupItem } from '@navikt/ds-react/ToggleGroup'
 
 type Direction = 'right' | 'left'
 
-const targetWidth = 1440 / 1.5
-const targetHeight = 907 / 1.5
+const scale = 1.5
+const targetWidth = 1440 / scale
+const targetHeight = 907 / scale
 
 export default function CrashCourseView({
     slideDeckElements,
@@ -255,7 +256,13 @@ export default function CrashCourseView({
                         />
                     </Link>
                     <ToggleGroup
-                        className={'rounded-full'}
+                        className={classNames(
+                            '*:bg-(--ax-bg-softA)',
+                            '*:rounded-full',
+                            '[&>div>button]:rounded-none',
+                            '[&>div>button:first-child]:rounded-l-full',
+                            '[&>div>button:last-child]:rounded-r-full'
+                        )}
                         size={'small'}
                         onChange={(value) => {
                             const changedSlide = setCurrentSlide(Number(value))
@@ -269,7 +276,7 @@ export default function CrashCourseView({
                                     part.pages.find((page) => page.index === currentIndex)
                             )
                             ?.index?.toString()}>
-                        {structure?.parts?.map((part) => (
+                        {structure?.parts?.map((part, i) => (
                             <ToggleGroupItem
                                 key={part.name}
                                 value={part.index.toString()}
@@ -304,7 +311,7 @@ export default function CrashCourseView({
 
                 <HStack
                     className={classNames(
-                        'items-center justify-center w-full relative shrink-0 pt-(--ax-space-28)',
+                        'items-center justify-center w-full relative shrink-0 pt-(--ax-space-24)',
                         loading ? 'hidden' : ''
                     )}
                     gap={'space-48'}>
@@ -316,6 +323,7 @@ export default function CrashCourseView({
                         Forrige
                     </Button>
                     <ProgressBar
+                        size={'small'}
                         value={currentIndex}
                         aria-label={`Slide ${currentIndex + 1} av ${slideDeckElements.length}`}
                         valueMax={slideDeckElements.length - 1}
