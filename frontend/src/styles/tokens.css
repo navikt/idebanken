@@ -365,6 +365,7 @@
     --ax-border-subtle: var(--ib-border-pink-subtle);
     --ax-border-subtleA: var(--ax-border-neutral-subtleA);
     --ax-border-default: var(--ib-border-pink);
+    --ax-border-neutral: var(--ib-border-pink);
 
     --ax-text-accent: var(--ib-text-pink);
     --ax-text-accent-subtle: var(--ib-text-pink-subtle);
