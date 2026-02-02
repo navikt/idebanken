@@ -31,7 +31,7 @@ export default function CrashCourseView({
 }) {
     const [loading, setLoading] = useState(true)
     const [currentIndex, setCurrentIndex] = useState(0)
-    const [currentSlideGroupIndex, setCurrentSlideGroupIndex] = useState('0')
+    const [currentSlideGroupIndex, setCurrentSlideGroupIndex] = useState(0)
     const [direction, setDirection] = useState<Direction>('right')
     const router = useRouter()
     const pathname = usePathname()
@@ -201,13 +201,11 @@ export default function CrashCourseView({
     useEffect(() => {
         slideStartRef.current = Date.now()
         setCurrentSlideGroupIndex(
-            structure?.parts
-                ?.find(
-                    (part) =>
-                        part.index === currentIndex ||
-                        part.pages.find((page) => page.index === currentIndex)
-                )
-                ?.index?.toString() ?? '0'
+            structure?.parts?.find(
+                (part) =>
+                    part.index === currentIndex ||
+                    part.pages.find((page) => page.index === currentIndex)
+            )?.index ?? 0
         )
     }, [currentIndex, structure?.parts])
 
@@ -280,10 +278,11 @@ export default function CrashCourseView({
                                 if (!changedSlide) return
                                 trackNavigation('meny', currentIndex, Number(value))
                             }}
-                            value={currentSlideGroupIndex}>
+                            value={currentSlideGroupIndex?.toString()}>
                             {structure?.parts?.map((part, i) => (
                                 <ToggleGroupItem
                                     className={classNames(
+                                        part.index === currentSlideGroupIndex ? 'underline' : '',
                                         i === 0 ? 'pl-(--ax-space-24)' : '',
                                         i === structure?.parts?.length - 1
                                             ? 'pr-(--ax-space-24)'
