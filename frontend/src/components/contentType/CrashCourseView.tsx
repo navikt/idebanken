@@ -239,7 +239,7 @@ export default function CrashCourseView({
                 }}>
                 <HStack
                     className={classNames(
-                        'justify-between shrink-0 pb-(--ax-space-48)',
+                        'justify-between shrink-0 pb-(--ax-space-48) items-center',
                         loading ? 'hidden' : ''
                     )}
                     gap={'space-2'}>
@@ -247,7 +247,7 @@ export default function CrashCourseView({
                         as={NextLink}
                         aria-label={'Til forsiden'}
                         href={getUrl('/', meta)}
-                        className={'content-center h-12 max-w-48'}>
+                        className={'content-center h-10 max-w-48'}>
                         <Image
                             className={'block dark:hidden'}
                             src={getAsset('/images/logo-light.svg', meta)}
@@ -282,6 +282,10 @@ export default function CrashCourseView({
                         value={currentSlideGroupIndex}>
                         {structure?.parts?.map((part, i) => (
                             <ToggleGroupItem
+                                className={classNames(
+                                    i === 0 ? 'pl-(--ax-space-24)' : '',
+                                    i === structure?.parts?.length - 1 ? 'pr-(--ax-space-24)' : ''
+                                )}
                                 key={part.name}
                                 value={part.index.toString()}
                                 label={part.name}
@@ -319,8 +323,14 @@ export default function CrashCourseView({
                         loading ? 'hidden' : ''
                     )}
                     gap={'space-48'}>
+                    {/* Background bleed element */}
+                    <Box
+                        className="absolute top-0 left-1/2 -translate-x-1/2 w-2500 h-1250 bg-(--ax-bg-softA) -z-10"
+                        aria-hidden
+                    />
                     <Button
-                        className="rounded-full"
+                        className="rounded-full px-(--ax-space-16)"
+                        size={'xsmall'}
                         onClick={() => goToPrevSlide('knapp')}
                         disabled={currentIndex === 0}
                         aria-label="Forrige slide">
@@ -334,7 +344,8 @@ export default function CrashCourseView({
                         className={'w-80'}
                     />
                     <Button
-                        className="rounded-full"
+                        className="rounded-full px-(--ax-space-16)"
+                        size={'xsmall'}
                         onClick={() => goToNextSlide('knapp')}
                         disabled={currentIndex === slideDeckElements.length - 1}
                         aria-label="Neste slide">
@@ -342,8 +353,9 @@ export default function CrashCourseView({
                     </Button>
 
                     <Button
+                        className="rounded-full absolute flex self-center right-0 px-(--ax-space-24)"
+                        size={'xsmall'}
                         variant="secondary"
-                        className="rounded-full absolute flex self-center right-0"
                         onClick={toggleFullscreen}
                         aria-label={isFullscreen ? 'Avslutt fullskjerm' : 'Vis i fullskjerm'}>
                         {isFullscreen ? <ShrinkIcon aria-hidden /> : <ExpandIcon aria-hidden />}
