@@ -37,6 +37,7 @@ export default function CrashCourseView({
     const pathname = usePathname()
     const slideStartRef = useRef<number>(Date.now())
     const containerRef = useRef<HTMLDivElement>(null)
+    const navRef = useRef<HTMLElement>(null)
     const [scale, setScale] = useState(1)
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false)
 
@@ -144,6 +145,10 @@ export default function CrashCourseView({
 
     const handleKeyDown = useCallback(
         (event: KeyboardEvent) => {
+            if (navRef.current?.contains(document.activeElement)) {
+                return
+            }
+
             const modifiers = []
             if (event.ctrlKey) modifiers.push('Ctrl')
             if (event.metaKey) modifiers.push('Cmd')
@@ -263,7 +268,7 @@ export default function CrashCourseView({
                             priority
                         />
                     </Link>
-                    <nav>
+                    <nav ref={navRef} onMouseDown={(e) => e.preventDefault()}>
                         <ToggleGroup
                             className={classNames(
                                 '*:bg-(--ax-bg-softA)',
