@@ -265,33 +265,37 @@ export default function CrashCourseView({
                             priority
                         />
                     </Link>
-                    <ToggleGroup
-                        className={classNames(
-                            '*:bg-(--ax-bg-softA)',
-                            '*:rounded-full',
-                            '[&>div>button]:rounded-none',
-                            '[&>div>button:first-child]:rounded-l-full',
-                            '[&>div>button:last-child]:rounded-r-full'
-                        )}
-                        size={'small'}
-                        onChange={(value) => {
-                            const changedSlide = setCurrentSlide(Number(value))
-                            if (!changedSlide) return
-                            trackNavigation('meny', currentIndex, Number(value))
-                        }}
-                        value={currentSlideGroupIndex}>
-                        {structure?.parts?.map((part, i) => (
-                            <ToggleGroupItem
-                                className={classNames(
-                                    i === 0 ? 'pl-(--ax-space-24)' : '',
-                                    i === structure?.parts?.length - 1 ? 'pr-(--ax-space-24)' : ''
-                                )}
-                                key={part.name}
-                                value={part.index.toString()}
-                                label={part.name}
-                            />
-                        ))}
-                    </ToggleGroup>
+                    <nav>
+                        <ToggleGroup
+                            className={classNames(
+                                '*:bg-(--ax-bg-softA)',
+                                '*:rounded-full',
+                                '[&>div>button]:rounded-none',
+                                '[&>div>button:first-child]:rounded-l-full',
+                                '[&>div>button:last-child]:rounded-r-full'
+                            )}
+                            size={'small'}
+                            onChange={(value) => {
+                                const changedSlide = setCurrentSlide(Number(value))
+                                if (!changedSlide) return
+                                trackNavigation('meny', currentIndex, Number(value))
+                            }}
+                            value={currentSlideGroupIndex}>
+                            {structure?.parts?.map((part, i) => (
+                                <ToggleGroupItem
+                                    className={classNames(
+                                        i === 0 ? 'pl-(--ax-space-24)' : '',
+                                        i === structure?.parts?.length - 1
+                                            ? 'pr-(--ax-space-24)'
+                                            : ''
+                                    )}
+                                    key={part.name}
+                                    value={part.index.toString()}
+                                    label={part.name}
+                                />
+                            ))}
+                        </ToggleGroup>
+                    </nav>
                 </HStack>
 
                 <Box className={'grow overflow-y-auto overflow-x-clip w-full'}>
@@ -318,6 +322,7 @@ export default function CrashCourseView({
                 </Box>
 
                 <HStack
+                    as={'nav'}
                     className={classNames(
                         'items-center justify-center w-full relative shrink-0 pt-(--ax-space-24)',
                         loading ? 'hidden' : ''
