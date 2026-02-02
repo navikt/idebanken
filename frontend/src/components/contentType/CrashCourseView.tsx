@@ -31,6 +31,7 @@ export default function CrashCourseView({
 }) {
     const [loading, setLoading] = useState(true)
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [currentSlideGroupIndex, setCurrentSlideGroupIndex] = useState('0')
     const [direction, setDirection] = useState<Direction>('right')
     const router = useRouter()
     const pathname = usePathname()
@@ -196,10 +197,19 @@ export default function CrashCourseView({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    // Reset/start timer whenever the slide changes
+    // Reset/start timer and update current selected slide group
     useEffect(() => {
         slideStartRef.current = Date.now()
-    }, [currentIndex])
+        setCurrentSlideGroupIndex(
+            structure?.parts
+                ?.find(
+                    (part) =>
+                        part.index === currentIndex ||
+                        part.pages.find((page) => page.index === currentIndex)
+                )
+                ?.index?.toString() ?? '0'
+        )
+    }, [currentIndex, structure?.parts])
 
     const variants: Variants = {
         enter: (direction: Direction) => ({
@@ -269,13 +279,7 @@ export default function CrashCourseView({
                             if (!changedSlide) return
                             trackNavigation('meny', currentIndex, Number(value))
                         }}
-                        value={structure?.parts
-                            ?.find(
-                                (part) =>
-                                    part.index === currentIndex ||
-                                    part.pages.find((page) => page.index === currentIndex)
-                            )
-                            ?.index?.toString()}>
+                        value={currentSlideGroupIndex}>
                         {structure?.parts?.map((part, i) => (
                             <ToggleGroupItem
                                 key={part.name}
