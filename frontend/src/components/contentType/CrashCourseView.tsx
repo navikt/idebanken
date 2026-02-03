@@ -2,13 +2,29 @@
 
 import React, { type JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
-import { Box, Button, HStack, Link, ProgressBar, ToggleGroup, VStack } from '@navikt/ds-react'
+import {
+    Box,
+    Button,
+    HStack,
+    Link,
+    Popover,
+    ProgressBar,
+    TextField,
+    ToggleGroup,
+    VStack,
+} from '@navikt/ds-react'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 import { CrashCourseStructure } from '~/components/queries/crash-course'
 import NextLink from 'next/link'
 import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
-import { ArrowLeftIcon, ArrowRightIcon, ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
+import {
+    ArrowLeftIcon,
+    ArrowRightIcon,
+    ExpandIcon,
+    ShrinkIcon,
+    WrenchIcon,
+} from '@navikt/aksel-icons'
 import { usePathname, useRouter } from 'next/navigation'
 import classNames from 'classnames'
 import LoadingCircles from '~/components/common/LoadingCircles'
@@ -16,9 +32,10 @@ import { ToggleGroupItem } from '@navikt/ds-react/ToggleGroup'
 
 type Direction = 'right' | 'left'
 
-const scale = 1.5
-const targetWidth = 1440 / scale
-const targetHeight = 907 / scale
+// Moved to state for tuning
+// const scale = 1.5
+// const targetWidth = 1440 / scale
+// const targetHeight = 907 / scale
 
 export default function CrashCourseView({
     slideDeckElements,
@@ -41,6 +58,19 @@ export default function CrashCourseView({
     const [scale, setScale] = useState(1)
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false)
 
+    // Temporary tuning state
+    const [temporaryAnchorEl, setTemporaryAnchorEl] = useState<HTMLElement | null>(null)
+    const [temporaryOpenState, setTemporaryOpenState] = useState(false)
+    const [temporaryScaleParam, setTemporaryScaleParam] = useState(1.5)
+    const [temporaryWidthParam, setTemporaryWidthParam] = useState(1440)
+    const [temporaryHeightParam, setTemporaryHeightParam] = useState(907)
+    const [temporaryPaddingXParam, setTemporaryPaddingXParam] = useState(48)
+    const [temporaryPaddingYParam, setTemporaryPaddingYParam] = useState(48)
+    const [temporaryPaddingXYParam, setTemporaryPaddingXYParam] = useState(48)
+
+    const temporaryTargetWidth = temporaryWidthParam / temporaryScaleParam
+    const temporaryTargetHeight = temporaryHeightParam / temporaryScaleParam
+
     useEffect(() => {
         const handleResize = () => {
             if (!containerRef.current) return
@@ -49,9 +79,14 @@ export default function CrashCourseView({
             const availableWidth = container.clientWidth
             const availableHeight = container.clientHeight
 
-            const padding = 48 // Add some padding around the slide
-            const scaleX = (availableWidth - padding) / targetWidth
-            const scaleY = (availableHeight - padding) / targetHeight
+            const scaleX =
+                (availableWidth -
+                    (temporaryPaddingXYParam ? temporaryPaddingXYParam : temporaryPaddingXParam)) /
+                temporaryTargetWidth
+            const scaleY =
+                (availableHeight -
+                    (temporaryPaddingXYParam ? temporaryPaddingXYParam : temporaryPaddingYParam)) /
+                temporaryTargetHeight
 
             setScale(Math.min(scaleX, scaleY))
         }
@@ -59,7 +94,13 @@ export default function CrashCourseView({
         handleResize()
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
-    }, [])
+    }, [
+        temporaryTargetWidth,
+        temporaryTargetHeight,
+        temporaryPaddingXParam,
+        temporaryPaddingYParam,
+        temporaryPaddingXYParam,
+    ])
 
     useEffect(() => {
         const onFullscreenChange = () => {
@@ -234,8 +275,8 @@ export default function CrashCourseView({
             <VStack
                 className={'justify-between'}
                 style={{
-                    width: targetWidth,
-                    height: targetHeight,
+                    width: temporaryTargetWidth,
+                    height: temporaryTargetHeight,
                     scale,
                     transformOrigin: 'center center',
                     flexShrink: 0,
@@ -340,6 +381,86 @@ export default function CrashCourseView({
                         className="absolute top-0 left-1/2 -translate-x-1/2 w-2500 h-1250 bg-(--ax-bg-moderate) -z-10"
                         aria-hidden
                     />
+                    <Button
+                        ref={setTemporaryAnchorEl}
+                        onClick={() => setTemporaryOpenState(!temporaryOpenState)}
+                        aria-expanded={temporaryOpenState}
+                        aria-controls={temporaryOpenState ? 'temporary-tuning-popover' : undefined}
+                        size="xsmall"
+                        className="rounded-full px-(--ax-space-16) absolute left-0"
+                        variant="tertiary"
+                        icon={<WrenchIcon aria-hidden />}
+                        aria-label="Innstillinger"
+                    />
+                    <Popover
+                        open={temporaryOpenState}
+                        onClose={() => setTemporaryOpenState(false)}
+                        anchorEl={temporaryAnchorEl}
+                        id="temporary-tuning-popover">
+                        <Popover.Content>
+                            <VStack gap="2">
+                                <TextField
+                                    label="Skalering"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryScaleParam}
+                                    onChange={(e) => setTemporaryScaleParam(Number(e.target.value))}
+                                    step="0.01"
+                                />
+                                <TextField
+                                    label="Padding X + Y"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryPaddingXYParam}
+                                    onChange={(e) => {
+                                        setTemporaryPaddingXYParam(Number(e.target.value))
+                                        setTemporaryPaddingYParam(Number(e.target.value))
+                                        setTemporaryPaddingXParam(Number(e.target.value))
+                                    }}
+                                    step="1"
+                                />
+                                <TextField
+                                    label="Padding X"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryPaddingXParam}
+                                    onChange={(e) => {
+                                        setTemporaryPaddingXYParam(0)
+                                        setTemporaryPaddingXParam(Number(e.target.value))
+                                    }}
+                                    step="1"
+                                />
+                                <TextField
+                                    label="Padding Y"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryPaddingYParam}
+                                    onChange={(e) => {
+                                        setTemporaryPaddingXYParam(0)
+                                        setTemporaryPaddingYParam(Number(e.target.value))
+                                    }}
+                                    step="1"
+                                />
+                                <TextField
+                                    label="Original bredde"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryWidthParam}
+                                    onChange={(e) => setTemporaryWidthParam(Number(e.target.value))}
+                                />
+                                <TextField
+                                    label="Original høyde"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryHeightParam}
+                                    onChange={(e) =>
+                                        setTemporaryHeightParam(Number(e.target.value))
+                                    }
+                                />
+                            </VStack>
+                        </Popover.Content>
+                    </Popover>
+
                     <Button
                         className="rounded-full px-(--ax-space-16)"
                         size={'xsmall'}
