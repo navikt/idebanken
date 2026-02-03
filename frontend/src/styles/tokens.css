@@ -364,7 +364,7 @@
     --ax-border-strong: var(--ib-border-pink-strong);
     --ax-border-subtle: var(--ib-border-pink-subtle);
     --ax-border-subtleA: var(--ax-border-neutral-subtleA);
-    --ax-border-default: var(color-mix(in oklab, var(--ib-bg-pink-strong) 30%, transparent));
+    --ax-border-default: color-mix(in oklab, var(--ib-bg-pink-strong) 30%, transparent);
     --ax-border-neutral: var(--ib-border-pink);
     --ax-border-neutral-subtleA: color-mix(in oklab, var(--ib-bg-pink-strong) 30%, transparent);
     --ax-border-neutral-subtle: #926c7c4d;
