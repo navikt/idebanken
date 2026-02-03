@@ -26,6 +26,7 @@ export type CrashCourseStructure = {
         pages: Array<{
             index: number
             localIndex: number
+            partIndex: number
             name: string
             path: string
         }>
@@ -109,6 +110,7 @@ export async function getCrashCourseSlideContents(
                 pages: partChildren.map((page, pageIdx) => ({
                     index: pathToSlideDeckIndex.get(page._path) ?? -1,
                     localIndex: pageIdx,
+                    partIndex: partIdx,
                     name: page.dataAsJson.title ?? page.displayName ?? '',
                     path: page._path,
                 })),

@@ -8,7 +8,7 @@ import { CrashCourseStructure } from '~/components/queries/crash-course'
 import NextLink from 'next/link'
 import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
-import { ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
+import { ArrowLeftIcon, ArrowRightIcon, ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
 import { usePathname, useRouter } from 'next/navigation'
 import classNames from 'classnames'
 import LoadingCircles from '~/components/common/LoadingCircles'
@@ -31,11 +31,13 @@ export default function CrashCourseView({
 }) {
     const [loading, setLoading] = useState(true)
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [currentSlideGroupIndex, setCurrentSlideGroupIndex] = useState(0)
     const [direction, setDirection] = useState<Direction>('right')
     const router = useRouter()
     const pathname = usePathname()
     const slideStartRef = useRef<number>(Date.now())
     const containerRef = useRef<HTMLDivElement>(null)
+    const navRef = useRef<HTMLElement>(null)
     const [scale, setScale] = useState(1)
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false)
 
@@ -143,6 +145,10 @@ export default function CrashCourseView({
 
     const handleKeyDown = useCallback(
         (event: KeyboardEvent) => {
+            if (navRef.current?.contains(document.activeElement)) {
+                return
+            }
+
             const modifiers = []
             if (event.ctrlKey) modifiers.push('Ctrl')
             if (event.metaKey) modifiers.push('Cmd')
@@ -196,10 +202,17 @@ export default function CrashCourseView({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    // Reset/start timer whenever the slide changes
+    // Reset/start timer and update current selected slide group
     useEffect(() => {
         slideStartRef.current = Date.now()
-    }, [currentIndex])
+        setCurrentSlideGroupIndex(
+            structure?.parts?.find(
+                (part) =>
+                    part.index === currentIndex ||
+                    part.pages.find((page) => page.index === currentIndex)
+            )?.index ?? 0
+        )
+    }, [currentIndex, structure?.parts])
 
     const variants: Variants = {
         enter: (direction: Direction) => ({
@@ -217,7 +230,7 @@ export default function CrashCourseView({
         <Box
             ref={containerRef}
             data-color={'ib-brand-pink'}
-            className="h-screen w-screen flex items-center justify-center overflow-hidden bg-(--ax-bg-softA)">
+            className="h-screen w-screen flex items-center justify-center overflow-hidden bg-(--ax-bg-moderate)/10">
             <VStack
                 className={'justify-between'}
                 style={{
@@ -229,7 +242,7 @@ export default function CrashCourseView({
                 }}>
                 <HStack
                     className={classNames(
-                        'justify-between shrink-0 pb-(--ax-space-48)',
+                        'justify-between shrink-0 pb-(--ax-space-48) items-center',
                         loading ? 'hidden' : ''
                     )}
                     gap={'space-2'}>
@@ -237,7 +250,7 @@ export default function CrashCourseView({
                         as={NextLink}
                         aria-label={'Til forsiden'}
                         href={getUrl('/', meta)}
-                        className={'content-center h-12 max-w-48'}>
+                        className={'content-center h-10 max-w-48'}>
                         <Image
                             className={'block dark:hidden'}
                             src={getAsset('/images/logo-light.svg', meta)}
@@ -255,35 +268,41 @@ export default function CrashCourseView({
                             priority
                         />
                     </Link>
-                    <ToggleGroup
-                        className={classNames(
-                            '*:bg-(--ax-bg-softA)',
-                            '*:rounded-full',
-                            '[&>div>button]:rounded-none',
-                            '[&>div>button:first-child]:rounded-l-full',
-                            '[&>div>button:last-child]:rounded-r-full'
-                        )}
-                        size={'small'}
-                        onChange={(value) => {
-                            const changedSlide = setCurrentSlide(Number(value))
-                            if (!changedSlide) return
-                            trackNavigation('meny', currentIndex, Number(value))
-                        }}
-                        value={structure?.parts
-                            ?.find(
-                                (part) =>
-                                    part.index === currentIndex ||
-                                    part.pages.find((page) => page.index === currentIndex)
-                            )
-                            ?.index?.toString()}>
-                        {structure?.parts?.map((part, i) => (
-                            <ToggleGroupItem
-                                key={part.name}
-                                value={part.index.toString()}
-                                label={part.name}
-                            />
-                        ))}
-                    </ToggleGroup>
+                    <nav ref={navRef} onMouseDown={(e) => e.preventDefault()}>
+                        <ToggleGroup
+                            className={classNames(
+                                '*:bg-(--ax-bg-moderate)',
+                                '*:rounded-full',
+                                '[&>div]:shadow-none',
+                                '[&>div>button:first-child]:rounded-l-full',
+                                '[&>div>button:last-child]:rounded-r-full',
+                                '[&_.aksel-toggle-group__button:before]:h-full',
+                                '[&_.aksel-toggle-group__button[data-selected="true"]]:bg-(--ax-bg-strong)'
+                            )}
+                            size={'small'}
+                            onChange={(value) => {
+                                const changedSlide = setCurrentSlide(Number(value))
+                                if (!changedSlide) return
+                                trackNavigation('meny', currentIndex, Number(value))
+                            }}
+                            value={currentSlideGroupIndex?.toString()}>
+                            {structure?.parts?.map((part, i) => (
+                                <ToggleGroupItem
+                                    className={classNames(
+                                        part.index === currentSlideGroupIndex ? 'underline' : '',
+                                        i === 0 ? 'pl-(--ax-space-24)' : '',
+                                        i === structure?.parts?.length - 1
+                                            ? 'pr-(--ax-space-24)'
+                                            : '',
+                                        'rounded-none'
+                                    )}
+                                    key={part.name}
+                                    value={part.index.toString()}
+                                    label={part.name}
+                                />
+                            ))}
+                        </ToggleGroup>
+                    </nav>
                 </HStack>
 
                 <Box className={'grow overflow-y-auto overflow-x-clip w-full'}>
@@ -310,15 +329,23 @@ export default function CrashCourseView({
                 </Box>
 
                 <HStack
+                    as={'nav'}
                     className={classNames(
                         'items-center justify-center w-full relative shrink-0 pt-(--ax-space-24)',
                         loading ? 'hidden' : ''
                     )}
                     gap={'space-48'}>
+                    {/* Background bleed element */}
+                    <Box
+                        className="absolute top-0 left-1/2 -translate-x-1/2 w-2500 h-1250 bg-(--ax-bg-moderate) -z-10"
+                        aria-hidden
+                    />
                     <Button
-                        className="rounded-full"
+                        className="rounded-full px-(--ax-space-16)"
+                        size={'xsmall'}
                         onClick={() => goToPrevSlide('knapp')}
                         disabled={currentIndex === 0}
+                        icon={<ArrowLeftIcon />}
                         aria-label="Forrige slide">
                         Forrige
                     </Button>
@@ -330,16 +357,20 @@ export default function CrashCourseView({
                         className={'w-80'}
                     />
                     <Button
-                        className="rounded-full"
+                        className="rounded-full px-(--ax-space-16)"
+                        size={'xsmall'}
                         onClick={() => goToNextSlide('knapp')}
                         disabled={currentIndex === slideDeckElements.length - 1}
+                        icon={<ArrowRightIcon />}
+                        iconPosition={'right'}
                         aria-label="Neste slide">
                         Neste
                     </Button>
 
                     <Button
+                        className="rounded-full absolute flex self-center right-0 px-(--ax-space-24)"
+                        size={'xsmall'}
                         variant="secondary"
-                        className="rounded-full absolute flex self-center right-0"
                         onClick={toggleFullscreen}
                         aria-label={isFullscreen ? 'Avslutt fullskjerm' : 'Vis i fullskjerm'}>
                         {isFullscreen ? <ShrinkIcon aria-hidden /> : <ExpandIcon aria-hidden />}
