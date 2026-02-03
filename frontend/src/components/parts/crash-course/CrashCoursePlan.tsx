@@ -8,6 +8,7 @@ import { getUrl, RENDER_MODE } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
 import React from 'react'
 import { PlaceholderComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
+import classNames from 'classnames'
 
 export function CrashCoursePlan({ meta, part }: PartData<Part_Idebanken_Crash_Course_Plan>) {
     const crashCourseParts = forceArray(part?.config?.parts)
@@ -29,9 +30,12 @@ export function CrashCoursePlan({ meta, part }: PartData<Part_Idebanken_Crash_Co
                 <VStack key={index}>
                     {crashCoursePart?.label && (
                         <Box
-                            className={
-                                'bg-(--ax-bg-moderateA) w-fit p-(--ax-space-12) rounded-full mb-(--ax-space-12)'
-                            }>
+                            className={classNames(
+                                'bg-(--ax-bg-moderateA) p-(--ax-space-12) rounded-full mb-(--ax-space-16)',
+                                crashCoursePart.label.length === 1
+                                    ? 'rounded-full *:text-xl w-(--ax-space-36) h-(--ax-space-36) flex items-center justify-center'
+                                    : 'w-fit'
+                            )}>
                             <BodyShort size={'small'}>{crashCoursePart.label}</BodyShort>
                         </Box>
                     )}
