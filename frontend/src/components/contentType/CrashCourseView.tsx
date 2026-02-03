@@ -8,7 +8,7 @@ import { CrashCourseStructure } from '~/components/queries/crash-course'
 import NextLink from 'next/link'
 import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
-import { ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
+import { ArrowLeftIcon, ArrowRightIcon, ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
 import { usePathname, useRouter } from 'next/navigation'
 import classNames from 'classnames'
 import LoadingCircles from '~/components/common/LoadingCircles'
@@ -275,7 +275,9 @@ export default function CrashCourseView({
                                 '*:rounded-full',
                                 '[&>div]:shadow-none',
                                 '[&>div>button:first-child]:rounded-l-full',
-                                '[&>div>button:last-child]:rounded-r-full'
+                                '[&>div>button:last-child]:rounded-r-full',
+                                '[&_.aksel-toggle-group__button:before]:h-full',
+                                '[&_.aksel-toggle-group__button[data-selected="true"]]:bg-(--ax-bg-strong)'
                             )}
                             size={'small'}
                             onChange={(value) => {
@@ -291,9 +293,6 @@ export default function CrashCourseView({
                                         i === 0 ? 'pl-(--ax-space-24)' : '',
                                         i === structure?.parts?.length - 1
                                             ? 'pr-(--ax-space-24)'
-                                            : '',
-                                        part.index !== currentSlideGroupIndex
-                                            ? 'hover:bg-(--ax-bg-strong)/30'
                                             : '',
                                         'rounded-none'
                                     )}
@@ -346,6 +345,7 @@ export default function CrashCourseView({
                         size={'xsmall'}
                         onClick={() => goToPrevSlide('knapp')}
                         disabled={currentIndex === 0}
+                        icon={<ArrowLeftIcon />}
                         aria-label="Forrige slide">
                         Forrige
                     </Button>
@@ -361,6 +361,8 @@ export default function CrashCourseView({
                         size={'xsmall'}
                         onClick={() => goToNextSlide('knapp')}
                         disabled={currentIndex === slideDeckElements.length - 1}
+                        icon={<ArrowRightIcon />}
+                        iconPosition={'right'}
                         aria-label="Neste slide">
                         Neste
                     </Button>
