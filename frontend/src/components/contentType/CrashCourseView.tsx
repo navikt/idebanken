@@ -274,8 +274,6 @@ export default function CrashCourseView({
                                 '*:bg-(--ax-bg-moderate)',
                                 '*:rounded-full',
                                 '[&>div]:shadow-none',
-                                '[&>div>button]:rounded-none',
-                                '[&>div>button:hover]:bg-(--ax-bg-strong)/30',
                                 '[&>div>button:first-child]:rounded-l-full',
                                 '[&>div>button:last-child]:rounded-r-full'
                             )}
@@ -293,7 +291,11 @@ export default function CrashCourseView({
                                         i === 0 ? 'pl-(--ax-space-24)' : '',
                                         i === structure?.parts?.length - 1
                                             ? 'pr-(--ax-space-24)'
-                                            : ''
+                                            : '',
+                                        part.index !== currentSlideGroupIndex
+                                            ? 'hover:bg-(--ax-bg-strong)/30'
+                                            : '',
+                                        'rounded-none'
                                     )}
                                     key={part.name}
                                     value={part.index.toString()}
