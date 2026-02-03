@@ -230,7 +230,7 @@ export default function CrashCourseView({
         <Box
             ref={containerRef}
             data-color={'ib-brand-pink'}
-            className="h-screen w-screen flex items-center justify-center overflow-hidden bg-(--ax-bg-softA)">
+            className="h-screen w-screen flex items-center justify-center overflow-hidden bg-(--ax-bg-moderate)/10">
             <VStack
                 className={'justify-between'}
                 style={{
@@ -271,9 +271,11 @@ export default function CrashCourseView({
                     <nav ref={navRef} onMouseDown={(e) => e.preventDefault()}>
                         <ToggleGroup
                             className={classNames(
-                                '*:bg-(--ax-bg-softA)',
+                                '*:bg-(--ax-bg-moderate)',
                                 '*:rounded-full',
+                                '[&>div]:shadow-none',
                                 '[&>div>button]:rounded-none',
+                                '[&>div>button:hover]:bg-(--ax-bg-strong)/30',
                                 '[&>div>button:first-child]:rounded-l-full',
                                 '[&>div>button:last-child]:rounded-r-full'
                             )}
@@ -334,7 +336,7 @@ export default function CrashCourseView({
                     gap={'space-48'}>
                     {/* Background bleed element */}
                     <Box
-                        className="absolute top-0 left-1/2 -translate-x-1/2 w-2500 h-1250 bg-(--ax-bg-softA) -z-10"
+                        className="absolute top-0 left-1/2 -translate-x-1/2 w-2500 h-1250 bg-(--ax-bg-moderate) -z-10"
                         aria-hidden
                     />
                     <Button
