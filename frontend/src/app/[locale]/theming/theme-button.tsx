@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Tooltip } from '@navikt/ds-react'
+import { Button, ButtonProps, Tooltip } from '@navikt/ds-react'
 import { useTheme } from 'next-themes'
 import React, { useCallback } from 'react'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
@@ -8,7 +8,7 @@ import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 function ThemeButton({
     withTooltip,
     ...props
-}: React.HTMLAttributes<HTMLButtonElement> & { withTooltip?: boolean }) {
+}: React.HTMLAttributes<HTMLButtonElement> & ButtonProps & { withTooltip?: boolean }) {
     const { resolvedTheme, setTheme } = useTheme()
     const changeThemeText = `Endre til ${resolvedTheme === 'dark' ? 'lyst' : 'mørkt'} tema`
 

@@ -51,6 +51,7 @@ import { QuotePartOrMacro } from './parts/QuotePartOrMacro'
 import RelatedTopics from './parts/RelatedTopics'
 import { CrashCoursePlan } from '~/components/parts/crash-course/CrashCoursePlan'
 import { CrashCourseTitle } from '~/components/parts/crash-course/CrashCourseTitle'
+import CrashCourseIntroButtons from '~/components/parts/crash-course/CrashCourseIntroButtons'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -247,4 +248,12 @@ ComponentRegistry.addPart(`${APP_NAME}:crash-course-plan`, {
 
 ComponentRegistry.addPart(`${APP_NAME}:crash-course-title`, {
     view: CrashCourseTitle,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:crash-course-intro-buttons`, {
+    view: CrashCourseIntroButtons,
+    configQuery: `{
+        showFullscreenButton
+        showThemeButton
+    }`,
 })
