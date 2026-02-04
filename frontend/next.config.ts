@@ -21,6 +21,7 @@ const config = {
     output: 'standalone',
     reactStrictMode: true,
     trailingSlash: false,
+    compress: true,
     transpilePackages: ['@enonic/nextjs-adapter'],
     webpack: getEnonicWebpackConfig,
     images: {
