@@ -1054,6 +1054,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   accordion?: Maybe<Part_Idebanken_Accordion>;
   article_card_list?: Maybe<Part_Idebanken_Article_Card_List>;
   button?: Maybe<Part_Idebanken_Button>;
+  crash_course_intro_buttons?: Maybe<Part_Idebanken_Crash_Course_Intro_Buttons>;
   crash_course_plan?: Maybe<Part_Idebanken_Crash_Course_Plan>;
   crash_course_title?: Maybe<Part_Idebanken_Crash_Course_Title>;
   downloads?: Maybe<Part_Idebanken_Downloads>;
@@ -1158,6 +1159,13 @@ export enum Part_Idebanken_Button_InternalOrExternalLink_OptionEnum {
   ExternalLink = 'externalLink',
   InternalLink = 'internalLink'
 }
+
+/** Part component application config for application ['idebanken'] and descriptor ['crash-course-intro-buttons'] */
+export type Part_Idebanken_Crash_Course_Intro_Buttons = {
+  __typename?: 'Part_idebanken_crash_course_intro_buttons';
+  showFullscreenButton?: Maybe<Scalars['Boolean']['output']>;
+  showThemeButton?: Maybe<Scalars['Boolean']['output']>;
+};
 
 /** Part component application config for application ['idebanken'] and descriptor ['crash-course-plan'] */
 export type Part_Idebanken_Crash_Course_Plan = {

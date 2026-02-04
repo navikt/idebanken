@@ -18,17 +18,12 @@ import { CrashCourseStructure } from '~/components/queries/crash-course'
 import NextLink from 'next/link'
 import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
-import {
-    ArrowLeftIcon,
-    ArrowRightIcon,
-    ExpandIcon,
-    ShrinkIcon,
-    WrenchIcon,
-} from '@navikt/aksel-icons'
+import { ArrowLeftIcon, ArrowRightIcon, WrenchIcon } from '@navikt/aksel-icons'
 import { usePathname, useRouter } from 'next/navigation'
 import classNames from 'classnames'
 import LoadingCircles from '~/components/common/LoadingCircles'
 import { ToggleGroupItem } from '@navikt/ds-react/ToggleGroup'
+import FullscreenButton from '~/components/common/FullscreenButton'
 
 type Direction = 'right' | 'left'
 
@@ -56,7 +51,6 @@ export default function CrashCourseView({
     const containerRef = useRef<HTMLDivElement>(null)
     const navRef = useRef<HTMLElement>(null)
     const [scale, setScale] = useState(1)
-    const [isFullscreen, setIsFullscreen] = useState<boolean>(false)
 
     // Temporary tuning state
     const [temporaryAnchorEl, setTemporaryAnchorEl] = useState<HTMLElement | null>(null)
@@ -101,26 +95,6 @@ export default function CrashCourseView({
         temporaryPaddingYParam,
         temporaryPaddingXYParam,
     ])
-
-    useEffect(() => {
-        const onFullscreenChange = () => {
-            setIsFullscreen(Boolean(document.fullscreenElement))
-        }
-        document.addEventListener('fullscreenchange', onFullscreenChange)
-        return () => document.removeEventListener('fullscreenchange', onFullscreenChange)
-    }, [])
-
-    const toggleFullscreen = useCallback(() => {
-        if (!document.fullscreenElement) {
-            void document.documentElement.requestFullscreen().catch(() => {
-                // noop if denied
-            })
-        } else {
-            void document.exitFullscreen().catch(() => {
-                // noop if failed
-            })
-        }
-    }, [])
 
     const setCurrentSlide = useCallback(
         (index: number) => {
@@ -485,17 +459,10 @@ export default function CrashCourseView({
                         icon={<ArrowRightIcon />}
                         iconPosition={'right'}
                         aria-label="Neste slide">
-                        Neste
+                        {currentIndex === 0 ? 'Start' : 'Neste'}
                     </Button>
 
-                    <Button
-                        className="rounded-full absolute flex self-center right-0 px-(--ax-space-24)"
-                        size={'xsmall'}
-                        variant="secondary"
-                        onClick={toggleFullscreen}
-                        aria-label={isFullscreen ? 'Avslutt fullskjerm' : 'Vis i fullskjerm'}>
-                        {isFullscreen ? <ShrinkIcon aria-hidden /> : <ExpandIcon aria-hidden />}
-                    </Button>
+                    <FullscreenButton className="absolute flex self-center right-0" />
                 </HStack>
             </VStack>
         </Box>

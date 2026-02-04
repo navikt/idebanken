@@ -4,6 +4,7 @@ export type ArticleCardList = import('./article-card-list').ArticleCardList;
 export type Button = import('./button').Button;
 export type CookieConsentOpen = import('./cookie-consent-open').CookieConsentOpen;
 export type CookieConsentToggle = import('./cookie-consent-toggle').CookieConsentToggle;
+export type CrashCourseIntroButtons = import('./crash-course-intro-buttons').CrashCourseIntroButtons;
 export type CrashCoursePlan = import('./crash-course-plan').CrashCoursePlan;
 export type CrashCourseTitle = import('./crash-course-title').CrashCourseTitle;
 export type Downloads = import('./downloads').Downloads;
@@ -31,6 +32,7 @@ declare global {
     'idebanken:button': Button;
     'idebanken:cookie-consent-open': CookieConsentOpen;
     'idebanken:cookie-consent-toggle': CookieConsentToggle;
+    'idebanken:crash-course-intro-buttons': CrashCourseIntroButtons;
     'idebanken:crash-course-plan': CrashCoursePlan;
     'idebanken:crash-course-title': CrashCourseTitle;
     'idebanken:downloads': Downloads;
