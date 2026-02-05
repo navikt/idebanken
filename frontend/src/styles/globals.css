@@ -1,9 +1,4 @@
 @import './tokens.css';
-@import 'tailwindcss';
-@import '@navikt/ds-css/darkside' layer(components);
-@config '../../tailwind.config.ts';
-@source inline('{md:}col-span-{{1..11..1}}');
-@source inline('{text-center,text-left,text-right}');
 
 /* Base document styles */
 body {
@@ -29,76 +24,4 @@ hr {
     border-color: var(--ax-border-neutral-subtle);
     border-style: solid;
     border-bottom: 0 none;
-}
-
-/* Utility background classes */
-.bg-white {
-    background-color: var(--ax-bg-default);
-    color: var(--ax-text-neutral);
-    --ib-prefix-bg: var(--ib-pink-200);
-}
-.bg-brand-white {
-    background-color: var(--ib-brand-white);
-    color: var(--ax-text-neutral);
-    --ib-prefix-bg: var(--ax-bg-neutral-moderate);
-}
-.bg-extra-light-pink {
-    background-color: var(--ib-pink-100);
-    color: var(--ax-text-neutral);
-    --ib-prefix-bg: var(--ib-pink-300);
-}
-.bg-light-pink {
-    background-color: var(--ib-pink-200);
-    color: var(--ax-text-neutral);
-    --ib-prefix-bg: var(--ib-pink-400);
-}
-.bg-pink {
-    background-color: var(--ib-pink-300);
-    color: var(--ax-text-neutral);
-    --ib-prefix-bg: var(--ib-pink-500);
-}
-.bg-dark-blue {
-    background-color: var(--ib-dark-blue-1000);
-    color: var(--ax-text-neutral-contrast);
-    --ib-prefix-bg: var(--ib-dark-blue-900);
-}
-
-/* Overwrite for use in buttons */
-a .aksel-label {
-    font-weight: var(--a-font-weight-normal);
-}
-
-/* Expansion card overwrites */
-.aksel-expansioncard {
-    --__axc-expansioncard-border-radius: calc((var(--ax-radius-12) * 2) - 1px);
-}
-
-/* Global utility for interactive elements */
-:where(
-    button,
-    [role='button'],
-    input[type='button'],
-    input[type='submit'],
-    a,
-    [role='link'],
-    .interactive-hit-target
-) {
-    min-inline-size: var(--interactive-min-size);
-    min-block-size: var(--interactive-min-size);
-}
-
-:where(p) :is(a, [role='link']) {
-    min-inline-size: auto;
-    min-block-size: auto;
-}
-
-:where(ul[role='list'] li) :is(a, [role='link']) {
-    min-inline-size: auto;
-    min-block-size: auto;
-}
-
-.aksel-link-card,
-.aksel-link-card :is(a, [role='link'], .interactive-hit-target) {
-    min-inline-size: auto;
-    min-block-size: auto;
 }

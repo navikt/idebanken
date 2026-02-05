@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 import classNames from 'classnames'
 import { ThemeProvider } from './theming/theme-provider'
 import { headers } from 'next/headers'
+import { DeferredStyles } from '~/components/common/DeferredStyles'
 
 import '~/styles/globals.css'
 
@@ -89,6 +90,7 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
             suppressHydrationWarning>
             <body {...bodyAttrs}>
                 <ThemeProvider nonce={nonce}>{children}</ThemeProvider>
+                <DeferredStyles />
             </body>
         </html>
     )
