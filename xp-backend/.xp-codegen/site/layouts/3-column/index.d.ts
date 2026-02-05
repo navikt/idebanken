@@ -44,4 +44,9 @@ export type _3Column = {
    * Juster innhold y-akse
    */
   yAlignment?: 'center' | 'bottom';
+
+  /**
+   * Vis separator mellom kolonner
+   */
+  separator: boolean;
 };

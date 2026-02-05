@@ -721,6 +721,7 @@ export type Layout_Idebanken__2_Column = {
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
+  separator?: Maybe<Scalars['Boolean']['output']>;
   xAlignment?: Maybe<Scalars['String']['output']>;
   yAlignment?: Maybe<Scalars['String']['output']>;
 };
@@ -734,6 +735,7 @@ export type Layout_Idebanken__3_Column = {
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
   paddingTop?: Maybe<Scalars['String']['output']>;
+  separator?: Maybe<Scalars['Boolean']['output']>;
   stackOrder?: Maybe<Scalars['String']['output']>;
   xAlignment?: Maybe<Scalars['String']['output']>;
   yAlignment?: Maybe<Scalars['String']['output']>;

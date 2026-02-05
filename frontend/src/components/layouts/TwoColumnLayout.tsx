@@ -28,9 +28,8 @@ interface TwoColumnLayoutProps {
     path: string
 }
 
-const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
-    const regions = props.layout.regions
-    const { common, meta, layout, path } = props
+const TwoColumnLayout = ({ common, meta, layout, path }: TwoColumnLayoutProps) => {
+    const regions = layout.regions
     const {
         leftSpan,
         breakLeftFirst,
@@ -42,6 +41,7 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
         xAlignment,
         yAlignment,
         noGutters,
+        separator,
     } = layout.config ?? {}
     const leftSpanValue = Number(leftSpan ?? 6)
     const rightSpan = 12 - leftSpanValue
@@ -63,9 +63,12 @@ const TwoColumnLayout = (props: TwoColumnLayoutProps) => {
                 data-color={dataColor}
                 className={classNames(
                     boxColor
-                        ? 'bg-(--ax-bg-softA) rounded-ib p-[var(--ax-space-24)] md:p-[var(--ax-space-80)]'
+                        ? 'bg-(--ax-bg-softA) rounded-ib p-(--ax-space-24) md:p-(--ax-space-80)'
                         : '',
-                    dataColor === 'ib-brand-gray' ? 'border border-(--ax-border-subtleA)' : ''
+                    dataColor === 'ib-brand-gray' ? 'border border-(--ax-border-subtleA)' : '',
+                    separator
+                        ? 'md:divide-x md:divide-(--ax-border-default)/30 md:*:px-(--ax-space-32)'
+                        : ''
                 )}
                 gap={
                     hasContentInBothRegions
