@@ -34,34 +34,41 @@ export default function Footer({
                 ]),
             }}>
             <ScrollToTop />
+            {newsletterSubscribeText && (
+                <>
+                    <HGrid
+                        align={'center'}
+                        gap={{ xs: 'space-16', md: 'space-44', lg: 'space-72' }}
+                        columns={{ xs: 1, sm: 2, md: 5 }}>
+                        <BodyLong
+                            id={'subscribe-to-newsletter'}
+                            size={'large'}
+                            className={'min-w-0 md:col-span-3 leading-[1.5]'}>
+                            {newsletterSubscribeText}
+                        </BodyLong>
+                        <div className={'flex justify-center md:col-span-2 md:justify-end'}>
+                            <ButtonView
+                                config={{
+                                    variant: 'primary',
+                                    size: 'medium',
+                                    url: newsletterSubscribeLink?.url || '#',
+                                    linkText: '',
+                                    external: newsletterSubscribeLink?.external ?? false,
+                                }}
+                                meta={meta}
+                                aria-describedby={'subscribe-to-newsletter'}
+                                className={'md:!justify-self-auto md:!self-auto'}>
+                                {newsletterSubscribeLink?.linkText}
+                            </ButtonView>
+                        </div>
+                    </HGrid>
+                    <Separator className={'my-(--ax-space-44)'} />
+                </>
+            )}
             <HGrid
-                align={'center'}
-                gap={{ xs: 'space-16', md: 'space-44', lg: 'space-72' }}
-                columns={{ xs: 1, sm: 2, md: 5 }}>
-                <BodyLong
-                    id={'subscribe-to-newsletter'}
-                    size={'large'}
-                    className={'min-w-0 md:col-span-3 leading-[1.5]'}>
-                    {newsletterSubscribeText}
-                </BodyLong>
-                <div className={'flex justify-center md:col-span-2 md:justify-end'}>
-                    <ButtonView
-                        config={{
-                            variant: 'primary',
-                            size: 'medium',
-                            url: newsletterSubscribeLink?.url || '#',
-                            linkText: '',
-                            external: newsletterSubscribeLink?.external ?? false,
-                        }}
-                        meta={meta}
-                        aria-describedby={'subscribe-to-newsletter'}
-                        className={'md:!justify-self-auto md:!self-auto'}>
-                        {newsletterSubscribeLink?.linkText}
-                    </ButtonView>
-                </div>
-            </HGrid>
-            <Separator className={'my-(--ax-space-44)'} />
-            <HGrid gap={{ xs: 'space-24', md: 'space-56' }} columns={{ xs: 1, md: 3, lg: 5 }}>
+                className={'mt-(--ax-space-44)'}
+                gap={{ xs: 'space-24', md: 'space-56' }}
+                columns={{ xs: 1, md: 3, lg: 5 }}>
                 <VStack gridColumn={{ xs: '1', md: '1/4', lg: '1/3' }} gap={'space-16'}>
                     <Image
                         src={getAsset('/images/logo-light.svg', meta)}
