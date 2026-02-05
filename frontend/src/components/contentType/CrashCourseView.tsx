@@ -2,21 +2,35 @@
 
 import React, { type JSX, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
-import { Box, Button, HStack, Link, ProgressBar, VStack } from '@navikt/ds-react'
+import {
+    Box,
+    Button,
+    HStack,
+    Link,
+    Popover,
+    ProgressBar,
+    TextField,
+    ToggleGroup,
+    VStack,
+} from '@navikt/ds-react'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 import { CrashCourseStructure } from '~/components/queries/crash-course'
 import NextLink from 'next/link'
 import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
-import { ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
+import { ArrowLeftIcon, ArrowRightIcon, WrenchIcon } from '@navikt/aksel-icons'
 import { usePathname, useRouter } from 'next/navigation'
 import classNames from 'classnames'
 import LoadingCircles from '~/components/common/LoadingCircles'
+import { ToggleGroupItem } from '@navikt/ds-react/ToggleGroup'
+import FullscreenButton from '~/components/common/FullscreenButton'
 
 type Direction = 'right' | 'left'
 
-const targetWidth = 1440 / 1.5
-const targetHeight = 907 / 1.5
+// Moved to state for tuning
+// const scale = 1.5
+// const targetWidth = 1440 / scale
+// const targetHeight = 907 / scale
 
 export default function CrashCourseView({
     slideDeckElements,
@@ -29,13 +43,27 @@ export default function CrashCourseView({
 }) {
     const [loading, setLoading] = useState(true)
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [currentSlideGroupIndex, setCurrentSlideGroupIndex] = useState(0)
     const [direction, setDirection] = useState<Direction>('right')
     const router = useRouter()
     const pathname = usePathname()
     const slideStartRef = useRef<number>(Date.now())
     const containerRef = useRef<HTMLDivElement>(null)
+    const navRef = useRef<HTMLElement>(null)
     const [scale, setScale] = useState(1)
-    const [isFullscreen, setIsFullscreen] = useState<boolean>(false)
+
+    // Temporary tuning state
+    const [temporaryAnchorEl, setTemporaryAnchorEl] = useState<HTMLElement | null>(null)
+    const [temporaryOpenState, setTemporaryOpenState] = useState(false)
+    const [temporaryScaleParam, setTemporaryScaleParam] = useState(1.5)
+    const [temporaryWidthParam, setTemporaryWidthParam] = useState(1440)
+    const [temporaryHeightParam, setTemporaryHeightParam] = useState(907)
+    const [temporaryPaddingXParam, setTemporaryPaddingXParam] = useState(48)
+    const [temporaryPaddingYParam, setTemporaryPaddingYParam] = useState(48)
+    const [temporaryPaddingXYParam, setTemporaryPaddingXYParam] = useState(48)
+
+    const temporaryTargetWidth = temporaryWidthParam / temporaryScaleParam
+    const temporaryTargetHeight = temporaryHeightParam / temporaryScaleParam
 
     useEffect(() => {
         const handleResize = () => {
@@ -45,9 +73,14 @@ export default function CrashCourseView({
             const availableWidth = container.clientWidth
             const availableHeight = container.clientHeight
 
-            const padding = 48 // Add some padding around the slide
-            const scaleX = (availableWidth - padding) / targetWidth
-            const scaleY = (availableHeight - padding) / targetHeight
+            const scaleX =
+                (availableWidth -
+                    (temporaryPaddingXYParam ? temporaryPaddingXYParam : temporaryPaddingXParam)) /
+                temporaryTargetWidth
+            const scaleY =
+                (availableHeight -
+                    (temporaryPaddingXYParam ? temporaryPaddingXYParam : temporaryPaddingYParam)) /
+                temporaryTargetHeight
 
             setScale(Math.min(scaleX, scaleY))
         }
@@ -55,27 +88,13 @@ export default function CrashCourseView({
         handleResize()
         window.addEventListener('resize', handleResize)
         return () => window.removeEventListener('resize', handleResize)
-    }, [])
-
-    useEffect(() => {
-        const onFullscreenChange = () => {
-            setIsFullscreen(Boolean(document.fullscreenElement))
-        }
-        document.addEventListener('fullscreenchange', onFullscreenChange)
-        return () => document.removeEventListener('fullscreenchange', onFullscreenChange)
-    }, [])
-
-    const toggleFullscreen = useCallback(() => {
-        if (!document.fullscreenElement) {
-            void document.documentElement.requestFullscreen().catch(() => {
-                // noop if denied
-            })
-        } else {
-            void document.exitFullscreen().catch(() => {
-                // noop if failed
-            })
-        }
-    }, [])
+    }, [
+        temporaryTargetWidth,
+        temporaryTargetHeight,
+        temporaryPaddingXParam,
+        temporaryPaddingYParam,
+        temporaryPaddingXYParam,
+    ])
 
     const setCurrentSlide = useCallback(
         (index: number) => {
@@ -141,6 +160,10 @@ export default function CrashCourseView({
 
     const handleKeyDown = useCallback(
         (event: KeyboardEvent) => {
+            if (navRef.current?.contains(document.activeElement)) {
+                return
+            }
+
             const modifiers = []
             if (event.ctrlKey) modifiers.push('Ctrl')
             if (event.metaKey) modifiers.push('Cmd')
@@ -194,10 +217,17 @@ export default function CrashCourseView({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    // Reset/start timer whenever the slide changes
+    // Reset/start timer and update current selected slide group
     useEffect(() => {
         slideStartRef.current = Date.now()
-    }, [currentIndex])
+        setCurrentSlideGroupIndex(
+            structure?.parts?.find(
+                (part) =>
+                    part.index === currentIndex ||
+                    part.pages.find((page) => page.index === currentIndex)
+            )?.index ?? 0
+        )
+    }, [currentIndex, structure?.parts])
 
     const variants: Variants = {
         enter: (direction: Direction) => ({
@@ -215,19 +245,19 @@ export default function CrashCourseView({
         <Box
             ref={containerRef}
             data-color={'ib-brand-pink'}
-            className="h-screen w-screen flex items-center justify-center overflow-hidden bg-(--ax-bg-softA)">
+            className="h-screen w-screen flex items-center justify-center overflow-hidden bg-(--ax-bg-moderate)/10">
             <VStack
                 className={'justify-between'}
                 style={{
-                    width: targetWidth,
-                    height: targetHeight,
+                    width: temporaryTargetWidth,
+                    height: temporaryTargetHeight,
                     scale,
                     transformOrigin: 'center center',
                     flexShrink: 0,
                 }}>
                 <HStack
                     className={classNames(
-                        'justify-between shrink-0 pb-(--ax-space-48)',
+                        'justify-between shrink-0 pb-(--ax-space-48) items-center',
                         loading ? 'hidden' : ''
                     )}
                     gap={'space-2'}>
@@ -235,7 +265,7 @@ export default function CrashCourseView({
                         as={NextLink}
                         aria-label={'Til forsiden'}
                         href={getUrl('/', meta)}
-                        className={'content-center h-12 max-w-48'}>
+                        className={'content-center h-10 max-w-48'}>
                         <Image
                             className={'block dark:hidden'}
                             src={getAsset('/images/logo-light.svg', meta)}
@@ -253,27 +283,41 @@ export default function CrashCourseView({
                             priority
                         />
                     </Link>
-                    <HStack gap={'space-6'}>
-                        {structure?.parts?.map((part) => (
-                            <Button
-                                key={part.name + part.index}
-                                variant={
-                                    part.index === currentIndex ||
-                                    part.pages.find((page) => page.index === currentIndex)
-                                        ? 'primary'
-                                        : 'tertiary'
-                                }
-                                size="small"
-                                onClick={() => {
-                                    const changedSlide = setCurrentSlide(part.index)
-                                    if (!changedSlide) return
-                                    trackNavigation('meny', currentIndex, part.index)
-                                }}
-                                aria-label={`Gå til slide ${part.index + 1}: ${part.name}`}>
-                                {part.name}
-                            </Button>
-                        ))}
-                    </HStack>
+                    <nav ref={navRef} onMouseDown={(e) => e.preventDefault()}>
+                        <ToggleGroup
+                            className={classNames(
+                                '*:bg-(--ax-bg-moderate)',
+                                '*:rounded-full',
+                                '[&>div]:shadow-none',
+                                '[&>div>button:first-child]:rounded-l-full',
+                                '[&>div>button:last-child]:rounded-r-full',
+                                '[&_.aksel-toggle-group__button:before]:h-full',
+                                '[&_.aksel-toggle-group__button[data-selected="true"]]:bg-(--ax-bg-strong)'
+                            )}
+                            size={'small'}
+                            onChange={(value) => {
+                                const changedSlide = setCurrentSlide(Number(value))
+                                if (!changedSlide) return
+                                trackNavigation('meny', currentIndex, Number(value))
+                            }}
+                            value={currentSlideGroupIndex?.toString()}>
+                            {structure?.parts?.map((part, i) => (
+                                <ToggleGroupItem
+                                    className={classNames(
+                                        part.index === currentSlideGroupIndex ? 'underline' : '',
+                                        i === 0 ? 'pl-(--ax-space-24)' : '',
+                                        i === structure?.parts?.length - 1
+                                            ? 'pr-(--ax-space-24)'
+                                            : '',
+                                        'rounded-none'
+                                    )}
+                                    key={part.name}
+                                    value={part.index.toString()}
+                                    label={part.name}
+                                />
+                            ))}
+                        </ToggleGroup>
+                    </nav>
                 </HStack>
 
                 <Box className={'grow overflow-y-auto overflow-x-clip w-full'}>
@@ -300,39 +344,125 @@ export default function CrashCourseView({
                 </Box>
 
                 <HStack
+                    as={'nav'}
                     className={classNames(
-                        'items-center justify-center w-full relative shrink-0 pt-(--ax-space-28)',
+                        'items-center justify-center w-full relative shrink-0 pt-(--ax-space-24)',
                         loading ? 'hidden' : ''
                     )}
                     gap={'space-48'}>
+                    {/* Background bleed element */}
+                    <Box
+                        className="absolute top-0 left-1/2 -translate-x-1/2 w-2500 h-1250 bg-(--ax-bg-moderate) -z-10"
+                        aria-hidden
+                    />
                     <Button
-                        className="rounded-full"
+                        ref={setTemporaryAnchorEl}
+                        onClick={() => setTemporaryOpenState(!temporaryOpenState)}
+                        aria-expanded={temporaryOpenState}
+                        aria-controls={temporaryOpenState ? 'temporary-tuning-popover' : undefined}
+                        size="xsmall"
+                        className="rounded-full px-(--ax-space-16) absolute left-0"
+                        variant="tertiary"
+                        icon={<WrenchIcon aria-hidden />}
+                        aria-label="Innstillinger"
+                    />
+                    <Popover
+                        open={temporaryOpenState}
+                        onClose={() => setTemporaryOpenState(false)}
+                        anchorEl={temporaryAnchorEl}
+                        id="temporary-tuning-popover">
+                        <Popover.Content>
+                            <VStack gap="2">
+                                <TextField
+                                    label="Skalering"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryScaleParam}
+                                    onChange={(e) => setTemporaryScaleParam(Number(e.target.value))}
+                                    step="0.01"
+                                />
+                                <TextField
+                                    label="Padding X + Y"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryPaddingXYParam}
+                                    onChange={(e) => {
+                                        setTemporaryPaddingXYParam(Number(e.target.value))
+                                        setTemporaryPaddingYParam(Number(e.target.value))
+                                        setTemporaryPaddingXParam(Number(e.target.value))
+                                    }}
+                                    step="1"
+                                />
+                                <TextField
+                                    label="Padding X"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryPaddingXParam}
+                                    onChange={(e) => {
+                                        setTemporaryPaddingXYParam(0)
+                                        setTemporaryPaddingXParam(Number(e.target.value))
+                                    }}
+                                    step="1"
+                                />
+                                <TextField
+                                    label="Padding Y"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryPaddingYParam}
+                                    onChange={(e) => {
+                                        setTemporaryPaddingXYParam(0)
+                                        setTemporaryPaddingYParam(Number(e.target.value))
+                                    }}
+                                    step="1"
+                                />
+                                <TextField
+                                    label="Original bredde"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryWidthParam}
+                                    onChange={(e) => setTemporaryWidthParam(Number(e.target.value))}
+                                />
+                                <TextField
+                                    label="Original høyde"
+                                    type="number"
+                                    size="small"
+                                    value={temporaryHeightParam}
+                                    onChange={(e) =>
+                                        setTemporaryHeightParam(Number(e.target.value))
+                                    }
+                                />
+                            </VStack>
+                        </Popover.Content>
+                    </Popover>
+
+                    <Button
+                        className="rounded-full px-(--ax-space-16)"
+                        size={'xsmall'}
                         onClick={() => goToPrevSlide('knapp')}
                         disabled={currentIndex === 0}
+                        icon={<ArrowLeftIcon />}
                         aria-label="Forrige slide">
                         Forrige
                     </Button>
                     <ProgressBar
+                        size={'small'}
                         value={currentIndex}
                         aria-label={`Slide ${currentIndex + 1} av ${slideDeckElements.length}`}
                         valueMax={slideDeckElements.length - 1}
                         className={'w-80'}
                     />
                     <Button
-                        className="rounded-full"
+                        className="rounded-full px-(--ax-space-16)"
+                        size={'xsmall'}
                         onClick={() => goToNextSlide('knapp')}
                         disabled={currentIndex === slideDeckElements.length - 1}
+                        icon={<ArrowRightIcon />}
+                        iconPosition={'right'}
                         aria-label="Neste slide">
-                        Neste
+                        {currentIndex === 0 ? 'Start' : 'Neste'}
                     </Button>
 
-                    <Button
-                        variant="secondary"
-                        className="rounded-full absolute flex self-center right-0"
-                        onClick={toggleFullscreen}
-                        aria-label={isFullscreen ? 'Avslutt fullskjerm' : 'Vis i fullskjerm'}>
-                        {isFullscreen ? <ShrinkIcon aria-hidden /> : <ExpandIcon aria-hidden />}
-                    </Button>
+                    <FullscreenButton className="absolute flex self-center right-0" />
                 </HStack>
             </VStack>
         </Box>

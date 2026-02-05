@@ -3,6 +3,6 @@
     <display-name>Tittel og ingress</display-name>
     <description>Visning av tittel og ingress</description>
     <config>
-        <allow-on-content-type>(?!${app}:crash-course*)</allow-on-content-type>
+        <allow-on-content-type>^(?!${app}:crash-course*)*</allow-on-content-type>
     </config>
 </part>

@@ -4,6 +4,7 @@ export type XP_ArticleCardList = import('./article-card-list').XP_ArticleCardLis
 export type XP_Button = import('./button').XP_Button;
 export type XP_CookieConsentOpen = import('./cookie-consent-open').XP_CookieConsentOpen;
 export type XP_CookieConsentToggle = import('./cookie-consent-toggle').XP_CookieConsentToggle;
+export type XP_CrashCourseIntroButtons = import('./crash-course-intro-buttons').XP_CrashCourseIntroButtons;
 export type XP_CrashCoursePlan = import('./crash-course-plan').XP_CrashCoursePlan;
 export type XP_CrashCourseTitle = import('./crash-course-title').XP_CrashCourseTitle;
 export type XP_Downloads = import('./downloads').XP_Downloads;
@@ -31,6 +32,7 @@ declare global {
     'idebanken:button': XP_Button;
     'idebanken:cookie-consent-open': XP_CookieConsentOpen;
     'idebanken:cookie-consent-toggle': XP_CookieConsentToggle;
+    'idebanken:crash-course-intro-buttons': XP_CrashCourseIntroButtons;
     'idebanken:crash-course-plan': XP_CrashCoursePlan;
     'idebanken:crash-course-title': XP_CrashCourseTitle;
     'idebanken:downloads': XP_Downloads;

@@ -35,7 +35,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { locale, contentPath } = await params
     const ctx = { locale, contentPath: contentPath ?? '' }
-    const { common } = await fetchContent(ctx)
+    const { common } = await fetchContent(ctx).then((res) => {
+        if (res?.error?.code === '404') {
+            return fetchContent({ locale, contentPath: '404' })
+        }
+        return res
+    })
 
     const metaFields = common?.get?.metaFields as MetaFields
     const image = metaFields?.image ?? undefined

@@ -31,6 +31,10 @@
             <default>checked</default>
         </input>
         <mixin name="alignment"/>
+        <input name="separator" type="CheckBox">
+            <label>Vis separator mellom kolonner</label>
+            <default>unchecked</default>
+        </input>
     </form>
     <regions>
         <region name="left"/>

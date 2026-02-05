@@ -31,9 +31,8 @@ interface ThreeColumnLayoutProps {
     path: string
 }
 
-const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
-    const regions = props.layout.regions
-    const { common, meta, layout, path } = props
+const ThreeColumnLayout = ({ common, meta, layout, path }: ThreeColumnLayoutProps) => {
+    const regions = layout.regions
     const columnSpan = 4 // Equal width for all columns (12/3 = 4)
     const {
         stackOrder,
@@ -45,6 +44,7 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
         xAlignment,
         yAlignment,
         noGutters,
+        separator,
     } = layout.config ?? {}
     const hasContentInOnlyOneRegion =
         [regions['left'], regions['center'], regions['right']].filter(
@@ -89,7 +89,10 @@ const ThreeColumnLayout = (props: ThreeColumnLayoutProps) => {
                 data-color={dataColor}
                 className={classNames(
                     boxColor ? 'bg-(--ax-bg-softA) rounded-3xl p-6 md:py-8' : '',
-                    dataColor === 'ib-brand-gray' ? 'border border-(--ax-border-subtleA)' : ''
+                    dataColor === 'ib-brand-gray' ? 'border border-(--ax-border-subtleA)' : '',
+                    separator
+                        ? 'md:divide-x md:divide-(--ax-border-default)/30 md:*:px-(--ax-space-32)'
+                        : ''
                 )}
                 gap={
                     hasContentInOnlyOneRegion

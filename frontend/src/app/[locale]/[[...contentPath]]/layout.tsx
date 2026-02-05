@@ -18,6 +18,7 @@ import { ContentEditorMessage } from '~/components/common/ContentEditorMessage'
 import Backlink from '~/components/common/Backlink'
 import { AlertBanner } from '~/components/common/AlertBanner'
 import { AuthorsAndDate } from '~/components/common/AuthorsAndDate'
+import { forceArray } from '~/utils/utils'
 
 type LayoutParams = { locale: string; contentPath?: string[] }
 type LayoutProps = PropsWithChildren<{ params: Promise<LayoutParams> }>
@@ -27,7 +28,19 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     const { isEnabled } = await draftMode()
 
     const ctx = { locale: resolvedParams.locale, contentPath: resolvedParams.contentPath ?? '' }
-    const contentResult = await fetchContent(ctx)
+    const contentResult = await fetchContent(ctx).then((res) => {
+        if (res?.error?.code === '404') {
+            console.warn(
+                res.error.code,
+                'on path:',
+                `'/${forceArray(resolvedParams.contentPath).join('/')}'.`,
+                res.error.message
+            )
+            return fetchContent({ ...ctx, contentPath: '404' })
+        }
+        return res
+    })
+
     const { meta, common, page } = contentResult
     const editorMessage = editorHasUsedTextComponentWarningMessage(meta, isEnabled, page)
 

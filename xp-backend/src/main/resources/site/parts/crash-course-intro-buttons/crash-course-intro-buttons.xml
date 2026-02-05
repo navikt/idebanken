@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<part xmlns="urn:enonic:xp:model:1.0">
+    <display-name>Lynkurs fullskjerm og tema knapp</display-name>
+    <description>Knapper som kan ligge i starten av lynkurset</description>
+    <form>
+        <input type="CheckBox" name="showFullscreenButton">
+            <label>Vis fullskjerm knapp</label>
+            <help-text>Vis en knapp for å aktivere fullskjerm modus</help-text>
+            <default>checked</default>
+        </input>
+        <input type="CheckBox" name="showThemeButton">
+            <label>Vis tema knapp</label>
+            <help-text>Vis en knapp for å bytte mellom lyst og mørkt tema</help-text>
+            <default>checked</default>
+        </input>
+    </form>
+    <config>
+        <allow-on-content-type>(portal:page-template|portal:fragment|${app}:crash-course*)</allow-on-content-type>
+    </config>
+</part>
