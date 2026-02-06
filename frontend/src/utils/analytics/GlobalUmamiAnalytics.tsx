@@ -16,7 +16,7 @@ export default function GlobalUmamiAnalytics({ children }: PropsWithChildren) {
             const docHeight = document.documentElement.scrollHeight - window.innerHeight
             const percent = docHeight > 0 ? Math.round((scrollY / docHeight) * 100) : 0
             if (percent > maxScroll.current) {
-                maxScroll.current = percent
+                maxScroll.current = Math.min(percent, 100)
             }
         }
 
