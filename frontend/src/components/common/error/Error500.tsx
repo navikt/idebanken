@@ -17,7 +17,7 @@ export default function Error500({ error, reset }: ErrorParams) {
 
     return (
         <Box className={'flex py-(--ax-space-72) justify-center items-center'}>
-            <GlobalAlert status={'error'}>
+            <GlobalAlert status={'error'} className={'max-w-md'}>
                 <GlobalAlertHeader className={'[&>div]:mt-(--ax-space-1)'}>
                     <HeadingView level={'1'} size={'small'}>
                         Det har oppstått en feil på siden
@@ -25,7 +25,7 @@ export default function Error500({ error, reset }: ErrorParams) {
                 </GlobalAlertHeader>
                 <GlobalAlertContent>
                     <VStack>
-                        <BodyLong>
+                        <BodyLong className={'pb-(--ax-space-12)'}>
                             Prøv igjen ved å trykke på knappen nedenfor eller laste inn siden på
                             nytt.
                         </BodyLong>
@@ -34,7 +34,9 @@ export default function Error500({ error, reset }: ErrorParams) {
                             <Link href={'mailto:post@idebanken.org'}>post@idebanken.org</Link>
                         </BodyLong>
                         <Button
-                            className={'rounded-full my-(--ax-space-32)'}
+                            className={
+                                'rounded-full my-(--ax-space-32) w-fit mx-auto px-(--ax-space-48)'
+                            }
                             size={'small'}
                             onClick={() => reset()}>
                             Prøv igjen
