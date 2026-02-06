@@ -72,7 +72,7 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     object-src 'self' ${qbrickHosts} ${enonicDomain};
     form-action 'self';
     frame-ancestors 'self' ${enonicDomain};
-    frame-src 'self' youtube-nocookie.com player.vimeo.com ${enonicDomain};
+    frame-src 'self' ${enonicDomain};
     media-src 'self' ${qbrickHosts};
     ${!isLocalhost ? 'upgrade-insecure-requests;' : ''}
 `
