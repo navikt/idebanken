@@ -13,7 +13,9 @@ export default function CrashCourseIntroButtons({
 
     return (
         <VStack gap={'space-12'}>
-            {showFullscreenButton && <FullscreenButton className={'w-fit'} withText />}
+            {showFullscreenButton && (
+                <FullscreenButton className={'w-fit'} source={'part'} withText />
+            )}
             {showThemeButton && (
                 <ThemeButton
                     className={'w-fit rounded-full px-(--ax-space-24) [&_.aksel-label]:pt-0.75'}
