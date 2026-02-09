@@ -25,6 +25,13 @@ spec:
     path: /api/isReady
     initialDelay: 20
     timeout: 10
+  resources:
+    limits:
+      cpu: 500m
+      memory: 1024Mi
+    requests:
+      cpu: 200m
+      memory: 512Mi
   replicas:
     min: {{ replicas.min }}
     max: {{ replicas.max }}

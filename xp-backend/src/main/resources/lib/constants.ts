@@ -4,7 +4,7 @@ type EnvRecord = Record<ServerEnv, string>
 const env = (app.config.env || 'local') as ServerEnv
 
 const frontendOrigins: EnvRecord = {
-    prod: 'https://beta.idebanken.no',
+    prod: 'https://idebanken.no',
     test: 'https://idebanken.ekstern.dev.nav.no',
     local: 'http://localhost:3000',
 } as const

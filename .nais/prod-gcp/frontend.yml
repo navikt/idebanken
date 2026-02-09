@@ -1,5 +1,5 @@
 external-host: idebanken-xp7prod.enonic.cloud
-ingress: ["https://beta.idebanken.no"]
+ingress: ["https://beta.idebanken.no", "https://idebanken.no"]
 replicas:
   min: 2
-  max: 6
+  max: 8

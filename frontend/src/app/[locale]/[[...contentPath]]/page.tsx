@@ -58,7 +58,7 @@ export async function generateMetadata({
             locale: metaFields?.locale ?? undefined,
             url: metaFields?.openGraph?.hideUrl
                 ? undefined
-                : (metaFields?.baseUrl ?? `https://beta.idebanken.no`),
+                : (metaFields?.baseUrl ?? `https://idebanken.no`),
             images:
                 image && !metaFields?.openGraph?.hideImages
                     ? {
