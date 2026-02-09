@@ -7,7 +7,7 @@ import { PartData } from '~/types/graphql-types'
 import { Circle } from '~/components/common/Circle'
 import { XP_Image } from '@xp-types/site/parts'
 import Image from 'next/image'
-import { BodyShort } from '@navikt/ds-react'
+import { BodyShort, Box } from '@navikt/ds-react'
 
 export type ImageData = {
     image?: {
@@ -166,6 +166,32 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
         </figure>
     )
 
+    if (config['image-size']?._selected === 'aspect-ratio') {
+        const {
+            aspectRatio,
+            maxWidth,
+            roundedCorners,
+            centerHorizontally,
+            centerVertically,
+            paddingX,
+            paddingY,
+        } = config['image-size']['aspect-ratio']
+        return (
+            <Box
+                className={classNames('relative', imgRatios[aspectRatio || '16:9'])}
+                style={{ width: maxWidth || '100%' }}>
+                <Image
+                    unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                    src={src}
+                    alt={caption ? '' : alt}
+                    aria-hidden={decorative || undefined}
+                    fill
+                    className={classNames('object-cover', roundedCorners ? 'rounded-ib' : '')}
+                    sizes="(min-width: 1024px) 1024px, 50vw"
+                />
+            </Box>
+        )
+    }
     // Bleed only for standard-size 'medium'/'large'
     return bleed ? <div className={bleedClass}>{figure}</div> : figure
 }
@@ -274,4 +300,12 @@ function formatImageUrl(meta: MetaData, url?: string, width?: number, height?: n
     }
     const resolved = getUrl(url, meta) || url
     return resolved.replace(/(\/_\/image\/[^/]+)\/([^/]+)/, `$1/${resizeType}-${dim}`)
+}
+
+const imgRatios: Record<string, string> = {
+    '16:9': 'aspect-16/9',
+    '4:3': 'aspect-4/3',
+    '1:1': 'aspect-square',
+    '3:4': 'aspect-3/4',
+    '9:16': 'aspect-9/16',
 }

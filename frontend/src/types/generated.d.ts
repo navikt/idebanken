@@ -1070,6 +1070,7 @@ export type Part_Idebanken_ComponentDataApplicationConfig = {
   related_topics?: Maybe<Part_Idebanken_Related_Topics>;
   search_view?: Maybe<Part_Idebanken_Search_View>;
   show_more?: Maybe<Part_Idebanken_Show_More>;
+  simple_image?: Maybe<Part_Idebanken_Simple_Image>;
   skyra?: Maybe<Part_Idebanken_Skyra>;
   table_of_contents?: Maybe<Part_Idebanken_Table_Of_Contents>;
   text_editor?: Maybe<Part_Idebanken_Text_Editor>;
@@ -1261,6 +1262,18 @@ export type Part_Idebanken_Image = {
   overrideCaption?: Maybe<Scalars['String']['output']>;
 };
 
+/** Størrelsesforhold */
+export type Part_Idebanken_Image_AspectRatio = {
+  __typename?: 'Part_idebanken_image_AspectRatio';
+  aspectRatio?: Maybe<Scalars['String']['output']>;
+  centerHorizontally?: Maybe<Scalars['Boolean']['output']>;
+  centerVertically?: Maybe<Scalars['Boolean']['output']>;
+  maxWidth?: Maybe<Scalars['String']['output']>;
+  paddingX?: Maybe<Scalars['String']['output']>;
+  paddingY?: Maybe<Scalars['String']['output']>;
+  roundedCorners?: Maybe<Scalars['Boolean']['output']>;
+};
+
 /** Rundinger */
 export type Part_Idebanken_Image_Circles = {
   __typename?: 'Part_idebanken_image_Circles';
@@ -1297,12 +1310,14 @@ export type Part_Idebanken_Image_CustomSizeCirclesArgs = {
 export type Part_Idebanken_Image_ImageSize = {
   __typename?: 'Part_idebanken_image_ImageSize';
   _selected?: Maybe<Part_Idebanken_Image_ImageSize_OptionEnum>;
+  aspect_ratio?: Maybe<Part_Idebanken_Image_AspectRatio>;
   custom_size?: Maybe<Part_Idebanken_Image_CustomSize>;
   standard_size?: Maybe<Part_Idebanken_Image_StandardSize>;
 };
 
 /** Bilde størrelse option enum. */
 export enum Part_Idebanken_Image_ImageSize_OptionEnum {
+  AspectRatio = 'aspect_ratio',
   CustomSize = 'custom_size',
   StandardSize = 'standard_size'
 }
@@ -1456,6 +1471,69 @@ export type Part_Idebanken_Show_More = {
 /** Part component application config for application ['idebanken'] and descriptor ['show-more'] */
 export type Part_Idebanken_Show_MoreSimpleTextEditorArgs = {
   processHtml?: InputMaybe<ProcessHtmlInput>;
+};
+
+/** Part component application config for application ['idebanken'] and descriptor ['simple-image'] */
+export type Part_Idebanken_Simple_Image = {
+  __typename?: 'Part_idebanken_simple_image';
+  decorative?: Maybe<Scalars['Boolean']['output']>;
+  hideOnMobile?: Maybe<Scalars['Boolean']['output']>;
+  image?: Maybe<Content>;
+  image_size?: Maybe<Part_Idebanken_Simple_Image_ImageSize>;
+  includeCaption?: Maybe<Scalars['Boolean']['output']>;
+  overrideCaption?: Maybe<Scalars['String']['output']>;
+};
+
+/** Rundinger */
+export type Part_Idebanken_Simple_Image_Circles = {
+  __typename?: 'Part_idebanken_simple_image_Circles';
+  bottom?: Maybe<Scalars['String']['output']>;
+  color?: Maybe<Scalars['String']['output']>;
+  left?: Maybe<Scalars['String']['output']>;
+  size?: Maybe<Scalars['String']['output']>;
+};
+
+/** Egendefinert størrelse og styling */
+export type Part_Idebanken_Simple_Image_CustomSize = {
+  __typename?: 'Part_idebanken_simple_image_CustomSize';
+  border?: Maybe<Scalars['Boolean']['output']>;
+  borderDistance?: Maybe<Scalars['String']['output']>;
+  borderRadius?: Maybe<Scalars['String']['output']>;
+  centerHorizontally?: Maybe<Scalars['Boolean']['output']>;
+  centerVertically?: Maybe<Scalars['Boolean']['output']>;
+  circles?: Maybe<Array<Maybe<Part_Idebanken_Simple_Image_Circles>>>;
+  height?: Maybe<Scalars['String']['output']>;
+  paddingX?: Maybe<Scalars['String']['output']>;
+  paddingY?: Maybe<Scalars['String']['output']>;
+  scale?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['String']['output']>;
+};
+
+
+/** Egendefinert størrelse og styling */
+export type Part_Idebanken_Simple_Image_CustomSizeCirclesArgs = {
+  first?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Bilde størrelse */
+export type Part_Idebanken_Simple_Image_ImageSize = {
+  __typename?: 'Part_idebanken_simple_image_ImageSize';
+  _selected?: Maybe<Part_Idebanken_Simple_Image_ImageSize_OptionEnum>;
+  custom_size?: Maybe<Part_Idebanken_Simple_Image_CustomSize>;
+  standard_size?: Maybe<Part_Idebanken_Simple_Image_StandardSize>;
+};
+
+/** Bilde størrelse option enum. */
+export enum Part_Idebanken_Simple_Image_ImageSize_OptionEnum {
+  CustomSize = 'custom_size',
+  StandardSize = 'standard_size'
+}
+
+/** Standard størrelse */
+export type Part_Idebanken_Simple_Image_StandardSize = {
+  __typename?: 'Part_idebanken_simple_image_StandardSize';
+  standardWidth?: Maybe<Scalars['String']['output']>;
 };
 
 /** Part component application config for application ['idebanken'] and descriptor ['skyra'] */

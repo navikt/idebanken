@@ -33,6 +33,52 @@ export type Image = {
         /**
          * Selected
          */
+        _selected: 'aspect-ratio';
+
+        /**
+         * Størrelsesforhold
+         */
+        'aspect-ratio': {
+          /**
+           * Forhold
+           */
+          aspectRatio?: '16:9' | '4:3' | '1:1' | '3:4' | '9:16';
+
+          /**
+           * Maks bredde (px)
+           */
+          maxWidth?: number;
+
+          /**
+           * Avrundede kanter
+           */
+          roundedCorners: boolean;
+
+          /**
+           * Sentrer horisontalt
+           */
+          centerHorizontally: boolean;
+
+          /**
+           * Sentrer vertikalt
+           */
+          centerVertically: boolean;
+
+          /**
+           * X-Polstring rundt bildet (px)
+           */
+          paddingX?: number;
+
+          /**
+           * Y-Polstring rundt bildet (px)
+           */
+          paddingY?: number;
+        };
+      }
+    | {
+        /**
+         * Selected
+         */
         _selected: 'standard-size';
 
         /**
