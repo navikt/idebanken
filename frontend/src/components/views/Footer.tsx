@@ -104,11 +104,18 @@ export default function Footer({
                             autoId={false}>
                             {title}
                         </HeadingView>
-                        {links?.map(({ url, linkText }, j) => (
-                            <Link as={NextLink} key={j} href={getUrl(url, meta)}>
-                                {linkText ?? '[Default link text]'}
-                            </Link>
-                        ))}
+                        <ul role="list" className="space-y-4">
+                            {links?.map(({ url, linkText }, j) => (
+                                <li key={j}>
+                                    <Link
+                                        as={NextLink}
+                                        href={getUrl(url, meta)}
+                                        style={{ minBlockSize: '24px' }}>
+                                        {linkText ?? '[Default link text]'}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
                     </VStack>
                 ))}
             </HGrid>
