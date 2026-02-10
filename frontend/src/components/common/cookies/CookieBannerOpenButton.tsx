@@ -6,7 +6,7 @@ import { PartData } from '~/types/graphql-types'
 import { XP_CookieConsentOpen } from '@xp-types/site/parts'
 import { HStack } from '@navikt/ds-react'
 import { useCookieBanner } from '~/components/common/cookies/CookieBannerContext'
-import { getConsentValues } from '~/components/common/cookies/cookieUtils'
+import { CookieConsentChangeEvent, getConsentValues } from '~/components/common/cookies/cookieUtils'
 import { HeadingView } from '~/components/parts/Heading'
 
 export const CookieBannerOpenButton = ({ meta }: PartData<XP_CookieConsentOpen>) => {
@@ -16,30 +16,32 @@ export const CookieBannerOpenButton = ({ meta }: PartData<XP_CookieConsentOpen>)
     )
 
     useEffect(() => {
-        const updateConsentText = (analytics: boolean, surveys: boolean) => {
-            if (!analytics && !surveys) {
+        const updateConsentText = (
+            analytics: boolean,
+            surveys: boolean,
+            videoAnalytics: boolean
+        ) => {
+            if (!analytics && !surveys && !videoAnalytics) {
                 setConsentText('Du har godtatt bare nødvendige informasjonskapsler')
-            } else if (analytics && surveys) {
-                setConsentText('Du har godtatt valgfrie informasjonskapsler')
-            } else if (!analytics && surveys) {
-                setConsentText(
-                    'Du har godtatt brukerundersøkelser (Skyra), men ikke analyse og statistikk (Umami)'
-                )
-            } else if (analytics && !surveys) {
-                setConsentText(
-                    'Du har godtatt analyse og statistikk (Umami), men ikke brukerundersøkelser (Skyra)'
-                )
+            } else if (analytics && surveys && videoAnalytics) {
+                setConsentText('Du har godtatt alle valgfrie informasjonskapsler')
+            } else {
+                setConsentText('Du har tilpasset samtykket ditt for informasjonskapsler')
             }
         }
 
         // Initial check
-        const { analyticsConsent, surveysConsent } = getConsentValues()
-        updateConsentText(analyticsConsent, surveysConsent)
+        const { analyticsConsent, surveysConsent, videoAnalyticsConsent } = getConsentValues()
+        updateConsentText(analyticsConsent, surveysConsent, videoAnalyticsConsent)
 
         // Listen for changes
         const handleConsentChange = (e: Event) => {
-            const customEvent = e as CustomEvent<{ analytics: boolean; surveys: boolean }>
-            updateConsentText(customEvent.detail.analytics, customEvent.detail.surveys)
+            const customEvent = e as CookieConsentChangeEvent
+            updateConsentText(
+                customEvent.detail.analytics,
+                customEvent.detail.surveys,
+                customEvent.detail.videoAnalytics
+            )
         }
 
         window.addEventListener('cookie-consent-changed', handleConsentChange)

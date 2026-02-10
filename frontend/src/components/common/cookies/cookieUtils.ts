@@ -2,6 +2,7 @@ export type ConsentCookie = {
     consent: {
         analytics: boolean
         surveys: boolean
+        videoAnalytics: boolean
     }
     functional: {
         alertBannerClosed: number | null
@@ -14,6 +15,12 @@ export type ConsentCookie = {
     }
 }
 
+export type CookieConsentChangeEvent = CustomEvent<{
+    analytics: boolean
+    surveys: boolean
+    videoAnalytics: boolean
+}>
+
 type PartialConsentCookie = {
     consent?: Partial<ConsentCookie['consent']>
     functional?: Partial<ConsentCookie['functional']>
@@ -25,6 +32,7 @@ const ConsentDataSchema = {
     consent: {
         analytics: 'boolean',
         surveys: 'boolean',
+        videoAnalytics: 'boolean',
     },
     functional: {
         alertBannerClosed: 'number',
@@ -67,25 +75,35 @@ export function getAlertBannerClosedHash(): number | null {
 export function dispatchCookieConsentEvent({
     analytics,
     surveys,
+    videoAnalytics,
 }: {
     analytics?: boolean
     surveys?: boolean
+    videoAnalytics?: boolean
 }): void {
     if (typeof window === 'undefined') return
     let newOrOldAnalytics = analytics
     let newOrOldSurveys = surveys
-    if (analytics === undefined || surveys === undefined) {
-        const { analyticsConsent, surveysConsent } = getConsentValues()
+    let newOrOldVideoAnalytics = videoAnalytics
+    if (analytics === undefined || surveys === undefined || videoAnalytics === undefined) {
+        const { analyticsConsent, surveysConsent, videoAnalyticsConsent } = getConsentValues()
         if (analytics === undefined) {
             newOrOldAnalytics = analyticsConsent
         }
         if (surveys === undefined) {
             newOrOldSurveys = surveysConsent
         }
+        if (videoAnalytics === undefined) {
+            newOrOldVideoAnalytics = videoAnalyticsConsent
+        }
     }
     window.dispatchEvent(
         new CustomEvent('cookie-consent-changed', {
-            detail: { analytics: newOrOldAnalytics, surveys: newOrOldSurveys },
+            detail: {
+                analytics: newOrOldAnalytics,
+                surveys: newOrOldSurveys,
+                videoAnalytics: newOrOldVideoAnalytics,
+            },
         })
     )
 }
@@ -118,6 +136,7 @@ export function setCookie(value: PartialConsentCookie, days = 90) {
                   consent: {
                       analytics: false,
                       surveys: false,
+                      videoAnalytics: false,
                       ...value.consent,
                   },
                   functional: {
@@ -201,6 +220,7 @@ function parseConsentCookie(cookieString: string): ConsentCookie {
         consent: {
             analytics: false,
             surveys: false,
+            videoAnalytics: false,
         },
         functional: {
             alertBannerClosed: null,
@@ -240,6 +260,9 @@ function parseConsentCookie(cookieString: string): ConsentCookie {
                     break
                 case 'surveys':
                     consentData.consent.surveys = value as boolean
+                    break
+                case 'videoAnalytics':
+                    consentData.consent.videoAnalytics = value as boolean
                     break
                 case 'alertBannerClosed':
                     if (consentData.functional) {
@@ -292,12 +315,14 @@ export function getConsentValues(cookies?: string) {
         return {
             analyticsConsent: existingCookie?.consent?.analytics || false,
             surveysConsent: existingCookie?.consent?.surveys || false,
+            videoAnalyticsConsent: existingCookie?.consent?.videoAnalytics || false,
         }
     } catch (error) {
         console.warn(`Error retrieving consent values for "${consentCookieName}":`, error)
         return {
             analyticsConsent: false,
             surveysConsent: false,
+            videoAnalyticsConsent: false,
         }
     }
 }
