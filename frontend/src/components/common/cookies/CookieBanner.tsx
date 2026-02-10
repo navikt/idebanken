@@ -47,7 +47,7 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
             padding={{ xs: 'space-36', md: 'space-64' }}
             margin={{ xs: 'space-0', lg: 'space-44' }}
             className={classNames(
-                'fixed bottom-0 inset-x-0 mx-auto w-[min(704px,100%)] z-[1000]',
+                'fixed bottom-0 inset-x-0 mx-auto w-[min(704px,100%)] z-1000',
                 'bg-(--ib-bg-dark-blue-soft) shadow-2xl lg:rounded-lg max-lg:bg-none!',
                 'max-h-screen overflow-y-auto'
             )}>
@@ -55,7 +55,7 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
                 data={{ processedHtml: common?.siteConfiguration?.cookieInfoText ?? '' }}
                 meta={meta}
                 customReplacer={htmlRichTextReplacer}
-                className={'[&>*]:mb-(--ax-space-24) mb-(--ax-space-24)'}
+                className={'*:mb-(--ax-space-24) mb-(--ax-space-24)'}
             />
 
             <Stack

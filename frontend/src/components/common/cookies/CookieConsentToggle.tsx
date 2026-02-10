@@ -53,7 +53,7 @@ export function CookieConsentToggle() {
                     dispatchCookieConsentEvent({ surveys })
                     setSurveysChecked(surveys)
                 }}
-                description="Hvis du samtykker kan vi vise popup-undersøkelser og lagre et par funksjonelle informasjonskapsler som husker om du har svart/lukket. Uten samtykke kan vi fortsatt vise enkelte undersøkelser uten cookies (inline/“Fant du det du lette etter?”).">
+                description="Hvis du samtykker kan vi vise popup-undersøkelser og lagre et par funksjonelle informasjonskapsler som husker om du har svart/lukket. Uten samtykke kan vi fortsatt vise enkelte undersøkelser uten informasjonskapsler, for eksempel korte spørsmål direkte på siden («Fant du det du lette etter?»)">
                 Brukerundersøkelser (Skyra)
             </Switch>
             <Switch
