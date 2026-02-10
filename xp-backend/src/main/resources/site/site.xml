@@ -140,6 +140,9 @@
                     <items>
                         <input type="TextLine" name="newsletterSubscribeText">
                             <label>Tekst</label>
+                            <help-text>Tekst ved siden av påmeldingsknapp for nyhetsbrev. Finnes det ingen tekst vil
+                                knappen også skjules
+                            </help-text>
                         </input>
                         <mixin name="link-selector"/>
                     </items>

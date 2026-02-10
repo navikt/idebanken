@@ -19,19 +19,29 @@ export const useQbrickPlayerState = ({ videoProps, videoContainerId, innholdstyp
     const [playerState, setPlayerState] = useState<PlayerState>('stopped')
     const widgetId = useId()
 
-    const createAndStartPlayer = useCallback(() => {
-        if (playerState === 'loading') {
-            return
-        }
+    const createAndStartPlayer = useCallback(
+        (videoAnalytics: boolean) => {
+            if (playerState === 'loading') {
+                return
+            }
 
-        const videoContainer = document.getElementById(videoContainerId)
-        if (!videoContainer) {
-            console.error(`Element not found for video container ${videoContainerId}`)
-            return
-        }
+            const videoContainer = document.getElementById(videoContainerId)
+            if (!videoContainer) {
+                console.error(`Element not found for video container ${videoContainerId}`)
+                return
+            }
 
-        createAndStart(videoProps, videoContainer, widgetId, setPlayerState, innholdstype)
-    }, [videoProps, videoContainerId, widgetId, playerState, setPlayerState, innholdstype])
+            createAndStart(
+                videoProps,
+                videoContainer,
+                widgetId,
+                setPlayerState,
+                innholdstype,
+                videoAnalytics
+            )
+        },
+        [videoProps, videoContainerId, widgetId, playerState, setPlayerState, innholdstype]
+    )
 
     const resetPlayer = useCallback(() => {
         setPlayerState('stopped')
@@ -54,7 +64,8 @@ const createAndStart = (
     videoContainer: HTMLElement,
     widgetId: string,
     setPlayerState: (state: PlayerState) => void,
-    innholdstype: string
+    innholdstype: string,
+    videoAnalytics: boolean
 ) => {
     const createPlayer = (timeLeft: number = PLAYER_TIMEOUT_MS) => {
         if (timeLeft <= 0) {
@@ -84,7 +95,7 @@ const createAndStart = (
             language,
             autoplay: true,
             widgetId,
-            ignoreAnalytics: true,
+            ignoreAnalytics: !videoAnalytics,
         })
             .on('ready', () => {
                 setPlayerState('ready')

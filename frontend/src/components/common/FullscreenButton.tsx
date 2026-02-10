@@ -4,12 +4,14 @@ import React, { PropsWithChildren, useCallback, useEffect, useState } from 'reac
 import { Button } from '@navikt/ds-react'
 import { ExpandIcon, ShrinkIcon } from '@navikt/aksel-icons'
 import classNames from 'classnames'
+import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 
 export default function FullscreenButton({
     className,
     withText = false,
     children,
-}: PropsWithChildren<{ className?: string; withText?: boolean }>) {
+    source,
+}: PropsWithChildren<{ className?: string; withText?: boolean; source: 'part' | 'footer' }>) {
     const [isFullscreen, setIsFullscreen] = useState<boolean>(false)
 
     useEffect(() => {
@@ -25,15 +27,23 @@ export default function FullscreenButton({
 
     const toggleFullscreen = useCallback(() => {
         if (!document.fullscreenElement) {
+            void umami(AnalyticsEvents.FULLSCREEN_TOGGLED, {
+                fullscreen: 'true',
+                source,
+            })
             void document.documentElement.requestFullscreen().catch(() => {
                 // noop if denied
             })
         } else {
+            void umami(AnalyticsEvents.FULLSCREEN_TOGGLED, {
+                fullscreen: 'false',
+                source,
+            })
             void document.exitFullscreen().catch(() => {
                 // noop if failed
             })
         }
-    }, [])
+    }, [source])
 
     return (
         <Button

@@ -1,5 +1,5 @@
 import { DOMNode, domToReact, Element, HTMLReactParserOptions } from 'html-react-parser'
-import { MetaData, ReplacerResult, sanitizeGraphqlName, MacroData } from '@enonic/nextjs-adapter'
+import { MacroData, MetaData, ReplacerResult, sanitizeGraphqlName } from '@enonic/nextjs-adapter'
 import { MACRO_ATTR } from '@enonic/react-components/constants'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 import BaseMacro from '@enonic/nextjs-adapter/views/BaseMacro'
@@ -41,7 +41,6 @@ export function handleMacro(
             ? {
                   [macroKey]: {
                       ...originalConfig,
-                      body: originalConfig.body?.replace(/youtube\.com/g, 'youtube-nocookie.com'),
                   },
               }
             : {},

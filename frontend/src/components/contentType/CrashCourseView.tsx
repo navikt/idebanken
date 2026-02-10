@@ -462,7 +462,10 @@ export default function CrashCourseView({
                         {currentIndex === 0 ? 'Start' : 'Neste'}
                     </Button>
 
-                    <FullscreenButton className="absolute flex self-center right-0" />
+                    <FullscreenButton
+                        className="absolute flex self-center right-0"
+                        source={'footer'}
+                    />
                 </HStack>
             </VStack>
         </Box>

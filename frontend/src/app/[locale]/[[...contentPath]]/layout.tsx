@@ -14,7 +14,7 @@ import BubblesOverlayTop from '~/components/parts/BubblesOverlayTop'
 import GlobalSkyraForms from '~/components/common/analytics/GlobalSkyraForms'
 import { draftMode } from 'next/headers'
 import { CookieBanner } from '~/components/common/cookies/CookieBanner'
-import { ContentEditorMessage } from '~/components/common/ContentEditorMessage'
+import { ContentEditorMessage } from '~/components/common/error/ContentEditorMessage'
 import Backlink from '~/components/common/Backlink'
 import { AlertBanner } from '~/components/common/AlertBanner'
 import { AuthorsAndDate } from '~/components/common/AuthorsAndDate'
@@ -68,10 +68,8 @@ export default async function PageLayout({ params, children }: LayoutProps) {
         return (
             <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
                 <Page contentBlockPadding="none">
-                    {/*<AlertBanner common={common as HeadlessCms} meta={meta} />*/}
                     {children}
                     <CookieBanner meta={meta} common={common as HeadlessCms} />
-                    {/*<GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />*/}
                     {editorMessage}
                 </Page>
             </EnonicWrapper>
