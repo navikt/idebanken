@@ -3,7 +3,7 @@
 import style from './QbrickVideo.module.css'
 
 import Image from 'next/image'
-import React, { useEffect, useId } from 'react'
+import React, { useEffect, useId, useState } from 'react'
 import { Box, Button, Detail, InlineMessage, Label, Loader } from '@navikt/ds-react'
 import Script from 'next/script'
 import classNames from 'classnames'
@@ -11,9 +11,12 @@ import { useQbrickPlayerState } from '~/components/common/qbrick-video/useQbrick
 import { getTimestampFromDuration } from '~/components/common/qbrick-video/videoHelpers'
 import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { QbrickVideoProps } from '~/components/common/qbrick-video/videoProps'
+import { CookieConsentChangeEvent, getConsentValues } from '~/components/common/cookies/cookieUtils'
 
 export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: MetaData }) => {
     const { title, duration, poster, displayType } = config ?? {}
+
+    const [videoAnalytics, setVideoAnalytics] = useState(false)
 
     const videoContainerId = useId()
     const { createAndStartPlayer, resetPlayer, playerState, setPlayerState } = useQbrickPlayerState(
@@ -23,6 +26,25 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
             innholdstype: meta.type,
         }
     )
+
+    useEffect(() => {
+        // Event listener for changes in cookie consent while the component is mounted
+        const { videoAnalyticsConsent } = getConsentValues()
+        setVideoAnalytics(videoAnalyticsConsent)
+
+        const handleConsentChange = (e: Event) => {
+            const customEvent = e as CookieConsentChangeEvent
+            if (customEvent.detail.videoAnalytics !== undefined) {
+                setVideoAnalytics(customEvent.detail.videoAnalytics)
+            }
+        }
+
+        window.addEventListener('cookie-consent-changed', handleConsentChange)
+
+        return () => {
+            window.removeEventListener('cookie-consent-changed', handleConsentChange)
+        }
+    }, [])
 
     useEffect(() => {
         return resetPlayer
@@ -49,7 +71,7 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                     )}
                     onClick={() => {
                         if (meta.renderMode === RENDER_MODE.NEXT) {
-                            createAndStartPlayer()
+                            createAndStartPlayer(videoAnalytics)
                         }
                     }}>
                     {poster && (
@@ -90,7 +112,7 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                     variant={'tertiary'}
                     onClick={() => {
                         if (meta.renderMode === RENDER_MODE.NEXT) {
-                            createAndStartPlayer()
+                            createAndStartPlayer(videoAnalytics)
                         }
                     }}
                     icon={
@@ -149,7 +171,7 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                 )}
                 id={videoContainerId}
                 title={title}
-                data-qplayer-analytics="off"
+                data-qplayer-analytics={videoAnalytics ? 'on' : 'off'}
             />
         </Box>
     )

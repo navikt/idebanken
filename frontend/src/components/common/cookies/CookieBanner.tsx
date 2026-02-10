@@ -28,13 +28,13 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
     const handleNecessaryOnlyClick = () => {
         closeCookieBanner()
         setShowCookieBanner(false)
-        dispatchCookieConsentEvent({ analytics: false, surveys: false })
+        dispatchCookieConsentEvent({ analytics: false, surveys: false, videoAnalytics: false })
     }
 
     const handleAcceptAllClick = () => {
         closeCookieBanner()
         setShowCookieBanner(false)
-        dispatchCookieConsentEvent({ analytics: true, surveys: true })
+        dispatchCookieConsentEvent({ analytics: true, surveys: true, videoAnalytics: true })
     }
 
     return (

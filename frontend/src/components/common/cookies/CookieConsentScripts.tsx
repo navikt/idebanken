@@ -76,10 +76,10 @@ export function CookieConsentScripts({
         loadUmamiScript(analyticsConsent)
 
         const handleConsent = (e: CustomEvent) => {
-            const { analytics, surveys } = e.detail
+            const { analytics, surveys, videoAnalytics } = e.detail
 
             setCookie({
-                consent: { analytics, surveys },
+                consent: { analytics, surveys, videoAnalytics },
                 userActionTaken: true,
             })
             updateSkyraConsent(surveys)
