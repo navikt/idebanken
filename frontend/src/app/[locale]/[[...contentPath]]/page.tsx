@@ -46,6 +46,8 @@ export async function generateMetadata({
     const image = metaFields?.image ?? undefined
     const description = metaFields?.description?.replace(/\n/g, ' ')?.trim()
 
+    const isNoIndexContent = Boolean(common?.get?.type?.startsWith('idebanken:crash-course'))
+
     return {
         metadataBase: metaFields?.baseUrl ? new URL(metaFields.baseUrl) : undefined,
         title: metaFields?.fullTitle,
@@ -70,8 +72,8 @@ export async function generateMetadata({
                     : undefined,
         },
         robots: {
-            index: metaFields?.robots?.index ?? true,
-            follow: metaFields?.robots?.follow ?? true,
+            index: (!isNoIndexContent && metaFields?.robots?.index) ?? true,
+            follow: (!isNoIndexContent && metaFields?.robots?.follow) ?? true,
         },
         alternates: {
             canonical:
