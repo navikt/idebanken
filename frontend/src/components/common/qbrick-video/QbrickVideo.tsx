@@ -167,12 +167,90 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                 className={classNames(
                     style.macroVideo,
                     playerState !== 'ready' && style.hidden,
-                    '[&_*]:rounded-[var(--ax-border-radius-medium)]!'
+                    '**:rounded-(--ax-border-radius-medium)!'
                 )}
                 id={videoContainerId}
                 title={title}
                 data-qplayer-analytics={videoAnalytics ? 'on' : 'off'}
+                onClickCapture={handleVideoFullscreenWhileAlreadyInFullscreen(
+                    meta,
+                    videoContainerId
+                )}
             />
         </Box>
     )
+}
+
+function handleVideoFullscreenWhileAlreadyInFullscreen(meta: MetaData, videoContainerId: string) {
+    return (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        const target = e.target as HTMLElement
+
+        if (!meta.type.startsWith('idebanken:crash-course') || !document.fullscreenElement) {
+            return
+        } else if (
+            document.fullscreenElement &&
+            document.fullscreenElement.id === videoContainerId
+        ) {
+            const fullscreenOrExitButton = target.closest(
+                'div[data-internal-gobrain-translation-key]'
+            )
+            if (
+                fullscreenOrExitButton?.getAttribute('data-internal-gobrain-translation-key') ===
+                'fullscreenExit'
+            ) {
+                const fullscreenExitButton = fullscreenOrExitButton
+                const fullscreenButton = document.fullscreenElement.querySelector(
+                    `div[data-internal-gobrain-translation-key="fullscreen"]`
+                )
+                fullscreenExitButton?.setAttribute('style', 'display: none;')
+                fullscreenButton?.setAttribute('style', 'display: flex;')
+            }
+            return
+        }
+
+        // Currently in fullscreen crash course and video is not fullscreen - check if the click was on the fullscreen button
+
+        const button = target.closest('div')
+        const label = button?.getAttribute('aria-label')?.toLowerCase()
+        const translationKey = button
+            ?.getAttribute('data-internal-gobrain-translation-key')
+            ?.toLowerCase()
+
+        if (
+            button &&
+            (label?.includes('fullskjerm') ||
+                label?.includes('fullscreen') ||
+                translationKey?.includes('fullskjerm') ||
+                translationKey?.includes('fullscreen'))
+        ) {
+            // Click was on the fullscreen button - attempt to enter fullscreen on the video container
+            e.stopPropagation()
+            e.preventDefault()
+
+            const container = e.currentTarget
+            const video = container.closest(`#${videoContainerId}`)
+            const fullscreenExitButton = container.querySelector(
+                `div[data-internal-gobrain-translation-key="fullscreenExit"]`
+            )
+            const fullscreenButton = container.querySelector(
+                `div[data-internal-gobrain-translation-key="fullscreen"]`
+            )
+            if (video) {
+                void video
+                    .requestFullscreen()
+                    .then(() => {
+                        fullscreenExitButton?.setAttribute('style', 'display: flex;')
+                        fullscreenButton?.setAttribute('style', 'display: none;')
+                    })
+                    .catch(() => {
+                        void container.requestFullscreen()
+                    })
+            } else {
+                void container.requestFullscreen().then(() => {
+                    fullscreenExitButton?.setAttribute('style', 'display: flex;')
+                    fullscreenButton?.setAttribute('style', 'display: none;')
+                })
+            }
+        }
+    }
 }
