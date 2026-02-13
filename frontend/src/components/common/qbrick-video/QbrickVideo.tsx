@@ -182,14 +182,26 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                         metaType: meta.type,
                     })
 
-                    if (
-                        !meta.type.startsWith('idebanken:crash-course') ||
-                        (document.fullscreenElement &&
-                            document.fullscreenElement.id === videoContainerId)
+                    if (!meta.type.startsWith('idebanken:crash-course')) {
+                        return
+                    } else if (
+                        document.fullscreenElement &&
+                        document.fullscreenElement.id === videoContainerId
                     ) {
+                        if (
+                            e.currentTarget.getAttribute(
+                                'data-internal-gobrain-translation-key'
+                            ) === 'fullscreenExit'
+                        ) {
+                            const fullscreenExitButton = e.currentTarget
+                            const fullscreenButton = e.currentTarget.closest(
+                                `div[data-internal-gobrain-translation-key="fullscreen"]`
+                            )
+                            fullscreenExitButton?.setAttribute('style', 'display: none;')
+                            fullscreenButton?.setAttribute('style', 'display: flex;')
+                        }
                         return
                     }
-
                     // Currently in fullscreen crash course and video is not fullscreen - check if the click was on the fullscreen button
 
                     const target = e.target as HTMLElement
