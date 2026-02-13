@@ -188,10 +188,15 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                         document.fullscreenElement &&
                         document.fullscreenElement.id === videoContainerId
                     ) {
+                        const closest = e.currentTarget.closest(
+                            'div[data-internal-gobrain-translation-key]'
+                        )
+                        console.log('In fullscreen crash course - checking for exit button', {
+                            closest,
+                        })
                         if (
-                            e.currentTarget.getAttribute(
-                                'data-internal-gobrain-translation-key'
-                            ) === 'fullscreenExit'
+                            closest?.getAttribute('data-internal-gobrain-translation-key') ===
+                            'fullscreenExit'
                         ) {
                             const fullscreenExitButton = e.currentTarget
                             const fullscreenButton = e.currentTarget.closest(
