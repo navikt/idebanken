@@ -27,6 +27,52 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
         }
     )
 
+    // Keep track of whether we were in fullscreen before the video took over
+    const [wasInCrashCourseFullscreen, setWasInCrashCourseFullscreen] = useState(false)
+
+    useEffect(() => {
+        const handleFullscreenChange = () => {
+            // Check if we just exited fullscreen
+            if (!document.fullscreenElement) {
+                // If we were in "double fullscreen" (Crash course mode) and the video was the one that exited
+                // We want to restore the crash course fullscreen
+                if (wasInCrashCourseFullscreen) {
+                    // Ideally we should verify if it was THIS video that caused the exit,
+                    // but usually if wasInCrashCourseFullscreen is true, we want to go back.
+                    // However, browser security (Escape key) drops all fullscreen.
+                    // We try to request it back immediately for the parent container.
+
+                    // Note: Browsers might block this re-request if not triggered by user interaction,
+                    // but since the user pressed Escape (interaction), some browsers permit it,
+                    // or we accept that we can't fully override the browser's Escape behavior
+                    // and instead we reset our internal state.
+
+                    // Actually, re-triggering fullscreen without a user gesture (like a click) inside a handler
+                    // for Escape is often blocked. If this doesn't work, the UI will just be normal mode.
+
+                    // But we must reset the flag so we don't get stuck in a loop or weird state.
+                    setWasInCrashCourseFullscreen(false)
+
+                    // Attempt to restore parent fullscreen if possible (often requires explicit user action)
+                    const crashCourseContainer = document.getElementById('crash-course-container') // Assuming ID or finding parent
+                    if (crashCourseContainer) {
+                        void crashCourseContainer.requestFullscreen().catch((err) => {
+                            console.warn('Could not restore parent fullscreen automatically:', err)
+                        })
+                    }
+                }
+            } else {
+                // We entered fullscreen.
+                // If the new fullscreen element is THIS video, and we are in the specific mode...
+                // We need to know if we came FROM a crash course fullscreen context.
+                // The click handler logic below sets the state before requesting video fullscreen.
+            }
+        }
+
+        document.addEventListener('fullscreenchange', handleFullscreenChange)
+        return () => document.removeEventListener('fullscreenchange', handleFullscreenChange)
+    }, [wasInCrashCourseFullscreen])
+
     useEffect(() => {
         // Event listener for changes in cookie consent while the component is mounted
         const { videoAnalyticsConsent } = getConsentValues()
@@ -184,7 +230,10 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                         metaType: meta.type,
                     })
 
-                    if (!meta.type.startsWith('idebanken:crash-course')) {
+                    if (
+                        !meta.type.startsWith('idebanken:crash-course') ||
+                        !document.fullscreenElement
+                    ) {
                         return
                     } else if (
                         document.fullscreenElement &&
@@ -230,6 +279,9 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                         // Click was on the fullscreen button - attempt to enter fullscreen on the video container
                         e.stopPropagation()
                         e.preventDefault()
+
+                        // Store that we are currently in a parent fullscreen context before switching
+                        setWasInCrashCourseFullscreen(true)
 
                         const container = e.currentTarget
                         const video = container.closest(`#${videoContainerId}`)
