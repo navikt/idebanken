@@ -167,11 +167,65 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                 className={classNames(
                     style.macroVideo,
                     playerState !== 'ready' && style.hidden,
-                    '[&_*]:rounded-[var(--ax-border-radius-medium)]!'
+                    '**:rounded-(--ax-border-radius-medium)!'
                 )}
                 id={videoContainerId}
                 title={title}
                 data-qplayer-analytics={videoAnalytics ? 'on' : 'off'}
+                onClickCapture={(e) => {
+                    console.log('Video container clicked', {
+                        fullscreenElement: document.fullscreenElement,
+                        videoContainerId,
+                        fullscreenElementId: document.fullscreenElement?.id,
+                        eventTarget: e.target,
+                        currentTarget: e.currentTarget,
+                        metaType: meta.type,
+                    })
+                    if (!meta.type.startsWith('idebanken:crash-course')) {
+                        return
+                    }
+
+                    // Prevent Qbrick from collapsing existing fullscreen when clicking video fullscreen
+                    if (
+                        document.fullscreenElement &&
+                        document.fullscreenElement.id !== videoContainerId
+                    ) {
+                        const target = e.target as HTMLElement
+                        const button = target.closest('div')
+                        const label = button?.getAttribute('aria-label')?.toLowerCase()
+                        const buttonTitle = button
+                            ?.getAttribute('data-internal-gobrain-translation-key')
+                            ?.toLowerCase()
+                        console.log('Checking for fullscreen button', {
+                            button,
+                            label,
+                            buttonTitle,
+                        })
+
+                        if (
+                            button &&
+                            (label?.includes('fullskjerm') ||
+                                label?.includes('fullscreen') ||
+                                buttonTitle?.includes('fullskjerm') ||
+                                buttonTitle?.includes('fullscreen'))
+                        ) {
+                            e.stopPropagation()
+                            e.preventDefault()
+
+                            const container = e.currentTarget
+                            const video = container.querySelector(`#${videoContainerId}`)
+                                ?.children[0] as HTMLElement
+                            console.log('Attempting to enter fullscreen', { container, video })
+                            if (video) {
+                                void video.requestFullscreen().catch(() => {
+                                    void container.requestFullscreen()
+                                })
+                            } else {
+                                void container.requestFullscreen()
+                            }
+                        }
+                    }
+                }}
             />
         </Box>
     )
