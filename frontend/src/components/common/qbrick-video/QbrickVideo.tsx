@@ -54,12 +54,9 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                     setWasInCrashCourseFullscreen(false)
 
                     // Attempt to restore parent fullscreen if possible (often requires explicit user action)
-                    const crashCourseContainer = document.getElementById('crash-course-container') // Assuming ID or finding parent
-                    if (crashCourseContainer) {
-                        void crashCourseContainer.requestFullscreen().catch((err) => {
-                            console.warn('Could not restore parent fullscreen automatically:', err)
-                        })
-                    }
+                    void document.documentElement.requestFullscreen().catch(() => {
+                        // noop if denied
+                    })
                 }
             } else {
                 // We entered fullscreen.
