@@ -214,14 +214,36 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
 
                             const container = e.currentTarget
                             const video = container.querySelector(`#${videoContainerId}`)
-                                ?.children[0] as HTMLElement
-                            console.log('Attempting to enter fullscreen', { container, video })
+                            const fullscreenExitButton = container.querySelector(
+                                `div[data-internal-gobrain-translation-key="fullscreenExit"]`
+                            )
+                            const fullscreenButton = container.querySelector(
+                                `div[data-internal-gobrain-translation-key="fullscreen"]`
+                            )
+                            console.log('Attempting to enter fullscreen', {
+                                container,
+                                video,
+                                fullscreenExitButton,
+                                fullscreenButton,
+                            })
                             if (video) {
-                                void video.requestFullscreen().catch(() => {
-                                    void container.requestFullscreen()
-                                })
+                                void video
+                                    .requestFullscreen()
+                                    .then(() => {
+                                        fullscreenExitButton?.setAttribute(
+                                            'style',
+                                            'display: flex;'
+                                        )
+                                        fullscreenButton?.setAttribute('style', 'display: none;')
+                                    })
+                                    .catch(() => {
+                                        void container.requestFullscreen()
+                                    })
                             } else {
-                                void container.requestFullscreen()
+                                void container.requestFullscreen().then(() => {
+                                    fullscreenExitButton?.setAttribute('style', 'display: none;')
+                                    fullscreenButton?.setAttribute('style', 'display: flex;')
+                                })
                             }
                         }
                     }
