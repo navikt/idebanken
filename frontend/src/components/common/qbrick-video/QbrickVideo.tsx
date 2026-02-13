@@ -173,6 +173,8 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                 title={title}
                 data-qplayer-analytics={videoAnalytics ? 'on' : 'off'}
                 onClickCapture={(e) => {
+                    const target = e.target as HTMLElement
+
                     console.log('Video container clicked', {
                         fullscreenElement: document.fullscreenElement,
                         videoContainerId,
@@ -188,9 +190,7 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                         document.fullscreenElement &&
                         document.fullscreenElement.id === videoContainerId
                     ) {
-                        const closest = (e.target as HTMLElement).closest(
-                            'div[data-internal-gobrain-translation-key]'
-                        )
+                        const closest = target.closest('div[data-internal-gobrain-translation-key]')
                         console.log('In fullscreen crash course - checking for exit button', {
                             closest,
                         })
@@ -199,7 +199,7 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                             'fullscreenExit'
                         ) {
                             const fullscreenExitButton = closest
-                            const fullscreenButton = e.currentTarget.closest(
+                            const fullscreenButton = document.fullscreenElement.querySelector(
                                 `div[data-internal-gobrain-translation-key="fullscreen"]`
                             )
                             fullscreenExitButton?.setAttribute('style', 'display: none;')
@@ -209,7 +209,6 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                     }
                     // Currently in fullscreen crash course and video is not fullscreen - check if the click was on the fullscreen button
 
-                    const target = e.target as HTMLElement
                     const button = target.closest('div')
                     const label = button?.getAttribute('aria-label')?.toLowerCase()
                     const buttonTitle = button
