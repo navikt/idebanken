@@ -181,70 +181,69 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                         currentTarget: e.currentTarget,
                         metaType: meta.type,
                     })
-                    if (!meta.type.startsWith('idebanken:crash-course')) {
+
+                    if (
+                        !meta.type.startsWith('idebanken:crash-course') ||
+                        (document.fullscreenElement &&
+                            document.fullscreenElement.id === videoContainerId)
+                    ) {
                         return
                     }
 
-                    // Prevent Qbrick from collapsing existing fullscreen when clicking video fullscreen
+                    // Currently in fullscreen crash course and video is not fullscreen - check if the click was on the fullscreen button
+
+                    const target = e.target as HTMLElement
+                    const button = target.closest('div')
+                    const label = button?.getAttribute('aria-label')?.toLowerCase()
+                    const buttonTitle = button
+                        ?.getAttribute('data-internal-gobrain-translation-key')
+                        ?.toLowerCase()
+                    console.log('Checking for fullscreen button', {
+                        button,
+                        label,
+                        buttonTitle,
+                    })
+
                     if (
-                        document.fullscreenElement &&
-                        document.fullscreenElement.id !== videoContainerId
+                        button &&
+                        (label?.includes('fullskjerm') ||
+                            label?.includes('fullscreen') ||
+                            buttonTitle?.includes('fullskjerm') ||
+                            buttonTitle?.includes('fullscreen'))
                     ) {
-                        const target = e.target as HTMLElement
-                        const button = target.closest('div')
-                        const label = button?.getAttribute('aria-label')?.toLowerCase()
-                        const buttonTitle = button
-                            ?.getAttribute('data-internal-gobrain-translation-key')
-                            ?.toLowerCase()
-                        console.log('Checking for fullscreen button', {
-                            button,
-                            label,
-                            buttonTitle,
+                        // Click was on the fullscreen button - attempt to enter fullscreen on the video container
+                        e.stopPropagation()
+                        e.preventDefault()
+
+                        const container = e.currentTarget
+                        const video = container.closest(`#${videoContainerId}`)
+                        const fullscreenExitButton = container.querySelector(
+                            `div[data-internal-gobrain-translation-key="fullscreenExit"]`
+                        )
+                        const fullscreenButton = container.querySelector(
+                            `div[data-internal-gobrain-translation-key="fullscreen"]`
+                        )
+                        console.log('Attempting to enter fullscreen', {
+                            container,
+                            video,
+                            fullscreenExitButton,
+                            fullscreenButton,
                         })
-
-                        if (
-                            button &&
-                            (label?.includes('fullskjerm') ||
-                                label?.includes('fullscreen') ||
-                                buttonTitle?.includes('fullskjerm') ||
-                                buttonTitle?.includes('fullscreen'))
-                        ) {
-                            e.stopPropagation()
-                            e.preventDefault()
-
-                            const container = e.currentTarget
-                            const video = container.querySelector(`#${videoContainerId}`)
-                            const fullscreenExitButton = container.querySelector(
-                                `div[data-internal-gobrain-translation-key="fullscreenExit"]`
-                            )
-                            const fullscreenButton = container.querySelector(
-                                `div[data-internal-gobrain-translation-key="fullscreen"]`
-                            )
-                            console.log('Attempting to enter fullscreen', {
-                                container,
-                                video,
-                                fullscreenExitButton,
-                                fullscreenButton,
-                            })
-                            if (video) {
-                                void video
-                                    .requestFullscreen()
-                                    .then(() => {
-                                        fullscreenExitButton?.setAttribute(
-                                            'style',
-                                            'display: flex;'
-                                        )
-                                        fullscreenButton?.setAttribute('style', 'display: none;')
-                                    })
-                                    .catch(() => {
-                                        void container.requestFullscreen()
-                                    })
-                            } else {
-                                void container.requestFullscreen().then(() => {
-                                    fullscreenExitButton?.setAttribute('style', 'display: none;')
-                                    fullscreenButton?.setAttribute('style', 'display: flex;')
+                        if (video) {
+                            void video
+                                .requestFullscreen()
+                                .then(() => {
+                                    fullscreenExitButton?.setAttribute('style', 'display: flex;')
+                                    fullscreenButton?.setAttribute('style', 'display: none;')
                                 })
-                            }
+                                .catch(() => {
+                                    void container.requestFullscreen()
+                                })
+                        } else {
+                            void container.requestFullscreen().then(() => {
+                                fullscreenExitButton?.setAttribute('style', 'display: flex;')
+                                fullscreenButton?.setAttribute('style', 'display: none;')
+                            })
                         }
                     }
                 }}
