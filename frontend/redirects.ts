@@ -11,11 +11,6 @@ export async function redirects() {
             permanent: false,
         },
         {
-            source: '/personvern',
-            destination: '/personvern-og-cookies',
-            permanent: false,
-        },
-        {
             source: '/psykisk',
             destination: '/tema/psykisk-helse',
             permanent: false,
