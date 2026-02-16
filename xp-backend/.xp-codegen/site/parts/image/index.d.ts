@@ -45,7 +45,7 @@ export type Image = {
           aspectRatio?: '16:9' | '4:3' | '1:1' | '3:4' | '9:16';
 
           /**
-           * Maks bredde (px)
+           * Maks bredde (px). 0 => ingen begrensning
            */
           maxWidth?: number;
 
@@ -63,16 +63,6 @@ export type Image = {
            * Sentrer vertikalt
            */
           centerVertically: boolean;
-
-          /**
-           * X-Polstring rundt bildet (px)
-           */
-          paddingX?: number;
-
-          /**
-           * Y-Polstring rundt bildet (px)
-           */
-          paddingY?: number;
         };
       }
     | {

@@ -16,6 +16,13 @@ export const imageQuery = `{
 	decorative
 	image_size {
       _selected
+      aspect_ratio {
+        aspectRatio
+        maxWidth
+        roundedCorners
+        centerHorizontally
+        centerVertically
+      }
       standard_size {
         standardWidth
       }

@@ -7,7 +7,8 @@ import { PartData } from '~/types/graphql-types'
 import { Circle } from '~/components/common/Circle'
 import { XP_Image } from '@xp-types/site/parts'
 import Image from 'next/image'
-import { BodyShort, Box } from '@navikt/ds-react'
+import { BodyShort, Box, VStack } from '@navikt/ds-react'
+import { PlaceholderComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 
 export type ImageData = {
     image?: {
@@ -84,7 +85,48 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
         sizeVariant,
     } = parseImageProps(config, meta)
 
-    if (!src) return null
+    if (!src) return <PlaceholderComponent type={'bilde'} descriptor={'idebanken:image'} />
+
+    if (config['image-size']?._selected === 'aspect-ratio') {
+        const { aspectRatio, maxWidth, roundedCorners, centerHorizontally, centerVertically } =
+            config['image-size']['aspect-ratio']
+        return (
+            <VStack as={'figure'}>
+                <Box
+                    className={classNames(
+                        'relative flex flex-col',
+                        imgRatios[aspectRatio || '16:9'],
+                        centerHorizontally && 'mx-auto',
+                        centerVertically && 'my-auto',
+                        hideOnMobile && 'max-md:hidden'
+                    )}
+                    style={{
+                        width: maxWidth ? `min(${maxWidth}px, 100%)` : '100%',
+                    }}>
+                    <Image
+                        unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                        src={src}
+                        alt={caption ? '' : alt}
+                        aria-hidden={decorative || undefined}
+                        fill
+                        className={classNames('object-cover', roundedCorners ? 'rounded-ib' : '')}
+                        sizes="(min-width: 1024px) 1024px, 50vw"
+                    />
+                </Box>
+                {caption && (
+                    <figcaption
+                        className={classNames('mt-(--ax-space-8)', centerHorizontally && 'mx-auto')}
+                        style={{
+                            width: maxWidth ? `min(${maxWidth}px, 100%)` : '100%',
+                        }}>
+                        <BodyShort size="small" className="leading-normal">
+                            {caption}
+                        </BodyShort>
+                    </figcaption>
+                )}
+            </VStack>
+        )
+    }
 
     const borderDist = showBorder && borderDistance ? borderDistance : 0
     const paddingFullX = paddingX + borderDist
@@ -149,7 +191,7 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
             )}
             {caption && (
                 <figcaption className="mt-(--ax-space-16)">
-                    <BodyShort size="small" className="leading-[1.5]">
+                    <BodyShort size="small" className="leading-normal">
                         {caption}
                     </BodyShort>
                 </figcaption>
@@ -166,32 +208,6 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
         </figure>
     )
 
-    if (config['image-size']?._selected === 'aspect-ratio') {
-        const {
-            aspectRatio,
-            maxWidth,
-            roundedCorners,
-            centerHorizontally,
-            centerVertically,
-            paddingX,
-            paddingY,
-        } = config['image-size']['aspect-ratio']
-        return (
-            <Box
-                className={classNames('relative', imgRatios[aspectRatio || '16:9'])}
-                style={{ width: maxWidth || '100%' }}>
-                <Image
-                    unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
-                    src={src}
-                    alt={caption ? '' : alt}
-                    aria-hidden={decorative || undefined}
-                    fill
-                    className={classNames('object-cover', roundedCorners ? 'rounded-ib' : '')}
-                    sizes="(min-width: 1024px) 1024px, 50vw"
-                />
-            </Box>
-        )
-    }
     // Bleed only for standard-size 'medium'/'large'
     return bleed ? <div className={bleedClass}>{figure}</div> : figure
 }

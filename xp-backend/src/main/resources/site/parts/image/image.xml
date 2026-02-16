@@ -48,7 +48,7 @@
                             <default>16:9</default>
                         </input>
                         <input name="maxWidth" type="Long">
-                            <label>Maks bredde (px)</label>
+                            <label>Maks bredde (px). 0 => ingen begrensning</label>
                             <default>0</default>
                             <config>
                                 <min>0</min>
@@ -66,23 +66,6 @@
                         <input name="centerVertically" type="CheckBox">
                             <label>Sentrer vertikalt</label>
                             <default>unchecked</default>
-                        </input>
-                        <input name="paddingX" type="Long">
-                            <label>X-Polstring rundt bildet (px)</label>
-                            <default>0</default>
-                            <config>
-                                <min>0</min>
-                                <max>100</max>
-                            </config>
-                        </input>
-
-                        <input name="paddingY" type="Long">
-                            <label>Y-Polstring rundt bildet (px)</label>
-                            <default>0</default>
-                            <config>
-                                <min>0</min>
-                                <max>100</max>
-                            </config>
                         </input>
                     </items>
                 </option>
@@ -230,9 +213,5 @@
                 </option>
             </options>
         </option-set>
-
-
-
-
     </form>
 </part>
