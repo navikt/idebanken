@@ -68,17 +68,17 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
                     type="submit"
                     className={'max-sm:w-full'}
                     config={{ variant: 'secondary', size: 'medium' }}
-                    onClick={handleNecessaryOnlyClick}
+                    onClick={handleAcceptAllClick}
                     meta={meta}>
-                    Kun nødvendige
+                    Godta alle informasjonskapsler
                 </ButtonView>
                 <ButtonView
                     type="submit"
                     className={'max-sm:w-full'}
                     config={{ variant: 'secondary', size: 'medium' }}
-                    onClick={handleAcceptAllClick}
+                    onClick={handleNecessaryOnlyClick}
                     meta={meta}>
-                    Godta alle informasjonskapsler
+                    Kun nødvendige
                 </ButtonView>
             </Stack>
         </Box>
