@@ -26,7 +26,7 @@ export type XP_Image = {
   decorative: boolean;
 
   /**
-   * Bilde størrelse
+   * Bildestørrelse
    */
   'image-size':
     | {

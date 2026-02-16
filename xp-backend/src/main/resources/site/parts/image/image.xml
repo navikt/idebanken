@@ -29,7 +29,7 @@
         </input>
 
         <option-set name="image-size">
-            <label>Bilde størrelse</label>
+            <label>Bildestørrelse</label>
             <help-text>Velg standard eller egendefinert bildestørrelse og avansert styling. Du må resette dette valget for å endre type</help-text>
             <occurrences minimum="1" maximum="1"/>
             <options minimum="1" maximum="1">

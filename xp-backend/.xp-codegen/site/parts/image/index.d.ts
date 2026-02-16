@@ -26,7 +26,7 @@ export type Image = {
   decorative: boolean;
 
   /**
-   * Bilde størrelse
+   * Bildestørrelse
    */
   'image-size':
     | {

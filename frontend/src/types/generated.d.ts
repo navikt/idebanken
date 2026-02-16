@@ -1303,7 +1303,7 @@ export type Part_Idebanken_Image_CustomSizeCirclesArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-/** Bilde størrelse */
+/** Bildestørrelse */
 export type Part_Idebanken_Image_ImageSize = {
   __typename?: 'Part_idebanken_image_ImageSize';
   _selected?: Maybe<Part_Idebanken_Image_ImageSize_OptionEnum>;
@@ -1312,7 +1312,7 @@ export type Part_Idebanken_Image_ImageSize = {
   standard_size?: Maybe<Part_Idebanken_Image_StandardSize>;
 };
 
-/** Bilde størrelse option enum. */
+/** Bildestørrelse option enum. */
 export enum Part_Idebanken_Image_ImageSize_OptionEnum {
   AspectRatio = 'aspect_ratio',
   CustomSize = 'custom_size',
