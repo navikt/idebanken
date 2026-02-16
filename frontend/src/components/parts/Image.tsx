@@ -91,14 +91,13 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
         const { aspectRatio, maxWidth, roundedCorners, centerHorizontally, centerVertically } =
             config['image-size']['aspect-ratio']
         return (
-            <VStack as={'figure'}>
+            <VStack as={'figure'} className={classNames(hideOnMobile && 'max-md:hidden')}>
                 <Box
                     className={classNames(
                         'relative flex flex-col',
                         imgRatios[aspectRatio || '16:9'],
                         centerHorizontally && 'mx-auto',
-                        centerVertically && 'my-auto',
-                        hideOnMobile && 'max-md:hidden'
+                        centerVertically && 'my-auto'
                     )}
                     style={{
                         width: maxWidth ? `min(${maxWidth}px, 100%)` : '100%',
