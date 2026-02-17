@@ -34,6 +34,7 @@
             <occurrences minimum="1" maximum="1"/>
             <options minimum="1" maximum="1">
                 <option name="aspect-ratio">
+                    <default>true</default>
                     <label>Størrelsesforhold</label>
                     <items>
                         <input type="ComboBox" name="aspectRatio">
@@ -70,7 +71,6 @@
                     </items>
                 </option>
                 <option name="standard-size">
-                    <default>true</default>
                     <label>Standard størrelse</label>
                     <help-text>Velg en standard bredde for bildet</help-text>
                     <items>
