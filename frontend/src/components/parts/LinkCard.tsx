@@ -86,7 +86,8 @@ export const LinkCardView = ({
             className={classNames(
                 'group rounded-ib',
                 showImage ? '[&>svg:last-child]:mt-(--ax-space-12)' : ' px-7 py-6',
-                color === 'white' || !color ? 'bg-(--ax-bg-default)!' : ''
+                color === 'white' || !color ? 'bg-(--ax-bg-default)!' : '',
+                'text-left'
             )}>
             {showImage && (
                 <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(1.5rem-1px)]">
