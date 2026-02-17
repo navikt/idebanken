@@ -18,7 +18,7 @@ export function middleware(req: NextRequest) {
     if (pathname.includes('/_/')) {
         // 404 on paths that contain /_/, as they are used for internal Enonic XP purposes (e.g. images, static files, etc.)
         const ua = req.headers.get('user-agent')?.toLowerCase() ?? ''
-        const safeStringRegex = /[^\w/()-æøå%]*?/
+        const safeStringRegex = /[^\w/()\-%æøå]*?/
         console.warn(
             `Path '${pathname.replaceAll(safeStringRegex, '')}' contains '/_/'. Rewrite path to suppress bad fetch and land cleanly on our 404 page. Referrer: '${req.headers.get('referer')?.replaceAll(safeStringRegex, '')}'.${[/crawler|spider|bot/i].some((p) => p.test(ua)) ? ' Request was done by a bot' : ''}`
         )
