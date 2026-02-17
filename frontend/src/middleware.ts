@@ -5,7 +5,7 @@ const enonicDomain = new URL(process.env.ENONIC_API ?? '').host
 const isLocalhost = process.env.ENV === 'local'
 
 export function middleware(req: NextRequest) {
-    const pathname = req.nextUrl.pathname
+    let pathname = req.nextUrl.pathname
     const { locale, locales } = getRequestLocaleInfo({
         contentPath: pathname,
         headers: req.headers,
@@ -14,6 +14,17 @@ export function middleware(req: NextRequest) {
 
     const pathHasLocale = locales.indexOf(pathPart) >= 0
     const cspHeader = getCspHeaderAndAppendToRequestHeaders(req)
+
+    if (RegExp(/.*\/_\/.+/).test(pathname)) {
+        // 404 on paths that contain /_/, as they are used for internal Enonic XP purposes (e.g. images, static files, etc.)
+        const ua = req.headers.get('user-agent')?.toLowerCase() ?? ''
+        console.warn(
+            `Path '${pathname}' contains '/_/'. Rewrite path to suppress bad fetch and land cleanly on our 404 page. Referrer: '${req.headers.get('referer')}'.${[/crawler|spider|bot/i].some((p) => p.test(ua)) ? ' Request was done by a bot' : ''}`
+        )
+        // Remove /_/ from the path to avoid issues with enonic fetching. This will result in a 404 and no error log.
+        pathname = pathname.replaceAll('/_/', '/xp-underscore/')
+    }
+
     if (pathHasLocale) {
         // locale is already in the path, no need to redirect
         return responseWithCspHeader(
@@ -25,13 +36,15 @@ export function middleware(req: NextRequest) {
     } else if (!locale) {
         // no locale found in path or headers, return 404
         console.debug(`Middleware returning 404 for '${pathname}': no locale found`)
-        return new NextResponse(null, {
-            status: 404,
-        })
+        return responseWithCspHeader(
+            new NextResponse(null, {
+                status: 404,
+            }),
+            cspHeader
+        )
     }
 
     req.nextUrl.pathname = `/${locale}${pathname}`
-    console.debug(`Middleware redirecting '${pathname}' to '${req.nextUrl.pathname}'`)
     return responseWithCspHeader(
         NextResponse.rewrite(req.nextUrl, {
             request: req,
