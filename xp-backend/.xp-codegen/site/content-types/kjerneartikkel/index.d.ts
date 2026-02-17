@@ -31,7 +31,7 @@ export type Kjerneartikkel = {
   authors?: Array<string> | string;
 
   /**
-   * Publiseringsdato
+   * Oppdateringsdato
    */
   publicationDate: string;
 };
