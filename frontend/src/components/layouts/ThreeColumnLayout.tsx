@@ -108,7 +108,8 @@ const ThreeColumnLayout = ({ common, meta, layout, path }: ThreeColumnLayoutProp
                     className={classNames(
                         isCrashCourse ? '' : `col-span-1 md:col-span-${columnSpan}`,
                         isCrashCourse ? '' : getOrderClass('left'),
-                        alignmentClassNames(xAlignment, yAlignment)
+                        alignmentClassNames(xAlignment, yAlignment),
+                        'h-full'
                     )}
                     style={
                         isCrashCourse
@@ -118,7 +119,7 @@ const ThreeColumnLayout = ({ common, meta, layout, path }: ThreeColumnLayoutProp
                             : undefined
                     }>
                     <RegionView
-                        className="flex flex-col space-y-(--ax-space-24) w-full"
+                        className="flex flex-col space-y-(--ax-space-24) w-full h-full"
                         name="left"
                         components={regions['left']?.components}
                         common={common}
@@ -129,7 +130,8 @@ const ThreeColumnLayout = ({ common, meta, layout, path }: ThreeColumnLayoutProp
                     className={classNames(
                         isCrashCourse ? '' : `col-span-1 md:col-span-${columnSpan}`,
                         isCrashCourse ? '' : getOrderClass('center'),
-                        alignmentClassNames(xAlignment, yAlignment)
+                        alignmentClassNames(xAlignment, yAlignment),
+                        'h-full'
                     )}
                     style={
                         isCrashCourse
@@ -139,7 +141,7 @@ const ThreeColumnLayout = ({ common, meta, layout, path }: ThreeColumnLayoutProp
                             : undefined
                     }>
                     <RegionView
-                        className="flex flex-col space-y-(--ax-space-24) w-full"
+                        className="flex flex-col space-y-(--ax-space-24) w-full h-full"
                         name="center"
                         components={regions['center']?.components}
                         common={common}
@@ -150,7 +152,8 @@ const ThreeColumnLayout = ({ common, meta, layout, path }: ThreeColumnLayoutProp
                     className={classNames(
                         isCrashCourse ? '' : `col-span-1 md:col-span-${columnSpan}`,
                         isCrashCourse ? '' : getOrderClass('right'),
-                        alignmentClassNames(xAlignment, yAlignment)
+                        alignmentClassNames(xAlignment, yAlignment),
+                        'h-full'
                     )}
                     style={
                         isCrashCourse
@@ -160,7 +163,7 @@ const ThreeColumnLayout = ({ common, meta, layout, path }: ThreeColumnLayoutProp
                             : undefined
                     }>
                     <RegionView
-                        className="flex flex-col space-y-(--ax-space-24) w-full"
+                        className="flex flex-col space-y-(--ax-space-24) w-full h-full"
                         name="right"
                         components={regions['right']?.components}
                         common={common}

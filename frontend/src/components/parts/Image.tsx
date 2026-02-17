@@ -91,7 +91,12 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
         const { aspectRatio, maxWidth, roundedCorners, centerHorizontally, centerVertically } =
             config['image-size']['aspect-ratio']
         return (
-            <VStack as={'figure'} className={classNames(hideOnMobile && 'max-md:hidden')}>
+            <VStack
+                as={'figure'}
+                className={classNames(
+                    hideOnMobile && 'max-md:hidden',
+                    centerVertically && 'h-full'
+                )}>
                 <Box
                     className={classNames(
                         'relative flex flex-col',
@@ -114,7 +119,10 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                 </Box>
                 {caption && (
                     <figcaption
-                        className={classNames('mt-(--ax-space-8)', centerHorizontally && 'mx-auto')}
+                        className={classNames(
+                            'mt-(--ax-space-16)',
+                            centerHorizontally && 'mx-auto'
+                        )}
                         style={{
                             width: maxWidth ? `min(${maxWidth}px, 100%)` : '100%',
                         }}>
