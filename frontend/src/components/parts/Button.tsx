@@ -81,6 +81,7 @@ const ButtonPart = ({ part, meta }: PartData<Part_Idebanken_Button>) => {
                 variant: variant as XP_Button['variant'],
                 linkText: link.linkText,
             }}
+            className={'mr-(--ax-space-16)'}
             meta={meta}
         />
     )
