@@ -6,7 +6,7 @@ import Image from 'next/image'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { SearchWrapper } from '~/components/common/SearchWrapper'
 import { HeadlessCms, SiteConfiguration } from '~/types/generated'
-import { Bleed, Button, HStack, Link, Stack, VStack } from '@navikt/ds-react'
+import { Bleed, BodyLong, Button, HStack, Link, Stack, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
 import {
     ArrowRightIcon,
@@ -339,6 +339,9 @@ function quickSearch({
                 aria-hidden={true}>
                 Søk på idébanken
             </HeadingView>
+            <BodyLong className={'mb-(--ax-space-4)'}>
+                Søk med enkeltord for best mulig treff
+            </BodyLong>
             <SearchWrapper
                 aria-labelledby={'idebanken-quicksearch-title'}
                 isSearchOpen={isSearchOpen}

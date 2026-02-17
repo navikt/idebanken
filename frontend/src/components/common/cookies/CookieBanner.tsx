@@ -47,15 +47,16 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
             padding={{ xs: 'space-36', md: 'space-64' }}
             margin={{ xs: 'space-0', lg: 'space-44' }}
             className={classNames(
-                'fixed bottom-0 inset-x-0 mx-auto w-[min(704px,100%)] z-[1000]',
-                'bg-(--ib-bg-dark-blue-soft) shadow-2xl lg:rounded-lg max-lg:bg-none!',
-                'max-h-screen overflow-y-auto'
+                'fixed bottom-0 inset-x-0 mx-auto w-[min(704px,100%)] z-1000',
+                'bg-(--ib-bg-dark-blue-soft) md:rounded-lg max-md:bg-none!',
+                'max-h-screen overflow-y-auto',
+                'md:shadow-2xl max-md:shadow-[0_-10px_200px_150px_rgba(0,0,0,0.5),0_0_0_0_rgba(0,0,0,0.5)]'
             )}>
             <RichTextView
                 data={{ processedHtml: common?.siteConfiguration?.cookieInfoText ?? '' }}
                 meta={meta}
                 customReplacer={htmlRichTextReplacer}
-                className={'[&>*]:mb-(--ax-space-24) mb-(--ax-space-24)'}
+                className={'*:mb-(--ax-space-24) mb-(--ax-space-24)'}
             />
 
             <Stack
@@ -68,17 +69,17 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
                     type="submit"
                     className={'max-sm:w-full'}
                     config={{ variant: 'secondary', size: 'medium' }}
-                    onClick={handleNecessaryOnlyClick}
+                    onClick={handleAcceptAllClick}
                     meta={meta}>
-                    Kun nødvendige
+                    Godta alle informasjonskapsler
                 </ButtonView>
                 <ButtonView
                     type="submit"
                     className={'max-sm:w-full'}
                     config={{ variant: 'secondary', size: 'medium' }}
-                    onClick={handleAcceptAllClick}
+                    onClick={handleNecessaryOnlyClick}
                     meta={meta}>
-                    Godta alle informasjonskapsler
+                    Kun nødvendige
                 </ButtonView>
             </Stack>
         </Box>

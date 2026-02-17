@@ -84,7 +84,8 @@ const TwoColumnLayout = ({ common, meta, layout, path }: TwoColumnLayoutProps) =
                     className={classNames(
                         isCrashCourse ? '' : `col-span-1 md:col-span-${leftSpan}`,
                         isCrashCourse ? '' : breakLeftFirst ? 'max-md:order-1' : 'max-md:order-2',
-                        alignmentClassNames(xAlignment, yAlignment)
+                        alignmentClassNames(xAlignment, yAlignment),
+                        'h-full'
                     )}
                     style={
                         isCrashCourse
@@ -94,7 +95,7 @@ const TwoColumnLayout = ({ common, meta, layout, path }: TwoColumnLayoutProps) =
                             : undefined
                     }>
                     <RegionView
-                        className="flex flex-col gap-(--ax-space-24) space-y-(--ax-space-24) w-full"
+                        className="flex flex-col gap-(--ax-space-24) space-y-(--ax-space-24) w-full h-full"
                         name="left"
                         components={regions['left']?.components}
                         common={common}
@@ -105,7 +106,8 @@ const TwoColumnLayout = ({ common, meta, layout, path }: TwoColumnLayoutProps) =
                     className={classNames(
                         isCrashCourse ? '' : `col-span-1 md:col-span-${rightSpan}`,
                         isCrashCourse ? '' : breakLeftFirst ? 'max-md:order-2' : 'max-md:order-1',
-                        alignmentClassNames(xAlignment, yAlignment)
+                        alignmentClassNames(xAlignment, yAlignment),
+                        'h-full'
                     )}
                     style={
                         isCrashCourse
@@ -115,7 +117,7 @@ const TwoColumnLayout = ({ common, meta, layout, path }: TwoColumnLayoutProps) =
                             : undefined
                     }>
                     <RegionView
-                        className="flex flex-col space-y-(--ax-space-24) w-full"
+                        className="flex flex-col space-y-(--ax-space-24) w-full h-full"
                         name="right"
                         components={regions['right']?.components}
                         common={common}

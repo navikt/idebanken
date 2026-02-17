@@ -1261,6 +1261,16 @@ export type Part_Idebanken_Image = {
   overrideCaption?: Maybe<Scalars['String']['output']>;
 };
 
+/** Størrelsesforhold */
+export type Part_Idebanken_Image_AspectRatio = {
+  __typename?: 'Part_idebanken_image_AspectRatio';
+  aspectRatio?: Maybe<Scalars['String']['output']>;
+  centerHorizontally?: Maybe<Scalars['Boolean']['output']>;
+  centerVertically?: Maybe<Scalars['Boolean']['output']>;
+  maxWidth?: Maybe<Scalars['String']['output']>;
+  roundedCorners?: Maybe<Scalars['Boolean']['output']>;
+};
+
 /** Rundinger */
 export type Part_Idebanken_Image_Circles = {
   __typename?: 'Part_idebanken_image_Circles';
@@ -1293,16 +1303,18 @@ export type Part_Idebanken_Image_CustomSizeCirclesArgs = {
   offset?: InputMaybe<Scalars['Int']['input']>;
 };
 
-/** Bilde størrelse */
+/** Bildestørrelse */
 export type Part_Idebanken_Image_ImageSize = {
   __typename?: 'Part_idebanken_image_ImageSize';
   _selected?: Maybe<Part_Idebanken_Image_ImageSize_OptionEnum>;
+  aspect_ratio?: Maybe<Part_Idebanken_Image_AspectRatio>;
   custom_size?: Maybe<Part_Idebanken_Image_CustomSize>;
   standard_size?: Maybe<Part_Idebanken_Image_StandardSize>;
 };
 
-/** Bilde størrelse option enum. */
+/** Bildestørrelse option enum. */
 export enum Part_Idebanken_Image_ImageSize_OptionEnum {
+  AspectRatio = 'aspect_ratio',
   CustomSize = 'custom_size',
   StandardSize = 'standard_size'
 }

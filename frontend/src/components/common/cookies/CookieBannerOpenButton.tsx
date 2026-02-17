@@ -63,7 +63,7 @@ export const CookieBannerOpenButton = ({ meta }: PartData<XP_CookieConsentOpen>)
             </HeadingView>
             <ButtonView
                 type="submit"
-                className={'max-sm:w-full self-center! py-(--ax-space-16) px-(--ax-space-24)'}
+                className={'max-sm:w-full self-center! py-(--ax-space-16) px-(--ax-space-36)'}
                 config={{ variant: 'primary', size: 'medium' }}
                 onClick={(e) => openCookieBanner(e.target as HTMLButtonElement)}
                 meta={meta}>

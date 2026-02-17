@@ -29,12 +29,48 @@
         </input>
 
         <option-set name="image-size">
-            <label>Bilde størrelse</label>
+            <label>Bildestørrelse</label>
             <help-text>Velg standard eller egendefinert bildestørrelse og avansert styling. Du må resette dette valget for å endre type</help-text>
             <occurrences minimum="1" maximum="1"/>
             <options minimum="1" maximum="1">
-                <option name="standard-size">
+                <option name="aspect-ratio">
                     <default>true</default>
+                    <label>Størrelsesforhold</label>
+                    <items>
+                        <input type="ComboBox" name="aspectRatio">
+                            <label>Forhold</label>
+                            <config>
+                                <option value="16:9">16:9</option>
+                                <option value="4:3">4:3</option>
+                                <option value="1:1">1:1</option>
+                                <option value="3:4">3:4</option>
+                                <option value="9:16">9:16</option>
+                            </config>
+                            <default>16:9</default>
+                        </input>
+                        <input name="maxWidth" type="Long">
+                            <label>Maks bredde (px). 0 => ingen begrensning</label>
+                            <default>0</default>
+                            <config>
+                                <min>0</min>
+                                <max>2000</max>
+                            </config>
+                        </input>
+                        <input name="roundedCorners" type="CheckBox">
+                            <label>Avrundede kanter</label>
+                            <default>checked</default>
+                        </input>
+                        <input name="centerHorizontally" type="CheckBox">
+                            <label>Sentrer horisontalt</label>
+                            <default>checked</default>
+                        </input>
+                        <input name="centerVertically" type="CheckBox">
+                            <label>Sentrer vertikalt</label>
+                            <default>unchecked</default>
+                        </input>
+                    </items>
+                </option>
+                <option name="standard-size">
                     <label>Standard størrelse</label>
                     <help-text>Velg en standard bredde for bildet</help-text>
                     <items>
@@ -155,7 +191,7 @@
                                             <label>Avstand fra bunn (y-akse i px)</label>
                                             <default>-10</default>
                                         </input>
-                        
+
                                         <input name="left" type="Long">
                                             <label>Avstand fra venstre (x-akse i px)</label>
                                             <default>-20</default>
@@ -177,9 +213,5 @@
                 </option>
             </options>
         </option-set>
-
-       
-
-        
     </form>
 </part>

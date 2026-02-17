@@ -31,7 +31,7 @@ export type XP_Kjerneartikkel = {
   authors?: Array<string> | string;
 
   /**
-   * Publiseringsdato
+   * Oppdateringsdato
    */
   publicationDate: string;
 };

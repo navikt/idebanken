@@ -29,10 +29,9 @@ export function handleLink(
     }
 
     // Remove /(site|headless)/idebanken/{branch}/idebanken if the RichText is rendered in a client component
-    const processedHref = getUrl(
-        href.replace(/\/(site|headless)\/idebanken\/[^/]+\/idebanken/, ''),
-        meta
-    )
+    const processedHref = RegExp(/^(mailto|tel):*/).test(href)
+        ? href
+        : getUrl(href.replace(/\/(site|headless)\/idebanken\/[^/]+\/idebanken/, ''), meta)
 
     if (!linkRef) {
         // non-content links like mailto and external links

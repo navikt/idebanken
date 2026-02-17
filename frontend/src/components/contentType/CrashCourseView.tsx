@@ -16,7 +16,7 @@ import {
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 import { CrashCourseStructure } from '~/components/queries/crash-course'
 import NextLink from 'next/link'
-import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
+import { getAsset, getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import Image from 'next/image'
 import { ArrowLeftIcon, ArrowRightIcon, WrenchIcon } from '@navikt/aksel-icons'
 import { usePathname, useRouter } from 'next/navigation'
@@ -355,85 +355,97 @@ export default function CrashCourseView({
                         className="absolute top-0 left-1/2 -translate-x-1/2 w-2500 h-1250 bg-(--ax-bg-moderate) -z-10"
                         aria-hidden
                     />
-                    <Button
-                        ref={setTemporaryAnchorEl}
-                        onClick={() => setTemporaryOpenState(!temporaryOpenState)}
-                        aria-expanded={temporaryOpenState}
-                        aria-controls={temporaryOpenState ? 'temporary-tuning-popover' : undefined}
-                        size="xsmall"
-                        className="rounded-full px-(--ax-space-16) absolute left-0"
-                        variant="tertiary"
-                        icon={<WrenchIcon aria-hidden />}
-                        aria-label="Innstillinger"
-                    />
-                    <Popover
-                        open={temporaryOpenState}
-                        onClose={() => setTemporaryOpenState(false)}
-                        anchorEl={temporaryAnchorEl}
-                        id="temporary-tuning-popover">
-                        <Popover.Content>
-                            <VStack gap="2">
-                                <TextField
-                                    label="Skalering"
-                                    type="number"
-                                    size="small"
-                                    value={temporaryScaleParam}
-                                    onChange={(e) => setTemporaryScaleParam(Number(e.target.value))}
-                                    step="0.01"
-                                />
-                                <TextField
-                                    label="Padding X + Y"
-                                    type="number"
-                                    size="small"
-                                    value={temporaryPaddingXYParam}
-                                    onChange={(e) => {
-                                        setTemporaryPaddingXYParam(Number(e.target.value))
-                                        setTemporaryPaddingYParam(Number(e.target.value))
-                                        setTemporaryPaddingXParam(Number(e.target.value))
-                                    }}
-                                    step="1"
-                                />
-                                <TextField
-                                    label="Padding X"
-                                    type="number"
-                                    size="small"
-                                    value={temporaryPaddingXParam}
-                                    onChange={(e) => {
-                                        setTemporaryPaddingXYParam(0)
-                                        setTemporaryPaddingXParam(Number(e.target.value))
-                                    }}
-                                    step="1"
-                                />
-                                <TextField
-                                    label="Padding Y"
-                                    type="number"
-                                    size="small"
-                                    value={temporaryPaddingYParam}
-                                    onChange={(e) => {
-                                        setTemporaryPaddingXYParam(0)
-                                        setTemporaryPaddingYParam(Number(e.target.value))
-                                    }}
-                                    step="1"
-                                />
-                                <TextField
-                                    label="Original bredde"
-                                    type="number"
-                                    size="small"
-                                    value={temporaryWidthParam}
-                                    onChange={(e) => setTemporaryWidthParam(Number(e.target.value))}
-                                />
-                                <TextField
-                                    label="Original høyde"
-                                    type="number"
-                                    size="small"
-                                    value={temporaryHeightParam}
-                                    onChange={(e) =>
-                                        setTemporaryHeightParam(Number(e.target.value))
-                                    }
-                                />
-                            </VStack>
-                        </Popover.Content>
-                    </Popover>
+                    {meta.renderMode !== RENDER_MODE.NEXT && (
+                        <>
+                            <Button
+                                ref={setTemporaryAnchorEl}
+                                onClick={() => setTemporaryOpenState(!temporaryOpenState)}
+                                aria-expanded={temporaryOpenState}
+                                aria-controls={
+                                    temporaryOpenState ? 'temporary-tuning-popover' : undefined
+                                }
+                                size="xsmall"
+                                className={classNames(
+                                    'rounded-full px-(--ax-space-16) absolute left-0'
+                                )}
+                                variant="tertiary"
+                                icon={<WrenchIcon aria-hidden />}
+                                aria-label="Innstillinger"
+                            />
+                            <Popover
+                                open={temporaryOpenState}
+                                onClose={() => setTemporaryOpenState(false)}
+                                anchorEl={temporaryAnchorEl}
+                                id="temporary-tuning-popover">
+                                <Popover.Content>
+                                    <VStack gap="2">
+                                        <TextField
+                                            label="Skalering"
+                                            type="number"
+                                            size="small"
+                                            value={temporaryScaleParam}
+                                            onChange={(e) =>
+                                                setTemporaryScaleParam(Number(e.target.value))
+                                            }
+                                            step="0.01"
+                                        />
+                                        <TextField
+                                            label="Padding X + Y"
+                                            type="number"
+                                            size="small"
+                                            value={temporaryPaddingXYParam}
+                                            onChange={(e) => {
+                                                setTemporaryPaddingXYParam(Number(e.target.value))
+                                                setTemporaryPaddingYParam(Number(e.target.value))
+                                                setTemporaryPaddingXParam(Number(e.target.value))
+                                            }}
+                                            step="1"
+                                        />
+                                        <TextField
+                                            label="Padding X"
+                                            type="number"
+                                            size="small"
+                                            value={temporaryPaddingXParam}
+                                            onChange={(e) => {
+                                                setTemporaryPaddingXYParam(0)
+                                                setTemporaryPaddingXParam(Number(e.target.value))
+                                            }}
+                                            step="1"
+                                        />
+                                        <TextField
+                                            label="Padding Y"
+                                            type="number"
+                                            size="small"
+                                            value={temporaryPaddingYParam}
+                                            onChange={(e) => {
+                                                setTemporaryPaddingXYParam(0)
+                                                setTemporaryPaddingYParam(Number(e.target.value))
+                                            }}
+                                            step="1"
+                                        />
+                                        <TextField
+                                            label="Original bredde"
+                                            type="number"
+                                            size="small"
+                                            value={temporaryWidthParam}
+                                            onChange={(e) =>
+                                                setTemporaryWidthParam(Number(e.target.value))
+                                            }
+                                        />
+                                        <TextField
+                                            label="Original høyde"
+                                            type="number"
+                                            size="small"
+                                            value={temporaryHeightParam}
+                                            onChange={(e) =>
+                                                setTemporaryHeightParam(Number(e.target.value))
+                                            }
+                                        />
+                                    </VStack>
+                                </Popover.Content>
+                            </Popover>
+                        </>
+                    )}
 
                     <Button
                         className="rounded-full px-(--ax-space-16)"
