@@ -15,11 +15,12 @@ export function middleware(req: NextRequest) {
     const pathHasLocale = locales.indexOf(pathPart) >= 0
     const cspHeader = getCspHeaderAndAppendToRequestHeaders(req)
 
-    if (RegExp(/.*\/_\/.+/).test(pathname)) {
+    if (pathname.includes('/_/')) {
         // 404 on paths that contain /_/, as they are used for internal Enonic XP purposes (e.g. images, static files, etc.)
         const ua = req.headers.get('user-agent')?.toLowerCase() ?? ''
+        const safeStringRegex = /[^\w/()-æøå%]*?/
         console.warn(
-            `Path '${pathname}' contains '/_/'. Rewrite path to suppress bad fetch and land cleanly on our 404 page. Referrer: '${req.headers.get('referer')}'.${[/crawler|spider|bot/i].some((p) => p.test(ua)) ? ' Request was done by a bot' : ''}`
+            `Path '${pathname.replaceAll(safeStringRegex, '')}' contains '/_/'. Rewrite path to suppress bad fetch and land cleanly on our 404 page. Referrer: '${req.headers.get('referer')?.replaceAll(safeStringRegex, '')}'.${[/crawler|spider|bot/i].some((p) => p.test(ua)) ? ' Request was done by a bot' : ''}`
         )
         // Remove /_/ from the path to avoid issues with enonic fetching. This will result in a 404 and no error log.
         pathname = pathname.replaceAll('/_/', '/xp-underscore/')
