@@ -15,14 +15,13 @@ export function middleware(req: NextRequest) {
     const pathHasLocale = locales.indexOf(pathPart) >= 0
     const cspHeader = getCspHeaderAndAppendToRequestHeaders(req)
 
-    if (pathname.includes('/_/')) {
-        // 404 on paths that contain /_/, as they are used for internal Enonic XP purposes (e.g. images, static files, etc.)
+    if (pathname.includes('/_/image')) {
+        // Images on the old page use /_/ in the path, and we want to avoid bad XP fetches when we redirect the old site to the new.
         const ua = req.headers.get('user-agent')?.toLowerCase() ?? ''
-        const safeStringRegex = /[^\w/()\-%æøå]*?/
+        const safeStringRegex = /[^\w/()\-%æøå]*?/g
         console.warn(
             `Path '${pathname.replaceAll(safeStringRegex, '')}' contains '/_/'. Rewrite path to suppress bad fetch and land cleanly on our 404 page. Referrer: '${req.headers.get('referer')?.replaceAll(safeStringRegex, '')}'.${[/crawler|spider|bot/i].some((p) => p.test(ua)) ? ' Request was done by a bot' : ''}`
         )
-        // Remove /_/ from the path to avoid issues with enonic fetching. This will result in a 404 and no error log.
         pathname = pathname.replaceAll('/_/', '/xp-underscore/')
     }
 
