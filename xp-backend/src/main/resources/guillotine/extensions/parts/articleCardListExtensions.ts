@@ -36,7 +36,7 @@ function map(contents: Content[]): ArticleCard[] {
             external: false,
             title: data?.shortTitle || data?.title || c.displayName || '[Mangler tittel]',
             description: data?.description,
-            image: resolveImage(c, 'width(500)'),
+            image: resolveImage(c, 'width(800)'),
             themeTags: resolveThemeTags(tags),
             typeTags: resolveTypeTags(tags),
             publicationDate: data?.publicationDate || undefined,

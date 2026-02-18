@@ -2,65 +2,21 @@
 
 import classNames from 'classnames'
 import { joinArrayWithCommasAndAnd } from '~/utils/utils'
-import { getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
+import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { Circle } from '~/components/common/Circle'
 import { XP_Image } from '@xp-types/site/parts'
 import Image from 'next/image'
 import { BodyShort, Box, VStack } from '@navikt/ds-react'
 import { PlaceholderComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
-
-export type ImageData = {
-    image?: {
-        imageUrl?: string
-        data?: {
-            altText?: string | null
-            caption?: string | null
-            artist?: Array<string> | null
-        }
-    }
-}
-
-interface BasicImageProps {
-    src: string
-    caption?: string
-    decorative: boolean
-    alt: string
-    width?: number
-    height?: number
-    centerHorizontally: boolean
-    centerVertically: boolean
-    paddingX: number
-    paddingY: number
-    hideOnMobile?: boolean | null
-}
-
-interface StyledImageProps extends BasicImageProps {
-    borderRadius?: number
-    showBorder: boolean
-    borderDistance: number
-    circles: Array<{
-        size: number
-        color: string
-        bottom: number
-        left: number
-    }>
-    bleed: boolean
-    standard: boolean
-    sizeVariant?: 'standard' | 'medium' | 'large'
-}
-
-const accentColors: Record<string, string> = {
-    pink: 'bg-(--ib-pink-100A)',
-    red: 'bg-(--ib-pink-400A)',
-    blue: 'bg-(--ib-dark-blue-100A)',
-}
-
-const standardSizeMap: Record<'standard' | 'medium' | 'large', number> = {
-    standard: 672,
-    medium: 768,
-    large: 1024,
-}
+import {
+    accentColors,
+    formatImageUrl,
+    ImageData,
+    imgRatios,
+    standardSizeMap,
+    StyledImageProps,
+} from '~/utils/image'
 
 export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
     const { config } = part
@@ -86,6 +42,11 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
     } = parseImageProps(config, meta)
 
     if (!src) return <PlaceholderComponent type={'bilde'} descriptor={'idebanken:image'} />
+
+    const sizes =
+        (width && width >= 1024) || !width
+            ? '(min-width: 1280px) 1024px, 100vw'
+            : `(min-width: ${width}px) ${Math.round(width * 1.5)}px, 100vw`
 
     if (config['image-size']?._selected === 'aspect-ratio') {
         const { aspectRatio, maxWidth, roundedCorners, centerHorizontally, centerVertically } =
@@ -114,7 +75,7 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                         aria-hidden={decorative || undefined}
                         fill
                         className={classNames('object-cover', roundedCorners ? 'rounded-ib' : '')}
-                        sizes="(min-width: 1024px) 1024px, 50vw"
+                        sizes={sizes}
                     />
                 </Box>
                 {caption && (
@@ -175,7 +136,7 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                     width={width}
                     height={height}
                     className="w-full h-auto object-cover rounded-ib"
-                    sizes="(min-width: 1024px) 1024px, 100vw"
+                    sizes={sizes}
                 />
             ) : (
                 <div
@@ -192,7 +153,7 @@ export const ImageView = ({ part, meta }: PartData<ImageData & XP_Image>) => {
                         aria-hidden={decorative || undefined}
                         fill
                         className="object-cover"
-                        sizes="(min-width: 1024px) 1024px, 100vw"
+                        sizes={sizes}
                     />
                 </div>
             )}
@@ -249,8 +210,9 @@ function parseImageProps(config: ImageData & XP_Image, meta: MetaData): StyledIm
     let bleed = false
     let standard = false
     let sizeVariant: 'standard' | 'medium' | 'large' | undefined
-
-    if (imageSize?._selected === 'standard-size') {
+    if (imageSize?._selected === 'aspect-ratio') {
+        width = imageSize['aspect-ratio'].maxWidth
+    } else if (imageSize?._selected === 'standard-size') {
         const sel = imageSize['standard-size'].standardWidth
         width = standardSizeMap[sel]
         height = Math.round((width * 9) / 16)
@@ -304,31 +266,4 @@ function parseImageProps(config: ImageData & XP_Image, meta: MetaData): StyledIm
         standard,
         sizeVariant, // 'standard' | 'medium' | 'large'
     }
-}
-
-function formatImageUrl(meta: MetaData, url?: string, width?: number, height?: number): string {
-    if (!url) return ''
-    if (!width && !height) return url
-    let resizeType: 'block' | 'width' | 'height'
-    let dim: string
-    if (width && height) {
-        resizeType = 'block'
-        dim = `${width}-${height}`
-    } else if (width) {
-        resizeType = 'width'
-        dim = `${width}`
-    } else {
-        resizeType = 'height'
-        dim = `${height}`
-    }
-    const resolved = getUrl(url, meta) || url
-    return resolved.replace(/(\/_\/image\/[^/]+)\/([^/]+)/, `$1/${resizeType}-${dim}`)
-}
-
-const imgRatios: Record<string, string> = {
-    '16:9': 'aspect-16/9',
-    '4:3': 'aspect-4/3',
-    '1:1': 'aspect-square',
-    '3:4': 'aspect-3/4',
-    '9:16': 'aspect-9/16',
 }

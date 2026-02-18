@@ -77,7 +77,7 @@ function resolveLinkCardInternalLink(internalLink: LinkCardInternalLink): LinkCa
         themeTags,
         typeTags,
         icon: resolveIcon(content),
-        image: resolveImage(content, 'height(800)'),
+        image: resolveImage(content, 'width(800)'),
         lang: content?.language !== 'no' ? content?.language : undefined,
     }
 }
@@ -91,6 +91,6 @@ function resolveLinkCardExternalLink(externalLink: LinkCardExternalLink): LinkCa
         themeTags: [],
         typeTags: [],
         icon: resolveIcon(externalLink.icon, false),
-        image: resolveImage(externalLink.image, 'height(800)'),
+        image: resolveImage(externalLink.image, 'width(800)'),
     }
 }

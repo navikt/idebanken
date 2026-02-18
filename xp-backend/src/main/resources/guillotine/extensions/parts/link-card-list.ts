@@ -150,7 +150,7 @@ function mapContentsToLinkCardList(contents: Content[]): Array<LinkCardItem> {
             external: false,
             title: shortTitle || title || displayName || '[Mangler tittel]',
             description,
-            image: resolveImage(item, 'width(500)'),
+            image: resolveImage(item, 'width(800)'),
             icon: resolveIcon(item),
             themeTags,
             typeTags,

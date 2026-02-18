@@ -12,6 +12,7 @@ import { getTimestampFromDuration } from '~/components/common/qbrick-video/video
 import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { QbrickVideoProps } from '~/components/common/qbrick-video/videoProps'
 import { CookieConsentChangeEvent, getConsentValues } from '~/components/common/cookies/cookieUtils'
+import { formatImageUrl } from '~/utils/image'
 
 export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: MetaData }) => {
     const { title, duration, poster, displayType } = config ?? {}
@@ -78,7 +79,7 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                         <Image
                             unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                             className={style.previewImage}
-                            src={poster}
+                            src={formatImageUrl(meta, poster, 1280, 720)}
                             alt=""
                             fill
                         />

@@ -98,7 +98,7 @@ query($path:ID!){
             publicationDate
             heroImage {
                 ... on media_Image  {
-                    url: imageUrl(type: absolute, scale: "block(1024,576)")
+                    url: imageUrl(type: absolute, scale: "full")
                     data {
                         altText
                         caption

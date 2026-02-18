@@ -19,7 +19,7 @@ export function HeroImage({
     caption,
     width = 1024,
     height = 576,
-    sizes = '(min-width: 1024px) 1024px, 100vw',
+    sizes = '(min-width: 1024px) 1280px, 100vw',
     className = 'w-full h-auto object-cover rounded-ib mb-(--ax-space-24)',
     wrapperClassName = 'lg:mx-[-11rem]',
     unoptimized,
@@ -37,6 +37,7 @@ export function HeroImage({
             height={height}
             sizes={sizes}
             className={className}
+            quality={80}
             priority
         />
     )
