@@ -61,6 +61,7 @@ export default function BleedingBackgroundPageBlock({
 }: Readonly<BleedingBackgroundPageBlockProps>) {
     const resolvedWidth = resolveWidth(width, layoutPath || '')
     const resolvedGutters = resolveGutterOverride(resolvedWidth, noGutters)
+    const baseGutters = noGutters ? '' : 'px-(--ax-space-16) sm:px-(--ax-space-32)'
 
     if (meta?.type?.startsWith('idebanken:crash-course')) {
         return (
@@ -80,7 +81,7 @@ export default function BleedingBackgroundPageBlock({
                 {...rest}
                 gutters
                 width={resolvedWidth}
-                className={`${className} ${resolvedGutters}`}>
+                className={`${className} ${baseGutters} ${resolvedGutters}`}>
                 {children}
             </PageBlock>
         </Bleed>
