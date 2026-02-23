@@ -1,6 +1,13 @@
 import '~/styles/globals.css'
 
-import { I18n, MetaData, PageComponent, RENDER_MODE, XP_REQUEST_TYPE } from '@enonic/nextjs-adapter'
+import {
+    FetchContentResult,
+    I18n,
+    MetaData,
+    PageComponent,
+    RENDER_MODE,
+    XP_REQUEST_TYPE,
+} from '@enonic/nextjs-adapter'
 import { LocaleContextProvider } from '@enonic/nextjs-adapter/client'
 import { fetchContent } from '@enonic/nextjs-adapter/server'
 import StaticContent from '@enonic/nextjs-adapter/views/StaticContent'
@@ -19,6 +26,7 @@ import Backlink from '~/components/common/Backlink'
 import { AlertBanner } from '~/components/common/AlertBanner'
 import { AuthorsAndDate } from '~/components/common/AuthorsAndDate'
 import { forceArray } from '~/utils/utils'
+import { getContentJsonLd } from '~/utils/jsonLd'
 
 type LayoutParams = { locale: string; contentPath?: string[] }
 type LayoutProps = PropsWithChildren<{ params: Promise<LayoutParams> }>
@@ -44,7 +52,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     const { meta, common, page } = contentResult
     const editorMessage = editorHasUsedTextComponentWarningMessage(meta, isEnabled, page)
 
-    const commonGet = common?.get
+    const commonGet = (common as HeadlessCms)?.get
     const data = commonGet?.dataAsJson
     const isCoreArticle = commonGet?.type === 'idebanken:kjerneartikkel'
 
@@ -57,7 +65,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
             )
 
         return (
-            <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
+            <EnonicWrapper resolvedParams={resolvedParams} contentResult={contentResult}>
                 {content}
             </EnonicWrapper>
         )
@@ -66,7 +74,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     const isCrashCourse = common?.get?.type === 'idebanken:crash-course'
     if (isCrashCourse) {
         return (
-            <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
+            <EnonicWrapper resolvedParams={resolvedParams} contentResult={contentResult}>
                 <Page contentBlockPadding="none">
                     {children}
                     <CookieBanner meta={meta} common={common as HeadlessCms} />
@@ -77,7 +85,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     }
 
     return (
-        <EnonicWrapper resolvedParams={resolvedParams} meta={meta}>
+        <EnonicWrapper resolvedParams={resolvedParams} contentResult={contentResult}>
             <Page
                 footer={<Footer footerProps={common?.footer ?? undefined} meta={meta} />}
                 contentBlockPadding="none">
@@ -111,18 +119,34 @@ export default async function PageLayout({ params, children }: LayoutProps) {
 
 const EnonicWrapper = ({
     resolvedParams,
-    meta,
+    contentResult,
     children,
 }: PropsWithChildren<{
     resolvedParams: LayoutParams
-    meta: MetaData
+    contentResult: FetchContentResult
 }>) => {
+    const { meta, common } = contentResult
     const isEdit = meta?.renderMode === RENDER_MODE.EDIT
+    const content = common?.get
+    const jsonLdSchemas = content ? getContentJsonLd(content) : []
+
     return (
         <LocaleContextProvider locale={resolvedParams.locale}>
+            {jsonLdSchemas.map((schema, index) => (
+                <script
+                    key={`json-ld-${index}`}
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+                />
+            ))}
             <StaticContent condition={isEdit}>{children}</StaticContent>
         </LocaleContextProvider>
     )
+}
+
+function jsonLd(common: HeadlessCms) {
+    const contentType = common?.get?.type
+    return {}
 }
 
 function editorHasUsedTextComponentWarningMessage(
