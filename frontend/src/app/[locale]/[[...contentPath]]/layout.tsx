@@ -125,10 +125,10 @@ const EnonicWrapper = ({
     resolvedParams: LayoutParams
     contentResult: FetchContentResult
 }>) => {
-    const { meta, common } = contentResult
+    const { meta, common, page } = contentResult
     const isEdit = meta?.renderMode === RENDER_MODE.EDIT
     const content = common?.get
-    const jsonLdSchemas = content ? getContentJsonLd(content) : []
+    const jsonLdSchemas = content ? getContentJsonLd({ content, page }) : []
 
     return (
         <LocaleContextProvider locale={resolvedParams.locale}>

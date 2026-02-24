@@ -1,5 +1,12 @@
-import { Content } from '~/types/generated'
 import { forceArray } from '~/utils/utils'
+import { PageComponent } from '@enonic/nextjs-adapter'
+import { CommonContentType } from '~/types/graphql-types'
+
+type Schema = {
+    '@context': string
+    '@type': string
+    [key: string]: string | object | string[] | object[] | undefined | null
+}
 
 export const getOrganizationJsonLd = () => ({
     '@context': 'https://schema.org',
@@ -30,7 +37,7 @@ export const getWebSiteJsonLd = () => ({
     },
 })
 
-export const getWebPageJsonLd = (content: Content) => {
+export const getWebPageJsonLd = (content: CommonContentType) => {
     const meta = content.metaFields
     const isNewsArticle = content.type === 'idebanken:artikkel'
 
@@ -48,10 +55,10 @@ export const getWebPageJsonLd = (content: Content) => {
     }
 }
 
-export const getArticleJsonLd = (content: Content) => {
+export const getArticleJsonLd = (content: CommonContentType) => {
     const image = content.metaFields?.image
     const data = content?.dataAsJson
-    const author: string = forceArray(data?.authors)?.pop() || 'Idébanken'
+    const author = (forceArray(data?.authors) as string[])?.pop() || 'Idébanken'
     const isIdebankenAuthor = author.toLowerCase()?.match(/id[eé]banken/)
     const isNewsArticle = content.type === 'idebanken:artikkel'
     return {
@@ -75,15 +82,10 @@ export const getArticleJsonLd = (content: Content) => {
     }
 }
 
-export const getHowToJsonLd = (content: Content) => {
+export const getHowToJsonLd = (content: CommonContentType, page: PageComponent) => {
+    console.log('page', page)
+    // todo: implement steps by recursively parsing the page content for "descriptor": "idebanken:card" which is a HowToSection. And then the child objects which contain header H3 should be the step name, and the content below should be the step description. If there are images, they should be added as well.
     // const steps =
-    //     content.data?.steps?.map((step: any, index: number) => ({
-    //         '@type': 'HowToStep',
-    //         position: index + 1,
-    //         name: step.title,
-    //         text: step.text, // Ensure HTML is stripped or safe
-    //         url: `${content._path}#step${index + 1}`,
-    //     })) || []
     const metaFields = content.metaFields
 
     return {
@@ -98,7 +100,7 @@ export const getHowToJsonLd = (content: Content) => {
     }
 }
 
-export const getCourseJsonLd = (content: Content) => {
+export const getCourseJsonLd = (content: CommonContentType) => {
     const metaFields = content.metaFields
     return {
         '@context': 'https://schema.org',
@@ -119,27 +121,57 @@ export const getCourseJsonLd = (content: Content) => {
     }
 }
 
-export const getContentJsonLd = (content: Content) => {
-    const schemas: Array<{
-        '@context': string
-        '@type': string
-        [key: string]: string | object | string[] | object[] | undefined | null
-    }> = [getOrganizationJsonLd(), getWebSiteJsonLd(), getWebPageJsonLd(content)]
+export const getGuideJsonLd = (content: CommonContentType) => {
+    const metaFields = content.metaFields
+    const name = metaFields?.title ?? content.displayName
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'Guide',
+        name: name,
+        description: metaFields?.description,
+        about: name,
+        educationalLevel: 'Beginner',
+        learningResourceType: 'Guidance',
+    }
+}
+
+export const getContentJsonLd = ({
+    content,
+    page,
+}: {
+    content?: CommonContentType
+    page?: PageComponent | null
+}): Array<Schema> => {
+    if (!content || !page) return []
+
+    const schemas: Array<Schema> = [
+        getOrganizationJsonLd(),
+        getWebSiteJsonLd(),
+        getWebPageJsonLd(content),
+    ]
 
     const type = content.type
-    const typeTag = content.x?.idebanken?.tags?.typeTags?.pop()?.name?.toLowerCase()
-    if (typeTag === 'guide') {
-        schemas.push(getHowToJsonLd(content))
-    } else {
-        switch (type) {
-            case 'idebanken:kjerneartikkel':
-            case 'idebanken:artikkel':
-                schemas.push(getArticleJsonLd(content))
-                break
-            case 'idebanken:crash-course':
-                schemas.push(getCourseJsonLd(content))
-                break
-        }
+    console.log('content.x?.idebanken?.tags', content.x)
+    const typeTag = content.x?.idebanken?.articleTags?.typeTags?.pop()?.name?.toLowerCase()
+    console.log('typeTag', typeTag)
+    switch (typeTag) {
+        case 'guide':
+            schemas.push(getHowToJsonLd(content, page))
+            return schemas
+        case 'lynkurs':
+            schemas.push(getCourseJsonLd(content))
+            return schemas
+    }
+
+    switch (type) {
+        case 'idebanken:kjerneartikkel':
+        case 'idebanken:artikkel':
+            schemas.push(getArticleJsonLd(content))
+            break
+        case 'idebanken:section-page':
+        case 'idebanken:singleton-theme':
+            schemas.push(getGuideJsonLd(content))
+            break
     }
     return schemas
 }
