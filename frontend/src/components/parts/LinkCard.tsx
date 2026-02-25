@@ -79,88 +79,98 @@ export const LinkCardView = ({
     const mtExtraWithImage = showImage ? 'md:mt-(--ax-space-12)' : ''
 
     return (
-        <LinkCard
-            data-color={'inherit'}
-            lang={lang ?? undefined}
-            arrow={!hideArrow}
-            className={classNames(
-                'group rounded-ib',
-                showImage ? '[&>svg:last-child]:mt-(--ax-space-12)' : ' px-7 py-6',
-                color === 'white' || !color ? 'bg-(--ax-bg-default)!' : '',
-                'text-left'
-            )}>
-            {showImage && (
-                <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(1.5rem-1px)]">
-                    <Image
-                        unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
-                        src={getAsset(image?.url ?? '/images/link-card-fallback.svg', meta)}
-                        alt={''}
-                        aria-hidden
-                        fill
-                    />
-                </LinkCardImage>
-            )}
-            {showIcon && icon?.url && (
-                <LinkCardIcon>
-                    <Box
-                        className={
-                            displayType === 'withIconBg'
-                                ? 'w-[56px] h-[56px] rounded-full bg-(--ib-bg-pink-moderate) flex justify-center align-middle'
-                                : ''
-                        }>
+        <>
+            <div className={'hidden'} aria-hidden>
+                {title}
+                {url}
+                {description}
+            </div>
+            <LinkCard
+                data-color={'inherit'}
+                lang={lang ?? undefined}
+                arrow={!hideArrow}
+                className={classNames(
+                    'group rounded-ib',
+                    showImage ? '[&>svg:last-child]:mt-(--ax-space-12)' : ' px-7 py-6',
+                    color === 'white' || !color ? 'bg-(--ax-bg-default)!' : '',
+                    'text-left'
+                )}>
+                {showImage && (
+                    <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(1.5rem-1px)]">
                         <Image
                             unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
-                            src={icon.url}
-                            alt=""
+                            src={getAsset(image?.url ?? '/images/link-card-fallback.svg', meta)}
+                            alt={''}
                             aria-hidden
-                            role="presentation"
-                            width={displayType === 'withIconBg' ? 30 : 36}
-                            height={displayType === 'withIconBg' ? 30 : 36}
+                            fill
+                        />
+                    </LinkCardImage>
+                )}
+                {showIcon && icon?.url && (
+                    <LinkCardIcon>
+                        <Box
                             className={
-                                /\.svg(\?.*)?$/i.test(icon.url)
-                                    ? 'dark:invert dark:brightness-0 dark:contrast-50'
-                                    : undefined
-                            }
-                        />
-                    </Box>
-                </LinkCardIcon>
-            )}
-            <LinkCardTitle className={classNames(mxExtraWithImage, mtExtraWithImage)}>
-                <LinkCardAnchor asChild>
-                    <Link
-                        as={NextLink}
-                        href={getUrl(url, meta) || '#'}
-                        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                        {...linkProps}>
-                        {title}
-                    </Link>
-                </LinkCardAnchor>
-            </LinkCardTitle>
-            {description && showDescription && (
-                <LinkCardDescription
-                    className={classNames(mxExtraWithImage, showImage ? 'mt-(--ax-space-16)' : '')}>
-                    {description}
-                </LinkCardDescription>
-            )}
-            {!hideTag && typeTags && typeTags?.length > 0 && (
-                <LinkCardFooter
-                    className={classNames(
-                        `gap-(--ax-space-20)`,
-                        showImage ? `mt-(--ax-space-32)` : ' mt-(--ax-space-8)',
-                        mbExtraWithImage,
-                        mxExtraWithImage
-                    )}>
-                    {typeTags.map(({ name, color }, index) => (
-                        <TagView
-                            key={index}
-                            name={name}
-                            color={color}
-                            size="small"
-                            className={'text-(--ax-text-neutral-subtle)'}
-                        />
-                    ))}
-                </LinkCardFooter>
-            )}
-        </LinkCard>
+                                displayType === 'withIconBg'
+                                    ? 'w-[56px] h-[56px] rounded-full bg-(--ib-bg-pink-moderate) flex justify-center align-middle'
+                                    : ''
+                            }>
+                            <Image
+                                unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
+                                src={icon.url}
+                                alt=""
+                                aria-hidden
+                                role="presentation"
+                                width={displayType === 'withIconBg' ? 30 : 36}
+                                height={displayType === 'withIconBg' ? 30 : 36}
+                                className={
+                                    /\.svg(\?.*)?$/i.test(icon.url)
+                                        ? 'dark:invert dark:brightness-0 dark:contrast-50'
+                                        : undefined
+                                }
+                            />
+                        </Box>
+                    </LinkCardIcon>
+                )}
+                <LinkCardTitle className={classNames(mxExtraWithImage, mtExtraWithImage)}>
+                    <LinkCardAnchor asChild>
+                        <Link
+                            as={NextLink}
+                            href={getUrl(url, meta) || '#'}
+                            {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                            {...linkProps}>
+                            {title || '[Mangler tittel]'}
+                        </Link>
+                    </LinkCardAnchor>
+                </LinkCardTitle>
+                {description && showDescription && (
+                    <LinkCardDescription
+                        className={classNames(
+                            mxExtraWithImage,
+                            showImage ? 'mt-(--ax-space-16)' : ''
+                        )}>
+                        {description}
+                    </LinkCardDescription>
+                )}
+                {!hideTag && typeTags && typeTags?.length > 0 && (
+                    <LinkCardFooter
+                        className={classNames(
+                            `gap-(--ax-space-20)`,
+                            showImage ? `mt-(--ax-space-32)` : ' mt-(--ax-space-8)',
+                            mbExtraWithImage,
+                            mxExtraWithImage
+                        )}>
+                        {typeTags.map(({ name, color }, index) => (
+                            <TagView
+                                key={index}
+                                name={name}
+                                color={color}
+                                size="small"
+                                className={'text-(--ax-text-neutral-subtle)'}
+                            />
+                        ))}
+                    </LinkCardFooter>
+                )}
+            </LinkCard>
+        </>
     )
 }
