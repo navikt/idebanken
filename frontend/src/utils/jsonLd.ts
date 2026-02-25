@@ -1,5 +1,5 @@
 import { forceArray } from '~/utils/utils'
-import { PageComponent } from '@enonic/nextjs-adapter'
+import { PageComponent, PageData, PageRegion } from '@enonic/nextjs-adapter'
 import { CommonContentType } from '~/types/graphql-types'
 
 type Schema = {
@@ -82,10 +82,76 @@ export const getArticleJsonLd = (content: CommonContentType) => {
     }
 }
 
+const stripHtml = (html: string | null | undefined): string => {
+    if (!html) return ''
+    return html.replace(/<[^>]*>?/gm, '').trim()
+}
+
+const findStepsInRegion = (region: PageRegion | undefined): unknown[] => {
+    if (!region || !region.components) return []
+    const steps: unknown[] = []
+
+    region.components.forEach((component) => {
+        if (component.type === 'part' && component.part?.descriptor === 'idebanken:text-editor') {
+            const html = component.part.config?.simpleTextEditor?.processedHtml
+            const text = stripHtml(html)
+            if (text) {
+                steps.push({
+                    '@type': 'HowToStep',
+                    position: steps.length + 1,
+                    text: text,
+                })
+            }
+        }
+        // Recursively look into layout regions if nested
+        if (component.regions) {
+            Object.values(component.regions).forEach((r) => {
+                steps.push(...findStepsInRegion(r))
+            })
+        }
+    })
+    return steps
+}
+
+const findHowToSections = (page?: PageData | null): unknown[] => {
+    const sections: unknown[] = []
+
+    const traverse = (component: PageComponent) => {
+        // specific check for idebanken:card which acts as a section
+        if (component.type === 'layout' && component.layout?.descriptor === 'idebanken:card') {
+            const sectionName = component.layout.config?.heading
+            const steps = findStepsInRegion(component.regions?.['content'])
+
+            if (steps.length > 0) {
+                sections.push({
+                    '@type': 'HowToSection',
+                    position: sections.length + 1,
+                    name: sectionName ?? 'Seksjon',
+                    itemListElement: steps,
+                })
+                return
+            }
+        }
+
+        // Generic recursion
+        if (component.regions) {
+            Object.values(component.regions).forEach((region) => {
+                region.components?.forEach((child) => traverse(child))
+            })
+        }
+    }
+
+    // Start traversal from main page regions
+    if (page && page.regions) {
+        Object.values(page.regions).forEach((region) => {
+            region.components?.forEach((child) => traverse(child))
+        })
+    }
+
+    return sections
+}
+
 export const getHowToJsonLd = (content: CommonContentType, page: PageComponent) => {
-    console.log('page', page)
-    // todo: implement steps by recursively parsing the page content for "descriptor": "idebanken:card" which is a HowToSection. And then the child objects which contain header H3 should be the step name, and the content below should be the step description. If there are images, they should be added as well.
-    // const steps =
     const metaFields = content.metaFields
 
     return {
@@ -95,8 +161,8 @@ export const getHowToJsonLd = (content: CommonContentType, page: PageComponent) 
         description: metaFields?.description,
         totalTime: content.dataAsJson?.estimatedTime
             ? `PT${content.dataAsJson.estimatedTime}M`
-            : 'PT5M', // Assumes 5 minutes
-        // step: steps,
+            : undefined,
+        step: findHowToSections(page.page),
     }
 }
 
