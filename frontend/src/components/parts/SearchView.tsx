@@ -92,7 +92,7 @@ export default function SearchView({
     const filterElement = (
         <VStack gap={{ xs: 'space-16', lg: 'space-32' }}>
             <RadioGroup legend="Sorter etter" onChange={setSortParam} value={sort} size="small">
-                <HStack gap={'4'}>
+                <HStack gap={'space-16'}>
                     <Radio value="0">Beste treff</Radio>
                     <Radio value="1">Dato</Radio>
                 </HStack>

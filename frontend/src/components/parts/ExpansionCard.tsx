@@ -1,20 +1,21 @@
 import type { Part_Idebanken_Expansion_Card } from '~/types/generated.d'
 import {
     ExpansionCard,
+    ExpansionCardContent,
     ExpansionCardDescription,
     ExpansionCardHeader,
     ExpansionCardTitle,
-    ExpansionCardContent,
 } from '@navikt/ds-react/ExpansionCard'
 import { PartData } from '~/types/graphql-types'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
+import { AkselColor } from '@navikt/ds-react/types/theme'
 
 export const ExpansionCardView = ({ part, meta }: PartData<Part_Idebanken_Expansion_Card>) => {
     const config = part.config
     return (
         <ExpansionCard
-            data-color={config.brand || 'neutral'}
+            data-color={(config.brand as unknown as AkselColor | undefined) || 'neutral'}
             aria-label="Expansion card"
             className="rounded-3xl">
             <ExpansionCardHeader>

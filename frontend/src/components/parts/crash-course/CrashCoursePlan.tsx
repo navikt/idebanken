@@ -22,7 +22,7 @@ export function CrashCoursePlan({ meta, part }: PartData<Part_Idebanken_Crash_Co
     return (
         <HGrid
             columns={crashCourseParts.length >= 3 ? 3 : crashCourseParts.length}
-            gap={'0'}
+            gap={'space-0'}
             className={
                 'divide-x divide-(--ax-border-default)/30 *:px-(--ax-space-32) *:first:pl-0 *:last:pr-0'
             }>

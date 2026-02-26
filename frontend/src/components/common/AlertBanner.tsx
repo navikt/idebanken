@@ -50,7 +50,7 @@ export function AlertBanner({ common, meta }: { common: HeadlessCms; meta: MetaD
             className={'outline-0 relative z-10'}>
             <GlobalAlertHeader
                 className={classNames(
-                    'justify-center items-center md:px-[10%] [&>div:first-child]:mt-0 [&>div:first-child]:mb-(--ax-space-4)',
+                    'justify-center items-center py-(--ax-space-8) md:px-[10%] [&>div:first-child]:mt-0 [&>div:first-child]:mb-(--ax-space-4)',
                     status === 'announcement'
                         ? 'bg-(--ax-bg-info-moderate) text-(--ax-text-info)'
                         : '[&>div>section>p>a]:text-(--ax-text-contrast)',
