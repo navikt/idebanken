@@ -46,7 +46,6 @@ export function CookieConsentToggle() {
                 Analyse og statistikk (Umami)
             </Switch>
             <Switch
-                data-color={'ib-brand-orange'}
                 checked={surveysChecked}
                 onChange={(e) => {
                     const surveys = e.target.checked

@@ -1,5 +1,5 @@
 import { BodyShort, HStack, VStack } from '@navikt/ds-react'
-import { FileIcon, FilePdfIcon, FileWordIcon, DownloadIcon } from '@navikt/aksel-icons'
+import { DownloadIcon, FileIcon, FilePdfIcon, FileWordIcon } from '@navikt/aksel-icons'
 import type { PartProps } from '@enonic/nextjs-adapter'
 import { ButtonView } from './Button'
 import { HeadingView } from './Heading'
@@ -83,7 +83,7 @@ export const Downloads = ({ part, meta }: PartProps) => {
                                 gap="space-6"
                                 paddingInline="space-12"
                                 paddingBlock="space-16"
-                                className="md:flex-nowrap rounded-xl bg-dark-blue-100 border-1 border-dark-blue-400">
+                                className="md:flex-nowrap rounded-xl bg-dark-blue-100 border border-dark-blue-400">
                                 <HStack align="center" gap="space-16">
                                     <HStack
                                         aria-hidden="true"
@@ -95,10 +95,10 @@ export const Downloads = ({ part, meta }: PartProps) => {
                                     <div className="flex-1 min-w-0">
                                         <BodyShort
                                             title={fileName}
-                                            className="font-light break-words leading-[1.5]">
+                                            className="font-light wrap-break-word leading-normal">
                                             {fileName}
                                         </BodyShort>
-                                        <BodyShort className="font-light leading-[1.5]">
+                                        <BodyShort className="font-light leading-normal">
                                             {toKb(item.attachments[0]?.size)}kb
                                         </BodyShort>
                                     </div>

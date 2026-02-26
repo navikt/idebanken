@@ -107,7 +107,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                 className="relative items-center"
                 bleedClassName="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-[99] overflow-y-visible bg-(--ax-bg-default)!">
                 <Link
-                    className="bg-dark-blue text-primary-content z-[100] transition left-0 absolute p-3 m-3 -translate-y-16 focus:translate-y-0"
+                    className="bg-dark-blue text-primary-content z-100 transition left-0 absolute p-3 m-3 -translate-y-16 focus:translate-y-0"
                     href="#main-content">
                     Hopp til hovedinnhold
                 </Link>
@@ -138,7 +138,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                             priority
                         />
                     </Link>
-                    <HStack gap="2">
+                    <HStack gap="space-8">
                         <Button
                             variant="tertiary-neutral"
                             aria-label={isMenuOpen ? 'Lukk meny' : 'Åpne meny'}
@@ -171,7 +171,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                 <Stack
                                     as={'nav'}
                                     aria-label="Hovedmeny"
-                                    gap={'8'}
+                                    gap={'space-32'}
                                     className={'py-(--ax-space-24) lg:py-(--ax-space-32)'}
                                     justify={'space-between'}
                                     direction={{ xs: 'column', lg: 'row' }}>
@@ -188,7 +188,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                         className: 'sm:hidden',
                                     })}
                                     <Stack
-                                        gap={{ xs: '8', lg: '16' }}
+                                        gap={{ xs: 'space-32', lg: 'space-64' }}
                                         direction={{ xs: 'column', lg: 'row' }}>
                                         {header?.linkGroups?.map(({ title, links }, id) => (
                                             <VStack key={id}>
@@ -214,7 +214,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                             </VStack>
                                         ))}
                                     </Stack>
-                                    <VStack gap={{ xs: '4', lg: '6' }}>
+                                    <VStack gap={{ xs: 'space-16', lg: 'space-24' }}>
                                         {header?.linksBottom?.map(
                                             ({ linkText, url, external }, i) => (
                                                 <LinkCardView

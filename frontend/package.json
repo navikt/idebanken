@@ -19,7 +19,7 @@
         "@enonic/nextjs-adapter": "^3.2.2",
         "@navikt/ds-css": "^8.6.0",
         "@navikt/ds-react": "^8.6.0",
-        "@tailwindcss/postcss": "^4.1.18",
+        "@tailwindcss/postcss": "^4.2.1",
         "classnames": "^2.5.1",
         "domhandler": "^5.0.3",
         "framer-motion": "^12.24.10",
@@ -29,7 +29,7 @@
         "postcss": "^8.5.6",
         "react": "18.3.1",
         "react-dom": "18.3.1",
-        "tailwindcss": "^4.1.18",
+        "tailwindcss": "^4.2.1",
         "unescape": "^1.0.1",
         "valibot": "^1.2.0"
     },
@@ -38,6 +38,7 @@
         "@graphql-codegen/client-preset": "^5.2.2",
         "@graphql-codegen/typescript": "^5.0.7",
         "@graphql-codegen/typescript-operations": "^5.0.7",
+        "@navikt/aksel-stylelint": "^8.6.0",
         "@types/node": "^25.0.3",
         "@types/react": "18.3.1",
         "@types/react-dom": "18.3.1",
@@ -48,7 +49,8 @@
         "eslint-config-next": "15.3.2",
         "eslint-config-prettier": "^10.1.8",
         "onchange": "^7.1.0",
-        "prettier": "^3.7.4",
+        "prettier": "^3.8.1",
+        "stylelint": "^17.3.0",
         "typescript": "5.8.3"
     }
 }

@@ -5,6 +5,7 @@ import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
 import { Macro } from '~/types/graphql-types'
 import NextLink from 'next/link'
+import { AkselColor } from '@navikt/ds-react/types/theme'
 
 export function HighlightedBox({
     config,
@@ -17,9 +18,11 @@ export function HighlightedBox({
 
     return (
         <VStack
-            data-color={brand ?? 'neutral'}
-            className="rounded-3xl shadow-ib-shadow mb-(--ax-space-28) [&:last-child]:mb-0">
-            <HStack className="rounded-t-3xl px-5 py-3 items-center bg-(--ax-bg-moderate)" gap="2">
+            data-color={(brand as unknown as AkselColor | undefined) ?? 'neutral'}
+            className="rounded-3xl shadow-ib-shadow mb-(--ax-space-28) last:mb-0">
+            <HStack
+                className="rounded-t-3xl px-5 py-3 items-center bg-(--ax-bg-moderate)"
+                gap="space-8">
                 {icon?.url && (
                     <Image
                         unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
@@ -36,7 +39,7 @@ export function HighlightedBox({
                     />
                 )}
                 {title && (
-                    <BodyShort size="large" className="leading-[1.5]">
+                    <BodyShort size="large" className="leading-normal">
                         {title}
                     </BodyShort>
                 )}

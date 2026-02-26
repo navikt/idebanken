@@ -378,7 +378,7 @@ export default function CrashCourseView({
                                 anchorEl={temporaryAnchorEl}
                                 id="temporary-tuning-popover">
                                 <Popover.Content>
-                                    <VStack gap="2">
+                                    <VStack gap="space-8">
                                         <TextField
                                             label="Skalering"
                                             type="number"
