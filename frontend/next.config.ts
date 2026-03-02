@@ -1,11 +1,9 @@
 import type { NextConfig } from 'next'
 import path from 'path'
-import { fileURLToPath } from 'url'
 import { redirects } from './redirects'
+import { WebpackConfigContext } from 'next/dist/server/config-shared'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
-function getEnonicWebpackConfig(config: NextConfig) {
+function getEnonicWebpackConfig(config: any, context: WebpackConfigContext) {
     config.resolve.fallback = {
         ...config.resolve.fallback,
         fs: false,
@@ -13,20 +11,26 @@ function getEnonicWebpackConfig(config: NextConfig) {
     config.resolve.alias = {
         ...config.resolve.alias,
         '@phrases': path.resolve(__dirname, './src/phrases'),
-        '~': path.resolve(__dirname, './src'),
     }
     return config
 }
 
-const config = {
+const nextConfig: NextConfig = {
     output: 'standalone',
     reactStrictMode: true,
     trailingSlash: false,
     compress: true,
     transpilePackages: ['@enonic/nextjs-adapter'],
     webpack: getEnonicWebpackConfig,
+    turbopack: {
+        resolveAlias: {
+            '@phrases': path.resolve(__dirname, './src/phrases'),
+        },
+    },
     redirects,
     images: {
+        qualities: [75, 80],
+        unoptimized: process.env.ENV === 'local',
         remotePatterns: [
             {
                 protocol: 'https',
@@ -52,4 +56,4 @@ const config = {
     },
 } as NextConfig
 
-export default config
+export default nextConfig

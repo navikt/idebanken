@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server'
 const enonicDomain = new URL(process.env.ENONIC_API ?? '').host
 const isLocalhost = process.env.ENV === 'local'
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
     let pathname = req.nextUrl.pathname
     const { locale, locales } = getRequestLocaleInfo({
         contentPath: pathname,
