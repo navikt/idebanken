@@ -223,10 +223,10 @@ export const getContentJsonLd = ({
     switch (typeTag) {
         case 'guide':
             schemas.push(getHowToJsonLd(content, page))
-            return schemas
+            break
         case 'lynkurs':
             schemas.push(getCourseJsonLd(content))
-            return schemas
+            break
     }
 
     switch (type) {
