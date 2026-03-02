@@ -208,7 +208,7 @@ export const getContentJsonLd = ({
     content?: CommonContentType
     page?: PageComponent | null
 }): Array<Schema> => {
-    if (!content || !page) return []
+    if (!content || !page) return [getOrganizationJsonLd(), getWebSiteJsonLd()]
 
     const schemas: Array<Schema> = [
         getOrganizationJsonLd(),
@@ -216,10 +216,8 @@ export const getContentJsonLd = ({
         getWebPageJsonLd(content),
     ]
 
-    const type = content.type
-    console.log('content.x?.idebanken?.tags', content.x)
     const typeTag = content.x?.idebanken?.articleTags?.typeTags?.pop()?.name?.toLowerCase()
-    console.log('typeTag', typeTag)
+
     switch (typeTag) {
         case 'guide':
             schemas.push(getHowToJsonLd(content, page))
@@ -229,7 +227,7 @@ export const getContentJsonLd = ({
             break
     }
 
-    switch (type) {
+    switch (content.type) {
         case 'idebanken:kjerneartikkel':
         case 'idebanken:artikkel':
             schemas.push(getArticleJsonLd(content))
