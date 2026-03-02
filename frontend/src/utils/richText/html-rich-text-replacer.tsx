@@ -1,4 +1,4 @@
-import { Replacer, ReplacerResult } from '@enonic/nextjs-adapter'
+import { Replacer, ReplacerResult, UrlProcessor } from '@enonic/nextjs-adapter'
 import { ElementType } from 'domelementtype'
 import { BodyLong, List } from '@navikt/ds-react'
 import {
@@ -10,7 +10,6 @@ import {
 } from 'html-react-parser'
 import { HeadingView } from '~/components/parts/Heading'
 import { ListItem } from '@navikt/ds-react/List'
-import { MACRO_TAG } from '@enonic/react-components/constants'
 import React from 'react'
 import { handleLink } from '~/utils/richText/handle-link'
 import { handleMacro } from '~/utils/richText/handle-macro'
@@ -23,7 +22,7 @@ function isOnlyMacroChild(el: Element): Element | null {
         if (
             onlyChild &&
             onlyChild.type === ElementType.Tag &&
-            (onlyChild as Element).name === MACRO_TAG
+            (onlyChild as Element).name === UrlProcessor.MACRO_TAG
         ) {
             return onlyChild as Element
         }
@@ -116,7 +115,7 @@ export const htmlRichTextReplacer: Replacer = (
                     )
                 case 'a':
                     return handleLink(el, data, meta, options)
-                case MACRO_TAG:
+                case UrlProcessor.MACRO_TAG:
                     return handleMacro(el, data.macros, meta, renderMacroInEditMode, options)
                 case 'img':
                     return handleImage(el, data, meta)

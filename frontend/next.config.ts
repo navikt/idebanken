@@ -1,30 +1,42 @@
 import type { NextConfig } from 'next'
 import path from 'path'
-import { fileURLToPath } from 'url'
 import { redirects } from './redirects'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
 function getEnonicWebpackConfig(config: NextConfig) {
-    config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-    }
-    config.resolve.alias = {
-        ...config.resolve.alias,
+    // config.resolve.fallback = {
+    //     ...config.resolve.fallback,
+    //     fs: false,
+    // }
+    // config.resolve.alias = {
+    //     ...config.resolve.alias,
+    //     '@phrases': path.resolve(__dirname, './src/phrases'),
+    //     '~': path.resolve(__dirname, './src'),
+    // }
+    config.turbopack = config.turbopack || {}
+    config.turbopack.resolveAlias = {
+        ...config.turbopack?.resolveAlias,
+        fs: {
+            browser: './empty.ts', // We recommend to fix code imports before using this method
+        },
         '@phrases': path.resolve(__dirname, './src/phrases'),
         '~': path.resolve(__dirname, './src'),
     }
     return config
 }
 
-const config = {
+const nextConfig: NextConfig = {
     output: 'standalone',
     reactStrictMode: true,
     trailingSlash: false,
     compress: true,
     transpilePackages: ['@enonic/nextjs-adapter'],
-    webpack: getEnonicWebpackConfig,
+    //webpack: getEnonicWebpackConfig,
+    turbopack: {
+        resolveAlias: {
+            '@phrases': path.resolve(__dirname, './src/phrases'),
+            '~': path.resolve(__dirname, './src'),
+        },
+    },
     redirects,
     images: {
         remotePatterns: [
@@ -52,4 +64,4 @@ const config = {
     },
 } as NextConfig
 
-export default config
+export default nextConfig

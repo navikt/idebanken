@@ -6,8 +6,8 @@ import {
     RENDER_MODE,
     ReplacerResult,
     RichTextData,
+    UrlProcessor,
 } from '@enonic/nextjs-adapter'
-import { LINK_ATTR } from '@enonic/react-components/constants'
 import { ElementType } from 'domelementtype'
 import { Link } from '@navikt/ds-react'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
@@ -21,7 +21,7 @@ export function handleLink(
 ): ReplacerResult {
     const { links } = data
     const {
-        attribs: { href, [LINK_ATTR]: linkRef, target, title },
+        attribs: { href, [UrlProcessor.LINK_ATTR]: linkRef, target, title },
     } = el
 
     if (!href) {
