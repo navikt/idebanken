@@ -1,25 +1,16 @@
 import type { NextConfig } from 'next'
 import path from 'path'
 import { redirects } from './redirects'
+import { WebpackConfigContext } from 'next/dist/server/config-shared'
 
-function getEnonicWebpackConfig(config: NextConfig) {
-    // config.resolve.fallback = {
-    //     ...config.resolve.fallback,
-    //     fs: false,
-    // }
-    // config.resolve.alias = {
-    //     ...config.resolve.alias,
-    //     '@phrases': path.resolve(__dirname, './src/phrases'),
-    //     '~': path.resolve(__dirname, './src'),
-    // }
-    config.turbopack = config.turbopack || {}
-    config.turbopack.resolveAlias = {
-        ...config.turbopack?.resolveAlias,
-        fs: {
-            browser: './empty.ts', // We recommend to fix code imports before using this method
-        },
+function getEnonicWebpackConfig(config: any, context: WebpackConfigContext) {
+    config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+    }
+    config.resolve.alias = {
+        ...config.resolve.alias,
         '@phrases': path.resolve(__dirname, './src/phrases'),
-        '~': path.resolve(__dirname, './src'),
     }
     return config
 }
@@ -30,15 +21,16 @@ const nextConfig: NextConfig = {
     trailingSlash: false,
     compress: true,
     transpilePackages: ['@enonic/nextjs-adapter'],
-    //webpack: getEnonicWebpackConfig,
+    webpack: getEnonicWebpackConfig,
     turbopack: {
         resolveAlias: {
             '@phrases': path.resolve(__dirname, './src/phrases'),
-            '~': path.resolve(__dirname, './src'),
         },
     },
     redirects,
     images: {
+        qualities: [75, 80],
+        unoptimized: process.env.ENV === 'local',
         remotePatterns: [
             {
                 protocol: 'https',
