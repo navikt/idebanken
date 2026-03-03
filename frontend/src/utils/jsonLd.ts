@@ -4,12 +4,12 @@ import { CommonContentType } from '~/types/graphql-types'
 import { convert } from 'html-to-text'
 
 type Schema = {
-    '@context': string
+    '@context': 'https://schema.org'
     '@type': string
     [key: string]: string | object | string[] | object[] | undefined | null
 }
 
-export const getOrganizationJsonLd = () => ({
+export const getOrganizationJsonLd = (): Schema => ({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Idébanken',
@@ -26,7 +26,7 @@ export const getOrganizationJsonLd = () => ({
     },
 })
 
-export const getWebSiteJsonLd = () => ({
+export const getWebSiteJsonLd = (): Schema => ({
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Idébanken',
@@ -38,7 +38,7 @@ export const getWebSiteJsonLd = () => ({
     },
 })
 
-export const getWebPageJsonLd = (content: CommonContentType) => {
+export const getWebPageJsonLd = (content: CommonContentType): Schema => {
     const meta = content.metaFields
     const isNewsArticle = content.type === 'idebanken:artikkel'
 
@@ -60,7 +60,7 @@ export const getWebPageJsonLd = (content: CommonContentType) => {
     }
 }
 
-export const getArticleJsonLd = (content: CommonContentType) => {
+export const getArticleJsonLd = (content: CommonContentType): Schema => {
     const image = content.metaFields?.image
     const data = content?.dataAsJson
     const author = (forceArray(data?.authors) as string[])?.pop() || 'Idébanken'
@@ -165,7 +165,7 @@ const findHowToSections = (page?: PageData | null): unknown[] => {
     return sections
 }
 
-export const getHowToJsonLd = (content: CommonContentType, page: PageComponent) => {
+export const getHowToJsonLd = (content: CommonContentType, page: PageComponent): Schema => {
     const metaFields = content.metaFields
 
     return {
@@ -180,7 +180,7 @@ export const getHowToJsonLd = (content: CommonContentType, page: PageComponent) 
     }
 }
 
-export const getCourseJsonLd = (content: CommonContentType) => {
+export const getCourseJsonLd = (content: CommonContentType): Schema => {
     const metaFields = content.metaFields
     return {
         '@context': 'https://schema.org',
@@ -201,7 +201,7 @@ export const getCourseJsonLd = (content: CommonContentType) => {
     }
 }
 
-export const getGuideJsonLd = (content: CommonContentType) => {
+export const getGuideJsonLd = (content: CommonContentType): Schema => {
     const metaFields = content.metaFields
     const name = metaFields?.title ?? content.displayName
     return {
