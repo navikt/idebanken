@@ -14,7 +14,7 @@ export const getOrganizationJsonLd = (): Schema => ({
     '@type': 'Organization',
     name: 'Idébanken',
     url: 'https://idebanken.no',
-    //logo: 'https://idebanken.no/public/images/logo-light.svg', // Update with actual path
+    logo: 'https://idebanken.no/favicon/light-favicon.svg',
     sameAs: [
         'https://www.facebook.com/idebanken.org',
         'https://www.linkedin.com/company/id%C3%A9banken---inkluderende-arbeidsliv/',
