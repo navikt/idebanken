@@ -2,6 +2,7 @@ import { MetaData } from '@enonic/nextjs-adapter'
 import {
     Footer,
     Header,
+    MetaFields,
     Part_Idebanken_ComponentDataApplicationConfig,
     Tag,
 } from '~/types/generated'
@@ -46,6 +47,8 @@ export type CommonContentType<T = UnknownJSONContent> = {
     publish: {
         first: string
     }
+    modifiedTime: string
+    metaFields: MetaFields
     x: {
         idebanken: {
             meta: {
