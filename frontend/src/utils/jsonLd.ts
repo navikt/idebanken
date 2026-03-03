@@ -41,16 +41,20 @@ export const getWebPageJsonLd = (content: CommonContentType) => {
     const meta = content.metaFields
     const isNewsArticle = content.type === 'idebanken:artikkel'
 
+    const publicationOrModifiedDate = content.dataAsJson?.publicationDate
+        ? new Date(content.dataAsJson.publicationDate as string).toISOString()
+        : undefined
+
     return {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
         headline: meta?.title ?? content.displayName,
         description: meta?.description,
         datePublished:
-            (isNewsArticle ? content.dataAsJson?.publicationDate : content.publish?.first) ??
+            (isNewsArticle ? publicationOrModifiedDate : content.publish?.first) ??
             content.publish?.first,
         dateModified:
-            (isNewsArticle ? content.modifiedTime : content.dataAsJson?.publicationDate) ??
+            (isNewsArticle ? content.modifiedTime : publicationOrModifiedDate) ??
             content.modifiedTime,
     }
 }
@@ -61,16 +65,22 @@ export const getArticleJsonLd = (content: CommonContentType) => {
     const author = (forceArray(data?.authors) as string[])?.pop() || 'Idébanken'
     const isIdebankenAuthor = author.toLowerCase()?.match(/id[eé]banken/)
     const isNewsArticle = content.type === 'idebanken:artikkel'
+
+    const publicationOrModifiedDate = content.dataAsJson?.publicationDate
+        ? new Date(content.dataAsJson.publicationDate as string).toISOString()
+        : undefined
+
     return {
         '@context': 'https://schema.org',
         '@type': isNewsArticle ? 'NewsArticle' : 'Article',
         headline: content.metaFields?.title ?? content?.displayName,
         image: image?.imageUrl ?? '',
         datePublished:
-            (isNewsArticle ? data?.publicationDate : content.publish?.first) ??
+            (isNewsArticle ? publicationOrModifiedDate : content.publish?.first) ??
             content.publish?.first,
         dateModified:
-            (isNewsArticle ? content.modifiedTime : data?.publicationDate) ?? content.modifiedTime,
+            (isNewsArticle ? content.modifiedTime : publicationOrModifiedDate) ??
+            content.modifiedTime,
         author: {
             '@type': isIdebankenAuthor ? 'Organization' : 'Person',
             name: author,
