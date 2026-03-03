@@ -1,6 +1,7 @@
 import { forceArray } from '~/utils/utils'
 import { PageComponent, PageData, PageRegion } from '@enonic/nextjs-adapter'
 import { CommonContentType } from '~/types/graphql-types'
+import { convert } from 'html-to-text'
 
 type Schema = {
     '@context': string
@@ -94,7 +95,10 @@ export const getArticleJsonLd = (content: CommonContentType) => {
 
 const stripHtml = (html: string | null | undefined): string => {
     if (!html) return ''
-    return html.replace(/<[^>]*>?/gm, '').trim()
+    const text = convert(html, {
+        wordwrap: false,
+    })
+    return text.trim()
 }
 
 const findStepsInRegion = (region: PageRegion | undefined): unknown[] => {
