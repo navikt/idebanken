@@ -158,6 +158,28 @@ export const videoPartOrMacroQuery = `{
     language
 }`
 
+export const videoReelQuery = `{
+    videos {
+        targetContent {
+            ... on idebanken_Video {
+                data {
+                    title
+                    mediaId
+                    accountId
+                    duration
+                    poster {
+                        ... on media_Image {
+                            imageUrl(type: absolute, scale: "block(124,74)")
+                        }
+                    }
+                    subtitles
+                }
+            }
+        }
+        language
+    }
+}`
+
 export const newsletterQuery = `{
     title
     description

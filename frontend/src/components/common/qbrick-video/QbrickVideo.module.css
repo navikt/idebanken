@@ -1,6 +1,6 @@
 .button {
     width: 100%;
-    border-radius: var(--ax-border-radius-medium);
+    border-radius: var(--border-radius-medium);
     justify-content: flex-start;
     align-items: center;
     gap: var(--ax-space-12);
@@ -83,7 +83,7 @@
 }
 
 .previewImage {
-    border-radius: var(--ax-border-radius-medium);
+    border-radius: var(--border-radius-medium);
     display: block;
     max-width: 100%;
     min-height: 74px;
