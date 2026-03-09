@@ -55,7 +55,7 @@ export function proxy(req: NextRequest) {
 export const config = {
     // NB: should contain all files and folders in the /public folder
     matcher: [
-        '/((?!robots.txt|sitemap.xml|manifest.json|.well-known|api/|images/|fonts/|_next/webpack-hmr|_next/static|_next/image|assets|/_/image/|favicon/|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?|css|js|webmanifest)|sw.js).*)',
+        '/((?!robots\\.txt|sitemap\\.xml|manifest\\.json|\\.well-known|api/|images/|fonts/|_next/webpack-hmr|_next/static|_next/image|assets|favicon/|favicon\\.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|woff2?|css|js|webmanifest)|sw\\.js).*)',
     ],
     missing: [
         { type: 'header', key: 'next-router-prefetch' },
