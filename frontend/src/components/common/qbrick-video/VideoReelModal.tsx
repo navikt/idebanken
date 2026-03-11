@@ -1,7 +1,7 @@
 'use client'
 
 import style from './QbrickVideo.module.css'
-import React, { useEffect, useId, useRef } from 'react'
+import React, { useEffect, useId, useRef, useState } from 'react'
 import { Box, Button, HStack, InlineMessage, VStack } from '@navikt/ds-react'
 import classNames from 'classnames'
 import { useQbrickPlayerState } from '~/components/common/qbrick-video/useQbrickPlayerState'
@@ -11,6 +11,7 @@ import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from '@navikt/aksel-icon
 import { HeadingView } from '~/components/parts/Heading'
 import { ButtonView } from '~/components/parts/Button'
 import { formatImageUrl } from '~/utils/image'
+import { AnimatePresence, motion, Variants } from 'framer-motion'
 
 // ---------------------------------------------------------------------------
 // VideoReelPlayerItem
@@ -121,6 +122,7 @@ export const VideoReelModal = ({
     meta,
 }: VideoReelModalProps) => {
     const dialogRef = useRef<HTMLDialogElement>(null)
+    const [direction, setDirection] = useState<'left' | 'right'>('right')
 
     useEffect(() => {
         const dialog = dialogRef.current
@@ -151,8 +153,21 @@ export const VideoReelModal = ({
 
     const goTo = (index: number) => {
         if (index >= 0 && index < videos.length) {
+            setDirection(index > currentIndex ? 'right' : 'left')
             setCurrentIndex(index)
         }
+    }
+
+    const variants: Variants = {
+        enter: (dir: 'left' | 'right') => ({
+            x: dir === 'right' ? '100%' : '-100%',
+            opacity: 0,
+        }),
+        center: { x: 0, opacity: 1 },
+        exit: (dir: 'left' | 'right') => ({
+            x: dir === 'right' ? '-100%' : '100%',
+            opacity: 0,
+        }),
     }
 
     if (!open) return null
@@ -174,7 +189,7 @@ export const VideoReelModal = ({
                 <Box
                     className={classNames(
                         'flex justify-between items-center gap-4',
-                        'w-full min-h-25 py-(--ax-space-16)'
+                        'w-full py-(--ax-space-16)'
                     )}>
                     <HeadingView
                         level={'2'}
@@ -194,20 +209,27 @@ export const VideoReelModal = ({
                 </Box>
 
                 {/* Body */}
-                <Box className={'py-(--ax-space-8)'}>
-                    <VStack gap={'space-8'}>
-                        {videos.map((config, i) => (
+                <Box className={'py-(--ax-space-8) overflow-x-clip'}>
+                    <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                        <motion.div
+                            key={currentIndex}
+                            custom={direction}
+                            variants={variants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={{ type: 'tween', duration: 0.3 }}
+                            className={'flex justify-center'}>
                             <VideoReelPlayerItem
-                                key={config.mediaId + i}
-                                config={config}
+                                config={videos[currentIndex]}
                                 videoAnalytics={videoAnalytics}
-                                active={i === currentIndex}
+                                active={true}
                                 innholdstype={innholdstype}
                                 renderMode={meta.renderMode}
                                 meta={meta}
                             />
-                        ))}
-                    </VStack>
+                        </motion.div>
+                    </AnimatePresence>
                 </Box>
 
                 {/* Footer navigation */}
