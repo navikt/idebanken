@@ -10,8 +10,9 @@ import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from '@navikt/aksel-icons'
 import { HeadingView } from '~/components/parts/Heading'
 import { ButtonView } from '~/components/parts/Button'
-import { formatImageUrl } from '~/utils/image'
 import { AnimatePresence, motion, Variants } from 'framer-motion'
+import LoadingCircles from '~/components/common/LoadingCircles'
+import { formatImageUrl } from '~/utils/image'
 
 // ---------------------------------------------------------------------------
 // VideoReelPlayerItem
@@ -80,14 +81,28 @@ const VideoReelPlayerItem = ({
                         title={config.title}
                         data-qplayer-analytics={videoAnalytics ? 'on' : 'off'}
                     />
+                    <LoadingCircles
+                        className={classNames(
+                            'absolute self-center',
+                            (playerState === 'ready' || playerState === 'error') && 'hidden'
+                        )}
+                    />
                 </>
             ) : (
-                <img
-                    id={videoContainerId}
-                    className={'object-cover aspect-9/16 h-[min(64vh,700px)]'}
-                    src={formatImageUrl(meta, config.poster, 720, 1280)}
-                    alt=""
-                />
+                <>
+                    <img
+                        id={videoContainerId}
+                        className={'object-cover aspect-9/16 h-[min(64vh,700px)] z-10'}
+                        src={formatImageUrl(meta, config.poster, 720, 1280)}
+                        alt=""
+                    />
+                    <LoadingCircles
+                        className={classNames(
+                            'absolute self-center',
+                            (playerState === 'ready' || playerState === 'error') && 'hidden'
+                        )}
+                    />
+                </>
             )}
         </Box>
     )
@@ -174,9 +189,9 @@ export const VideoReelModal = ({
             ref={dialogRef}
             className={classNames(
                 'fixed inset-0 z-50 mx-auto border-0 rounded-(--border-radius-medium)',
-                'bg-(--ax-bg-strong) text-(--ax-text-contrast)',
+                'bg-(--ax-bg-strong) dark:bg-(--ax-bg-default) text-(--ax-text-contrast) dark:text-(--ax-text-default)',
                 'w-full max-w-100 max-h-[90vh] overflow-y-auto',
-                'backdrop:bg-(--ax-bg-strong)/70'
+                'backdrop:bg-(--ax-bg-strong)/70 dark:backdrop:bg-(--ax-bg-default)/70'
             )}
             onClick={(e) => {
                 if (e.target === dialogRef.current) onClose()
