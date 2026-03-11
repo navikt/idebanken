@@ -73,9 +73,8 @@ const VideoReelPlayerItem = ({
                     <Box
                         className={classNames(
                             style.macroVideo,
-                            '**:rounded-(--border-radius-medium)!',
                             '**:focus:bg-(--ax-bg-strong) **:focus:outline-2! **:focus:outline-white! **:focus:outline-offset-2!',
-                            '*:aspect-9/16! h-[min(70vh,700px)'
+                            '*:aspect-9/16! h-[min(70vh,700px)]'
                         )}
                         id={videoContainerId}
                         title={config.title}
@@ -85,9 +84,7 @@ const VideoReelPlayerItem = ({
             ) : (
                 <img
                     id={videoContainerId}
-                    className={
-                        'object-cover aspect-9/16 h-[min(70vh,700px)] rounded-(--border-radius-medium)'
-                    }
+                    className={'object-cover aspect-9/16 h-[min(70vh,700px)]'}
                     src={formatImageUrl(meta, config.poster, 720, 1280)}
                     alt=""
                 />
