@@ -74,7 +74,7 @@ const VideoReelPlayerItem = ({
                             style.macroVideo,
                             playerState !== 'ready' && style.hidden,
                             '**:rounded-(--border-radius-medium)!',
-                            'aspect-9/16! max-h-[70vh]'
+                            '*:aspect-9/16! h-[min(70vh,700px)]'
                         )}
                         id={videoContainerId}
                         title={config.title}
@@ -85,7 +85,7 @@ const VideoReelPlayerItem = ({
                 <img
                     id={videoContainerId}
                     className={
-                        'object-cover aspect-9/16 max-h-[70vh] rounded-(--border-radius-medium)'
+                        'object-cover aspect-9/16 h-[min(70vh,700px)] rounded-(--border-radius-medium)'
                     }
                     src={formatImageUrl(meta, config.poster, 720, 1280)}
                     alt=""
@@ -127,8 +127,13 @@ export const VideoReelModal = ({
         if (!dialog) return
         if (open) {
             dialog.showModal()
+            document.body.style.overflow = 'hidden'
         } else {
             dialog.close()
+            document.body.style.overflow = ''
+        }
+        return () => {
+            document.body.style.overflow = ''
         }
     }, [open])
 
@@ -177,7 +182,9 @@ export const VideoReelModal = ({
                     <Button
                         variant={'secondary'}
                         icon={<XMarkIcon />}
-                        className={'bg-(--ax-bg-strong) text-(--ax-text-contrast) w-11 h-11'}
+                        className={
+                            'bg-(--ax-bg-strong) text-(--ax-text-contrast) w-11 h-11 outline-white'
+                        }
                         onClick={onClose}
                         aria-label={'Lukk'}
                     />
@@ -207,6 +214,7 @@ export const VideoReelModal = ({
                         <HStack className={'flex justify-between w-full'} gap={'space-32'}>
                             <ButtonView
                                 meta={meta}
+                                className={'outline-white'}
                                 icon={<ChevronLeftIcon />}
                                 disabled={currentIndex === 0}
                                 onClick={(e) => {
@@ -218,6 +226,7 @@ export const VideoReelModal = ({
                             </ButtonView>
                             <ButtonView
                                 meta={meta}
+                                className={'outline-white'}
                                 icon={<ChevronRightIcon />}
                                 iconPosition={'right'}
                                 disabled={currentIndex === videos.length - 1}
