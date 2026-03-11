@@ -4,4 +4,4 @@ node_modules/**
 *.md
 src/phrases/*.json
 package-lock.json
-tsconfig.json
+
