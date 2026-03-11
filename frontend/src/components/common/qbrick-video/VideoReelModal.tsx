@@ -196,12 +196,12 @@ export const VideoReelModal = ({
             onClick={(e) => {
                 if (e.target === dialogRef.current) onClose()
             }}>
-            <VStack className={'max-w-100 mx-auto px-4'}>
+            <VStack className={'max-w-100 mx-auto'}>
                 {/* Header */}
                 <Box
                     className={classNames(
                         'flex justify-between items-center gap-4',
-                        'w-full py-(--ax-space-16)'
+                        'w-full py-(--ax-space-16) px-4'
                     )}>
                     <HeadingView
                         level={'2'}
@@ -247,7 +247,10 @@ export const VideoReelModal = ({
                 {/* Footer navigation */}
                 {videos.length > 1 && (
                     <Box
-                        className={classNames('flex justify-between w-full', 'py-(--ax-space-16)')}>
+                        className={classNames(
+                            'flex justify-between w-full',
+                            'py-(--ax-space-16) px-4'
+                        )}>
                         <HStack className={'flex justify-between w-full'} gap={'space-32'}>
                             <ButtonView
                                 meta={meta}
