@@ -24,6 +24,21 @@ export const QbrickVideoReel = ({ part, meta }: PartData<Part_Idebanken_Video_Re
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0)
     const [modalOpen, setModalOpen] = useState(false)
 
+    useEffect(() => {
+        const { videoAnalyticsConsent } = getConsentValues()
+        setVideoAnalytics(videoAnalyticsConsent)
+
+        const handleConsentChange = (e: Event) => {
+            const customEvent = e as CookieConsentChangeEvent
+            if (customEvent.detail.videoAnalytics !== undefined) {
+                setVideoAnalytics(customEvent.detail.videoAnalytics)
+            }
+        }
+
+        window.addEventListener('cookie-consent-changed', handleConsentChange)
+        return () => window.removeEventListener('cookie-consent-changed', handleConsentChange)
+    }, [])
+
     const videosConfig = forceArray(part.config?.videos)
     if (!videosConfig?.length) {
         return <MissingComponent type={'video-reel'} descriptor={'idebanken:video-reel'} />
@@ -41,21 +56,6 @@ export const QbrickVideoReel = ({ part, meta }: PartData<Part_Idebanken_Video_Re
             )
         })
         .filter((video) => video !== null)
-
-    useEffect(() => {
-        const { videoAnalyticsConsent } = getConsentValues()
-        setVideoAnalytics(videoAnalyticsConsent)
-
-        const handleConsentChange = (e: Event) => {
-            const customEvent = e as CookieConsentChangeEvent
-            if (customEvent.detail.videoAnalytics !== undefined) {
-                setVideoAnalytics(customEvent.detail.videoAnalytics)
-            }
-        }
-
-        window.addEventListener('cookie-consent-changed', handleConsentChange)
-        return () => window.removeEventListener('cookie-consent-changed', handleConsentChange)
-    }, [])
 
     return (
         <>
