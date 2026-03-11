@@ -73,7 +73,7 @@ const VideoReelPlayerItem = ({
                     <Box
                         className={classNames(
                             style.macroVideo,
-                            '**:focus:bg-(--ax-bg-strong) **:focus:outline-2! **:focus:outline-white! **:focus:outline-offset-2!',
+                            '**:md:focus:outline-2! **:md:focus:outline-white! **:md:focus:outline-offset-2!',
                             '*:aspect-9/16! h-[min(70vh,700px)]'
                         )}
                         id={videoContainerId}
