@@ -72,8 +72,8 @@ const VideoReelPlayerItem = ({
                     <Box
                         className={classNames(
                             style.macroVideo,
-                            playerState !== 'ready' && style.hidden,
                             '**:rounded-(--border-radius-medium)!',
+                            '**:focus:bg-(--ax-bg-strong) **:focus:outline-2 **:focus:outline-(--ax-accent-strong) **:focus:outline-offset-2',
                             '*:aspect-9/16! h-[min(70vh,700px)]'
                         )}
                         id={videoContainerId}
@@ -176,7 +176,10 @@ export const VideoReelModal = ({
                         'flex justify-between items-center gap-4',
                         'w-full min-h-25 py-(--ax-space-16)'
                     )}>
-                    <HeadingView level={'2'} size={'medium'} className={'text-center'}>
+                    <HeadingView
+                        level={'2'}
+                        size={'xsmall'}
+                        className={'text-center text-nowrap overflow-hidden text-ellipsis'}>
                         {videos[currentIndex]?.title}
                     </HeadingView>
                     <Button

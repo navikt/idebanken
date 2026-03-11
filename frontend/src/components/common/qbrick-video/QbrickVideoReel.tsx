@@ -44,7 +44,6 @@ export const QbrickVideoReel = ({ part, meta }: PartData<Part_Idebanken_Video_Re
         return <MissingComponent type={'video-reel'} descriptor={'idebanken:video-reel'} />
     }
 
-    // Build plain config objects — no hooks here
     const videos = videosConfig
         .map((video) => {
             const { targetContent, language } = video ?? {}
