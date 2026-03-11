@@ -14,10 +14,10 @@ type VideoMacro = Macro<Macro_Idebanken_Video_DataConfig>
 type VideoPart = PartData<Part_Idebanken_Video>
 
 const buildVideoProps = (
-    macroConfig: Macro_Idebanken_Video_DataConfig | Part_Idebanken_Video | undefined,
+    macroOrPartConfig: Macro_Idebanken_Video_DataConfig | Part_Idebanken_Video | undefined,
     meta: MetaData
 ) => {
-    const { targetContent, language, displayType } = macroConfig ?? {}
+    const { targetContent, language, displayType } = macroOrPartConfig ?? {}
 
     if (!(targetContent as Idebanken_Video)?.data) {
         return null

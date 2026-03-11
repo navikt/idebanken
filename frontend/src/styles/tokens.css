@@ -14,6 +14,9 @@
     --ax-font-weight-regular: var(--ib-font-weight-regular, 300);
     --ax-font-weight-bold: var(--ib-font-weight-bold, 400);
 
+    --border-radius-medium: var(--ax-radius-8);
+    --border-radius-large: var(--ax-radius-12);
+
     /* Interactive */
     --interactive-min-size: 44px;
 }

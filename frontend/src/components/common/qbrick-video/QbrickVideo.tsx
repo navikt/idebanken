@@ -168,7 +168,7 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                 className={classNames(
                     style.macroVideo,
                     playerState !== 'ready' && style.hidden,
-                    '**:rounded-(--ax-border-radius-medium)!'
+                    '**:rounded-(--border-radius-medium)!'
                 )}
                 id={videoContainerId}
                 title={title}

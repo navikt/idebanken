@@ -1,6 +1,6 @@
-import { Replacer, ReplacerResult, UrlProcessor } from '@enonic/nextjs-adapter'
+import { Replacer, ReplacerResult } from '@enonic/nextjs-adapter'
 import { ElementType } from 'domelementtype'
-import { List } from '@navikt/ds-react'
+import { BodyLong, List } from '@navikt/ds-react'
 import {
     attributesToProps,
     DOMNode,
@@ -10,12 +10,26 @@ import {
 } from 'html-react-parser'
 import { HeadingView } from '~/components/parts/Heading'
 import { ListItem } from '@navikt/ds-react/List'
+import { MACRO_TAG } from '@enonic/react-components/constants'
 import React from 'react'
 import { handleLink } from '~/utils/richText/handle-link'
 import { handleMacro } from '~/utils/richText/handle-macro'
 import { handleImage } from '~/utils/richText/handle-image'
 import { handleTable } from '~/utils/richText/handle-table'
-import { handleParagraph } from '~/utils/richText/handle-paragraph'
+
+function isOnlyMacroChild(el: Element): Element | null {
+    if (el.children?.length === 1) {
+        const onlyChild = el.children[0]
+        if (
+            onlyChild &&
+            onlyChild.type === ElementType.Tag &&
+            (onlyChild as Element).name === MACRO_TAG
+        ) {
+            return onlyChild as Element
+        }
+    }
+    return null
+}
 
 export const htmlRichTextReplacer: Replacer = (
     domNode,
@@ -30,8 +44,22 @@ export const htmlRichTextReplacer: Replacer = (
             }
             const el = domNode as Element
             switch (el.name) {
-                case 'p':
-                    return handleParagraph(el, options)
+                case 'p': {
+                    // If the paragraph has only one child and that child is a macro tag, handle it
+                    const macroChild = isOnlyMacroChild(el)
+                    if (macroChild) {
+                        return options.replace?.(macroChild, 0)
+                    }
+
+                    return (
+                        <BodyLong
+                            {...attributesToProps(el.attribs)}
+                            className="font-light [&:last-child]:mb-0 [&:has(+hr)]:mb-0"
+                            spacing>
+                            {domToReact(el.children as DOMNode[], options)}
+                        </BodyLong>
+                    )
+                }
                 case 'h1':
                     return (
                         <HeadingView level="1" size="xlarge">
@@ -88,7 +116,7 @@ export const htmlRichTextReplacer: Replacer = (
                     )
                 case 'a':
                     return handleLink(el, data, meta, options)
-                case UrlProcessor.MACRO_TAG:
+                case MACRO_TAG:
                     return handleMacro(el, data.macros, meta, renderMacroInEditMode, options)
                 case 'img':
                     return handleImage(el, data, meta)

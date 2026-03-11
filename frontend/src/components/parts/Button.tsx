@@ -1,5 +1,3 @@
-'use client'
-
 import NextLink from 'next/link'
 import { Button, ButtonProps } from '@navikt/ds-react'
 import { PartData } from '~/types/graphql-types'

@@ -1,5 +1,5 @@
 import type { Link_Card, Part_Idebanken_Link_Card, Tag as TagType } from '~/types/generated.d'
-import { Box, LinkProps } from '@navikt/ds-react'
+import { Box, Link, LinkProps } from '@navikt/ds-react'
 import {
     LinkCard,
     LinkCardAnchor,
@@ -14,7 +14,7 @@ import Image from 'next/image'
 import { getAsset, getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { XP_LinkCard, XP_LinkCardList } from '@xp-types/site/parts'
-import NextNavLink from '~/components/common/NextNavLink'
+import NextLink from 'next/link'
 import TagView from '~/components/common/TagView'
 import classNames from 'classnames'
 
@@ -127,12 +127,13 @@ export const LinkCardView = ({
             )}
             <LinkCardTitle className={classNames(mxExtraWithImage, mtExtraWithImage)}>
                 <LinkCardAnchor asChild>
-                    <NextNavLink
+                    <Link
+                        as={NextLink}
                         href={getUrl(url, meta) || '#'}
                         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                         {...linkProps}>
                         {title}
-                    </NextNavLink>
+                    </Link>
                 </LinkCardAnchor>
             </LinkCardTitle>
             {description && showDescription && (

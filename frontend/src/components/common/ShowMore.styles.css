@@ -6,14 +6,14 @@
 
     position: relative;
     padding: var(--ax-space-16);
-    border-radius: var(--ax-border-radius-large);
+    border-radius: var(--border-radius-large);
     height: fit-content; /* in case the parent is stretching */
     display: flex;
     flex-direction: column;
     min-width: 12rem;
 }
 .navds-show-more__button {
-    border-radius: var(--ax-border-radius-medium);
+    border-radius: var(--border-radius-medium);
     background-color: var(--ib-brand-white);
 }
 

@@ -49,7 +49,7 @@ a .aksel-label {
 
 /* Expansion card overwrites */
 .aksel-expansioncard {
-    --__axc-expansioncard-border-radius: calc((var(--ax-radius-12) * 2) - 1px);
+    --__axc-expansioncard-border-radius: calc((var(--border-radius-large) * 2) - 1px);
 }
 
 /* Global utility for interactive elements */

@@ -6,11 +6,12 @@ import {
     RENDER_MODE,
     ReplacerResult,
     RichTextData,
-    UrlProcessor,
 } from '@enonic/nextjs-adapter'
+import { LINK_ATTR } from '@enonic/react-components/constants'
 import { ElementType } from 'domelementtype'
+import { Link } from '@navikt/ds-react'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
-import NextNavLink from '~/components/common/NextNavLink'
+import NextLink from 'next/link'
 
 export function handleLink(
     el: Element,
@@ -20,7 +21,7 @@ export function handleLink(
 ): ReplacerResult {
     const { links } = data
     const {
-        attribs: { href, [UrlProcessor.LINK_ATTR]: linkRef, target, title },
+        attribs: { href, [LINK_ATTR]: linkRef, target, title },
     } = el
 
     if (!href) {
@@ -46,13 +47,14 @@ export function handleLink(
         }
         const children = domToReact(el.children as DOMNode[], basicOptions)
         return (
-            <NextNavLink
+            <Link
+                as={NextLink}
                 href={processedHref}
                 target={target}
                 rel={el.attribs?.rel}
                 title={title}>
                 {children}
-            </NextNavLink>
+            </Link>
         )
     }
 
@@ -76,9 +78,9 @@ export function handleLink(
 
     return (
         <>
-            <NextNavLink href={processedHref} target={target} title={title}>
+            <Link as={NextLink} href={processedHref} target={target} title={title}>
                 {children}
-            </NextNavLink>
+            </Link>
             {validateAnchorsAndReturnJSXElement(linkData, processedHref, meta)}
         </>
     )

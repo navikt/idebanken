@@ -24,6 +24,7 @@ export type TextEditor = import('./text-editor').TextEditor;
 export type ThemeCardList = import('./theme-card-list').ThemeCardList;
 export type TitleIngress = import('./title-ingress').TitleIngress;
 export type Video = import('./video').Video;
+export type VideoReel = import('./video-reel').VideoReel;
 
 declare global {
   interface XpPartMap {
@@ -52,5 +53,6 @@ declare global {
     'idebanken:theme-card-list': ThemeCardList;
     'idebanken:title-ingress': TitleIngress;
     'idebanken:video': Video;
+    'idebanken:video-reel': VideoReel;
   }
 }

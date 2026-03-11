@@ -12,6 +12,7 @@ import {
     tableOfContentsQuery,
     themeCardListQuery,
     videoPartOrMacroQuery,
+    videoReelQuery,
 } from './queries/parts'
 import MainPage from './pages/Main'
 import '@enonic/nextjs-adapter/baseMappings'
@@ -52,6 +53,7 @@ import RelatedTopics from './parts/RelatedTopics'
 import { CrashCoursePlan } from '~/components/parts/crash-course/CrashCoursePlan'
 import { CrashCourseTitle } from '~/components/parts/crash-course/CrashCourseTitle'
 import CrashCourseIntroButtons from '~/components/parts/crash-course/CrashCourseIntroButtons'
+import { QbrickVideoReel } from '~/components/common/qbrick-video/QbrickVideoReel'
 
 /**
  * DO NOT IMPORT richTextQuery IN OTHER LOCATIONS THAN THIS FILE
@@ -219,6 +221,11 @@ ComponentRegistry.addPart(`${APP_NAME}:show-more`, {
 ComponentRegistry.addPart(`${APP_NAME}:video`, {
     view: VideoPartOrMacro,
     configQuery: videoPartOrMacroQuery,
+})
+
+ComponentRegistry.addPart(`${APP_NAME}:video-reel`, {
+    view: QbrickVideoReel,
+    configQuery: videoReelQuery,
 })
 
 ComponentRegistry.addPart(`${APP_NAME}:quote`, {

@@ -1,4 +1,5 @@
-import NextNavLink from '~/components/common/NextNavLink'
+import NextLink from 'next/link'
+import { Link } from '@navikt/ds-react'
 import { PropsWithChildren } from 'react'
 
 export const LinkHeading = (
@@ -15,8 +16,8 @@ export const LinkHeading = (
     const className = props.customClassName ? `${base} ${props.customClassName}` : base
 
     return (
-        <NextNavLink href={props.href || '#'} className={className}>
-            {props.title || props.children || ''}
-        </NextNavLink>
+        <Link as={NextLink} href={props.href || '#'} className={className}>
+            {props.title || props.children}
+        </Link>
     )
 }
