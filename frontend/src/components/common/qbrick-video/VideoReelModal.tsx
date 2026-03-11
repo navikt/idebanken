@@ -74,8 +74,8 @@ const VideoReelPlayerItem = ({
                         className={classNames(
                             style.macroVideo,
                             '**:rounded-(--border-radius-medium)!',
-                            '**:focus:bg-(--ax-bg-strong) **:focus:outline-2 **:focus:outline-(--ax-accent-strong) **:focus:outline-offset-2',
-                            '*:aspect-9/16! h-[min(70vh,700px)]'
+                            '**:focus:bg-(--ax-bg-strong) **:focus:outline-2! **:focus:outline-white! **:focus:outline-offset-2!',
+                            '*:aspect-9/16! h-[min(70vh,700px)'
                         )}
                         id={videoContainerId}
                         title={config.title}
@@ -178,7 +178,7 @@ export const VideoReelModal = ({
             className={classNames(
                 'fixed inset-0 z-50 mx-auto border-0 rounded-(--border-radius-medium)',
                 'bg-(--ax-bg-strong) text-(--ax-text-contrast)',
-                'w-full max-w-100 max-h-screen overflow-y-auto',
+                'w-full max-w-100 max-h-[90vh] overflow-y-auto',
                 'backdrop:bg-(--ax-bg-strong)/70'
             )}
             onClick={(e) => {
