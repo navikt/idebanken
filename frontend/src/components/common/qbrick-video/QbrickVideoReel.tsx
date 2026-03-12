@@ -2,7 +2,7 @@
 
 import style from './QbrickVideo.module.css'
 import React, { useEffect, useState } from 'react'
-import { BodyShort, Box, Button, HStack, VStack } from '@navikt/ds-react'
+import { BodyShort, Box, HStack, VStack } from '@navikt/ds-react'
 import Script from 'next/script'
 import classNames from 'classnames'
 import { buildQbrickVideoProps } from '~/components/common/qbrick-video/videoProps'
@@ -73,10 +73,12 @@ export const QbrickVideoReel = ({ part, meta }: PartData<Part_Idebanken_Video_Re
                     const minutes = Math.floor(duration / 60).toString()
                     const seconds = Math.round(duration % 60).toString()
                     return (
-                        <Button
+                        <button
                             key={title + i}
                             aria-label={`Se video: ${title}${duration > 0 ? `. Varighet er ${getTimestampFromDuration(duration)} min` : ''}`}
-                            className={classNames('aspect-9/16 relative h-[450px] group')}
+                            className={classNames(
+                                'aspect-9/16 relative h-[450px] group aksel-button text-(--ax-text-contrast)'
+                            )}
                             onClick={() => {
                                 setCurrentVideoIndex(i)
                                 setModalOpen(true)
@@ -119,7 +121,7 @@ export const QbrickVideoReel = ({ part, meta }: PartData<Part_Idebanken_Video_Re
                                     {title}
                                 </HeadingView>
                             </VStack>
-                        </Button>
+                        </button>
                     )
                 })}
             </HStack>

@@ -1,7 +1,12 @@
 import { Element } from 'html-react-parser'
-import { getUrl, MetaData, ReplacerResult, RichTextData } from '@enonic/nextjs-adapter'
+import {
+    getUrl,
+    MetaData,
+    ReplacerResult,
+    RichTextData,
+    UrlProcessor,
+} from '@enonic/nextjs-adapter'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
-import { IMG_ATTR } from '@enonic/react-components/constants'
 import { cssToReactStyle } from '@enonic/react-components'
 import { validatedImage } from '~/utils/runtimeValidation'
 
@@ -16,7 +21,7 @@ export function handleImage(el: Element, data: RichTextData, meta: MetaData): Re
         )
     }
 
-    const imageRef = el.attribs[IMG_ATTR]
+    const imageRef = el.attribs[UrlProcessor.IMG_ATTR]
     if (!imageRef) {
         return <ErrorComponent reason={'Image element has no data-image-ref attribute!'} />
     }

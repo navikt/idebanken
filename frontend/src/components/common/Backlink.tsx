@@ -1,5 +1,4 @@
-import { Link } from '@navikt/ds-react'
-import NextLink from 'next/link'
+import NextNavLink from '~/components/common/NextNavLink'
 import { ArrowLeftIcon } from '@navikt/aksel-icons'
 import { PageBlock } from '@navikt/ds-react/Page'
 import { FetchContentResult, getUrl } from '@enonic/nextjs-adapter'
@@ -12,14 +11,13 @@ export default function Backlink({ contentResult }: { contentResult: FetchConten
     const { text, href } = backlink
 
     const linkElement = (
-        <Link
+        <NextNavLink
             data-color="ib-brand-dark-blue"
-            as={NextLink}
             href={getUrl(href, meta)}
             className={'min-h-[44px] min-w-[44px]'}>
             <ArrowLeftIcon width={24} height={24} aria-hidden={true} />
             {text}
-        </Link>
+        </NextNavLink>
     )
 
     const shouldBleedPink =

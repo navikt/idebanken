@@ -1,5 +1,5 @@
 import type { Link_Card, Part_Idebanken_Link_Card, Tag as TagType } from '~/types/generated.d'
-import { Box, Link, LinkProps } from '@navikt/ds-react'
+import { Box, LinkProps } from '@navikt/ds-react'
 import {
     LinkCard,
     LinkCardAnchor,
@@ -14,7 +14,7 @@ import Image from 'next/image'
 import { getAsset, getUrl, MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { PartData } from '~/types/graphql-types'
 import { XP_LinkCard, XP_LinkCardList } from '@xp-types/site/parts'
-import NextLink from 'next/link'
+import NextNavLink from '~/components/common/NextNavLink'
 import TagView from '~/components/common/TagView'
 import classNames from 'classnames'
 
@@ -90,7 +90,7 @@ export const LinkCardView = ({
                 'text-left'
             )}>
             {showImage && (
-                <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(1.5rem-1px)]">
+                <LinkCardImage aspectRatio="16/9" className="rounded-t-[calc(1.5rem-1px)] relative">
                     <Image
                         unoptimized={meta.renderMode !== RENDER_MODE.NEXT}
                         src={getAsset(image?.url ?? '/images/link-card-fallback.svg', meta)}
@@ -127,13 +127,12 @@ export const LinkCardView = ({
             )}
             <LinkCardTitle className={classNames(mxExtraWithImage, mtExtraWithImage)}>
                 <LinkCardAnchor asChild>
-                    <Link
-                        as={NextLink}
+                    <NextNavLink
                         href={getUrl(url, meta) || '#'}
                         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                         {...linkProps}>
                         {title}
-                    </Link>
+                    </NextNavLink>
                 </LinkCardAnchor>
             </LinkCardTitle>
             {description && showDescription && (

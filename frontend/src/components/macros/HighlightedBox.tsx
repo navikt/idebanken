@@ -1,10 +1,10 @@
-import { BodyLong, BodyShort, HStack, Link, List, VStack } from '@navikt/ds-react'
+import { BodyLong, BodyShort, HStack, List, VStack } from '@navikt/ds-react'
 import { ListItem } from '@navikt/ds-react/List'
 import { getUrl, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { Macro_Idebanken_Highlighted_Box_DataConfig } from '~/types/generated'
 import Image from 'next/image'
 import { Macro } from '~/types/graphql-types'
-import NextLink from 'next/link'
+import NextNavLink from '~/components/common/NextNavLink'
 import { AkselColor } from '@navikt/ds-react/types/theme'
 
 export function HighlightedBox({
@@ -52,12 +52,9 @@ export function HighlightedBox({
                             ?.filter((it) => it !== null)
                             ?.map(({ url, linkText, download }) => (
                                 <ListItem key={linkText}>
-                                    <Link
-                                        as={NextLink}
-                                        href={getUrl(url, meta)}
-                                        download={download}>
+                                    <NextNavLink href={getUrl(url, meta)} download={download}>
                                         {linkText}
-                                    </Link>
+                                    </NextNavLink>
                                 </ListItem>
                             ))}
                     </List>
