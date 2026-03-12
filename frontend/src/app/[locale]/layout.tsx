@@ -72,7 +72,7 @@ const mundial = localFont({
 export default async function LocaleLayout({ params, children }: LayoutProps) {
     const resolvedParams = await params
 
-    await I18n.setLocale(resolvedParams.locale)
+    await I18n.setLocale('no' /* resolvedParams.locale */)
 
     const bodyAttrs: { [key: string]: string } = {
         className: 'edit',
@@ -97,7 +97,7 @@ export default async function LocaleLayout({ params, children }: LayoutProps) {
 }
 
 export const metadata: Metadata = {
-    title: I18n.localize('idebanken'),
+    title: 'Idébanken',
     description:
         'Idébanken er en informasjonstjeneste om inkluderende arbeidsliv. Vi deler ideer og kunnskap om sykefravær, arbeidsmiljø, seniorpolitikk og inkludering.',
 }
