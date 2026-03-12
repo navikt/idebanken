@@ -21,7 +21,7 @@ function getEnonicWebpackConfig(
 }
 
 const nextConfig: NextConfig = {
-    //output: 'standalone',
+    output: 'standalone',
     reactStrictMode: true,
     trailingSlash: false,
     //compress: true,
