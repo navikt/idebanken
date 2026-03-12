@@ -2,7 +2,6 @@ import '~/styles/globals.css'
 
 import {
     FetchContentResult,
-    I18n,
     MetaData,
     PageComponent,
     RENDER_MODE,
@@ -89,11 +88,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
             <Page
                 footer={<Footer footerProps={common?.footer ?? undefined} meta={meta} />}
                 contentBlockPadding="none">
-                <Header
-                    meta={meta}
-                    common={common as HeadlessCms}
-                    title={I18n.localize('idebanken')}
-                />
+                <Header meta={meta} common={common as HeadlessCms} title={'Idébanken'} />
                 <AlertBanner common={common as HeadlessCms} meta={meta} />
                 <Backlink contentResult={contentResult} />
                 <PageBlock id="main-content" as="main" width="2xl">
