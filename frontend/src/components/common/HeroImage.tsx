@@ -21,7 +21,7 @@ export function HeroImage({
     height = 576,
     sizes = '(min-width: 1024px) 1280px, 100vw',
     className = 'w-full h-auto object-cover rounded-ib mb-(--ax-space-24)',
-    wrapperClassName = 'lg:mx-[-11rem]',
+    wrapperClassName = 'lg:mx-[-11rem] relative',
     unoptimized,
 }: HeroImageProps) {
     if (!src) return null

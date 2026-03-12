@@ -1,7 +1,7 @@
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 import { Footer as FooterProps } from '~/types/generated'
-import { BodyLong, HGrid, Link, VStack } from '@navikt/ds-react'
-import NextLink from 'next/link'
+import { BodyLong, HGrid, VStack } from '@navikt/ds-react'
+import NextNavLink from '~/components/common/NextNavLink'
 import { HeadingView } from '~/components/parts/Heading'
 import { Separator } from '~/components/macros/Separator'
 import { getAsset, getUrl, MetaData } from '@enonic/nextjs-adapter'
@@ -107,12 +107,11 @@ export default function Footer({
                         <ul role="list" className="space-y-4">
                             {links?.map(({ url, linkText }, j) => (
                                 <li key={j}>
-                                    <Link
-                                        as={NextLink}
+                                    <NextNavLink
                                         href={getUrl(url, meta)}
                                         style={{ minBlockSize: '24px' }}>
                                         {linkText ?? '[Default link text]'}
-                                    </Link>
+                                    </NextNavLink>
                                 </li>
                             ))}
                         </ul>

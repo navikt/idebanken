@@ -1,6 +1,11 @@
 import { DOMNode, domToReact, Element, HTMLReactParserOptions } from 'html-react-parser'
-import { MacroData, MetaData, ReplacerResult, sanitizeGraphqlName } from '@enonic/nextjs-adapter'
-import { MACRO_ATTR } from '@enonic/react-components/constants'
+import {
+    MacroData,
+    MetaData,
+    ReplacerResult,
+    sanitizeGraphqlName,
+    UrlProcessor,
+} from '@enonic/nextjs-adapter'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 import BaseMacro from '@enonic/nextjs-adapter/views/BaseMacro'
 import { validatedMacro } from '~/utils/runtimeValidation'
@@ -16,7 +21,7 @@ export function handleMacro(
         return <ErrorComponent reason={'No macro-elements found!'} />
     }
 
-    const ref = el.attribs[MACRO_ATTR]
+    const ref = el.attribs[UrlProcessor.MACRO_ATTR]
 
     if (!ref) {
         return <ErrorComponent reason={'Macro element has no data-macro-ref attribute!'} />
