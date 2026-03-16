@@ -11,6 +11,7 @@ Dette er frontend applikasjonen satt opp i Next.js for den fremtidige nye nettsi
 ```bash
 echo """
 ENV=local
+NEXT_PUBLIC_ENV=local
 ENONIC_API=http://localhost:8080/site/
 ENONIC_API_TOKEN=mySecretKey
 SEARCH_API_URL=http://localhost:9000
@@ -46,7 +47,7 @@ Ellers ligger frontend applikasjonen i [NAIS](https://console.nav.cloud.nais.io/
 
 # Henvendelser
 
-Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på GitHub
+Spørsmål knyttet til koden eller prosjektet kan stilles til post@idebanken.org
 
 ## For NAV-ansatte
 

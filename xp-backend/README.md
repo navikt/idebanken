@@ -19,6 +19,7 @@ enonic sandbox create idebanken --template essentials --force
 pushd ~/.enonic/sandboxes/idebanken/home/config
 echo "nextjs.default.secret=mySecretKey
 nextjs.default.url=http://127.0.0.1:3000" > com.enonic.app.nextxp.cfg
+echo "searchApiKey=key" > idebanken.cfg
 popd
 ```
 
@@ -29,6 +30,7 @@ Når sandboxen er opprettet, og koblet til applikasjonen kan du kjøre denne kom
 ```bash
 enonic dev
 ```
+Ellers kan man også bruke `enonic project deploy -f` og kjøre `enonic project build` fra en annen terminal.
 
 NB!: idebanken-frontend må kjøre i tillegg, for å få opp live previews i Enonic Content Studios [idebanken-frontend](https://github.com/navikt/idebanken-frontend/)
 
@@ -65,7 +67,7 @@ Velg den nye .jar-filen. Applikasjonen blir da installert automatisk
 
 # Henvendelser
 
-Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på GitHub
+Spørsmål knyttet til koden eller prosjektet kan stilles til post@idebanken.org
 
 ## For NAV-ansatte
 

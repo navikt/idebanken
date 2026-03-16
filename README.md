@@ -1,9 +1,11 @@
 # Idébanken monorepo
 
-## [backend](./xp-backend/README.md) - Enonic XP Backend
-## [frontend](./frontend/README.md) - Next.js Frontend
+### [backend](./xp-backend/README.md) - Enonic XP Backend
+### [frontend](./frontend/README.md) - Next.js Frontend
 ## Other Apps
-### [idebanken-search-api](./apps/idebanken-search-api/README.md) - Search API for Idebanken  
+#### [idebanken-search-api](./apps/idebanken-search-api/README.md) - Search API for Idebanken  
+## Configuration
+#### [idebanken-xp-configuration](https://github.com/navikt/idebanken-xp-configuration) - Configuration repository for Enonic XP, used by [GitPull](https://github.com/enonic/app-gitpull/tree/master) to pull configuration into the Enonic XP app.
 
 ```
 monorepo

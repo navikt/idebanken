@@ -16,7 +16,7 @@ For å kunne hente dette biblioteket lokalt, må man opprette et PAT i Github og
 ```
 githubPassword=<PAT>
 ```
-
+Dersom det er ny versjon av [navno-search-admin-api](https://github.com/navikt/navno-search-admin-api/) må siste versjon av ```navnoSearchCommonVersion``` oppdateres
 ## Lokal kjøring
 For å kjøre appen lokalt må man opprette en application-local.yml-fil og populere denne med opensearch-credentials, som ligger i kubernetes.
 Man kan generere JIT acccess ved å kjøre 
@@ -29,23 +29,18 @@ opensearch:
   username: <brukernavn fra secret>
   password: <passord fra secret>
   
-api-key: dummy
+# Hvis du har fulgt oppsettet for xp-backend har du satt api-nøkkelen til "key" lokalt
+api-key: key
 ```
 
 Husk å starte applikasjonen med profile "local".
 
-## Deploy til test
+## Deploy
 
-[Actions](https://github.com/navikt/idebanken/actions) -> Velg workflow -> Run workflow -> Velg branch -> Run workflow
-
-## Prodsetting
-
-- Lag en PR til main, og merge inn etter godkjenning (En automatisk release vil oppstå ved deploy til main)
-- Dersom det er ny versjon av [navno-search-admin-api](https://github.com/navikt/navno-search-admin-api/) må siste versjon av ```navnoSearchCommonVersion``` oppdateres
+- [tag-build-deploy](../../.github/workflows/tag-build-deploy.yml) workflowen kjører automatisk ved push/PR til main og bygger og deployer applikasjonen til test.
+- For å prodsette: [Workflow](https://github.com/navikt/idebanken/actions/workflows/app-build-and-deploy.yml) -> Run workflow -> Velg tag/branch og miljø -> Run workflow
 
 ## Logging
-
-TODO: Legg til link til Kibana
 
 I Opensearch (uri ligger i application-local.yaml filen) kan man finne logger ved å f.eks. søke på
 
