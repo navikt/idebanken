@@ -76,7 +76,9 @@ jobs:
   xp-app-build-and-upload:
     name: Build and upload artifact
     needs: bump
-    if: needs.bump.result == 'success' && needs.bump.outputs.changed-xp-backend == 'true'
+    if: |
+      needs.bump.result == 'success' && 
+      (needs.bump.outputs.changed-xp-backend == 'true' || needs.bump.outputs.changed-frontend == 'true')
     secrets: inherit
     uses: ./.github/workflows/xp-app-build-upload.yml
     with:
@@ -101,8 +103,8 @@ jobs:
     needs: [xp-app-download-and-deploy, bump]
     if: |
       always() &&
-      needs.bump.outputs.changed-frontend == 'true' && 
-      (needs.xp-app-download-and-deploy.result == 'success' || needs.xp-app-download-and-deploy.result == 'skipped')
+      needs.xp-app-download-and-deploy.result == 'success' &&
+      (needs.bump.outputs.changed-xp-backend == 'true' || needs.bump.outputs.changed-frontend == 'true')
     secrets: inherit
     uses: ./.github/workflows/frontend-build-deploy.yml
     permissions:
