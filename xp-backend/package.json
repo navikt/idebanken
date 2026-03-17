@@ -2,6 +2,7 @@
     "devDependencies": {
         "@enonic-types/core": "7.15.1",
         "@enonic-types/global": "7.15.1",
+        "@enonic-types/guillotine": "^7.3.2",
         "@enonic-types/lib-cluster": "7.15.1",
         "@enonic-types/lib-content": "7.15.1",
         "@enonic-types/lib-context": "7.15.1",
@@ -10,27 +11,27 @@
         "@enonic-types/lib-node": "7.15.1",
         "@enonic-types/lib-portal": "7.15.1",
         "@enonic-types/lib-project": "7.15.1",
+        "@enonic-types/lib-repo": "^7.15.1",
         "@enonic-types/lib-scheduler": "7.15.1",
         "@enonic-types/lib-task": "7.15.1",
-        "@enonic-types/lib-repo": "^7.15.1",
-        "@eslint/js": "^9.39.2",
+        "@eslint/js": "^9.39.4",
         "@item-enonic-types/global": "7.15.0",
         "@item-enonic-types/lib-http-client": "3.2.2",
-        "@item-enonic-types/lib-time": "^1.4.0",
         "@item-enonic-types/lib-thymeleaf": "^2.1.0",
+        "@item-enonic-types/lib-time": "^1.5.0",
         "@swc/core": "1.15.8",
         "browser-sync": "3.0.4",
         "concurrently": "9.2.1",
         "esbuild-plugin-globals": "^0.2.0",
-        "esbuild-sass-plugin": "^3.3.1",
-        "eslint": "^9.39.2",
+        "esbuild-sass-plugin": "^3.7.0",
+        "eslint": "^9.39.4",
         "eslint-plugin-jsx-a11y": "6.10.2",
-        "glob": "11.1.0",
-        "prettier": "^3.7.4",
+        "glob": "13.0.6",
+        "prettier": "^3.8.1",
         "rimraf": "6.1.2",
-        "sass": "^1.97.2",
+        "sass": "^1.98.0",
         "tsup": "8.5.1",
-        "typescript-eslint": "^8.52.0"
+        "typescript-eslint": "^8.57.1"
     },
     "directories": {
         "doc": "docs"
@@ -76,10 +77,9 @@
         "npm": ">= 10.2.3"
     },
     "dependencies": {
-        "@babel/generator": "^7.28.5",
-        "@babel/parser": "^7.28.5",
-        "@babel/traverse": "^7.28.5",
-        "@babel/types": "^7.28.5",
-        "@enonic-types/guillotine": "^7.3.1"
+        "@babel/generator": "^7.29.1",
+        "@babel/parser": "^7.29.2",
+        "@babel/traverse": "^7.29.0",
+        "@babel/types": "^7.29.0"
     }
 }
