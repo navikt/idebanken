@@ -44,8 +44,6 @@ spec:
           namespace: idebanken
   envFrom:
     - secret: idebanken-search-api
-  secureLogs:
-    enabled: true
   resources:
     requests:
       cpu: 100m
