@@ -28,7 +28,7 @@ dependencies {
     include "com.enonic.lib:lib-http-client:3.2.2"
     include "com.enonic.lib:lib-thymeleaf:2.1.1"
 
-    include "no.item:lib-xp-time:1.4.0"
+    include "no.item:lib-xp-time:1.5.0"
 }
 
 repositories {
@@ -46,7 +46,7 @@ node {
 
     // Version of node to download and install (only used if download is true)
     // It will be unpacked in the workDir
-    version = '20.10.0'
+    version = '20.19.0'
 }
 
 apply from: "$projectDir/gradle/env.gradle"
