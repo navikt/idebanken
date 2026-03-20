@@ -27,7 +27,7 @@ export type XP_Card = {
           /**
            * Heading farge
            */
-          headingColor?: 'bg-white' | 'bg-extra-light-pink';
+          headingColor?: 'bg-white' | 'bg-extra-light-pink' | 'bg-(--ax-bg-accent-soft)';
         };
       }
     | {
