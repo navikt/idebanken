@@ -21,14 +21,21 @@ jobs:
       - name: Setup node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
+          registry-url: https://npm.pkg.github.com
+          scope: '@navikt'
           cache: 'npm'
           cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+
       - name: Install node.js dependencies
         run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build application without SSG
         run: npm run build-skip-ssg
         env:
             ENONIC_API: "needed for build, but is not used when skipping SSG"
+
       - name: Run unit tests
         run: npm run test

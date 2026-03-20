@@ -102,7 +102,7 @@ const TableOfContentsCard = ({
 export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Contents>) {
     const { sections, title, sticky } = part?.config ?? {}
     const isStickyEnabled = sticky !== false
-    const containerRef = useRef<HTMLDivElement | null>(null)
+    const containerRef = useRef<HTMLElement | null>(null)
     const stickyRef = useRef<HTMLDivElement | null>(null)
     const [isSticky, setIsSticky] = useState(false)
     const [fixedStyle, setFixedStyle] = useState<{ left: number; width: number } | null>(null)
@@ -184,7 +184,7 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
     }, [isSticky, isStickyEnabled])
 
     return (
-        <div ref={containerRef} className="relative">
+        <nav aria-label="Innholdsfortegnelse" ref={containerRef} className="relative">
             <TableOfContentsCard
                 title={title}
                 sections={sections}
@@ -210,6 +210,6 @@ export function TableOfContents({ part }: PartData<Part_Idebanken_Table_Of_Conte
                     />
                 </div>
             ) : null}
-        </div>
+        </nav>
     )
 }
