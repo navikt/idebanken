@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ShowMoreNonAksel } from '~/components/common/ShowMoreNonAksel'
 
-// The component imports a CSS file — Vitest/jsdom ignores it, no extra config needed.
+// The component imports a CSS file — Vitest/happy-dom ignores it, no extra config needed.
 
 describe('ShowMoreNonAksel', () => {
     it('renders children in the collapsed state', () => {

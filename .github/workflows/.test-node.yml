@@ -32,10 +32,10 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build
-        run: npm run build
+      - name: Build application without SSG
+        run: npm run build-skip-ssg
         env:
-          ENONIC_API: https://idebanken-xp7test.enonic.cloud/headless/ # needed for SSG
+            ENONIC_API: "needed for build, but is not used when skipping SSG"
 
       - name: Run unit tests
         run: npm run test

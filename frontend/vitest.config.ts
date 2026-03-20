@@ -6,9 +6,9 @@ import path from 'path'
 export default defineConfig({
     plugins: [react(), tsconfigPaths()],
     test: {
-        environment: 'jsdom',
+        environment: 'happy-dom',
         environmentOptions: {
-            jsdom: {
+            'happy-dom': {
                 userAgent: 'bot',
             },
         },
