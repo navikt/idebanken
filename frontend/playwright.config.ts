@@ -1,7 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 
-//const BASE_URL = 'https://idebanken.ekstern.dev.nav.no'
-const BASE_URL = process.env.TEST_BASE_URL ?? 'http://localhost:3000'
+const BASE_URL = process.env.TEST_BASE_URL ?? 'https://idebanken.ekstern.dev.nav.no'
 
 export default defineConfig({
     testDir: './src/tests/e2e',
