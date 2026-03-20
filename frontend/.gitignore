@@ -1,3 +1,6 @@
+/src/tests/e2e/playwright-report
+/src/tests/e2e/test-results
+
 ### Generated ###
 next-env.d.ts
 

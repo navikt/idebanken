@@ -13,7 +13,12 @@
         "prettier-watch": "onchange \"src/*\" -- prettier --write --ignore-unknown {{changed}}",
         "generate-gql-types": "graphql-codegen",
         "lint": "next lint",
-        "test": "echo \"no tests yet! :O\""
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:coverage": "vitest run --coverage",
+        "test:e2e": "playwright test",
+        "test:e2e:ui": "playwright test --ui",
+        "test:e2e:update-snapshots": "playwright test --update-snapshots"
     },
     "dependencies": {
         "@enonic/nextjs-adapter": "^3.2.2",
@@ -35,24 +40,34 @@
         "valibot": "^1.2.0"
     },
     "devDependencies": {
+        "@axe-core/playwright": "^4.11.1",
         "@graphql-codegen/cli": "^6.2.1",
         "@graphql-codegen/client-preset": "^5.2.4",
         "@graphql-codegen/typescript": "^5.0.9",
         "@graphql-codegen/typescript-operations": "^5.0.9",
         "@navikt/aksel-stylelint": "^8.7.0",
+        "@playwright/test": "^1.58.2",
+        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/react": "^16.3.2",
+        "@testing-library/user-event": "^14.6.1",
         "@types/html-to-text": "^9.0.4",
         "@types/node": "^25.5.0",
         "@types/react": "18.3.1",
         "@types/react-dom": "18.3.1",
+        "@types/testing-library__jest-dom": "^5.14.9",
         "@typescript-eslint/eslint-plugin": "^8.57.1",
         "@typescript-eslint/parser": "^8.57.1",
+        "@vitejs/plugin-react": "^6.0.1",
         "concurrently": "^9.2.1",
         "eslint": "9.27.0",
         "eslint-config-next": "15.3.2",
         "eslint-config-prettier": "^10.1.8",
+        "jsdom": "^29.0.0",
         "onchange": "^7.1.0",
         "prettier": "^3.8.1",
         "stylelint": "^17.4.0",
-        "typescript": "5.8.3"
+        "typescript": "5.8.3",
+        "vite-tsconfig-paths": "^6.1.1",
+        "vitest": "^4.1.0"
     }
 }

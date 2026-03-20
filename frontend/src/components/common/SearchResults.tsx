@@ -25,6 +25,7 @@ export default function SearchResults(
             {filter}
             <BodyShort
                 id={'search-status'}
+                data-testid={'search-status'}
                 role={'status'}
                 aria-live={'polite'}
                 className={classNames(!isMainSearch ? 'pt-4' : '', 'font-bold')}>

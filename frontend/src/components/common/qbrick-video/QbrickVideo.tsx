@@ -96,7 +96,6 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                                 className={style.playArrow}
                                 focusable="false"
                                 aria-hidden="true"
-                                role="img"
                                 viewBox={'0 0 22 26'}>
                                 <path fill={'var(--ib-brand-white)'} d={'M22 13 0 26V0Z'} />
                             </svg>
@@ -140,7 +139,6 @@ export const QbrickVideo = ({ config, meta }: { config: QbrickVideoProps; meta: 
                                         className={style.playArrow}
                                         focusable="false"
                                         aria-hidden="true"
-                                        role="img"
                                         viewBox={'0 0 22 26'}>
                                         <path fill={'var(--ib-brand-white)'} d={'M22 13 0 26V0Z'} />
                                     </svg>
