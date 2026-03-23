@@ -36,7 +36,7 @@ export async function newsletterSignup(
     const apsisApi = process.env.APSIS_API
     const apsisApiKey = process.env.APSIS_API_KEY
     if (!apsisApi || !apsisApiKey) {
-        throw new Error('APISIS_API and/or APSIS_API_KEY is not defined')
+        throw new Error('MAKE_API and/or MAKE_API_KEY is not defined')
     }
 
     const res = await fetch(apsisApi, {

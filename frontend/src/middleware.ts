@@ -83,7 +83,7 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     img-src 'self' data: *.skyra.no ${qbrickHosts} ${enonicDomain};
     font-src 'self' data: *.nav.no *.skyra.no ${qbrickHosts};
     object-src 'self' ${qbrickHosts} ${enonicDomain};
-    form-action 'self';
+    form-action 'self' pub.dialogapi.no;
     frame-ancestors 'self' ${enonicDomain};
     frame-src 'self' ${enonicDomain};
     media-src 'self' ${qbrickHosts};
