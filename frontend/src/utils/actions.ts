@@ -4,7 +4,7 @@ export async function newsletterSignup(
     _initialState: Record<string, string | Record<string, string>>,
     formData: FormData
 ) {
-    const response: Record<string, string | Record<string, string>> = {}
+    const response: Record<string, string | Record<string, string>> = { success: 'false' }
     if (formData.get('honningkrukke')) {
         console.debug('Bot detected, form submission ignored.')
         return response
@@ -33,20 +33,21 @@ export async function newsletterSignup(
         return response
     }
 
-    const apsisApi = process.env.APSIS_API
-    const apsisApiKey = process.env.APSIS_API_KEY
-    if (!apsisApi || !apsisApiKey) {
-        throw new Error('MAKE_API and/or MAKE_API_KEY is not defined')
+    const makeApi = process.env.MAKE_API
+    const makeBasicAuth = btoa(`${process.env.MAKE_API_USER}:${process.env.MAKE_API_KEY}`)
+    const makeSubscriberListId = process.env.MAKE_SUBSCRIBER_LIST_ID
+    if (!makeApi || !makeBasicAuth || !makeSubscriberListId) {
+        throw new Error('Missing one or more MAKE_API environment variables')
     }
 
-    const res = await fetch(apsisApi, {
+    const res = await fetch(`${makeApi}/subscribers?subscriber_list_id[]=${makeSubscriberListId}`, {
         method: 'POST',
         headers: {
-            Accept: 'application/json',
+            accept: 'application/json',
             'Content-Type': 'application/json',
-            Authorization: `basic ${apsisApiKey}`,
+            Authorization: `Basic ${makeBasicAuth}`,
         },
-        body: JSON.stringify({ Email: email }),
+        body: JSON.stringify({ email: email }),
     })
 
     if (!res.ok) {
@@ -54,6 +55,7 @@ export async function newsletterSignup(
             `Failed to subscribe email. Status: ${res.status}, Message: ${await res.text()}`
         )
         response.fetchError = 'Det oppstod en feil. Vennligst prøv igjen senere.'
+        return response
     }
 
     response.success = 'true'
