@@ -48,6 +48,6 @@ spec:
         - application: idebanken-search-api
       external:
         - host: {{external-host}}
-        - host: se.api.anpdm.com # APSIS PRO API
+        - host: subscribers.dialogapi.no # MAKE newsletter signup
         - host: ingest.staging.skyra.no
         - host: survey.skyra.no

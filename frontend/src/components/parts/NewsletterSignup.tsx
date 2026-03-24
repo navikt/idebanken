@@ -33,7 +33,7 @@ export default function NewsletterSignup({
     const { title, description, redirectContent } = config || {}
 
     useEffect(() => {
-        if (state.success && redirectContent?._path) {
+        if (state.success === 'true' && redirectContent?._path) {
             router.push(enonicSitePathToHref(redirectContent._path))
         }
     }, [state, router, redirectContent])
