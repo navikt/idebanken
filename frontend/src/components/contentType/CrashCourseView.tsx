@@ -35,10 +35,15 @@ type Direction = 'right' | 'left'
 export default function CrashCourseView({
     slideDeckElements,
     structure,
+    backlink,
     meta,
 }: {
     slideDeckElements: JSX.Element[]
     structure?: CrashCourseStructure
+    backlink: {
+        href?: string
+        title?: string
+    }
     meta: MetaData
 }) {
     const [loading, setLoading] = useState(true)
@@ -50,7 +55,7 @@ export default function CrashCourseView({
     const slideStartRef = useRef<number>(Date.now())
     const containerRef = useRef<HTMLDivElement>(null)
     const navRef = useRef<HTMLElement>(null)
-    const [scale, setScale] = useState(1)
+    const [scale, setScale] = useState(1.5)
 
     // Temporary tuning state
     const [temporaryAnchorEl, setTemporaryAnchorEl] = useState<HTMLElement | null>(null)
@@ -58,9 +63,9 @@ export default function CrashCourseView({
     const [temporaryScaleParam, setTemporaryScaleParam] = useState(1.5)
     const [temporaryWidthParam, setTemporaryWidthParam] = useState(1440)
     const [temporaryHeightParam, setTemporaryHeightParam] = useState(907)
-    const [temporaryPaddingXParam, setTemporaryPaddingXParam] = useState(48)
-    const [temporaryPaddingYParam, setTemporaryPaddingYParam] = useState(48)
-    const [temporaryPaddingXYParam, setTemporaryPaddingXYParam] = useState(48)
+    const [temporaryPaddingXParam, setTemporaryPaddingXParam] = useState(32)
+    const [temporaryPaddingYParam, setTemporaryPaddingYParam] = useState(32)
+    const [temporaryPaddingXYParam, setTemporaryPaddingXYParam] = useState(32)
 
     const temporaryTargetWidth = temporaryWidthParam / temporaryScaleParam
     const temporaryTargetHeight = temporaryHeightParam / temporaryScaleParam
@@ -258,14 +263,15 @@ export default function CrashCourseView({
                 <HStack
                     className={classNames(
                         'justify-between shrink-0 pb-(--ax-space-48) items-center',
-                        loading ? 'hidden' : ''
+                        loading ? 'hidden' : '',
+                        '**:min-block-(--ax-space-32)!'
                     )}
                     gap={'space-2'}>
                     <Link
                         as={NextLink}
                         aria-label={'Til forsiden'}
                         href={getUrl('/', meta)}
-                        className={'content-center h-10 max-w-48'}>
+                        className={'content-center max-w-32'}>
                         <Image
                             className={'block dark:hidden'}
                             src={getAsset('/images/logo-light.svg', meta)}
@@ -283,6 +289,18 @@ export default function CrashCourseView({
                             priority
                         />
                     </Link>
+                    {backlink?.href && backlink?.title && (
+                        <Link
+                            data-color="ib-brand-dark-blue"
+                            as={NextLink}
+                            href={getUrl(backlink.href, meta)}
+                            className={
+                                'absolute left-0 top-(--ax-space-44) min-block-(--ax-space-24)! text-sm'
+                            }>
+                            <ArrowLeftIcon width={18} height={18} aria-hidden={true} />
+                            {backlink.title}
+                        </Link>
+                    )}
                     <nav ref={navRef} onMouseDown={(e) => e.preventDefault()}>
                         <ToggleGroup
                             className={classNames(
@@ -311,7 +329,7 @@ export default function CrashCourseView({
                                             : '',
                                         'rounded-none'
                                     )}
-                                    key={part.name}
+                                    key={part.name + i}
                                     value={part.index.toString()}
                                     label={part.name}
                                 />
@@ -346,7 +364,7 @@ export default function CrashCourseView({
                 <HStack
                     as={'nav'}
                     className={classNames(
-                        'items-center justify-center w-full relative shrink-0 pt-(--ax-space-24)',
+                        'items-center justify-center w-full relative shrink-0 pt-(--ax-space-16)',
                         loading ? 'hidden' : ''
                     )}
                     gap={'space-48'}>
@@ -448,7 +466,10 @@ export default function CrashCourseView({
                     )}
 
                     <Button
-                        className="rounded-full px-(--ax-space-16)"
+                        className={classNames(
+                            'rounded-full px-(--ax-space-16)',
+                            'min-block-(--ax-space-32)! min-inline-(--ax-space-24)!'
+                        )}
                         size={'xsmall'}
                         onClick={() => goToPrevSlide('knapp')}
                         disabled={currentIndex === 0}
@@ -464,7 +485,10 @@ export default function CrashCourseView({
                         className={'w-80'}
                     />
                     <Button
-                        className="rounded-full px-(--ax-space-16)"
+                        className={classNames(
+                            'rounded-full px-(--ax-space-16)',
+                            'min-block-(--ax-space-32)! min-inline-(--ax-space-24)!'
+                        )}
                         size={'xsmall'}
                         onClick={() => goToNextSlide('knapp')}
                         disabled={currentIndex === slideDeckElements.length - 1}
@@ -475,7 +499,10 @@ export default function CrashCourseView({
                     </Button>
 
                     <FullscreenButton
-                        className="absolute flex self-center right-0"
+                        className={classNames(
+                            'absolute flex self-center right-0',
+                            'min-block-(--ax-space-32)! min-inline-(--ax-space-24)!'
+                        )}
                         source={'footer'}
                     />
                 </HStack>

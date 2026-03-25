@@ -36,6 +36,10 @@ export type CrashCourseStructure = {
 export type CrashCourseData = {
     slides: FetchContentResult[]
     structure: CrashCourseStructure
+    backlink: {
+        href?: string
+        title?: string
+    }
 }
 
 function isCrashCoursePartOrIntro(item: Content | undefined): boolean {
@@ -118,7 +122,16 @@ export async function getCrashCourseSlideContents(
         }),
     }
 
-    return { slides, structure }
+    const crashCourseContentData = props?.data?.get?.data
+    const backlink = {
+        href: enonicSitePathToHref(crashCourseContentData?.backlinkContent?._path),
+        title: crashCourseContentData?.backlinkLabel,
+    }
+    return {
+        slides,
+        structure,
+        backlink,
+    }
 }
 
 async function getChildren(path: string): Promise<Array<Content>> {

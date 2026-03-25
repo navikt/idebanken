@@ -16,3 +16,14 @@ export const videoContentTypeQuery = commonGetQuery(`
     }
 }
 `)
+
+export const crashCourseContentTypeQuery = commonGetQuery(`
+... on idebanken_CrashCourse {
+    data {
+        backlinkContent {
+            _path
+        }
+        backlinkLabel
+    }
+}
+`)
