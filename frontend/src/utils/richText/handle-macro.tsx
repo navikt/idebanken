@@ -3,7 +3,6 @@ import { MacroData, MetaData, ReplacerResult, sanitizeGraphqlName } from '@enoni
 import { MACRO_ATTR } from '@enonic/react-components/constants'
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 import BaseMacro from '@enonic/nextjs-adapter/views/BaseMacro'
-import { validatedMacro } from '~/utils/runtimeValidation'
 
 export function handleMacro(
     el: Element,
@@ -24,13 +23,11 @@ export function handleMacro(
 
     const macroData = macros.find((d) => d.ref === ref)
 
-    const validMacroData = validatedMacro(macroData)
-
-    if (!validMacroData) {
+    if (!macroData) {
         return <ErrorComponent reason={'Invalid macro data!'} />
     }
 
-    const { descriptor, name, config: configs } = validMacroData
+    const { descriptor, name, config: configs } = macroData
 
     const macroKey = sanitizeGraphqlName(name)
     const originalConfig = configs[macroKey]
