@@ -1,10 +1,28 @@
 import { BodyLong, Heading } from '@navikt/ds-react'
 import { Part_Idebanken_Heading } from '~/types/generated.d'
-import { validatedHeadingConfig } from '~/utils/runtimeValidation'
 import { PartData } from '~/types/graphql-types'
 import { extractTextFromNodes, headingIdOfString } from '~/utils/utils'
-import { HeadingConfig } from '~/types/valibot/parts'
 import type { PropsWithChildren } from 'react'
+import { PlaceholderComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
+
+export type HeadingConfig = {
+    level: '1' | '2' | '3' | '4' | '5' | '6'
+    size:
+        | 'display'
+        | '4xlarge'
+        | '3xlarge'
+        | '2xlarge'
+        | 'xlarge'
+        | 'large'
+        | 'medium'
+        | 'small'
+        | 'xsmall'
+    text: string | null
+    className?: string
+    autoId?: boolean
+    headingLede?: string | null
+    halfWidth?: boolean
+}
 
 function renderWithBodyShort(value: string, halfWidth: string) {
     return value
@@ -73,9 +91,9 @@ const HeadingView = ({
 }
 
 const HeadingViewPart = ({ part, common }: PartData<Part_Idebanken_Heading>) => {
-    const config = validatedHeadingConfig(part?.config)
+    const config = part?.config as unknown as HeadingConfig | null
     if (!config) {
-        return null
+        return <PlaceholderComponent type={'Heading'} descriptor={'idebanken:heading'} />
     }
 
     const halfWidth = config?.halfWidth ? 'md:w-1/2' : ''

@@ -3,7 +3,6 @@ import { getUrl, MetaData, ReplacerResult, RichTextData } from '@enonic/nextjs-a
 import { ErrorComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 import { IMG_ATTR } from '@enonic/react-components/constants'
 import { cssToReactStyle } from '@enonic/react-components'
-import { validatedImage } from '~/utils/runtimeValidation'
 
 export function handleImage(el: Element, data: RichTextData, meta: MetaData): ReplacerResult {
     const { images } = data
@@ -23,9 +22,7 @@ export function handleImage(el: Element, data: RichTextData, meta: MetaData): Re
 
     const imageData = images.find((data) => data.ref === imageRef)
 
-    const validImageData = validatedImage(imageData)
-
-    if (!validImageData) {
+    if (!imageData) {
         return (
             <ErrorComponent
                 reason={
@@ -52,7 +49,7 @@ export function handleImage(el: Element, data: RichTextData, meta: MetaData): Re
         // eslint-disable-next-line @next/next/no-img-element
         <img
             src={getUrl(src, meta)}
-            style={{ ...cssToReactStyle(styleStr), ...validImageData.style }}
+            style={{ ...cssToReactStyle(styleStr), ...imageData.style }}
             alt={alt}
             sizes={sizes}
             srcSet={srcSetProcessed}

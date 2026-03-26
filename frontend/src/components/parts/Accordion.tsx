@@ -1,17 +1,18 @@
 import { Accordion, AccordionContent, AccordionHeader } from '@navikt/ds-react/Accordion'
 import type { Part_Idebanken_Accordion } from '~/types/generated.d.ts'
-import { validatedAccordionConfig } from '~/utils/runtimeValidation'
 import { PartData } from '~/types/graphql-types'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
 import RichTextView from '@enonic/nextjs-adapter/views/RichTextView'
 import { AccordionItemTracked } from '~/components/common/analytics/AccordionItemTracked'
+import { forceArray } from '~/utils/utils'
+import { PlaceholderComponent } from '@enonic/nextjs-adapter/views/BaseComponent'
 
 export const AccordionView = ({ part, meta }: PartData<Part_Idebanken_Accordion>) => {
-    const config = validatedAccordionConfig(part.config)
+    const accordionItems = forceArray(part.config?.accordionItems).filter((it) => it !== null)
 
-    if (!config) return null
-
-    const { accordionItems } = config
+    if (!accordionItems) {
+        return <PlaceholderComponent type={'Accordion'} descriptor={'idebanken:accordion'} />
+    }
 
     return (
         <div data-color="accent-aksel">
