@@ -63,9 +63,9 @@ export default function CrashCourseView({
     const [temporaryScaleParam, setTemporaryScaleParam] = useState(1.5)
     const [temporaryWidthParam, setTemporaryWidthParam] = useState(1440)
     const [temporaryHeightParam, setTemporaryHeightParam] = useState(907)
-    const [temporaryPaddingXParam, setTemporaryPaddingXParam] = useState(32)
-    const [temporaryPaddingYParam, setTemporaryPaddingYParam] = useState(32)
-    const [temporaryPaddingXYParam, setTemporaryPaddingXYParam] = useState(32)
+    const [temporaryPaddingXParam, setTemporaryPaddingXParam] = useState(48)
+    const [temporaryPaddingYParam, setTemporaryPaddingYParam] = useState(48)
+    const [temporaryPaddingXYParam, setTemporaryPaddingXYParam] = useState(48)
 
     const temporaryTargetWidth = temporaryWidthParam / temporaryScaleParam
     const temporaryTargetHeight = temporaryHeightParam / temporaryScaleParam
@@ -262,16 +262,15 @@ export default function CrashCourseView({
                 }}>
                 <HStack
                     className={classNames(
-                        'justify-between shrink-0 pb-(--ax-space-48) items-center',
+                        'justify-between shrink-0 pb-(--ax-space-32) items-center',
                         loading ? 'hidden' : '',
                         '**:min-block-(--ax-space-32)!'
-                    )}
-                    gap={'space-2'}>
+                    )}>
                     <Link
                         as={NextLink}
                         aria-label={'Til forsiden'}
                         href={getUrl('/', meta)}
-                        className={'content-center max-w-32'}>
+                        className={'content-center max-w-44'}>
                         <Image
                             className={'block dark:hidden'}
                             src={getAsset('/images/logo-light.svg', meta)}
@@ -289,53 +288,56 @@ export default function CrashCourseView({
                             priority
                         />
                     </Link>
-                    {backlink?.href && backlink?.title && (
-                        <Link
-                            data-color="ib-brand-dark-blue"
-                            as={NextLink}
-                            href={getUrl(backlink.href, meta)}
-                            className={
-                                'absolute left-0 top-(--ax-space-44) min-block-(--ax-space-24)! text-sm'
-                            }>
-                            <ArrowLeftIcon width={18} height={18} aria-hidden={true} />
-                            {backlink.title}
-                        </Link>
-                    )}
-                    <nav ref={navRef} onMouseDown={(e) => e.preventDefault()}>
-                        <ToggleGroup
-                            className={classNames(
-                                '*:bg-(--ax-bg-moderate)',
-                                '*:rounded-full',
-                                '[&>div]:shadow-none',
-                                '[&>div>button:first-child]:rounded-l-full',
-                                '[&>div>button:last-child]:rounded-r-full',
-                                '[&_.aksel-toggle-group__button:before]:h-full',
-                                '[&_.aksel-toggle-group__button[data-selected="true"]]:bg-(--ax-bg-strong)'
-                            )}
-                            size={'small'}
-                            onChange={(value) => {
-                                const changedSlide = setCurrentSlide(Number(value))
-                                if (!changedSlide) return
-                                trackNavigation('meny', currentIndex, Number(value))
-                            }}
-                            value={currentSlideGroupIndex?.toString()}>
-                            {structure?.parts?.map((part, i) => (
-                                <ToggleGroupItem
-                                    className={classNames(
-                                        part.index === currentSlideGroupIndex ? 'underline' : '',
-                                        i === 0 ? 'pl-(--ax-space-24)' : '',
-                                        i === structure?.parts?.length - 1
-                                            ? 'pr-(--ax-space-24)'
-                                            : '',
-                                        'rounded-none'
-                                    )}
-                                    key={part.name + i}
-                                    value={part.index.toString()}
-                                    label={part.name}
-                                />
-                            ))}
-                        </ToggleGroup>
-                    </nav>
+                    <HStack gap={'space-32'}>
+                        {backlink?.href && backlink?.title && (
+                            <Link
+                                data-color="ib-brand-dark-blue"
+                                as={NextLink}
+                                href={getUrl(backlink.href, meta)}
+                                className={'min-block-(--ax-space-24)! text-sm'}>
+                                <ArrowLeftIcon width={18} height={18} aria-hidden={true} />
+                                {backlink.title}
+                            </Link>
+                        )}
+                        <Box as={'nav'} ref={navRef} onMouseDown={(e) => e.preventDefault()}>
+                            <ToggleGroup
+                                className={classNames(
+                                    '*:bg-(--ax-bg-moderate)',
+                                    '*:rounded-full',
+                                    '[&>div]:shadow-none',
+                                    '[&>div>button:first-child]:rounded-l-full',
+                                    '[&>div>button:last-child]:rounded-r-full',
+                                    '[&_.aksel-toggle-group__button:before]:h-full',
+                                    '[&_.aksel-toggle-group__button[data-selected="true"]]:bg-(--ax-bg-strong)',
+                                    '**:text-sm!'
+                                )}
+                                size={'small'}
+                                onChange={(value) => {
+                                    const changedSlide = setCurrentSlide(Number(value))
+                                    if (!changedSlide) return
+                                    trackNavigation('meny', currentIndex, Number(value))
+                                }}
+                                value={currentSlideGroupIndex?.toString()}>
+                                {structure?.parts?.map((part, i) => (
+                                    <ToggleGroupItem
+                                        className={classNames(
+                                            part.index === currentSlideGroupIndex
+                                                ? 'underline'
+                                                : '',
+                                            i === 0 ? 'pl-(--ax-space-24)' : '',
+                                            i === structure?.parts?.length - 1
+                                                ? 'pr-(--ax-space-24)'
+                                                : '',
+                                            'rounded-none'
+                                        )}
+                                        key={part.name + i}
+                                        value={part.index.toString()}
+                                        label={part.name}
+                                    />
+                                ))}
+                            </ToggleGroup>
+                        </Box>
+                    </HStack>
                 </HStack>
 
                 <Box className={'grow overflow-y-auto overflow-x-clip w-full'}>
@@ -364,8 +366,9 @@ export default function CrashCourseView({
                 <HStack
                     as={'nav'}
                     className={classNames(
-                        'items-center justify-center w-full relative shrink-0 pt-(--ax-space-16)',
-                        loading ? 'hidden' : ''
+                        'items-center justify-center w-full relative pt-(--ax-space-16)',
+                        loading ? 'hidden' : '',
+                        '**:text-sm! **:font-ib-regular'
                     )}
                     gap={'space-48'}>
                     {/* Background bleed element */}
@@ -468,12 +471,13 @@ export default function CrashCourseView({
                     <Button
                         className={classNames(
                             'rounded-full px-(--ax-space-16)',
-                            'min-block-(--ax-space-32)! min-inline-(--ax-space-24)!'
+                            'min-block-(--ax-space-32)!',
+                            'py-(--ax-space-8)'
                         )}
                         size={'xsmall'}
                         onClick={() => goToPrevSlide('knapp')}
                         disabled={currentIndex === 0}
-                        icon={<ArrowLeftIcon />}
+                        icon={<ArrowLeftIcon width={20} height={20} />}
                         aria-label="Forrige slide">
                         Forrige
                     </Button>
@@ -487,12 +491,13 @@ export default function CrashCourseView({
                     <Button
                         className={classNames(
                             'rounded-full px-(--ax-space-16)',
-                            'min-block-(--ax-space-32)! min-inline-(--ax-space-24)!'
+                            'min-block-(--ax-space-32)!',
+                            'py-(--ax-space-8)'
                         )}
                         size={'xsmall'}
                         onClick={() => goToNextSlide('knapp')}
                         disabled={currentIndex === slideDeckElements.length - 1}
-                        icon={<ArrowRightIcon />}
+                        icon={<ArrowRightIcon width={20} height={20} />}
                         iconPosition={'right'}
                         aria-label="Neste slide">
                         {currentIndex === 0 ? 'Start' : 'Neste'}
@@ -501,7 +506,7 @@ export default function CrashCourseView({
                     <FullscreenButton
                         className={classNames(
                             'absolute flex self-center right-0',
-                            'min-block-(--ax-space-32)! min-inline-(--ax-space-24)!'
+                            'min-block-(--ax-space-32)! py-(--ax-space-6)'
                         )}
                         source={'footer'}
                     />
