@@ -5,4 +5,15 @@
     <super-type>base:structured</super-type>
     <is-final>true</is-final>
     <allow-child-content-type>(portal:fragment|media:image|${app}:crash-course-intro|${app}:crash-course-part)</allow-child-content-type>
+    <form>
+        <input type="ContentSelector" name="backlinkContent">
+            <label>Backlink for lynkurset (veileder)</label>
+            <occurrences minimum="1" maximum="1"/>
+        </input>
+        <input type="TextLine" name="backlinkLabel">
+            <label>Etikett for backlink</label>
+            <occurrences minimum="1" maximum="1"/>
+            <default>Tilbake til veilederen</default>
+        </input>
+    </form>
 </content-type>

@@ -42,7 +42,10 @@ import NewsletterSignup from '~/components/parts/NewsletterSignup'
 import ShowMorePart from '~/components/parts/ShowMorePart'
 import { VideoPreview } from '~/components/contentType/VideoPreview'
 import { VideoPartOrMacro } from '~/components/parts/VideoPartOrMacro'
-import { videoContentTypeQuery } from '~/components/queries/content-types'
+import {
+    crashCourseContentTypeQuery,
+    videoContentTypeQuery,
+} from '~/components/queries/content-types'
 import { ArticlesLinkCardList } from '~/components/parts/ArticlesLinkCardList'
 import { CookieConsentToggle } from '~/components/common/cookies/CookieConsentToggle'
 import { CookieBannerOpenButton } from '~/components/common/cookies/CookieBannerOpenButton'
@@ -67,6 +70,7 @@ ComponentRegistry.setCommonQuery([commonQuery, commonVariables])
 // Content type mappings
 ComponentRegistry.addContentType(`${APP_NAME}:crash-course`, {
     view: CrashCourse,
+    query: crashCourseContentTypeQuery,
 })
 
 ComponentRegistry.addContentType(`${APP_NAME}:video`, {

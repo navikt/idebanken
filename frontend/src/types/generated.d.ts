@@ -2721,6 +2721,7 @@ export type Idebanken_CrashCourse = Content & {
   contentType?: Maybe<ContentType>;
   createdTime?: Maybe<Scalars['DateTime']['output']>;
   creator?: Maybe<PrincipalKey>;
+  data?: Maybe<Idebanken_CrashCourse_Data>;
   dataAsJson?: Maybe<Scalars['JSON']['output']>;
   displayName?: Maybe<Scalars['String']['output']>;
   hasChildren?: Maybe<Scalars['Boolean']['output']>;
@@ -3048,6 +3049,13 @@ export type Idebanken_CrashCourseSlidePageUrlArgs = {
 export type Idebanken_CrashCourseSlide_Data = {
   __typename?: 'idebanken_CrashCourseSlide_Data';
   title?: Maybe<Scalars['String']['output']>;
+};
+
+/** Lynkurs - idebanken:crash-course data */
+export type Idebanken_CrashCourse_Data = {
+  __typename?: 'idebanken_CrashCourse_Data';
+  backlinkContent?: Maybe<Content>;
+  backlinkLabel?: Maybe<Scalars['String']['output']>;
 };
 
 /** Kjerneartikkel - idebanken:kjerneartikkel */
