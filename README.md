@@ -36,13 +36,13 @@ monorepo
 Make sure you have the following installed before starting:
 
 | Tool | Version | Notes |
-|------|---------|-------|
-| [Node.js](https://nodejs.org/) | ≥ 20.10.0 | Used by both the frontend and xp-backend build |
+|------|----|-------|
+| [Node.js](https://nodejs.org/) | 24 | Used by both the frontend and xp-backend build |
 | [Enonic CLI](https://developer.enonic.com/docs/enonic-cli) | latest | `npm install -g @enonic/cli` |
 | [Java](https://adoptium.net/) | 21 | Required by idebanken-search-api |
 | [gcloud CLI](https://cloud.google.com/sdk/docs/install) | latest | Required to fetch OpenSearch credentials for search-api |
-| [nais CLI](https://doc.nais.io/operate/cli/install/) | latest | Required to fetch OpenSearch credentials for search-api |
-| A GitHub PAT with `read:packages` scope | — | Required to pull the shared search library; add to `~/.gradle/gradle.properties` as `githubPassword=<PAT>` |
+| [nais CLI](https://doc.nais.io/operate/cli/) | latest | Required to fetch OpenSearch credentials for search-api |
+| A GitHub PAT with `read:packages` scope | —  | Required to pull the shared search library; add to `~/.gradle/gradle.properties` as `githubPassword=<PAT>` |
 
 ---
 
@@ -126,6 +126,16 @@ EOF
 ```
 
 The Search API will be available at http://localhost:9000.
+
+---
+
+### Deployment
+
+#### Backend & frontend
+Push to main to trigger the GitHub Actions workflow for automatic build and deploy to test. For production deploy, use the [backend & frontend deploy workflow](https://github.com/navikt/idebanken/actions/workflows/deploy-backend-and-frontend.yml) and choose/enter the appropriate tag.
+
+#### Search API
+Push to main to trigger the GitHub Actions workflow for automatic build and deploy to test. For production deploy, use the [app build and deploy workflow](https://github.com/navikt/idebanken/actions/workflows/app-build-and-deploy.yml)
 
 ---
 

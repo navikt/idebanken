@@ -45,6 +45,9 @@ Etter du har logget inn må du få rettigheter av en administrator og logge inn 
 
 Ellers ligger frontend applikasjonen i [NAIS](https://console.nav.cloud.nais.io/team/idebanken)
 
+## Deploy
+Det er satt opp GitHub Actions for automatisk versjonering, bygg og deploy til testmiljøet ved hver endring på main branch. For å deploye til prod kan man bruke [backend & frontend deploy workflow](https://github.com/navikt/idebanken/actions/workflows/deploy-backend-and-frontend.yml) og velge/oppgi tag.
+
 # Henvendelser
 
 Spørsmål knyttet til koden eller prosjektet kan stilles til post@idebanken.org

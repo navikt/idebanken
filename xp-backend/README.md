@@ -52,7 +52,7 @@ Ellers ligger frontend applikasjonen i [NAIS](https://console.nav.cloud.nais.io/
 
 ## Deploy
 ### Automatisk
-Det er satt opp GitHub Actions for automatisk versjonering, bygg og deploy til testmiljøet ved hver endring på main branch. Man kan også [deploye spesifikke versjoner](https://github.com/navikt/idebanken/actions/workflows/xp-app-download-deploy.yml).
+Det er satt opp GitHub Actions for automatisk versjonering, bygg og deploy til testmiljøet ved hver endring på main branch. Man kan også [deploye spesifikke versjoner](https://github.com/navikt/idebanken/actions/workflows/xp-app-download-deploy.yml). For å deploye til prod kan man bruke [backend & frontend deploy workflow](https://github.com/navikt/idebanken/actions/workflows/deploy-backend-and-frontend.yml) og velge/oppgi tag.
 ### Manuell
 Det er for øyeblikket ikke satt opp automatisk deploy. For å oppdatere applikasjonen i dev, må du først bygge apllikasjonen:
 

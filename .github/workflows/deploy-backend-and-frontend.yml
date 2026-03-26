@@ -1,0 +1,58 @@
+name: Deploy backend and frontend
+run-name: Deploy xp-backend and frontend to ${{ inputs.environment }} by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Environment to deploy to
+        required: true
+        default: test
+        options:
+          - test
+          - prod
+      version:
+        description: Version to deploy (e.g. v1.0.0). If not provided, uses the latest tag
+        type: string
+        required: false
+      skip_xp_backend:
+        description: Skip xp-backend deployment
+        type: boolean
+        default: false
+      skip_frontend:
+        description: Skip frontend deployment
+        type: boolean
+        default: false
+
+jobs:
+  xp-app-deploy:
+    name: Deploy xp-backend to ${{ inputs.environment }}
+    if: ${{ !inputs.skip_xp_backend }}
+    uses: ./.github/workflows/xp-app-download-deploy.yml
+    permissions:
+      contents: 'read'
+      packages: 'read'
+      actions: 'read'
+    with:
+      version: ${{ inputs.version || github.ref_name }}
+      environment: ${{ inputs.environment }}
+      app_directory: xp-backend
+      download_artifact_from_workflow: tag-build-deploy.yml
+
+  frontend-build-and-deploy:
+    name: Build and deploy frontend to ${{ inputs.environment }}
+    needs: [xp-app-deploy]
+    if: |
+      always() &&
+      !inputs.skip_frontend &&
+      (inputs.skip_xp_backend == false && needs.xp-app-deploy.result == 'success' || inputs.skip_xp_backend == true)
+    uses: ./.github/workflows/frontend-build-deploy.yml
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+      packages: 'read'
+    with:
+      version: ${{ inputs.version || github.ref_name }}
+      environment: ${{ inputs.environment }}
+
