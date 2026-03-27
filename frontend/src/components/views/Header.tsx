@@ -40,6 +40,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
     const [searchResult, setSearchResult] = useState<SearchResult | undefined>()
     const [searchValue, setSearchValue] = useState('')
     const [loading, setLoading] = useState(false)
+    const [searchError, setSearchError] = useState<string | undefined>()
     const router = useRouter()
     const pathname = usePathname()
 
@@ -83,8 +84,10 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
         () =>
             debounce((term: string) => {
                 setLoading(true)
+                setSearchError(undefined)
                 search(`${SOK_SEARCH_PARAM}=${term}`)
                     .then(setSearchResult)
+                    .catch(() => setSearchError('Noe gikk galt. Prøv igjen senere.'))
                     .finally(() => setLoading(false))
             }, 500),
         []
@@ -183,6 +186,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                         searchValue,
                                         searchResult,
                                         loading,
+                                        searchError,
                                         meta,
                                         setIsSearchOpen,
                                         className: 'sm:hidden',
@@ -274,6 +278,7 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                                     searchValue,
                                     searchResult,
                                     loading,
+                                    searchError,
                                     meta,
                                     setIsSearchOpen,
                                 })}
@@ -315,6 +320,7 @@ function quickSearch({
     searchValue,
     searchResult,
     loading,
+    searchError,
     meta,
     setIsSearchOpen,
     className = '',
@@ -326,6 +332,7 @@ function quickSearch({
     searchValue: string
     searchResult: SearchResult | undefined
     loading: boolean
+    searchError?: string
     meta: MetaData
     setIsSearchOpen: (value: ((prevState: boolean) => boolean) | boolean) => void
     className?: string
@@ -346,6 +353,7 @@ function quickSearch({
                 aria-labelledby={'idebanken-quicksearch-title'}
                 isSearchOpen={isSearchOpen}
                 onChange={handleFormChange}
+                error={searchError}
                 onSubmit={(e) => {
                     e.preventDefault()
                     router.push(

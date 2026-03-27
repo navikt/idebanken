@@ -6,7 +6,6 @@ export type XP_BrandColor = import('./brand-color').XP_BrandColor;
 export type XP_Color = import('./color').XP_Color;
 export type XP_CrashCourseSlideContent = import('./crash-course-slide-content').XP_CrashCourseSlideContent;
 export type XP_DisplayImageOrIcon = import('./display-image-or-icon').XP_DisplayImageOrIcon;
-export type XP_HeadingColor = import('./heading-color').XP_HeadingColor;
 export type XP_Icon = import('./icon').XP_Icon;
 export type XP_Image = import('./image').XP_Image;
 export type XP_LinkCardColor = import('./link-card-color').XP_LinkCardColor;

@@ -6,7 +6,6 @@ export type BrandColor = import('./brand-color').BrandColor;
 export type Color = import('./color').Color;
 export type CrashCourseSlideContent = import('./crash-course-slide-content').CrashCourseSlideContent;
 export type DisplayImageOrIcon = import('./display-image-or-icon').DisplayImageOrIcon;
-export type HeadingColor = import('./heading-color').HeadingColor;
 export type Icon = import('./icon').Icon;
 export type Image = import('./image').Image;
 export type LinkCardColor = import('./link-card-color').LinkCardColor;

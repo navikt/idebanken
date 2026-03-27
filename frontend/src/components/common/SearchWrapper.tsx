@@ -6,12 +6,23 @@ import { SearchButton } from '@navikt/ds-react/Search'
 import { useEffect, useRef } from 'react'
 import { SOK_SEARCH_PARAM } from '~/utils/constants'
 
-interface SearchWrapperProps extends Omit<React.HTMLAttributes<HTMLFormElement>, 'onSubmit'> {
+interface SearchWrapperProps extends Omit<
+    React.HTMLAttributes<HTMLFormElement>,
+    'onSubmit' | 'onChange'
+> {
     onSubmit: React.FormEventHandler<HTMLFormElement>
+    onChange?: React.FormEventHandler<HTMLFormElement>
     isSearchOpen?: boolean
+    error?: string
 }
 
-export function SearchWrapper({ onSubmit, isSearchOpen, ...rest }: Readonly<SearchWrapperProps>) {
+export function SearchWrapper({
+    onSubmit,
+    isSearchOpen,
+    error,
+    onChange,
+    ...rest
+}: Readonly<SearchWrapperProps>) {
     const searchParams = useSearchParams()
     const formRef = useRef<HTMLFormElement | null>(null)
 
@@ -31,7 +42,13 @@ export function SearchWrapper({ onSubmit, isSearchOpen, ...rest }: Readonly<Sear
     }, [isSearchOpen])
 
     return (
-        <form ref={formRef} role="search" name={'idebanken-search'} onSubmit={onSubmit} {...rest}>
+        <form
+            ref={formRef}
+            role="search"
+            name={'idebanken-search'}
+            onSubmit={onSubmit}
+            onChange={onChange}
+            {...rest}>
             <Search
                 defaultValue={searchParams.get(SOK_SEARCH_PARAM) ?? undefined}
                 variant="secondary"
@@ -39,6 +56,7 @@ export function SearchWrapper({ onSubmit, isSearchOpen, ...rest }: Readonly<Sear
                 label={'Søk etter innhold på idébanken'}
                 id={SOK_SEARCH_PARAM}
                 name={SOK_SEARCH_PARAM}
+                error={error}
                 className="self-center justify-self-center">
                 <SearchButton aria-controls={rest['aria-controls']} className={'bg-white'} />
             </Search>

@@ -26,6 +26,7 @@ export default function SearchView({
     const [loading, setLoading] = useState(false)
     const [loadingMore, setLoadingMore] = useState(false)
     const [page, setPage] = useState(0)
+    const [searchError, setSearchError] = useState<string | undefined>()
 
     const searchParams = useSearchParams()
     const pathname = usePathname()
@@ -55,9 +56,11 @@ export default function SearchView({
     useEffect(() => {
         if (searchString === null || loading) return
         setLoading(true)
+        setSearchError(undefined)
         search(getModifiedSearchParams(0))
             .then((res) => trackSearchResult(res, SearchFrom.SOKESIDE, pathname))
             .then(setSearchResult)
+            .catch(() => setSearchError('Noe gikk galt. Prøv igjen senere.'))
             .finally(() => setLoading(false))
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString, sort, searchParams])
@@ -140,6 +143,7 @@ export default function SearchView({
             <SearchWrapper
                 aria-label={'Søk etter innhold på idébanken'}
                 aria-controls={'search-status'}
+                error={searchError}
                 onSubmit={(e) => {
                     e.preventDefault()
                     const value =
