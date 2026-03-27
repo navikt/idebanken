@@ -30,6 +30,7 @@ jobs:
     name: Deploy xp-backend to ${{ inputs.environment }}
     if: ${{ !inputs.skip_xp_backend }}
     uses: ./.github/workflows/xp-app-download-deploy.yml
+    secrets: inherit
     permissions:
       contents: 'read'
       packages: 'read'
@@ -48,6 +49,7 @@ jobs:
       !inputs.skip_frontend &&
       (inputs.skip_xp_backend == false && needs.xp-app-deploy.result == 'success' || inputs.skip_xp_backend == true)
     uses: ./.github/workflows/frontend-build-deploy.yml
+    secrets: inherit
     permissions:
       contents: 'read'
       id-token: 'write'
