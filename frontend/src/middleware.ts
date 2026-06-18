@@ -4,7 +4,18 @@ import { NextRequest, NextResponse } from 'next/server'
 const enonicDomain = new URL(process.env.ENONIC_API ?? '').host
 const isLocalhost = process.env.ENV === 'local'
 
+const TRACKING_PARAMS = ['fbclid', 'gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
+
 export function middleware(req: NextRequest) {
+    // Strip tracking parameters (e.g. fbclid from Facebook) to avoid downstream issues
+    const { searchParams } = req.nextUrl
+    const hasTrackingParams = TRACKING_PARAMS.some((param) => searchParams.has(param))
+    if (hasTrackingParams) {
+        const cleanUrl = req.nextUrl.clone()
+        TRACKING_PARAMS.forEach((param) => cleanUrl.searchParams.delete(param))
+        return NextResponse.redirect(cleanUrl, 301)
+    }
+
     let pathname = req.nextUrl.pathname
     const { locale, locales } = getRequestLocaleInfo({
         contentPath: pathname,
