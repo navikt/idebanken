@@ -25,6 +25,9 @@ spec:
     path: /api/isReady
     initialDelay: 20
     timeout: 10
+  autoInstrumentation:
+      enabled: true
+      runtime: nodejs
   resources:
     limits:
       cpu: 500m
