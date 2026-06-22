@@ -61,7 +61,7 @@
         "eslint": "9.27.0",
         "eslint-config-next": "15.3.2",
         "eslint-config-prettier": "^10.1.8",
-        "happy-dom": "^20.8.4",
+        "happy-dom": "^20.8.9",
         "onchange": "^7.1.0",
         "prettier": "^3.8.1",
         "stylelint": "^17.4.0",
