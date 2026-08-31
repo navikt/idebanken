@@ -50,3 +50,4 @@ out/
 
 # Copilot instructions
 /.github/copilot-instructions.md
+.DS_Store
