@@ -11,6 +11,7 @@ import {
     Checkbox,
     CheckboxGroup,
     InlineMessage,
+    Link,
     TextField,
     VStack,
 } from '@navikt/ds-react'
@@ -80,7 +81,7 @@ export default function NewsletterSignup({
                                     ?.consent,
                             ]}>
                             <Checkbox value={'consent'} name="consent">
-                                Jeg ønsker å abonnere
+                                Ja, jeg ønsker å motta informasjon på e-post
                             </Checkbox>
                         </CheckboxGroup>
                         {state.fetchError && (
@@ -88,6 +89,7 @@ export default function NewsletterSignup({
                                 {state.fetchError as string}
                             </InlineMessage>
                         )}
+                        <Link href="https://idebanken.no/personvern">Les vår personvernerklæring</Link>
                         <ButtonView
                             type="submit"
                             config={{ variant: 'primary', size: 'medium' }}
@@ -98,7 +100,7 @@ export default function NewsletterSignup({
                                 })
                             }
                             meta={meta}>
-                            Meld meg på
+                            Registrer
                         </ButtonView>
                     </VStack>
                 </Form>
