@@ -19,16 +19,14 @@ export function NewsletterButton({ url }: { url: string }) {
     if (!visible) return null
 
     return (
-        <div data-color="ib-brand-dark-blue" className="fixed bottom-6 right-6 z-50">
-            <Button
-                as={NextLink}
-                href={url}
-                variant="primary"
-                size="medium"
-                className="rounded-full shadow-lg"
-                onClick={() => setVisible(false)}>
-                Meld deg på nyhetsbrev
-            </Button>
-        </div>
+        <Button
+            as={NextLink}
+            href={url}
+            variant="primary"
+            size="medium"
+            className="fixed bottom-6 right-6 z-50 rounded-full shadow-lg bg-(--ib-bg-dark-blue-strong)! hover:bg-(--ib-bg-dark-blue-strong-hover)!"
+            onClick={() => setVisible(false)}>
+            Meld deg på nyhetsbrev
+        </Button>
     )
 }
