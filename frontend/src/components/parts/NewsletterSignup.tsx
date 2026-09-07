@@ -81,7 +81,7 @@ export default function NewsletterSignup({
                                     ?.consent,
                             ]}>
                             <Checkbox value={'consent'} name="consent">
-                                Ja, jeg ønsker å motta informasjon på e-post
+                                Jeg bekrefter at jeg ønsker å motta nyhetsbrev fra Idébanken
                             </Checkbox>
                         </CheckboxGroup>
                         {state.fetchError && (
@@ -89,7 +89,6 @@ export default function NewsletterSignup({
                                 {state.fetchError as string}
                             </InlineMessage>
                         )}
-                        <Link href="https://idebanken.no/personvern">Les vår personvernerklæring</Link>
                         <ButtonView
                             type="submit"
                             config={{ variant: 'primary', size: 'medium' }}
