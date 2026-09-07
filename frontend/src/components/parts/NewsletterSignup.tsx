@@ -76,7 +76,11 @@ export default function NewsletterSignup({
                             }
                         />
                         <CheckboxGroup
-                            legend={'Samtykke for abonnering'}
+                            legend={
+                                <>
+                                Samtykke <em>(Påkrevd)</em>
+                                </>
+                            }
                             error={state.consentError as string | undefined}
                             defaultValue={[
                                 (state.previousValues as Record<string, string> | undefined)
