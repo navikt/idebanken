@@ -48,6 +48,12 @@ export async function generateMetadata({
 
     const isNoIndexContent = Boolean(common?.get?.type?.startsWith('idebanken:crash-course'))
 
+    const canonicalPath =
+        metaFields?.canonical?.pageUrl?.split(/\/(draft|master)\/[^/]*/)?.at(-1) ?? undefined
+    const baseUrl = metaFields?.baseUrl ?? 'https://idebanken.no'
+    const pageUrl = canonicalPath ? `${baseUrl}${canonicalPath}` : baseUrl
+
+
     return {
         metadataBase: metaFields?.baseUrl ? new URL(metaFields.baseUrl) : undefined,
         title: metaFields?.fullTitle,
@@ -58,9 +64,7 @@ export async function generateMetadata({
             siteName: metaFields?.siteName ?? undefined,
             description: description ?? undefined,
             locale: metaFields?.locale ?? undefined,
-            url: metaFields?.openGraph?.hideUrl
-                ? undefined
-                : (metaFields?.baseUrl ?? `https://idebanken.no`),
+            url: metaFields?.openGraph?.hideUrl ? undefined : pageUrl,
             images:
                 image && !metaFields?.openGraph?.hideImages
                     ? {
@@ -77,8 +81,7 @@ export async function generateMetadata({
         },
         alternates: {
             canonical:
-                metaFields?.canonical?.pageUrl?.split(/\/(draft|master)\/[^/]*/)?.at(-1) ??
-                undefined,
+                canonicalPath,
         },
         twitter: {
             site: metaFields?.twitter?.site ?? undefined,
