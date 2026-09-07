@@ -64,10 +64,7 @@ export default function NewsletterSignup({
                             type="text"
                             inputMode={'email'}
                             className={'max-w-96 mt-(--ax-space-8)'}
-                            label={
-                                <>
-                                E-postadresse <em>(Påkrevd)</em>
-                                </>}
+                            label={'E-postadresse (Påkrevd)'}
                             autoComplete={'email'}
                             error={state.emailError as string | undefined}
                             defaultValue={
@@ -76,11 +73,7 @@ export default function NewsletterSignup({
                             }
                         />
                         <CheckboxGroup
-                            legend={
-                                <>
-                                Samtykke <em>(Påkrevd)</em>
-                                </>
-                            }
+                            legend={'Samtykke (Påkrevd)'}
                             error={state.consentError as string | undefined}
                             defaultValue={[
                                 (state.previousValues as Record<string, string> | undefined)
