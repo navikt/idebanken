@@ -48,10 +48,9 @@ export async function generateMetadata({
 
     const isNoIndexContent = Boolean(common?.get?.type?.startsWith('idebanken:crash-course'))
 
-    const canonicalPath =
-        metaFields?.canonical?.pageUrl?.split(/\/(draft|master)\/[^/]*/)?.at(-1) ?? undefined
+    const pagePath = contentPath && contentPath.length > 0 ? `/${contentPath.join('/')}` : ''
     const baseUrl = metaFields?.baseUrl ?? 'https://idebanken.no'
-    const pageUrl = canonicalPath ? `${baseUrl}${canonicalPath}` : baseUrl
+    const pageUrl = `${baseUrl}${pagePath}`
 
 
     return {
@@ -81,7 +80,7 @@ export async function generateMetadata({
         },
         alternates: {
             canonical:
-                canonicalPath,
+                pagePath || undefined,
         },
         twitter: {
             site: metaFields?.twitter?.site ?? undefined,
