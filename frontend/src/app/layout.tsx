@@ -7,7 +7,7 @@ import { CookieBannerProvider } from '~/components/common/cookies/CookieBannerCo
 import { getConsentValues, getUserActionTakenValue } from '~/components/common/cookies/cookieUtils'
 import { CookieConsentScripts } from '~/components/common/cookies/CookieConsentScripts'
 import SkyraHandler from '~/components/common/analytics/SkyraHandler'
-import { NewsletterButton } from '~/components/common/NewsletterButton'
+//import { NewsletterButton } from '~/components/common/NewsletterButton'
 
 export default async function RootLayout({ children }: PropsWithChildren) {
     const { isEnabled } = await draftMode()
@@ -49,7 +49,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
                     )}
                 </head>
                 {children}
-                 <NewsletterButton url="/nyhetsbrev" />
+                 {/*<NewsletterButton url="/nyhetsbrev" />*/}
             </CookieBannerProvider>
         </GlobalUmamiAnalytics>
     )
