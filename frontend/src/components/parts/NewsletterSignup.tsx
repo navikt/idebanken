@@ -64,7 +64,7 @@ export default function NewsletterSignup({
                             type="text"
                             inputMode={'email'}
                             className={'max-w-96 mt-(--ax-space-8)'}
-                            label={'E-postadresse'}
+                            label={'E-postadresse (Påkrevd)'}
                             autoComplete={'email'}
                             error={state.emailError as string | undefined}
                             defaultValue={
@@ -73,15 +73,14 @@ export default function NewsletterSignup({
                             }
                         />
                         <CheckboxGroup
-                            legend={'Samtykke for abonnering'}
-                            hideLegend
+                            legend={'Samtykke (Påkrevd)'}
                             error={state.consentError as string | undefined}
                             defaultValue={[
                                 (state.previousValues as Record<string, string> | undefined)
                                     ?.consent,
                             ]}>
                             <Checkbox value={'consent'} name="consent">
-                                Ja, jeg ønsker å motta informasjon på e-post
+                                Jeg bekrefter at jeg ønsker å motta nyhetsbrev fra Idébanken
                             </Checkbox>
                         </CheckboxGroup>
                         {state.fetchError && (
@@ -89,7 +88,6 @@ export default function NewsletterSignup({
                                 {state.fetchError as string}
                             </InlineMessage>
                         )}
-                        <Link href="https://idebanken.no/personvern">Les vår personvernerklæring</Link>
                         <ButtonView
                             type="submit"
                             config={{ variant: 'primary', size: 'medium' }}
