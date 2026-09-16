@@ -9,9 +9,4 @@ export type NewsletterSignup = {
    * innhold
    */
   description?: string;
-
-  /**
-   * Naviger til side etter vellykket påmelding
-   */
-  redirectContent: string;
 };

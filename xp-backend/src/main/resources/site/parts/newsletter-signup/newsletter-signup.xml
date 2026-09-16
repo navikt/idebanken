@@ -10,10 +10,6 @@
         <input type="TextLine" name="description">
             <label>innhold</label>
         </input>
-        <input type="ContentSelector" name="redirectContent">
-            <label>Naviger til side etter vellykket påmelding</label>
-            <occurrences minimum="1" maximum="1"/>
-        </input>
     </form>
     <config>
         <allow-on-content-type>${app}:special-page</allow-on-content-type>

@@ -1505,7 +1505,6 @@ export type Part_Idebanken_Link_Card_List_Heading = {
 export type Part_Idebanken_Newsletter_Signup = {
   __typename?: 'Part_idebanken_newsletter_signup';
   description?: Maybe<Scalars['String']['output']>;
-  redirectContent?: Maybe<Content>;
   title?: Maybe<Scalars['String']['output']>;
 };
 

@@ -9,9 +9,4 @@ export type XP_NewsletterSignup = {
    * innhold
    */
   description?: string;
-
-  /**
-   * Naviger til side etter vellykket påmelding
-   */
-  redirectContent: string;
 };

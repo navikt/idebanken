@@ -4,7 +4,15 @@ import { NextRequest, NextResponse } from 'next/server'
 const enonicDomain = new URL(process.env.ENONIC_API ?? '').host
 const isLocalhost = process.env.ENV === 'local'
 
-const TRACKING_PARAMS = ['fbclid', 'gclid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
+const TRACKING_PARAMS = [
+    'fbclid',
+    'gclid',
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_term',
+    'utm_content',
+]
 
 export function middleware(req: NextRequest) {
     // Strip tracking parameters (e.g. fbclid from Facebook) to avoid downstream issues
@@ -94,7 +102,7 @@ function getCspHeaderAndAppendToRequestHeaders(req: NextRequest) {
     img-src 'self' data: *.skyra.no ${qbrickHosts} ${enonicDomain};
     font-src 'self' data: *.nav.no *.skyra.no ${qbrickHosts};
     object-src 'self' ${qbrickHosts} ${enonicDomain};
-    form-action 'self';
+    form-action 'self' https://nyhetsbrev.idebanken.no;
     frame-ancestors 'self' ${enonicDomain};
     frame-src 'self' ${enonicDomain};
     media-src 'self' ${qbrickHosts};
