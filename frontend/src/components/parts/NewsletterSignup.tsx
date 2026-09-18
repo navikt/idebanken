@@ -7,6 +7,7 @@ import { XP_NewsletterSignup } from '@xp-types/site/parts'
 import { Alert, BodyLong, Box, Checkbox, CheckboxGroup, TextField, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
+import { isValidEmail } from '~/utils/isValidEmail'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 
 // Offentlig skjema-endepunkt fra Make — samme URL som i Makes egen embed-kode.
@@ -31,7 +32,7 @@ export default function NewsletterSignup({ meta, part, path }: PartData<XP_Newsl
 
         const newEmailError = !email
             ? 'Du må fylle ut e-postadressen din'
-            : !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+            : !isValidEmail(email)
               ? 'E-postadressen ser ikke riktig ut'
               : undefined
         const newConsentError = !consentGiven

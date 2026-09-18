@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+import { isValidEmail } from '~/utils/isValidEmail'
 
 /**
  * Sjekker om en e-postadresse allerede er abonnent i Make.
@@ -16,7 +15,7 @@ export async function POST(req: Request) {
         /* ugyldig JSON håndteres under */
     }
 
-    if (!email || !EMAIL_REGEX.test(email)) {
+    if (!email || !isValidEmail(email)) {
         return NextResponse.json({ error: 'Ugyldig e-postadresse' }, { status: 400 })
     }
 
