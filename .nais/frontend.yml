@@ -58,3 +58,6 @@ spec:
         - host: {{external-host}}
         - host: ingest.staging.skyra.no
         - host: survey.skyra.no
+        - host: nyhetsbrev.idebanken.no
+        - host: subscribers.dialogapi.no
+ 
