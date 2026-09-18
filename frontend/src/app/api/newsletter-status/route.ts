@@ -40,7 +40,7 @@ export async function POST(req: Request) {
 
         if (res.status === 200) return NextResponse.json({ subscribed: true })
         if (res.status === 404) return NextResponse.json({ subscribed: false })
-
+        console.log(`newsletter-status: Make svarte HTTP ${res.status}`)
         console.error(`newsletter-status: Uventet svar fra Make: HTTP ${res.status}`)
         return NextResponse.json({ subscribed: false })
     } catch (error) {
