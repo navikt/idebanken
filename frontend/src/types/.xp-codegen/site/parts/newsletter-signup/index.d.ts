@@ -9,9 +9,4 @@ export type XP_NewsletterSignup = {
    * innhold
    */
   description?: string;
-
-  /**
-   * URL til Make-skjema (valgfritt)
-   */
-  formActionUrl?: string;
 };

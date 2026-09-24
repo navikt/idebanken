@@ -10,11 +10,6 @@
         <input type="TextLine" name="description">
             <label>innhold</label>
         </input>
-        <input type="TextLine" name="formActionUrl">
-            <label>URL til Make-skjema (valgfritt)</label>
-            <help-text>Lim inn egen skjema-lenke fra Make hvis denne siden skal bruke et annet skjema enn standard nyhetsbrev. La stå tom for standard.</help-text>
-            <occurrences minimum="0" maximum="1"/>
-        </input>
     </form>
     <config>
         <allow-on-content-type>${app}:special-page</allow-on-content-type>
