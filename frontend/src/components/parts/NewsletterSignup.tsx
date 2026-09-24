@@ -15,22 +15,28 @@ const MAKE_FORM_ACTION_URL =
 
 export default function NewsletterSignup({ meta, part, path }: PartData<XP_NewsletterSignup>) {
     const { config } = part
-    const { title, description } = config || {}
+    const { title, description, formActionUrl } = config || {}
+    const formAction = formActionUrl?.trim() || MAKE_FORM_ACTION_URL
 
     return (
         <BleedingBackgroundPageBlock
-            bgColor={'bg-(--ib-bg-orange-softA) sm:bg-transparent'}
+            bgColor={'bg-(--ib-bg-pink-softA) sm:bg-transparent'}
             layoutPath={path}>
             <Box
                 className={
-                    'sm:bg-(--ib-bg-orange-softA) rounded-[24px] py-(--ax-space-44) sm:px-(--ax-space-80)'
+                    'sm:bg-(--ib-bg-pink-softA) rounded-[24px] py-(--ax-space-44) sm:px-(--ax-space-80)'
                 }>
-                <HeadingView autoId={false} level="2" size="large">
+                <HeadingView
+                    id="pamelding"
+                    tabIndex={-1}
+                    level="2"
+                    size="large"
+                    className="scroll-mt-(--ax-space-44)">
                     {title}
                 </HeadingView>
                 <BodyLong className={'mb-(--ax-space-32)'}>{description}</BodyLong>
                 <form
-                    action={MAKE_FORM_ACTION_URL}
+                    action={formAction}
                     method="post"
                     acceptCharset="utf-8"
                     aria-label={title}>
