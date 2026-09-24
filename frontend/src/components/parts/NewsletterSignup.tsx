@@ -19,11 +19,11 @@ export default function NewsletterSignup({ meta, part, path }: PartData<XP_Newsl
 
     return (
         <BleedingBackgroundPageBlock
-            bgColor={'bg-(--ib-bg-orange-softA) sm:bg-transparent'}
+            bgColor={'bg-(--ib-bg-pink-softA) sm:bg-transparent'}
             layoutPath={path}>
             <Box
                 className={
-                    'sm:bg-(--ib-bg-orange-softA) rounded-[24px] py-(--ax-space-44) sm:px-(--ax-space-80)'
+                    'sm:bg-(--ib-bg-pink-softA) rounded-[24px] py-(--ax-space-44) sm:px-(--ax-space-80)'
                 }>
                 <HeadingView autoId={false} level="2" size="large">
                     {title}
