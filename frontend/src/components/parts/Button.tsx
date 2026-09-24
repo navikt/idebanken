@@ -7,6 +7,7 @@ import { XP_Button } from '@xp-types/site/parts'
 import { PropsWithChildren } from 'react'
 import { getUrl, MetaData } from '@enonic/nextjs-adapter'
 import classNames from 'classnames'
+import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 
 type ButtonConfigBase = Partial<Omit<ResolvedLinkSelector, '__typename'>> & {
     size: ButtonProps['size']
@@ -73,6 +74,7 @@ const ButtonView = ({
 const ButtonPart = ({ part, meta }: PartData<Part_Idebanken_Button>) => {
     const { config } = part
     const { link, size, variant } = config
+    const isAnchorLink = link.url?.startsWith('#')
     return (
         <ButtonView
             config={{
@@ -83,6 +85,16 @@ const ButtonPart = ({ part, meta }: PartData<Part_Idebanken_Button>) => {
             }}
             className={'mr-(--ax-space-16)'}
             meta={meta}
+            {...(isAnchorLink
+                ? {
+                      onClick: () =>
+                          void umami(AnalyticsEvents.ANCHOR_LINK_CLICKED, {
+                              komponentId: 'knapp',
+                              anker: link.url ?? '',
+                              tekst: link.linkText ?? '',
+                          }),
+                  }
+                : {})}
         />
     )
 }
