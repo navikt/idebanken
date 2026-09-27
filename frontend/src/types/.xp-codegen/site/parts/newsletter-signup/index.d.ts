@@ -6,7 +6,12 @@ export type XP_NewsletterSignup = {
   title: string;
 
   /**
-   * innhold
+   * Innhold
    */
   description?: string;
+
+  /**
+   * Make form URL
+   */
+  makeFormUrl: string;
 };
