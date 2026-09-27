@@ -8,6 +8,9 @@
         <mixin name="padding-y"/>
         <mixin name="override-width"/>
         <mixin name="alignment"/>
+        <input type="TextLine" name="idTag">
+            <label>Id</label>
+        </input>
     </form>
     <regions>
         <region name="content"/>
