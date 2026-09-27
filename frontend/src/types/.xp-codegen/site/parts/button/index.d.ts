@@ -50,12 +50,12 @@ export type XP_Button = {
         /**
          * Selected
          */
-        _selected: 'tag';
+        _selected: 'tagId';
 
         /**
          * Ekstern lenke
          */
-        tag: {
+        tagId: {
           /**
            * Tag (#tag...)
            */

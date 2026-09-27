@@ -40,7 +40,7 @@
                         </input>
                     </items>
                 </option>
-                <option name="tag">
+                <option name="tagId">
                     <label>Tag</label>
                     <items>
                         <input type="TextLine" name="url">
