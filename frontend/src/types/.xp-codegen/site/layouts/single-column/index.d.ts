@@ -39,4 +39,9 @@ export type XP_SingleColumn = {
    * Juster innhold y-akse
    */
   yAlignment?: 'center' | 'bottom';
+  
+    /**
+   * Id for element
+   */
+  idTag?: string;
 };

@@ -38,6 +38,7 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
         xAlignment,
         yAlignment,
         noGutters,
+        idTag,
     } = config
 
     const dataColor = legacyBgToBrandColorMap(boxColor)
@@ -49,7 +50,8 @@ const SingleColumnLayout = (props: SingleColumnLayoutProps) => {
             layoutPath={path}
             width={overrideWidth}
             noGutters={noGutters}
-            meta={meta}>
+            meta={meta}
+            id={idTag}>
             <Box
                 data-color={dataColor}
                 className={classNames(
