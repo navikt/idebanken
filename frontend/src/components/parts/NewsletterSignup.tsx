@@ -8,14 +8,11 @@ import { HeadingView } from '~/components/parts/Heading'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 
-// Offentlig skjema-endepunkt fra Make — samme URL som i Makes egen embed-kode.
-// Innsending fra nettleseren trigget dobbel opt-in og velkomst-epost.
-const MAKE_FORM_ACTION_URL =
-    'https://nyhetsbrev.idebanken.no/p/s/MjY1Nzk6Y2RiNmZhYjctMjMwMS00OTM5LWE1ZDItYjRjMmJlZmQ1Njg5'
+
 
 export default function NewsletterSignup({ meta, part, path }: PartData<XP_NewsletterSignup>) {
     const { config } = part
-    const { title, description } = config || {}
+    const { title, description, makeFormUrl } = config || {}
 
     return (
         <BleedingBackgroundPageBlock
@@ -30,7 +27,7 @@ export default function NewsletterSignup({ meta, part, path }: PartData<XP_Newsl
                 </HeadingView>
                 <BodyLong className={'mb-(--ax-space-32)'}>{description}</BodyLong>
                 <form
-                    action={MAKE_FORM_ACTION_URL}
+                    action={makeFormUrl}
                     method="post"
                     acceptCharset="utf-8"
                     aria-label={title}>
