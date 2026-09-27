@@ -47,7 +47,7 @@ export type XP_Button = {
         };
       }
 
-          | {
+    | {
         /**
          * Selected
          */
@@ -60,7 +60,7 @@ export type XP_Button = {
           /**
            * Tag (#tag...)
            */
-          tag: string;
+          url: string;
 
           /**
            * Lenketekst
