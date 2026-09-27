@@ -45,28 +45,8 @@ export type XP_Button = {
            */
           linkText?: string;
         };
-      }
-    | {
-        /**
-         * Selected
-         */
-        _selected: 'tagId';
-
-        /**
-         * Ekstern lenke
-         */
-        tagId: {
-          /**
-           * Tag (#tag...)
-           */
-          url: string;
-
-          /**
-           * Lenketekst
-           */
-          linkText?: string;
-        };
       };
+   
 
 
   /**
