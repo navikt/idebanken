@@ -784,6 +784,7 @@ export type Layout_Idebanken_Single_Column = {
   __typename?: 'Layout_idebanken_single_column';
   bgColor?: Maybe<Scalars['String']['output']>;
   boxColor?: Maybe<Scalars['String']['output']>;
+  idTag?: Maybe<Scalars['String']['output']>;
   noGutters?: Maybe<Scalars['Boolean']['output']>;
   overrideWidth?: Maybe<Scalars['String']['output']>;
   paddingBottom?: Maybe<Scalars['String']['output']>;
@@ -1225,13 +1226,22 @@ export type Part_Idebanken_Button_InternalOrExternalLink = {
   _selected?: Maybe<Part_Idebanken_Button_InternalOrExternalLink_OptionEnum>;
   externalLink?: Maybe<Part_Idebanken_Button_ExternalLink>;
   internalLink?: Maybe<Part_Idebanken_Button_InternalLink>;
+  tagId?: Maybe<Part_Idebanken_Button_TagId>;
 };
 
 /** Lenke-type option enum. */
 export enum Part_Idebanken_Button_InternalOrExternalLink_OptionEnum {
   ExternalLink = 'externalLink',
-  InternalLink = 'internalLink'
+  InternalLink = 'internalLink',
+  TagId = 'tagId'
 }
+
+/** Tag */
+export type Part_Idebanken_Button_TagId = {
+  __typename?: 'Part_idebanken_button_TagId';
+  linkText?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+};
 
 /** Part component application config for application ['idebanken'] and descriptor ['crash-course-intro-buttons'] */
 export type Part_Idebanken_Crash_Course_Intro_Buttons = {
@@ -1505,6 +1515,7 @@ export type Part_Idebanken_Link_Card_List_Heading = {
 export type Part_Idebanken_Newsletter_Signup = {
   __typename?: 'Part_idebanken_newsletter_signup';
   description?: Maybe<Scalars['String']['output']>;
+  makeFormUrl?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
 };
 

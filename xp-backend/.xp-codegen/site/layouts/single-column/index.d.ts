@@ -39,4 +39,9 @@ export type SingleColumn = {
    * Juster innhold y-akse
    */
   yAlignment?: 'center' | 'bottom';
+
+  /**
+   * Id
+   */
+  idTag?: string;
 };

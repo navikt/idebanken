@@ -11,7 +11,7 @@ export type XP_NewsletterSignup = {
   description?: string;
 
   /**
-   * Make form URL
+   * Make-lenke
    */
-  makeFormUrl: string;
+  makeFormUrl?: string;
 };

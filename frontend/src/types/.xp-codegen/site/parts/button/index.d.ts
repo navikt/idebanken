@@ -46,8 +46,6 @@ export type XP_Button = {
           linkText?: string;
         };
       };
-   
-
 
   /**
    * Button variant
