@@ -8,29 +8,21 @@ import { HeadingView } from '~/components/parts/Heading'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
 
-
-
 export default function NewsletterSignup({ meta, part, path }: PartData<XP_NewsletterSignup>) {
     const { config } = part
     const { title, description, makeFormUrl } = config || {}
 
     return (
-        <BleedingBackgroundPageBlock
-            bgColor={'bg-(--ib-bg-pink-softA) sm:bg-transparent'}
-            layoutPath={path}>
+        <BleedingBackgroundPageBlock layoutPath={path}>
             <Box
-                className={
-                    'sm:bg-(--ib-bg-pink-softA) rounded-[24px] py-(--ax-space-44) sm:px-(--ax-space-80)'
-                }>
+                paddingBlock={{ xs: 'space-24', sm: 'space-44' }}
+                paddingInline={{ xs: 'space-16', sm: 'space-32', md: 'space-80' }}
+                className={'bg-(--ib-bg-pink-softA) rounded-[24px]'}>
                 <HeadingView autoId={false} level="2" size="large">
                     {title}
                 </HeadingView>
                 <BodyLong className={'mb-(--ax-space-32)'}>{description}</BodyLong>
-                <form
-                    action={makeFormUrl}
-                    method="post"
-                    acceptCharset="utf-8"
-                    aria-label={title}>
+                <form action={makeFormUrl} method="post" acceptCharset="utf-8" aria-label={title}>
                     <VStack gap={'space-24'}>
                         <TextField
                             name="email"
