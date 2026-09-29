@@ -54,4 +54,9 @@ export type XP_2Column = {
    * Vis separator mellom kolonner
    */
   separator: boolean;
+
+  /**
+   * Id-tag
+   */
+  idTag?: string
 };
