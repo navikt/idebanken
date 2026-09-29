@@ -16,7 +16,7 @@ export default function NewsletterSignup({ meta, part, path }: PartData<XP_Newsl
             <Box
                 paddingBlock={{ xs: 'space-24', sm: 'space-44' }}
                 paddingInline={{ xs: 'space-16', sm: 'space-32', md: 'space-80' }}
-                className={'bg-(--ib-bg-pink-softA) rounded-[24px]'}>
+                className={'bg-(--ib-bg-pink-softA) rounded-[24px] w-full h-full'}>
                 <HeadingView autoId={false} level="2" size="large">
                     {title}
                 </HeadingView>
