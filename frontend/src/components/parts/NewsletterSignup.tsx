@@ -13,7 +13,6 @@ export default function NewsletterSignup({ meta, part, path }: PartData<XP_Newsl
     const { title, description, makeFormUrl } = config || {}
 
     return (
-        <BleedingBackgroundPageBlock layoutPath={path}>
             <Box
                 paddingBlock={{ xs: 'space-24', sm: 'space-44' }}
                 paddingInline={{ xs: 'space-16', sm: 'space-32', md: 'space-80' }}
@@ -53,6 +52,5 @@ export default function NewsletterSignup({ meta, part, path }: PartData<XP_Newsl
                     </VStack>
                 </form>
             </Box>
-        </BleedingBackgroundPageBlock>
-    )
+                )
 }

@@ -42,6 +42,7 @@ const TwoColumnLayout = ({ common, meta, layout, path }: TwoColumnLayoutProps) =
         yAlignment,
         noGutters,
         separator,
+        idTag,
     } = layout.config ?? {}
     const leftSpanValue = Number(leftSpan ?? 6)
     const rightSpan = 12 - leftSpanValue
@@ -58,7 +59,8 @@ const TwoColumnLayout = ({ common, meta, layout, path }: TwoColumnLayoutProps) =
             layoutPath={path}
             width={overrideWidth}
             noGutters={noGutters}
-            meta={meta}>
+            meta={meta}
+            id={idTag}>  
             <HGrid
                 data-color={dataColor}
                 className={classNames(
