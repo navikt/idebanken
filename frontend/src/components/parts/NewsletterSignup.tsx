@@ -3,7 +3,7 @@
 import { ButtonView } from '~/components/parts/Button'
 import { PartData } from '~/types/graphql-types'
 import { XP_NewsletterSignup } from '@xp-types/site/parts'
-import { BodyLong, Box, Checkbox, CheckboxGroup, TextField, VStack } from '@navikt/ds-react'
+import { BodyLong, Box, Checkbox, CheckboxGroup, HStack, TextField, VStack } from '@navikt/ds-react'
 import { HeadingView } from '~/components/parts/Heading'
 import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 import BleedingBackgroundPageBlock from '~/components/layouts/BleedingBackgroundPageBlock'
@@ -23,7 +23,7 @@ export default function NewsletterSignup({ meta, part, path }: PartData<XP_Newsl
                 </HeadingView>
                 <BodyLong className={'mb-(--ax-space-32)'}>{description}</BodyLong>
                 <form action={makeFormUrl} method="post" acceptCharset="utf-8" aria-label={title}>
-                    <VStack gap={'space-24'}>
+                    <HStack gap={'space-24'}>
                         <TextField
                             name="email"
                             type="email"
@@ -50,7 +50,7 @@ export default function NewsletterSignup({ meta, part, path }: PartData<XP_Newsl
                             meta={meta}>
                             Registrer
                         </ButtonView>
-                    </VStack>
+                    </HStack>
                 </form>
             </Box>
         </BleedingBackgroundPageBlock>
