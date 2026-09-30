@@ -49,7 +49,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
                     )}
                 </head>
                 {children}
-                 {/*<NewsletterButton url="/nyhetsbrev" />*/}
+                {/*<NewsletterButton url="/nyhetsbrev"/>*/}
             </CookieBannerProvider>
         </GlobalUmamiAnalytics>
     )
