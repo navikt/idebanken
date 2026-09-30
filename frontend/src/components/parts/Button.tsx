@@ -82,6 +82,7 @@ const ButtonPart = ({ part, meta }: PartData<Part_Idebanken_Button>) => {
                 linkText: link.linkText,
             }}
             className={'mr-(--ax-space-16)'}
+            data-color="neutral"
             meta={meta}
         />
     )
