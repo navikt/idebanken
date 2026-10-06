@@ -32,7 +32,7 @@
                             <label>Select content</label>
                             <occurrences minimum="1" maximum="1"/>
                             <config>
-                                <allowContentType>^idebanken:(?!theme-tag)*</allowContentType>
+                                <allowContentType>^idebanken:.*</allowContentType>
                             </config>
                         </input>
                         <input type="TextLine" name="linkText">
