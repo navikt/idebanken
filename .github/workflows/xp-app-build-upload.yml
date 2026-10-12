@@ -34,17 +34,21 @@ jobs:
 
       - name: 'Build XP app'
         shell: bash
-        run: ./gradlew -Pversion="$(echo ${{ inputs.version || github.ref_name }} | sed 's/^v//g')" build
+        env:
+          BUILD_VERSION: ${{ inputs.version || github.ref_name }}
+        run: ./gradlew -Pversion="${BUILD_VERSION#v}" build
 
       - name: 'Get safe working directory'
         id: safe
+        env:
+          WORKING_DIRECTORY: ${{ inputs.working_directory }}
         run: |
-          working_directory=${{ inputs.working_directory }}
-          echo "working_directory=${working_directory//\//_}" >> $GITHUB_OUTPUT
+          echo "working_directory=${WORKING_DIRECTORY//\//_}" >> "$GITHUB_OUTPUT"
 
       - name: 'Upload artifact'
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.version || github.ref_name }}-${{ steps.safe.outputs.working_directory || inputs.working_directory }}
           path: ./${{ inputs.working_directory }}/build/libs/*.jar
+          if-no-files-found: error
           retention-days: 7

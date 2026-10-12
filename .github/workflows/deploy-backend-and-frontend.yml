@@ -13,7 +13,7 @@ on:
           - test
           - prod
       version:
-        description: Version to deploy (e.g. v1.0.0). If not provided, uses the latest tag
+        description: Release tag to deploy (e.g. v1.0.0). Leave blank to build the selected branch for test, or deploy the selected tag
         type: string
         required: false
       skip_xp_backend:
@@ -26,9 +26,61 @@ on:
         default: false
 
 jobs:
+  prepare:
+    name: Resolve deployment
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+    outputs:
+      branch_build: ${{ steps.resolve.outputs.branch_build }}
+      version: ${{ steps.resolve.outputs.version }}
+      artifact_run_id: ${{ steps.resolve.outputs.artifact_run_id }}
+    steps:
+      - name: Resolve ref and version
+        id: resolve
+        shell: bash
+        env:
+          REQUESTED_VERSION: ${{ inputs.version }}
+          DEPLOY_ENVIRONMENT: ${{ inputs.environment }}
+        run: |
+          if [[ -z "$REQUESTED_VERSION" && "$GITHUB_REF_TYPE" == "branch" ]]; then
+            if [[ "$DEPLOY_ENVIRONMENT" != "test" ]]; then
+              echo "::error::Branch deployments are only allowed in test. Select a release tag for prod."
+              exit 1
+            fi
+            echo "branch_build=true" >> "$GITHUB_OUTPUT"
+            echo "version=0.0.0-branch.g${GITHUB_SHA:0:12}.${GITHUB_RUN_ID}.${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
+            echo "artifact_run_id=$GITHUB_RUN_ID" >> "$GITHUB_OUTPUT"
+          else
+            version="${REQUESTED_VERSION:-$GITHUB_REF_NAME}"
+            if [[ "$version" == *$'\n'* || "$version" == *$'\r'* ]]; then
+              echo "::error::Version must be a single release tag."
+              exit 1
+            fi
+            echo "branch_build=false" >> "$GITHUB_OUTPUT"
+            echo "version=$version" >> "$GITHUB_OUTPUT"
+          fi
+
+  xp-app-build:
+    name: Build xp-backend from branch
+    needs: [prepare]
+    if: ${{ !inputs.skip_xp_backend && needs.prepare.outputs.branch_build == 'true' }}
+    uses: ./.github/workflows/xp-app-build-upload.yml
+    secrets: inherit
+    permissions:
+      contents: 'read'
+    with:
+      version: ${{ needs.prepare.outputs.version }}
+      working_directory: xp-backend
+
   xp-app-deploy:
     name: Deploy xp-backend to ${{ inputs.environment }}
-    if: ${{ !inputs.skip_xp_backend }}
+    needs: [prepare, xp-app-build]
+    if: |
+      !cancelled() &&
+      needs.prepare.result == 'success' &&
+      !inputs.skip_xp_backend &&
+      (needs.prepare.outputs.branch_build == 'false' || needs.xp-app-build.result == 'success')
     uses: ./.github/workflows/xp-app-download-deploy.yml
     secrets: inherit
     permissions:
@@ -36,18 +88,20 @@ jobs:
       packages: 'read'
       actions: 'read'
     with:
-      version: ${{ inputs.version || github.ref_name }}
+      version: ${{ needs.prepare.outputs.version }}
       environment: ${{ inputs.environment }}
       app_directory: xp-backend
       download_artifact_from_workflow: tag-build-deploy.yml
+      artifact_run_id: ${{ needs.prepare.outputs.artifact_run_id }}
 
   frontend-build-and-deploy:
     name: Build and deploy frontend to ${{ inputs.environment }}
-    needs: [xp-app-deploy]
+    needs: [prepare, xp-app-deploy]
     if: |
-      always() &&
+      !cancelled() &&
+      needs.prepare.result == 'success' &&
       !inputs.skip_frontend &&
-      (inputs.skip_xp_backend == false && needs.xp-app-deploy.result == 'success' || inputs.skip_xp_backend == true)
+      (inputs.skip_xp_backend || needs.xp-app-deploy.result == 'success')
     uses: ./.github/workflows/frontend-build-deploy.yml
     secrets: inherit
     permissions:
@@ -55,6 +109,5 @@ jobs:
       id-token: 'write'
       packages: 'read'
     with:
-      version: ${{ inputs.version || github.ref_name }}
+      version: ${{ needs.prepare.outputs.version }}
       environment: ${{ inputs.environment }}
-

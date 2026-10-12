@@ -46,6 +46,11 @@ on:
         type: string
         required: false
         default: tag-build-deploy.yml
+      artifact_run_id:
+        description: Exact run to download from; omit to search release artifacts
+        type: string
+        required: false
+        default: ""
 
 jobs:
   deploy:
@@ -59,12 +64,23 @@ jobs:
     steps:
       - name: 'Get safe working directory'
         id: safe
+        env:
+          WORKING_DIRECTORY: ${{ inputs.app_directory }}
         run: |
-          working_directory=${{ inputs.app_directory }}
-          echo "working_directory=${working_directory//\//_}" >> $GITHUB_OUTPUT
+          echo "working_directory=${WORKING_DIRECTORY//\//_}" >> "$GITHUB_OUTPUT"
 
-      - name: 'Download artifact'
+      - name: 'Download artifact from exact run'
+        if: ${{ inputs.artifact_run_id != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          run-id: ${{ inputs.artifact_run_id }}
+          name: ${{ inputs.version || github.ref_name }}-${{ steps.safe.outputs.working_directory || inputs.app_directory }}
+          path: ./
+
+      - name: 'Download release artifact'
         id: download-artifact
+        if: ${{ inputs.artifact_run_id == '' }}
         uses: dawidd6/action-download-artifact@v10
         with:
           github_token: ${{secrets.GITHUB_TOKEN}}
