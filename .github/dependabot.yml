@@ -1,12 +1,43 @@
 version: 2
+
+registries:
+    npm-github-packages:
+        type: npm-registry
+        url: https://npm.pkg.github.com
+        token: ${{secrets.READER_TOKEN}}
+
 updates:
-  - package-ecosystem: "npm"
-    directory: "/frontend"
-    target-branch: "next"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 10
-    assignees:
-      - "pmi"
-    reviewers:
-      - "pmi"
+    - package-ecosystem: 'npm'
+      directory: '/'
+      registries:
+          - npm-github-packages
+      schedule:
+          interval: 'weekly'
+          day: 'monday'
+          time: '09:00'
+          timezone: 'Europe/Oslo'
+      open-pull-requests-limit: 10
+      pull-request-branch-name:
+          separator: '-'
+      cooldown:
+          semver-major-days: 14
+          semver-minor-days: 4
+          semver-patch-days: 4
+      groups:
+          minor-and-patch:
+              update-types: ['minor', 'patch']
+    - package-ecosystem: 'github-actions'
+      directory: '/'
+      schedule:
+          interval: 'weekly'
+          day: 'monday'
+          time: '09:00'
+          timezone: 'Europe/Oslo'
+      pull-request-branch-name:
+          separator: '-'
+      open-pull-requests-limit: 10
+      cooldown:
+        default-days: 4
+      groups:
+          actions:
+              patterns: ['*']
