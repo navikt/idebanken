@@ -718,6 +718,7 @@ export type Layout_Idebanken__2_Column = {
   bgColor?: Maybe<Scalars['String']['output']>;
   boxColor?: Maybe<Scalars['String']['output']>;
   breakLeftFirst?: Maybe<Scalars['Boolean']['output']>;
+  idTag?: Maybe<Scalars['String']['output']>;
   leftSpan?: Maybe<Scalars['String']['output']>;
   noGutters?: Maybe<Scalars['Boolean']['output']>;
   overrideWidth?: Maybe<Scalars['String']['output']>;
