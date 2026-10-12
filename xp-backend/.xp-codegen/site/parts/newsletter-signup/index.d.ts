@@ -6,12 +6,12 @@ export type NewsletterSignup = {
   title: string;
 
   /**
-   * innhold
+   * Innhold
    */
   description?: string;
 
   /**
-   * Naviger til side etter vellykket påmelding
+   * Make-lenke
    */
-  redirectContent: string;
+  makeFormUrl?: string;
 };

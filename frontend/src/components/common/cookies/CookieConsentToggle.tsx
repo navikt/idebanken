@@ -43,7 +43,7 @@ export function CookieConsentToggle() {
                     setAnalyticsChecked(analytics)
                 }}
                 description="Samler anonymisert statistikk om hvordan idébanken brukes. Hjelper oss å forstå hvilke sider som besøkes og forbedre tjenesten. Dataene deles ikke med reklamenettverk.">
-                Analyse og statistikk (Umami)
+                Analyse og statistikk (Innblikk)
             </Switch>
             <Switch
                 checked={surveysChecked}

@@ -53,7 +53,7 @@ const ButtonView = ({
         variant: btn.variant,
         size: btn.size || 'medium',
         ...(download ? { download: true } : {}),
-        ...(btn.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}),
+        ...(btn.external ? {rel: 'noopener noreferrer' } : {}),
         ...(btn.url ? { as: NextLink, href: btn.url || '#' } : {}),
     }
 
@@ -82,6 +82,7 @@ const ButtonPart = ({ part, meta }: PartData<Part_Idebanken_Button>) => {
                 linkText: link.linkText,
             }}
             className={'mr-(--ax-space-16)'}
+            data-color="neutral"
             meta={meta}
         />
     )

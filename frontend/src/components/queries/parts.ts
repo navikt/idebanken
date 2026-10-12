@@ -183,9 +183,6 @@ export const videoReelQuery = `{
 export const newsletterQuery = `{
     title
     description
-    redirectContent {
-        _path
-    }
 }`
 
 export const downloadsQuery = `{

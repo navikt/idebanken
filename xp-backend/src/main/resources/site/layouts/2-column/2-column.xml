@@ -35,6 +35,9 @@
             <label>Vis separator mellom kolonner</label>
             <default>unchecked</default>
         </input>
+        <input type="TextLine" name="idTag">
+            <label>Id</label>
+        </input>
     </form>
     <regions>
         <region name="left"/>

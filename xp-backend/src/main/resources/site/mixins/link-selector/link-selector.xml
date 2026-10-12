@@ -14,7 +14,7 @@
                             <label>Innhold som skal lenkes til</label>
                             <occurrences minimum="1" maximum="1"/>
                             <config>
-                                <allowContentType>^(portal:site|idebanken:)(?!theme-tag)*</allowContentType>
+                                <allowContentType>^(portal:site|idebanken:).*</allowContentType>
                             </config>
                         </input>
                         <input type="TextLine" name="linkText">
@@ -31,7 +31,24 @@
                             <help-text>Full lenke med https://</help-text>
                             <occurrences minimum="1" maximum="1"/>
                             <config>
-                                <regexp>^https:\/\/.*</regexp>
+                                <regexp>^(?:https:\/\/|#).*</regexp>
+                            </config>
+                        </input>
+                        <input type="TextLine" name="linkText">
+                            <label>Lenketekst</label>
+                            <occurrences minimum="0" maximum="1"/>
+                        </input>
+                    </items>
+                </option>
+                <option name="tagId">
+                    <label>Tag</label>
+                    <items>
+                        <input type="TextLine" name="url">
+                            <label># skriv inn tag</label>
+                            <help-text>f.eks. #nyhetsbrev</help-text>
+                            <occurrences minimum="1" maximum="1"/>
+                            <config>
+                                <regexp>^(?:https:\/\/|#).*</regexp>
                             </config>
                         </input>
                         <input type="TextLine" name="linkText">

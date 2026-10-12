@@ -45,5 +45,26 @@ export type XP_LinkSelector = {
            */
           linkText?: string;
         };
+      }
+    | {
+        /**
+         * Selected
+         */
+        _selected: 'tagId';
+
+        /**
+         * Tag
+         */
+        tagId: {
+          /**
+           * # skriv inn tag
+           */
+          url: string;
+
+          /**
+           * Lenketekst
+           */
+          linkText?: string;
+        };
       };
 };
