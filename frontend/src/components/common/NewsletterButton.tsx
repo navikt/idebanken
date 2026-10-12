@@ -1,4 +1,3 @@
-
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
@@ -7,18 +6,21 @@ import { Button } from '@navikt/ds-react'
 import NextLink from 'next/link'
 
 const SESSION_KEY = 'newsletter-button-shown'
+const HIDDEN_PATHS = ['/nyhetsbrev', '/testing/nyhetsbrevlandingside']
 
 export function NewsletterButton({ url }: { url: string }) {
     const [visible, setVisible] = useState(false)
     const clickedRef = useRef(false)
     const pathname = usePathname()
 
+    const isOnHiddenPath = HIDDEN_PATHS.some((path) => pathname?.endsWith(path))
+
     useEffect(() => {
-        if (!sessionStorage.getItem(SESSION_KEY)) {
+        if (!isOnHiddenPath && !sessionStorage.getItem(SESSION_KEY)) {
             setVisible(true)
             sessionStorage.setItem(SESSION_KEY, 'true')
         }
-    }, [])
+    }, [isOnHiddenPath])
 
     useEffect(() => {
         if (clickedRef.current) {
@@ -26,7 +28,7 @@ export function NewsletterButton({ url }: { url: string }) {
         }
     }, [pathname])
 
-    if (!visible) return null
+    if (!visible || isOnHiddenPath) return null
 
     return (
         <Button
