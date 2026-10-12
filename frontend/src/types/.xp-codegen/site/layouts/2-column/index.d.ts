@@ -56,7 +56,7 @@ export type XP_2Column = {
   separator: boolean;
 
   /**
-   * Id-tag
+   * Id
    */
-  idTag?: string
+  idTag?: string;
 };

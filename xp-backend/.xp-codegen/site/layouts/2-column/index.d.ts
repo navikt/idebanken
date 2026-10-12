@@ -54,4 +54,9 @@ export type _2Column = {
    * Vis separator mellom kolonner
    */
   separator: boolean;
+
+  /**
+   * Id
+   */
+  idTag?: string;
 };
