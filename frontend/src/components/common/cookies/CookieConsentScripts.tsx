@@ -3,7 +3,11 @@
 import Script from 'next/script'
 import { useCallback, useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { setCookie } from '~/components/common/cookies/cookieUtils'
+import {
+    setCookie,
+    type ConsentCookie,
+    type CookieConsentChangeEvent,
+} from '~/components/common/cookies/cookieUtils'
 import {
     SkyraConfig,
     skyraOrg,
@@ -16,6 +20,26 @@ interface Props {
     surveysConsent: boolean
     nonce?: string
     isProduction: boolean
+}
+
+function sendConsentPing(consentObject: ConsentCookie) {
+    void fetch('/api/consentping', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'omit',
+        keepalive: true,
+        body: JSON.stringify({ consentObject }),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                console.error(`consentping: Request failed with HTTP ${response.status}`)
+            }
+        })
+        .catch(() => {
+            console.error('consentping: Request failed')
+        })
 }
 
 export function CookieConsentScripts({
@@ -75,17 +99,21 @@ export function CookieConsentScripts({
     useEffect(() => {
         loadUmamiScript(analyticsConsent)
 
-        const handleConsent = (e: CustomEvent) => {
+        const handleConsent = (e: CookieConsentChangeEvent) => {
             const { analytics, surveys, videoAnalytics } = e.detail
 
-            setCookie({
+            const consentObject = setCookie({
                 consent: { analytics, surveys, videoAnalytics },
                 userActionTaken: true,
             })
+
             updateSkyraConsent(surveys)
             loadUmamiScript(analytics)
-        }
 
+            if (consentObject) {
+                sendConsentPing(consentObject)
+            }
+        }
         window.addEventListener('cookie-consent-changed', handleConsent as EventListener)
         return () =>
             window.removeEventListener('cookie-consent-changed', handleConsent as EventListener)
