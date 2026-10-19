@@ -108,7 +108,7 @@ export function dispatchCookieConsentEvent({
     )
 }
 
-export function setCookie(value: PartialConsentCookie, days = 90) {
+export function setCookie(value: PartialConsentCookie, days = 90): ConsentCookie | undefined {
     if (typeof document === 'undefined') {
         return
     }
@@ -157,6 +157,7 @@ export function setCookie(value: PartialConsentCookie, days = 90) {
         expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000)
         const secureFlag = process.env.ENV === 'production' ? '; Secure' : ''
         document.cookie = `${consentCookieName}=${jsonString}; expires=${expires.toUTCString()}; path=/; SameSite=Lax${secureFlag}`
+        return newValue
     } catch (e) {
         console.error(`Failed to set cookie "${consentCookieName}":`, e)
         const errorMessage = e instanceof Error ? e.message : 'Unknown error'

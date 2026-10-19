@@ -1,4 +1,6 @@
 external-host: idebanken-xp7test.enonic.cloud
+reops-event-proxy-host: reops-event-proxy.ekstern.dev.nav.no
+umami-website-id: aa9d6480-2365-4552-8e16-5c7b5c9f777d
 ingress: ["https://idebanken.ekstern.dev.nav.no"]
 replicas:
   min: 1

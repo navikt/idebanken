@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 
 // ---------------------------------------------------------------------------
 // isAlive – trivial health route
@@ -15,6 +15,101 @@ describe('GET /api/isAlive', () => {
 // ---------------------------------------------------------------------------
 // search – proxies to an external SEARCH_API_URL
 // ---------------------------------------------------------------------------
+
+describe('POST /api/consentping', () => {
+    const consentObject = {
+        consent: {
+            analytics: true,
+            surveys: false,
+            videoAnalytics: true,
+        },
+        userActionTaken: true,
+        meta: {
+            createdAt: '2026-10-19T10:00:00.000Z',
+            updatedAt: '2026-10-19T10:01:00.000Z',
+            version: 1,
+        },
+    }
+
+    beforeEach(() => {
+        process.env.UMAMI_PROXY_HOST = 'https://fake-reops-proxy.nav.no'
+        process.env.UMAMI_WEBSITE_ID = 'fake-website-id'
+
+        vi.stubGlobal(
+            'fetch',
+            vi.fn().mockResolvedValue({
+                ok: true,
+                status: 200,
+            })
+        )
+    })
+
+    afterEach(() => {
+        vi.restoreAllMocks()
+        vi.unstubAllGlobals()
+    })
+
+    function createRequest(body: unknown) {
+        return new Request('http://localhost/api/consentping', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+        })
+    }
+
+    it('forwards valid consent using the expected Umami event format', async () => {
+        const { POST } = await import('~/app/api/consentping/route')
+
+        const response = await POST(createRequest({ consentObject }))
+
+        expect(response.status).toBe(200)
+        expect(fetch).toHaveBeenCalledOnce()
+
+        const [url, options] = vi.mocked(fetch).mock.calls[0]
+        const event = JSON.parse(options?.body as string)
+
+        expect(url).toBe('https://fake-reops-proxy.nav.no/api/send')
+        expect(event).toEqual({
+            type: 'event',
+            payload: {
+                name: 'cookiebanner',
+                hostname: 'idebanken.no',
+                url: '/',
+                referrer: 'https://idebanken.no',
+                website: 'fake-website-id',
+                data: {
+                    consentObject,
+                },
+            },
+        })
+    })
+
+    it('rejects a request without consentObject', async () => {
+        const { POST } = await import('~/app/api/consentping/route')
+
+        const response = await POST(createRequest({}))
+
+        expect(response.status).toBe(400)
+        expect(fetch).not.toHaveBeenCalled()
+    })
+
+    it('returns successfully when ReOps rejects the event', async () => {
+        vi.mocked(fetch).mockResolvedValueOnce({
+            ok: false,
+            status: 503,
+        } as Response)
+        const consoleError = vi.spyOn(console, 'error').mockImplementation(() => undefined)
+        const { POST } = await import('~/app/api/consentping/route')
+
+        const response = await POST(createRequest({ consentObject }))
+
+        expect(response.status).toBe(200)
+        expect(consoleError).toHaveBeenCalledWith('consentping: ReOps returned HTTP 503')
+    })
+})
+
 describe('GET /api/search', () => {
     const mockSearchResult = {
         total: 1,

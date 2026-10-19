@@ -46,6 +46,11 @@ spec:
     cpuThresholdPercentage: 60
   envFrom:
     - secret: idebanken-frontend
+  env:
+    - name: UMAMI_PROXY_HOST
+      value: 'https://{{reops-event-proxy-host}}'
+    - name: UMAMI_WEBSITE_ID
+      value: '{{umami-website-id}}'
   filesFrom:
     - emptyDir:
         medium: Memory
@@ -56,5 +61,6 @@ spec:
         - application: idebanken-search-api
       external:
         - host: {{external-host}}
+        - host: {{reops-event-proxy-host}}
         - host: ingest.staging.skyra.no
         - host: survey.skyra.no
