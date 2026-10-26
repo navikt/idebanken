@@ -7,8 +7,6 @@ import { ThemeProvider } from './theming/theme-provider'
 import { headers } from 'next/headers'
 import { DeferredStyles } from '~/components/common/DeferredStyles'
 
-import '~/styles/globals.css'
-
 type LayoutProps = PropsWithChildren<{
     params: Promise<{ locale: string }>
 }>
