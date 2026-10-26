@@ -1,5 +1,6 @@
 import { ContentPathItem, FetchContentResult, validateData } from '@enonic/nextjs-adapter'
-import { fetchContent, fetchContentPathsForAllLocales } from '@enonic/nextjs-adapter/server'
+import { fetchContentPathsForAllLocales } from '@enonic/nextjs-adapter/server'
+import { getContent } from '~/utils/getContent'
 import MainView from '@enonic/nextjs-adapter/views/MainView'
 import { Metadata } from 'next'
 import { MetaFields } from '~/types/generated'
@@ -22,8 +23,8 @@ export type PageProps = {
 
 export default async function Page({ params }: { params: Promise<PageProps> }) {
     const { locale, contentPath } = await params
-    const ctx = { locale, contentPath: contentPath ?? '' }
-    const data: FetchContentResult = await fetchContent(ctx)
+    const contentPathString = contentPath?.join('/') ?? ''
+    const data: FetchContentResult = await getContent(locale, contentPathString)
     validateData(data)
     return <MainView {...data} />
 }
@@ -34,10 +35,10 @@ export async function generateMetadata({
     params: Promise<PageProps>
 }): Promise<Metadata> {
     const { locale, contentPath } = await params
-    const ctx = { locale, contentPath: contentPath ?? '' }
-    const { common } = await fetchContent(ctx).then((res) => {
+    const contentPathString = contentPath?.join('/') ?? ''
+    const { common } = await getContent(locale, contentPathString).then((res) => {
         if (res?.error?.code === '404') {
-            return fetchContent({ locale, contentPath: '404' })
+            return getContent(locale, '404')
         }
         return res
     })
@@ -51,7 +52,6 @@ export async function generateMetadata({
     const pagePath = contentPath && contentPath.length > 0 ? `/${contentPath.join('/')}` : ''
     const baseUrl = metaFields?.baseUrl ?? 'https://idebanken.no'
     const pageUrl = `${baseUrl}${pagePath}`
-
 
     return {
         metadataBase: metaFields?.baseUrl ? new URL(metaFields.baseUrl) : undefined,
@@ -79,8 +79,7 @@ export async function generateMetadata({
             follow: (!isNoIndexContent && metaFields?.robots?.follow) ?? true,
         },
         alternates: {
-            canonical:
-                pagePath || undefined,
+            canonical: pagePath || undefined,
         },
         twitter: {
             site: metaFields?.twitter?.site ?? undefined,

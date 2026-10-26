@@ -8,7 +8,7 @@ import {
     XP_REQUEST_TYPE,
 } from '@enonic/nextjs-adapter'
 import { LocaleContextProvider } from '@enonic/nextjs-adapter/client'
-import { fetchContent } from '@enonic/nextjs-adapter/server'
+import { getContent } from '~/utils/getContent'
 import StaticContent from '@enonic/nextjs-adapter/views/StaticContent'
 import { type JSX, PropsWithChildren, ReactNode } from 'react'
 import { Page } from '@navikt/ds-react'
@@ -34,8 +34,9 @@ export default async function PageLayout({ params, children }: LayoutProps) {
     const resolvedParams = await params
     const { isEnabled } = await draftMode()
 
-    const ctx = { locale: resolvedParams.locale, contentPath: resolvedParams.contentPath ?? '' }
-    const contentResult = await fetchContent(ctx).then((res) => {
+    const contentPath = resolvedParams.contentPath?.join('/') ?? ''
+
+    const contentResult = await getContent(resolvedParams.locale, contentPath).then((res) => {
         if (res?.error?.code === '404') {
             console.warn(
                 res.error.code,
@@ -43,7 +44,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                 `'/${forceArray(resolvedParams.contentPath).join('/')}'.`,
                 res.error.message
             )
-            return fetchContent({ ...ctx, contentPath: '404' })
+            return getContent(resolvedParams.locale, '404')
         }
         return res
     })
