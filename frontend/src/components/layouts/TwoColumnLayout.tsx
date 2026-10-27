@@ -60,7 +60,7 @@ const TwoColumnLayout = ({ common, meta, layout, path }: TwoColumnLayoutProps) =
             width={overrideWidth}
             noGutters={noGutters}
             meta={meta}
-            id={idTag}>  
+            id={idTag}>
             <HGrid
                 data-color={dataColor}
                 className={classNames(
@@ -97,7 +97,7 @@ const TwoColumnLayout = ({ common, meta, layout, path }: TwoColumnLayoutProps) =
                             : undefined
                     }>
                     <RegionView
-                        className="flex flex-col gap-(--ax-space-24) space-y-(--ax-space-24) w-full h-full"
+                        className="flex flex-col space-y-(--ax-space-24) w-full h-full"
                         name="left"
                         components={regions['left']?.components}
                         common={common}
