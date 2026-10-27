@@ -26,6 +26,19 @@ const config = {
     transpilePackages: ['@enonic/nextjs-adapter'],
     webpack: getEnonicWebpackConfig,
     redirects,
+    async headers() {
+        return [
+            {
+                source: '/',
+                headers: [
+                    {
+                        key: 'Link',
+                        value: '</llms.txt>; rel="describedby"; type="text/plain"',
+                    },
+                ],
+            },
+        ]
+    },
     images: {
         remotePatterns: [
             {

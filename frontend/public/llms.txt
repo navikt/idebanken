@@ -1,0 +1,14 @@
+# Idébanken
+
+Idébanken samler tips, råd og verktøy for virksomheter som vil forebygge og redusere sykefravær.
+
+## Lenker
+
+- [Sitemap](https://idebanken.no/sitemap.xml): oversikt over alle sider
+- [Forebygge sykefravær](https://idebanken.no/forebygge-sykefravaer): råd og verktøy for å forebygge sykefravær på arbeidsplassen
+- [https://idebanken.no/folge-opp-sykefravaer]: råd og verktøy for å følge opp ansatte med sykefravær
+- (Føkge opp sykefravær)[https://idebanken.no/samarbeid-om-sykefravaer]: råd rundt samarbeid om sykefravær, blant annet å lage en arbeidsmiljøgruppe
+- (Virkemidler)[https://idebanken.no/virkemidler]: En oversikt over tilgjengelig hjelp via IA-avtalen og andre tiltak
+- (Aktuelt)[https://idebanken.no/aktuelt]: Oversikt over nyheter og erfaringer fra arbeidsplasser
+- (Om Idébanken)[https://idebanken.no/om-idebanken]: Oversikt over hva Idébanken tilbyr og hva Idébanken er. Mål, oppdrag, målgruppe, organisering, avgrensning 
+- (Kontakt Oss)[https://idebanken.no/kontakt-oss]: E-postadressen til Idébanken 
