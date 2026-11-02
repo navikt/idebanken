@@ -16,4 +16,4 @@ EXPOSE 4242
 ENV PORT=4242
 ENV NODE_ENV=production
 
-CMD ["node", "server.js"]
+CMD ["server.js"]
