@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.TestConfiguration
 class OpensearchConfig {
     companion object {
         private val opensearch: OpenSearchContainer<*> =
-            OpenSearchContainer("opensearchproject/opensearch:2.11.1")
+            OpenSearchContainer("opensearchproject/opensearch:2.19.6")
                 .withStartupAttempts(5)
                 .withStartupTimeout(Duration.ofMinutes(2))
 
