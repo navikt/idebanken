@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <part xmlns="urn:enonic:xp:model:1.0">
     <display-name>Vis mer boks</display-name>
-    <description>Primært brukt for "Kort info om artikkel"</description>
+    <description>Utvidbar kortversjon med Vis mer / Vis mindre</description>
     <form>
         <input type="TextLine" name="title">
             <label>Tittel</label>
@@ -10,7 +10,4 @@
         </input>
         <mixin name="simple-text-editor" />
     </form>
-    <config>
-        <allow-on-content-type>${app}:artikkel</allow-on-content-type>
-    </config>
 </part>
