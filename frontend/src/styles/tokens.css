@@ -532,3 +532,6 @@ skyra-survey,
     --skyra-warning-color: var(--ib-text-orange);
 }
 
+.dark [data-color="accent-aksel"] .aksel-accordion__header {
+    color: var(--ax-text-default);
+}
