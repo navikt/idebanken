@@ -3,7 +3,6 @@
 import React, { useMemo } from 'react'
 import { Box, Stack } from '@navikt/ds-react'
 import { useCookieBanner } from '~/components/common/cookies/CookieBannerContext'
-import classNames from 'classnames'
 import { ButtonView } from '~/components/parts/Button'
 import { MetaData, RENDER_MODE } from '@enonic/nextjs-adapter'
 import { htmlRichTextReplacer } from '~/utils/richText/html-rich-text-replacer'
@@ -36,52 +35,61 @@ export function CookieBanner({ meta, common }: { meta: MetaData; common?: Headle
         setShowCookieBanner(false)
         dispatchCookieConsentEvent({ analytics: true, surveys: true, videoAnalytics: true })
     }
+    const buttonClassName =
+        'max-sm:w-full min-h-12 rounded-lg! whitespace-normal! ' +
+        'bg-white! text-(--ax-text-accent-subtle)! font-semibold! ' +
+        'border-0! shadow-none! ' +
+        'hover:bg-(--ax-bg-accent-moderate-hover)! ' +
+        'hover:text-(--ax-text-accent)! ' +
+        'focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4'
 
     return (
         <Box
-            data-color="ib-brand-dark-blue"
             as="section"
-            role="dialog"
-            aria-modal="true"
             aria-label="Informasjonskapsler"
-            padding={{ xs: 'space-36', md: 'space-64' }}
-            margin={{ xs: 'space-0', lg: 'space-44' }}
-            className={classNames(
-                'fixed bottom-0 inset-x-0 mx-auto w-[min(704px,100%)] z-1000',
-                'bg-(--ib-bg-dark-blue-soft) md:rounded-lg max-md:bg-none!',
-                'max-h-screen overflow-y-auto',
-                'md:shadow-2xl max-md:shadow-[0_-10px_200px_150px_rgba(0,0,0,0.5),0_0_0_0_rgba(0,0,0,0.5)]'
-            )}>
-            <RichTextView
-                data={{ processedHtml: common?.siteConfiguration?.cookieInfoText ?? '' }}
-                meta={meta}
-                customReplacer={htmlRichTextReplacer}
-                className={'*:mb-(--ax-space-24) mb-(--ax-space-24)'}
-            />
+            data-testid="cookie-banner"
+            background="accent-strong"
+            className="light relative z-10 w-full text-white">
+            <div className="mx-auto max-w-[1440px] px-4 py-4 sm:px-8 md:py-6">
+                <RichTextView
+                    data={{ processedHtml: common?.siteConfiguration?.cookieInfoText ?? '' }}
+                    meta={meta}
+                    customReplacer={htmlRichTextReplacer}
+                    className={
+                        '*:mb-3 mb-4 [&_*]:text-white! ' +
+                        '[&_h1]:text-2xl! [&_h2]:text-2xl! [&_h3]:text-2xl! ' +
+                        '[&_h1]:leading-snug! [&_h2]:leading-snug! [&_h3]:leading-snug! ' +
+                        '[&_a]:underline [&_a]:hover:no-underline ' +
+                        '[&_a]:focus-visible:outline-2 ' +
+                        '[&_a]:focus-visible:outline-white ' +
+                        '[&_a]:focus-visible:outline-offset-4'
+                    }
+                />
 
-            <Stack
-                id={'cookie-banner-buttons'}
-                gap={{ xs: 'space-12', lg: 'space-32' }}
-                direction={{ xs: 'column', sm: 'row' }}
-                role="group"
-                aria-label={'Godta eller avvis informasjonskapsler'}>
-                <ButtonView
-                    type="submit"
-                    className={'max-sm:w-full'}
-                    config={{ variant: 'secondary', size: 'medium' }}
-                    onClick={handleAcceptAllClick}
-                    meta={meta}>
-                    Godta alle informasjonskapsler
-                </ButtonView>
-                <ButtonView
-                    type="submit"
-                    className={'max-sm:w-full'}
-                    config={{ variant: 'secondary', size: 'medium' }}
-                    onClick={handleNecessaryOnlyClick}
-                    meta={meta}>
-                    Kun nødvendige
-                </ButtonView>
-            </Stack>
+                <Stack
+                    id="cookie-banner-buttons"
+                    gap="space-12"
+                    direction={{ xs: 'column', sm: 'row' }}
+                    role="group"
+                    aria-label="Godta eller avvis informasjonskapsler">
+                    <ButtonView
+                        type="submit"
+                        className={buttonClassName}
+                        config={{ variant: 'secondary', size: 'medium' }}
+                        onClick={handleAcceptAllClick}
+                        meta={meta}>
+                        Godta alle informasjonskapsler
+                    </ButtonView>
+                    <ButtonView
+                        type="submit"
+                        className={buttonClassName}
+                        config={{ variant: 'secondary', size: 'medium' }}
+                        onClick={handleNecessaryOnlyClick}
+                        meta={meta}>
+                        Kun nødvendige
+                    </ButtonView>
+                </Stack>
+            </div>
         </Box>
     )
 }
