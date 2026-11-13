@@ -110,7 +110,12 @@ export const Header = ({ title, common, meta }: HeaderProps) => {
                 className="relative items-center"
                 bleedClassName="shadow-[0_-1px_0_0_#CFCFCF_inset] relative z-[99] overflow-y-visible bg-(--ax-bg-default)!">
                 <Link
-                    className="bg-dark-blue text-primary-content z-100 transition left-0 absolute p-3 m-3 -translate-y-16 focus:translate-y-0"
+                    className={
+                        'absolute top-0 left-0 z-100 m-3 p-3 ' +
+                        'bg-(--ax-bg-default) text-(--ax-text-default) ' +
+                        'opacity-0 pointer-events-none ' +
+                        'focus:opacity-100 focus:pointer-events-auto'
+                    }
                     href="#main-content">
                     Hopp til hovedinnhold
                 </Link>
