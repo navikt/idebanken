@@ -1,6 +1,7 @@
 import { BodyShort, HStack, VStack } from '@navikt/ds-react'
 import { DownloadIcon, FileIcon, FilePdfIcon, FileWordIcon } from '@navikt/aksel-icons'
-import type { PartProps } from '@enonic/nextjs-adapter'
+import { RENDER_MODE, type PartProps } from '@enonic/nextjs-adapter'
+import { toFilename } from '~/utils/documentFilename'
 import { ButtonView } from './Button'
 import { HeadingView } from './Heading'
 
@@ -74,6 +75,14 @@ export const Downloads = ({ part, meta }: PartProps) => {
                             getExt(item.mediaUrl) || getExt(item._path) || getExt(item.displayName)
                         const icon = pickIcon(ext)
                         const fileName = `${item.displayName}${ext ? `.${ext}` : ''}`
+                        const documentName = item._path.slice(item._path.lastIndexOf('/') + 1)
+                        const isPublic =
+                            meta.renderMode === RENDER_MODE.NEXT ||
+                            meta.renderMode === RENDER_MODE.LIVE
+
+                        const downloadUrl = isPublic
+                            ? `/dokumenter/${toFilename(documentName)}`
+                            : item.mediaUrl
                         return (
                             <HStack
                                 as="li"
@@ -107,13 +116,13 @@ export const Downloads = ({ part, meta }: PartProps) => {
                                     <ButtonView
                                         className="md:justify-self-center"
                                         config={{
-                                            url: item.mediaUrl,
-                                            external: true,
+                                            url: downloadUrl,
+                                            external: !isPublic,
                                             variant: 'primary',
                                             size: 'medium',
                                             linkText: 'Last ned',
                                         }}
-                                        download
+                                        download={ext !== 'pdf'}
                                         meta={meta}
                                         icon={<DownloadIcon aria-hidden />}
                                     />
