@@ -8,6 +8,8 @@ import { enonicSitePathToHref, truncateUrl } from '/lib/utils/string-utils'
 import { getOrNull } from '/lib/utils/helpers'
 import { MediaImageContent } from '@enonic-types/guillotine'
 import { attachmentUrl } from '/lib/xp/portal'
+import { get as getContext } from '/lib/xp/context'
+import { toFilename } from '/lib/utils/document-filename'
 
 export type Source<T> = {
     data: {
@@ -130,8 +132,13 @@ export function resolveInternalLink(internalLink: InternalLink): ResolvedLinkSel
     let url = enonicSitePathToHref(content?._path)
     let download = false
     if (content?.type === 'media:document') {
-        url = attachmentUrl({ path: content._path, type: 'absolute' })
-        download = true
+        // Publiserte sider bruker /dokumenter/…; forhåndsvisning (draft) bruker Enonic-adressen.
+        url =
+            getContext().branch === 'master'
+                ? `/dokumenter/${toFilename(content._name)}`
+                : attachmentUrl({ path: content._path, type: 'absolute' })
+        // PDF åpnes i nettleseren, andre filer lastes ned.
+        download = !content._name.toLowerCase().endsWith('.pdf')
     }
 
     return {
