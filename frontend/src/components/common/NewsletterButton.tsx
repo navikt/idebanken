@@ -5,6 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { Button } from '@navikt/ds-react'
 import { XMarkIcon } from '@navikt/aksel-icons'
 import NextLink from 'next/link'
+import { AnalyticsEvents, umami } from '~/utils/analytics/umami'
 
 const SESSION_KEY = 'newsletter-button-shown'
 const SUPPRESSED_KEY = 'newsletter-button-suppressed'
@@ -69,6 +70,9 @@ export function NewsletterButton({ url }: { url: string }) {
                 size="medium"
                 className={BUTTON_CLASSES}
                 onClick={() => {
+                    void umami(AnalyticsEvents.BUTTON_CLICKED, {
+                        knappId: 'newsletter-popup-subscribe',
+                    })
                     clickedRef.current = true
                 }}>
                 Meld deg på nyhetsbrev
@@ -80,7 +84,12 @@ export function NewsletterButton({ url }: { url: string }) {
                 icon={<XMarkIcon aria-hidden />}
                 aria-label="Lukk nyhetsbrevknappen"
                 className={BUTTON_CLASSES}
-                onClick={() => setVisible(false)}
+                onClick={() => {
+                    void umami(AnalyticsEvents.BUTTON_CLICKED, {
+                        knappId: 'newsletter-popup-close',
+                    })
+                    setVisible(false)
+                }}
             />
         </div>
     )
