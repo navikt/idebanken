@@ -5,6 +5,9 @@ on:
       working-directory:
         type: string
         required: true
+    secrets:
+      READER_TOKEN:
+        required: true
 
 jobs:
   build:

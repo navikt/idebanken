@@ -14,4 +14,6 @@ jobs:
       contents: read
     with:
       working-directory: 'frontend'
+    secrets:
+      READER_TOKEN: ${{ secrets.READER_TOKEN }}
       
