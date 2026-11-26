@@ -20,6 +20,9 @@ jobs:
         uses: actions/checkout@v7
       - name: Setup pnpm
         uses: pnpm/action-setup@v6
+        with:
+          package_json_file: ${{ inputs.working-directory }}/package.json
+
       - name: Setup node.js
         uses: actions/setup-node@v7
         with:
