@@ -30,7 +30,7 @@ jobs:
           registry-url: https://npm.pkg.github.com
           scope: "@navikt"
           cache: pnpm
-      #        cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+          cache-dependency-path: ${{ inputs.working-directory }}/pnpm-lock.yaml
 
       - name: Install node.js dependencies
         run: pnpm install --frozen-lockfile
