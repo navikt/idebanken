@@ -171,6 +171,27 @@ declare global {
                      */
                     linkText?: string;
                   };
+                }
+              | {
+                  /**
+                   * Selected
+                   */
+                  _selected: 'tagId';
+
+                  /**
+                   * Tag
+                   */
+                  tagId: {
+                    /**
+                     * # skriv inn tag
+                     */
+                    url: string;
+
+                    /**
+                     * Lenketekst
+                     */
+                    linkText?: string;
+                  };
                 };
           }>;
         }>;
@@ -216,6 +237,27 @@ declare global {
                 externalLink: {
                   /**
                    * URL (https://...)
+                   */
+                  url: string;
+
+                  /**
+                   * Lenketekst
+                   */
+                  linkText?: string;
+                };
+              }
+            | {
+                /**
+                 * Selected
+                 */
+                _selected: 'tagId';
+
+                /**
+                 * Tag
+                 */
+                tagId: {
+                  /**
+                   * # skriv inn tag
                    */
                   url: string;
 
@@ -282,6 +324,27 @@ declare global {
                  */
                 linkText?: string;
               };
+            }
+          | {
+              /**
+               * Selected
+               */
+              _selected: 'tagId';
+
+              /**
+               * Tag
+               */
+              tagId: {
+                /**
+                 * # skriv inn tag
+                 */
+                url: string;
+
+                /**
+                 * Lenketekst
+                 */
+                linkText?: string;
+              };
             };
 
         /**
@@ -339,6 +402,27 @@ declare global {
                   externalLink: {
                     /**
                      * URL (https://...)
+                     */
+                    url: string;
+
+                    /**
+                     * Lenketekst
+                     */
+                    linkText?: string;
+                  };
+                }
+              | {
+                  /**
+                   * Selected
+                   */
+                  _selected: 'tagId';
+
+                  /**
+                   * Tag
+                   */
+                  tagId: {
+                    /**
+                     * # skriv inn tag
                      */
                     url: string;
 

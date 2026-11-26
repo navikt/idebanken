@@ -89,6 +89,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                 contentBlockPadding="none">
                 <Header meta={meta} common={common as HeadlessCms} title={'Idébanken'} />
                 <AlertBanner common={common as HeadlessCms} meta={meta} />
+                <AlertBanner common={common as HeadlessCms} meta={meta} pageSpecific />
                 <Backlink contentResult={contentResult} />
                 <PageBlock id="main-content" as="main" width="2xl">
                     {children}

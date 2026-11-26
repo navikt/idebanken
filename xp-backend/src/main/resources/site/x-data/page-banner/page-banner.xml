@@ -1,0 +1,54 @@
+<x-data>
+    <display-name>Banner</display-name>
+    <form>
+        <option-set name="banner">
+            <label>Banner på denne siden</label>
+            <occurrences minimum="1" maximum="1"/>
+            <options minimum="1" maximum="1">
+                <option name="inherit">
+                    <label>Bruk arvet banner</label>
+                    <default>true</default>
+                    <items/>
+                </option>
+
+                <option name="custom">
+                    <label>Eget banner</label>
+                    <items>
+                        <input type="HtmlArea" name="text">
+                            <label>Bannertekst</label>
+                            <occurrences minimum="1" maximum="1"/>
+                            <config>
+                                <exclude>*</exclude>
+                                <include>
+                                    Bold Italic | Undo Redo RemoveFormat | Link Unlink
+                                </include>
+                            </config>
+                        </input>
+
+                        <input type="ComboBox" name="status">
+                            <label>Varslingsnivå</label>
+                            <occurrences minimum="1" maximum="1"/>
+                            <config>
+                                <option value="announcement">Info</option>
+                                <option value="warning">Advarsel</option>
+                                <option value="error">Feil</option>
+                                <option value="success">Suksess</option>
+                            </config>
+                            <default>announcement</default>
+                        </input>
+
+                        <input type="CheckBox" name="inheritToChildren">
+                            <label>Vis også på alle undersider</label>
+                            <default>unchecked</default>
+                        </input>
+                    </items>
+                </option>
+
+                <option name="disabled">
+                    <label>Stopp arvet banner</label>
+                    <items/>
+                </option>
+            </options>
+        </option-set>
+    </form>
+</x-data>
