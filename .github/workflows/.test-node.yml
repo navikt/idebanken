@@ -17,25 +17,27 @@ jobs:
         working-directory: ${{ inputs.working-directory }}
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
       - name: Setup node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 24
           registry-url: https://npm.pkg.github.com
-          scope: '@navikt'
-          cache: 'npm'
-          cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
+          scope: "@navikt"
+          cache: pnpm
+      #        cache-dependency-path: ${{ inputs.working-directory }}/package-lock.json
 
       - name: Install node.js dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build application without SSG
-        run: npm run build-skip-ssg
+        run: pnpm build-skip-ssg
         env:
-            ENONIC_API: "needed for build, but is not used when skipping SSG"
+          ENONIC_API: "needed for build, but is not used when skipping SSG"
 
       - name: Run unit tests
-        run: npm run test
+        run: pnpm test
