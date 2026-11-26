@@ -3,6 +3,7 @@
     <x-data name="tags" allowContentTypes="^${app}:kjerneartikkel$" optional="false"/>
     <x-data name="aktuelt-tags" allowContentTypes="^${app}:artikkel$" optional="false"/>
     <x-data name="meta" allowContentTypes="^${app}:.*" optional="true"/>
+    <x-data name="page-banner" allowContentTypes="^${app}:(artikkel|kjerneartikkel|special-page|section-page)$" optional="false"/>
 
     <form>
         <item-set name="skyra">

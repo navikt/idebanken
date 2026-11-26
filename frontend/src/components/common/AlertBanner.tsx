@@ -18,20 +18,32 @@ import {
     setAlertBannerClosed,
 } from '~/components/common/cookies/cookieUtils'
 
-export function AlertBanner({ common, meta }: { common: HeadlessCms; meta: MetaData }) {
-    const alertBanner = common?.siteConfiguration?.alertBanner
+export function AlertBanner({
+    common,
+    meta,
+    pageSpecific = false,
+}: {
+    common: HeadlessCms
+    meta: MetaData
+    pageSpecific?: boolean
+}) {
+    const alertBanner = pageSpecific
+        ? common?.get?.pageBanner
+        : common?.siteConfiguration?.alertBanner
     const [isClosed, setIsClosed] = useState(true)
 
     useEffect(() => {
+        if (pageSpecific) return
+
         if (alertBanner && alertBanner.hash !== undefined) {
             const closedHash = getAlertBannerClosedHash()
             if (closedHash !== alertBanner.hash) {
                 setIsClosed(false)
             }
         }
-    }, [alertBanner])
+    }, [alertBanner, pageSpecific])
 
-    if (!alertBanner || isClosed) return null
+    if (!alertBanner || (!pageSpecific && isClosed)) return null
 
     const status = alertBanner.status as GlobalAlertProps['status']
 

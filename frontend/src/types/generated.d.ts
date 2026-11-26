@@ -145,6 +145,7 @@ export type Content = {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -2504,6 +2505,7 @@ export type UntypedContent = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -2606,6 +2608,7 @@ export type XData_Idebanken_ApplicationConfig = {
   __typename?: 'XData_idebanken_ApplicationConfig';
   aktuelt_tags?: Maybe<XData_Idebanken_Aktuelt_Tags_DataConfig>;
   meta?: Maybe<XData_Idebanken_Meta_DataConfig>;
+  page_banner?: Maybe<XData_Idebanken_Page_Banner_DataConfig>;
   tags?: Maybe<XData_Idebanken_Tags_DataConfig>;
 };
 
@@ -2636,6 +2639,42 @@ export type XData_Idebanken_Meta_DataConfig = {
 export type XData_Idebanken_Meta_DataConfigKeywordsArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   offset?: InputMaybe<Scalars['Int']['input']>;
+};
+
+/** Extra data config for application ['idebanken}'] and descriptor ['page-banner'] */
+export type XData_Idebanken_Page_Banner_DataConfig = {
+  __typename?: 'XData_idebanken_page_banner_DataConfig';
+  banner?: Maybe<XData_Idebanken_Page_Banner_DataConfig_Banner>;
+};
+
+/** Banner på denne siden */
+export type XData_Idebanken_Page_Banner_DataConfig_Banner = {
+  __typename?: 'XData_idebanken_page_banner_DataConfig_Banner';
+  _selected?: Maybe<XData_Idebanken_Page_Banner_DataConfig_Banner_OptionEnum>;
+  custom?: Maybe<XData_Idebanken_Page_Banner_DataConfig_Custom>;
+  disabled?: Maybe<Scalars['String']['output']>;
+  inherit?: Maybe<Scalars['String']['output']>;
+};
+
+/** Banner på denne siden option enum. */
+export enum XData_Idebanken_Page_Banner_DataConfig_Banner_OptionEnum {
+  Custom = 'custom',
+  Disabled = 'disabled',
+  Inherit = 'inherit'
+}
+
+/** Eget banner */
+export type XData_Idebanken_Page_Banner_DataConfig_Custom = {
+  __typename?: 'XData_idebanken_page_banner_DataConfig_Custom';
+  inheritToChildren?: Maybe<Scalars['Boolean']['output']>;
+  status?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<RichText>;
+};
+
+
+/** Eget banner */
+export type XData_Idebanken_Page_Banner_DataConfig_CustomTextArgs = {
+  processHtml?: InputMaybe<ProcessHtmlInput>;
 };
 
 /** Extra data config for application ['idebanken}'] and descriptor ['tags'] */
@@ -2755,6 +2794,7 @@ export type Base_Folder = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -2836,6 +2876,7 @@ export type Base_Media = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -2918,6 +2959,7 @@ export type Base_Shortcut = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -3020,6 +3062,7 @@ export type Base_Structured = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -3101,6 +3144,7 @@ export type Base_Unstructured = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -3183,6 +3227,7 @@ export type Com_Enonic_App_Rss_RssPage = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -3299,6 +3344,7 @@ export type Idebanken_AktueltTypeTag = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -3387,6 +3433,7 @@ export type Idebanken_Artikkel = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -3495,6 +3542,7 @@ export type Idebanken_CrashCourse = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -3577,6 +3625,7 @@ export type Idebanken_CrashCourseIntro = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -3665,6 +3714,7 @@ export type Idebanken_CrashCoursePart = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -3753,6 +3803,7 @@ export type Idebanken_CrashCourseSlide = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -3848,6 +3899,7 @@ export type Idebanken_Kjerneartikkel = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -3955,6 +4007,7 @@ export type Idebanken_SectionPage = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -4053,6 +4106,7 @@ export type Idebanken_SingletonAktuelt = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -4135,6 +4189,7 @@ export type Idebanken_SingletonAktueltPage = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -4233,6 +4288,7 @@ export type Idebanken_SingletonTheme = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -4330,6 +4386,7 @@ export type Idebanken_SingletonType = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -4412,6 +4469,7 @@ export type Idebanken_SpecialPage = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -4510,6 +4568,7 @@ export type Idebanken_ThemeTag = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -4609,6 +4668,7 @@ export type Idebanken_TypeTag = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -4697,6 +4757,7 @@ export type Idebanken_Video = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -4798,6 +4859,7 @@ export type Media_Archive = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -4903,6 +4965,7 @@ export type Media_Audio = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -5008,6 +5071,7 @@ export type Media_Code = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -5113,6 +5177,7 @@ export type Media_Data = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -5218,6 +5283,7 @@ export type Media_Document = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -5324,6 +5390,7 @@ export type Media_Executable = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -5430,6 +5497,7 @@ export type Media_Image = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -5558,6 +5626,7 @@ export type Media_Presentation = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -5663,6 +5732,7 @@ export type Media_Spreadsheet = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -5768,6 +5838,7 @@ export type Media_Text = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -5873,6 +5944,7 @@ export type Media_Unknown = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -5978,6 +6050,7 @@ export type Media_Vector = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -6093,6 +6166,7 @@ export type Media_Video = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -6197,6 +6271,7 @@ export type Org_Idebanken_App_Adresse = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -6296,6 +6371,7 @@ export type Org_Idebanken_App_Artikkel = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -6500,6 +6576,7 @@ export type Org_Idebanken_App_Ekstern = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -6582,6 +6659,7 @@ export type Org_Idebanken_App_EksternLenke = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -6697,6 +6775,7 @@ export type Org_Idebanken_App_Faktaboks = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -6793,6 +6872,7 @@ export type Org_Idebanken_App_IdebankenArtikkel = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -6971,6 +7051,7 @@ export type Org_Idebanken_App_IdebankenProdukt = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -7060,6 +7141,7 @@ export type Org_Idebanken_App_IdebankenTemahefte = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -7202,6 +7284,7 @@ export type Org_Idebanken_App_IdebankenVirksomhetseksempel = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -7414,6 +7497,7 @@ export type Org_Idebanken_App_Kampanjeboks = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -7510,6 +7594,7 @@ export type Org_Idebanken_App_Kategori = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -7592,6 +7677,7 @@ export type Org_Idebanken_App_Kontaktperson = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -7685,6 +7771,7 @@ export type Org_Idebanken_App_LandingPage = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -7767,6 +7854,7 @@ export type Org_Idebanken_App_Url = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -7855,6 +7943,7 @@ export type Org_Idebanken_App_Extensions_Pamphlet = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -7960,6 +8049,7 @@ export type Org_Idebanken_App_Extensions_TemaArtikkel = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -8059,6 +8149,7 @@ export type Portal_Fragment = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -8141,6 +8232,7 @@ export type Portal_PageTemplate = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -8236,6 +8328,7 @@ export type Portal_Site = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;
@@ -8323,6 +8416,7 @@ export type Portal_TemplateFolder = Content & {
   modifier?: Maybe<PrincipalKey>;
   owner?: Maybe<PrincipalKey>;
   pageAsJson?: Maybe<Scalars['JSON']['output']>;
+  pageBanner?: Maybe<AlertBanner>;
   pageTemplate?: Maybe<Content>;
   pageUrl?: Maybe<Scalars['String']['output']>;
   parent?: Maybe<Content>;

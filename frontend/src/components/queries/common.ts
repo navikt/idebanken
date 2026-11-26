@@ -69,6 +69,11 @@ query($path:ID!){
         text
         href
       }
+        pageBanner {
+        text
+        status
+        closeable
+      }
       displayName
       _id
       _path
