@@ -74,8 +74,8 @@ export default async function PageLayout({ params, children }: LayoutProps) {
         return (
             <EnonicWrapper resolvedParams={resolvedParams} contentResult={contentResult}>
                 <Page contentBlockPadding="none">
-                    {children}
                     <CookieBanner meta={meta} common={common as HeadlessCms} />
+                    {children}
                     {editorMessage}
                 </Page>
             </EnonicWrapper>
@@ -87,6 +87,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
             <Page
                 footer={<Footer footerProps={common?.footer ?? undefined} meta={meta} />}
                 contentBlockPadding="none">
+                <CookieBanner meta={meta} common={common as HeadlessCms} />
                 <Header meta={meta} common={common as HeadlessCms} title={'Idébanken'} />
                 <AlertBanner common={common as HeadlessCms} meta={meta} />
                 <Backlink contentResult={contentResult} />
@@ -95,7 +96,7 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                     <GlobalSkyraForms skyra={common?.get?.skyraSlugs} isDraftMode={isEnabled} />
                     {editorMessage}
                     {isCoreArticle && (
-                        <div className="aksel-pageblock aksel-pageblock--md pt-6 pb-6  aksel-pageblock--gutters">
+                        <div className="aksel-pageblock aksel-pageblock--md pt-6 pb-6 aksel-pageblock--gutters">
                             <AuthorsAndDate
                                 authors={data?.authors}
                                 published={data?.publicationDate || commonGet?.publish?.first}
@@ -104,7 +105,6 @@ export default async function PageLayout({ params, children }: LayoutProps) {
                         </div>
                     )}
                 </PageBlock>
-                <CookieBanner meta={meta} common={common as HeadlessCms} />
             </Page>
             <BubblesOverlayTop meta={meta} />
         </EnonicWrapper>
