@@ -1,4 +1,5 @@
 {
+    "packageManager": "pnpm@11.13.1",
     "devDependencies": {
         "@enonic-types/core": "7.15.1",
         "@enonic-types/global": "7.15.1",
@@ -38,22 +39,22 @@
     },
     "scripts": {
         "clean": "rimraf build",
-        "build": "concurrently -c auto -g --timings npm:build:*",
-        "build:sass": "npx sass src/main/resources/assets/styles:build/resources/main/assets/styles",
-        "build:server": "npx tsup -d build/resources/main",
-        "build:static": "npx tsup -d build/resources/main/static",
-        "check": "concurrently -c auto -g --timings npm:lint && echo 'npm:check:types is turned off. TODO: activate it again'",
-        "check:types": "concurrently -g -r --timings npm:check:types:*",
-        "check:types:server": "npx tsc --noEmit",
-        "check:types:static": "npx tsc --noEmit -p src/main/resources/static/tsconfig.json",
+        "build": "concurrently -c auto -g --timings pnpm:build:*",
+        "build:sass": "sass src/main/resources/assets/styles:build/resources/main/assets/styles",
+        "build:server": "tsup -d build/resources/main",
+        "build:static": "tsup -d build/resources/main/static",
+        "check": "concurrently -c auto -g --timings pnpm:lint && echo 'pnpm:check:types is turned off. TODO: activate it again'",
+        "check:types": "concurrently -g -r --timings pnpm:check:types:*",
+        "check:types:server": "tsc --noEmit",
+        "check:types:static": "tsc --noEmit -p src/main/resources/static/tsconfig.json",
         "lint": "eslint",
-        "minify": "concurrently -c auto -g --timings 'npm:build:sass -- --style compressed' 'npm:build:server -- --minify' 'npm:build:static -- --minify'",
-        "watch": "concurrently -c auto npm:watch:*",
-        "watch:browserSync": "npx browser-sync start --files \"src/main/resources/**/*.html\" \"src/main/resources/**/*.xml\" \"build/resources/main\" --reload-delay 0 --port 3100 --no-snippet --watch",
-        "watch:sass": "npm run build:sass -- --watch",
-        "watch:server": "npm run build:server -- --watch",
-        "watch:static": "npm run build:static -- --watch",
-        "test": "npm run lint"
+        "minify": "concurrently -c auto -g --timings 'pnpm:build:sass --style compressed' 'pnpm:build:server --minify' 'pnpm:build:static --minify'",
+        "watch": "concurrently -c auto pnpm:watch:*",
+        "watch:browserSync": "browser-sync start --files \"src/main/resources/**/*.html\" \"src/main/resources/**/*.xml\" \"build/resources/main\" --reload-delay 0 --port 3100 --no-snippet --watch",
+        "watch:sass": "pnpm build:sass --watch",
+        "watch:server": "pnpm build:server --watch",
+        "watch:static": "pnpm build:static --watch",
+        "test": "pnpm lint"
     },
     "repository": {
         "type": "git",
@@ -73,16 +74,13 @@
     },
     "homepage": "https://idebanken.org",
     "engines": {
-        "node": ">= 20.10.0",
-        "npm": ">= 10.2.3"
+        "node": ">=24",
+        "pnpm": ">=11"
     },
     "dependencies": {
         "@babel/generator": "^7.29.1",
         "@babel/parser": "^7.29.2",
         "@babel/traverse": "^7.29.0",
         "@babel/types": "^7.29.0"
-    },
-    "overrides": {
-        "shell-quote": "^1.11.0"
     }
 }
