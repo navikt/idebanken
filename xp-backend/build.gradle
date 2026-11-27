@@ -46,17 +46,21 @@ node {
 
     // Version of node to download and install (only used if download is true)
     // It will be unpacked in the workDir
-    version = '20.19.0'
+    version = '24.0.0'
+    pnpmVersion = '11.13.1'
+}
+tasks.named('pnpmInstall') {
+    args = ['--frozen-lockfile']
 }
 
 apply from: "$projectDir/gradle/env.gradle"
 
-tasks.register('dev', NpmTask) {
+tasks.register('dev', PnpmTask) {
     args = [
         'run',
         'watch'
     ]
-    dependsOn npmInstall, deploy, generateFrontendGqlTypes
+    dependsOn pnpmInstall, deploy, generateFrontendGqlTypes
     environment = [
         'FORCE_COLOR': 'true',
     ]
@@ -64,11 +68,11 @@ tasks.register('dev', NpmTask) {
 
 tasks.register('generateFrontendGqlTypes', Exec) {
     workingDir = file("${projectDir}/../frontend")
-    commandLine 'npm', 'run', 'generate-gql-types'
+    commandLine 'pnpm', 'generate-gql-types'
 }
 
-tasks.register('npmCheck', NpmTask) {
-    dependsOn npmInstall
+tasks.register('npmCheck', PnpmTask) {
+    dependsOn pnpmInstall
     args = [
         'run',
         'check'
@@ -78,13 +82,13 @@ tasks.register('npmCheck', NpmTask) {
     ]
 }
 
-tasks.register('npmBuild', NpmTask) {
+tasks.register('npmBuild', PnpmTask) {
     args = [
         'run',
         //'--silent',
         isProd() ? 'minify' : 'build'
     ]
-    dependsOn npmInstall
+    dependsOn pnpmInstall
     environment = [
         'FORCE_COLOR'          : 'true',
         'LOG_LEVEL_FROM_GRADLE': gradle.startParameter.logLevel.toString(),
